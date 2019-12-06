@@ -1,0 +1,89 @@
+package Core;
+
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
+
+import java.util.ArrayList;
+
+
+public class GameWindow extends Stage
+{
+    public static ArrayList<String> input = new ArrayList<String>();
+    private static GameWindow singleton;
+    private Stage gameStage;
+    private Scene gameScene;
+    GUIController currentView;
+
+    public static ArrayList<String> getInput()
+    {
+        return input;
+    }
+
+    private GameWindow()
+    {
+        gameStage = new Stage();
+    }
+
+    public static GameWindow getSingleton()
+    {
+        if (singleton == null)
+            singleton = new GameWindow();
+        return singleton;
+    }
+
+    public void createNextScene(GUIController controller)
+    {
+        this.currentView = controller;
+        gameScene = new Scene(controller.load(), 1400, 800);
+        //input
+        gameScene.setOnKeyPressed(
+                new EventHandler<KeyEvent>()
+                {
+                    public void handle(KeyEvent e)
+                    {
+                        String code = e.getCode().toString();
+                        if (!input.contains(code))
+                            input.add(code);
+                    }
+                });
+        gameScene.setOnKeyReleased(
+                new EventHandler<KeyEvent>()
+                {
+                    public void handle(KeyEvent e)
+                    {
+                        String code = e.getCode().toString();
+                        input.remove(code);
+                    }
+                });
+        gameStage.setScene(gameScene);
+    }
+
+    public void update(Double elapsedTime)
+    {
+        currentView.update(elapsedTime);
+    }
+
+    public void render(Double elapsedTime)
+    {
+        currentView.render(elapsedTime);
+    }
+
+
+    public double getScreenWidth()
+    {
+        return gameStage.getScene().getWidth();
+    }
+
+    public double getScreenHeight()
+    {
+        return gameStage.getScene().getHeight();
+    }
+
+    public void showWindow()
+    {
+        gameStage.show();
+    }
+
+}

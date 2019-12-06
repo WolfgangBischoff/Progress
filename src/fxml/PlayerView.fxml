@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:id="borderPane"
+>
+
+    <padding>
+        <Insets top="10" right="25" bottom="10" left="5"/>
+    </padding>
+
+    <top>
+        <Pane fx:id="baseData"/>
+    </top>
+
+    <left>
+        <VBox xmlns:fx="http://javafx.com/fxml" alignment="CENTER" spacing="3">
+            <Button text="Menu" fx:id="buttonToMenu"/>
+            <Button text="Inventory"/>
+        </VBox>
+    </left>
+
+    <right>
+        <VBox alignment="CENTER">
+            <Text fx:id="test" text="Civilian assets and news"/>
+        </VBox>
+    </right>
+
+    <center>
+        <Canvas fx:id="canvas" height="512" width="512"/>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER">
+            <Text text="Information Log"/>
+        </HBox>
+    </bottom>
+
+
+</BorderPane>

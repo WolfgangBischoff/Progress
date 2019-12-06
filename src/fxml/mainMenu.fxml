@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+
+<BorderPane xmlns:fx="http://javafx.com/fxml">
+    <padding>
+        <Insets top="25" right="25" bottom="10" left="25"/>
+    </padding>
+
+
+    <top>
+        <HBox alignment="CENTER">
+            <ImageView preserveRatio="true" fitHeight="250">
+                <Image url="@/res/img/skyline.png" />
+            </ImageView>
+            <ImageView preserveRatio="true" fitHeight="250">
+                <Image url="@/res/img/skyline.png" />
+            </ImageView>
+            <ImageView preserveRatio="true" fitHeight="250">
+                <Image url="@/res/img/skyline.png" />
+            </ImageView>
+        </HBox>
+
+    </top>
+
+    <left>
+        <ImageView fx:id="leftBar" fitHeight="512" fitWidth="128" preserveRatio="true"/>
+    </left>
+
+    <right>
+        <ImageView fx:id="rightBar" fitHeight="512" fitWidth="128" preserveRatio="true"/>
+    </right>
+
+    <center>
+
+        <VBox alignment="TOP_CENTER" spacing="5">
+            <Region prefHeight="10"/>
+            <HBox alignment="CENTER" spacing="5">
+                <Text text="SeGame" fx:id="headline"/>
+                <ImageView fx:id="testimage" fitHeight="50" fitWidth="50">
+                    <Image url="@/res/img/capital.png"/>
+                </ImageView>
+            </HBox>
+            <HBox alignment="CENTER">
+
+                <GridPane hgap="10" vgap="10">
+
+                    <Button text="Start" prefWidth="200"
+                            GridPane.columnIndex="1" GridPane.rowIndex="0"
+                            onAction="#startAsCiv"
+                    />
+
+                </GridPane>
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>
