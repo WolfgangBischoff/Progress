@@ -101,7 +101,8 @@ public Sprite()
         return name + " Position: [" + positionX + "," + positionY + "]"
                 + " Velocity: [" + velocityX + "," + velocityY + "]"
                 + " Speed: " + getSpeed()
-                + " Blocker: " + isBlocker
+                //+ " Blocker: " + isBlocker
+                + " Animated: " + animated
                 ;
     }
 

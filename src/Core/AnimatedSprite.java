@@ -43,10 +43,11 @@ public class AnimatedSprite extends Sprite//extends AnimationTimer
     public void render(GraphicsContext gc, Double elapsedtime)
     {
 
-        long now = 1;
-        int frameJump = (int) Math.floor((now - lastFrame) / (1000000000 / fps)); //Determine how many frames we need to advance to maintain frame rate independence
+        long now = System.nanoTime();
+       int frameJump = (int) Math.floor((now - lastFrame) / (1000000000 / fps)); //Determine how many frames we need to advance to maintain frame rate independence
+      //  int frameJump = (int) Math.floor((elapsedtime) / (1000000000 / fps)); //Determine how many frames we need to advance to maintain frame rate independence
 
-
+System.out.println(frameJump);
 //Do a bunch of math to determine where the viewport needs to be positioned on the sprite sheet
         if (frameJump >= 1)
         {
@@ -75,8 +76,11 @@ public class AnimatedSprite extends Sprite//extends AnimationTimer
             }
 
             //imageView.setViewport(new Rectangle2D(currentCol * frameWidth, currentRow * frameHeight, frameWidth, frameHeight));
-            gc.drawImage(image, 120, 0, 120,140, 220,220,120,140); //(img, srcX, srcY, srcWidht, srcHeight, TargetX, TargetY, TargetWidht, TargetHeight)
+
         }
+
+        //gc.drawImage(image, 120, 0, 120,140, 220,220,120,140); //(img, srcX, srcY, srcWidht, srcHeight, TargetX, TargetY, TargetWidht, TargetHeight)
+        gc.drawImage(image, currentCol * frameWidth, currentRow * frameHeight, frameWidth, frameHeight, 220,220,120,140); //(img, srcX, srcY, srcWidht, srcHeight, TargetX, TargetY, TargetWidht, TargetHeight)
     }
 
     /*

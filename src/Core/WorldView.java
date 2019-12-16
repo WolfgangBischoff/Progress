@@ -43,7 +43,7 @@ public class WorldView implements GUIController
             ca.setPosition(Integer.parseInt(entityData[1]), Integer.parseInt(entityData[2]));
             ca.setBlocker(Boolean.parseBoolean(entityData[3]));
             ca.setSpeed(Double.valueOf(entityData[4]));
-            //ca.setAnimated(Boolean.parseBoolean(entityData[5]));
+            ca.setAnimated(Boolean.parseBoolean(entityData[5]));
 
             //name of Player sprite
             if (entityData[0].equals("bee"))
@@ -94,7 +94,9 @@ public class WorldView implements GUIController
         for (Sprite sprite : sprites)
         {
             if(sprite.getAnimated())
+            {
                 ((AnimatedSprite)sprite).render(gc, elapsedTime);
+            }
             else
                 sprite.render(gc);
         }
