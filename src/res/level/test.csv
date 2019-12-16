@@ -1,5 +1,5 @@
 Sprite,				x,			y,			Blocker, Speed
-bee, 			50, 	0, 		false,			300
+bee, 						50, 	0, 		false,			300
 carrot, 			50, 	50, 	false,			0
 carrot, 			200, 50, 	false,			0
 carrot, 			50, 	300, false,			0

@@ -16,16 +16,17 @@ public class Sprite
     private double width;
     private double height;
     private Boolean isBlocker = false;
-    private String name = "noSet";
+    private String name = "notSet";
     private double speed = 50;
 
 
-    public Sprite()
+    public Sprite(String name)
     {
         positionX = 0;
         positionY = 0;
         velocityX = 0;
         velocityY = 0;
+        image  = new Image("/res/img/" + name + ".png");
     }
 
 

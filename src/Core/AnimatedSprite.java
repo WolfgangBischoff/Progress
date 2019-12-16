@@ -3,6 +3,7 @@ package Core;
 
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -19,6 +20,8 @@ public class AnimatedSprite extends AnimationTimer
     private int currentCol = 0;
     private int currentRow = 0;
     private long lastFrame = 0;
+
+
 
     public AnimatedSprite(ImageView imageView, String imagepath, float fps, int totalFrames, int cols, int rows, int frameWidth, int frameHeight)
     {
@@ -70,5 +73,6 @@ public class AnimatedSprite extends AnimationTimer
 
         }
     }
+
 
 }

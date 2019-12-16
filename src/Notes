@@ -1,3 +1,4 @@
 
 
--
+- fix collision
+- implement animated sprite https://stackoverflow.com/questions/22110474/java-creating-tile-map-gif

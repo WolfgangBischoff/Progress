@@ -32,9 +32,9 @@ public class WorldView implements GUIController
         {
             String[] entityData = leveldata.get(i);
 
-            Sprite ca = new Sprite();
+            Sprite ca = new Sprite(entityData[0]);
             ca.setName(entityData[0]);
-            ca.setImage(new Image("/res/img/" + entityData[0] + ".png"));
+            //ca.setImage(new Image("/res/img/" + entityData[0] + ".png"));
             ca.setPosition(Integer.parseInt(entityData[1]), Integer.parseInt(entityData[2]));
             ca.setBlocker(Boolean.parseBoolean(entityData[3]));
             ca.setSpeed(Double.valueOf(entityData[4]));
