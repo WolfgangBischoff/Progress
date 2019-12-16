@@ -3,6 +3,7 @@ package Core;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
@@ -32,12 +33,17 @@ public class WorldView implements GUIController
         {
             String[] entityData = leveldata.get(i);
 
-            Sprite ca = new Sprite(entityData[0]);
+            Sprite ca;
+            if(Boolean.parseBoolean(entityData[5]))
+                ca = new AnimatedSprite(null, "diffuserSmokeSprites", 5, 6, 6, 1, 120, 140);
+            else
+                ca = new Sprite(entityData[0]);
             ca.setName(entityData[0]);
             //ca.setImage(new Image("/res/img/" + entityData[0] + ".png"));
             ca.setPosition(Integer.parseInt(entityData[1]), Integer.parseInt(entityData[2]));
             ca.setBlocker(Boolean.parseBoolean(entityData[3]));
             ca.setSpeed(Double.valueOf(entityData[4]));
+            //ca.setAnimated(Boolean.parseBoolean(entityData[5]));
 
             //name of Player sprite
             if (entityData[0].equals("bee"))
@@ -45,7 +51,6 @@ public class WorldView implements GUIController
             else
                 sprites.add(ca);
             System.out.println(ca);
-
         }
 
         background = new Image("/res/img/background.jpg");
@@ -87,7 +92,12 @@ public class WorldView implements GUIController
         gc.clearRect(0, 0, 512, 512);
         gc.drawImage(background, 0, 0);
         for (Sprite sprite : sprites)
-            sprite.render(gc);
+        {
+            if(sprite.getAnimated())
+                ((AnimatedSprite)sprite).render(gc, elapsedTime);
+            else
+                sprite.render(gc);
+        }
         player.render(gc);
     }
 

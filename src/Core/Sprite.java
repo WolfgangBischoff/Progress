@@ -16,9 +16,14 @@ public class Sprite
     private double width;
     private double height;
     private Boolean isBlocker = false;
+    private Boolean animated = false;
     private String name = "notSet";
     private double speed = 50;
 
+public Sprite()
+{
+
+}
 
     public Sprite(String name)
     {
@@ -26,7 +31,7 @@ public class Sprite
         positionY = 0;
         velocityX = 0;
         velocityY = 0;
-        image  = new Image("/res/img/" + name + ".png");
+        setImage("/res/img/" + name + ".png");
     }
 
 
@@ -71,7 +76,14 @@ public class Sprite
 
     public void render(GraphicsContext gc)
     {
-        gc.drawImage(image, positionX, positionY);
+        /*
+        if(name.equals("diffuserSmokeSprites"))
+        {
+            gc.drawImage(image, 120, 0, 120,140, 220,220,120,140); //(img, srcX, srcY, srcWidht, srcHeight, TargetX, TargetY, TargetWidht, TargetHeight)
+        }
+        else*/
+            gc.drawImage(image, positionX, positionY);
+
     }
 
     public Rectangle2D getBoundary()
@@ -141,5 +153,15 @@ public class Sprite
     public double getSpeed()
     {
         return speed;
+    }
+
+    public void setAnimated(Boolean animated)
+    {
+        this.animated = animated;
+    }
+
+    public Boolean getAnimated()
+    {
+        return animated;
     }
 }
