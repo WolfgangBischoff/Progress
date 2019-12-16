@@ -27,28 +27,25 @@ public class WorldView implements GUIController
 
     private void loadEnvironment()
     {
-        leveldata = Utilities.readAllLineFromTxt("src/res/level/" + levelName + ".csv", false);
+        leveldata = Utilities.readAllLineFromTxt("src/res/level/" + levelName + ".csv", true);
         for (int i = 0; i < leveldata.size(); i++)
         {
-            String[] arr = leveldata.get(i);
-            for (int j = 0; j < arr.length; j++)
-            {
-                System.out.print(arr[j] + " ");
-                //TODO Create Actor from leveldata
-                if (arr[0].equals("Player"))
-                {
-                    player = new Person().getSprite();
-                    player.setPosition(Integer.parseInt(arr[1]), Integer.parseInt(arr[2]));
-                }
-                if (arr[0].equals("carrot"))
-                {
-                    Sprite ca = new Sprite();
-                    ca.setImage(new Image("/res/img/carrot.png"));
-                    ca.setPosition(Integer.parseInt(arr[1]), Integer.parseInt(arr[2]));
-                    sprites.add(ca);
-                }
-            }
-            System.out.println();
+            String[] entityData = leveldata.get(i);
+
+            Sprite ca = new Sprite();
+            ca.setName(entityData[0]);
+            ca.setImage(new Image("/res/img/" + entityData[0] + ".png"));
+            ca.setPosition(Integer.parseInt(entityData[1]), Integer.parseInt(entityData[2]));
+            ca.setBlocker(Boolean.parseBoolean(entityData[3]));
+            ca.setSpeed(Double.valueOf(entityData[4]));
+
+            //name of Player sprite
+            if (entityData[0].equals("bee"))
+                player = ca;
+            else
+                sprites.add(ca);
+            System.out.println(ca);
+
         }
 
         background = new Image("/res/img/background.jpg");
@@ -73,13 +70,13 @@ public class WorldView implements GUIController
         ArrayList<String> input = GameWindow.getInput();
         player.setVelocity(0, 0);
         if (input.contains("LEFT") || input.contains("A"))
-            player.addVelocity(-50, 0);
+            player.addVelocity(-player.getSpeed(), 0);
         if (input.contains("RIGHT") || input.contains("D"))
-            player.addVelocity(50, 0);
+            player.addVelocity(player.getSpeed(), 0);
         if (input.contains("UP") || input.contains("W"))
-            player.addVelocity(0, -50);
+            player.addVelocity(0, -player.getSpeed());
         if (input.contains("DOWN") || input.contains("S"))
-            player.addVelocity(0, 50);
+            player.addVelocity(0, player.getSpeed());
 
         player.update(elapsedTime);
     }

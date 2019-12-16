@@ -54,14 +54,6 @@ public class Utilities
 
     public static List<String[]> readAllLineFromTxt(String pathToCsv, boolean ignoreFirstLine)
     {
-        /*
-        Class myClass = Utilities.class;
-        ClassLoader loader = myClass.getClassLoader();
-        URL myURL = loader.getResource("test.csv");
-        String path = myURL.getPath();
-        path = path.replaceAll("%20", " ");
-        System.out.println(path);*/
-
         //Reads all line
         String row = null;
         Integer linecounter = 0;

@@ -15,6 +15,10 @@ public class Sprite
     private double velocityY;
     private double width;
     private double height;
+    private Boolean isBlocker = false;
+    private String name = "noSet";
+    private double speed = 50;
+
 
     public Sprite()
     {
@@ -24,36 +28,13 @@ public class Sprite
         velocityY = 0;
     }
 
-    public void setImage(Image i)
-    {
-        image = i;
-        width = i.getWidth();
-        height = i.getHeight();
-    }
-
-    public void setImage(String filename)
-    {
-        Image i = new Image(filename);
-        setImage(i);
-    }
-
-    public void setPosition(double x, double y)
-    {
-        positionX = x;
-        positionY = y;
-    }
-
-    public void setVelocity(double x, double y)
-    {
-        velocityX = x;
-        velocityY = y;
-    }
 
     public void addVelocity(double x, double y)
     {
         velocityX += x;
         velocityY += y;
     }
+
 
     public void update(double time)
     {
@@ -65,18 +46,18 @@ public class Sprite
         //System.out.println("X " +  positionX + velocityX * time +" Y" + positionY + velocityY * time);
         //System.out.println("Sprite widht: "+ width + " Height: " + height);
 
-        for (Sprite sprite : otherSprites)
+        for (Sprite otherSprite : otherSprites)
         {
-            //TODO if blocker
-            if (sprite.getBoundary().intersects(plannedPosition))
+            if (otherSprite.isBlocker && otherSprite.getBoundary().intersects(plannedPosition))
             {
                 System.out.println("Blocked");
                 return;
             }
 
-            //TODO if not blocker
-            if (intersects(sprite))
+            if (intersects(otherSprite))
+            {
                 System.out.println("Intersects");
+            }
         }
 
         if (worldBorders.contains(positionX + velocityX * time, positionY + velocityY * time))
@@ -104,7 +85,60 @@ public class Sprite
 
     public String toString()
     {
-        return " Position: [" + positionX + "," + positionY + "]"
-                + " Velocity: [" + velocityX + "," + velocityY + "]";
+        return name + " Position: [" + positionX + "," + positionY + "]"
+                + " Velocity: [" + velocityX + "," + velocityY + "]"
+                + " Speed: " + getSpeed()
+                + " Blocker: " + isBlocker
+                ;
+    }
+
+    public Boolean getBlocker()
+    {
+        return isBlocker;
+    }
+
+    public void setBlocker(Boolean blocker)
+    {
+        isBlocker = blocker;
+    }
+
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
+    public void setImage(Image i)
+    {
+        image = i;
+        width = i.getWidth();
+        height = i.getHeight();
+    }
+
+    public void setImage(String filename)
+    {
+        Image i = new Image(filename);
+        setImage(i);
+    }
+
+    public void setPosition(double x, double y)
+    {
+        positionX = x;
+        positionY = y;
+    }
+
+    public void setVelocity(double x, double y)
+    {
+        velocityX = x;
+        velocityY = y;
+    }
+
+    public void setSpeed(double speed)
+    {
+        this.speed = speed;
+    }
+
+    public double getSpeed()
+    {
+        return speed;
     }
 }
