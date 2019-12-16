@@ -3,27 +3,22 @@ package Core;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-
 import java.util.List;
 
 public class Sprite
 {
-    private Image image;
-    private double positionX;
-    private double positionY;
+    Image image;
+    double positionX;
+    double positionY;
     private double velocityX;
     private double velocityY;
-    private double width;
-    private double height;
+    double width;
+    double height;
     private Boolean isBlocker = false;
     private Boolean animated = false;
     private String name = "notSet";
     private double speed = 50;
-
-public Sprite()
-{
-
-}
+    Long lastFrame = 0l;
 
     public Sprite(String name)
     {
@@ -42,15 +37,14 @@ public Sprite()
     }
 
 
-    public void update(double time)
+    public void update(Long currentNanoTime)
     {
+        double time = (currentNanoTime - lastFrame) / 1000000000.0;
+
         Rectangle2D worldBorders = WorldView.getBorders();
         List<Sprite> otherSprites = WorldView.getSprites();
         Rectangle2D plannedPosition = new Rectangle2D(positionX + velocityX * time, positionY + velocityY * time, width, height);
-
-        //System.out.println(worldBorders);
-        //System.out.println("X " +  positionX + velocityX * time +" Y" + positionY + velocityY * time);
-        //System.out.println("Sprite widht: "+ width + " Height: " + height);
+        lastFrame = currentNanoTime;
 
         for (Sprite otherSprite : otherSprites)
         {
@@ -72,18 +66,12 @@ public Sprite()
             positionY += velocityY * time;
         }
 
+
     }
 
     public void render(GraphicsContext gc)
     {
-        /*
-        if(name.equals("diffuserSmokeSprites"))
-        {
-            gc.drawImage(image, 120, 0, 120,140, 220,220,120,140); //(img, srcX, srcY, srcWidht, srcHeight, TargetX, TargetY, TargetWidht, TargetHeight)
-        }
-        else*/
-            gc.drawImage(image, positionX, positionY);
-
+       gc.drawImage(image, positionX, positionY);
     }
 
     public Rectangle2D getBoundary()

@@ -35,15 +35,6 @@ public class PlayerViewC implements GUIController
     @FXML
     void initialize()
     {
-
-        /*
-        gc = canvas.getGraphicsContext2D();
-        background = new Image("/res/img/background.jpg");
-        Person person = new Person();
-        player = person.getSprite();
-        player.setPosition(200, 0);
-*/
-        //WorldView worldEnviroment = new WorldView("test");
         center = new WorldView("test", canvas.getGraphicsContext2D());
 
         buttonToMenu.setOnAction(new EventHandler<ActionEvent>()
@@ -58,15 +49,15 @@ public class PlayerViewC implements GUIController
     }
 
     @Override
-    public void update(Double elapsedTime)
+    public void update(Long currentNanoTime)
     {
-        center.update(elapsedTime);
+        center.update(currentNanoTime);
     }
 
     @Override
-    public void render(Double elapsedTime)
+    public void render(Long currentNanoTime)
     {
-        center.render(elapsedTime);
+        center.render(currentNanoTime);
     }
 
     @FXML

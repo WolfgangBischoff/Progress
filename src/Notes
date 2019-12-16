@@ -1,3 +1,13 @@
 
 
-- refactor sprites, much rendundant
+- fusion sprite and animated sprite
+- create position maps   => just sprites
+                => block info
+- rebuild actor list
+                => type and position
+- make comments possible
+
+
+Sprites:
+- Wall, Bush
+- Person

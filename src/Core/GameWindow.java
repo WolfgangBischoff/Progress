@@ -60,14 +60,14 @@ public class GameWindow extends Stage
         gameStage.setScene(gameScene);
     }
 
-    public void update(Double elapsedTime)
+    public void update(Long elapsedTime)
     {
         currentView.update(elapsedTime);
     }
 
-    public void render(Double elapsedTime)
+    public void render(Long currentNanoTime)
     {
-        currentView.render(elapsedTime);
+        currentView.render(currentNanoTime);
     }
 
 

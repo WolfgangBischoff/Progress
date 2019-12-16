@@ -29,7 +29,6 @@ public class MainMenuController implements GUIController
     {
         loader = new FXMLLoader(getClass().getResource("/fxml/mainMenu.fxml"));
         loader.setController(this);
-        //gc = graphicsContext;
     }
 
     @FXML
@@ -58,18 +57,17 @@ public class MainMenuController implements GUIController
     private void startAsCiv(ActionEvent event)
     {
         PlayerViewC playerViewC = new PlayerViewC();
-        //GameWindow.getSingleton().createNextScene(playerViewC.load());
         GameWindow.getSingleton().createNextScene(playerViewC);
     }
 
     @Override
-    public void update(Double elapsedTime)
+    public void update(Long currentNanoTime)
     {
 
     }
 
     @Override
-    public void render(Double elapsedTime)
+    public void render(Long currentNanoTime)
     {
 
     }
