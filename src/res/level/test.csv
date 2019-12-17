@@ -18,3 +18,4 @@ actors:
 bee, 																		150, 	250, 	false,				300,			false
 medicine, 													64, 		300, 	true,					0,					false
 diffuserSmokeSprites, 	320,		50,			false,				0,					true
+bed,																			64,			64,		true,					0,					false
