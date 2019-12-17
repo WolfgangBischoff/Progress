@@ -12,7 +12,7 @@ public class Room
     {
         gc = graphicsContext;
         //Person person = new Person();
-        //Image background = new Image("/res/img/background.jpg");
+        //Image background = new Image("/res/img/grey.jpg");
         //Sprite player = person.getSprite();
         //player.setPosition(200, 0);
     }

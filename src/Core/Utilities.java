@@ -3,7 +3,6 @@ package Core;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
@@ -31,28 +30,7 @@ public class Utilities
         }
     }
 
-    public static String[] readFirstLineFromTxt(String pathToCsv)
-    {//Reads first line
-        String row = null;
-        String[] rawdata = null;
-        try
-        {
-            BufferedReader csvReader = new BufferedReader(new FileReader(pathToCsv));
-            row = csvReader.readLine();
-            rawdata = row.split(",");
-            csvReader.close();
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        String[] trimmed = new String[rawdata.length];
-        for(int i=0; i<rawdata.length; i++)
-            trimmed[i] = rawdata[i].trim();
-
-        return trimmed;
-    }
-
-    public static List<String[]> readAllLineFromTxt(String pathToCsv, boolean ignoreFirstLine)
+    public static List<String[]> readAllLineFromTxt(String pathToCsv)
     {
         //Reads all line
         String row = null;
@@ -61,18 +39,15 @@ public class Utilities
         try
         {
             BufferedReader csvReader = new BufferedReader(new FileReader(pathToCsv));
-            while((row = csvReader.readLine()) != null)
+            while ((row = csvReader.readLine()) != null)
             {
-                if(ignoreFirstLine && linecounter == 0)
-                {
-                    linecounter++;
+                //Check for comments and blank lines
+                if(row.isEmpty() || row.startsWith("#"))
                     continue;
-                }
-
 
                 String[] rawdata = row.split(",");
                 String[] trimmed = new String[rawdata.length];
-                for(int i=0; i<rawdata.length; i++)
+                for (int i = 0; i < rawdata.length; i++)
                     trimmed[i] = rawdata[i].trim();
                 data.add(trimmed);
                 linecounter++;

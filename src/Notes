@@ -1,13 +1,18 @@
 
+- World files
+    => Tile factory
 
-- fusion sprite and animated sprite
-- create position maps   => just sprites
-                => block info
-- rebuild actor list
-                => type and position
-- make comments possible
+- Message Box
+- Console
 
 
 Sprites:
-- Wall, Bush
+- Wall, Bush, Ground
 - Person
+
+Topics:
+- Erben
+- Verbindung, Social
+- Polizei concerns
+- Education
+- Selbstzweifel

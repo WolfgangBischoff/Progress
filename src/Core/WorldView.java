@@ -26,33 +26,12 @@ public class WorldView implements GUIController
 
     private void loadEnvironment()
     {
-        leveldata = Utilities.readAllLineFromTxt("src/res/level/" + levelName + ".csv", true);
-        for (int i = 0; i < leveldata.size(); i++)
-        {
-            String[] entityData = leveldata.get(i);
-            Sprite ca;
-
-            if(Boolean.parseBoolean(entityData[5]))
-                ca = new AnimatedSprite("diffuserSmokeSprites", 5, 6, 6, 1, 120, 140);
-            else
-                ca = new Sprite(entityData[0]);
-            ca.setName(entityData[0]);
-            ca.setPosition(Integer.parseInt(entityData[1]), Integer.parseInt(entityData[2]));
-            ca.setBlocker(Boolean.parseBoolean(entityData[3]));
-            ca.setSpeed(Double.valueOf(entityData[4]));
-            ca.setAnimated(Boolean.parseBoolean(entityData[5]));
-
-            //name of Player sprite
-            if (entityData[0].equals("bee"))
-                player = ca;
-            else
-                sprites.add(ca);
-            System.out.println(ca);
-        }
-
-        background = new Image("/res/img/background.jpg");
-        borders = new Rectangle2D(0, 0, background.getWidth(), background.getHeight());
-
+        WorldLoader worldLoader = new WorldLoader(levelName);
+        worldLoader.load();
+        player = worldLoader.getPlayer();
+        sprites = worldLoader.getSprites();
+        background = worldLoader.getBackground();
+        borders = worldLoader.getBorders();
     }
 
     public static Rectangle2D getBorders()
@@ -91,9 +70,7 @@ public class WorldView implements GUIController
         for (Sprite sprite : sprites)
         {
             if(sprite.getAnimated())
-            {
-                ((AnimatedSprite)sprite).render(gc, currentNanoTime);
-            }
+                (sprite).render(gc, currentNanoTime);
             else
                 sprite.render(gc);
         }
