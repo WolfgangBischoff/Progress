@@ -4,10 +4,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class WorldLoader
 {
@@ -18,7 +15,11 @@ public class WorldLoader
     List<String[]> leveldata = new ArrayList<>();
     Sprite player;
     Image background;
+    Map<String, TileData> tileDataMap = new HashMap<>();
     int numberTileLine = 0;
+
+    private final String KEYWORD_BACKGROUND = "background:";
+    private final String KEYWORD_TILES = "tiles:";
 
     public WorldLoader(String stageName)
     {
@@ -36,9 +37,10 @@ public class WorldLoader
 
             //Check for keyword
             Set<String> keywords = new HashSet<>();
-            keywords.add("background:");
-            keywords.add("tiles:");
+            keywords.add(KEYWORD_BACKGROUND);
+            keywords.add(KEYWORD_TILES);
             keywords.add("actors:");
+            keywords.add("tiledefinition:");
             if (keywords.contains(lineData[0]))
             {
                 readMode = lineData[0];
@@ -48,10 +50,13 @@ public class WorldLoader
             //process line according to keyword
             switch (readMode)
             {
-                case "background:":
+                case KEYWORD_BACKGROUND:
                     readBackground(lineData);
                     continue;
-                case "tiles:":
+                case "tiledefinition:":
+                    tileDefinition(lineData);
+                    continue;
+                case KEYWORD_TILES:
                     readTile(lineData);
                     continue;
                 case "actors:":
@@ -61,31 +66,57 @@ public class WorldLoader
             }
         }
 
+        //System.out.println("WorldLoader: " + tileDataMap);
+
+    }
+
+    private void tileDefinition(String[] lineData)
+    {
+        Boolean blocking = Boolean.parseBoolean(lineData[2]);
+        Integer fps = Integer.parseInt(lineData[3]);
+        Integer totalFrames = Integer.parseInt(lineData[4]);
+        Integer cols = Integer.parseInt(lineData[5]);
+        Integer rows = Integer.parseInt(lineData[6]);
+        Integer frameWidth = Integer.parseInt(lineData[7]);
+        Integer frameHeight = Integer.parseInt(lineData[8]);
+        Integer velocity = Integer.parseInt(lineData[9]);
+        TileData current = new TileData(lineData[1], blocking, fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity);
+        tileDataMap.put(lineData[0], current);
+    }
+
+    class TileData
+    {
+        public String spritename;
+        public Boolean blocking;
+        public Integer fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity;
+
+        public TileData(String spritename, Boolean blocking, Integer fps, Integer totalFrames, Integer cols, Integer rows, Integer frameWidth, Integer frameHeight, Integer velocity)
+        {
+            this.spritename = spritename;
+            this.blocking = blocking;
+            this.fps = fps;
+            this.totalFrames = totalFrames;
+            this.cols = cols;
+            this.rows = rows;
+            this.frameWidth = frameWidth;
+            this.frameHeight = frameHeight;
+            this.velocity = velocity;
+        }
     }
 
     private void readActors(String[] lineData)
     {
-        //TODO Read Actors List
-
-        Sprite ca;
-
-        //TODO lookup what sprites are animated
-        if (Boolean.parseBoolean(lineData[5]))
-            ca = new Sprite("diffuserSmokeSprites", 5, 6, 6, 1, 120, 140);
+        TileData tile = tileDataMap.get(lineData[0]);
+        if (tile != null)
+        {
+            Sprite ca = createSprite(tile, Integer.parseInt(lineData[1]), Integer.parseInt(lineData[2]));
+            if (lineData[0].equals("Player"))
+                player = ca;
+            else
+                sprites.add(ca);
+        }
         else
-            ca = new Sprite(lineData[0]);
-        ca.setName(lineData[0]);
-        ca.setPosition(Integer.parseInt(lineData[1]), Integer.parseInt(lineData[2]));
-        ca.setBlocker(Boolean.parseBoolean(lineData[3]));
-        ca.setSpeed(Double.valueOf(lineData[4]));
-        ca.setAnimated(Boolean.parseBoolean(lineData[5]));
-
-        //name of Player sprite
-        if (lineData[0].equals("bee"))
-            player = ca;
-        else
-            sprites.add(ca);
-        System.out.println(ca);
+            System.out.println("Tile definition not found: " + lineData[0]);
     }
 
     private void readBackground(String[] lineData)
@@ -96,26 +127,41 @@ public class WorldLoader
 
     private void readTile(String[] lineData)
     {
-
         for (int i = 0; i < lineData.length; i++)
         {
-            System.out.print(lineData[i] + " ");
-            //TODO Check type
-            //TODO Create Sprite
-            if (lineData[i].equals("1"))
+            if (tileDataMap.containsKey(lineData[i]))
             {
-                Sprite ca;
-                ca = new Sprite("carrot");
-                ca.setName("carrot");
-                ca.setPosition(i * 64, numberTileLine * 64);
-                ca.setBlocker(true);
-                ca.setAnimated(false);
-                sprites.add(ca);
+                TileData tile = tileDataMap.get(lineData[i]);
+                Sprite ca = createSprite(tile, 64 * i, numberTileLine * 64);
+                if (lineData[0].equals("Player"))
+                    player = ca;
+                else
+                    sprites.add(ca);
             }
+            else
+                System.out.println("Tile definition not found: " + lineData[i]);
         }
-        System.out.print("\n");
         numberTileLine++;
 
+    }
+
+    private Sprite createSprite(TileData tile, Integer x, Integer y)
+    {
+        Sprite ca;
+        if (tile.totalFrames > 1)
+            ca = new Sprite(tile.spritename, tile.fps, tile.totalFrames, tile.cols, tile.rows, tile.frameWidth, tile.frameHeight);
+        else
+            ca = new Sprite(tile.spritename);
+        ca.setName(tile.spritename);
+        ca.setPosition(x, y);
+        ca.setBlocker(tile.blocking);
+        ca.setSpeed(tile.velocity);
+        if (tile.totalFrames > 1)
+            ca.setAnimated(true);
+        else
+            ca.setAnimated(false);
+
+        return ca;
     }
 
 
@@ -153,4 +199,6 @@ public class WorldLoader
     {
         return background;
     }
+
+
 }

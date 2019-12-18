@@ -2,20 +2,28 @@
 background:
 grey
 
+tiledefinition:
+#code, spritename, 										blocker, fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity
+Player,bee,																		true,				0,			0,											0,				0,				0,										0,											250
+1, 				carrot, 														true,				0,			0,											0,				0,				0,										0,											0
+s, 				diffuserSmokeSprites, true,				5, 		6, 										6, 			1, 			120, 							140,0
+b, 				bed,																		true,			0,			0,											0,				0,				0,										0,0
+med,			medicine,													false,			0,			0,											0,				0,				0,										0,0
+
+#sets 64 bits tiles as raster
 tiles:
 1, 1, 1, 1, 1, 1, 1, 1
-1, 0, 0, 0, 0, 0, 0, 1
-1, 0, 1, 1, 0, 0, 0, 1
+1, b, 0, 0, 0, 0, 0, 1
+1, 0, 1, 1, 0, 0, s, 1
 1, 0, 0, 0, 0, 1, 0, 1
 1, 0, 0, 0, 0, 1, 1, 1
-1, 0, 0, 0, 0, 1, 0, 1
+1, med, 0, 0, 0, 1, 0, 1
 1, 0, 0, 0, 0, 0, 0, 1
 1, 1, 1, 1, 1, 1, 1, 1
 
-
+#free position of tiles
 actors:
-#Sprite,															x,				y,				Blocker, 	Speed, Animated
-bee, 																		150, 	250, 	false,				300,			false
-medicine, 													64, 		300, 	true,					0,					false
-diffuserSmokeSprites, 	320,		50,			false,				0,					true
-bed,																			64,			64,		true,					0,					false
+#tile code															x,				y
+Player,																		150,		250
+s, 																						320,		50
+error,																			42,	 42
