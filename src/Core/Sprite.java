@@ -1,13 +1,21 @@
 package Core;
 
 import javafx.geometry.Rectangle2D;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.transform.Rotate;
 
+import java.util.Collections;
 import java.util.List;
 
 public class Sprite
 {
+    Boolean DEBUGMODE = true;
+
     //https://stackoverflow.com/questions/10708642/javafx-2-0-an-approach-to-game-sprite-animation
     Image baseimage;
     private String name = "notSet";
@@ -33,23 +41,23 @@ public class Sprite
     private Direction direction = Direction.SOUTH;
     private Boolean interact = false;
     private Boolean blockedByOtherSprite = false;
+    Rectangle2D interactionArea;
 
 
-    public Sprite(String name)
+    public Sprite(String imagename, int direction)
     {
-        positionX = 0;
-        positionY = 0;
-        velocityX = 0;
-        velocityY = 0;
-        setImage("/res/img/" + name + ".png");
-
+        animated = false;
+        this.direction = Direction.getDirectionFromValue(direction);
+        setImage("/res/img/" + imagename + ".png");
         frameWidth = basewidth;
         frameHeight = baseheight;
     }
 
-    public Sprite(String imagepath, float fps, int totalFrames, int cols, int rows, int frameWidth, int frameHeight)
+    public Sprite(String imagename, float fps, int totalFrames, int cols, int rows, int frameWidth, int frameHeight, int direction)
     {
-        this(imagepath);
+        animated = true;
+        this.direction = Direction.getDirectionFromValue(direction);
+        setImage("/res/img/" + imagename + ".png");
         this.fps = fps;
         this.totalFrames = totalFrames;
         this.cols = cols;
@@ -69,13 +77,13 @@ public class Sprite
         switch (direction)
         {
             case NORTH:
-                return new Rectangle2D(positionX, positionY - maxInteractionDistance, frameWidth, maxInteractionDistance);
+                return new Rectangle2D(positionX, positionY - maxInteractionDistance, frameWidth, frameHeight);
             case EAST:
-                return new Rectangle2D(positionX + frameWidth, positionY, positionX + frameWidth + maxInteractionDistance, positionY + frameHeight);
+                return new Rectangle2D(positionX + frameWidth, positionY, frameWidth, frameHeight);
             case SOUTH:
-                return new Rectangle2D(positionX, positionY + frameHeight, positionX + frameWidth, positionY + frameHeight + maxInteractionDistance);
+                return new Rectangle2D(positionX, positionY + frameHeight, frameWidth, frameHeight);
             case WEST:
-                return new Rectangle2D(positionX - maxInteractionDistance, positionY, positionX, positionY + frameHeight);
+                return new Rectangle2D(positionX - maxInteractionDistance, positionY, frameWidth, frameHeight);
             default:
                 throw new RuntimeException("calcInteractionRectangel: No Direction Set");
         }
@@ -88,7 +96,7 @@ public class Sprite
         double time = (currentNanoTime - lastFrame) / 1000000000.0;
         double elapsedTimeSinceLastInteraction = (currentNanoTime - lastInteraction) / 1000000000.0;
         int maxDistanceInteraction = 30;
-        Rectangle2D interactionArea = calcInteractionRectangle(maxDistanceInteraction);
+        interactionArea = calcInteractionRectangle(maxDistanceInteraction);
 
         Rectangle2D worldBorders = WorldView.getBorders();
         List<Sprite> otherSprites = WorldView.getSprites();
@@ -108,7 +116,6 @@ public class Sprite
                 break;
             }
 
-            //System.out.println( "Elaps " + elapsedTimeSinceLastInteraction);
             if (interact && otherSprite.getBoundary().intersects(interactionArea) && elapsedTimeSinceLastInteraction > 3)
             {
                 System.out.println("Action with " + otherSprite.name);
@@ -121,8 +128,7 @@ public class Sprite
             }
         }
 
-        // if (worldBorders.contains(positionX + velocityX * time, positionY + velocityY * time))
-        if(!blockedByOtherSprite)
+        if (!blockedByOtherSprite)
         {
             positionX += velocityX * time;
             positionY += velocityY * time;
@@ -131,6 +137,8 @@ public class Sprite
         interact = false;
         blockedByOtherSprite = false;
         lastFrame = currentNanoTime;
+
+        //System.out.println("Sprite: " + direction + " Pos " + positionX + "/" + positionY + " size: " + frameWidth + "/" + frameHeight);
 
     }
 
@@ -142,8 +150,14 @@ public class Sprite
 
     public void render(GraphicsContext gc)
     {
+        if(DEBUGMODE)
+        {
+            gc.strokeRect(positionX, positionY, frameWidth, frameHeight);
+            if(interactionArea != null)
+                gc.strokeRect(interactionArea.getMinX(), interactionArea.getMinY(), interactionArea.getWidth(),interactionArea.getWidth());
+            gc.setStroke(Color.BLUE);
+        }
         gc.drawImage(baseimage, positionX, positionY);
-
     }
 
     public void render(GraphicsContext gc, Long now)
@@ -176,6 +190,12 @@ public class Sprite
                 currentRow = 0;
                 currentCol = Math.abs(currentCol - (totalFrames - (int) (Math.floor((float) totalFrames / cols) * cols)));
             }
+        }
+
+        if(DEBUGMODE)
+        {
+            gc.strokeRect(positionX, positionY, frameWidth, frameHeight);
+            gc.setStroke(Color.BLUE);
         }
         gc.drawImage(baseimage, currentCol * frameWidth, currentRow * frameHeight, frameWidth, frameHeight, positionX, positionY, frameWidth, frameHeight); //(img, srcX, srcY, srcWidht, srcHeight, TargetX, TargetY, TargetWidht, TargetHeight)
     }
@@ -214,19 +234,28 @@ public class Sprite
         this.name = name;
     }
 
-    /*
-    public void setBaseimage(Image i)
-    {
-
-    }
-*/
     public void setImage(String filename)
     {
         Image i = new Image(filename);
+
+        if (!animated)
+        {
+            i = rotateImage(i, direction.value *90);
+        }
         baseimage = i;
         basewidth = i.getWidth();
         baseheight = i.getHeight();
-        //setBaseimage(i);
+
+    }
+
+    public Image rotateImage(Image image, int rotation)
+    {
+        ImageView iv = new ImageView(image);
+        SnapshotParameters params = new SnapshotParameters();
+        params.setFill(Color.TRANSPARENT);
+        params.setTransform(new Rotate(rotation, image.getHeight() / 2, image.getWidth() / 2));
+        //params.setViewport(new Rectangle2D(0, 0, image.getHeight(), image.getWidth()));
+        return iv.snapshot(params, null);
     }
 
     public void setPosition(double x, double y)

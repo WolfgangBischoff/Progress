@@ -1,8 +1,12 @@
 package Core;
 
 import javafx.geometry.Rectangle2D;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.transform.Rotate;
 
 import java.util.*;
 
@@ -80,7 +84,8 @@ public class WorldLoader
         Integer frameWidth = Integer.parseInt(lineData[7]);
         Integer frameHeight = Integer.parseInt(lineData[8]);
         Integer velocity = Integer.parseInt(lineData[9]);
-        TileData current = new TileData(lineData[1], blocking, fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity);
+        Integer direction = Integer.parseInt(lineData[10]);
+        TileData current = new TileData(lineData[1], blocking, fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction);
         tileDataMap.put(lineData[0], current);
     }
 
@@ -88,9 +93,9 @@ public class WorldLoader
     {
         public String spritename;
         public Boolean blocking;
-        public Integer fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity;
+        public Integer fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity,direction;
 
-        public TileData(String spritename, Boolean blocking, Integer fps, Integer totalFrames, Integer cols, Integer rows, Integer frameWidth, Integer frameHeight, Integer velocity)
+        public TileData(String spritename, Boolean blocking, Integer fps, Integer totalFrames, Integer cols, Integer rows, Integer frameWidth, Integer frameHeight, Integer velocity, Integer direction)
         {
             this.spritename = spritename;
             this.blocking = blocking;
@@ -101,6 +106,7 @@ public class WorldLoader
             this.frameWidth = frameWidth;
             this.frameHeight = frameHeight;
             this.velocity = velocity;
+            this.direction = direction;
         }
     }
 
@@ -149,19 +155,29 @@ public class WorldLoader
     {
         Sprite ca;
         if (tile.totalFrames > 1)
-            ca = new Sprite(tile.spritename, tile.fps, tile.totalFrames, tile.cols, tile.rows, tile.frameWidth, tile.frameHeight);
+            ca = new Sprite(tile.spritename, tile.fps, tile.totalFrames, tile.cols, tile.rows, tile.frameWidth, tile.frameHeight, tile.direction);
         else
-            ca = new Sprite(tile.spritename);
+            ca = new Sprite(tile.spritename, tile.direction);
+
         ca.setName(tile.spritename);
         ca.setPosition(x, y);
         ca.setBlocker(tile.blocking);
         ca.setSpeed(tile.velocity);
-        if (tile.totalFrames > 1)
+        /*if (tile.totalFrames > 1)
             ca.setAnimated(true);
         else
             ca.setAnimated(false);
-
+*/
         return ca;
+    }
+
+    public Image rotateImage(Image image, int rotation) {
+        ImageView iv = new ImageView(image);
+        SnapshotParameters params = new SnapshotParameters();
+        params.setFill(Color.TRANSPARENT);
+        params.setTransform(new Rotate(rotation, image.getHeight() / 2, image.getWidth() / 2));
+        params.setViewport(new Rectangle2D(0, 0, image.getHeight(), image.getWidth()));
+        return iv.snapshot(params, null);
     }
 
 
