@@ -20,15 +20,19 @@ public class Sprite
     private double velocityY;
     private float fps; //frames per second I.E. 24
     Long lastFrame = 0l;
+    Long lastInteraction = 0l;
     private int totalFrames; //Total number of frames in the sequence
     private int cols; //Number of columns on the sprite sheet
     private int rows; //Number of rows on the sprite sheet
-    private int frameWidth; //Width of an individual frame
-    private int frameHeight; //Height of an individual frame
+    private double frameWidth; //Width of an individual frame
+    private double frameHeight; //Height of an individual frame
     private int currentCol = 0; //last used frame in case of animation
     private int currentRow = 0;
     private Boolean isBlocker = false;
     private Boolean animated = false;
+    private Direction direction = Direction.SOUTH;
+    private Boolean interact = false;
+    private Boolean blockedByOtherSprite = false;
 
 
     public Sprite(String name)
@@ -39,6 +43,8 @@ public class Sprite
         velocityY = 0;
         setImage("/res/img/" + name + ".png");
 
+        frameWidth = basewidth;
+        frameHeight = baseheight;
     }
 
     public Sprite(String imagepath, float fps, int totalFrames, int cols, int rows, int frameWidth, int frameHeight)
@@ -58,22 +64,55 @@ public class Sprite
         velocityY += y;
     }
 
+    private Rectangle2D calcInteractionRectangle(int maxInteractionDistance)
+    {
+        switch (direction)
+        {
+            case NORTH:
+                return new Rectangle2D(positionX, positionY - maxInteractionDistance, frameWidth, maxInteractionDistance);
+            case EAST:
+                return new Rectangle2D(positionX + frameWidth, positionY, positionX + frameWidth + maxInteractionDistance, positionY + frameHeight);
+            case SOUTH:
+                return new Rectangle2D(positionX, positionY + frameHeight, positionX + frameWidth, positionY + frameHeight + maxInteractionDistance);
+            case WEST:
+                return new Rectangle2D(positionX - maxInteractionDistance, positionY, positionX, positionY + frameHeight);
+            default:
+                throw new RuntimeException("calcInteractionRectangel: No Direction Set");
+        }
+
+
+    }
 
     public void update(Long currentNanoTime)
     {
         double time = (currentNanoTime - lastFrame) / 1000000000.0;
+        double elapsedTimeSinceLastInteraction = (currentNanoTime - lastInteraction) / 1000000000.0;
+        int maxDistanceInteraction = 30;
+        Rectangle2D interactionArea = calcInteractionRectangle(maxDistanceInteraction);
 
         Rectangle2D worldBorders = WorldView.getBorders();
         List<Sprite> otherSprites = WorldView.getSprites();
         Rectangle2D plannedPosition = new Rectangle2D(positionX + velocityX * time, positionY + velocityY * time, basewidth, baseheight);
-        lastFrame = currentNanoTime;
+
 
         for (Sprite otherSprite : otherSprites)
         {
-            if (otherSprite.isBlocker && otherSprite.getBoundary().intersects(plannedPosition))
+            if
+            (
+                    otherSprite.isBlocker && otherSprite.getBoundary().intersects(plannedPosition)
+                            || !worldBorders.contains(positionX + velocityX * time, positionY + velocityY * time)
+            )
             {
                 System.out.println("Blocked");
-                return;
+                blockedByOtherSprite = true;
+                break;
+            }
+
+            //System.out.println( "Elaps " + elapsedTimeSinceLastInteraction);
+            if (interact && otherSprite.getBoundary().intersects(interactionArea) && elapsedTimeSinceLastInteraction > 3)
+            {
+                System.out.println("Action with " + otherSprite.name);
+                lastInteraction = currentNanoTime;
             }
 
             if (intersects(otherSprite))
@@ -82,30 +121,30 @@ public class Sprite
             }
         }
 
-        if (worldBorders.contains(positionX + velocityX * time, positionY + velocityY * time))
+        // if (worldBorders.contains(positionX + velocityX * time, positionY + velocityY * time))
+        if(!blockedByOtherSprite)
         {
             positionX += velocityX * time;
             positionY += velocityY * time;
         }
 
+        interact = false;
+        blockedByOtherSprite = false;
+        lastFrame = currentNanoTime;
 
     }
 
-    public void render(GraphicsContext gc)
-    {
-        gc.drawImage(baseimage, positionX, positionY);
-    }
-/*
-    public Rectangle2D getBoundary()
-    {
-        return new Rectangle2D(positionX, positionY, basewidth, baseheight);
-    }*/
 
     public boolean intersects(Sprite s)
     {
         return s.getBoundary().intersects(this.getBoundary());
     }
 
+    public void render(GraphicsContext gc)
+    {
+        gc.drawImage(baseimage, positionX, positionY);
+
+    }
 
     public void render(GraphicsContext gc, Long now)
     {
@@ -138,7 +177,6 @@ public class Sprite
                 currentCol = Math.abs(currentCol - (totalFrames - (int) (Math.floor((float) totalFrames / cols) * cols)));
             }
         }
-
         gc.drawImage(baseimage, currentCol * frameWidth, currentRow * frameHeight, frameWidth, frameHeight, positionX, positionY, frameWidth, frameHeight); //(img, srcX, srcY, srcWidht, srcHeight, TargetX, TargetY, TargetWidht, TargetHeight)
     }
 
@@ -176,17 +214,19 @@ public class Sprite
         this.name = name;
     }
 
+    /*
     public void setBaseimage(Image i)
     {
-        baseimage = i;
-        basewidth = i.getWidth();
-        baseheight = i.getHeight();
-    }
 
+    }
+*/
     public void setImage(String filename)
     {
         Image i = new Image(filename);
-        setBaseimage(i);
+        baseimage = i;
+        basewidth = i.getWidth();
+        baseheight = i.getHeight();
+        //setBaseimage(i);
     }
 
     public void setPosition(double x, double y)
@@ -219,5 +259,15 @@ public class Sprite
     public Boolean getAnimated()
     {
         return animated;
+    }
+
+    public void setDirection(Direction direction)
+    {
+        this.direction = direction;
+    }
+
+    public void setInteract(Boolean interact)
+    {
+        this.interact = interact;
     }
 }

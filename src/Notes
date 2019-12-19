@@ -1,7 +1,6 @@
 
 Logic:
-- World files
-    => Tile factory
+- Show interaction borders, debug multiple interaction
 - Message Box
 - Console
 

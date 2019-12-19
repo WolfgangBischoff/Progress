@@ -49,15 +49,33 @@ public class WorldView implements GUIController
     {
         // game logic
         ArrayList<String> input = GameWindow.getInput();
+        //System.out.println("WorldView update: " + input.toString());
+
         player.setVelocity(0, 0);
         if (input.contains("LEFT") || input.contains("A"))
+        {
             player.addVelocity(-player.getSpeed(), 0);
+            player.setDirection(Direction.WEST);
+        }
         if (input.contains("RIGHT") || input.contains("D"))
+        {
             player.addVelocity(player.getSpeed(), 0);
+            player.setDirection(Direction.EAST);
+        }
         if (input.contains("UP") || input.contains("W"))
+        {
             player.addVelocity(0, -player.getSpeed());
+            player.setDirection(Direction.NORTH);
+        }
         if (input.contains("DOWN") || input.contains("S"))
+        {
             player.addVelocity(0, player.getSpeed());
+            player.setDirection(Direction.SOUTH);
+        }
+        if(input.contains("E"))
+        {
+            player.setInteract(true);
+        }
 
         player.update(currentNanoTime);
     }
