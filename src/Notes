@@ -1,6 +1,8 @@
 
 Logic:
-- Add interaction
+- If World built, check in tiledef if has actor
+    => if, create actor, that returns sprite
+    => sprite then triggers respective actor
 - Message Box
 - Console
 

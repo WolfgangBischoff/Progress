@@ -36,7 +36,7 @@ public class PlayerViewC implements GUIController
     void initialize()
     {
         center = new WorldView("test", canvas.getGraphicsContext2D());
-
+        buttonToMenu.setFocusTraversable(false); //Disable Space triggering
         buttonToMenu.setOnAction(new EventHandler<ActionEvent>()
         {
             @Override

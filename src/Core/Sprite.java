@@ -42,6 +42,7 @@ public class Sprite
     private Boolean interact = false;
     private Boolean blockedByOtherSprite = false;
     Rectangle2D interactionArea;
+    Actor actor; //Logic for sprite
 
 
     public Sprite(String imagename, int direction)
@@ -102,13 +103,11 @@ public class Sprite
         List<Sprite> otherSprites = WorldView.getSprites();
         Rectangle2D plannedPosition = new Rectangle2D(positionX + velocityX * time, positionY + velocityY * time, basewidth, baseheight);
 
-
         for (Sprite otherSprite : otherSprites)
         {
             if
-            (
-                    otherSprite.isBlocker && otherSprite.getBoundary().intersects(plannedPosition)
-                            || !worldBorders.contains(positionX + velocityX * time, positionY + velocityY * time)
+            (otherSprite.isBlocker && otherSprite.getBoundary().intersects(plannedPosition)
+                    || !worldBorders.contains(positionX + velocityX * time, positionY + velocityY * time)
             )
             {
                 System.out.println("Blocked");
@@ -118,6 +117,7 @@ public class Sprite
 
             if (interact && otherSprite.getBoundary().intersects(interactionArea) && elapsedTimeSinceLastInteraction > 3)
             {
+
                 System.out.println("Action with " + otherSprite.name);
                 lastInteraction = currentNanoTime;
             }
@@ -137,8 +137,6 @@ public class Sprite
         interact = false;
         blockedByOtherSprite = false;
         lastFrame = currentNanoTime;
-
-        //System.out.println("Sprite: " + direction + " Pos " + positionX + "/" + positionY + " size: " + frameWidth + "/" + frameHeight);
 
     }
 
@@ -298,5 +296,10 @@ public class Sprite
     public void setInteract(Boolean interact)
     {
         this.interact = interact;
+    }
+
+    public String getName()
+    {
+        return name;
     }
 }

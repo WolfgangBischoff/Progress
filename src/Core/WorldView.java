@@ -52,6 +52,8 @@ public class WorldView implements GUIController
         //System.out.println("WorldView update: " + input.toString());
 
         player.setVelocity(0, 0);
+
+        //Interpret Input from GameWindow
         if (input.contains("LEFT") || input.contains("A"))
         {
             player.addVelocity(-player.getSpeed(), 0);
@@ -72,12 +74,14 @@ public class WorldView implements GUIController
             player.addVelocity(0, player.getSpeed());
             player.setDirection(Direction.SOUTH);
         }
-        if(input.contains("E"))
+        if(input.contains("E") || input.contains("SPACE"))
         {
             player.setInteract(true);
         }
 
         player.update(currentNanoTime);
+
+        //Update other chars if exist
     }
 
     @Override
@@ -85,6 +89,8 @@ public class WorldView implements GUIController
     {
         gc.clearRect(0, 0, 512, 512);
         gc.drawImage(background, 0, 0);
+
+        //Non Player Sprites
         for (Sprite sprite : sprites)
         {
             if(sprite.getAnimated())
@@ -92,6 +98,7 @@ public class WorldView implements GUIController
             else
                 sprite.render(gc);
         }
+
         player.render(gc);
     }
 
