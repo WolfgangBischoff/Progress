@@ -12,7 +12,7 @@ import java.util.List;
 
 public class Sprite
 {
-    Boolean DEBUGMODE = true;
+    //Boolean DEBUGMODE = true;
 
     //https://stackoverflow.com/questions/10708642/javafx-2-0-an-approach-to-game-sprite-animation
     Image baseimage;
@@ -155,17 +155,25 @@ public class Sprite
             renderAnimated(gc, now);
         else
             renderSimple(gc);
-    }
 
-    public void renderSimple(GraphicsContext gc)
-    {
-        if(DEBUGMODE)
+        if(Main.getDEBUGMODE())
         {
             gc.strokeRect(positionX, positionY, frameWidth, frameHeight);
             if(interactionArea != null)
                 gc.strokeRect(interactionArea.getMinX(), interactionArea.getMinY(), interactionArea.getWidth(),interactionArea.getWidth());
             gc.setStroke(Color.BLUE);
         }
+    }
+
+    public void renderSimple(GraphicsContext gc)
+    {
+        /*if(DEBUGMODE)
+        {
+            gc.strokeRect(positionX, positionY, frameWidth, frameHeight);
+            if(interactionArea != null)
+                gc.strokeRect(interactionArea.getMinX(), interactionArea.getMinY(), interactionArea.getWidth(),interactionArea.getWidth());
+            gc.setStroke(Color.BLUE);
+        }*/
         gc.drawImage(baseimage, positionX, positionY);
     }
 
@@ -201,12 +209,14 @@ public class Sprite
             }
         }
 
+        /*
         if(DEBUGMODE)
         {
             gc.strokeRect(positionX, positionY, frameWidth, frameHeight);
             gc.setStroke(Color.BLUE);
         }
         gc.drawImage(baseimage, currentCol * frameWidth, currentRow * frameHeight, frameWidth, frameHeight, positionX, positionY, frameWidth, frameHeight); //(img, srcX, srcY, srcWidht, srcHeight, TargetX, TargetY, TargetWidht, TargetHeight)
+    */
     }
 
     public Rectangle2D getBoundary()

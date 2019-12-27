@@ -16,13 +16,15 @@ Player,bee,																		true,				1,					0,			0,											0,				0,				0,			
 s, 				diffuserSmokeSprites, false,			2,					5, 		6, 										6, 			1, 			120, 							140,									0, 							0
 b, 				bedHedgehog,										false,			0,					0,			0,											0,				0,				0,										0,											0, 							0
 m,					medicine,													true,				0,					0,			0,											0,				0,				0,										0,											0, 							0
+pb,				potPlantBttm,										true,			0,					0,			0,											0,				0,				0,										0,											0, 							0
+pt,				potPlantTop,										false,			2,					0,			0,											0,				0,				0,										0,											0, 							0
 
 #sets 64 bits tiles as raster
 tiles:
 5, 2, 2, 2, 2, 2, 2, 6
 1, b, 0, 0, 0, 0, 0, 3
-1, 0, 0, s, 0, 0, 0, 3
-1, 0, 0, 0, 0, 0, 0, 3
+1, 0, 0, s, 0, 0, pt, 3
+1, 0, 0, 0, 0, 0, pb, 3
 1, 0, 0, 0, 0, 4, 4, 7
 1, m, 0, 0, 0, 2, 2, 6
 1, 0, 0, 0, 0, 0, 0, 3
