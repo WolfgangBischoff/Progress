@@ -167,13 +167,6 @@ public class Sprite
 
     public void renderSimple(GraphicsContext gc)
     {
-        /*if(DEBUGMODE)
-        {
-            gc.strokeRect(positionX, positionY, frameWidth, frameHeight);
-            if(interactionArea != null)
-                gc.strokeRect(interactionArea.getMinX(), interactionArea.getMinY(), interactionArea.getWidth(),interactionArea.getWidth());
-            gc.setStroke(Color.BLUE);
-        }*/
         gc.drawImage(baseimage, positionX, positionY);
     }
 
@@ -209,14 +202,8 @@ public class Sprite
             }
         }
 
-        /*
-        if(DEBUGMODE)
-        {
-            gc.strokeRect(positionX, positionY, frameWidth, frameHeight);
-            gc.setStroke(Color.BLUE);
-        }
         gc.drawImage(baseimage, currentCol * frameWidth, currentRow * frameHeight, frameWidth, frameHeight, positionX, positionY, frameWidth, frameHeight); //(img, srcX, srcY, srcWidht, srcHeight, TargetX, TargetY, TargetWidht, TargetHeight)
-    */
+
     }
 
     public Rectangle2D getBoundary()

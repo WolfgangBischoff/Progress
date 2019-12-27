@@ -3,6 +3,7 @@ background:
 grey
 
 tiledefinition:
+#layer: 0 => behind, 1 => middle, 2 => in front
 #code, spritename, 										blocker, layer,	fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction
 Player,bee,																		true,				1,					0,			0,											0,				0,				0,										0,											250,						0
 1, 				wall, 																true,				0,					0,			0,											0,				0,				0,										0,											0,								0
