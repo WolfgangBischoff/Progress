@@ -1,8 +1,9 @@
 
 Logic:
-- interaction
+- Interaction
 - Message Box
 - Console
+- Moving Camera
 
 Sprites:
 - Wall, Bush, Ground
