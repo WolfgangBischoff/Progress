@@ -10,10 +10,12 @@ import java.util.List;
 public class WorldView implements GUIController
 {
     private static Rectangle2D borders;
-    static List<Sprite> sprites = new ArrayList<>();
+    static List<Sprite> allLayers = new ArrayList<>();
+    static List<Sprite> bottomLayer = new ArrayList<>();
+    static List<Sprite> middleLayer = new ArrayList<>();
+    static List<Sprite> topLayer = new ArrayList<>();
     String levelName;
     GraphicsContext gc;
-    List<String[]> leveldata = new ArrayList<>();
     Sprite player;
     Image background;
 
@@ -29,7 +31,13 @@ public class WorldView implements GUIController
         WorldLoader worldLoader = new WorldLoader(levelName);
         worldLoader.load();
         player = worldLoader.getPlayer();
-        sprites = worldLoader.getSprites();
+        bottomLayer = worldLoader.getBttmLayer();
+        middleLayer = worldLoader.getMediumLayer();
+        topLayer = worldLoader.getUpperLayer();
+        allLayers.addAll(bottomLayer);
+        allLayers.addAll(middleLayer);
+        allLayers.addAll(topLayer);
+
         background = worldLoader.getBackground();
         borders = worldLoader.getBorders();
     }
@@ -39,9 +47,9 @@ public class WorldView implements GUIController
         return borders;
     }
 
-    public static List<Sprite> getSprites()
+    public static List<Sprite> getBottomLayer()
     {
-        return sprites;
+        return bottomLayer;
     }
 
     @Override
@@ -84,20 +92,45 @@ public class WorldView implements GUIController
     public void render(Long currentNanoTime)
     {
         gc.clearRect(0, 0, 512, 512);
+        //Background
         gc.drawImage(background, 0, 0);
-        for (Sprite sprite : sprites)
+
+        //Bottom layer
+        for (Sprite sprite : bottomLayer)
         {
-            if(sprite.getAnimated())
-                (sprite).render(gc, currentNanoTime);
-            else
-                sprite.render(gc);
+                sprite.render(gc, currentNanoTime);
         }
-        player.render(gc);
+        //Middle Layer
+        for (Sprite sprite : middleLayer)
+        {
+            sprite.render(gc, currentNanoTime);
+        }
+
+        //Top Layer
+        for (Sprite sprite : topLayer)
+        {
+            sprite.render(gc, currentNanoTime);
+        }
     }
 
     @Override
     public Pane load()
     {
         return null;
+    }
+
+    public static List<Sprite> getAllLayers()
+    {
+        return allLayers;
+    }
+
+    public static List<Sprite> getMiddleLayer()
+    {
+        return middleLayer;
+    }
+
+    public static List<Sprite> getTopLayer()
+    {
+        return topLayer;
     }
 }

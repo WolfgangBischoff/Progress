@@ -6,10 +6,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
 
-import java.util.Collections;
 import java.util.List;
 
 public class Sprite
@@ -99,12 +97,17 @@ public class Sprite
         interactionArea = calcInteractionRectangle(maxDistanceInteraction);
 
         Rectangle2D worldBorders = WorldView.getBorders();
-        List<Sprite> otherSprites = WorldView.getSprites();
+        //List<Sprite> otherSprites = WorldView.getBottomLayer();
+        List<Sprite> otherSprites = WorldView.getAllLayers();
+
         Rectangle2D plannedPosition = new Rectangle2D(positionX + velocityX * time, positionY + velocityY * time, basewidth, baseheight);
 
 
         for (Sprite otherSprite : otherSprites)
         {
+            if(otherSprite == this)
+                continue;
+
             if
             (
                     otherSprite.isBlocker && otherSprite.getBoundary().intersects(plannedPosition)
@@ -148,7 +151,15 @@ public class Sprite
         return s.getBoundary().intersects(this.getBoundary());
     }
 
-    public void render(GraphicsContext gc)
+    public void render(GraphicsContext gc, Long now)
+    {
+        if(getAnimated())
+            renderAnimated(gc, now);
+        else
+            renderSimple(gc);
+    }
+
+    public void renderSimple(GraphicsContext gc)
     {
         if(DEBUGMODE)
         {
@@ -160,7 +171,7 @@ public class Sprite
         gc.drawImage(baseimage, positionX, positionY);
     }
 
-    public void render(GraphicsContext gc, Long now)
+    public void renderAnimated(GraphicsContext gc, Long now)
     {
         int frameJump = (int) Math.floor((now - lastFrame) / (1000000000 / fps)); //Determine how many frames we need to advance to maintain frame rate independence
 

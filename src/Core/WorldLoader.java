@@ -12,8 +12,25 @@ import java.util.*;
 
 public class WorldLoader
 {
+    final int tileCodeIdx = 0;
+    final int spriteNameIdx = 1;
+    final int blockingIdx = 2;
+    final int layerIdx = 3;
+    final int fpsIdx = 4;
+    final int totalFramesIdx = 5;
+    final int colsIdx = 6;
+    final int rowsIdx = 7;
+    final int frameWidthIdx = 8;
+    final int frameHeightIdx = 9;
+    final int velocityIdx = 10;
+    final int directionIdx = 11;
+
+
+
     private Rectangle2D borders;
-    List<Sprite> sprites = new ArrayList<>();
+    List<Sprite> mediumLayer = new ArrayList<>();
+    List<Sprite> bttmLayer = new ArrayList<>();
+    List<Sprite> upperLayer = new ArrayList<>();
     String levelName;
     GraphicsContext gc;
     List<String[]> leveldata = new ArrayList<>();
@@ -76,29 +93,31 @@ public class WorldLoader
 
     private void tileDefinition(String[] lineData)
     {
-        Boolean blocking = Boolean.parseBoolean(lineData[2]);
-        Integer fps = Integer.parseInt(lineData[3]);
-        Integer totalFrames = Integer.parseInt(lineData[4]);
-        Integer cols = Integer.parseInt(lineData[5]);
-        Integer rows = Integer.parseInt(lineData[6]);
-        Integer frameWidth = Integer.parseInt(lineData[7]);
-        Integer frameHeight = Integer.parseInt(lineData[8]);
-        Integer velocity = Integer.parseInt(lineData[9]);
-        Integer direction = Integer.parseInt(lineData[10]);
-        TileData current = new TileData(lineData[1], blocking, fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction);
-        tileDataMap.put(lineData[0], current);
+        Boolean blocking = Boolean.parseBoolean(lineData[blockingIdx]);
+        Integer layer = Integer.parseInt(lineData[layerIdx]);
+        Integer fps = Integer.parseInt(lineData[fpsIdx]);
+        Integer totalFrames = Integer.parseInt(lineData[totalFramesIdx]);
+        Integer cols = Integer.parseInt(lineData[colsIdx]);
+        Integer rows = Integer.parseInt(lineData[rowsIdx]);
+        Integer frameWidth = Integer.parseInt(lineData[frameWidthIdx]);
+        Integer frameHeight = Integer.parseInt(lineData[frameHeightIdx]);
+        Integer velocity = Integer.parseInt(lineData[velocityIdx]);
+        Integer direction = Integer.parseInt(lineData[directionIdx]);
+        TileData current = new TileData(lineData[spriteNameIdx], blocking, layer, fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction);
+        tileDataMap.put(lineData[tileCodeIdx], current);
     }
 
     class TileData
     {
-        public String spritename;
+        public String spriteName;
         public Boolean blocking;
-        public Integer fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity,direction;
+        public Integer fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, layer;
 
-        public TileData(String spritename, Boolean blocking, Integer fps, Integer totalFrames, Integer cols, Integer rows, Integer frameWidth, Integer frameHeight, Integer velocity, Integer direction)
+        public TileData(String spriteName, Boolean blocking, Integer layer, Integer fps, Integer totalFrames, Integer cols, Integer rows, Integer frameWidth, Integer frameHeight, Integer velocity, Integer direction)
         {
-            this.spritename = spritename;
+            this.spriteName = spriteName;
             this.blocking = blocking;
+            this.layer = layer;
             this.fps = fps;
             this.totalFrames = totalFrames;
             this.cols = cols;
@@ -110,16 +129,49 @@ public class WorldLoader
         }
     }
 
+    private void addToLayer(Sprite sprite, int layer)
+    {
+        switch (layer)
+        {
+            case 0: bttmLayer.add(sprite); break;
+            case 1: mediumLayer.add(sprite); break;
+            case 2: upperLayer.add(sprite);break;
+            default: throw new RuntimeException("Layer not defined");
+        }
+    }
+
+    private void readTile(String[] lineData)
+    {
+        for (int i = 0; i < lineData.length; i++)
+        {
+            if (tileDataMap.containsKey(lineData[i]))
+            {
+                TileData tile = tileDataMap.get(lineData[i]);
+                int layer = tile.layer;
+                Sprite ca = createSprite(tile, 64 * i, numberTileLine * 64);
+
+                if (lineData[0].equals("Player"))
+                    player = ca;
+                addToLayer(ca, layer);
+            }
+            else
+                System.out.println("Tile definition not found: " + lineData[i]);
+        }
+        numberTileLine++;
+
+    }
+
     private void readActors(String[] lineData)
     {
         TileData tile = tileDataMap.get(lineData[0]);
         if (tile != null)
         {
             Sprite ca = createSprite(tile, Integer.parseInt(lineData[1]), Integer.parseInt(lineData[2]));
+            int layer = tile.layer;
+            addToLayer(ca, layer);
+
             if (lineData[0].equals("Player"))
                 player = ca;
-            else
-                sprites.add(ca);
         }
         else
             System.out.println("Tile definition not found: " + lineData[0]);
@@ -131,79 +183,40 @@ public class WorldLoader
         borders = new Rectangle2D(0, 0, background.getWidth(), background.getHeight());
     }
 
-    private void readTile(String[] lineData)
-    {
-        for (int i = 0; i < lineData.length; i++)
-        {
-            if (tileDataMap.containsKey(lineData[i]))
-            {
-                TileData tile = tileDataMap.get(lineData[i]);
-                Sprite ca = createSprite(tile, 64 * i, numberTileLine * 64);
-                if (lineData[0].equals("Player"))
-                    player = ca;
-                else
-                    sprites.add(ca);
-            }
-            else
-                System.out.println("Tile definition not found: " + lineData[i]);
-        }
-        numberTileLine++;
-
-    }
-
     private Sprite createSprite(TileData tile, Integer x, Integer y)
     {
         Sprite ca;
         if (tile.totalFrames > 1)
-            ca = new Sprite(tile.spritename, tile.fps, tile.totalFrames, tile.cols, tile.rows, tile.frameWidth, tile.frameHeight, tile.direction);
+            ca = new Sprite(tile.spriteName, tile.fps, tile.totalFrames, tile.cols, tile.rows, tile.frameWidth, tile.frameHeight, tile.direction);
         else
-            ca = new Sprite(tile.spritename, tile.direction);
+            ca = new Sprite(tile.spriteName, tile.direction);
 
-        ca.setName(tile.spritename);
+        ca.setName(tile.spriteName);
         ca.setPosition(x, y);
         ca.setBlocker(tile.blocking);
         ca.setSpeed(tile.velocity);
-        /*if (tile.totalFrames > 1)
-            ca.setAnimated(true);
-        else
-            ca.setAnimated(false);
-*/
+
         return ca;
     }
-
-    public Image rotateImage(Image image, int rotation) {
-        ImageView iv = new ImageView(image);
-        SnapshotParameters params = new SnapshotParameters();
-        params.setFill(Color.TRANSPARENT);
-        params.setTransform(new Rotate(rotation, image.getHeight() / 2, image.getWidth() / 2));
-        params.setViewport(new Rectangle2D(0, 0, image.getHeight(), image.getWidth()));
-        return iv.snapshot(params, null);
-    }
-
 
     public Rectangle2D getBorders()
     {
         return borders;
     }
 
-    public List<Sprite> getSprites()
+    public List<Sprite> getMediumLayer()
     {
-        return sprites;
+        return mediumLayer;
     }
 
-    public String getLevelName()
+    public List<Sprite> getBttmLayer()
     {
-        return levelName;
+        return bttmLayer;
     }
 
-    public GraphicsContext getGc()
+    public List<Sprite> getUpperLayer()
     {
-        return gc;
-    }
-
-    public List<String[]> getLeveldata()
-    {
-        return leveldata;
+        return upperLayer;
     }
 
     public Sprite getPlayer()
