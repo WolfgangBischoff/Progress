@@ -60,6 +60,8 @@ public class WorldView implements GUIController
         //System.out.println("WorldView update: " + input.toString());
 
         player.setVelocity(0, 0);
+
+        //Interpret Input from GameWindow
         if (input.contains("LEFT") || input.contains("A"))
         {
             player.addVelocity(-player.getSpeed(), 0);

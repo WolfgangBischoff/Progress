@@ -1,6 +1,6 @@
 package Core;
 
-public class Person
+public class Person extends Actor
 {
 
 

@@ -21,7 +21,6 @@
     <left>
         <VBox xmlns:fx="http://javafx.com/fxml" alignment="CENTER" spacing="3">
             <Button text="Menu" fx:id="buttonToMenu"/>
-            <Button text="Inventory"/>
         </VBox>
     </left>
 

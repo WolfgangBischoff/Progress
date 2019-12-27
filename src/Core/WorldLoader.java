@@ -41,6 +41,8 @@ public class WorldLoader
 
     private final String KEYWORD_BACKGROUND = "background:";
     private final String KEYWORD_TILES = "tiles:";
+    private final String KEYWORD_ACTORS = "actors:";
+    private final String KEYWORD_TILEDEF = "tiledefinition:";
 
     public WorldLoader(String stageName)
     {
@@ -60,8 +62,8 @@ public class WorldLoader
             Set<String> keywords = new HashSet<>();
             keywords.add(KEYWORD_BACKGROUND);
             keywords.add(KEYWORD_TILES);
-            keywords.add("actors:");
-            keywords.add("tiledefinition:");
+            keywords.add(KEYWORD_ACTORS);
+            keywords.add(KEYWORD_TILEDEF);
             if (keywords.contains(lineData[0]))
             {
                 readMode = lineData[0];
@@ -74,13 +76,13 @@ public class WorldLoader
                 case KEYWORD_BACKGROUND:
                     readBackground(lineData);
                     continue;
-                case "tiledefinition:":
+                case KEYWORD_TILEDEF:
                     tileDefinition(lineData);
                     continue;
                 case KEYWORD_TILES:
                     readTile(lineData);
                     continue;
-                case "actors:":
+                case KEYWORD_ACTORS:
                     readActors(lineData);
                     continue;
 
