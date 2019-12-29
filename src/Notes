@@ -3,11 +3,9 @@ Logic:
 - Interaction
 - Message Box
 - Console
-- Moving Camera
 - Menu
 
 Sprites:
-- Wall, Bush, Ground
 - Person
 
 Topics:
@@ -16,4 +14,5 @@ Topics:
 - Polizei concerns
 - Education
 - Selbstzweifel
-- Apps
+- AppsDating
+- stamps

@@ -20,7 +20,7 @@ public class WorldView implements GUIController
     String levelName;
     GraphicsContext gc;
     Sprite player;
-    Image background;
+    //Image background;
 
     double VIEWPORT_SIZE_X = Config.CAMERA_WIDTH;
     double VIEWPORT_SIZE_Y = Config.CAMERA_HEIGTH;
@@ -54,7 +54,7 @@ public class WorldView implements GUIController
         allLayers.addAll(middleLayer);
         allLayers.addAll(topLayer);
 
-        background = worldLoader.getBackground();
+        //background = worldLoader.getBackground();
         borders = worldLoader.getBorders();
     }
 
@@ -94,6 +94,7 @@ public class WorldView implements GUIController
 
         player.update(currentNanoTime);
 
+        //Camera at world border
         camX = player.positionX - VIEWPORT_SIZE_X / 2;
         camY = player.positionY - VIEWPORT_SIZE_Y / 2;
         if (camX < offsetMinX)
@@ -105,6 +106,7 @@ public class WorldView implements GUIController
         if (camY > offsetMaxY)
             camY = offsetMaxY;
 
+        //If World smaller as Camera
         if(VIEWPORT_SIZE_X > borders.getWidth())
             camX = borders.getWidth() / 2 - VIEWPORT_SIZE_X /2;
         if(VIEWPORT_SIZE_Y > borders.getHeight())
@@ -118,10 +120,7 @@ public class WorldView implements GUIController
         gc.clearRect(0, 0, VIEWPORT_SIZE_X, VIEWPORT_SIZE_Y);
         gc.translate(-camX, -camY);
 
-        //Background
-        gc.drawImage(background, 0, 0);
-
-        //Bottom layer
+        //Bottom priority
         for (Sprite sprite : bottomLayer)
         {
             sprite.render(gc, currentNanoTime);
@@ -142,8 +141,6 @@ public class WorldView implements GUIController
         {
             gc.setStroke(Color.RED);
             gc.strokeRect(borders.getMinX(), borders.getMinY(), borders.getWidth() + player.basewidth, borders.getHeight() + player.baseheight);
-            //gc.setStroke(Color.DARKRED);
-            //gc.strokeRect(0, 0, Config.GAMEWINDOWWIDTH, Config.GAMEWINDOWHEIGTH);
         }
         gc.translate(camX, camY);
     }

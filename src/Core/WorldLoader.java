@@ -2,7 +2,6 @@ package Core;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 
 import java.util.*;
 
@@ -30,17 +29,13 @@ public class WorldLoader
     GraphicsContext gc;
     List<String[]> leveldata = new ArrayList<>();
     Sprite player;
-    Image background;
     Map<String, TileData> tileDataMap = new HashMap<>();
     int maxVerticalTile = 0;
     int currentVerticalTile = 0;
     int maxHorizontalTile = 0;
     String readMode;
 
-    private final String KEYWORD_BACKGROUND = "background:";
-    private final String KEYWORD_BOTTOM_LAYER = "bottom:";
-    //private final String KEYWORD_MEDIUM_LAYER = "medium:";
-    private final String KEYWORD_TOP_LAYER = "top:";
+    private final String KEYWORD_NEW_LAYER = "layer:";
     private final String KEYWORD_ACTORS = "actors:";
     private final String KEYWORD_TILEDEF = "tiledefinition:";
 
@@ -60,10 +55,7 @@ public class WorldLoader
 
             //Check for keyword
             Set<String> keywords = new HashSet<>();
-            keywords.add(KEYWORD_BACKGROUND);
-            keywords.add(KEYWORD_BOTTOM_LAYER);
-            //keywords.add(KEYWORD_MEDIUM_LAYER);
-            keywords.add(KEYWORD_TOP_LAYER);
+            keywords.add(KEYWORD_NEW_LAYER);
             keywords.add(KEYWORD_ACTORS);
             keywords.add(KEYWORD_TILEDEF);
             if (keywords.contains(lineData[0]))
@@ -76,15 +68,10 @@ public class WorldLoader
             //process line according to keyword
             switch (readMode)
             {
-                case KEYWORD_BACKGROUND:
-                    readBackground(lineData);
-                    continue;
                 case KEYWORD_TILEDEF:
                     tileDefinition(lineData);
                     continue;
-                case KEYWORD_BOTTOM_LAYER:
-                    //case KEYWORD_MEDIUM_LAYER:
-                case KEYWORD_TOP_LAYER:
+                case KEYWORD_NEW_LAYER:
                     readTile(lineData);
                     continue;
                 case KEYWORD_ACTORS:
@@ -94,15 +81,13 @@ public class WorldLoader
             }
         }
         borders = new Rectangle2D(0, 0, (maxHorizontalTile + 1) * 64 - player.basewidth, (maxVerticalTile) * 64 - player.baseheight);
-        //System.out.println("WorldLoader: " + maxVerticalTile);
-        //System.out.println("WorldLoader: " + borders);
-
     }
 
     private void tileDefinition(String[] lineData)
     {
+        //System.out.println("WorldLoader/tileDefinition: " + lineData[0]);
         Boolean blocking = Boolean.parseBoolean(lineData[blockingIdx]);
-        Integer layer = Integer.parseInt(lineData[layerIdx]);
+        Integer priority = Integer.parseInt(lineData[layerIdx]);
         Integer fps = Integer.parseInt(lineData[fpsIdx]);
         Integer totalFrames = Integer.parseInt(lineData[totalFramesIdx]);
         Integer cols = Integer.parseInt(lineData[colsIdx]);
@@ -111,23 +96,21 @@ public class WorldLoader
         Integer frameHeight = Integer.parseInt(lineData[frameHeightIdx]);
         Integer velocity = Integer.parseInt(lineData[velocityIdx]);
         Integer direction = Integer.parseInt(lineData[directionIdx]);
-        TileData current = new TileData(lineData[spriteNameIdx], blocking, layer, fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction);
+        TileData current = new TileData(lineData[spriteNameIdx], blocking, priority, fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction);
         tileDataMap.put(lineData[tileCodeIdx], current);
-
-        //System.out.println("WorldLoader/tileDefinition successfull");
     }
 
     class TileData
     {
         public String spriteName;
         public Boolean blocking;
-        public Integer fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, layer;
+        public Integer fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, priority;
 
-        public TileData(String spriteName, Boolean blocking, Integer layer, Integer fps, Integer totalFrames, Integer cols, Integer rows, Integer frameWidth, Integer frameHeight, Integer velocity, Integer direction)
+        public TileData(String spriteName, Boolean blocking, Integer priority, Integer fps, Integer totalFrames, Integer cols, Integer rows, Integer frameWidth, Integer frameHeight, Integer velocity, Integer direction)
         {
             this.spriteName = spriteName;
             this.blocking = blocking;
-            this.layer = layer;
+            this.priority = priority;
             this.fps = fps;
             this.totalFrames = totalFrames;
             this.cols = cols;
@@ -139,7 +122,7 @@ public class WorldLoader
         }
     }
 
-    private void addToLayer(Sprite sprite, int layer)
+    private void addToPriorityLayer(Sprite sprite, int layer)
     {
         switch (layer)
         {
@@ -165,7 +148,7 @@ public class WorldLoader
 
                 if (lineData[i].equals("X"))
                     player = ca;
-                addToLayer(ca, tile.layer);
+                addToPriorityLayer(ca, tile.priority);
             }
             else if (!lineData[i].equals("_"))
                 System.out.println("WorldLoader readTile: tile definition not found: " + lineData[i]);
@@ -175,10 +158,7 @@ public class WorldLoader
 
         currentVerticalTile++;
         if (maxVerticalTile < currentVerticalTile)
-        {
             maxVerticalTile = currentVerticalTile;
-        }
-        //System.out.println("WorldLoader/readTile successfull " + readMode);
     }
 
     private void readActors(String[] lineData)
@@ -187,18 +167,13 @@ public class WorldLoader
         if (tile != null)
         {
             Sprite ca = createSprite(tile, Integer.parseInt(lineData[1]), Integer.parseInt(lineData[2]));
-            addToLayer(ca, tile.layer);
+            addToPriorityLayer(ca, tile.priority);
 
             if (lineData[0].equals("Player"))
                 player = ca;
         }
         else
             System.out.println("Tile definition not found: " + lineData[0]);
-    }
-
-    private void readBackground(String[] lineData)
-    {
-        background = new Image("/res/img/" + lineData[0] + ".jpg");
     }
 
     private Sprite createSprite(TileData tile, Integer x, Integer y)
@@ -241,11 +216,5 @@ public class WorldLoader
     {
         return player;
     }
-
-    public Image getBackground()
-    {
-        return background;
-    }
-
 
 }
