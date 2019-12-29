@@ -73,21 +73,20 @@ public class Sprite
 
     private Rectangle2D calcInteractionRectangle(int maxInteractionDistance)
     {
+        int interactionWidth = 8;
         switch (direction)
         {
             case NORTH:
-                return new Rectangle2D(positionX, positionY - maxInteractionDistance, frameWidth, frameHeight);
+                return new Rectangle2D(positionX + frameHeight/2 - interactionWidth/2, positionY - maxInteractionDistance, interactionWidth, frameHeight);
             case EAST:
-                return new Rectangle2D(positionX + frameWidth, positionY, frameWidth, frameHeight);
+                return new Rectangle2D(positionX + frameWidth, positionY + frameHeight/2 - interactionWidth/2, frameWidth, interactionWidth);
             case SOUTH:
-                return new Rectangle2D(positionX, positionY + frameHeight, frameWidth, frameHeight);
+                return new Rectangle2D(positionX + frameHeight/2 - interactionWidth/2, positionY + frameHeight, interactionWidth, frameHeight);
             case WEST:
-                return new Rectangle2D(positionX - maxInteractionDistance, positionY, frameWidth, frameHeight);
+                return new Rectangle2D(positionX - maxInteractionDistance, positionY + frameHeight/2 - interactionWidth/2, frameWidth, interactionWidth);
             default:
-                throw new RuntimeException("calcInteractionRectangel: No Direction Set");
+                throw new RuntimeException("calcInteractionRectangle: No Direction Set");
         }
-
-
     }
 
     public void update(Long currentNanoTime)
@@ -96,11 +95,8 @@ public class Sprite
         double elapsedTimeSinceLastInteraction = (currentNanoTime - lastInteraction) / 1000000000.0;
         int maxDistanceInteraction = 30;
         interactionArea = calcInteractionRectangle(maxDistanceInteraction);
-
         Rectangle2D worldBorders = WorldView.getBorders();
-        //List<Sprite> otherSprites = WorldView.getBottomLayer();
         List<Sprite> otherSprites = WorldView.getAllLayers();
-
         Rectangle2D plannedPosition = new Rectangle2D(positionX + velocityX * time, positionY + velocityY * time, basewidth, baseheight);
 
         for (Sprite otherSprite : otherSprites)
@@ -120,9 +116,9 @@ public class Sprite
 
             if (interact && otherSprite.getBoundary().intersects(interactionArea) && elapsedTimeSinceLastInteraction > 3)
             {
-
                 System.out.println("Action with " + otherSprite.name);
                 lastInteraction = currentNanoTime;
+                interact = false; //Interacts with first found sprite; TODO Just with sprite that can be interacted
             }
 
             if (intersects(otherSprite))
@@ -156,11 +152,11 @@ public class Sprite
         else
             renderSimple(gc);
 
-        if(Main.getDEBUGMODE())
+        if(Config.DEBUGMODE)
         {
             gc.strokeRect(positionX, positionY, frameWidth, frameHeight);
             if(interactionArea != null)
-                gc.strokeRect(interactionArea.getMinX(), interactionArea.getMinY(), interactionArea.getWidth(),interactionArea.getWidth());
+                gc.strokeRect(interactionArea.getMinX(), interactionArea.getMinY(), interactionArea.getWidth(),interactionArea.getHeight());
             gc.setStroke(Color.BLUE);
         }
     }

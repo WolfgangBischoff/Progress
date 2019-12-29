@@ -89,6 +89,7 @@ public class WorldLoader
             }
         }
 
+        borders = new Rectangle2D(0, 0, background.getWidth() - player.basewidth, background.getHeight() - player.baseheight);
         //System.out.println("WorldLoader: " + tileDataMap);
 
     }
@@ -182,7 +183,6 @@ public class WorldLoader
     private void readBackground(String[] lineData)
     {
         background = new Image("/res/img/" + lineData[0] + ".jpg");
-        borders = new Rectangle2D(0, 0, background.getWidth(), background.getHeight());
     }
 
     private Sprite createSprite(TileData tile, Integer x, Integer y)

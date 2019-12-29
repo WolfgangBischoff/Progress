@@ -93,7 +93,7 @@ public class WorldView implements GUIController
     @Override
     public void render(Long currentNanoTime)
     {
-        gc.clearRect(0, 0, 512, 512);
+        gc.clearRect(0, 0, Config.WORLDVIEWWIDTH, Config.WORLDVIEWHEIGTH);
         //Background
         gc.drawImage(background, 0, 0);
 

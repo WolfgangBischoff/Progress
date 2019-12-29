@@ -16,7 +16,7 @@ import java.io.IOException;
 public class PlayerViewC implements GUIController
 {
     @FXML
-    Canvas canvas;
+    Canvas worldCanvas;
     @FXML
     private Button buttonToMenu;
 
@@ -35,7 +35,9 @@ public class PlayerViewC implements GUIController
     @FXML
     void initialize()
     {
-        center = new WorldView("test", canvas.getGraphicsContext2D());
+        worldCanvas.setWidth(Config.GAMEWINDOWWIDTH);
+        worldCanvas.setHeight(Config.GAMEWINDOWHEIGTH);
+        center = new WorldView("test", worldCanvas.getGraphicsContext2D());
         buttonToMenu.setFocusTraversable(false); //Disable Space triggering
         buttonToMenu.setOnAction(new EventHandler<ActionEvent>()
         {

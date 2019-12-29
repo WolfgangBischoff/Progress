@@ -31,7 +31,7 @@
     </right>
 
     <center>
-        <Canvas fx:id="canvas" height="512" width="512"/>
+        <Canvas fx:id="worldCanvas"/>
     </center>
 
     <bottom>
