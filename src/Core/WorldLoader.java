@@ -1,12 +1,8 @@
 package Core;
 
 import javafx.geometry.Rectangle2D;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import javafx.scene.transform.Rotate;
 
 import java.util.*;
 
@@ -26,7 +22,6 @@ public class WorldLoader
     final int directionIdx = 11;
 
 
-
     private Rectangle2D borders;
     List<Sprite> mediumLayer = new ArrayList<>();
     List<Sprite> bttmLayer = new ArrayList<>();
@@ -37,7 +32,8 @@ public class WorldLoader
     Sprite player;
     Image background;
     Map<String, TileData> tileDataMap = new HashMap<>();
-    int numberTileLine = 0;
+    int maxVerticalTile = 0;
+    int maxHorizontalTile = 0;
 
     private final String KEYWORD_BACKGROUND = "background:";
     private final String KEYWORD_TILES = "tiles:";
@@ -89,8 +85,11 @@ public class WorldLoader
             }
         }
 
-        borders = new Rectangle2D(0, 0, background.getWidth() - player.basewidth, background.getHeight() - player.baseheight);
-        //System.out.println("WorldLoader: " + tileDataMap);
+        //borders = new Rectangle2D(0, 0, background.getWidth() - player.basewidth, background.getHeight() - player.baseheight);
+        //borders = new Rectangle2D(0, 0, 2000, 1800);
+        borders = new Rectangle2D(0, 0, (maxHorizontalTile + 1) * 64 - player.basewidth, (maxVerticalTile) * 64 - player.baseheight);
+        System.out.println("WorldLoader: " + maxVerticalTile);
+        System.out.println("WorldLoader: " + borders);
 
     }
 
@@ -136,10 +135,14 @@ public class WorldLoader
     {
         switch (layer)
         {
-            case 0: bttmLayer.add(sprite); break;
-            case 1: mediumLayer.add(sprite); break;
-            case 2: upperLayer.add(sprite);break;
-            default: throw new RuntimeException("Layer not defined");
+            case 0:
+                bttmLayer.add(sprite); break;
+            case 1:
+                mediumLayer.add(sprite); break;
+            case 2:
+                upperLayer.add(sprite); break;
+            default:
+                throw new RuntimeException("Layer not defined");
         }
     }
 
@@ -151,7 +154,7 @@ public class WorldLoader
             {
                 TileData tile = tileDataMap.get(lineData[i]);
                 int layer = tile.layer;
-                Sprite ca = createSprite(tile, 64 * i, numberTileLine * 64);
+                Sprite ca = createSprite(tile, 64 * i, maxVerticalTile * 64);
 
                 if (lineData[0].equals("Player"))
                     player = ca;
@@ -159,9 +162,10 @@ public class WorldLoader
             }
             else
                 System.out.println("Tile definition not found: " + lineData[i]);
-        }
-        numberTileLine++;
 
+            maxHorizontalTile = i > maxHorizontalTile ? i : maxHorizontalTile;
+        }
+        maxVerticalTile++;
     }
 
     private void readActors(String[] lineData)

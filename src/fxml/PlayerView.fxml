@@ -5,40 +5,16 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Text?>
-<BorderPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:id="borderPane"
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:id="borderPane"
 >
 
-    <padding>
-        <Insets top="10" right="25" bottom="10" left="5"/>
-    </padding>
-
-    <top>
-        <Pane fx:id="baseData"/>
-    </top>
-
-    <left>
-        <VBox xmlns:fx="http://javafx.com/fxml" alignment="CENTER" spacing="3">
-            <Button text="Menu" fx:id="buttonToMenu"/>
-        </VBox>
-    </left>
-
-    <right>
-        <VBox alignment="CENTER">
-            <Text fx:id="test" text="Civilian assets and news"/>
-        </VBox>
-    </right>
-
-    <center>
-        <Canvas fx:id="worldCanvas"/>
-    </center>
-
-    <bottom>
+    <VBox alignment="CENTER">
         <HBox alignment="CENTER">
-            <Text text="Information Log"/>
+            <Canvas fx:id="worldCanvas"/>
         </HBox>
-    </bottom>
+    </VBox>
 
 
-</BorderPane>
+</StackPane>

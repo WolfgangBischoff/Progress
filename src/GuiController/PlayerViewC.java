@@ -17,13 +17,7 @@ public class PlayerViewC implements GUIController
 {
     @FXML
     Canvas worldCanvas;
-    @FXML
-    private Button buttonToMenu;
-
     FXMLLoader loader;
-    GraphicsContext gc;
-    Image background;
-    Sprite player;
     GUIController center;
 
     public PlayerViewC()
@@ -35,19 +29,9 @@ public class PlayerViewC implements GUIController
     @FXML
     void initialize()
     {
-        worldCanvas.setWidth(Config.GAMEWINDOWWIDTH);
-        worldCanvas.setHeight(Config.GAMEWINDOWHEIGTH);
-        center = new WorldView("test", worldCanvas.getGraphicsContext2D());
-        buttonToMenu.setFocusTraversable(false); //Disable Space triggering
-        buttonToMenu.setOnAction(new EventHandler<ActionEvent>()
-        {
-            @Override
-            public void handle(ActionEvent event)
-            {
-                System.out.println("To Menu");
-            }
-        });
-
+        //worldCanvas.setWidth(Config.GAMEWINDOWWIDTH);
+        //worldCanvas.setHeight(Config.GAMEWINDOWHEIGTH);
+        center = new WorldView("test", worldCanvas);
     }
 
     @Override
@@ -61,13 +45,6 @@ public class PlayerViewC implements GUIController
     {
         center.render(currentNanoTime);
     }
-
-    @FXML
-    private void openMenu()
-    {
-
-    }
-
 
     public Pane load()
     {

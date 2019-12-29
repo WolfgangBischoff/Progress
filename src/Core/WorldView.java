@@ -1,9 +1,12 @@
 package Core;
 
 import javafx.geometry.Rectangle2D;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,11 +22,20 @@ public class WorldView implements GUIController
     Sprite player;
     Image background;
 
-    public WorldView(String levelName, GraphicsContext graphicsContext)
+    int VIEWPORT_SIZE_X = 300;
+    int VIEWPORT_SIZE_Y = 200;
+    int offsetMaxX = Config.GAMEWINDOWWIDTH - VIEWPORT_SIZE_X;
+        int offsetMaxY = Config.GAMEWINDOWHEIGTH - VIEWPORT_SIZE_Y;
+    int offsetMinX = 0;
+    int offsetMinY = 0;
+
+    public WorldView(String levelName, Canvas worldCanvas)
     {
-        gc = graphicsContext;
         this.levelName = levelName;
         loadEnvironment();
+        worldCanvas.setWidth(Config.GAMEWINDOWWIDTH);
+        worldCanvas.setHeight(Config.GAMEWINDOWHEIGTH);
+        gc = worldCanvas.getGraphicsContext2D();
     }
 
     private void loadEnvironment()
@@ -42,15 +54,7 @@ public class WorldView implements GUIController
         borders = worldLoader.getBorders();
     }
 
-    public static Rectangle2D getBorders()
-    {
-        return borders;
-    }
 
-    public static List<Sprite> getBottomLayer()
-    {
-        return bottomLayer;
-    }
 
     @Override
     public void update(Long currentNanoTime)
@@ -93,7 +97,10 @@ public class WorldView implements GUIController
     @Override
     public void render(Long currentNanoTime)
     {
-        gc.clearRect(0, 0, Config.WORLDVIEWWIDTH, Config.WORLDVIEWHEIGTH);
+        gc.clearRect(0, 0, Config.GAMEWINDOWWIDTH, Config.GAMEWINDOWHEIGTH);
+
+        //gc.translate(1,1);
+
         //Background
         gc.drawImage(background, 0, 0);
 
@@ -113,6 +120,15 @@ public class WorldView implements GUIController
         {
             sprite.render(gc, currentNanoTime);
         }
+
+        if(Config.DEBUGMODE)
+        {
+            gc.setStroke(Color.RED);
+            gc.strokeRect(borders.getMinX(), borders.getMinY(), borders.getWidth() + player.basewidth, borders.getHeight() + player.baseheight);
+            //gc.setStroke(Color.DARKRED);
+            //gc.strokeRect(0, 0, Config.GAMEWINDOWWIDTH, Config.GAMEWINDOWHEIGTH);
+        }
+
     }
 
     @Override
@@ -134,5 +150,10 @@ public class WorldView implements GUIController
     public static List<Sprite> getTopLayer()
     {
         return topLayer;
+    }
+
+    public static Rectangle2D getBorders()
+    {
+        return borders;
     }
 }
