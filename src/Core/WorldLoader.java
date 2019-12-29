@@ -33,10 +33,14 @@ public class WorldLoader
     Image background;
     Map<String, TileData> tileDataMap = new HashMap<>();
     int maxVerticalTile = 0;
+    int currentVerticalTile = 0;
     int maxHorizontalTile = 0;
+    String readMode;
 
     private final String KEYWORD_BACKGROUND = "background:";
-    private final String KEYWORD_TILES = "tiles:";
+    private final String KEYWORD_BOTTOM_LAYER = "bottom:";
+    //private final String KEYWORD_MEDIUM_LAYER = "medium:";
+    private final String KEYWORD_TOP_LAYER = "top:";
     private final String KEYWORD_ACTORS = "actors:";
     private final String KEYWORD_TILEDEF = "tiledefinition:";
 
@@ -48,7 +52,7 @@ public class WorldLoader
     public void load()
     {
         leveldata = Utilities.readAllLineFromTxt("src/res/level/" + levelName + ".csv");
-        String readMode = null;
+        readMode = null;
 
         for (int i = 0; i < leveldata.size(); i++)
         {
@@ -57,12 +61,15 @@ public class WorldLoader
             //Check for keyword
             Set<String> keywords = new HashSet<>();
             keywords.add(KEYWORD_BACKGROUND);
-            keywords.add(KEYWORD_TILES);
+            keywords.add(KEYWORD_BOTTOM_LAYER);
+            //keywords.add(KEYWORD_MEDIUM_LAYER);
+            keywords.add(KEYWORD_TOP_LAYER);
             keywords.add(KEYWORD_ACTORS);
             keywords.add(KEYWORD_TILEDEF);
             if (keywords.contains(lineData[0]))
             {
                 readMode = lineData[0];
+                currentVerticalTile = 0;
                 continue;
             }
 
@@ -75,7 +82,9 @@ public class WorldLoader
                 case KEYWORD_TILEDEF:
                     tileDefinition(lineData);
                     continue;
-                case KEYWORD_TILES:
+                case KEYWORD_BOTTOM_LAYER:
+                    //case KEYWORD_MEDIUM_LAYER:
+                case KEYWORD_TOP_LAYER:
                     readTile(lineData);
                     continue;
                 case KEYWORD_ACTORS:
@@ -84,12 +93,9 @@ public class WorldLoader
 
             }
         }
-
-        //borders = new Rectangle2D(0, 0, background.getWidth() - player.basewidth, background.getHeight() - player.baseheight);
-        //borders = new Rectangle2D(0, 0, 2000, 1800);
         borders = new Rectangle2D(0, 0, (maxHorizontalTile + 1) * 64 - player.basewidth, (maxVerticalTile) * 64 - player.baseheight);
-        System.out.println("WorldLoader: " + maxVerticalTile);
-        System.out.println("WorldLoader: " + borders);
+        //System.out.println("WorldLoader: " + maxVerticalTile);
+        //System.out.println("WorldLoader: " + borders);
 
     }
 
@@ -107,6 +113,8 @@ public class WorldLoader
         Integer direction = Integer.parseInt(lineData[directionIdx]);
         TileData current = new TileData(lineData[spriteNameIdx], blocking, layer, fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction);
         tileDataMap.put(lineData[tileCodeIdx], current);
+
+        //System.out.println("WorldLoader/tileDefinition successfull");
     }
 
     class TileData
@@ -153,19 +161,24 @@ public class WorldLoader
             if (tileDataMap.containsKey(lineData[i]))
             {
                 TileData tile = tileDataMap.get(lineData[i]);
-                int layer = tile.layer;
-                Sprite ca = createSprite(tile, 64 * i, maxVerticalTile * 64);
+                Sprite ca = createSprite(tile, 64 * i, currentVerticalTile * 64);
 
-                if (lineData[0].equals("Player"))
+                if (lineData[i].equals("X"))
                     player = ca;
-                addToLayer(ca, layer);
+                addToLayer(ca, tile.layer);
             }
-            else
-                System.out.println("Tile definition not found: " + lineData[i]);
+            else if (!lineData[i].equals("_"))
+                System.out.println("WorldLoader readTile: tile definition not found: " + lineData[i]);
 
             maxHorizontalTile = i > maxHorizontalTile ? i : maxHorizontalTile;
         }
-        maxVerticalTile++;
+
+        currentVerticalTile++;
+        if (maxVerticalTile < currentVerticalTile)
+        {
+            maxVerticalTile = currentVerticalTile;
+        }
+        //System.out.println("WorldLoader/readTile successfull " + readMode);
     }
 
     private void readActors(String[] lineData)
@@ -174,8 +187,7 @@ public class WorldLoader
         if (tile != null)
         {
             Sprite ca = createSprite(tile, Integer.parseInt(lineData[1]), Integer.parseInt(lineData[2]));
-            int layer = tile.layer;
-            addToLayer(ca, layer);
+            addToLayer(ca, tile.layer);
 
             if (lineData[0].equals("Player"))
                 player = ca;

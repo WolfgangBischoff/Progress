@@ -22,20 +22,24 @@ public class WorldView implements GUIController
     Sprite player;
     Image background;
 
-    int VIEWPORT_SIZE_X = 300;
-    int VIEWPORT_SIZE_Y = 200;
-    int offsetMaxX = Config.GAMEWINDOWWIDTH - VIEWPORT_SIZE_X;
-        int offsetMaxY = Config.GAMEWINDOWHEIGTH - VIEWPORT_SIZE_Y;
+    double VIEWPORT_SIZE_X = Config.CAMERA_WIDTH;
+    double VIEWPORT_SIZE_Y = Config.CAMERA_HEIGTH;
+    double offsetMaxX;
+    double offsetMaxY;
     int offsetMinX = 0;
     int offsetMinY = 0;
+    double camX;
+    double camY;
 
     public WorldView(String levelName, Canvas worldCanvas)
     {
         this.levelName = levelName;
         loadEnvironment();
-        worldCanvas.setWidth(Config.GAMEWINDOWWIDTH);
-        worldCanvas.setHeight(Config.GAMEWINDOWHEIGTH);
+        worldCanvas.setWidth(VIEWPORT_SIZE_X);
+        worldCanvas.setHeight(VIEWPORT_SIZE_Y);
         gc = worldCanvas.getGraphicsContext2D();
+        offsetMaxX = borders.getMaxX() - VIEWPORT_SIZE_X;
+        offsetMaxY = borders.getMaxY() - VIEWPORT_SIZE_Y;
     }
 
     private void loadEnvironment()
@@ -55,14 +59,11 @@ public class WorldView implements GUIController
     }
 
 
-
     @Override
     public void update(Long currentNanoTime)
     {
         // game logic
         ArrayList<String> input = GameWindow.getInput();
-        //System.out.println("WorldView update: " + input.toString());
-
         player.setVelocity(0, 0);
 
         //Interpret Input from GameWindow
@@ -86,20 +87,36 @@ public class WorldView implements GUIController
             player.addVelocity(0, player.getSpeed());
             player.setDirection(Direction.SOUTH);
         }
-        if(input.contains("E"))
+        if (input.contains("E"))
         {
             player.setInteract(true);
         }
 
         player.update(currentNanoTime);
+
+        camX = player.positionX - VIEWPORT_SIZE_X / 2;
+        camY = player.positionY - VIEWPORT_SIZE_Y / 2;
+        if (camX < offsetMinX)
+            camX = offsetMinX;
+        if (camY < offsetMinY)
+            camY = offsetMinY;
+        if (camX > offsetMaxX)
+            camX = offsetMaxX;
+        if (camY > offsetMaxY)
+            camY = offsetMaxY;
+
+        if(VIEWPORT_SIZE_X > borders.getWidth())
+            camX = borders.getWidth() / 2 - VIEWPORT_SIZE_X /2;
+        if(VIEWPORT_SIZE_Y > borders.getHeight())
+            camY = borders.getHeight() / 2 - VIEWPORT_SIZE_Y / 2;
+
     }
 
     @Override
     public void render(Long currentNanoTime)
     {
-        gc.clearRect(0, 0, Config.GAMEWINDOWWIDTH, Config.GAMEWINDOWHEIGTH);
-
-        //gc.translate(1,1);
+        gc.clearRect(0, 0, VIEWPORT_SIZE_X, VIEWPORT_SIZE_Y);
+        gc.translate(-camX, -camY);
 
         //Background
         gc.drawImage(background, 0, 0);
@@ -107,7 +124,7 @@ public class WorldView implements GUIController
         //Bottom layer
         for (Sprite sprite : bottomLayer)
         {
-                sprite.render(gc, currentNanoTime);
+            sprite.render(gc, currentNanoTime);
         }
         //Middle Layer
         for (Sprite sprite : middleLayer)
@@ -121,14 +138,14 @@ public class WorldView implements GUIController
             sprite.render(gc, currentNanoTime);
         }
 
-        if(Config.DEBUGMODE)
+        if (Config.DEBUGMODE)
         {
             gc.setStroke(Color.RED);
             gc.strokeRect(borders.getMinX(), borders.getMinY(), borders.getWidth() + player.basewidth, borders.getHeight() + player.baseheight);
             //gc.setStroke(Color.DARKRED);
             //gc.strokeRect(0, 0, Config.GAMEWINDOWWIDTH, Config.GAMEWINDOWHEIGTH);
         }
-
+        gc.translate(camX, camY);
     }
 
     @Override

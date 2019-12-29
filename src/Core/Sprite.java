@@ -123,7 +123,7 @@ public class Sprite
 
             if (intersects(otherSprite))
             {
-                System.out.println("Intersects");
+                //System.out.println("Intersects");
             }
         }
 
