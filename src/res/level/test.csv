@@ -3,7 +3,7 @@
 tiledefinition:
 #layer: 0 => behind, 1 => middle, 2 => in front
 #code, spritename, 										blocker, priority,	fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction
-X,					bee,																		true,				1,								0,			0,											0,				0,				0,										0,											250,						0
+X,					humanAlex,																		true,				1,								0,			0,											0,				0,				0,										0,											250,						0
 0, 				plank,																false,			0,								0,			0,											0,				0,				0,										0,											0,								0
 1, 				plank1,																false,		0,								0,			0,											0,				0,				0,										0,											0,								0
 2, 				plank2,																false,		0,								0,			0,											0,				0,				0,										0,											0,								0
