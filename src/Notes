@@ -1,7 +1,7 @@
 
 Logic:
 - BorderTiles not rendern fill at YX Max
-- non-block layer => not checked
+- split sprites with layer problems
 - Interaction
 - Message Box
 - Console
