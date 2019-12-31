@@ -1,6 +1,7 @@
 
 Logic:
 - BorderTiles not rendern fill at YX Max
+- Frame rate seems to be broken
 - Interaction
 - Message Box
 - Console
