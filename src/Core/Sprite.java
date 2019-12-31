@@ -12,8 +12,6 @@ import java.util.List;
 
 public class Sprite
 {
-    //Boolean DEBUGMODE = true;
-
     //https://stackoverflow.com/questions/10708642/javafx-2-0-an-approach-to-game-sprite-animation
     Image baseimage;
     private String name = "notSet";
@@ -40,6 +38,8 @@ public class Sprite
     private Boolean interact = false;
     private Boolean blockedByOtherSprite = false;
     Rectangle2D interactionArea;
+    Rectangle2D hitBox;
+    private double hitBoxOffsetX = 0, hitBoxOffsetY = 0, hitBoxWidth, hitBoxHeight;
     Actor actor; //Logic for sprite
 
 
@@ -50,6 +50,11 @@ public class Sprite
         setImage("/res/img/" + imagename + ".png");
         frameWidth = basewidth;
         frameHeight = baseheight;
+
+        //Hitbox is the same per default
+        //hitBox = new Rectangle2D(0,0,frameWidth, frameHeight);
+        hitBoxWidth = frameWidth;
+        hitBoxHeight = frameHeight;
     }
 
     public Sprite(String imagename, float fps, int totalFrames, int cols, int rows, int frameWidth, int frameHeight, int direction)
@@ -63,6 +68,11 @@ public class Sprite
         this.rows = rows;
         this.frameWidth = frameWidth;
         this.frameHeight = frameHeight;
+
+        //Hitbox is the same per default
+        //hitBox = new Rectangle2D(0,0,frameWidth, frameHeight);
+        hitBoxWidth = frameWidth;
+        hitBoxHeight = frameHeight;
     }
 
     public void addVelocity(double x, double y)
@@ -77,13 +87,16 @@ public class Sprite
         switch (direction)
         {
             case NORTH:
-                return new Rectangle2D(positionX + frameHeight/2 - interactionWidth/2, positionY - maxInteractionDistance, interactionWidth, frameHeight);
+                //return new Rectangle2D(positionX + frameHeight/2 - interactionWidth/2, positionY - maxInteractionDistance, interactionWidth, frameHeight);
+                return new Rectangle2D(positionX + hitBoxOffsetX / 2 + hitBoxWidth / 2 - interactionWidth / 2, positionY + hitBoxOffsetY - maxInteractionDistance, interactionWidth, maxInteractionDistance);
             case EAST:
-                return new Rectangle2D(positionX + frameWidth, positionY + frameHeight/2 - interactionWidth/2, frameWidth, interactionWidth);
+                return new Rectangle2D(positionX + frameWidth, positionY + hitBoxOffsetY + hitBoxHeight / 2 - interactionWidth / 2, maxInteractionDistance, interactionWidth);
             case SOUTH:
-                return new Rectangle2D(positionX + frameHeight/2 - interactionWidth/2, positionY + frameHeight, interactionWidth, frameHeight);
+                //return new Rectangle2D(positionX + frameHeight/2 - interactionWidth/2, positionY + frameHeight, interactionWidth, frameHeight);
+                return new Rectangle2D(positionX + hitBoxOffsetX / 2 + hitBoxWidth / 2 - interactionWidth / 2, positionY + hitBoxOffsetY + hitBoxHeight, interactionWidth, maxInteractionDistance);
             case WEST:
-                return new Rectangle2D(positionX - maxInteractionDistance, positionY + frameHeight/2 - interactionWidth/2, frameWidth, interactionWidth);
+                //return new Rectangle2D(positionX - maxInteractionDistance, positionY + frameHeight/2 - interactionWidth/2, frameWidth, interactionWidth);
+                return new Rectangle2D(positionX + hitBoxOffsetX - maxInteractionDistance, positionY + hitBoxOffsetY + hitBoxHeight / 2 - interactionWidth / 2, maxInteractionDistance, interactionWidth);
             default:
                 throw new RuntimeException("calcInteractionRectangle: No Direction Set");
         }
@@ -96,12 +109,13 @@ public class Sprite
         int maxDistanceInteraction = 30;
         interactionArea = calcInteractionRectangle(maxDistanceInteraction);
         Rectangle2D worldBorders = WorldView.getBorders();
-        List<Sprite> otherSprites = WorldView.getAllLayers();
-        Rectangle2D plannedPosition = new Rectangle2D(positionX + velocityX * time, positionY + velocityY * time, basewidth, baseheight);
+        List<Sprite> otherSprites = WorldView.getActiveLayers();
+        Rectangle2D plannedPosition = new Rectangle2D(positionX + hitBoxOffsetX + velocityX * time, positionY + hitBoxOffsetY + velocityY * time, hitBoxWidth, hitBoxHeight);
+        //Rectangle2D plannedPosition = new Rectangle2D(positionX + velocityX * time, positionY + velocityY * time, basewidth, baseheight);
 
         for (Sprite otherSprite : otherSprites)
         {
-            if(otherSprite == this)
+            if (otherSprite == this)
                 continue;
 
             if
@@ -147,16 +161,16 @@ public class Sprite
 
     public void render(GraphicsContext gc, Long now)
     {
-        if(getAnimated())
+        if (getAnimated())
             renderAnimated(gc, now);
         else
             renderSimple(gc);
 
-        if(Config.DEBUGMODE)
+        if (Config.DEBUGMODE)
         {
-            gc.strokeRect(positionX, positionY, frameWidth, frameHeight);
-            if(interactionArea != null)
-                gc.strokeRect(interactionArea.getMinX(), interactionArea.getMinY(), interactionArea.getWidth(),interactionArea.getHeight());
+            gc.strokeRect(positionX + hitBoxOffsetX, positionY + hitBoxOffsetY, hitBoxWidth, hitBoxHeight);
+            if (interactionArea != null)
+                gc.strokeRect(interactionArea.getMinX(), interactionArea.getMinY(), interactionArea.getWidth(), interactionArea.getHeight());
             gc.setStroke(Color.BLUE);
         }
     }
@@ -204,10 +218,7 @@ public class Sprite
 
     public Rectangle2D getBoundary()
     {
-        if (!animated)
-            return new Rectangle2D(positionX, positionY, basewidth, baseheight);
-        else
-            return new Rectangle2D(positionX, positionY, frameWidth, frameHeight);
+        return new Rectangle2D(positionX + hitBoxOffsetX, positionY + hitBoxOffsetY, hitBoxWidth, hitBoxHeight);
     }
 
 
@@ -240,14 +251,22 @@ public class Sprite
     {
         Image i = new Image(filename);
 
+        //Visible Sprite
         if (!animated)
         {
-            i = rotateImage(i, direction.value *90);
+            i = rotateImage(i, direction.value * 90);
         }
         baseimage = i;
         basewidth = i.getWidth();
         baseheight = i.getHeight();
+    }
 
+    public void setHitBox(double hitBoxOffsetX, double hitBoxOffsetY, double hitBoxWidth, double hitBoxHeight)
+    {
+        this.hitBoxOffsetX = hitBoxOffsetX;
+        this.hitBoxOffsetY = hitBoxOffsetY;
+        this.hitBoxWidth = hitBoxWidth;
+        this.hitBoxHeight = hitBoxHeight;
     }
 
     public Image rotateImage(Image image, int rotation)

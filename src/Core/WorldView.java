@@ -3,7 +3,6 @@ package Core;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
@@ -13,7 +12,8 @@ import java.util.List;
 public class WorldView implements GUIController
 {
     private static Rectangle2D borders;
-    static List<Sprite> allLayers = new ArrayList<>();
+    static List<Sprite> activeLayers = new ArrayList<>();
+    static List<Sprite> passivLayer = new ArrayList<>();
     static List<Sprite> bottomLayer = new ArrayList<>();
     static List<Sprite> middleLayer = new ArrayList<>();
     static List<Sprite> topLayer = new ArrayList<>();
@@ -47,14 +47,15 @@ public class WorldView implements GUIController
         WorldLoader worldLoader = new WorldLoader(levelName);
         worldLoader.load();
         player = worldLoader.getPlayer();
+        passivLayer = worldLoader.getPassivLayer();
         bottomLayer = worldLoader.getBttmLayer();
         middleLayer = worldLoader.getMediumLayer();
         topLayer = worldLoader.getUpperLayer();
-        allLayers.addAll(bottomLayer);
-        allLayers.addAll(middleLayer);
-        allLayers.addAll(topLayer);
 
-        //background = worldLoader.getBackground();
+        activeLayers.addAll(bottomLayer);
+        activeLayers.addAll(middleLayer);
+        activeLayers.addAll(topLayer);
+
         borders = worldLoader.getBorders();
     }
 
@@ -120,6 +121,12 @@ public class WorldView implements GUIController
         gc.clearRect(0, 0, VIEWPORT_SIZE_X, VIEWPORT_SIZE_Y);
         gc.translate(-camX, -camY);
 
+        //Passiv Layer
+        for (Sprite sprite : passivLayer)
+        {
+            sprite.render(gc, currentNanoTime);
+        }
+
         //Bottom priority
         for (Sprite sprite : bottomLayer)
         {
@@ -151,9 +158,9 @@ public class WorldView implements GUIController
         return null;
     }
 
-    public static List<Sprite> getAllLayers()
+    public static List<Sprite> getActiveLayers()
     {
-        return allLayers;
+        return activeLayers;
     }
 
     public static List<Sprite> getMiddleLayer()

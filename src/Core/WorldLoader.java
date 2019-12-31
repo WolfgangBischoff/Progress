@@ -19,11 +19,16 @@ public class WorldLoader
     final int frameHeightIdx = 9;
     final int velocityIdx = 10;
     final int directionIdx = 11;
+    final int hitboxOffsetXIdx = 12;
+    final int hitboxOffsetYIdx = 13;
+    final int hitboxWidthIdx = 14;
+    final int hitboxHeightIdx = 15;
 
 
     private Rectangle2D borders;
-    List<Sprite> mediumLayer = new ArrayList<>();
+    List<Sprite> passivLayer = new ArrayList<>();
     List<Sprite> bttmLayer = new ArrayList<>();
+    List<Sprite> mediumLayer = new ArrayList<>();
     List<Sprite> upperLayer = new ArrayList<>();
     String levelName;
     GraphicsContext gc;
@@ -36,6 +41,7 @@ public class WorldLoader
     String readMode;
 
     private final String KEYWORD_NEW_LAYER = "layer:";
+    private final String KEYWORD_PASSIV_LAYER = "passivlayer:";
     private final String KEYWORD_ACTORS = "actors:";
     private final String KEYWORD_TILEDEF = "tiledefinition:";
 
@@ -58,6 +64,7 @@ public class WorldLoader
             keywords.add(KEYWORD_NEW_LAYER);
             keywords.add(KEYWORD_ACTORS);
             keywords.add(KEYWORD_TILEDEF);
+            keywords.add(KEYWORD_PASSIV_LAYER);
             if (keywords.contains(lineData[0]))
             {
                 readMode = lineData[0];
@@ -72,8 +79,10 @@ public class WorldLoader
                     tileDefinition(lineData);
                     continue;
                 case KEYWORD_NEW_LAYER:
-                    readTile(lineData);
+                    readTile(lineData, false);
                     continue;
+                case KEYWORD_PASSIV_LAYER:
+                    readTile(lineData, true);
                 case KEYWORD_ACTORS:
                     readActors(lineData);
                     continue;
@@ -96,7 +105,12 @@ public class WorldLoader
         Integer frameHeight = Integer.parseInt(lineData[frameHeightIdx]);
         Integer velocity = Integer.parseInt(lineData[velocityIdx]);
         Integer direction = Integer.parseInt(lineData[directionIdx]);
-        TileData current = new TileData(lineData[spriteNameIdx], blocking, priority, fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction);
+        Integer hitboxOffsetX = Integer.parseInt(lineData[hitboxOffsetXIdx]);
+        Integer hitboxOffsetY = Integer.parseInt(lineData[hitboxOffsetYIdx]);
+        Integer hitboxWidth = Integer.parseInt(lineData[hitboxWidthIdx]);
+        Integer hitboxHeight = Integer.parseInt(lineData[hitboxHeightIdx]);
+
+        TileData current = new TileData(lineData[spriteNameIdx], blocking, fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, priority, hitboxOffsetX, hitboxOffsetY, hitboxWidth, hitboxHeight);
         tileDataMap.put(lineData[tileCodeIdx], current);
     }
 
@@ -104,13 +118,12 @@ public class WorldLoader
     {
         public String spriteName;
         public Boolean blocking;
-        public Integer fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, priority;
+        public Integer fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, priority, hitboxOffsetX, hitboxOffsetY, hitboxWidth, hitboxHeight;
 
-        public TileData(String spriteName, Boolean blocking, Integer priority, Integer fps, Integer totalFrames, Integer cols, Integer rows, Integer frameWidth, Integer frameHeight, Integer velocity, Integer direction)
+        public TileData(String spriteName, Boolean blocking, Integer fps, Integer totalFrames, Integer cols, Integer rows, Integer frameWidth, Integer frameHeight, Integer velocity, Integer direction, Integer priority, Integer hitboxOffsetX, Integer hitboxOffsetY, Integer hitboxWidth, Integer hitboxHeight)
         {
             this.spriteName = spriteName;
             this.blocking = blocking;
-            this.priority = priority;
             this.fps = fps;
             this.totalFrames = totalFrames;
             this.cols = cols;
@@ -119,6 +132,11 @@ public class WorldLoader
             this.frameHeight = frameHeight;
             this.velocity = velocity;
             this.direction = direction;
+            this.priority = priority;
+            this.hitboxOffsetX = hitboxOffsetX;
+            this.hitboxOffsetY = hitboxOffsetY;
+            this.hitboxWidth = hitboxWidth;
+            this.hitboxHeight = hitboxHeight;
         }
     }
 
@@ -137,7 +155,7 @@ public class WorldLoader
         }
     }
 
-    private void readTile(String[] lineData)
+    private void readTile(String[] lineData, Boolean isPassiv)
     {
         for (int i = 0; i < lineData.length; i++)
         {
@@ -148,7 +166,11 @@ public class WorldLoader
 
                 if (lineData[i].equals("X"))
                     player = ca;
-                addToPriorityLayer(ca, tile.priority);
+
+                if (isPassiv)
+                    passivLayer.add(ca);
+                else
+                    addToPriorityLayer(ca, tile.priority);
             }
             else if (!lineData[i].equals("_"))
                 System.out.println("WorldLoader readTile: tile definition not found: " + lineData[i]);
@@ -188,6 +210,9 @@ public class WorldLoader
         ca.setPosition(x, y);
         ca.setBlocker(tile.blocking);
         ca.setSpeed(tile.velocity);
+        //If Hitbox differs
+        if (tile.hitboxOffsetX != 0 || tile.hitboxOffsetY != 0 || tile.hitboxWidth != 0 || tile.hitboxHeight != 0)
+            ca.setHitBox(tile.hitboxOffsetX, tile.hitboxOffsetY, tile.hitboxWidth, tile.hitboxHeight);
 
         return ca;
     }
@@ -215,6 +240,11 @@ public class WorldLoader
     public Sprite getPlayer()
     {
         return player;
+    }
+
+    public List<Sprite> getPassivLayer()
+    {
+        return passivLayer;
     }
 
 }
