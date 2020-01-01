@@ -17,7 +17,7 @@ T, 				wall, 																true,				0,								0,			0,											0,				0,				0,
 8, 				wallcorner,											true,				0,								0,			0,											0,				0,				0,										0,											0,								3		,							0,													0,													0,											0
 ta, 			table,																true,				0,								0,			0,											0,				0,				0,										0,											0,								0		,							0,													0,													0,											0
 s, 				diffuserSmokeSprites, true,			2,								6, 		6, 										6, 			1, 			120, 							140,									0, 							0			,						0,													0,													0,											0
-be, 			beeAnimated, 									false,			2,								12, 		3, 										3, 			1, 			32, 								32,										0, 							0	,								0,													0,													0,											0
+be, 			bee								, 									false,			2,								12, 		3, 										3, 			1, 			32, 								32,										0, 							0	,								0,													0,													0,											0
 b, 				bed,																		false,			0,								0,			0,											0,				0,				0,										0,											0, 							0		,							0,													0,													0,											0
 m,					medicine,													true,				0,								0,			0,											0,				0,				0,										0,											0, 							0		,							0,													0,													0,											0
 pb,				potPlantBttm,										true,			0,								0,			0,											0,				0,				0,										0,											0, 							0		,							0,													0,													0,											0
