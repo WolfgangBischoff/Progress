@@ -2,7 +2,7 @@
 Logic:
 - BorderTiles not rendern fill at YX Max
 - ggf create subclass MultiLayeredSprite for moving sprites => offset connected second sprite
-- Interaction
+- Animation Trigger
 - Message Box
 - Console
 - Menu
