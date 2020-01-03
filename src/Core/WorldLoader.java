@@ -33,8 +33,10 @@ public class WorldLoader
     String levelName;
     GraphicsContext gc;
     List<String[]> leveldata = new ArrayList<>();
+    List<String[]> actordata = new ArrayList<>();
     Sprite player;
     Map<String, TileData> tileDataMap = new HashMap<>();
+    Map<String, ActorData> actorDataMap = new HashMap<>();
     int maxVerticalTile = 0;
     int currentVerticalTile = 0;
     int maxHorizontalTile = 0;
@@ -53,6 +55,10 @@ public class WorldLoader
     public void load()
     {
         leveldata = Utilities.readAllLineFromTxt("src/res/level/" + levelName + ".csv");
+        //actordata = Utilities.readAllLineFromTxt("src/res/actorData/" + "actorData" + ".csv");
+        //readActorData();
+        //System.out.print("WorldLoader: " + actorDataMap.toString());
+
         readMode = null;
 
         for (int i = 0; i < leveldata.size(); i++)
@@ -198,6 +204,36 @@ public class WorldLoader
             System.out.println("Tile definition not found: " + lineData[0]);
     }
 
+    class ActorData
+    {
+        List<String> alternativeSprites = new ArrayList<>();
+
+        ActorData(String[] input)
+        {
+            for(int i = 0; i<input.length; i++)
+            {
+                if(i != 0)
+                {
+                    alternativeSprites.add(input[i]);
+                }
+            }
+        }
+
+        @Override
+        public String toString()
+        {
+            return alternativeSprites.toString();
+        }
+    }
+
+    private void readActorData()
+    {
+        for(String[] dataline : actordata)
+        {
+            actorDataMap.put(dataline[0], new ActorData(dataline));
+        }
+    }
+
     private Sprite createSprite(TileData tile, Integer x, Integer y)
     {
         Sprite ca;
@@ -210,6 +246,8 @@ public class WorldLoader
         ca.setPosition(x, y);
         ca.setBlocker(tile.blocking);
         ca.setSpeed(tile.velocity);
+        ca.setActor(new Actor(ca));
+
         //If Hitbox differs
         if (tile.hitboxOffsetX != 0 || tile.hitboxOffsetY != 0 || tile.hitboxWidth != 0 || tile.hitboxHeight != 0)
             ca.setHitBox(tile.hitboxOffsetX, tile.hitboxOffsetY, tile.hitboxWidth, tile.hitboxHeight);

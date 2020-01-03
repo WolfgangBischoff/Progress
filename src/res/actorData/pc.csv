@@ -1,0 +1,6 @@
+
+action, statusChange
+
+#status to image
+ON, pc
+OFF, pcOff

@@ -12,6 +12,9 @@ import java.util.List;
 
 public class Sprite
 {
+    int TIME_BETWEEN_ACTION = 1;
+
+
     //https://stackoverflow.com/questions/10708642/javafx-2-0-an-approach-to-game-sprite-animation
     Image baseimage;
     private String name = "notSet";
@@ -47,12 +50,9 @@ public class Sprite
     {
         animated = false;
         this.direction = Direction.getDirectionFromValue(direction);
-        setImage("/res/img/" + imagename + ".png");
+        setImage(imagename);
         frameWidth = basewidth;
         frameHeight = baseheight;
-
-        //Hitbox is the same per default
-        //hitBox = new Rectangle2D(0,0,frameWidth, frameHeight);
         hitBoxWidth = frameWidth;
         hitBoxHeight = frameHeight;
     }
@@ -61,16 +61,13 @@ public class Sprite
     {
         animated = true;
         this.direction = Direction.getDirectionFromValue(direction);
-        setImage("/res/img/" + imagename + ".png");
+        setImage(imagename);
         this.fps = fps;
         this.totalFrames = totalFrames;
         this.cols = cols;
         this.rows = rows;
         this.frameWidth = frameWidth;
         this.frameHeight = frameHeight;
-
-        //Hitbox is the same per default
-        //hitBox = new Rectangle2D(0,0,frameWidth, frameHeight);
         hitBoxWidth = frameWidth;
         hitBoxHeight = frameHeight;
     }
@@ -87,15 +84,12 @@ public class Sprite
         switch (direction)
         {
             case NORTH:
-                //return new Rectangle2D(positionX + frameHeight/2 - interactionWidth/2, positionY - maxInteractionDistance, interactionWidth, frameHeight);
                 return new Rectangle2D(positionX + hitBoxOffsetX / 2 + hitBoxWidth / 2 - interactionWidth / 2, positionY + hitBoxOffsetY - maxInteractionDistance, interactionWidth, maxInteractionDistance);
             case EAST:
                 return new Rectangle2D(positionX + frameWidth, positionY + hitBoxOffsetY + hitBoxHeight / 2 - interactionWidth / 2, maxInteractionDistance, interactionWidth);
             case SOUTH:
-                //return new Rectangle2D(positionX + frameHeight/2 - interactionWidth/2, positionY + frameHeight, interactionWidth, frameHeight);
                 return new Rectangle2D(positionX + hitBoxOffsetX / 2 + hitBoxWidth / 2 - interactionWidth / 2, positionY + hitBoxOffsetY + hitBoxHeight, interactionWidth, maxInteractionDistance);
             case WEST:
-                //return new Rectangle2D(positionX - maxInteractionDistance, positionY + frameHeight/2 - interactionWidth/2, frameWidth, interactionWidth);
                 return new Rectangle2D(positionX + hitBoxOffsetX - maxInteractionDistance, positionY + hitBoxOffsetY + hitBoxHeight / 2 - interactionWidth / 2, maxInteractionDistance, interactionWidth);
             default:
                 throw new RuntimeException("calcInteractionRectangle: No Direction Set");
@@ -109,11 +103,10 @@ public class Sprite
         int maxDistanceInteraction = 30;
         interactionArea = calcInteractionRectangle(maxDistanceInteraction);
         Rectangle2D worldBorders = WorldView.getBorders();
-        List<Sprite> otherSprites = WorldView.getActiveLayers();
+        List<Sprite> activeSprites = WorldView.getActiveLayers();
         Rectangle2D plannedPosition = new Rectangle2D(positionX + hitBoxOffsetX + velocityX * time, positionY + hitBoxOffsetY + velocityY * time, hitBoxWidth, hitBoxHeight);
-        //Rectangle2D plannedPosition = new Rectangle2D(positionX + velocityX * time, positionY + velocityY * time, basewidth, baseheight);
 
-        for (Sprite otherSprite : otherSprites)
+        for (Sprite otherSprite : activeSprites)
         {
             if (otherSprite == this)
                 continue;
@@ -123,16 +116,16 @@ public class Sprite
                     || !worldBorders.contains(positionX + velocityX * time, positionY + velocityY * time)
             )
             {
-                System.out.println("Blocked");
+                //System.out.println("Blocked");
                 blockedByOtherSprite = true;
                 break;
             }
 
-            if (interact && otherSprite.getBoundary().intersects(interactionArea) && elapsedTimeSinceLastInteraction > 3)
+            if (interact && otherSprite.getBoundary().intersects(interactionArea) && elapsedTimeSinceLastInteraction > TIME_BETWEEN_ACTION)
             {
-                System.out.println("Action with " + otherSprite.name);
+                actActive(otherSprite);
                 lastInteraction = currentNanoTime;
-                interact = false; //Interacts with first found sprite; TODO Just with sprite that can be interacted
+                interact = false; //Interacts with first found sprite;
             }
 
             if (intersects(otherSprite))
@@ -153,6 +146,20 @@ public class Sprite
 
     }
 
+    public void actActive(Sprite passiveSprite)
+    {
+        //System.out.println("Sprite " + name + " activated " + passiveSprite.getName());
+        passiveSprite.actPassive(this);
+    }
+
+
+
+    public void actPassive(Sprite activeSprite)
+    {
+        System.out.println("Sprite " + name + " activated by " + activeSprite.getName());
+        if(actor != null)
+            actor.act();
+    }
 
     public boolean intersects(Sprite s)
     {
@@ -231,7 +238,10 @@ public class Sprite
                 + " Animated: " + animated
                 ;
     }
-
+    public void setActor(Actor actor)
+    {
+        this.actor = actor;
+    }
     public Boolean getBlocker()
     {
         return isBlocker;
@@ -249,7 +259,7 @@ public class Sprite
 
     public void setImage(String filename)
     {
-        Image i = new Image(filename);
+        Image i = new Image("/res/img/" + filename + ".png");
 
         //Visible Sprite
         if (!animated)

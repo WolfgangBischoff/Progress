@@ -1,7 +1,7 @@
 
 Logic:
 - BorderTiles not rendern fill at YX Max
-- split sprites with layer problems
+- ggf create subclass MultiLayeredSprite for moving sprites => offset connected second sprite
 - Interaction
 - Message Box
 - Console
