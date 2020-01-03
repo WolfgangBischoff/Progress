@@ -47,7 +47,7 @@ public class Actor
 
     public void act()
     {
-        System.out.println("Actor: " + toString());
+        //System.out.println("Actor: " + toString());
         if (onAction == "nothing")
             return;
 
@@ -70,7 +70,6 @@ public class Actor
 
     private void changeStatus()
     {
-        System.out.println("Actor Change Status");
         if (status == ON)
             status = OFF;
         else
