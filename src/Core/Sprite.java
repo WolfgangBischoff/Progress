@@ -153,11 +153,10 @@ public class Sprite
     }
 
 
-
     public void actPassive(Sprite activeSprite)
     {
-        System.out.println("Sprite " + name + " activated by " + activeSprite.getName());
-        if(actor != null)
+        //System.out.println("Sprite " + name + " activated by " + activeSprite.getName() + "actorStatus: " + actor);
+        if (actor != null)
             actor.act();
     }
 
@@ -238,10 +237,13 @@ public class Sprite
                 + " Animated: " + animated
                 ;
     }
+
     public void setActor(Actor actor)
     {
         this.actor = actor;
+        actor.sprite = this;
     }
+
     public Boolean getBlocker()
     {
         return isBlocker;
@@ -269,6 +271,21 @@ public class Sprite
         baseimage = i;
         basewidth = i.getWidth();
         baseheight = i.getHeight();
+    }
+
+    public void setImage(String filename, int fps, int totalFrames, int cols, int row, int frameWidth, int frameHeight)
+    {
+        if (totalFrames > 1)
+            animated = true;
+        else
+            animated = false;
+        setImage(filename);
+        this.fps = fps;
+        this.totalFrames = totalFrames;
+        this.cols = cols;
+        this.rows = row;
+        this.frameWidth = frameWidth;
+        this.frameHeight = frameHeight;
     }
 
     public void setHitBox(double hitBoxOffsetX, double hitBoxOffsetY, double hitBoxWidth, double hitBoxHeight)
@@ -335,4 +352,5 @@ public class Sprite
     {
         return name;
     }
+
 }

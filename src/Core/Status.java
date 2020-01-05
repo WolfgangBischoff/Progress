@@ -2,7 +2,7 @@ package Core;
 
 public enum Status
 {
-    ON, OFF;
+    ON, OFF, DEFAULT, ANIMATION;
 
     public static Status getStatus(String status)
     {
@@ -10,7 +10,9 @@ public enum Status
         {
             case "on": return ON;
             case "off": return OFF;
-            default: return ON;
+            case "default": return DEFAULT;
+            case "animation": return ANIMATION;
+            default: throw new RuntimeException("Status in Actor definition unknown: " + status);
         }
     }
 

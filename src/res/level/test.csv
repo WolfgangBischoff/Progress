@@ -2,30 +2,33 @@
 
 tiledefinition:
 #layer: 0 => behind, 1 => middle, 2 => in front
-#code, spritename, 										blocker, priority,	fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight
-X,					humanAlex,												true,				1,								0,			0,											0,				0,				0,										0,											250,						0		,							0,													64,													64,											64
-0, 				plank,																false,			0,								0,			0,											0,				0,				0,										0,											0,								0		,							0,													0,													0,											0
-1, 				plank1,																false,		0,								0,			0,											0,				0,				0,										0,											0,								0		,							0,													0,													0,											0
-2, 				plank2,																false,		0,								0,			0,											0,				0,				0,										0,											0,								0		,							0,													0,													0,											0
-L, 				wall, 																true,				0,								0,			0,											0,				0,				0,										0,											0,								0		,							0,													0,													0,											0
-T, 				wall, 																true,				0,								0,			0,											0,				0,				0,										0,											0,								1		,							0,													0,													0,											0
-3, 				wall, 																true,				0,								0,			0,											0,				0,				0,										0,											0,								2		,							0,													0,													0,											0
-4, 				wall, 																true,				0,								0,			0,											0,				0,				0,										0,											0,								3		,							0,													0,													0,											0
-5, 				wallcorner,											true,				0,								0,			0,											0,				0,				0,										0,											0,								0		,							0,													0,													0,											0
-6, 				wallcorner,											true,				0,								0,			0,											0,				0,				0,										0,											0,								1		,							0,													0,													0,											0
-7, 				wallcorner,											true,				0,								0,			0,											0,				0,				0,										0,											0,								2		,							0,													0,													0,											0
-8, 				wallcorner,											true,				0,								0,			0,											0,				0,				0,										0,											0,								3		,							0,													0,													0,											0
-ta, 			table,																true,				0,								0,			0,											0,				0,				0,										0,											0,								0		,							0,													0,													0,											0
-#s, 				diffuserSmokeSprites, true,			2,								6, 		6, 										6, 			1, 			120, 							140,									0, 							0			,						0,													0,													0,											0
-bee, 			bee, 																	false,			2,								12, 		3, 										3, 			1, 			32, 								32,										0, 							0	,								0,													0,													0,											0
-b, 				bed,																		true,			0,								0,			0,											0,				0,				0,										0,											0, 							0		,							0,													0,													0,											0
-pt,				potPlantTop,										false,			2,								0,			0,											0,				0,				0,										0,											0, 							0		,							0,													0,													0,											0
-pot,				pot,																	true,				0,								0,			0,											0,				0,				0,										0,											0, 							0		,							0,													0,													0,											0
-pb2,				plantBig,												false,			2,								0,			0,											0,				0,				0,										0,											0, 							0		,							0,													0,													0,											0
-h,					hedgehog,													true,				0,								0,			0,											0,				0,				0,										0,											0, 							0		,							0,													0,													0,											0
-ts,				textileShirt,							false,					0,								0,			0,											0,				0,				0,										0,											0, 							0		,							0,													0,													0,											0
-sc,				skubb,														true,						0,								0,			0,											0,				0,				0,										0,											0, 							0		,							0,													64,												192	,											64
-pc,				pc,																	true,						0,								0,			0,											0,				0,				0,										0,											0, 							0		,							0,													0,												0,											0
+#code, name,												spritename, 										blocker, priority,	fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight
+X,					player,										humanAlex,												true,				1,								0,			0,											0,				0,				0,										0,											250,						0,							0,													64,													64,											64
+0, 				plank,											plank,																false,			0,								0,			0,											0,				0,				0,										0,											0,								0,							0,													0,													0,											0
+1, 				plank1,										plank1,																false,		0,								0,			0,											0,				0,				0,										0,											0,								0,							0,													0,													0,											0
+2, 				plank2,										plank2,																false,		0,								0,			0,											0,				0,				0,										0,											0,								0,							0,													0,													0,											0
+L, 				wall,												wall, 																true,				0,								0,			0,											0,				0,				0,										0,											0,								0,							0,													0,													0,											0
+T, 				wall,												wall, 																true,				0,								0,			0,											0,				0,				0,										0,											0,								1,							0,													0,													0,											0
+3, 				wall,												wall, 																true,				0,								0,			0,											0,				0,				0,										0,											0,								2,							0,													0,													0,											0
+4, 				wall,												wall, 																true,				0,								0,			0,											0,				0,				0,										0,											0,								3,							0,													0,													0,											0
+5, 				wallcorner,						wallcorner,											true,				0,								0,			0,											0,				0,				0,										0,											0,								0,							0,													0,													0,											0
+6, 				wallcorner,						wallcorner,											true,				0,								0,			0,											0,				0,				0,										0,											0,								1,							0,													0,													0,											0
+7, 				wallcorner,						wallcorner,											true,				0,								0,			0,											0,				0,				0,										0,											0,								2,							0,													0,													0,											0
+8, 				wallcorner,						wallcorner,											true,				0,								0,			0,											0,				0,				0,										0,											0,								3,							0,													0,													0,											0
+ta, 			table,											table,																true,				0,								0,			0,											0,				0,				0,										0,											0,								0,							0,													0,													0,											0
+bee, 		bee,													bee, 																	false,			2,								12, 		3, 										3, 			1, 			32, 								32,										0, 						0,							0,													0,													0,											0
+b, 				bed,													bed,																		true,			0,								0,			0,											0,				0,				0,										0,											0, 								0,							0,													0,													0,											0
+pt,				potPlantTop,					potPlantTop,										false,			2,								0,			0,											0,				0,				0,										0,											0, 							0,							0,													0,													0,											0
+pot,			pot,													pot,																	true,				0,								0,			0,											0,				0,				0,										0,											0, 								0,							0,													0,													0,											0
+pb2,			plantBig,								plantBig,												false,			2,								0,			0,											0,				0,				0,										0,											0, 								0,							0,													0,													0,											0
+ts,				textileShort,				textileShirt,							false,					0,								0,			0,											0,				0,				0,										0,											0, 							0,							0,													0,													0,											0
+sc,				skubb,											skubb,															true,						0,								0,			0,											0,				0,				0,										0,											0, 						0,							0,													64,												192,										64
+
+#code, actorname, status
+actors:
+pc, pc, OFF
+h, hedgehog, DEFAULT
+
 
 #sets 64 bits tiles as raster; you can add multiple layers; later defined layers are higher prioritized in case of same defined priority
 #passivlayer will not be checked for interaction or collision
@@ -57,7 +60,7 @@ L, _, _, _, ts, _, _, _, _, pot, _, _, _, _, _, _, _, _, _, _, 3
 L, pc, _,_, _, _, _, _, _,	_,	_, _,	_, _, _, _, _, _, _, _, 3
 L, _, _, _, _, X, ta, _, bee, _, _, _, _, _, _, _, _, _, _, _, 3
 L, _, _, _,_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, 3
-L, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, 3
+L, _, _, h, _, _, h, _, _, _, _, _, _, _, _, _, _, _, _, _, 3
 L, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, 3
 L, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, 3
 L, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, 3
@@ -75,7 +78,7 @@ _, _, _, _, h, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _
 _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _
 _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _
 _, _, _, _, _, _, _, _,_, _, _, _, _, _, _, _, _, _, _, _, _
-_, _, _, _, _, _, _, h, _, _, _, _, _, _, _, _, _, _, _, _, _
+_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _
 _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _
 _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _
 _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _

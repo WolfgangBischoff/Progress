@@ -2,5 +2,6 @@
 action, statusChange
 
 #status to image
-ON, pc
-OFF, pcOff
+#status,	spritename, 			blocker, priority,	fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight
+ON, 					pc,												true,						0,								0,			0,											0,				0,				0,										0,											0, 							0		,							0,													0,												0,											0
+OFF, 				pcOff,									true,						0,								0,			0,											0,				0,				0,										0,											0, 							0		,							0,													0,												0,											0
