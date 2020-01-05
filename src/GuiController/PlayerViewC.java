@@ -29,8 +29,6 @@ public class PlayerViewC implements GUIController
     @FXML
     void initialize()
     {
-        //worldCanvas.setWidth(Config.GAMEWINDOWWIDTH);
-        //worldCanvas.setHeight(Config.GAMEWINDOWHEIGTH);
         center = new WorldView("test", worldCanvas);
     }
 

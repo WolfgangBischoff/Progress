@@ -22,31 +22,6 @@ public class Actor
     Map<Status, String> statusImages = new HashMap<>();
     Sprite sprite;
 
-/*
- public Actor(Sprite sprite, Status initStatus)
-    {
-        this.sprite = sprite;
-        this.status = initStatus;
-        List<String[]> actordata;
-        Path path = Paths.get("src/res/actorData/" + sprite.getName() + ".csv");
-        if (Files.exists(path))
-        {
-            actordata = Utilities.readAllLineFromTxt("src/res/actorData/" + sprite.getName() + ".csv");
-            for (String[] linedate : actordata)
-            {
-                if (linedate[0].equals("action"))
-                {
-                    onAction = linedate[1];
-                    continue;
-                }
-
-                Status status = Status.getStatus(linedate[0]);
-                String sprName = linedate[1];
-                statusImages.put(status, sprName);
-            }
-        }
-    }
- */
     public Actor(Sprite sprite, Status initStatus)
     {
         this.sprite = sprite;
@@ -109,13 +84,11 @@ public class Actor
         if(onAction.equals("animation"))
         {
             status = ANIMATION;
-            //sprite.setImage(statusImages.get(status));
             sprite.setImage(statusImages.get(status), 12,3,3,1, 32,    32);
             PauseTransition delay = new PauseTransition(Duration.millis(2000));
             delay.setOnFinished(new EventHandler<ActionEvent>() {
                 @Override public void handle(ActionEvent t) {
                     status = DEFAULT;
-                    //sprite.setImage(statusImages.get(status));
                     sprite.setImage(statusImages.get(status), 1,1,0,0, 0,    0);
                 }
             });
