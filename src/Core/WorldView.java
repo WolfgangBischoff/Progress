@@ -20,7 +20,6 @@ public class WorldView implements GUIController
     String levelName;
     GraphicsContext gc;
     Sprite player;
-    //Image background;
 
     double VIEWPORT_SIZE_X = Config.CAMERA_WIDTH;
     double VIEWPORT_SIZE_Y = Config.CAMERA_HEIGTH;
@@ -108,9 +107,9 @@ public class WorldView implements GUIController
             camY = offsetMaxY;
 
         //If World smaller as Camera
-        if(VIEWPORT_SIZE_X > borders.getWidth())
-            camX = borders.getWidth() / 2 - VIEWPORT_SIZE_X /2;
-        if(VIEWPORT_SIZE_Y > borders.getHeight())
+        if (VIEWPORT_SIZE_X > borders.getWidth())
+            camX = borders.getWidth() / 2 - VIEWPORT_SIZE_X / 2;
+        if (VIEWPORT_SIZE_Y > borders.getHeight())
             camY = borders.getHeight() / 2 - VIEWPORT_SIZE_Y / 2;
 
     }

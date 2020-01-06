@@ -93,7 +93,8 @@ public class WorldLoader
 
             }
         }
-        borders = new Rectangle2D(0, 0, (maxHorizontalTile + 1) * 64 - player.basewidth, (maxVerticalTile) * 64 - player.baseheight);
+        //borders = new Rectangle2D(0, 0, (maxHorizontalTile + 1) * 64 - player.basewidth, (maxVerticalTile) * 64 - player.baseheight);
+        borders = new Rectangle2D(0, 0, (maxHorizontalTile + 1) * 64, (maxVerticalTile) * 64);
     }
 
     private void tileDefinition(String[] lineData)
@@ -183,7 +184,7 @@ public class WorldLoader
                 else
                     addToPriorityLayer(ca, tile.priority);
             }
-            else if (!lineData[i].equals("_"))
+            else if (!lineData[i].equals("___"))
                 System.out.println("WorldLoader readTile: tile definition not found: " + lineData[i]);
 
             maxHorizontalTile = i > maxHorizontalTile ? i : maxHorizontalTile;
