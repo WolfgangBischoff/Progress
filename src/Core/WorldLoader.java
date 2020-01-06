@@ -7,23 +7,6 @@ import java.util.*;
 
 public class WorldLoader
 {
-    final int tileCodeIdx = 0;
-    final int nameIdx = 1;
-    final int spriteNameIdx = 2;
-    final int blockingIdx = 3;
-    final int layerIdx = 4;
-    final int fpsIdx = 5;
-    final int totalFramesIdx = 6;
-    final int colsIdx = 7;
-    final int rowsIdx = 8;
-    final int frameWidthIdx = 9;
-    final int frameHeightIdx = 10;
-    final int velocityIdx = 11;
-    final int directionIdx = 12;
-    final int hitboxOffsetXIdx = 13;
-    final int hitboxOffsetYIdx = 14;
-    final int hitboxWidthIdx = 15;
-    final int hitboxHeightIdx = 16;
 
 
     private Rectangle2D borders;
@@ -32,12 +15,11 @@ public class WorldLoader
     List<Sprite> mediumLayer = new ArrayList<>();
     List<Sprite> upperLayer = new ArrayList<>();
     String levelName;
-    GraphicsContext gc;
+    //GraphicsContext gc;
     List<String[]> leveldata = new ArrayList<>();
     List<String[]> actordata = new ArrayList<>();
     Sprite player;
     Map<String, TileData> tileDataMap = new HashMap<>();
-   // Map<String, ActorData> actorDataMap = new HashMap<>();
     int maxVerticalTile = 0;
     int currentVerticalTile = 0;
     int maxHorizontalTile = 0;
@@ -79,7 +61,8 @@ public class WorldLoader
             switch (readMode)
             {
                 case KEYWORD_TILEDEF:
-                    tileDefinition(lineData);
+                    tileDataMap.put(lineData[TileData.tileCodeIdx], TileData.tileDefinition(lineData));
+                    //tileDefinition(lineData);
                     continue;
                 case KEYWORD_NEW_LAYER:
                     readTile(lineData, false);
@@ -93,63 +76,7 @@ public class WorldLoader
 
             }
         }
-        //borders = new Rectangle2D(0, 0, (maxHorizontalTile + 1) * 64 - player.basewidth, (maxVerticalTile) * 64 - player.baseheight);
         borders = new Rectangle2D(0, 0, (maxHorizontalTile + 1) * 64, (maxVerticalTile) * 64);
-    }
-
-    private void tileDefinition(String[] lineData)
-    {
-        //System.out.println("WorldLoader/tileDefinition: " + lineData[0]);
-        Boolean blocking = Boolean.parseBoolean(lineData[blockingIdx]);
-        Integer priority = Integer.parseInt(lineData[layerIdx]);
-        Integer fps = Integer.parseInt(lineData[fpsIdx]);
-        Integer totalFrames = Integer.parseInt(lineData[totalFramesIdx]);
-        Integer cols = Integer.parseInt(lineData[colsIdx]);
-        Integer rows = Integer.parseInt(lineData[rowsIdx]);
-        Integer frameWidth = Integer.parseInt(lineData[frameWidthIdx]);
-        Integer frameHeight = Integer.parseInt(lineData[frameHeightIdx]);
-        Integer velocity = Integer.parseInt(lineData[velocityIdx]);
-        Integer direction = Integer.parseInt(lineData[directionIdx]);
-        Integer hitboxOffsetX = Integer.parseInt(lineData[hitboxOffsetXIdx]);
-        Integer hitboxOffsetY = Integer.parseInt(lineData[hitboxOffsetYIdx]);
-        Integer hitboxWidth = Integer.parseInt(lineData[hitboxWidthIdx]);
-        Integer hitboxHeight = Integer.parseInt(lineData[hitboxHeightIdx]);
-
-        TileData current = new TileData(lineData[nameIdx], lineData[spriteNameIdx], blocking, fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, priority, hitboxOffsetX, hitboxOffsetY, hitboxWidth, hitboxHeight);
-        tileDataMap.put(lineData[tileCodeIdx], current);
-    }
-
-    class TileData
-    {
-        public String name, spriteName;
-        public Boolean blocking;
-        public Integer fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, priority, hitboxOffsetX, hitboxOffsetY, hitboxWidth, hitboxHeight;
-        public Status actorStatus = null;
-
-        public void setActorStatus(Status actorStatus)
-        {
-            this.actorStatus = actorStatus;
-        }
-
-        public TileData(String name, String spriteName, Boolean blocking, Integer fps, Integer totalFrames, Integer cols, Integer rows, Integer frameWidth, Integer frameHeight, Integer velocity, Integer direction, Integer priority, Integer hitboxOffsetX, Integer hitboxOffsetY, Integer hitboxWidth, Integer hitboxHeight)
-        {
-            this.name = name;
-            this.spriteName = spriteName;
-            this.blocking = blocking;
-            this.fps = fps;
-            this.totalFrames = totalFrames;
-            this.cols = cols;
-            this.rows = rows;
-            this.frameWidth = frameWidth;
-            this.frameHeight = frameHeight;
-            this.velocity = velocity;
-            this.direction = direction;
-            this.priority = priority;
-            this.hitboxOffsetX = hitboxOffsetX;
-            this.hitboxOffsetY = hitboxOffsetY;
-            this.hitboxWidth = hitboxWidth;
-            this.hitboxHeight = hitboxHeight;
-        }
     }
 
     private void addToPriorityLayer(Sprite sprite, int layer)
@@ -198,23 +125,13 @@ public class WorldLoader
     private void readActors(String[] lineData)
     {
         //Reads sprite data from given status and add to tile definition, later actor will be added
-        int actorCodeIdx=0;
+        int actorCodeIdx = 0;
         int actorNameIdx = 1;
         int statusIdx = 2;
         Status definedStatus = Status.getStatus(lineData[statusIdx]);
-        String[] statusSpriteData = Actor.readSpriteData(lineData[actorNameIdx], definedStatus);
-        String[] tileSpriteData = new String[statusSpriteData.length+2];
-
-        //simulate tiledefinition
-        tileSpriteData[0] = lineData[actorCodeIdx];
-        tileSpriteData[nameIdx] = lineData[actorNameIdx];
-        for(int i=1; i<statusSpriteData.length; i++)
-        {
-            tileSpriteData[i+1] = statusSpriteData[i];
-        }
-
-        tileDefinition(tileSpriteData);
-        tileDataMap.get(lineData[0]).actorStatus = definedStatus;
+        TileData tileData = Actor.readSpriteData(lineData[actorNameIdx], definedStatus);
+        tileData.actorStatus = definedStatus;
+        tileDataMap.put(lineData[actorCodeIdx], tileData);
     }
 
 
@@ -232,8 +149,11 @@ public class WorldLoader
         ca.setSpeed(tile.velocity);
 
         //If this was defined as Actor
-        if(tile.actorStatus != null)
+        if (tile.actorStatus != null)
             ca.setActor(new Actor(ca, tile.actorStatus));
+
+        if (ca.getName().toLowerCase().equals("player"))
+            player = ca;
 
         //If Hitbox differs
         if (tile.hitboxOffsetX != 0 || tile.hitboxOffsetY != 0 || tile.hitboxWidth != 0 || tile.hitboxHeight != 0)

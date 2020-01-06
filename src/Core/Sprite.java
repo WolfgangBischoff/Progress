@@ -155,7 +155,7 @@ public class Sprite
 
     public void actPassive(Sprite activeSprite)
     {
-        //System.out.println("Sprite " + name + " activated by " + activeSprite.getName() + "actorStatus: " + actor);
+        //System.out.println("Sprite/actPassive " + name + " activated by " + activeSprite.getName() + " actorStatus: " + actor);
         if (actor != null)
             actor.act();
     }
