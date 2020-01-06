@@ -1,6 +1,6 @@
 package Core;
 
-public class TileData
+public class SpriteData
 {
     final static int tileCodeIdx = 0;
     final static int nameIdx = 1;
@@ -19,20 +19,20 @@ public class TileData
     final static int hitboxOffsetYIdx = 14;
     final static int hitboxWidthIdx = 15;
     final static int hitboxHeightIdx = 16;
+    final static int animationDurationIdx = 17;
 
 
     public String name, spriteName;
     public Boolean blocking;
-    public Integer fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, priority, hitboxOffsetX, hitboxOffsetY, hitboxWidth, hitboxHeight;
+    public Integer fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, priority, hitboxOffsetX, hitboxOffsetY, hitboxWidth, hitboxHeight, animationDuration;
     public Status actorStatus = null;
-    public Actor actor;
 
     public void setActorStatus(Status actorStatus)
     {
         this.actorStatus = actorStatus;
     }
 
-    public TileData(String name, String spriteName, Boolean blocking, Integer fps, Integer totalFrames, Integer cols, Integer rows, Integer frameWidth, Integer frameHeight, Integer velocity, Integer direction, Integer priority, Integer hitboxOffsetX, Integer hitboxOffsetY, Integer hitboxWidth, Integer hitboxHeight)
+    public SpriteData(String name, String spriteName, Boolean blocking, Integer fps, Integer totalFrames, Integer cols, Integer rows, Integer frameWidth, Integer frameHeight, Integer velocity, Integer direction, Integer priority, Integer hitboxOffsetX, Integer hitboxOffsetY, Integer hitboxWidth, Integer hitboxHeight)
     {
         this.name = name;
         this.spriteName = spriteName;
@@ -52,7 +52,7 @@ public class TileData
         this.hitboxHeight = hitboxHeight;
     }
 
-    public static TileData tileDefinition(String[] lineData)
+    public static SpriteData tileDefinition(String[] lineData)
     {
         //System.out.println("TileDate/tileDefinition: " + lineData[0]);
         Boolean blocking = Boolean.parseBoolean(lineData[blockingIdx]);
@@ -70,7 +70,7 @@ public class TileData
         Integer hitboxWidth = Integer.parseInt(lineData[hitboxWidthIdx]);
         Integer hitboxHeight = Integer.parseInt(lineData[hitboxHeightIdx]);
 
-        TileData current = new TileData(lineData[nameIdx], lineData[spriteNameIdx], blocking, fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, priority, hitboxOffsetX, hitboxOffsetY, hitboxWidth, hitboxHeight);
+        SpriteData current = new SpriteData(lineData[nameIdx], lineData[spriteNameIdx], blocking, fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, priority, hitboxOffsetX, hitboxOffsetY, hitboxWidth, hitboxHeight);
         return current;
         //tileDataMap.put(lineData[tileCodeIdx], current);
     }

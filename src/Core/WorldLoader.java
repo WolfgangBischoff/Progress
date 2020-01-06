@@ -1,7 +1,6 @@
 package Core;
 
 import javafx.geometry.Rectangle2D;
-import javafx.scene.canvas.GraphicsContext;
 
 import java.util.*;
 
@@ -19,7 +18,7 @@ public class WorldLoader
     List<String[]> leveldata = new ArrayList<>();
     List<String[]> actordata = new ArrayList<>();
     Sprite player;
-    Map<String, TileData> tileDataMap = new HashMap<>();
+    Map<String, SpriteData> tileDataMap = new HashMap<>();
     int maxVerticalTile = 0;
     int currentVerticalTile = 0;
     int maxHorizontalTile = 0;
@@ -61,7 +60,7 @@ public class WorldLoader
             switch (readMode)
             {
                 case KEYWORD_TILEDEF:
-                    tileDataMap.put(lineData[TileData.tileCodeIdx], TileData.tileDefinition(lineData));
+                    tileDataMap.put(lineData[SpriteData.tileCodeIdx], SpriteData.tileDefinition(lineData));
                     //tileDefinition(lineData);
                     continue;
                 case KEYWORD_NEW_LAYER:
@@ -100,7 +99,7 @@ public class WorldLoader
         {
             if (tileDataMap.containsKey(lineData[i]))
             {
-                TileData tile = tileDataMap.get(lineData[i]);
+                SpriteData tile = tileDataMap.get(lineData[i]);
                 Sprite ca = createSprite(tile, 64 * i, currentVerticalTile * 64);
 
                 if (lineData[i].equals("X"))
@@ -129,13 +128,13 @@ public class WorldLoader
         int actorNameIdx = 1;
         int statusIdx = 2;
         Status definedStatus = Status.getStatus(lineData[statusIdx]);
-        TileData tileData = Actor.readSpriteData(lineData[actorNameIdx], definedStatus);
+        SpriteData tileData = Actor.readSpriteData(lineData[actorNameIdx], definedStatus);
         tileData.actorStatus = definedStatus;
         tileDataMap.put(lineData[actorCodeIdx], tileData);
     }
 
 
-    private Sprite createSprite(TileData tile, Integer x, Integer y)
+    private Sprite createSprite(SpriteData tile, Integer x, Integer y)
     {
         Sprite ca;
         if (tile.totalFrames > 1)

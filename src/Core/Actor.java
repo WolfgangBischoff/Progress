@@ -19,7 +19,7 @@ public class Actor
 {
     String onAction = "nothing";
     Status status;
-    Map<Status, TileData> spriteData = new HashMap<>();
+    Map<Status, SpriteData> spriteData = new HashMap<>();
     Sprite sprite;
 
     public Actor(Sprite sprite, Status initStatus)
@@ -31,36 +31,38 @@ public class Actor
         if (Files.exists(path))
         {
             actordata = Utilities.readAllLineFromTxt("src/res/actorData/" + sprite.getName() + ".csv");
-            for (String[] linedate : actordata)
+            for (String[] linedata : actordata)
             {
-                if (linedate[0].equals("action"))
+                if (linedata[0].equals("action"))
                 {
-                    onAction = linedate[1];//Different to method readSpriteData
+                    onAction = linedata[1];//Different to method readSpriteData
                     continue;
                 }
 
-                Status status = Status.getStatus(linedate[0]);
-                spriteData.put(status, TileData.tileDefinition(linedate));
+                Status status = Status.getStatus(linedata[0]);
+                SpriteData data = SpriteData.tileDefinition(linedata);
+                data.animationDuration = Integer.parseInt(linedata[SpriteData.animationDurationIdx]);
+                spriteData.put(status, data);
             }
         }
         else throw new RuntimeException("Actordata not found: " + sprite.getName());
     }
 
-    static public Map<Status, TileData> readSpriteData(String actorname)
+    static public Map<Status, SpriteData> readSpriteData(String actorname)
     {
-        Map<Status, TileData> spriteData = new HashMap<>();
+        Map<Status, SpriteData> spriteData = new HashMap<>();
         List<String[]> actordata;
         Path path = Paths.get("src/res/actorData/" + actorname + ".csv");
         if (Files.exists(path))
         {
             actordata = Utilities.readAllLineFromTxt("src/res/actorData/" + actorname + ".csv");
-            for (String[] linedate : actordata)
+            for (String[] linedata : actordata)
             {
-                if (linedate[0].equals("action"))
+                if (linedata[0].equals("action"))
                     continue;
 
-                Status status = Status.getStatus(linedate[0]);
-                spriteData.put(status, TileData.tileDefinition(linedate));
+                Status status = Status.getStatus(linedata[0]);
+                spriteData.put(status, SpriteData.tileDefinition(linedata));
             }
         }
         else throw new RuntimeException("Actordata not found: " + actorname);
@@ -68,7 +70,7 @@ public class Actor
         return spriteData;
     }
 
-    static public TileData readSpriteData(String actorname, Status initStatus)
+    static public SpriteData readSpriteData(String actorname, Status initStatus)
     {
         return readSpriteData(actorname).get(initStatus);
     }
@@ -82,23 +84,23 @@ public class Actor
         if (onAction.equals("statusChange"))
         {
             changeStatus();
-            TileData ts = spriteData.get(status);
+            SpriteData ts = spriteData.get(status);
             sprite.setImage(ts.spriteName, ts.fps, ts.totalFrames, ts.cols, ts.rows, ts.frameWidth, ts.frameHeight);
         }
 
         if (onAction.equals("animation"))
         {
             status = ANIMATION;
-            TileData ts = spriteData.get(status);
+            SpriteData ts = spriteData.get(status);
             sprite.setImage(ts.spriteName, ts.fps, ts.totalFrames, ts.cols, ts.rows, ts.frameWidth, ts.frameHeight);
-            PauseTransition delay = new PauseTransition(Duration.millis(2000));
+            PauseTransition delay = new PauseTransition(Duration.millis(ts.animationDuration * 1000));
             delay.setOnFinished(new EventHandler<ActionEvent>()
             {
                 @Override
                 public void handle(ActionEvent t)
                 {
                     status = DEFAULT;
-                    TileData ts = spriteData.get(status);
+                    SpriteData ts = spriteData.get(status);
                     sprite.setImage(ts.spriteName, ts.fps, ts.totalFrames, ts.cols, ts.rows, ts.frameWidth, ts.frameHeight);
                 }
             });
