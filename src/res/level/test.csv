@@ -34,7 +34,7 @@ scu,			skubb,											skubb,																true,						0,								0,			0,						
 actors:
 pc_, pc, OFF
 hed, hedgehog, DEFAULT
-pla, player, DEFAULT
+pla, player, SOUTH
 
 
 #sets 64 bits tiles as raster; you can add multiple layers; later defined layers are higher prioritized in case of same defined priority

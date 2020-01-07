@@ -41,7 +41,7 @@ public class Sprite
     private Boolean interact = false;
     private Boolean blockedByOtherSprite = false;
     Rectangle2D interactionArea;
-    Rectangle2D hitBox;
+    //Rectangle2D hitBox;
     private double hitBoxOffsetX = 0, hitBoxOffsetY = 0, hitBoxWidth, hitBoxHeight;
     Actor actor; //Logic for sprite
 
@@ -84,11 +84,13 @@ public class Sprite
         switch (direction)
         {
             case NORTH:
-                return new Rectangle2D(positionX + hitBoxOffsetX / 2 + hitBoxWidth / 2 - interactionWidth / 2, positionY + hitBoxOffsetY - maxInteractionDistance, interactionWidth, maxInteractionDistance);
+                return new Rectangle2D(positionX + hitBoxOffsetX + hitBoxWidth / 2 - interactionWidth / 2, positionY + hitBoxOffsetY - maxInteractionDistance, interactionWidth, maxInteractionDistance);
+                //return new Rectangle2D(positionX + hitBoxOffsetX / 2 + hitBoxWidth / 2 - interactionWidth / 2, positionY + hitBoxOffsetY - maxInteractionDistance, interactionWidth, maxInteractionDistance);
             case EAST:
-                return new Rectangle2D(positionX + frameWidth, positionY + hitBoxOffsetY + hitBoxHeight / 2 - interactionWidth / 2, maxInteractionDistance, interactionWidth);
+                return new Rectangle2D(positionX + hitBoxOffsetX + hitBoxWidth , positionY + hitBoxOffsetY + hitBoxHeight / 2 - interactionWidth / 2, maxInteractionDistance, interactionWidth);
             case SOUTH:
-                return new Rectangle2D(positionX + hitBoxOffsetX / 2 + hitBoxWidth / 2 - interactionWidth / 2, positionY + hitBoxOffsetY + hitBoxHeight, interactionWidth, maxInteractionDistance);
+                return new Rectangle2D(positionX + hitBoxOffsetX + hitBoxWidth / 2 - interactionWidth / 2, positionY + hitBoxOffsetY + hitBoxHeight, interactionWidth, maxInteractionDistance);
+                //return new Rectangle2D(positionX + hitBoxOffsetX / 2 + hitBoxWidth / 2 - interactionWidth / 2, positionY + hitBoxOffsetY + hitBoxHeight, interactionWidth, maxInteractionDistance);
             case WEST:
                 return new Rectangle2D(positionX + hitBoxOffsetX - maxInteractionDistance, positionY + hitBoxOffsetY + hitBoxHeight / 2 - interactionWidth / 2, maxInteractionDistance, interactionWidth);
             default:
@@ -341,6 +343,19 @@ public class Sprite
     public void setDirection(Direction direction)
     {
         this.direction = direction;
+
+        //TODO load one time, change done by actor, direction remove from sprite
+        if(direction == Direction.NORTH)
+        {
+            baseimage = new Image("/res/img/" + "/person/humanAlexBack" + ".png");
+            //setImage("humanAlex");
+        }
+        if(direction == Direction.SOUTH)
+        {
+            baseimage = new Image("/res/img/" + "humanAlex" + ".png");
+            //setImage("/person/humanAlexBack");
+        }
+
     }
 
     public void setInteract(Boolean interact)
