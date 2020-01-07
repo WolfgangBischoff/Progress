@@ -123,7 +123,10 @@ public class Sprite
                 break;
             }
 
-            if (interact && otherSprite.getBoundary().intersects(interactionArea) && elapsedTimeSinceLastInteraction > TIME_BETWEEN_ACTION)
+            if (interact
+                    && otherSprite.actor != null
+                    && otherSprite.getBoundary().intersects(interactionArea)
+                    && elapsedTimeSinceLastInteraction > TIME_BETWEEN_ACTION)
             {
                 actActive(otherSprite);
                 lastInteraction = currentNanoTime;
@@ -157,7 +160,8 @@ public class Sprite
 
     public void actPassive(Sprite activeSprite)
     {
-        //System.out.println("Sprite/actPassive " + name + " activated by " + activeSprite.getName() + " actorStatus: " + actor);
+        String methodName = "Sprite/actPassive ";
+        System.out.println(methodName + name + " activated by " + activeSprite.getName() + " actorStatusPassiv: " + actor);
         if (actor != null)
             actor.act();
     }

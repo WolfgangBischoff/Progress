@@ -4,5 +4,5 @@ action, animation
 #status to image
 #status, 					name,	spritename, 										blocker, priority,	fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight,	duration
 SOUTH, 			player,		humanAlex,														true,								1,			0,											0,				0,				0,										0,											0,						250,						0,									10,													84,												44,															44,								0
-NORTH, 			player,		person/humanAlexBack,														true,								1,			0,											0,				0,				0,										0,											0,						250,						0,									10,													84,												44,															44,								0
+NORTH, 			player,		person/humanAlexBack,					true,								1,			0,											0,				0,				0,										0,											0,						250,						0,									10,													84,												44,															44,								0
 ANIMATION, 	player,		humanAlex, 													true,								0,	 	0,						  			0,				0,				0,										0,											0,								0, 							0		,							0,													0,													0,															0,								0

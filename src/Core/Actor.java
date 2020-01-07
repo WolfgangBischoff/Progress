@@ -75,8 +75,24 @@ public class Actor
         return readSpriteData(actorname).get(initStatus);
     }
 
+    /*
+    private void changeLayer(int targetLayer)
+    {
+        //List<Sprite> currentLayer;
+        WorldView.bottomLayer.remove(sprite);
+        WorldView.middleLayer.remove(sprite);
+        WorldView.topLayer.remove(sprite);
+        switch (targetLayer)
+        {
+            case 0: WorldView.bottomLayer.add(sprite);
+            case 1: WorldView.middleLayer.add(sprite);
+            case 2: WorldView.topLayer.add(sprite);
+        }
+    }*/
+
     public void act()
     {
+        String methodName = "Actor/act(): ";
 
         if (onAction == "nothing")
             return;
@@ -85,7 +101,10 @@ public class Actor
         {
             changeStatus();
             SpriteData ts = spriteData.get(status);
+            System.out.print(methodName + ts.spriteName);
             sprite.setImage(ts.spriteName, ts.fps, ts.totalFrames, ts.cols, ts.rows, ts.frameWidth, ts.frameHeight);
+            sprite.setBlocker(ts.blocking);
+            //changeLayer(ts.priority);
         }
 
         if (onAction.equals("animation"))
@@ -93,6 +112,7 @@ public class Actor
             status = ANIMATION;
             SpriteData ts = spriteData.get(status);
             sprite.setImage(ts.spriteName, ts.fps, ts.totalFrames, ts.cols, ts.rows, ts.frameWidth, ts.frameHeight);
+            sprite.setBlocker(ts.blocking);
             PauseTransition delay = new PauseTransition(Duration.millis(ts.animationDuration * 1000));
             delay.setOnFinished(new EventHandler<ActionEvent>()
             {
@@ -102,6 +122,7 @@ public class Actor
                     status = DEFAULT;
                     SpriteData ts = spriteData.get(status);
                     sprite.setImage(ts.spriteName, ts.fps, ts.totalFrames, ts.cols, ts.rows, ts.frameWidth, ts.frameHeight);
+                    sprite.setBlocker(ts.blocking);
                 }
             });
             delay.play();
