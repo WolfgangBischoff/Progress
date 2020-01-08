@@ -48,6 +48,32 @@ public class Actor
         else throw new RuntimeException("Actordata not found: " + sprite.getName());
     }
 
+    public Actor(String spritename, Status initStatus)
+    {
+        //this.sprite = sprite;
+        this.status = initStatus;
+        List<String[]> actordata;
+        Path path = Paths.get("src/res/actorData/" + spritename + ".csv");
+        if (Files.exists(path))
+        {
+            actordata = Utilities.readAllLineFromTxt("src/res/actorData/" + spritename + ".csv");
+            for (String[] linedata : actordata)
+            {
+                if (linedata[0].equals("action"))
+                {
+                    onAction = linedata[1];//Different to method readSpriteData
+                    continue;
+                }
+
+                Status status = Status.getStatus(linedata[0]);
+                SpriteData data = SpriteData.tileDefinition(linedata);
+                data.animationDuration = Integer.parseInt(linedata[SpriteData.animationDurationIdx]);
+                spriteData.put(status, data);
+            }
+        }
+        else throw new RuntimeException("Actordata not found: " + spritename);
+    }
+
     static public Map<Status, SpriteData> readSpriteData(String actorname)
     {
         Map<Status, SpriteData> spriteData = new HashMap<>();
