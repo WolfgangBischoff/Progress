@@ -103,10 +103,6 @@ public class WorldLoader
                 SpriteData tile = tileDataMap.get(lineData[i]);
                 Sprite ca = createSprite(tile, 64 * i, currentVerticalTile * 64);
 
-                /*
-                if (lineData[i].equals("X"))
-                    player = ca;
-*/
                 if (isPassiv)
                     passivLayer.add(ca);
                 else
@@ -116,6 +112,20 @@ public class WorldLoader
             else if(actorDataMap.containsKey(lineData[i]))
             {
                 ActorData actorData = actorDataMap.get(lineData[i]);
+                //foreach Sprite Data add Sprite to layer, Actor save sprite
+                Actor actor = new Actor(actorData.actorname, actorData.status);
+                List<SpriteData> spriteDataList = actor.spriteDataList.get(actor.status);
+                for(int j=0; j<spriteDataList.size(); j++)
+                {
+                    Sprite test;
+                    test = createSprite(spriteDataList.get(j), i*64, currentVerticalTile  * 64);
+                    actor.spriteList.add(test);
+                    actor.sprite = test;
+                    test.actor = actor;
+                    addToPriorityLayer(test, spriteDataList.get(j).priority);
+                }
+
+/*
                 Sprite ca = createSprite(actorData, 64 * i, currentVerticalTile * 64);
 
                 if (isPassiv)
@@ -124,6 +134,7 @@ public class WorldLoader
                 {
                     addToPriorityLayer(ca, ca.actor.spriteData.get(actorData.status).priority);
                 }
+*/
             }
             //Is Placeholder
             else if (!lineData[i].equals("___"))

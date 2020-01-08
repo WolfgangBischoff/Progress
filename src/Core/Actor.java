@@ -9,6 +9,7 @@ import javafx.util.Duration;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,9 +20,12 @@ public class Actor
 {
     String onAction = "nothing";
     Status status;
+    Map<Status, List<SpriteData>> spriteDataList = new HashMap<>();
     Map<Status, SpriteData> spriteData = new HashMap<>();
+    List<Sprite> spriteList = new ArrayList<>();
     Sprite sprite;
 
+    /*
     public Actor(Sprite sprite, Status initStatus)
     {
         this.sprite = sprite;
@@ -42,11 +46,15 @@ public class Actor
                 Status status = Status.getStatus(linedata[0]);
                 SpriteData data = SpriteData.tileDefinition(linedata);
                 data.animationDuration = Integer.parseInt(linedata[SpriteData.animationDurationIdx]);
-                spriteData.put(status, data);
+
+                if(!spriteData.containsKey(status))
+                    spriteData.put(status, new ArrayList<>());
+                spriteData.get(status).add(data);
             }
         }
         else throw new RuntimeException("Actordata not found: " + sprite.getName());
     }
+    */
 
     public Actor(String spritename, Status initStatus)
     {
@@ -69,6 +77,11 @@ public class Actor
                 SpriteData data = SpriteData.tileDefinition(linedata);
                 data.animationDuration = Integer.parseInt(linedata[SpriteData.animationDurationIdx]);
                 spriteData.put(status, data);
+
+                if(!spriteDataList.containsKey(status))
+                    spriteDataList.put(status, new ArrayList<>());
+                spriteDataList.get(status).add(data);
+
             }
         }
         else throw new RuntimeException("Actordata not found: " + spritename);
@@ -101,8 +114,8 @@ public class Actor
         return readSpriteData(actorname).get(initStatus);
     }
 
-    /*
-    private void changeLayer(int targetLayer)
+
+    private void changeLayer(Sprite sprite, int targetLayer)
     {
         //List<Sprite> currentLayer;
         WorldView.bottomLayer.remove(sprite);
@@ -110,11 +123,28 @@ public class Actor
         WorldView.topLayer.remove(sprite);
         switch (targetLayer)
         {
-            case 0: WorldView.bottomLayer.add(sprite);
-            case 1: WorldView.middleLayer.add(sprite);
-            case 2: WorldView.topLayer.add(sprite);
+            case 0: WorldView.bottomLayer.add(sprite);break;
+            case 1: WorldView.middleLayer.add(sprite);break;
+            case 2: WorldView.topLayer.add(sprite);break;
         }
-    }*/
+    }
+
+
+private void changeSprites()
+{
+    List<SpriteData> targetSpriteData = spriteDataList.get(status);
+    for(int i=0; i<spriteList.size(); i++)
+    {
+        SpriteData ts = targetSpriteData.get(i);
+        Sprite toChange = spriteList.get(i);
+        toChange.setImage(ts.spriteName, ts.fps, ts.totalFrames, ts.cols, ts.rows, ts.frameWidth, ts.frameHeight);
+        toChange.setBlocker(ts.blocking);
+        changeLayer(toChange, ts.priority);
+    }
+
+}
+
+
 
     public void act()
     {
@@ -126,11 +156,14 @@ public class Actor
         if (onAction.equals("statusChange"))
         {
             changeStatus();
+            changeSprites();
+
+            /*
             SpriteData ts = spriteData.get(status);
             System.out.print(methodName + ts.spriteName);
             sprite.setImage(ts.spriteName, ts.fps, ts.totalFrames, ts.cols, ts.rows, ts.frameWidth, ts.frameHeight);
             sprite.setBlocker(ts.blocking);
-            //changeLayer(ts.priority);
+            */
         }
 
         if (onAction.equals("animation"))
@@ -162,7 +195,7 @@ public class Actor
         return "Actor{" +
                 "onAction='" + onAction + '\'' +
                 ", status=" + status +
-                ", sprite=" + sprite.getName() +
+              //  ", sprite=" + sprite.getName() +
                 '}';
     }
 

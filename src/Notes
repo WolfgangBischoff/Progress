@@ -1,12 +1,13 @@
 
 Logic:
-- ggf create subclass MultiLayeredSprite for moving sprites => offset connected second sprite
-    or multiple sprites have one Actor?
+- use multisprite for all actor types
+- solve blocking in door bug
 - Message Box
 - Console
 - Menu
 
 Sprites:
+corners
 
 Topics:
 - Erben

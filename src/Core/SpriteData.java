@@ -74,4 +74,13 @@ public class SpriteData
         return current;
         //tileDataMap.put(lineData[tileCodeIdx], current);
     }
+
+    @Override
+    public String toString()
+    {
+        return "SpriteData{" +
+                "name='" + name + '\'' +
+                ", priority=" + priority +
+                '}';
+    }
 }

@@ -360,6 +360,7 @@ public class Sprite
             //setImage("/person/humanAlexBack");
         }
 
+
     }
 
     public void setInteract(Boolean interact)
