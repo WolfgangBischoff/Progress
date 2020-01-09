@@ -1,8 +1,12 @@
 package Core;
 
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Group;
+import javafx.scene.PointLight;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.effect.Light;
+import javafx.scene.effect.Lighting;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
@@ -120,6 +124,19 @@ public class WorldView implements GUIController
         gc.clearRect(0, 0, VIEWPORT_SIZE_X, VIEWPORT_SIZE_Y);
         gc.translate(-camX, -camY);
 
+
+/*
+        Light.Point light = new Light.Point();
+        light.setX(50);
+        light.setY(50);
+        light.setZ(100);
+        Lighting lighting = new Lighting();
+        lighting.setLight(light);
+        gc.setEffect(lighting);
+*/
+
+
+
         //Passiv Layer
         for (Sprite sprite : passivLayer)
         {
@@ -148,6 +165,9 @@ public class WorldView implements GUIController
             gc.setStroke(Color.RED);
             gc.strokeRect(borders.getMinX(), borders.getMinY(), borders.getWidth() + player.basewidth, borders.getHeight() + player.baseheight);
         }
+
+
+
         gc.translate(camX, camY);
     }
 
