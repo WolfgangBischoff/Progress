@@ -356,7 +356,7 @@ public class Sprite
         }
         if(direction == Direction.SOUTH)
         {
-            baseimage = new Image("/res/img/" + "humanAlex" + ".png");
+            baseimage = new Image("/res/img/" + "/person/humanAlex" + ".png");
             //setImage("/person/humanAlexBack");
         }
 
