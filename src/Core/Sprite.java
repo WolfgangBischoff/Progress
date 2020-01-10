@@ -180,6 +180,7 @@ public class Sprite
         else
             renderSimple(gc);
 
+        /*
         if(name.equals("player"))
         {
             Light.Point lightStat = new Light.Point(positionX,positionY,50,Color.WHITE);
@@ -187,7 +188,7 @@ public class Sprite
             lightingStat.setLight(lightStat);
             lightingStat.setSurfaceScale(5.0);
             gc.applyEffect(lightingStat);
-        }
+        }*/
 
         if (Config.DEBUGMODE)
         {

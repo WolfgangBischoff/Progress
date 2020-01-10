@@ -6,13 +6,17 @@ import javafx.scene.PointLight;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.BlendMode;
+import javafx.scene.effect.Effect;
 import javafx.scene.effect.Light;
 import javafx.scene.effect.Lighting;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class WorldView implements GUIController
@@ -126,6 +130,7 @@ public class WorldView implements GUIController
         gc.clearRect(0, 0, VIEWPORT_SIZE_X, VIEWPORT_SIZE_Y);
         gc.translate(-camX, -camY);
 
+
         //Passiv Layer
         for (Sprite sprite : passivLayer)
         {
@@ -155,7 +160,22 @@ public class WorldView implements GUIController
             gc.strokeRect(borders.getMinX(), borders.getMinY(), borders.getWidth() + player.basewidth, borders.getHeight() + player.baseheight);
         }
 
+        gc.setFill(Color.DARKBLUE);
+        gc.setGlobalAlpha(0.4);
+        gc.fillRect(0,0,VIEWPORT_SIZE_X, VIEWPORT_SIZE_Y / 2);
+        gc.setGlobalAlpha(1);
 
+        //gc.setGlobalAlpha(0.4);
+
+        //gc.setGlobalBlendMode(BlendMode.SRC_OVER);
+        //System.out.println(gc.getGlobalBlendMode());
+        //gc.setGlobalBlendMode(BlendMode.SRC_ATOP);
+        //gc.fillOval(100,100,100,100);
+        //gc.beginPath();
+
+        //gc.closePath();
+        //gc.fillOval(100,75,100,100);
+        //gc.setGlobalBlendMode(BlendMode.SRC_OVER);
 
         //gc.setGlobalBlendMode(BlendMode.MULTIPLY);
         /*
