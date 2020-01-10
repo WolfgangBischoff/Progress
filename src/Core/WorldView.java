@@ -5,10 +5,12 @@ import javafx.scene.Group;
 import javafx.scene.PointLight;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.effect.BlendMode;
 import javafx.scene.effect.Light;
 import javafx.scene.effect.Lighting;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -124,19 +126,6 @@ public class WorldView implements GUIController
         gc.clearRect(0, 0, VIEWPORT_SIZE_X, VIEWPORT_SIZE_Y);
         gc.translate(-camX, -camY);
 
-
-/*
-        Light.Point light = new Light.Point();
-        light.setX(50);
-        light.setY(50);
-        light.setZ(100);
-        Lighting lighting = new Lighting();
-        lighting.setLight(light);
-        gc.setEffect(lighting);
-*/
-
-
-
         //Passiv Layer
         for (Sprite sprite : passivLayer)
         {
@@ -167,6 +156,35 @@ public class WorldView implements GUIController
         }
 
 
+
+        //gc.setGlobalBlendMode(BlendMode.MULTIPLY);
+        /*
+        Light.Point lightStat = new Light.Point(300,300,50,Color.WHITE);
+        Lighting lightingStat = new Lighting();
+        lightingStat.setLight(lightStat);
+        lightingStat.setSurfaceScale(5.0);
+        gc.applyEffect(lightingStat);*/
+
+
+        /*
+        Light.Point lightStat2 = new Light.Point(600,300,50,Color.WHITE);
+        Lighting lightingStat2 = new Lighting();
+        lightingStat2.setLight(lightStat2);
+        lightingStat2.setSurfaceScale(5.0);
+        gc.applyEffect(lightingStat2);*/
+
+        /*
+        Light.Point light = new Light.Point();
+        light.setColor(Color.WHITE);
+        light.setZ(50);
+        Lighting lighting = new Lighting();
+        light.setX(player.positionX);
+        light.setY(player.positionY);
+        System.out.println(player.positionX + " " + player.positionY + " " + light.getX());
+        lighting.setLight(light);
+        lighting.setSurfaceScale(5.0);
+        gc.applyEffect(lighting);
+*/
 
         gc.translate(camX, camY);
     }

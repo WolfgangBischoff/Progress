@@ -3,6 +3,8 @@ package Core;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.effect.Light;
+import javafx.scene.effect.Lighting;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -177,6 +179,15 @@ public class Sprite
             renderAnimated(gc, now);
         else
             renderSimple(gc);
+
+        if(name.equals("player"))
+        {
+            Light.Point lightStat = new Light.Point(positionX,positionY,50,Color.WHITE);
+            Lighting lightingStat = new Lighting();
+            lightingStat.setLight(lightStat);
+            lightingStat.setSurfaceScale(5.0);
+            gc.applyEffect(lightingStat);
+        }
 
         if (Config.DEBUGMODE)
         {
