@@ -2,6 +2,7 @@ package Core;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.PointLight;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -9,6 +10,8 @@ import javafx.scene.effect.BlendMode;
 import javafx.scene.effect.Effect;
 import javafx.scene.effect.Light;
 import javafx.scene.effect.Lighting;
+import javafx.scene.image.Image;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -40,12 +43,33 @@ public class WorldView implements GUIController
     double camX;
     double camY;
 
+    Pane root;
+    Canvas worldCanvas;
+    //Canvas mask;
+
+    /*
     public WorldView(String levelName, Canvas worldCanvas)
     {
         this.levelName = levelName;
         loadEnvironment();
         worldCanvas.setWidth(VIEWPORT_SIZE_X);
         worldCanvas.setHeight(VIEWPORT_SIZE_Y);
+        gc = worldCanvas.getGraphicsContext2D();
+        offsetMaxX = borders.getMaxX() - VIEWPORT_SIZE_X;
+        offsetMaxY = borders.getMaxY() - VIEWPORT_SIZE_Y;
+    }*/
+
+    public WorldView(String levelName, Pane root)
+    {
+        this.root = root;
+        worldCanvas = new Canvas(VIEWPORT_SIZE_X, VIEWPORT_SIZE_Y);
+        //mask = new Canvas(VIEWPORT_SIZE_X, VIEWPORT_SIZE_Y);
+
+        //root.getChildren().add(worldCanvas);
+        this.levelName = levelName;
+        loadEnvironment();
+        //worldCanvas.setWidth(VIEWPORT_SIZE_X);
+        //worldCanvas.setHeight(VIEWPORT_SIZE_Y);
         gc = worldCanvas.getGraphicsContext2D();
         offsetMaxX = borders.getMaxX() - VIEWPORT_SIZE_X;
         offsetMaxY = borders.getMaxY() - VIEWPORT_SIZE_Y;
@@ -122,11 +146,14 @@ public class WorldView implements GUIController
         if (VIEWPORT_SIZE_Y > borders.getHeight())
             camY = borders.getHeight() / 2 - VIEWPORT_SIZE_Y / 2;
 
+
+
     }
 
     @Override
     public void render(Long currentNanoTime)
     {
+
         gc.clearRect(0, 0, VIEWPORT_SIZE_X, VIEWPORT_SIZE_Y);
         gc.translate(-camX, -camY);
 
@@ -160,53 +187,28 @@ public class WorldView implements GUIController
             gc.strokeRect(borders.getMinX(), borders.getMinY(), borders.getWidth() + player.basewidth, borders.getHeight() + player.baseheight);
         }
 
-        gc.setFill(Color.DARKBLUE);
-        gc.setGlobalAlpha(0.4);
-        gc.fillRect(0,0,VIEWPORT_SIZE_X, VIEWPORT_SIZE_Y / 2);
-        gc.setGlobalAlpha(1);
+        Rectangle rect = new Rectangle(0,0,VIEWPORT_SIZE_X,VIEWPORT_SIZE_Y);
+        Circle rect2 = new Circle(player.positionX - camX,player.positionY - camY,100);
+        Circle rect3 = new Circle(300 -camX,500 - camY,100);
+        Circle rect4 = new Circle(1200 -camX,1000 - camY,100);
+        Shape shape = Shape.subtract(rect,rect2);
+        shape = Shape.subtract(shape,rect3);
+        shape = Shape.subtract(shape,rect4);
+        shape.setFill(Color.rgb(0,0,0,0.3));
 
-        //gc.setGlobalAlpha(0.4);
-
-        //gc.setGlobalBlendMode(BlendMode.SRC_OVER);
-        //System.out.println(gc.getGlobalBlendMode());
-        //gc.setGlobalBlendMode(BlendMode.SRC_ATOP);
-        //gc.fillOval(100,100,100,100);
-        //gc.beginPath();
-
-        //gc.closePath();
-        //gc.fillOval(100,75,100,100);
-        //gc.setGlobalBlendMode(BlendMode.SRC_OVER);
-
-        //gc.setGlobalBlendMode(BlendMode.MULTIPLY);
-        /*
-        Light.Point lightStat = new Light.Point(300,300,50,Color.WHITE);
-        Lighting lightingStat = new Lighting();
-        lightingStat.setLight(lightStat);
-        lightingStat.setSurfaceScale(5.0);
-        gc.applyEffect(lightingStat);*/
-
-
-        /*
-        Light.Point lightStat2 = new Light.Point(600,300,50,Color.WHITE);
-        Lighting lightingStat2 = new Lighting();
-        lightingStat2.setLight(lightStat2);
-        lightingStat2.setSurfaceScale(5.0);
-        gc.applyEffect(lightingStat2);*/
-
-        /*
-        Light.Point light = new Light.Point();
-        light.setColor(Color.WHITE);
-        light.setZ(50);
-        Lighting lighting = new Lighting();
-        light.setX(player.positionX);
-        light.setY(player.positionY);
-        System.out.println(player.positionX + " " + player.positionY + " " + light.getX());
-        lighting.setLight(light);
-        lighting.setSurfaceScale(5.0);
-        gc.applyEffect(lighting);
-*/
+        root.getChildren().clear();
+        root.getChildren().add(worldCanvas);
+        root.getChildren().add(shape);
 
         gc.translate(camX, camY);
+    }
+
+    private void setInverseClip( final Node node, final Shape clip )
+    {
+        final Rectangle inverse = new Rectangle();
+        inverse.setWidth( node.getLayoutBounds().getWidth() );
+        inverse.setHeight( node.getLayoutBounds().getHeight() );
+        node.setClip( Shape.subtract( inverse, clip ) );
     }
 
     @Override

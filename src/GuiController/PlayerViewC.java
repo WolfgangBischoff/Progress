@@ -15,8 +15,10 @@ import java.io.IOException;
 
 public class PlayerViewC implements GUIController
 {
+    //@FXML
+    //Canvas worldCanvas;
     @FXML
-    Canvas worldCanvas;
+    Pane root;
     FXMLLoader loader;
     GUIController center;
 
@@ -29,7 +31,8 @@ public class PlayerViewC implements GUIController
     @FXML
     void initialize()
     {
-        center = new WorldView("test", worldCanvas);
+        //center = new WorldView("test", worldCanvas);
+        center = new WorldView("test", root);
     }
 
     @Override
@@ -50,7 +53,8 @@ public class PlayerViewC implements GUIController
         try
         {
             return loader.load();
-        } catch (IOException e)
+        }
+        catch (IOException e)
         {
             e.printStackTrace();
         }

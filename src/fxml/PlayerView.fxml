@@ -13,6 +13,7 @@
     <VBox alignment="CENTER">
         <HBox alignment="CENTER">
             <Canvas fx:id="worldCanvas"/>
+            <Pane fx:id="root"/>
         </HBox>
     </VBox>
 
