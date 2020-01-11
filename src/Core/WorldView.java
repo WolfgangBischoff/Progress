@@ -1,5 +1,6 @@
 package Core;
 
+import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -14,13 +15,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.RadialGradient;
+import javafx.scene.paint.Stop;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class WorldView implements GUIController
 {
@@ -30,6 +32,7 @@ public class WorldView implements GUIController
     static List<Sprite> bottomLayer = new ArrayList<>();
     static List<Sprite> middleLayer = new ArrayList<>();
     static List<Sprite> topLayer = new ArrayList<>();
+    Map<Integer, List<Point2D>> lightMap = new HashMap<>();
     String levelName;
     GraphicsContext gc;
     Sprite player;
@@ -45,7 +48,7 @@ public class WorldView implements GUIController
 
     Pane root;
     Canvas worldCanvas;
-    //Canvas mask;
+
 
     /*
     public WorldView(String levelName, Canvas worldCanvas)
@@ -147,7 +150,6 @@ public class WorldView implements GUIController
             camY = borders.getHeight() / 2 - VIEWPORT_SIZE_Y / 2;
 
 
-
     }
 
     @Override
@@ -173,6 +175,8 @@ public class WorldView implements GUIController
         for (Sprite sprite : middleLayer)
         {
             sprite.render(gc, currentNanoTime);
+            //if(sprite.getName().equals("hedgehog"))
+
         }
 
         //Top Layer
@@ -187,28 +191,45 @@ public class WorldView implements GUIController
             gc.strokeRect(borders.getMinX(), borders.getMinY(), borders.getWidth() + player.basewidth, borders.getHeight() + player.baseheight);
         }
 
-        Rectangle rect = new Rectangle(0,0,VIEWPORT_SIZE_X,VIEWPORT_SIZE_Y);
-        Circle rect2 = new Circle(player.positionX - camX,player.positionY - camY,100);
-        Circle rect3 = new Circle(300 -camX,500 - camY,100);
-        Circle rect4 = new Circle(1200 -camX,1000 - camY,100);
-        Shape shape = Shape.subtract(rect,rect2);
-        shape = Shape.subtract(shape,rect3);
-        shape = Shape.subtract(shape,rect4);
-        shape.setFill(Color.rgb(0,0,0,0.3));
+        int playerlight = 100;
+        Rectangle rect = new Rectangle(0, 0, VIEWPORT_SIZE_X, VIEWPORT_SIZE_Y);
+        Circle rect2 = new Circle(player.positionX - camX + player.getHitBoxOffsetX() + player.getHitBoxWidth()/2, player.positionY - camY + player.getHitBoxOffsetY() + player.getHitBoxHeight()/2, playerlight );
+        Circle rect3 = new Circle(300 - camX, 500 - camY, 100);
+        RadialGradient gradient1 = new RadialGradient(
+                0,
+                .1,
+                player.positionX - camX + player.getHitBoxOffsetX() + player.getHitBoxWidth()/2,
+                player.positionY - camY + player.getHitBoxOffsetY() + player.getHitBoxHeight()/2,
+                100,
+                false,
+                CycleMethod.NO_CYCLE,
+                //new Stop(0, Color.LIGHTYELLOW),
+                new Stop(0.8, Color.TRANSPARENT),
+                new Stop(1,Color.rgb(0, 0, 0, 0.3)));
+        rect2.setFill(gradient1);
+        Shape shape = Shape.subtract(rect, rect2);
+        shape = Shape.subtract(shape, rect3);
+        shape.setFill(Color.rgb(0, 0, 0, 0.3));
 
         root.getChildren().clear();
         root.getChildren().add(worldCanvas);
         root.getChildren().add(shape);
+        root.getChildren().add(rect2);
 
         gc.translate(camX, camY);
     }
 
-    private void setInverseClip( final Node node, final Shape clip )
+    private void calcLight()
+    {
+
+    }
+
+    private void setInverseClip(final Node node, final Shape clip)
     {
         final Rectangle inverse = new Rectangle();
-        inverse.setWidth( node.getLayoutBounds().getWidth() );
-        inverse.setHeight( node.getLayoutBounds().getHeight() );
-        node.setClip( Shape.subtract( inverse, clip ) );
+        inverse.setWidth(node.getLayoutBounds().getWidth());
+        inverse.setHeight(node.getLayoutBounds().getHeight());
+        node.setClip(Shape.subtract(inverse, clip));
     }
 
     @Override

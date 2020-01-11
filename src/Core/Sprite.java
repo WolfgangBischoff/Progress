@@ -385,4 +385,23 @@ public class Sprite
         return name;
     }
 
+    public double getHitBoxOffsetX()
+    {
+        return hitBoxOffsetX;
+    }
+
+    public double getHitBoxOffsetY()
+    {
+        return hitBoxOffsetY;
+    }
+
+    public double getHitBoxWidth()
+    {
+        return hitBoxWidth;
+    }
+
+    public double getHitBoxHeight()
+    {
+        return hitBoxHeight;
+    }
 }
