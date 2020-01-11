@@ -203,7 +203,6 @@ public class WorldView implements GUIController
                 100,
                 false,
                 CycleMethod.NO_CYCLE,
-                //new Stop(0, Color.LIGHTYELLOW),
                 new Stop(0.8, Color.TRANSPARENT),
                 new Stop(1,Color.rgb(0, 0, 0, 0.3)));
         rect2.setFill(gradient1);
