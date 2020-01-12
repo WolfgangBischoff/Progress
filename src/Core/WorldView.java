@@ -175,8 +175,6 @@ public class WorldView implements GUIController
         for (Sprite sprite : middleLayer)
         {
             sprite.render(gc, currentNanoTime);
-            //if(sprite.getName().equals("hedgehog"))
-
         }
 
         //Top Layer
@@ -191,11 +189,14 @@ public class WorldView implements GUIController
             gc.strokeRect(borders.getMinX(), borders.getMinY(), borders.getWidth() + player.basewidth, borders.getHeight() + player.baseheight);
         }
 
-        int playerlight = 100;
-        Rectangle rect = new Rectangle(0, 0, VIEWPORT_SIZE_X, VIEWPORT_SIZE_Y);
-        Circle rect2 = new Circle(player.positionX - camX + player.getHitBoxOffsetX() + player.getHitBoxWidth()/2, player.positionY - camY + player.getHitBoxOffsetY() + player.getHitBoxHeight()/2, playerlight );
-        Circle rect3 = new Circle(300 - camX, 500 - camY, 100);
-        RadialGradient gradient1 = new RadialGradient(
+        int playerlight = 200;//Radius of Player Light
+        int mediumLight = 125;
+        float worldDarkness = 0.3f;
+        Rectangle screenShadowRectangle = new Rectangle(0, 0, VIEWPORT_SIZE_X, VIEWPORT_SIZE_Y);
+        Circle playerLight = new Circle(player.positionX - camX + player.getHitBoxOffsetX() + player.getHitBoxWidth() / 2, player.positionY - camY + player.getHitBoxOffsetY() + player.getHitBoxHeight() / 2, playerlight);
+        Circle testLight = new Circle(300 - camX, 500 - camY, mediumLight);
+        Circle test = new Circle(700 - camX, 500 - camY, mediumLight);
+        /*RadialGradient gradient1 = new RadialGradient(
                 0,
                 .1,
                 player.positionX - camX + player.getHitBoxOffsetX() + player.getHitBoxWidth()/2,
@@ -204,16 +205,39 @@ public class WorldView implements GUIController
                 false,
                 CycleMethod.NO_CYCLE,
                 new Stop(0.8, Color.TRANSPARENT),
-                new Stop(1,Color.rgb(0, 0, 0, 0.3)));
-        rect2.setFill(gradient1);
-        Shape shape = Shape.subtract(rect, rect2);
-        shape = Shape.subtract(shape, rect3);
-        shape.setFill(Color.rgb(0, 0, 0, 0.3));
+                new Stop(1,Color.rgb(0, 0, 0, 0.3)));*/
+        RadialGradient gradient1 = new RadialGradient(
+                0,
+                0,
+                0.5,
+                0.5,
+                1,
+                true,
+                CycleMethod.NO_CYCLE,
+                new Stop(0.35, Color.TRANSPARENT)
+                //new Stop(0.35, Color.WHITE)
+                , new Stop(0.5, Color.rgb(0, 0, 0, worldDarkness))
+                //, new Stop(0.5, Color.TRANSPARENT)
+        );
+        Pane li = new Pane();
+
+        playerLight.setFill(gradient1);
+        testLight.setFill(gradient1);
+        Shape shape;
+        shape = Shape.subtract(screenShadowRectangle, playerLight);//cuting holes
+        shape = Shape.subtract(shape, testLight);
+        shape.setFill(Color.rgb(0, 0, 0, worldDarkness));//set darkness
+
+
+        li.getChildren().add(shape);
+        li.getChildren().add(playerLight);//playerLight);
+        li.getChildren().add(testLight);
 
         root.getChildren().clear();
         root.getChildren().add(worldCanvas);
-        root.getChildren().add(shape);
-        root.getChildren().add(rect2);
+        root.getChildren().add(li);
+        root.setBlendMode(BlendMode.SRC_OVER);
+
 
         gc.translate(camX, camY);
     }
