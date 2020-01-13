@@ -122,7 +122,7 @@ public class Sprite
                     || !worldBorders.contains(positionX + velocityX * time, positionY + velocityY * time)
             )
             {
-                //System.out.println("Blocked");
+                System.out.println("Blocked by " + otherSprite.getName());
                 blockedByOtherSprite = true;
                 break;
             }
@@ -157,7 +157,7 @@ public class Sprite
 
     public void actActive(Sprite passiveSprite)
     {
-        //System.out.println("Sprite " + name + " activated " + passiveSprite.getName());
+        System.out.println("Sprite " + name + " activated " + passiveSprite.getName());
         passiveSprite.actPassive(this);
     }
 
