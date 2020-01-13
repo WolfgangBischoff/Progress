@@ -34,6 +34,7 @@ pot,			pot,													pot,																		true,				0,								0,			0,								
 pb2,			plantBig,								plantBig,													false,			2,								0,			0,											0,				0,				0,										0,											0, 								0,									0,													0,													0,											0
 scu,			skubb,											/furniture/skubb,					true,						0,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													64,												192,										64
 lig,			light,											light,																false,						2,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													64,												192,										64
+wlg,			light,											whitelight,																false,						2,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													64,												192,										64
 
 
 #code, actorname, status
