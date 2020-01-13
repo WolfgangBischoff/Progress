@@ -49,18 +49,6 @@ public class WorldView implements GUIController
     Canvas mask;
     GraphicsContext maskGc;
 
-    /*
-    public WorldView(String levelName, Canvas worldCanvas)
-    {
-        this.levelName = levelName;
-        loadEnvironment();
-        worldCanvas.setWidth(VIEWPORT_SIZE_X);
-        worldCanvas.setHeight(VIEWPORT_SIZE_Y);
-        gc = worldCanvas.getGraphicsContext2D();
-        offsetMaxX = borders.getMaxX() - VIEWPORT_SIZE_X;
-        offsetMaxY = borders.getMaxY() - VIEWPORT_SIZE_Y;
-    }*/
-
     public WorldView(String levelName, Pane root)
     {
         this.root = root;
@@ -69,11 +57,8 @@ public class WorldView implements GUIController
         gc = worldCanvas.getGraphicsContext2D();
         maskGc = mask.getGraphicsContext2D();
 
-        //root.getChildren().add(worldCanvas);
         this.levelName = levelName;
         loadEnvironment();
-        //worldCanvas.setWidth(VIEWPORT_SIZE_X);
-        //worldCanvas.setHeight(VIEWPORT_SIZE_Y);
         offsetMaxX = borders.getMaxX() - VIEWPORT_SIZE_X;
         offsetMaxY = borders.getMaxY() - VIEWPORT_SIZE_Y;
     }
@@ -159,7 +144,6 @@ public class WorldView implements GUIController
         gc.clearRect(0, 0, VIEWPORT_SIZE_X, VIEWPORT_SIZE_Y);
         gc.translate(-camX, -camY);
 
-
         //Passiv Layer
         for (Sprite sprite : passivLayer)
         {
@@ -189,61 +173,18 @@ public class WorldView implements GUIController
             gc.strokeRect(borders.getMinX(), borders.getMinY(), borders.getWidth() + player.basewidth, borders.getHeight() + player.baseheight);
         }
 
-
-        int playerlight = 200;//Radius of Player Light
-        int mediumLight = 125;
-        float worldDarkness = 0.3f;
-        Rectangle screenShadowRectangle = new Rectangle(0, 0, VIEWPORT_SIZE_X, VIEWPORT_SIZE_Y);
-        Circle playerLight = new Circle(player.positionX - camX + player.getHitBoxOffsetX() + player.getHitBoxWidth() / 2, player.positionY - camY + player.getHitBoxOffsetY() + player.getHitBoxHeight() / 2, playerlight);
-        Circle testLight = new Circle(300 - camX, 500 - camY, mediumLight);
-        Circle test = new Circle(700 - camX, 500 - camY, mediumLight);
-
-        RadialGradient gradient1 = new RadialGradient(
-                0,
-                0,
-                0.5,
-                0.5,
-                1,
-                true,
-                CycleMethod.NO_CYCLE,
-                new Stop(0.35, Color.TRANSPARENT)
-                //new Stop(0.35, Color.WHITE)
-                , new Stop(0.5, Color.rgb(0, 0, 0, worldDarkness))
-                //, new Stop(0.5, Color.TRANSPARENT)
-        );
-   /*
-   gc.setGlobalBlendMode(BlendMode.ADD);
-        gc.setFill(Color.rgb(70, 70, 70));
-        gc.setFill(Color.rgb(100, 100, 100));
-
-        gc.fillOval(200, 250, 200, 200);
-        gc.fillOval(
-                player.positionX  + player.getHitBoxOffsetX() + player.getHitBoxWidth() / 2,
-                player.positionY  + player.getHitBoxOffsetY() + player.getHitBoxHeight() / 2,  200, 200);
-
-        gc.setGlobalBlendMode(BlendMode.DIFFERENCE);
-        //gc.setFill(Color.rgb(40, 40, 40));
-        gc.fillRect(camX, camY, VIEWPORT_SIZE_X, VIEWPORT_SIZE_Y);
-
-        gc.setGlobalBlendMode(BlendMode.SRC_OVER);
-
-
-        root.setBlendMode(BlendMode.SRC_OVER);
-*/
-
-        maskGc.setFill(Color.rgb(50,50,50));
+        maskGc.setFill(Color.rgb(30, 30, 30));
         maskGc.fillRect(0, 0, VIEWPORT_SIZE_X, VIEWPORT_SIZE_Y);
-        maskGc.drawImage(new Image("/res/img/" + "whitelight" + ".png"), 300, 300);
-        maskGc.drawImage(new Image("/res/img/" + "whitelight" + ".png"), 400, 300);
-        maskGc.drawImage(new Image("/res/img/" + "whitelight" + ".png"), 500, 500);
-        maskGc.drawImage(new Image("/res/img/" + "whitelight" + ".png"), 500, 400);
-        maskGc.drawImage(new Image("/res/img/" + "whitelight" + ".png"), player.positionX + player.getHitBoxOffsetX() + player.getHitBoxWidth() / 2 - 64, player.positionY +player.getHitBoxOffsetY() + player.getHitBoxHeight() / 2 -64);
+        maskGc.drawImage(new Image("/res/img/" + "whitelight" + ".png"), 50 - camX, 0 - camY);
+        maskGc.drawImage(new Image("/res/img/" + "whitelight" + ".png"), 350 - camX, 500 - camY);
+        maskGc.drawImage(new Image("/res/img/" + "redlight" + ".png"), 500 - camX, 500 - camY);
+        maskGc.drawImage(new Image("/res/img/" + "whitelight" + ".png"), 600 - camX, 150 - camY);
+        maskGc.drawImage(new Image("/res/img/" + "whitelight" + ".png"), player.positionX + player.getHitBoxOffsetX() + player.getHitBoxWidth() / 2 - 128 - camX, player.positionY + player.getHitBoxOffsetY() + player.getHitBoxHeight() / 2 - 128 - camY);
         SnapshotParameters params = new SnapshotParameters();
         params.setFill(Color.TRANSPARENT);
         WritableImage image = mask.snapshot(params, null);
         gc.setGlobalBlendMode(BlendMode.MULTIPLY);
-        //gc.setGlobalBlendMode(BlendMode.ADD);
-        worldCanvas.getGraphicsContext2D().drawImage(image, 0, 0);
+        worldCanvas.getGraphicsContext2D().drawImage(image, camX, camY);
         gc.setGlobalBlendMode(BlendMode.SRC_OVER);
 
         root.getChildren().clear();
