@@ -1,6 +1,7 @@
 package Core;
 
 import javafx.geometry.Rectangle2D;
+import javafx.scene.paint.Color;
 
 import java.util.*;
 
@@ -18,15 +19,18 @@ public class WorldLoader
     Sprite player;
     Map<String, SpriteData> tileDataMap = new HashMap<>();
     Map<String, ActorData> actorDataMap = new HashMap<>();
+    Color shadowColor;
     int maxVerticalTile = 0;
     int currentVerticalTile = 0;
     int maxHorizontalTile = 0;
     String readMode;
 
+    private final String className = "WorldLoader";
     private final String KEYWORD_NEW_LAYER = "layer:";
     private final String KEYWORD_PASSIV_LAYER = "passivlayer:";
     private final String KEYWORD_ACTORS = "actors:";
     private final String KEYWORD_TILEDEF = "tiledefinition:";
+    private final String KEYWORD_WORLDSHADOW = "shadow:";
 
     public WorldLoader(String stageName)
     {
@@ -48,6 +52,7 @@ public class WorldLoader
             keywords.add(KEYWORD_ACTORS);
             keywords.add(KEYWORD_TILEDEF);
             keywords.add(KEYWORD_PASSIV_LAYER);
+            keywords.add(KEYWORD_WORLDSHADOW);
             if (keywords.contains(lineData[0]))
             {
                 readMode = lineData[0];
@@ -60,7 +65,6 @@ public class WorldLoader
             {
                 case KEYWORD_TILEDEF:
                     tileDataMap.put(lineData[SpriteData.tileCodeIdx], SpriteData.tileDefinition(lineData));
-                    //tileDefinition(lineData);
                     continue;
                 case KEYWORD_NEW_LAYER:
                     readTile(lineData, false);
@@ -71,10 +75,33 @@ public class WorldLoader
                 case KEYWORD_ACTORS:
                     readActors(lineData);
                     continue;
+                case KEYWORD_WORLDSHADOW:
+                    readWorldShadow(lineData);
+                    continue;
 
             }
         }
         borders = new Rectangle2D(0, 0, (maxHorizontalTile + 1) * 64, (maxVerticalTile) * 64);
+    }
+
+    private void readWorldShadow(String[] lineData)
+    {
+        String methodName = className + " readWorldShadow ";
+        /*System.out.print(methodName);
+        for (int i=0; i<lineData.length; i++)
+            System.out.print(lineData[i]);
+        */
+        Integer red, green, blue;
+        if(lineData[0].toLowerCase().equals("none"))
+            shadowColor = null;
+        else
+        {
+            red = Integer.parseInt(lineData[0]);
+            green = Integer.parseInt(lineData[1]);
+            blue = Integer.parseInt(lineData[2]);
+            shadowColor = Color.rgb(red, green, blue);
+        }
+
     }
 
     private void addToPriorityLayer(Sprite sprite, int layer)
@@ -125,16 +152,6 @@ public class WorldLoader
                     addToPriorityLayer(test, spriteDataList.get(j).priority);
                 }
 
-/*
-                Sprite ca = createSprite(actorData, 64 * i, currentVerticalTile * 64);
-
-                if (isPassiv)
-                    passivLayer.add(ca);
-                else
-                {
-                    addToPriorityLayer(ca, ca.actor.spriteData.get(actorData.status).priority);
-                }
-*/
             }
             //Is Placeholder
             else if (!lineData[i].equals("___"))
@@ -155,15 +172,9 @@ public class WorldLoader
         int actorCodeIdx = 0;
         int actorNameIdx = 1;
         int statusIdx = 2;
-        /*Status definedStatus = Status.getStatus(lineData[statusIdx]);
-        SpriteData tileData = Actor.readSpriteData(lineData[actorNameIdx], definedStatus);
-        tileData.actorStatus = definedStatus;
-        tileDataMap.put(lineData[actorCodeIdx], tileData);
-*/
         Status actorstatus = Status.getStatus(lineData[statusIdx]);
         ActorData actorData = new ActorData(lineData[actorNameIdx], actorstatus);
         actorDataMap.put(lineData[actorCodeIdx], actorData);
-        //System.out.println(methodName + actorDataMap);
     }
 
     class ActorData
@@ -210,10 +221,6 @@ public class WorldLoader
         ca.setBlocker(tile.blocking);
         ca.setSpeed(tile.velocity);
 
-        //If this was defined as Actor
-        //if (tile.actorStatus != null)
-         //   ca.setActor(new Actor(ca, tile.actorStatus));
-
         if (ca.getName().toLowerCase().equals("player"))
             player = ca;
 
@@ -254,4 +261,8 @@ public class WorldLoader
         return passivLayer;
     }
 
+    public Color getShadowColor()
+    {
+        return shadowColor;
+    }
 }

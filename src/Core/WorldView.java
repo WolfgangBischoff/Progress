@@ -1,10 +1,7 @@
 package Core;
 
-import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.PointLight;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -13,10 +10,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.RadialGradient;
-import javafx.scene.paint.Stop;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
@@ -30,7 +23,6 @@ public class WorldView implements GUIController
     static List<Sprite> bottomLayer = new ArrayList<>();
     static List<Sprite> middleLayer = new ArrayList<>();
     static List<Sprite> topLayer = new ArrayList<>();
-    Map<Integer, List<Point2D>> lightMap = new HashMap<>();
     String levelName;
     Sprite player;
 
@@ -46,18 +38,20 @@ public class WorldView implements GUIController
     Pane root;
     Canvas worldCanvas;
     GraphicsContext gc;
-    Canvas mask;
-    GraphicsContext maskGc;
+    Canvas shadowMask;
+    GraphicsContext ShadowMaskGc;
+    Map<String, Image> lightsImageMap = new HashMap<>();
+    Color shadowColor;
 
     public WorldView(String levelName, Pane root)
     {
         this.root = root;
         worldCanvas = new Canvas(VIEWPORT_SIZE_X, VIEWPORT_SIZE_Y);
-        mask = new Canvas(VIEWPORT_SIZE_X, VIEWPORT_SIZE_Y);
+        shadowMask = new Canvas(VIEWPORT_SIZE_X, VIEWPORT_SIZE_Y);
         gc = worldCanvas.getGraphicsContext2D();
-        maskGc = mask.getGraphicsContext2D();
-
+        ShadowMaskGc = shadowMask.getGraphicsContext2D();
         this.levelName = levelName;
+
         loadEnvironment();
         offsetMaxX = borders.getMaxX() - VIEWPORT_SIZE_X;
         offsetMaxY = borders.getMaxY() - VIEWPORT_SIZE_Y;
@@ -78,6 +72,7 @@ public class WorldView implements GUIController
         activeLayers.addAll(topLayer);
 
         borders = worldLoader.getBorders();
+        shadowColor = worldLoader.getShadowColor();
     }
 
 
@@ -173,19 +168,32 @@ public class WorldView implements GUIController
             gc.strokeRect(borders.getMinX(), borders.getMinY(), borders.getWidth() + player.basewidth, borders.getHeight() + player.baseheight);
         }
 
-        maskGc.setFill(Color.rgb(30, 30, 30));
-        maskGc.fillRect(0, 0, VIEWPORT_SIZE_X, VIEWPORT_SIZE_Y);
-        maskGc.drawImage(new Image("/res/img/" + "whitelight" + ".png"), 50 - camX, 0 - camY);
-        maskGc.drawImage(new Image("/res/img/" + "whitelight" + ".png"), 350 - camX, 500 - camY);
-        maskGc.drawImage(new Image("/res/img/" + "redlight" + ".png"), 500 - camX, 500 - camY);
-        maskGc.drawImage(new Image("/res/img/" + "whitelight" + ".png"), 600 - camX, 150 - camY);
-        maskGc.drawImage(new Image("/res/img/" + "whitelight" + ".png"), player.positionX + player.getHitBoxOffsetX() + player.getHitBoxWidth() / 2 - 128 - camX, player.positionY + player.getHitBoxOffsetY() + player.getHitBoxHeight() / 2 - 128 - camY);
-        SnapshotParameters params = new SnapshotParameters();
-        params.setFill(Color.TRANSPARENT);
-        WritableImage image = mask.snapshot(params, null);
-        gc.setGlobalBlendMode(BlendMode.MULTIPLY);
-        worldCanvas.getGraphicsContext2D().drawImage(image, camX, camY);
-        gc.setGlobalBlendMode(BlendMode.SRC_OVER);
+        //LightMap
+        //Map<String, Image> lightsImageMap = new HashMap<>();
+        //ShadowMaskGc.setFill(Color.rgb(30, 30, 30));
+        if(shadowColor != null)
+        {
+            ShadowMaskGc.setFill(shadowColor);
+            ShadowMaskGc.fillRect(0, 0, VIEWPORT_SIZE_X, VIEWPORT_SIZE_Y);
+            //TODO check if Sprites has light; path in config, add to Map or take from there
+            Image lightimage;
+            for(Sprite sprite : activeLayers)
+            {
+                //Look if lighten and add
+            }
+            ShadowMaskGc.drawImage(new Image("/res/img/" + "whitelight" + ".png"), 50 - camX, 0 - camY);
+            ShadowMaskGc.drawImage(new Image("/res/img/" + "whitelight" + ".png"), 350 - camX, 500 - camY);
+            ShadowMaskGc.drawImage(new Image("/res/img/" + "redlight" + ".png"), 500 - camX, 500 - camY);
+            ShadowMaskGc.drawImage(new Image("/res/img/" + "whitelight" + ".png"), 600 - camX, 150 - camY);
+            ShadowMaskGc.drawImage(new Image("/res/img/" + "whitelight" + ".png"), player.positionX + player.getHitBoxOffsetX() + player.getHitBoxWidth() / 2 - 128 - camX, player.positionY + player.getHitBoxOffsetY() + player.getHitBoxHeight() / 2 - 128 - camY);
+            SnapshotParameters params = new SnapshotParameters();
+            params.setFill(Color.TRANSPARENT);
+            WritableImage image = shadowMask.snapshot(params, null);
+            gc.setGlobalBlendMode(BlendMode.MULTIPLY);
+            worldCanvas.getGraphicsContext2D().drawImage(image, camX, camY);
+            gc.setGlobalBlendMode(BlendMode.SRC_OVER);
+        }
+
 
         root.getChildren().clear();
         root.getChildren().add(worldCanvas);

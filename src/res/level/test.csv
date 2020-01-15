@@ -1,5 +1,10 @@
 #Testlevel
 
+#Red Green Blue, the higher the brighter; >none< leads to no shadow
+shadow:
+30,30,30
+#none
+
 tiledefinition:
 #layer: 0 => behind, 1 => middle, 2 => in front
 #code, name,												spritename, 										blocker, priority,	fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight
