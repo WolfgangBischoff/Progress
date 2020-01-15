@@ -2,31 +2,33 @@
 
 #Red Green Blue, the higher the brighter; >none< leads to no shadow
 shadow:
-30,30,30
-#none
+#30,30,30
+none
 
 tiledefinition:
 #layer: 0 => behind, 1 => middle, 2 => in front
 #code, name,												spritename, 										blocker, priority,	fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight
-#X,					player,										humanAlex,												true,				1,								0,			0,											0,				0,				0,										0,											250,						0,									8,													72,												48,										48
 0, 				plank,											plank,																false,			0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
 1, 				plank1,										plank1,															false,		0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
 2, 				plank2,										plank2,															false,		0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
 waT, 		bluewall,								bluewall,													true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
 wTt, 		bluewall,								walls/splitwallTop,									false,				2,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
 wTb, 		bluewall,								walls/splitwallBtm,									true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
-#bul, 		bulkhead,							 walls/bulkhead,													true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
 por, 		porthole,							 porthole,													true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
 poS, 		portholestars,			portholeStars,								true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
 poG, 		portholegalaxy,		portholeGalaxy,							true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
 poC, 		portholescratch,			portholeScratch,								true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
-wTL, 		bluewallTL,						bluewallcornerTL,					true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
-wTR, 		bluewallTR,						bluewallcornerTR,					true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
-waL, 		wall,												wallL, 															true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
-waR, 		wall,												wallL, 															true,				0,								0,			0,											0,				0,				0,										0,											0,								2,									0,													0,													0,											0
-waB, 		wall,												wallL, 															true,				0,								0,			0,											0,				0,				0,										0,											0,								3,									0,													0,													0,											0
-wBR, 		wallcorner,						wallcornerBL,									true,				0,								0,			0,											0,				0,				0,										0,											0,								3,									0,													0,													0,											0
-wBL, 		wallcorner,						wallcornerBL,									true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
+wTL, 		bluewallTL,						walls/bluewallcornerTL,					true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
+wTR, 		bluewallTR,						walls/bluewallcornerTR,					true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
+waL, 		wall,												walls/wallLeft, 						true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
+waR, 		wall,												walls/wallLeft, 						true,				0,								0,			0,											0,				0,				0,										0,											0,								2,									0,													0,													0,											0
+waB, 		wall,												walls/wallLeft,							true,				0,								0,			0,											0,				0,				0,										0,											0,								3,									0,													0,													0,											0
+wBR, 		wallcorner,						walls/wallCorner,					true,				0,								0,			0,											0,				0,				0,										0,											0,								3,									0,													0,													0,											0
+wBL, 		wallcorner,						walls/wallCorner,					true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
+wFBL, 		wallcorner,						walls/bluewallCornerFrontBL,					true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
+wFBR, 		wallcorner,						walls/bluewallCornerFrontBR,					true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
+wBTL, 		wallcorner,						walls/wallBackTL,					true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
+wBTR, 		wallcorner,						walls/wallBackTR,					true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
 #Furniture
 tab, 		table,											table,														 	true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
 flo, 		flowers,									flowers,														true,			 0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
@@ -81,12 +83,12 @@ ___, ___, ___, wTb, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, 
 waL, ___, ___, ___, ___, ___, ___, ___, pb2, ___, ___, ___, waR, waL, ___, ___, ___, ___, ___, ___, waR
 waL, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, bee, waR,	waL, ___, ___, ___, ___, ___, ___, waR
 waL, ___, ___, ___, ___, ___, ___, ___, ___, pot, ___, cou, waR, waL, ___, ___, ___, ___, ___, ___, waR
-waL, des, ___, ___, tab, ___, ___, ___, ___,	___,	___, ___,	waR, waL, ___, ___, ___, ___, ___, ___, waR
-waL, ___, ___, ___, ___, ___, ___, ___, ___, hed, ___, ___, waR, waL, ___, ___, ___, ___, ___, ___, waR
-waL, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, waR, waL, ___, ___, ___, ___, ___, ___, waR
-wTL, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, wc_, waR, waL, ___, ___, ___, ___, ___, ___, waR
-wTL, wTt, wTt, wTt, wTt, buC, wTt, l__, ___, nig, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, waR
-waL, wTb, wTb, wTb, wTb, ___, wTb, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, waR
+waL, des, ___, ___, tab, ___, ___, ___, ___,	___,	l__, ___,	waR, waL, ___, ___, ___, ___, ___, ___, waR
+waL, hed, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, waR, waL, ___, ___, ___, ___, ___, ___, waR
+waL, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, wc_, waR, waL, ___, ___, ___, ___, ___, ___, waR
+wBL, waB, waB, waB, waB, ___, waB, wBTR, ___, ___, wBTL, waB, wBR, waL, ___, ___, ___, ___, ___, ___, waR
+wTL, waT, waT, waT, waT, buC, waT, wFBR, ___, ___, wFBL, waT, waT, wFBR, ___, ___, ___, ___, ___, ___, waR
+waL, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, waR
 waL, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, waR
 waL, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, waR
 waL, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, waR
