@@ -19,10 +19,11 @@ public class SpriteData
     final static int hitboxOffsetYIdx = 14;
     final static int hitboxWidthIdx = 15;
     final static int hitboxHeightIdx = 16;
-    final static int animationDurationIdx = 17;
+    final static int lightningSpriteNameIdx = 17;
+    final static int animationDurationIdx = 18;
 
 
-    public String name, spriteName;
+    public String name, spriteName, lightningSprite;
     public Boolean blocking;
     public Integer fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, priority, hitboxOffsetX, hitboxOffsetY, hitboxWidth, hitboxHeight, animationDuration;
     public Status actorStatus = null;
@@ -32,7 +33,7 @@ public class SpriteData
         this.actorStatus = actorStatus;
     }
 
-    public SpriteData(String name, String spriteName, Boolean blocking, Integer fps, Integer totalFrames, Integer cols, Integer rows, Integer frameWidth, Integer frameHeight, Integer velocity, Integer direction, Integer priority, Integer hitboxOffsetX, Integer hitboxOffsetY, Integer hitboxWidth, Integer hitboxHeight)
+    public SpriteData(String name, String spriteName, Boolean blocking, Integer fps, Integer totalFrames, Integer cols, Integer rows, Integer frameWidth, Integer frameHeight, Integer velocity, Integer direction, Integer priority, Integer hitboxOffsetX, Integer hitboxOffsetY, Integer hitboxWidth, Integer hitboxHeight, String lightningSprite)
     {
         this.name = name;
         this.spriteName = spriteName;
@@ -50,6 +51,7 @@ public class SpriteData
         this.hitboxOffsetY = hitboxOffsetY;
         this.hitboxWidth = hitboxWidth;
         this.hitboxHeight = hitboxHeight;
+        this.lightningSprite = lightningSprite;
     }
 
     public static SpriteData tileDefinition(String[] lineData)
@@ -69,8 +71,9 @@ public class SpriteData
         Integer hitboxOffsetY = Integer.parseInt(lineData[hitboxOffsetYIdx]);
         Integer hitboxWidth = Integer.parseInt(lineData[hitboxWidthIdx]);
         Integer hitboxHeight = Integer.parseInt(lineData[hitboxHeightIdx]);
+        String lightningSprite = lineData[lightningSpriteNameIdx];
 
-        SpriteData current = new SpriteData(lineData[nameIdx], lineData[spriteNameIdx], blocking, fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, priority, hitboxOffsetX, hitboxOffsetY, hitboxWidth, hitboxHeight);
+        SpriteData current = new SpriteData(lineData[nameIdx], lineData[spriteNameIdx], blocking, fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, priority, hitboxOffsetX, hitboxOffsetY, hitboxWidth, hitboxHeight, lightningSprite);
         return current;
         //tileDataMap.put(lineData[tileCodeIdx], current);
     }

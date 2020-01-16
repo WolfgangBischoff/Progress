@@ -48,6 +48,7 @@ public class Sprite
     //Rectangle2D hitBox;
     private double hitBoxOffsetX = 0, hitBoxOffsetY = 0, hitBoxWidth, hitBoxHeight;
     Actor actor; //Logic for sprite
+    private String lightningSpriteName;
 
 
     public Sprite(String imagename, int direction)
@@ -276,7 +277,15 @@ public class Sprite
 
     public void setImage(String filename)
     {
-        Image i = new Image("/res/img/" + filename + ".png");
+        Image i;
+        try
+        {
+            i = new Image("/res/img/" + filename + ".png");
+        }
+        catch (IllegalArgumentException e)
+        {
+            throw new IllegalArgumentException("/res/img/" + filename + ".png" + " not found");
+        }
 
         //Visible Sprite
         if (!animated)
@@ -410,5 +419,15 @@ public class Sprite
     public double getHitBoxHeight()
     {
         return hitBoxHeight;
+    }
+
+    public void setLightningSpriteName(String lightningSpriteName)
+    {
+        this.lightningSpriteName = lightningSpriteName;
+    }
+
+    public String getLightningSpriteName()
+    {
+        return lightningSpriteName;
     }
 }

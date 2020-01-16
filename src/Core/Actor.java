@@ -21,14 +21,13 @@ public class Actor
     String onAction = "nothing";
     Status status;
     Map<Status, List<SpriteData>> spriteDataList = new HashMap<>();
-    Map<Status, SpriteData> spriteData = new HashMap<>();
+    //Map<Status, SpriteData> spriteData = new HashMap<>();
     List<Sprite> spriteList = new ArrayList<>();
     Sprite sprite;
 
 
     public Actor(String spritename, Status initStatus)
     {
-        //this.sprite = sprite;
         this.status = initStatus;
         List<String[]> actordata;
         Path path = Paths.get("src/res/actorData/" + spritename + ".csv");
@@ -43,10 +42,11 @@ public class Actor
                     continue;
                 }
 
+                //Collect ActorData
                 Status status = Status.getStatus(linedata[0]);
                 SpriteData data = SpriteData.tileDefinition(linedata);
                 data.animationDuration = Integer.parseInt(linedata[SpriteData.animationDurationIdx]);
-                spriteData.put(status, data);
+                //spriteData.put(status, data);
 
                 if (!spriteDataList.containsKey(status))
                     spriteDataList.put(status, new ArrayList<>());
@@ -87,7 +87,6 @@ public class Actor
 
     private void changeLayer(Sprite sprite, int targetLayer)
     {
-        //List<Sprite> currentLayer;
         WorldView.bottomLayer.remove(sprite);
         WorldView.middleLayer.remove(sprite);
         WorldView.topLayer.remove(sprite);
@@ -115,6 +114,7 @@ public class Actor
             Sprite toChange = spriteList.get(i);
             toChange.setImage(ts.spriteName, ts.fps, ts.totalFrames, ts.cols, ts.rows, ts.frameWidth, ts.frameHeight);
             toChange.setBlocker(ts.blocking);
+            toChange.setLightningSpriteName(ts.lightningSprite);
             changeLayer(toChange, ts.priority);
         }
 
@@ -137,19 +137,28 @@ public class Actor
         if (onAction.equals("animation"))
         {
             status = ANIMATION;
+            changeSprites();
+            /*
             SpriteData ts = spriteData.get(status);
             sprite.setImage(ts.spriteName, ts.fps, ts.totalFrames, ts.cols, ts.rows, ts.frameWidth, ts.frameHeight);
             sprite.setBlocker(ts.blocking);
-            PauseTransition delay = new PauseTransition(Duration.millis(ts.animationDuration * 1000));
+            */
+            List<SpriteData> targetSpriteData = spriteDataList.get(status);
+            int animationDuration = targetSpriteData.get(0).animationDuration;
+            //PauseTransition delay = new PauseTransition(Duration.millis(ts.animationDuration * 1000));
+            PauseTransition delay = new PauseTransition(Duration.millis(animationDuration * 1000));
             delay.setOnFinished(new EventHandler<ActionEvent>()
             {
                 @Override
                 public void handle(ActionEvent t)
                 {
                     status = DEFAULT;
+                    changeSprites();
+                    /*
                     SpriteData ts = spriteData.get(status);
                     sprite.setImage(ts.spriteName, ts.fps, ts.totalFrames, ts.cols, ts.rows, ts.frameWidth, ts.frameHeight);
                     sprite.setBlocker(ts.blocking);
+                    */
                 }
             });
             delay.play();

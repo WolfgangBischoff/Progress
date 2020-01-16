@@ -2,10 +2,10 @@
 action, statusChange
 
 #status to image
-#status,	name, 											spritename, 					blocker, priority,	fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight,	duration
-#ON, 					bulkhead, 		/walls/bulkheadClose,				true,								0,								0,			0,											0,				0,				0,										0,											0, 							0		,							0,													0,												0,											0,								0
-ON, 					bulkheadU, 		bulkheadUpp,												false,								2,								0,			0,											0,				0,				0,										0,											0, 							0		,							0,													64,												64,											64,								0
-ON, 					bulkheadL, 		bulkheadLow,												true,								0,								0,			0,											0,				0,				0,										0,											0, 							0,									0,													64,													64,											64,								0
-OFF, 				bulkheadU, 			bulkheadOpenTop,									false,								0,								0,			0,											0,				0,				0,										0,											0, 							0		,							0,													0,												0,											0,								0
-OFF, 				bulkheadL, 			bulkheadOpenBtm,									false,								0,								0,			0,											0,				0,				0,										0,											0, 							0		,							0,													0,												0,											0,								0
-#OFF, 				bulkhead, 		/walls/bulkheadOpen,				false,								2,								0,			0,											0,				0,				0,										0,											0, 							0		,							0,													0,												0,											0,								0
+#status,	name, 											spritename, 					blocker, priority,	fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight,lightning 		,	duration
+#ON, 					bulkhead, 		/walls/bulkheadClose,				true,								0,								0,			0,											0,				0,				0,										0,											0, 							0		,							0,													0,												0,											0,				none,				 				0
+ON, 					bulkheadU, 		bulkheadUpp,												false,								2,								0,			0,											0,				0,				0,										0,											0, 							0		,							0,													64,												64,											64,	none,				 					0
+ON, 					bulkheadL, 		bulkheadLow,												true,								0,								0,			0,											0,				0,				0,										0,											0, 							0,									0,													64,													64,											64,	none,				 					0
+OFF, 				bulkheadU, 			bulkheadOpenTop,									false,								0,								0,			0,											0,				0,				0,										0,											0, 							0		,							0,													0,												0,											0,		none,				 				0
+OFF, 				bulkheadL, 			bulkheadOpenBtm,									false,								0,								0,			0,											0,				0,				0,										0,											0, 							0		,							0,													0,												0,											0,		none,				 				0
+#OFF, 				bulkhead, 		/walls/bulkheadOpen,				false,								2,								0,			0,											0,				0,				0,										0,											0, 							0		,							0,													0,												0,											0,				none,				 					0

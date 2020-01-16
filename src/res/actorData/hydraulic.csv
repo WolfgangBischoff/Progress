@@ -2,6 +2,6 @@
 action, statusChange
 
 #status to image
-#status,								name, 				spritename, 												blocker, priority,	fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight,	duration
-DEFAULT, 		hydraulicT, 		machines/hydraulicTop,							false,						2,								0,			0,											0,				0,				0,										0,											0, 							0		,							0,													0,												0,											0,								0
-DEFAULT, 		hydraulicB, 		machines/hydraulicBtm,							true,						0,								0,			0,											0,				0,				0,										0,											0, 							0		,							0,											64,												128,										64,								0
+#status,								name, 				spritename, 												blocker, priority,	fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight,lightning 		,	duration
+DEFAULT, 		hydraulicT, 		machines/hydraulicTop,							false,						2,								0,			0,											0,				0,				0,										0,											0, 							0		,							0,													0,												0,											0,					none,				 						0
+DEFAULT, 		hydraulicB, 		machines/hydraulicBtm,							true,						0,								0,			0,											0,				0,				0,										0,											0, 							0		,							0,											64,												128,										64,					redlight,				 						0

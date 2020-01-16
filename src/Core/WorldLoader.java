@@ -198,6 +198,7 @@ public class WorldLoader
         }
     }
 
+    /*
     private Sprite createSprite(ActorData actorData, Integer x, Integer y)
     {
         Actor actor = new Actor(actorData.actorname, actorData.status);
@@ -207,7 +208,7 @@ public class WorldLoader
         actor.sprite = initSprite;
         return initSprite;
     }
-
+*/
     private Sprite createSprite(SpriteData tile, Integer x, Integer y)
     {
         Sprite ca;
@@ -220,6 +221,7 @@ public class WorldLoader
         ca.setPosition(x, y);
         ca.setBlocker(tile.blocking);
         ca.setSpeed(tile.velocity);
+        ca.setLightningSpriteName(tile.lightningSprite);
 
         if (ca.getName().toLowerCase().equals("player"))
             player = ca;

@@ -1,18 +1,17 @@
 
 Logic:
-- use multisprite for all actor types
-- solve blocking in door bug
+- solve blocking in door bug(autoopening?)
+- schlafen, fade out
+- player animation
 - Message Box
 - Console
 - Menu
-https://gamedev.stackexchange.com/questions/40563/how-can-i-acheive-a-smooth-2d-lighting-effect
-https://www.youtube.com/watch?v=4UkiJ_Oy5TA
-https://github.com/eppleton/FXGameEngine
-https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation
-https://stackoverflow.com/questions/6787899/combining-two-or-more-canvas-elements-with-some-sort-of-blending
 
 Sprites:
-corners
+- kitchen
+- bath
+- Couchtisch, Kleiderschrank, Diffuser
+- Lagerschrank, Kisten, Wandkabel, Lautsprecher, große Rohre, Säulen
 
 Topics:
 - Erben

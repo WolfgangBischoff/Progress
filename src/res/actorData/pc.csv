@@ -2,6 +2,6 @@
 action, statusChange
 
 #status to image
-#status,	name, spritename, 			blocker, priority,	fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight,	duration
-ON, 					pc, 		pc,												true,						0,								0,			0,											0,				0,				0,										0,											0, 							0		,							0,													0,												0,											0,								0
-OFF, 				pc, 		pcOff,									true,						0,								0,			0,											0,				0,				0,										0,											0, 							0		,							0,													0,												0,											0,								0
+#status,	name, spritename, 			blocker, priority,	fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight,lightning 		,	duration
+ON, 					pc, 		pc,												true,						0,								0,			0,											0,				0,				0,										0,											0, 							0		,							0,													0,												0,											0,										whitelight,				 							0
+OFF, 				pc, 		pcOff,									true,						0,								0,			0,											0,				0,				0,										0,											0, 							0		,							0,													0,												0,											0,										none,				 								0

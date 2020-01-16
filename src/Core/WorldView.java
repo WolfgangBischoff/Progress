@@ -176,16 +176,26 @@ public class WorldView implements GUIController
             ShadowMaskGc.setFill(shadowColor);
             ShadowMaskGc.fillRect(0, 0, VIEWPORT_SIZE_X, VIEWPORT_SIZE_Y);
             //TODO check if Sprites has light; path in config, add to Map or take from there
-            Image lightimage;
             for(Sprite sprite : activeLayers)
             {
+                if(sprite.getLightningSpriteName().toLowerCase().equals("none"))
+                    continue;
+
+                String lightSpriteName = sprite.getLightningSpriteName();
+                if(!lightsImageMap.containsKey(sprite.getLightningSpriteName()))
+                    lightsImageMap.put(lightSpriteName, new Image("/res/img/lightglows/" + lightSpriteName + ".png"));
+                Image lightimage = lightsImageMap.get(lightSpriteName);
+                ShadowMaskGc.drawImage(lightimage, sprite.positionX + sprite.getHitBoxOffsetX() + sprite.getHitBoxWidth() / 2 - lightimage.getWidth()/2 - camX, sprite.positionY + sprite.getHitBoxOffsetY() + sprite.getHitBoxHeight() / 2 - lightimage.getHeight()/2 - camY);
+
                 //Look if lighten and add
             }
+            /*
             ShadowMaskGc.drawImage(new Image("/res/img/" + "whitelight" + ".png"), 50 - camX, 0 - camY);
             ShadowMaskGc.drawImage(new Image("/res/img/" + "whitelight" + ".png"), 350 - camX, 500 - camY);
             ShadowMaskGc.drawImage(new Image("/res/img/" + "redlight" + ".png"), 500 - camX, 500 - camY);
             ShadowMaskGc.drawImage(new Image("/res/img/" + "whitelight" + ".png"), 600 - camX, 150 - camY);
             ShadowMaskGc.drawImage(new Image("/res/img/" + "whitelight" + ".png"), player.positionX + player.getHitBoxOffsetX() + player.getHitBoxWidth() / 2 - 128 - camX, player.positionY + player.getHitBoxOffsetY() + player.getHitBoxHeight() / 2 - 128 - camY);
+            */
             SnapshotParameters params = new SnapshotParameters();
             params.setFill(Color.TRANSPARENT);
             WritableImage image = shadowMask.snapshot(params, null);
