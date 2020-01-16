@@ -25,36 +25,6 @@ public class Actor
     List<Sprite> spriteList = new ArrayList<>();
     Sprite sprite;
 
-    /*
-    public Actor(Sprite sprite, Status initStatus)
-    {
-        this.sprite = sprite;
-        this.status = initStatus;
-        List<String[]> actordata;
-        Path path = Paths.get("src/res/actorData/" + sprite.getName() + ".csv");
-        if (Files.exists(path))
-        {
-            actordata = Utilities.readAllLineFromTxt("src/res/actorData/" + sprite.getName() + ".csv");
-            for (String[] linedata : actordata)
-            {
-                if (linedata[0].equals("action"))
-                {
-                    onAction = linedata[1];//Different to method readSpriteData
-                    continue;
-                }
-
-                Status status = Status.getStatus(linedata[0]);
-                SpriteData data = SpriteData.tileDefinition(linedata);
-                data.animationDuration = Integer.parseInt(linedata[SpriteData.animationDurationIdx]);
-
-                if(!spriteData.containsKey(status))
-                    spriteData.put(status, new ArrayList<>());
-                spriteData.get(status).add(data);
-            }
-        }
-        else throw new RuntimeException("Actordata not found: " + sprite.getName());
-    }
-    */
 
     public Actor(String spritename, Status initStatus)
     {
@@ -78,7 +48,7 @@ public class Actor
                 data.animationDuration = Integer.parseInt(linedata[SpriteData.animationDurationIdx]);
                 spriteData.put(status, data);
 
-                if(!spriteDataList.containsKey(status))
+                if (!spriteDataList.containsKey(status))
                     spriteDataList.put(status, new ArrayList<>());
                 spriteDataList.get(status).add(data);
 
@@ -123,27 +93,32 @@ public class Actor
         WorldView.topLayer.remove(sprite);
         switch (targetLayer)
         {
-            case 0: WorldView.bottomLayer.add(sprite);break;
-            case 1: WorldView.middleLayer.add(sprite);break;
-            case 2: WorldView.topLayer.add(sprite);break;
+            case 0:
+                WorldView.bottomLayer.add(sprite);
+                break;
+            case 1:
+                WorldView.middleLayer.add(sprite);
+                break;
+            case 2:
+                WorldView.topLayer.add(sprite);
+                break;
         }
     }
 
 
-private void changeSprites()
-{
-    List<SpriteData> targetSpriteData = spriteDataList.get(status);
-    for(int i=0; i<spriteList.size(); i++)
+    private void changeSprites()
     {
-        SpriteData ts = targetSpriteData.get(i);
-        Sprite toChange = spriteList.get(i);
-        toChange.setImage(ts.spriteName, ts.fps, ts.totalFrames, ts.cols, ts.rows, ts.frameWidth, ts.frameHeight);
-        toChange.setBlocker(ts.blocking);
-        changeLayer(toChange, ts.priority);
+        List<SpriteData> targetSpriteData = spriteDataList.get(status);
+        for (int i = 0; i < spriteList.size(); i++)
+        {
+            SpriteData ts = targetSpriteData.get(i);
+            Sprite toChange = spriteList.get(i);
+            toChange.setImage(ts.spriteName, ts.fps, ts.totalFrames, ts.cols, ts.rows, ts.frameWidth, ts.frameHeight);
+            toChange.setBlocker(ts.blocking);
+            changeLayer(toChange, ts.priority);
+        }
+
     }
-
-}
-
 
 
     public void act()
@@ -157,13 +132,6 @@ private void changeSprites()
         {
             changeStatus();
             changeSprites();
-
-            /*
-            SpriteData ts = spriteData.get(status);
-            System.out.print(methodName + ts.spriteName);
-            sprite.setImage(ts.spriteName, ts.fps, ts.totalFrames, ts.cols, ts.rows, ts.frameWidth, ts.frameHeight);
-            sprite.setBlocker(ts.blocking);
-            */
         }
 
         if (onAction.equals("animation"))
@@ -195,7 +163,7 @@ private void changeSprites()
         return "Actor{" +
                 "onAction='" + onAction + '\'' +
                 ", status=" + status +
-              //  ", sprite=" + sprite.getName() +
+                //  ", sprite=" + sprite.getName() +
                 '}';
     }
 
@@ -203,8 +171,9 @@ private void changeSprites()
     {
         if (status == ON)
             status = OFF;
-        else
+        else if (status == OFF)
             status = ON;
+
     }
 
 }

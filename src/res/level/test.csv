@@ -7,44 +7,49 @@ none
 
 tiledefinition:
 #layer: 0 => behind, 1 => middle, 2 => in front
-#code, name,												spritename, 										blocker, priority,	fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight
-0, 				plank,											plank,																false,			0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
-1, 				plank1,										plank1,															false,		0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
-2, 				plank2,										plank2,															false,		0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
-waT, 		bluewall,								bluewall,													true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
-wTt, 		bluewall,								walls/splitwallTop,									false,				2,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
-wTb, 		bluewall,								walls/splitwallBtm,									true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
-por, 		porthole,							 porthole,													true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
-poS, 		portholestars,			portholeStars,								true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
-poG, 		portholegalaxy,		portholeGalaxy,							true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
-poC, 		portholescratch,			portholeScratch,								true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
-wTL, 		bluewallTL,						walls/bluewallcornerTL,					true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
-wTR, 		bluewallTR,						walls/bluewallcornerTR,					true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
-waL, 		wall,												walls/wallLeft, 						true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
-waR, 		wall,												walls/wallLeft, 						true,				0,								0,			0,											0,				0,				0,										0,											0,								2,									0,													0,													0,											0
-waB, 		wall,												walls/wallLeft,							true,				0,								0,			0,											0,				0,				0,										0,											0,								3,									0,													0,													0,											0
-wBR, 		wallcorner,						walls/wallCorner,					true,				0,								0,			0,											0,				0,				0,										0,											0,								3,									0,													0,													0,											0
-wBL, 		wallcorner,						walls/wallCorner,					true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
+#code, 							name,												spritename, 																			blocker, priority,	fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight
+#Floor
+0, 				plank,											plank,																											false,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
+1, 				plank1,										plank1,																										false,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
+2, 				plank2,										plank2,																										false,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
+carpe0, 				carpet,					floor/carpet0,																			false,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
+carpe1, 				carpet,					floor/carpet1, 																		false,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
+#Walls
+waT, 		bluewall,								bluewall,																									true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
+wTt, 		bluewall,								walls/splitwallTop,														false,				2,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
+wTb, 		bluewall,								walls/splitwallBtm,														 true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
+por, 		porthole,							 porthole,																									true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
+poS, 		portholestars,			portholeStars,																				true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
+poG, 		portholegalaxy,		portholeGalaxy,																			true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
+poC, 		portholescratch,			portholeScratch,																true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
+wTL, 		bluewallTL,						walls/bluewallcornerTL,											true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
+wTR, 		bluewallTR,						walls/bluewallcornerTR,											true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
+waL, 		wall,												walls/wallLeft, 																		true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
+waR, 		wall,												walls/wallLeft, 																		true,				0,								0,			0,											0,				0,				0,										0,											0,								2,									0,													0,													0,											0
+waB, 		wall,												walls/wallLeft,																			true,				0,								0,			0,											0,				0,				0,										0,											0,								3,									0,													0,													0,											0
+wBR, 		wallcorner,						walls/wallCorner,																	true,				0,								0,			0,											0,				0,				0,										0,											0,								3,									0,													0,													0,											0
+wBL, 		wallcorner,						walls/wallCorner,																	true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
 wFBL, 		wallcorner,						walls/bluewallCornerFrontBL,					true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
 wFBR, 		wallcorner,						walls/bluewallCornerFrontBR,					true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
-wBTL, 		wallcorner,						walls/wallBackTL,					true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
-wBTR, 		wallcorner,						walls/wallBackTR,					true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
+wBTL, 		wallcorner,						walls/wallBackTL,																true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
+wBTR, 		wallcorner,						walls/wallBackTR,																true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
 #Furniture
-tab, 		table,											table,														 	true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
-flo, 		flowers,									flowers,														true,			 0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
-des,			desk,												desk,																	true,				0,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													0,													0,										0
-bee, 		bee,													bee, 																	false,			2,								12, 		3, 										3, 			1, 			32, 								32,										0, 						0,									0,													0,													0,											0
-bed, 		bed,													bed,																		true,			0,								0,			0,											0,				0,				0,										0,											0, 								0,									0,													0,													0,											0
-cou, 		couch,											/furniture/couch,					true,			0,								0,			0,											0,				0,				0,										0,											0, 								0,									0,													0,													0,											0
-plt,			potPlantTop,					potPlantTop,										false,			2,								0,			0,											0,				0,				0,										0,											0, 							0,									0,													0,													0,											0
-pot,			pot,													pot,																		true,				0,								0,			0,											0,				0,				0,										0,											0, 								0,									0,													0,													0,											0
-pb2,			plantBig,								plantBig,													false,			2,								0,			0,											0,				0,				0,										0,											0, 								0,									0,													0,													0,											0
-scu,			skubb,											/furniture/skubb,					true,						0,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													64,												192,										64
-lig,			light,											light,																false,						2,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													64,												192,										64
-wlg,			light,											whitelight,																false,						2,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													64,												192,										64
-l__,			lights,										/lightsources/ligther,		true,						1,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													0,												0,										0
-wc_,			wc,														/bath/toilet,										true,						1,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													0,												0,										0
-nig,			nightstand,						/lightsources/nightstand,			true,						1,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													0,												0,										0
+#code, name,												spritename, 																			blocker, priority,	fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight
+tab, 		table,											table,														 													true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
+flo, 		flowers,									flowers,																										true,			 0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0
+des,			desk,												desk,																													true,				0,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													0,													0,										0
+bee, 		bee,													bee, 																												false,				2,								12, 		3, 									3, 			1, 		32, 								32,											0, 						0,									0,													0,													0,											0
+bed, 		bed,													bed,																														true,				0,								0,			0,											0,				0,				0,										0,											0, 								0,									0,													0,													0,											0
+cou, 		couch,											/furniture/couch,																	true,				0,								0,			0,											0,				0,				0,										0,											0, 								0,									0,													0,													0,											0
+plt,			potPlantTop,					potPlantTop,																					false,				2,								0,			0,											0,				0,				0,										0,											0, 							0,									0,													0,													0,											0
+pot,			pot,													pot,																														true,				0,								0,			0,											0,				0,				0,										0,											0, 								0,									0,													0,													0,											0
+pb2,			plantBig,								plantBig,																								false,				2,								0,			0,											0,				0,				0,										0,											0, 								0,									0,													0,													0,											0
+scu,			skubb,											/furniture/skubb,																	true,				0,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													64,												192,										64
+lig,			light,											light,																											false,				2,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													64,												192,										64
+wlg,			light,											whitelight,																						false,				2,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													64,												192,										64
+l__,			lights,										/lightsources/ligther,												true,				1,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													0,												0,										0
+wc_,			wc,														/bath/toilet,																					true,				1,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													0,												0,										0
+nig,			nightstand,						/lightsources/nightstand,									true,				1,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													0,												0,										0
 
 
 #code, actorname, status
@@ -53,22 +58,23 @@ pc_, pc, OFF
 hed, hedgehog, DEFAULT
 pla, player, SOUTH
 buC, bulkhead, ON
+hydrau, hydraulic, DEFAULT
 
 
 #sets 64 bits tiles as raster; you can add multiple layers; later defined layers are higher prioritized in case of same defined priority
 #passivlayer will not be checked for interaction or collision
 passivlayer:
 ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___
-2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0,	1
-2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1
-2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0,	1
-2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0,	1
-2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0,	1
-2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0,	1
-2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0,	1
-2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0,	1
-2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0,	1
-2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0,	1
+carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1,	carpe0
+carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1,	carpe0
+carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1,	carpe0
+carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1,	carpe0
+carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1,	carpe0
+carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1,	carpe0
+carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1,	carpe0
+carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1,	carpe0
+carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1,	carpe0
+carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1,	carpe0
 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0,	1
 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0,	1
 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0,	1
@@ -87,11 +93,11 @@ waL, des, ___, ___, tab, ___, ___, ___, ___,	___,	l__, ___,	waR, waL, ___, ___, 
 waL, hed, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, waR, waL, ___, ___, ___, ___, ___, ___, waR
 waL, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, wc_, waR, waL, ___, ___, ___, ___, ___, ___, waR
 wBL, waB, waB, waB, waB, ___, waB, wBTR, ___, ___, wBTL, waB, wBR, waL, ___, ___, ___, ___, ___, ___, waR
-wTL, waT, waT, waT, waT, buC, waT, wFBR, ___, ___, wFBL, waT, waT, wFBR, ___, ___, ___, ___, ___, ___, waR
+wTL, waT, waT, waT, waT, buC, waT, wFBR, ___, ___, wFBL, waT, waT, wFBR, hydrau, ___, ___, ___, ___, ___, waR
 waL, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, waR
 waL, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, waR
 waL, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, waR
-waL, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, waR
+waL, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, hydrau, ___, ___, ___, ___, ___, ___, ___, ___, waR
 waL, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, waR
 waL, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, waR
 wBL, waB, waB, waB, waB, waB, waB, waB, waB,	waB, waB, waB, waB, waB, waB, waB, waB, waB, waB, waB,	wBR
