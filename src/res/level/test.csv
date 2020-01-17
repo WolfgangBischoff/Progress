@@ -2,8 +2,8 @@
 
 #Red Green Blue, the higher the brighter; >none< leads to no shadow
 shadow:
-#30,30,30
-none
+30,30,30
+#none
 
 tiledefinition:
 #layer: 0 => behind, 1 => middle, 2 => in front
@@ -65,7 +65,7 @@ pc_, pc, OFF
 hed, hedgehog, DEFAULT
 pla, player, SOUTH
 buC, bulkhead, ON
-hydrau, hydraulic, DEFAULT
+hydrau, hydraulic, ON
 
 
 #sets 64 bits tiles as raster; you can add multiple layers; later defined layers are higher prioritized in case of same defined priority
