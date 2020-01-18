@@ -2,8 +2,8 @@
 
 #Red Green Blue, the higher the brighter; >none< leads to no shadow
 shadow:
-30,30,30
-#none
+#30,30,30
+none
 
 tiledefinition:
 #layer: 0 => behind, 1 => middle, 2 => in front
@@ -18,9 +18,9 @@ slab__, 				carpet,												floor/slab,																						false,				0,				
 slabDr, 				carpet,							floor/slabDrain,																						false,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
 #Walls
 #code, 							name,												spritename, 																			blocker, priority,	fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight, lightning
-waT, 		bluewall,								bluewall,																																true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
-wTt, 		bluewall,								walls/splitwallTop,																					false,				2,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
-wTb, 		bluewall,								walls/splitwallBtm,																					 true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
+waT, 		bluewall,								walls/bluewallFront,																					true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
+#wTt, 		bluewall,								walls/splitwallTop,																					false,				2,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
+#wTb, 		bluewall,								walls/splitwallBtm,																					 true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
 por, 		porthole,							 porthole,																																true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
 poS, 		portholestars,			portholeStars,																											true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
 poG, 		portholegalaxy,		portholeGalaxy,																										true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
@@ -91,16 +91,16 @@ slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, 
 
 
 layer:
-wTL, waT, waT, wTt, waT, waT, waT, waT, waT, waT, waT, waT, wTR, wTL, waT, waT, waT, waT, waT, waT, wTR
-___, ___, ___, wTb, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___
+wTL, waT, waT, waT, waT, waT, waT, waT, waT, waT, waT, waT, wTR, wTL, waT, waT, waT, waT, waT, waT, wTR
+___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___
 waL, ___, ___, ___, ___, ___, ___, ___, pb2, ___, ___, ___, waR, waL, ___, ___, ___, ___, ___, ___, waR
 waL, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, bee, waR,	waL, ___, ___, ___, ___, ___, ___, waR
 waL, ___, ___, ___, ___, ___, ___, ___, ___, pot, ___, cou, waR, waL, shower, ___, ___, ___, ___, ___, waR
 waL, des, ___, ___, tab, ___, ___, ___, ___,	___,	l__, ___,	waR, waL, ___, ___, ___, ___, ___, ___, waR
 waL, hed, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, waR, waL, ___, ___, ___, ___, ___, ___, waR
 waL, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, wc_, waR, waL, ___, ___, ___, ___, ___, ___, waR
-wBL, waB, waB, waB, waB, ___, waB, wBTR, ___, ___, wBTL, waB, wBR, waL, ___, ___, ___, ___, ___, ___, waR
-wTL, waT, waT, waT, waT, buC, waT, wFBR, ___, ___, wFBL, waT, waT, wFBR, hydrau, ___, ___, ___, ___, ___, waR
+wBL, waB, waB, waB, wBTR, ___, wBTL, wBTR, ___, ___, wBTL, waB, wBR, waL, ___, ___, ___, ___, ___, ___, waR
+wTL, waT, waT, waT, wFBR, buC, wFBL, wFBR, ___, ___, wFBL, waT, waT, wFBR, hydrau, ___, ___, ___, ___, ___, waR
 waL, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, waR
 waL, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, waR
 waL, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, waR
