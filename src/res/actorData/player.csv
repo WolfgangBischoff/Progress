@@ -3,6 +3,6 @@ action, animation
 
 #status to image
 #status, 					name,	spritename, 										blocker, priority,	fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight,								lightning 		,		duration
-SOUTH, 			player,		person/humanAlex,														true,								1,			0,											0,				0,				0,										0,											0,						250,						0,									10,													84,												44,															44,		none,				 								0
+SOUTH, 			player,		person/personAlex2,														true,								1,			0,											0,				0,				0,										0,											0,						250,						0,									10,													84,												44,															44,		none,				 								0
 NORTH, 			player,		person/humanAlexBack,									true,								1,			0,											0,				0,				0,										0,											0,						250,						0,									10,													84,												44,															44,			none,				 							0
 ANIMATION, 	player,		person/humanAlex, 													true,								0,	 	0,						  			0,				0,				0,										0,											0,								0, 							0		,							0,													0,													0,															0,	none,				 									0

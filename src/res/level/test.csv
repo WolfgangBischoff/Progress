@@ -19,8 +19,6 @@ slabDr, 				carpet,							floor/slabDrain,																						false,				0,				
 #Walls
 #code, 							name,												spritename, 																			blocker, priority,	fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight, lightning
 waT, 		bluewall,								walls/bluewallFront,																					true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
-#wTt, 		bluewall,								walls/splitwallTop,																					false,				2,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
-#wTb, 		bluewall,								walls/splitwallBtm,																					 true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
 por, 		porthole,							 porthole,																																true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
 poS, 		portholestars,			portholeStars,																											true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
 poG, 		portholegalaxy,		portholeGalaxy,																										true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
@@ -48,8 +46,7 @@ cou, 		couch,											/furniture/couch,																	true,				0,								0,	
 plt,			potPlantTop,					potPlantTop,																					false,				2,								0,			0,											0,				0,				0,										0,											0, 							0,									0,													0,													0,											0							,none
 pot,			pot,													pot,																														true,				0,								0,			0,											0,				0,				0,										0,											0, 								0,									0,													0,													0,											0							,none
 pb2,			plantBig,								plantBig,																								false,				2,								0,			0,											0,				0,				0,										0,											0, 								0,									0,													0,													0,											0							,none
-scu,			skubb,											/furniture/skubb,																	true,				0,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													64,												192,										64							,none
-#lig,			light,											light,																											false,				2,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													64,												192,										64							,none
+scu,			skubb,											/furniture/skubb,																	true,				0,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													64,												128,										64							,none
 wlg,			light,											whitelight,																						false,				2,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													64,												192,										64							,none
 l__,			lights,										/lightsources/ligther,												true,				1,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													0,												0,										0							,whitelight
 nig,			nightstand,						/lightsources/nightstand,									true,				1,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													0,												0,										0							,redlight
