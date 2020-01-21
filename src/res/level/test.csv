@@ -57,6 +57,7 @@ tonage,			tonage,						/furniture/ton,																											true,				1,				
 wc_,						wc,									/bath/toilet,																					true,				1,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													0,												0,										0							,none
 shower,			shower,					/bath/shower,																					false,				2,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													0,												0,										0							,none
 hydra2,			hydro,					/machines/hydraulicShadows,								true,				1,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													0,												0,										0							,none
+walkin,			walking,					walking,																									false,				1,								4,			4,											4,				1,				64,										128,											0, 						0,									0,													0,												0,										0							,none
 
 
 #code, actorname, status
@@ -95,7 +96,7 @@ wTL, waT, waT, waT, waT, waT, waT, waT, waT, waT, waT, waT, wTR, wTL, waT, waT, 
 ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___
 waL, ___, ___, ___, ___, ___, ___, ___, pb2, ___, ___, ___, waR, waL, ___, ___, ___, ___, ___, ___, waR
 waL, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, bee, waR,	waL, ___, ___, ___, ___, ___, ___, waR
-waL, ___, ___, ___, ___, ___, ___, ___, ___, pot, ___, cou, waR, waL, shower, ___, ___, ___, ___, ___, waR
+waL, ___, ___, ___, ___, ___, ___, ___, ___, pot, ___, cou, waR, waL, shower, ___, walkin, ___, ___, ___, waR
 waL, des, ___, ___, tabBot, ___, ___, ___, ___,	___,	l__, ___,	waR, waL, ___, ___, ___, ___, ___, ___, waR
 waL, hed, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, waR, waL, ___, ___, ___, ___, ___, ___, waR
 waL, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, wc_, waR, waL, ___, ___, ___, ___, ___, ___, waR
