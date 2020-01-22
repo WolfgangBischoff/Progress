@@ -5,7 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.effect.*;
+import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
@@ -13,7 +13,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class WorldView implements GUIController
 {
@@ -81,29 +84,49 @@ public class WorldView implements GUIController
     {
         // game logic
         ArrayList<String> input = GameWindow.getInput();
-        player.setVelocity(0, 0);
+        boolean moveButtonPressed = false;
+        int addedVelocityX = 0, addedVelocityY = 0;
+        //player.setVelocity(0, 0);
 
         //Interpret Input from GameWindow
         if (input.contains("UP") || input.contains("W"))
         {
-            player.addVelocity(0, -player.getSpeed());
-            player.setDirection(Direction.NORTH);
+            //player.addVelocity(0, -player.getSpeed());
+            addedVelocityY += -player.getSpeed();
+            if (player.getDirection() != Direction.NORTH)
+                player.setDirection(Direction.NORTH);
+            moveButtonPressed = true;
         }
         if (input.contains("DOWN") || input.contains("S"))
         {
-            player.addVelocity(0, player.getSpeed());
-            player.setDirection(Direction.SOUTH);
+            //player.addVelocity(0, player.getSpeed());
+            addedVelocityY += player.getSpeed();
+            if (player.getDirection() != Direction.SOUTH)
+                player.setDirection(Direction.SOUTH);
+            moveButtonPressed = true;
         }
         if (input.contains("LEFT") || input.contains("A"))
         {
-            player.addVelocity(-player.getSpeed(), 0);
-            player.setDirection(Direction.WEST);
+            //player.addVelocity(-player.getSpeed(), 0);
+            addedVelocityX += -player.getSpeed();
+            if (player.getDirection() != Direction.WEST)
+                player.setDirection(Direction.WEST);
+            moveButtonPressed = true;
         }
         if (input.contains("RIGHT") || input.contains("D"))
         {
-            player.addVelocity(player.getSpeed(), 0);
-            player.setDirection(Direction.EAST);
+            //player.addVelocity(player.getSpeed(), 0);
+            addedVelocityX += player.getSpeed();
+            if (player.getDirection() != Direction.EAST)
+                player.setDirection(Direction.EAST);
+            moveButtonPressed = true;
         }
+
+        if (moveButtonPressed)
+            player.setVelocity(addedVelocityX, addedVelocityY);
+        else if(player.isMoving())
+            player.setVelocity(0, 0);
+
         if (input.contains("E"))
         {
             player.setInteract(true);
@@ -169,33 +192,22 @@ public class WorldView implements GUIController
         }
 
         //LightMap
-        //Map<String, Image> lightsImageMap = new HashMap<>();
-        //ShadowMaskGc.setFill(Color.rgb(30, 30, 30));
-        if(shadowColor != null)
+        if (shadowColor != null)
         {
             ShadowMaskGc.setFill(shadowColor);
             ShadowMaskGc.fillRect(0, 0, VIEWPORT_SIZE_X, VIEWPORT_SIZE_Y);
-            //TODO check if Sprites has light; path in config, add to Map or take from there
-            for(Sprite sprite : activeLayers)
+            for (Sprite sprite : activeLayers)
             {
-                if(sprite.getLightningSpriteName().toLowerCase().equals("none"))
+                if (sprite.getLightningSpriteName().toLowerCase().equals("none"))
                     continue;
 
                 String lightSpriteName = sprite.getLightningSpriteName();
-                if(!lightsImageMap.containsKey(sprite.getLightningSpriteName()))
+                if (!lightsImageMap.containsKey(sprite.getLightningSpriteName()))
                     lightsImageMap.put(lightSpriteName, new Image("/res/img/lightglows/" + lightSpriteName + ".png"));
                 Image lightimage = lightsImageMap.get(lightSpriteName);
-                ShadowMaskGc.drawImage(lightimage, sprite.positionX + sprite.getHitBoxOffsetX() + sprite.getHitBoxWidth() / 2 - lightimage.getWidth()/2 - camX, sprite.positionY + sprite.getHitBoxOffsetY() + sprite.getHitBoxHeight() / 2 - lightimage.getHeight()/2 - camY);
-
-                //Look if lighten and add
+                ShadowMaskGc.drawImage(lightimage, sprite.positionX + sprite.getHitBoxOffsetX() + sprite.getHitBoxWidth() / 2 - lightimage.getWidth() / 2 - camX, sprite.positionY + sprite.getHitBoxOffsetY() + sprite.getHitBoxHeight() / 2 - lightimage.getHeight() / 2 - camY);
             }
-            /*
-            ShadowMaskGc.drawImage(new Image("/res/img/" + "whitelight" + ".png"), 50 - camX, 0 - camY);
-            ShadowMaskGc.drawImage(new Image("/res/img/" + "whitelight" + ".png"), 350 - camX, 500 - camY);
-            ShadowMaskGc.drawImage(new Image("/res/img/" + "redlight" + ".png"), 500 - camX, 500 - camY);
-            ShadowMaskGc.drawImage(new Image("/res/img/" + "whitelight" + ".png"), 600 - camX, 150 - camY);
-            ShadowMaskGc.drawImage(new Image("/res/img/" + "whitelight" + ".png"), player.positionX + player.getHitBoxOffsetX() + player.getHitBoxWidth() / 2 - 128 - camX, player.positionY + player.getHitBoxOffsetY() + player.getHitBoxHeight() / 2 - 128 - camY);
-            */
+
             SnapshotParameters params = new SnapshotParameters();
             params.setFill(Color.TRANSPARENT);
             WritableImage image = shadowMask.snapshot(params, null);
@@ -211,18 +223,6 @@ public class WorldView implements GUIController
         gc.translate(camX, camY);
     }
 
-    private void calcLight()
-    {
-
-    }
-
-    private void setInverseClip(final Node node, final Shape clip)
-    {
-        final Rectangle inverse = new Rectangle();
-        inverse.setWidth(node.getLayoutBounds().getWidth());
-        inverse.setHeight(node.getLayoutBounds().getHeight());
-        node.setClip(Shape.subtract(inverse, clip));
-    }
 
     @Override
     public Pane load()

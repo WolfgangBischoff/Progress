@@ -147,7 +147,9 @@ public class WorldLoader
                     Sprite test;
                     test = createSprite(spriteDataList.get(j), i*64, currentVerticalTile  * 64);
                     actor.spriteList.add(test);
-                    actor.sprite = test;
+                    //test.addToListener(actor);
+                    //actor.sprite = test;
+                    actor.setSprite(test);// = test;
                     test.actor = actor;
                     addToPriorityLayer(test, spriteDataList.get(j).priority);
                 }

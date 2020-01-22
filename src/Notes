@@ -3,6 +3,7 @@ Logic:
 - solve blocking in door bug(autoopening?)
 - schlafen, fade out
 - player animation https://opengameart.org/content/2d-sprite-skins-walking-animation
+    Problem in Update sprite, just used by player. think updatetime must be different from last frame change
 - Message Box
 - Console
 - Menu

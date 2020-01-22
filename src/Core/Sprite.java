@@ -12,6 +12,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.transform.Rotate;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.List;
 
 public class Sprite
@@ -45,10 +47,20 @@ public class Sprite
     private Boolean interact = false;
     private Boolean blockedByOtherSprite = false;
     Rectangle2D interactionArea;
-    //Rectangle2D hitBox;
     private double hitBoxOffsetX = 0, hitBoxOffsetY = 0, hitBoxWidth, hitBoxHeight;
     Actor actor; //Logic for sprite
     private String lightningSpriteName;
+    PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
+
+    public void addToListener(PropertyChangeListener listener)
+    {
+        propertyChangeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removeFromListener(PropertyChangeListener listener)
+    {
+        propertyChangeSupport.removePropertyChangeListener(listener);
+    }
 
 
     public Sprite(String imagename, int direction)
@@ -79,8 +91,9 @@ public class Sprite
 
     public void addVelocity(double x, double y)
     {
-        velocityX += x;
-        velocityY += y;
+        setVelocity(velocityX + x, velocityY + y);
+        //velocityX += x;
+        //velocityY += y;
     }
 
     private Rectangle2D calcInteractionRectangle(int maxInteractionDistance)
@@ -118,6 +131,7 @@ public class Sprite
             if (otherSprite == this)
                 continue;
 
+            //Collision
             if
             (otherSprite.isBlocker && otherSprite.getBoundary().intersects(plannedPosition)
                     || !worldBorders.contains(positionX + velocityX * time, positionY + velocityY * time)
@@ -152,7 +166,7 @@ public class Sprite
 
         interact = false;
         blockedByOtherSprite = false;
-        lastFrame = currentNanoTime;
+        lastFrame = currentNanoTime; // Problem here
 
     }
 
@@ -178,6 +192,9 @@ public class Sprite
 
     public void render(GraphicsContext gc, Long now)
     {
+        String methodName = "render() ";
+
+
         if (getAnimated())
         {
             renderAnimated(gc, now);
@@ -204,7 +221,11 @@ public class Sprite
 
     public void renderAnimated(GraphicsContext gc, Long now)
     {
+        String methodName = "renderAnimated() ";
         int frameJump = (int) Math.floor((now - lastFrame) / (1000000000 / fps)); //Determine how many frames we need to advance to maintain frame rate independence
+
+        //if(name.equals("player"))
+            //System.out.println(methodName + name + " " + now + " - " + lastFrame);
 
         //Do a bunch of math to determine where the viewport needs to be positioned on the sprite sheet
         if (frameJump >= 1)
@@ -290,7 +311,7 @@ public class Sprite
         //Visible Sprite
         if (!animated)
         {
-            i = rotateImage(i, direction.value * 90);
+          //  i = rotateImage(i, direction.value * 90);
         }
         baseimage = i;
         basewidth = i.getWidth();
@@ -340,6 +361,7 @@ public class Sprite
     {
         velocityX = x;
         velocityY = y;
+        propertyChangeSupport.firePropertyChange("velocity", null, null);
     }
 
     public void setSpeed(double speed)
@@ -364,31 +386,9 @@ public class Sprite
 
     public void setDirection(Direction direction)
     {
+        Direction oldDirection = this.direction;
         this.direction = direction;
-
-        //TODO load one time, change done by actor, direction remove from sprite
-        if (direction == Direction.NORTH)
-        {
-            baseimage = new Image("/res/img/" + "/person/humanAlexBack" + ".png");
-            //setImage("humanAlex");
-        }
-        if (direction == Direction.SOUTH)
-        {
-            baseimage = new Image("/res/img/" + "/person/personAlex2" + ".png");
-            //setImage("/person/humanAlexBack");
-        }
-        if (direction == Direction.EAST)
-        {
-            baseimage = new Image("/res/img/" + "/person/humanAlexEast" + ".png");
-            //setImage("/person/humanAlexBack");
-        }
-        if (direction == Direction.WEST)
-        {
-            baseimage = new Image("/res/img/" + "/person/humanAlexWest" + ".png");
-            //setImage("/person/humanAlexBack");
-        }
-
-
+        propertyChangeSupport.firePropertyChange("direction", oldDirection, direction);
     }
 
     public void setInteract(Boolean interact)
@@ -429,5 +429,18 @@ public class Sprite
     public String getLightningSpriteName()
     {
         return lightningSpriteName;
+    }
+
+    public boolean isMoving()
+    {
+        if(velocityX != 0 || velocityY != 0)
+            return true;
+        else
+            return false;
+    }
+
+    public Direction getDirection()
+    {
+        return direction;
     }
 }

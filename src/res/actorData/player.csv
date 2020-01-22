@@ -2,7 +2,13 @@
 action, animation
 
 #status to image
-#status, 					name,	spritename, 										blocker, priority,	fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight,								lightning 		,		duration
-SOUTH, 			player,		person/personAlex2,														true,								1,			0,											0,				0,				0,										0,											0,						250,						0,									10,													84,												44,															44,		whitelight,				 								0
+#status, 					name,	spritename, 														blocker, priority,	fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight,								lightning 		,		duration
 NORTH, 			player,		person/humanAlexBack,									true,								1,			0,											0,				0,				0,										0,											0,						250,						0,									10,													84,												44,															44,			whitelight,				 							0
-ANIMATION, 	player,		person/humanAlex, 													true,								0,	 	0,						  			0,				0,				0,										0,											0,								0, 							0		,							0,													0,													0,															0,	whitelight,				 									0
+NORTHMOVING, 			player,		person/humanAlexBack,			true,								1,			0,											0,				0,				0,										0,											0,						250,						0,									10,													84,												44,															44,			whitelight,				 							0
+SOUTH, 			player,		person/personAlex2,											true,								1,			0,											0,				0,				0,										0,											0,						250,						0,									10,													84,												44,															44,		whitelight,				 								0
+SOUTHMOVING, 			player,		concept128_1.1,									true,								1,			30,											8,				8,				1,				64,										128,						250,						0,									10,													84,												44,															44,		whitelight,				 								0
+EAST, 				player,		person/humanAlexEast,									true,								1,			0,											0,				0,				0,										0,											0,						250,						0,									10,													84,												44,															44,			whitelight,				 							0
+EASTMOVING, 				player,		person/humanAlexBack,			true,								1,			0,											0,				0,				0,										0,											0,						250,						0,									10,													84,												44,															44,			whitelight,				 							0
+WEST, 				player,		person/humanAlexWest,									true,								1,			0,											0,				0,				0,										0,											0,						250,						0,									10,													84,												44,															44,			whitelight,				 							0
+WESTMOVING, 				player, person/humanAlexBack,			true,								1,			0,											0,				0,				0,										0,											0,						250,						0,									10,													84,												44,															44,			whitelight,				 							0
+ANIMATION, 	player,		person/humanAlex, 										true,								0,	 	0,						  			0,				0,				0,										0,											0,								0, 							0		,							0,													0,													0,															0,	whitelight,				 									0

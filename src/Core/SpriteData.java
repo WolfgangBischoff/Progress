@@ -82,8 +82,25 @@ public class SpriteData
     public String toString()
     {
         return "SpriteData{" +
-                "name='" + name + '\'' +
-                ", priority=" + priority +
+                //"name='" + name + '\'' +
+                ", spriteName='" + spriteName + '\'' +
+                //", lightningSprite='" + lightningSprite + '\'' +
+                //", blocking=" + blocking +
+                ", fps=" + fps +
+                ", totalFrames=" + totalFrames +
+                //", cols=" + cols +
+                //", rows=" + rows +
+                //", frameWidth=" + frameWidth +
+                //", frameHeight=" + frameHeight +
+                //", velocity=" + velocity +
+                //", direction=" + direction +
+                //", priority=" + priority +
+                //", hitboxOffsetX=" + hitboxOffsetX +
+                //", hitboxOffsetY=" + hitboxOffsetY +
+                //", hitboxWidth=" + hitboxWidth +
+                //", hitboxHeight=" + hitboxHeight +
+                ", animationDuration=" + animationDuration +
+                ", actorStatus=" + actorStatus +
                 '}';
     }
 }

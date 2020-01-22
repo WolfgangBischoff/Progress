@@ -6,6 +6,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.util.Duration;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -16,8 +18,9 @@ import java.util.Map;
 
 import static Core.Status.*;
 
-public class Actor
+public class Actor implements PropertyChangeListener
 {
+    String className = "Actor ";
     String onAction = "nothing";
     Status status;
     Map<Status, List<SpriteData>> spriteDataList = new HashMap<>();
@@ -87,6 +90,7 @@ public class Actor
 
     private void changeLayer(Sprite sprite, int targetLayer)
     {
+        String methodName = "changeLayer() ";
         WorldView.bottomLayer.remove(sprite);
         WorldView.middleLayer.remove(sprite);
         WorldView.topLayer.remove(sprite);
@@ -107,7 +111,9 @@ public class Actor
 
     private void changeSprites()
     {
+        String methodName = "changeSprites() ";
         List<SpriteData> targetSpriteData = spriteDataList.get(status);
+        //Multiple Sprites of the Actor
         for (int i = 0; i < spriteList.size(); i++)
         {
             SpriteData ts = targetSpriteData.get(i);
@@ -115,6 +121,8 @@ public class Actor
             toChange.setImage(ts.spriteName, ts.fps, ts.totalFrames, ts.cols, ts.rows, ts.frameWidth, ts.frameHeight);
             toChange.setBlocker(ts.blocking);
             toChange.setLightningSpriteName(ts.lightningSprite);
+
+            //System.out.println(className + methodName + " animated: " + toChange.getAnimated() + " priority: " + ts.priority);
             changeLayer(toChange, ts.priority);
         }
 
@@ -123,7 +131,7 @@ public class Actor
 
     public void act()
     {
-        String methodName = "Actor/act(): ";
+        String methodName = "act(): ";
 
         if (onAction == "nothing")
             return;
@@ -138,14 +146,8 @@ public class Actor
         {
             status = ANIMATION;
             changeSprites();
-            /*
-            SpriteData ts = spriteData.get(status);
-            sprite.setImage(ts.spriteName, ts.fps, ts.totalFrames, ts.cols, ts.rows, ts.frameWidth, ts.frameHeight);
-            sprite.setBlocker(ts.blocking);
-            */
             List<SpriteData> targetSpriteData = spriteDataList.get(status);
             int animationDuration = targetSpriteData.get(0).animationDuration;
-            //PauseTransition delay = new PauseTransition(Duration.millis(ts.animationDuration * 1000));
             PauseTransition delay = new PauseTransition(Duration.millis(animationDuration * 1000));
             delay.setOnFinished(new EventHandler<ActionEvent>()
             {
@@ -154,11 +156,6 @@ public class Actor
                 {
                     status = DEFAULT;
                     changeSprites();
-                    /*
-                    SpriteData ts = spriteData.get(status);
-                    sprite.setImage(ts.spriteName, ts.fps, ts.totalFrames, ts.cols, ts.rows, ts.frameWidth, ts.frameHeight);
-                    sprite.setBlocker(ts.blocking);
-                    */
                 }
             });
             delay.play();
@@ -185,4 +182,34 @@ public class Actor
 
     }
 
+    @Override
+    public void propertyChange(PropertyChangeEvent evt)
+    {
+        String methodName = "propertyChange() ";
+        Status oldStatus = status;
+        if (evt.getPropertyName() == "direction" || evt.getPropertyName() == "velocity")
+        {
+            String statusString = sprite.getDirection().toString();
+
+            for (int i = 0; i < spriteList.size(); i++)
+            {
+               System.out.println(className + methodName + spriteList.get(i).getName() + " " + i);
+            }
+            if (sprite.isMoving())
+                statusString = statusString + "moving";
+            status = Status.getStatus(statusString);
+        }
+
+        if (status != oldStatus)
+        {
+            //System.out.println( className +  methodName + sprite.getDirection().toString() + " status; " + status);
+            changeSprites();
+        }
+    }
+
+    public void setSprite(Sprite sprite)
+    {
+        this.sprite = sprite;
+        sprite.addToListener(this);
+    }
 }
