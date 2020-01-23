@@ -202,7 +202,6 @@ public class Actor implements PropertyChangeListener
 
         if (status != oldStatus)
         {
-            //System.out.println( className +  methodName + sprite.getDirection().toString() + " status; " + status);
             changeSprites();
         }
     }

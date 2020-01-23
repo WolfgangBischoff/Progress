@@ -33,6 +33,7 @@ public class Sprite
     private double velocityY;
     private float fps; //frames per second I.E. 24
     Long lastFrame = 0l;
+    Long lastUpdated = 0l;
     Long lastInteraction = 0l;
     private int totalFrames; //Total number of frames in the sequence
     private int cols; //Number of columns on the sprite sheet
@@ -89,12 +90,14 @@ public class Sprite
         hitBoxHeight = frameHeight;
     }
 
+    /*
     public void addVelocity(double x, double y)
     {
         setVelocity(velocityX + x, velocityY + y);
         //velocityX += x;
         //velocityY += y;
     }
+    */
 
     private Rectangle2D calcInteractionRectangle(int maxInteractionDistance)
     {
@@ -103,13 +106,11 @@ public class Sprite
         {
             case NORTH:
                 return new Rectangle2D(positionX + hitBoxOffsetX + hitBoxWidth / 2 - interactionWidth / 2, positionY + hitBoxOffsetY - maxInteractionDistance, interactionWidth, maxInteractionDistance);
-            //return new Rectangle2D(positionX + hitBoxOffsetX / 2 + hitBoxWidth / 2 - interactionWidth / 2, positionY + hitBoxOffsetY - maxInteractionDistance, interactionWidth, maxInteractionDistance);
-            case EAST:
+           case EAST:
                 return new Rectangle2D(positionX + hitBoxOffsetX + hitBoxWidth, positionY + hitBoxOffsetY + hitBoxHeight / 2 - interactionWidth / 2, maxInteractionDistance, interactionWidth);
             case SOUTH:
                 return new Rectangle2D(positionX + hitBoxOffsetX + hitBoxWidth / 2 - interactionWidth / 2, positionY + hitBoxOffsetY + hitBoxHeight, interactionWidth, maxInteractionDistance);
-            //return new Rectangle2D(positionX + hitBoxOffsetX / 2 + hitBoxWidth / 2 - interactionWidth / 2, positionY + hitBoxOffsetY + hitBoxHeight, interactionWidth, maxInteractionDistance);
-            case WEST:
+           case WEST:
                 return new Rectangle2D(positionX + hitBoxOffsetX - maxInteractionDistance, positionY + hitBoxOffsetY + hitBoxHeight / 2 - interactionWidth / 2, maxInteractionDistance, interactionWidth);
             default:
                 throw new RuntimeException("calcInteractionRectangle: No Direction Set");
@@ -118,7 +119,8 @@ public class Sprite
 
     public void update(Long currentNanoTime)
     {
-        double time = (currentNanoTime - lastFrame) / 1000000000.0;
+        //double time = (currentNanoTime - lastFrame) / 1000000000.0;
+        double time = (currentNanoTime - lastUpdated) / 1000000000.0;
         double elapsedTimeSinceLastInteraction = (currentNanoTime - lastInteraction) / 1000000000.0;
         int maxDistanceInteraction = 30;
         interactionArea = calcInteractionRectangle(maxDistanceInteraction);
@@ -166,7 +168,8 @@ public class Sprite
 
         interact = false;
         blockedByOtherSprite = false;
-        lastFrame = currentNanoTime; // Problem here
+        //lastFrame = currentNanoTime; // Problem here
+        lastUpdated = currentNanoTime;
 
     }
 

@@ -3,7 +3,6 @@ Logic:
 - solve blocking in door bug(autoopening?)
 - schlafen, fade out
 - player animation https://opengameart.org/content/2d-sprite-skins-walking-animation
-    Problem in Update sprite, just used by player. think updatetime must be different from last frame change
 - Message Box
 - Console
 - Menu
@@ -12,7 +11,7 @@ Sprites:
 - kitchen
 - bath
 - Couchtisch, Kleiderschrank, Diffuser
-- Lagerschrank, Kisten, Wandkabel, Lautsprecher, große Rohre, Säulen
+- Lagerschrank, Kisten, Lautsprecher, große Rohre, Säulen
 
 Topics:
 - Erben
