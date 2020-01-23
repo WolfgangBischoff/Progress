@@ -144,14 +144,11 @@ public class WorldLoader
                 List<SpriteData> spriteDataList = actor.spriteDataList.get(actor.status);
                 for(int j=0; j<spriteDataList.size(); j++)
                 {
-                    Sprite test;
-                    test = createSprite(spriteDataList.get(j), i*64, currentVerticalTile  * 64);
-                    actor.spriteList.add(test);
-                    //test.addToListener(actor);
-                    //actor.sprite = test;
-                    actor.setSprite(test);// = test;
-                    test.actor = actor;
-                    addToPriorityLayer(test, spriteDataList.get(j).priority);
+                    Sprite actorSprite;
+                    actorSprite = createSprite(spriteDataList.get(j), i*64, currentVerticalTile  * 64);
+                    actor.addSprite(actorSprite);
+                    actorSprite.actor = actor;
+                    addToPriorityLayer(actorSprite, spriteDataList.get(j).priority);
                 }
 
             }

@@ -1,6 +1,7 @@
 
 Logic:
 - solve blocking in door bug(autoopening?)
+    NPC interaction; passiv layer just optical, blocker layer not look for collision, but are part of check, active layer checks all
 - schlafen, fade out
 - player animation https://opengameart.org/content/2d-sprite-skins-walking-animation
 - Message Box

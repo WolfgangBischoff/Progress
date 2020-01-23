@@ -3,13 +3,9 @@ package Core;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.effect.BlendMode;
-import javafx.scene.effect.Light;
-import javafx.scene.effect.Lighting;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.transform.Rotate;
 
 import java.beans.PropertyChangeListener;
@@ -125,7 +121,7 @@ public class Sprite
         int maxDistanceInteraction = 30;
         interactionArea = calcInteractionRectangle(maxDistanceInteraction);
         Rectangle2D worldBorders = WorldView.getBorders();
-        List<Sprite> activeSprites = WorldView.getActiveLayers();
+        List<Sprite> activeSprites = WorldView.getPassiveCollisionRelevantSpritesLayer();
         Rectangle2D plannedPosition = new Rectangle2D(positionX + hitBoxOffsetX + velocityX * time, positionY + hitBoxOffsetY + velocityY * time, hitBoxWidth, hitBoxHeight);
 
         for (Sprite otherSprite : activeSprites)
@@ -278,11 +274,13 @@ public class Sprite
                 ;
     }
 
+    /*
     public void setActor(Actor actor)
     {
         this.actor = actor;
         actor.sprite = this;
     }
+    */
 
     public Boolean getBlocker()
     {

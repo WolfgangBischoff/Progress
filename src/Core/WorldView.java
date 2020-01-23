@@ -1,7 +1,6 @@
 package Core;
 
 import javafx.geometry.Rectangle2D;
-import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -10,8 +9,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,8 +18,9 @@ import java.util.Map;
 public class WorldView implements GUIController
 {
     private static Rectangle2D borders;
-    static List<Sprite> activeLayers = new ArrayList<>();
-    static List<Sprite> passivLayer = new ArrayList<>();
+    static List<Sprite> activeSpritesLayer = new ArrayList<>();
+    static List<Sprite> passiveCollisionRelevantSpritesLayer = new ArrayList<>();
+    static List<Sprite> passiveSpritesLayer = new ArrayList<>();
     static List<Sprite> bottomLayer = new ArrayList<>();
     static List<Sprite> middleLayer = new ArrayList<>();
     static List<Sprite> topLayer = new ArrayList<>();
@@ -65,14 +63,14 @@ public class WorldView implements GUIController
         WorldLoader worldLoader = new WorldLoader(levelName);
         worldLoader.load();
         player = worldLoader.getPlayer();
-        passivLayer = worldLoader.getPassivLayer();
+        passiveSpritesLayer = worldLoader.getPassivLayer();
         bottomLayer = worldLoader.getBttmLayer();
         middleLayer = worldLoader.getMediumLayer();
         topLayer = worldLoader.getUpperLayer();
 
-        activeLayers.addAll(bottomLayer);
-        activeLayers.addAll(middleLayer);
-        activeLayers.addAll(topLayer);
+        passiveCollisionRelevantSpritesLayer.addAll(bottomLayer);
+        passiveCollisionRelevantSpritesLayer.addAll(middleLayer);
+        passiveCollisionRelevantSpritesLayer.addAll(topLayer);
 
         borders = worldLoader.getBorders();
         shadowColor = worldLoader.getShadowColor();
@@ -134,6 +132,9 @@ public class WorldView implements GUIController
 
         player.update(currentNanoTime);
 
+//        for(Sprite active : passiveCollisionRelevantSpritesLayer)
+  //          active.update(currentNanoTime);
+
         //Camera at world border
         camX = player.positionX - VIEWPORT_SIZE_X / 2;
         camY = player.positionY - VIEWPORT_SIZE_Y / 2;
@@ -163,7 +164,7 @@ public class WorldView implements GUIController
         gc.translate(-camX, -camY);
 
         //Passiv Layer
-        for (Sprite sprite : passivLayer)
+        for (Sprite sprite : passiveSpritesLayer)
         {
             sprite.render(gc, currentNanoTime);
         }
@@ -196,7 +197,7 @@ public class WorldView implements GUIController
         {
             ShadowMaskGc.setFill(shadowColor);
             ShadowMaskGc.fillRect(0, 0, VIEWPORT_SIZE_X, VIEWPORT_SIZE_Y);
-            for (Sprite sprite : activeLayers)
+            for (Sprite sprite : passiveCollisionRelevantSpritesLayer)
             {
                 if (sprite.getLightningSpriteName().toLowerCase().equals("none"))
                     continue;
@@ -230,9 +231,9 @@ public class WorldView implements GUIController
         return null;
     }
 
-    public static List<Sprite> getActiveLayers()
+    public static List<Sprite> getPassiveCollisionRelevantSpritesLayer()
     {
-        return activeLayers;
+        return passiveCollisionRelevantSpritesLayer;
     }
 
     public static List<Sprite> getMiddleLayer()

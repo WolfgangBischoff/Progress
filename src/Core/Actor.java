@@ -26,7 +26,7 @@ public class Actor implements PropertyChangeListener
     Map<Status, List<SpriteData>> spriteDataList = new HashMap<>();
     //Map<Status, SpriteData> spriteData = new HashMap<>();
     List<Sprite> spriteList = new ArrayList<>();
-    Sprite sprite;
+    //Sprite sprite;
 
 
     public Actor(String spritename, Status initStatus)
@@ -113,7 +113,7 @@ public class Actor implements PropertyChangeListener
     {
         String methodName = "changeSprites() ";
         List<SpriteData> targetSpriteData = spriteDataList.get(status);
-        //Multiple Sprites of the Actor
+        //For all Sprites of the actor update to new Status
         for (int i = 0; i < spriteList.size(); i++)
         {
             SpriteData ts = targetSpriteData.get(i);
@@ -189,13 +189,16 @@ public class Actor implements PropertyChangeListener
         Status oldStatus = status;
         if (evt.getPropertyName() == "direction" || evt.getPropertyName() == "velocity")
         {
-            String statusString = sprite.getDirection().toString();
+            Sprite firstSprite = spriteList.get(0);//First Sprite of Sprite list
+            //String statusString = sprite.getDirection().toString();
+            String statusString = firstSprite.getDirection().toString();
 
             for (int i = 0; i < spriteList.size(); i++)
             {
-               System.out.println(className + methodName + spriteList.get(i).getName() + " " + i);
+               //System.out.println(className + methodName + spriteList.get(i).getName() + " " + i);
             }
-            if (sprite.isMoving())
+
+            if (firstSprite.isMoving())
                 statusString = statusString + "moving";
             status = Status.getStatus(statusString);
         }
@@ -206,9 +209,18 @@ public class Actor implements PropertyChangeListener
         }
     }
 
+    public void addSprite(Sprite sprite)
+    {
+        spriteList.add(sprite);
+        sprite.addToListener(this);
+    }
+
+    /*
     public void setSprite(Sprite sprite)
     {
+        //this.sprite = sprite;
         this.sprite = sprite;
         sprite.addToListener(this);
     }
+    */
 }
