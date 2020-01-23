@@ -7,7 +7,7 @@ none
 
 tiledefinition:
 #layer: 0 => behind, 1 => middle, 2 => in front
-#code, 							name,												spritename, 																			blocker, priority,	fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight, lightning
+#code, 							name,												spritename, 																			blocker, heightLayer,	fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight, lightning
 #Floor
 0, 				plank,																 floor/plank,																						false,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
 1, 				plank1,															floor/plank1,																						false,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
@@ -17,7 +17,7 @@ carpe1, 				carpet,									floor/carpet1, 																					false,				0,				
 slab__, 				carpet,												floor/slab,																						false,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
 slabDr, 				carpet,							floor/slabDrain,																						false,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
 #Walls
-#code, 							name,												spritename, 																			blocker, priority,	fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight, lightning
+#code, 							name,												spritename, 																			blocker, heightLayer,	fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight, lightning
 waT, 		bluewall,								walls/bluewallFront,																					true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
 por, 		porthole,							 porthole,																																true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
 poS, 		portholestars,			portholeStars,																											true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
@@ -36,7 +36,7 @@ wBTL, 		wallcorner,						walls/wallBackTL,																							true,				0,				
 wBTR, 		wallcorner,						walls/wallBackTR,																							true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
 walCab, 		wallcable,						walls/wallcabel,																							true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
 #Furniture, 								none
-#code, name,												spritename, 																										blocker, priority,	fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight, lightning
+#code, name,												spritename, 																										blocker, heightLayer,	fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight, lightning
 tabBot, 		table,											furniture/roundWoddenTableBtm,								true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													32,													128,											64							,none
 tabTop, 		table,											furniture/roundWoddenTableTop,							false,				2,								0,			0,											0,				0,				0,										0,											0,								0,									0,													32,													128,											64							,none
 flo, 		flowers,									flowers,																																	true,			 0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0							,none
@@ -53,7 +53,7 @@ l__,			lights,										/lightsources/ligther,																			true,				1,				
 nig,			nightstand,						/lightsources/nightstand,																true,				1,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													0,												0,										0							,redlight
 tonage,			tonage,						/furniture/ton,																											true,				1,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													0,												0,										0							,greenlight256
 #Bath
-#code, name,												spritename, 																			blocker, priority,	fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight, lightning
+#code, name,												spritename, 																			blocker, heightLayer,	fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight, lightning
 wc_,						wc,									/bath/toilet,																					true,				1,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													0,												0,										0							,none
 shower,			shower,					/bath/shower,																					false,				2,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													0,												0,										0							,none
 hydra2,			hydro,					/machines/hydraulicShadows,								true,				1,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													0,												0,										0							,none
@@ -70,7 +70,7 @@ buC, bulkhead, ON
 hydrau, hydraulic, ON
 
 
-#sets 64 bits tiles as raster; you can add multiple layers; later defined layers are higher prioritized in case of same defined priority
+#sets 64 bits tiles as raster; you can add multiple layers; later defined layers are higher prioritized in case of same defined heightLayer
 #passivlayer will not be checked for interaction or collision
 passivlayer:
 ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___

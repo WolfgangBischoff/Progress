@@ -22,6 +22,7 @@ public class Actor implements PropertyChangeListener
 {
     String className = "Actor ";
     String onAction = "nothing";
+    String onInRange = "nothing";
     Status status;
     Map<Status, List<SpriteData>> spriteDataList = new HashMap<>();
     //Map<Status, SpriteData> spriteData = new HashMap<>();
@@ -122,12 +123,45 @@ public class Actor implements PropertyChangeListener
             toChange.setBlocker(ts.blocking);
             toChange.setLightningSpriteName(ts.lightningSprite);
 
-            //System.out.println(className + methodName + " animated: " + toChange.getAnimated() + " priority: " + ts.priority);
-            changeLayer(toChange, ts.priority);
+            //System.out.println(className + methodName + " animated: " + toChange.getAnimated() + " heightLayer: " + ts.heightLayer);
+            changeLayer(toChange, ts.heightLayer);
         }
 
     }
 
+    public void onInRange(Sprite otherSprite)
+    {
+        String methodName = "onInRange() ";
+
+        //TODO from config
+        if(spriteList.get(0).getName().equals("bulkhead"))
+            onInRange = "statusChangeTimer";
+
+        if(onInRange.equals("statusChangeTimer"))
+        {
+            //changeStatus();
+            status = OFF;
+            System.out.println(className + methodName + spriteList.get(0).getName());
+            //changeSprites();
+
+            //status = ANIMATION;
+            changeSprites();
+            List<SpriteData> targetSpriteData = spriteDataList.get(status);
+            int animationDuration = targetSpriteData.get(0).animationDuration;
+            PauseTransition delay = new PauseTransition(Duration.millis(animationDuration * 1000));
+            delay.setOnFinished(new EventHandler<ActionEvent>()
+            {
+                @Override
+                public void handle(ActionEvent t)
+                {
+                    System.out.println(className + methodName + spriteList.get(0).getName() + " reset");
+                    status = ON;
+                    changeSprites();
+                }
+            });
+            delay.play();
+        }
+    }
 
     public void act()
     {

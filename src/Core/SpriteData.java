@@ -25,7 +25,7 @@ public class SpriteData
 
     public String name, spriteName, lightningSprite;
     public Boolean blocking;
-    public Integer fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, priority, hitboxOffsetX, hitboxOffsetY, hitboxWidth, hitboxHeight, animationDuration;
+    public Integer fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, heightLayer, hitboxOffsetX, hitboxOffsetY, hitboxWidth, hitboxHeight, animationDuration;
     public Status actorStatus = null;
 
     public void setActorStatus(Status actorStatus)
@@ -33,7 +33,7 @@ public class SpriteData
         this.actorStatus = actorStatus;
     }
 
-    public SpriteData(String name, String spriteName, Boolean blocking, Integer fps, Integer totalFrames, Integer cols, Integer rows, Integer frameWidth, Integer frameHeight, Integer velocity, Integer direction, Integer priority, Integer hitboxOffsetX, Integer hitboxOffsetY, Integer hitboxWidth, Integer hitboxHeight, String lightningSprite)
+    public SpriteData(String name, String spriteName, Boolean blocking, Integer fps, Integer totalFrames, Integer cols, Integer rows, Integer frameWidth, Integer frameHeight, Integer velocity, Integer direction, Integer heightLayer, Integer hitboxOffsetX, Integer hitboxOffsetY, Integer hitboxWidth, Integer hitboxHeight, String lightningSprite)
     {
         this.name = name;
         this.spriteName = spriteName;
@@ -46,7 +46,7 @@ public class SpriteData
         this.frameHeight = frameHeight;
         this.velocity = velocity;
         this.direction = direction;
-        this.priority = priority;
+        this.heightLayer = heightLayer;
         this.hitboxOffsetX = hitboxOffsetX;
         this.hitboxOffsetY = hitboxOffsetY;
         this.hitboxWidth = hitboxWidth;
@@ -94,7 +94,7 @@ public class SpriteData
                 //", frameHeight=" + frameHeight +
                 //", velocity=" + velocity +
                 //", direction=" + direction +
-                //", priority=" + priority +
+                //", heightLayer=" + heightLayer +
                 //", hitboxOffsetX=" + hitboxOffsetX +
                 //", hitboxOffsetY=" + hitboxOffsetY +
                 //", hitboxWidth=" + hitboxWidth +

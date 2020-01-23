@@ -63,12 +63,13 @@ public class WorldView implements GUIController
         WorldLoader worldLoader = new WorldLoader(levelName);
         worldLoader.load();
         player = worldLoader.getPlayer();
-        passiveSpritesLayer = worldLoader.getPassivLayer();
-        bottomLayer = worldLoader.getBttmLayer();
+        passiveSpritesLayer = worldLoader.getPassivLayer(); //No collision just render
+        activeSpritesLayer = worldLoader.activeLayer; //TODO Active Sprites that check enviroment
+        bottomLayer = worldLoader.getBttmLayer(); //Render height
         middleLayer = worldLoader.getMediumLayer();
         topLayer = worldLoader.getUpperLayer();
 
-        passiveCollisionRelevantSpritesLayer.addAll(bottomLayer);
+        passiveCollisionRelevantSpritesLayer.addAll(bottomLayer); //For passive collision check
         passiveCollisionRelevantSpritesLayer.addAll(middleLayer);
         passiveCollisionRelevantSpritesLayer.addAll(topLayer);
 
@@ -132,8 +133,8 @@ public class WorldView implements GUIController
 
         player.update(currentNanoTime);
 
-//        for(Sprite active : passiveCollisionRelevantSpritesLayer)
-  //          active.update(currentNanoTime);
+        for(Sprite active : activeSpritesLayer)
+            active.update(currentNanoTime);
 
         //Camera at world border
         camX = player.positionX - VIEWPORT_SIZE_X / 2;
@@ -169,7 +170,7 @@ public class WorldView implements GUIController
             sprite.render(gc, currentNanoTime);
         }
 
-        //Bottom priority
+        //Bottom heightLayer
         for (Sprite sprite : bottomLayer)
         {
             sprite.render(gc, currentNanoTime);

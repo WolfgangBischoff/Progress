@@ -14,6 +14,7 @@ import java.util.List;
 
 public class Sprite
 {
+    String className = "Sprite ";
     int TIME_BETWEEN_ACTION = 1;
 
 
@@ -39,8 +40,8 @@ public class Sprite
     private int currentCol = 0; //last used frame in case of animation
     private int currentRow = 0;
     private Boolean isBlocker = false;
-    private Boolean animated = false;
-    private Direction direction = Direction.SOUTH;
+    private Boolean animated;
+    private Direction direction;
     private Boolean interact = false;
     private Boolean blockedByOtherSprite = false;
     Rectangle2D interactionArea;
@@ -48,6 +49,7 @@ public class Sprite
     Actor actor; //Logic for sprite
     private String lightningSpriteName;
     PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
+    String onInRange; //Actortrigger
 
     public void addToListener(PropertyChangeListener listener)
     {
@@ -115,6 +117,7 @@ public class Sprite
 
     public void update(Long currentNanoTime)
     {
+        String methodName = "update() ";
         //double time = (currentNanoTime - lastFrame) / 1000000000.0;
         double time = (currentNanoTime - lastUpdated) / 1000000000.0;
         double elapsedTimeSinceLastInteraction = (currentNanoTime - lastInteraction) / 1000000000.0;
@@ -126,7 +129,9 @@ public class Sprite
 
         for (Sprite otherSprite : activeSprites)
         {
-            if (otherSprite == this)
+            if (otherSprite == this ||
+                    otherSprite.actor == actor //if actor has multiple sprites they are usually congruent
+            )
                 continue;
 
             //Collision
@@ -135,11 +140,12 @@ public class Sprite
                     || !worldBorders.contains(positionX + velocityX * time, positionY + velocityY * time)
             )
             {
-                System.out.println("Blocked by " + otherSprite.getName());
+                //System.out.println(className + methodName + name + " blocked by " + otherSprite.getName());
                 blockedByOtherSprite = true;
                 break;
             }
 
+            //Interact
             if (interact
                     && otherSprite.actor != null
                     && otherSprite.getBoundary().intersects(interactionArea)
@@ -150,9 +156,19 @@ public class Sprite
                 interact = false; //Interacts with first found sprite;
             }
 
+            //Intersect
             if (intersects(otherSprite))
             {
-                //System.out.println("Intersects");
+                //System.out.println(className + methodName + name + " intersects " + otherSprite.getName());
+                //actOnIntersection(otherSprite);
+            }
+
+            //In range
+            if(otherSprite.actor != null
+                && otherSprite.getBoundary().intersects(interactionArea))
+            {
+                //System.out.println(className + methodName + name + " found " + otherSprite.getName() + " in range");
+                actor.onInRange(otherSprite);
             }
         }
 
@@ -164,7 +180,6 @@ public class Sprite
 
         interact = false;
         blockedByOtherSprite = false;
-        //lastFrame = currentNanoTime; // Problem here
         lastUpdated = currentNanoTime;
 
     }
@@ -178,10 +193,16 @@ public class Sprite
 
     public void actPassive(Sprite activeSprite)
     {
-        String methodName = "Sprite/actPassive ";
-        System.out.println(methodName + name + " activated by " + activeSprite.getName() + " actorStatusPassiv: " + actor);
+        String methodName = "actPassive() ";
+        System.out.println(className + methodName + name + " activated by " + activeSprite.getName() + " actorStatusPassiv: " + actor);
         if (actor != null)
             actor.act();
+    }
+
+    public void actOnIntersection(Sprite passivSprite)
+    {
+        String methodName = "actOnIntersection() ";
+        System.out.println(className + methodName + name + " found intersection of " + passivSprite.getName());
     }
 
     public boolean intersects(Sprite s)

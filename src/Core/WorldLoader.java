@@ -2,15 +2,13 @@ package Core;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.paint.Color;
-
 import java.util.*;
 
 public class WorldLoader
 {
-
-
     private Rectangle2D borders;
     List<Sprite> passivLayer = new ArrayList<>();
+    List<Sprite> activeLayer = new ArrayList<>();
     List<Sprite> bttmLayer = new ArrayList<>();
     List<Sprite> mediumLayer = new ArrayList<>();
     List<Sprite> upperLayer = new ArrayList<>();
@@ -87,10 +85,6 @@ public class WorldLoader
     private void readWorldShadow(String[] lineData)
     {
         String methodName = className + " readWorldShadow ";
-        /*System.out.print(methodName);
-        for (int i=0; i<lineData.length; i++)
-            System.out.print(lineData[i]);
-        */
         Integer red, green, blue;
         if(lineData[0].toLowerCase().equals("none"))
             shadowColor = null;
@@ -104,7 +98,7 @@ public class WorldLoader
 
     }
 
-    private void addToPriorityLayer(Sprite sprite, int layer)
+    private void addToCollisionLayer(Sprite sprite, int layer)
     {
         switch (layer)
         {
@@ -122,6 +116,7 @@ public class WorldLoader
     private void readTile(String[] lineData, Boolean isPassiv)
     {
         String methodName = "readTile ";
+        //from left to right, reads tile codes
         for (int i = 0; i < lineData.length; i++)
         {
             //Is Tile
@@ -133,7 +128,7 @@ public class WorldLoader
                 if (isPassiv)
                     passivLayer.add(ca);
                 else
-                    addToPriorityLayer(ca, tile.priority);
+                    addToCollisionLayer(ca, tile.heightLayer);
             }
             //Is Actor
             else if(actorDataMap.containsKey(lineData[i]))
@@ -146,9 +141,16 @@ public class WorldLoader
                 {
                     Sprite actorSprite;
                     actorSprite = createSprite(spriteDataList.get(j), i*64, currentVerticalTile  * 64);
-                    actor.addSprite(actorSprite);
                     actorSprite.actor = actor;
-                    addToPriorityLayer(actorSprite, spriteDataList.get(j).priority);
+                    //TODO check if active Sprite via definition
+                    if(actorSprite.getName().equals("bulkhead"))
+                    {
+                     System.out.println(className + methodName + " found bulkhead");
+                     activeLayer.add(actorSprite);
+                    }
+
+                    actor.addSprite(actorSprite);
+                    addToCollisionLayer(actorSprite, spriteDataList.get(j).heightLayer);
                 }
 
             }
@@ -197,17 +199,6 @@ public class WorldLoader
         }
     }
 
-    /*
-    private Sprite createSprite(ActorData actorData, Integer x, Integer y)
-    {
-        Actor actor = new Actor(actorData.actorname, actorData.status);
-        SpriteData spriteData = actor.spriteData.get(actorData.status);
-        Sprite initSprite = createSprite(spriteData, x, y);
-        initSprite.actor = actor;
-        actor.sprite = initSprite;
-        return initSprite;
-    }
-*/
     private Sprite createSprite(SpriteData tile, Integer x, Integer y)
     {
         Sprite ca;
