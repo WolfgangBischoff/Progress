@@ -40,6 +40,7 @@ walCab, 		wallcable,						walls/wallcabel,																							true,				0,				
 tabBot, 		table,			furniture/roundWoddenTableBtm,								true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													32,													128,											64							,none
 tabTop, 		table,			furniture/roundWoddenTableTop,							false,				2,								0,			0,											0,				0,				0,										0,											0,								0,									0,													32,													128,											64							,none
 desk__,			desk,				furniture/tableSqare,																true,				0,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													0,													0,										0							,none
+deskL_,			desk,				furniture/tableSqareL,																true,				0,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													0,													0,										0							,none
 #flo, 		flowers,									flowers,																									true,			 0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0							,none
 bee, 		bee,													bee, 																											false,				2,								12, 		3, 									3, 			1, 		32, 								32,											0, 						0,									0,													0,													0,											0							,none
 bed, 		bed,													bed,																													true,				0,								0,			0,											0,				0,				0,										0,											0, 								0,									0,													0,													0,											0							,none
@@ -49,6 +50,7 @@ pot,			pot,													pot,																													true,				0,								0,		
 pb2,			plantBig,								plantBig,																							false,				2,								0,			0,											0,				0,				0,										0,											0, 								0,									0,													0,													0,											0							,none
 scu,			skubb,											/furniture/skubb,																true,				0,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													64,												128,										64							,none
 l__,			lights,										/lightsources/ligther,											true,				1,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													0,												0,										0							,whitelight
+l_____,			lights,										/lightsources/ligtherS,											true,				1,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													0,												0,										0							,whitelight
 nig,			nightstand,						/lightsources/nightstand,								true,				1,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													0,												0,										0							,redlight
 
 #Bath
@@ -100,11 +102,11 @@ ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, sink_
 waL, ___, ___, ___, ___, ___, ___, ___, pb2, ___, ___, ___, waR, waL, ___, ___, ___, ___, ___, ___, waR
 waL, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, bee, waR,	waL, ___, ___, ___, ___, ___, ___, waR
 waL, ___, ___, ___, ___, ___, ___, ___, ___, pot, ___, cou, waR, waL, shower, ___, ___, walki2, ___, ___, waR
-waL, desk__, ___, ___, tabBot, ___, ___, ___, ___,	___,	l__, ___,	waR, waL, ___, ___, ___, ___, ___, ___, waR
+waL, desk__, ___, ___, tabBot, ___, ___, ___, ___,	l_____,	l__, ___,	waR, waL, ___, ___, ___, ___, ___, ___, waR
 waL, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, waR, waL, ___, ___, ___, ___, ___, ___, waR
 waL, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, wc_, waR, waL, ___, ___, ___, ___, ___, ___, waR
 wBL, waB, waB, waB, wBTR, ___, wBTL, wBTR, ___, ___, wBTL, waB, wBR, waL, ___, ___, ___, ___, ___, ___, waR
-wTL, waT, waT, waT, wFBR, buC, wFBL, wFBR, ___, ___, wFBL, waT, waT, wFBR, hydrau, ___, ___, hydra2, ___, ___, waR
+wTL, waT, waT, waT, wFBR, buC, wFBL, wFBR, ___, ___, wFBL, waT, waT, wFBR, deskL_, ___, ___, hydra2, ___, ___, waR
 waL, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, waR
 waL, ___, ___, ___, hed, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, waR
 waL, ___, ___, tonage, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, waR
