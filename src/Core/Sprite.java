@@ -25,13 +25,13 @@ public class Sprite
     double baseheight;
     double positionX;//referece is upper left corner
     double positionY;
-    private double speed = 50; //in case sprite moves
-    private double velocityX;
-    private double velocityY;
+    //private double speed = 50; //in case sprite moves
+    //private double velocityX;//TODO change to Actor
+    //private double velocityY;
     private float fps; //frames per second I.E. 24
     Long lastFrame = 0l;
     Long lastUpdated = 0l;
-    Long lastInteraction = 0l;
+    Long lastInteraction = 0l; //TODO change to Actor
     private int totalFrames; //Total number of frames in the sequence
     private int cols; //Number of columns on the sprite sheet
     private int rows; //Number of rows on the sprite sheet
@@ -41,7 +41,7 @@ public class Sprite
     private int currentRow = 0;
     private Boolean isBlocker = false;
     private Boolean animated;
-    private Direction direction;
+    //private Direction direction;
     private Boolean interact = false;
     private Boolean blockedByOtherSprite = false;
     Rectangle2D interactionArea;
@@ -49,7 +49,7 @@ public class Sprite
     Actor actor; //Logic for sprite
     private String lightningSpriteName;
     PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
-    String onInRange; //Actortrigger
+
 
     public void addToListener(PropertyChangeListener listener)
     {
@@ -62,10 +62,10 @@ public class Sprite
     }
 
 
-    public Sprite(String imagename, int direction)
+    public Sprite(String imagename)
     {
         animated = false;
-        this.direction = Direction.getDirectionFromValue(direction);
+        //this.direction = Direction.getDirectionFromValue(direction);
         setImage(imagename);
         frameWidth = basewidth;
         frameHeight = baseheight;
@@ -73,10 +73,10 @@ public class Sprite
         hitBoxHeight = frameHeight;
     }
 
-    public Sprite(String imagename, float fps, int totalFrames, int cols, int rows, int frameWidth, int frameHeight, int direction)
+    public Sprite(String imagename, float fps, int totalFrames, int cols, int rows, int frameWidth, int frameHeight)
     {
         animated = true;
-        this.direction = Direction.getDirectionFromValue(direction);
+        //this.direction = Direction.getDirectionFromValue(direction);
         setImage(imagename);
         this.fps = fps;
         this.totalFrames = totalFrames;
@@ -99,8 +99,11 @@ public class Sprite
 
     private Rectangle2D calcInteractionRectangle(int maxInteractionDistance)
     {
+        String methodName = "calcInteractionRectangle() ";
         int interactionWidth = 8;
-        switch (direction)
+
+        //switch (direction)
+        switch (actor.getDirection())
         {
             case NORTH:
                 return new Rectangle2D(positionX + hitBoxOffsetX + hitBoxWidth / 2 - interactionWidth / 2, positionY + hitBoxOffsetY - maxInteractionDistance, interactionWidth, maxInteractionDistance);
@@ -118,13 +121,15 @@ public class Sprite
     public void update(Long currentNanoTime)
     {
         String methodName = "update() ";
-        //double time = (currentNanoTime - lastFrame) / 1000000000.0;
         double time = (currentNanoTime - lastUpdated) / 1000000000.0;
         double elapsedTimeSinceLastInteraction = (currentNanoTime - lastInteraction) / 1000000000.0;
         int maxDistanceInteraction = 30;
         interactionArea = calcInteractionRectangle(maxDistanceInteraction);
         Rectangle2D worldBorders = WorldView.getBorders();
         List<Sprite> activeSprites = WorldView.getPassiveCollisionRelevantSpritesLayer();
+        //Rectangle2D plannedPosition = new Rectangle2D(positionX + hitBoxOffsetX + velocityX * time, positionY + hitBoxOffsetY + velocityY * time, hitBoxWidth, hitBoxHeight);
+        double velocityX = actor.getVelocityX();
+        double velocityY = actor.getVelocityY();
         Rectangle2D plannedPosition = new Rectangle2D(positionX + hitBoxOffsetX + velocityX * time, positionY + hitBoxOffsetY + velocityY * time, hitBoxWidth, hitBoxHeight);
 
         for (Sprite otherSprite : activeSprites)
@@ -142,7 +147,7 @@ public class Sprite
             {
                 //System.out.println(className + methodName + name + " blocked by " + otherSprite.getName());
                 blockedByOtherSprite = true;
-                break;
+                //break;
             }
 
             //Interact
@@ -160,7 +165,7 @@ public class Sprite
             if (intersects(otherSprite))
             {
                 //System.out.println(className + methodName + name + " intersects " + otherSprite.getName());
-                //actOnIntersection(otherSprite);
+                actor.actOnIntersection(otherSprite);
             }
 
             //In range
@@ -199,11 +204,13 @@ public class Sprite
             actor.act();
     }
 
+    /*
     public void actOnIntersection(Sprite passivSprite)
     {
         String methodName = "actOnIntersection() ";
         System.out.println(className + methodName + name + " found intersection of " + passivSprite.getName());
     }
+    */
 
     public boolean intersects(Sprite s)
     {
@@ -243,9 +250,6 @@ public class Sprite
     {
         String methodName = "renderAnimated() ";
         int frameJump = (int) Math.floor((now - lastFrame) / (1000000000 / fps)); //Determine how many frames we need to advance to maintain frame rate independence
-
-        //if(name.equals("player"))
-            //System.out.println(methodName + name + " " + now + " - " + lastFrame);
 
         //Do a bunch of math to determine where the viewport needs to be positioned on the sprite sheet
         if (frameJump >= 1)
@@ -288,20 +292,12 @@ public class Sprite
     public String toString()
     {
         return name + " Position: [" + positionX + "," + positionY + "]"
-                + " Velocity: [" + velocityX + "," + velocityY + "]"
-                + " Speed: " + getSpeed()
+               // + " Velocity: [" + velocityX + "," + velocityY + "]"
+                //+ " Speed: " + getSpeed()
                 //+ " Blocker: " + isBlocker
                 + " Animated: " + animated
                 ;
     }
-
-    /*
-    public void setActor(Actor actor)
-    {
-        this.actor = actor;
-        actor.sprite = this;
-    }
-    */
 
     public Boolean getBlocker()
     {
@@ -379,12 +375,14 @@ public class Sprite
         positionY = y;
     }
 
+    /*
     public void setVelocity(double x, double y)
     {
         velocityX = x;
         velocityY = y;
         propertyChangeSupport.firePropertyChange("velocity", null, null);
     }
+
 
     public void setSpeed(double speed)
     {
@@ -395,7 +393,7 @@ public class Sprite
     {
         return speed;
     }
-
+*/
     public void setAnimated(Boolean animated)
     {
         this.animated = animated;
@@ -406,12 +404,13 @@ public class Sprite
         return animated;
     }
 
+    /*
     public void setDirection(Direction direction)
     {
         Direction oldDirection = this.direction;
         this.direction = direction;
         propertyChangeSupport.firePropertyChange("direction", oldDirection, direction);
-    }
+    }*/
 
     public void setInteract(Boolean interact)
     {
@@ -452,7 +451,7 @@ public class Sprite
     {
         return lightningSpriteName;
     }
-
+/*
     public boolean isMoving()
     {
         if(velocityX != 0 || velocityY != 0)
@@ -460,9 +459,10 @@ public class Sprite
         else
             return false;
     }
-
+    */
+/*
     public Direction getDirection()
     {
         return direction;
-    }
+    }*/
 }

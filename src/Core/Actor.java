@@ -23,16 +23,20 @@ public class Actor implements PropertyChangeListener
     String className = "Actor ";
     String onAction = "nothing";
     String onInRange = "nothing";
+    String onIntersection = "nothing";
     Status status;
     Map<Status, List<SpriteData>> spriteDataList = new HashMap<>();
-    //Map<Status, SpriteData> spriteData = new HashMap<>();
     List<Sprite> spriteList = new ArrayList<>();
-    //Sprite sprite;
+    private Direction direction = Direction.SOUTH;
+    private double velocityX;
+    private double velocityY;
+    private double speed = 50;
 
 
-    public Actor(String spritename, Status initStatus)
+    public Actor(String spritename, Status initStatus, Direction direction)
     {
         this.status = initStatus;
+        this.direction = direction;
         List<String[]> actordata;
         Path path = Paths.get("src/res/actorData/" + spritename + ".csv");
         if (Files.exists(path))
@@ -50,7 +54,7 @@ public class Actor implements PropertyChangeListener
                 Status status = Status.getStatus(linedata[0]);
                 SpriteData data = SpriteData.tileDefinition(linedata);
                 data.animationDuration = Integer.parseInt(linedata[SpriteData.animationDurationIdx]);
-                //spriteData.put(status, data);
+                data.velocity = Integer.parseInt(linedata[SpriteData.velocityIdx]);
 
                 if (!spriteDataList.containsKey(status))
                     spriteDataList.put(status, new ArrayList<>());
@@ -129,22 +133,34 @@ public class Actor implements PropertyChangeListener
 
     }
 
+    public void actOnIntersection(Sprite otherSprite)
+    {
+        String methodName = "actOnIntersection() ";
+
+        //TODO from config
+        if (spriteList.get(0).getName().equals("bulkhead"))
+            onIntersection = "statusChangeTimer";
+
+        if (onIntersection.equals("statusChangeTimer"))
+        {
+            onInRange(otherSprite);
+        }
+
+    }
+
     public void onInRange(Sprite otherSprite)
     {
         String methodName = "onInRange() ";
 
         //TODO from config
-        if(spriteList.get(0).getName().equals("bulkhead"))
+        if (spriteList.get(0).getName().equals("bulkhead"))
             onInRange = "statusChangeTimer";
 
-        if(onInRange.equals("statusChangeTimer"))
+        if (onInRange.equals("statusChangeTimer"))
         {
-            //changeStatus();
             status = OFF;
             System.out.println(className + methodName + spriteList.get(0).getName());
-            //changeSprites();
 
-            //status = ANIMATION;
             changeSprites();
             List<SpriteData> targetSpriteData = spriteDataList.get(status);
             int animationDuration = targetSpriteData.get(0).animationDuration;
@@ -216,11 +232,29 @@ public class Actor implements PropertyChangeListener
 
     }
 
+    void updateStatus()
+    {
+        String methodName = "updateStatus() ";
+        Status oldStatus = status;
+        String statusString = direction.toString();
+
+        if (isMoving())
+            statusString = statusString + "moving";
+        status = Status.getStatus(statusString);
+
+        if (status != oldStatus)
+        {
+            changeSprites();
+        }
+    }
+
     @Override
     public void propertyChange(PropertyChangeEvent evt)
     {
         String methodName = "propertyChange() ";
         Status oldStatus = status;
+        updateStatus();
+        /*
         if (evt.getPropertyName() == "direction" || evt.getPropertyName() == "velocity")
         {
             Sprite firstSprite = spriteList.get(0);//First Sprite of Sprite list
@@ -229,7 +263,7 @@ public class Actor implements PropertyChangeListener
 
             for (int i = 0; i < spriteList.size(); i++)
             {
-               //System.out.println(className + methodName + spriteList.get(i).getName() + " " + i);
+                //System.out.println(className + methodName + spriteList.get(i).getName() + " " + i);
             }
 
             if (firstSprite.isMoving())
@@ -241,20 +275,60 @@ public class Actor implements PropertyChangeListener
         {
             changeSprites();
         }
+        */
     }
 
     public void addSprite(Sprite sprite)
     {
         spriteList.add(sprite);
+        sprite.actor = this;
         sprite.addToListener(this);
     }
 
-    /*
-    public void setSprite(Sprite sprite)
+    public Direction getDirection()
     {
-        //this.sprite = sprite;
-        this.sprite = sprite;
-        sprite.addToListener(this);
+        return direction;
     }
-    */
+
+    public void setDirection(Direction direction)
+    {
+        this.direction = direction;
+        updateStatus();
+    }
+
+    public void setVelocity(double x, double y)
+    {
+        velocityX = x;
+        velocityY = y;
+        //propertyChangeSupport.firePropertyChange("velocity", null, null);
+        updateStatus();
+    }
+
+    public boolean isMoving()
+    {
+        if(velocityX != 0 || velocityY != 0)
+            return true;
+        else
+            return false;
+    }
+
+    public double getVelocityX()
+    {
+        return velocityX;
+    }
+
+    public double getVelocityY()
+    {
+        return velocityY;
+    }
+
+    public void setSpeed(double speed)
+    {
+        this.speed = speed;
+    }
+
+    public double getSpeed()
+    {
+        return speed;
+    }
 }

@@ -10,15 +10,15 @@ public enum Direction
         this.value = value;
     }
 
-    public static Direction getDirectionFromValue(Integer value)
+    public static Direction getDirectionFromValue(String value)
     {
-        switch (value)
+        switch (value.toLowerCase())
         {
-            case 0: return NORTH;
-            case 1: return EAST;
-            case 2: return SOUTH;
-            case 3: return WEST;
-            default:return null;
+            case "north": return NORTH;
+            case "east": return EAST;
+            case "south": return SOUTH;
+            case "west": return WEST;
+            default: throw new RuntimeException("Direction not defined: " + value);
         }
     }
 }

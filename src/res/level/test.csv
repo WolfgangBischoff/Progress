@@ -7,71 +7,71 @@ none
 
 tiledefinition:
 #layer: 0 => behind, 1 => middle, 2 => in front
-#code, 							name,												spritename, 																			blocker, heightLayer,	fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight, lightning
+#code, 							name,												spritename, 																			blocker, heightLayer,	fps, totalFrames, cols, rows, frameWidth, frameHeight, hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight, lightning
 #Floor
-0, 				plank,																 floor/plank,																						false,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
-1, 				plank1,															floor/plank1,																						false,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
-2, 				plank2,															floor/plank2,																						false,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
-carpe0, 				carpet,									floor/carpet0,																						false,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
-carpe1, 				carpet,									floor/carpet1, 																					false,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
-slab__, 				carpet,												floor/slab,																						false,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
-slabDr, 				carpet,							floor/slabDrain,																						false,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
+0, 				plank,																 floor/plank,																						false,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
+1, 				plank1,															floor/plank1,																						false,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
+2, 				plank2,															floor/plank2,																						false,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
+carpe0, 				carpet,									floor/carpet0,																						false,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
+carpe1, 				carpet,									floor/carpet1, 																					false,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
+slab__, 				carpet,												floor/slab,																						false,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
+slabDr, 				carpet,							floor/slabDrain,																						false,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
 #Walls
-#code, 							name,												spritename, 																			blocker, heightLayer,	fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight, lightning
-waT, 		bluewall,								walls/bluewallFront,																					true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
-por, 		porthole,							 porthole,																																true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
-poS, 		portholestars,			portholeStars,																											true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
-poG, 		portholegalaxy,		portholeGalaxy,																										true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
-poC, 		portholescratch,			portholeScratch,																							true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
-wTL, 		bluewallTL,						walls/bluewallcornerTL,																		true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
-wTR, 		bluewallTR,						walls/bluewallcornerTR,																		true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
-waL, 		wall,												walls/wallLeft, 																									true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
-waR, 		wall,												walls/wallWest, 																									true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
-waB, 		wall,												walls/wallBackNorth,																					true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
-wBR, 		wallcorner,						walls/wallCornerNW,																						true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
-wBL, 		wallcorner,						walls/wallCornerNE,																						true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
-wFBL, 		wallcorner,						walls/bluewallCornerFrontBL,												true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
-wFBR, 		wallcorner,						walls/bluewallCornerFrontBR,												true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
-wBTL, 		wallcorner,						walls/wallBackTL,																							true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
-wBTR, 		wallcorner,						walls/wallBackTR,																							true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
-walCab, 		wallcable,						walls/wallcabel,																							true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0, 								none
+#code, 							name,												spritename, 																			blocker, heightLayer,	fps, totalFrames, cols, rows, frameWidth, frameHeight, hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight, lightning
+waT, 		bluewall,								walls/bluewallFront,																					true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
+por, 		porthole,							 porthole,																																true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
+poS, 		portholestars,			portholeStars,																											true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
+poG, 		portholegalaxy,		portholeGalaxy,																										true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
+poC, 		portholescratch,			portholeScratch,																							true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
+wTL, 		bluewallTL,						walls/bluewallcornerTL,																		true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
+wTR, 		bluewallTR,						walls/bluewallcornerTR,																		true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
+waL, 		wall,												walls/wallLeft, 																									true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
+waR, 		wall,												walls/wallWest, 																									true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
+waB, 		wall,												walls/wallBackNorth,																					true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
+wBR, 		wallcorner,						walls/wallCornerNW,																						true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
+wBL, 		wallcorner,						walls/wallCornerNE,																						true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
+wFBL, 		wallcorner,						walls/bluewallCornerFrontBL,												true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
+wFBR, 		wallcorner,						walls/bluewallCornerFrontBR,												true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
+wBTL, 		wallcorner,						walls/wallBackTL,																							true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
+wBTR, 		wallcorner,						walls/wallBackTR,																							true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
+walCab, 		wallcable,						walls/wallcabel,																							true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
 #Furniture, 								none
-#code, name,												spritename, 																		blocker, heightLayer,	fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight, lightning
-tabBot, 		table,			furniture/roundWoddenTableBtm,								true,				0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													32,													128,											64							,none
-tabTop, 		table,			furniture/roundWoddenTableTop,							false,				2,								0,			0,											0,				0,				0,										0,											0,								0,									0,													32,													128,											64							,none
-desk__,			desk,				furniture/tableSqare,																true,				0,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													0,													0,										0							,none
-deskL_,			desk,				furniture/tableSqareL,																true,				0,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													0,													0,										0							,none
-#flo, 		flowers,									flowers,																									true,			 0,								0,			0,											0,				0,				0,										0,											0,								0,									0,													0,													0,											0							,none
-bee, 		bee,													bee, 																											false,				2,								12, 		3, 									3, 			1, 		32, 								32,											0, 						0,									0,													0,													0,											0							,none
-bed, 		bed,													bed,																													true,				0,								0,			0,											0,				0,				0,										0,											0, 								0,									0,													0,													0,											0							,none
-cou, 		couch,											/furniture/couch,																true,				0,								0,			0,											0,				0,				0,										0,											0, 								0,									0,													0,													0,											0							,none
-plt,			potPlantTop,					potPlantTop,																				false,				2,								0,			0,											0,				0,				0,										0,											0, 							0,									0,													0,													0,											0							,none
-pot,			pot,													pot,																													true,				0,								0,			0,											0,				0,				0,										0,											0, 								0,									0,													0,													0,											0							,none
-pb2,			plantBig,								plantBig,																							false,				2,								0,			0,											0,				0,				0,										0,											0, 								0,									0,													0,													0,											0							,none
-scu,			skubb,											/furniture/skubb,																true,				0,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													64,												128,										64							,none
-l__,			lights,										/lightsources/ligther,											true,				1,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													0,												0,										0							,whitelight
-l_____,			lights,										/lightsources/ligtherS,											true,				1,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													0,												0,										0							,whitelight
-nig,			nightstand,						/lightsources/nightstand,								true,				1,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													0,												0,										0							,redlight
+#code, name,												spritename, 																		blocker, heightLayer,	fps, totalFrames, cols, rows, frameWidth, frameHeight, hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight, lightning
+tabBot, 		table,			furniture/roundWoddenTableBtm,								true,				0,								0,			0,											0,				0,				0,										0,											0,													32,													128,											64							,none
+tabTop, 		table,			furniture/roundWoddenTableTop,							false,				2,								0,			0,											0,				0,				0,										0,											0,													32,													128,											64							,none
+desk__,			desk,				furniture/tableSqare,																true,				0,								0,			0,											0,				0,				0,										0,														0,													0,													0,										0							,none
+deskL_,			desk,				furniture/tableSqareL,																true,				0,								0,			0,											0,				0,				0,										0,										0,													0,													0,										0							,none
+#flo, 		flowers,									flowers,																									true,			 0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0							,none
+bee, 		bee,													bee, 																											false,				2,								12, 		3, 									3, 			1, 		32, 								32,										0,													0,													0,											0							,none
+bed, 		bed,													bed,																													true,				0,								0,			0,											0,				0,				0,										0,												0,													0,													0,											0							,none
+cou, 		couch,											/furniture/couch,																true,				0,								0,			0,											0,				0,				0,										0,												0,													0,													0,											0							,none
+plt,			potPlantTop,					potPlantTop,																				false,				2,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0							,none
+pot,			pot,													pot,																													true,				0,								0,			0,											0,				0,				0,										0,												0,													0,													0,											0							,none
+pb2,			plantBig,								plantBig,																							false,				2,								0,			0,											0,				0,				0,										0,												0,													0,													0,											0							,none
+scu,			skubb,											/furniture/skubb,																true,				0,								0,			0,											0,				0,				0,										0,										0,													64,												128,										64							,none
+l__,			lights,										/lightsources/ligther,											true,				1,								0,			0,											0,				0,				0,										0,										0,													0,												0,										0							,whitelight
+l_____,			lights,										/lightsources/ligtherS,											true,				1,								0,			0,											0,				0,				0,										0,										0,													0,												0,										0							,whitelight
+nig,			nightstand,						/lightsources/nightstand,								true,				1,								0,			0,											0,				0,				0,										0,										0,													0,												0,										0							,redlight
 
 #Bath
-#code, name,												spritename, 																			blocker, heightLayer,	fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight, lightning
-wc_,						wc,									/bath/toilet,																					true,				1,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													0,												0,										0							,none
-shower,			shower,					/bath/shower,																					false,				2,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													0,												0,										0							,none
-sink__,			sink,							/bath/sink,																							false,				1,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													0,												0,										0							,none
+#code, name,												spritename, 																			blocker, heightLayer,	fps, totalFrames, cols, rows, frameWidth, frameHeight,   hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight, lightning
+wc_,						wc,									/bath/toilet,																					true,				1,								0,			0,											0,				0,				0,										0,											0, 											0,												0,										0							,none
+shower,			shower,					/bath/shower,																					false,				2,								0,			0,											0,				0,				0,										0,											0,												0,												0,										0							,none
+sink__,			sink,							/bath/sink,																							false,				1,								0,			0,											0,				0,				0,										0,											0,												0,												0,										0							,none
 #Machines
-#code, name,												spritename, 																			blocker, heightLayer,	fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight, lightning
-hydra2,			hydro,					/machines/hydraulicShadows,								true,				1,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													0,												0,										0							,none
-tonage,			tonage,						machines/ton,																											true,				1,								0,			0,											0,				0,				0,										0,											0, 						0,									0,													0,												0,										0							,greenlight256
+#code, name,												spritename, 																			blocker, heightLayer,	fps, totalFrames, cols, rows, frameWidth, frameHeight,   hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight, lightning
+hydra2,			hydro,					/machines/hydraulicShadows,								true,				1,								0,			0,											0,				0,				0,										0,											0, 											0,												0,										0							,none
+tonage,			tonage,						machines/ton,																											true,				1,								0,			0,											0,				0,				0,										0,										0,													0,												0,										0							,greenlight256
 
-walki2,			conceptDummy,					concept128_1.1,																			false,				1,								6,			8,											8,				1,				64,										128,											0, 						0,									0,													0,												0,										0							,none
+walki2,			conceptDummy,					concept128_1.1,																			false,				1,								6,			8,											8,				1,				64,										128,										0,													0,												0,										0							,none
 
-#code, actorname, status
+#code, 			actorname, 	status, direction
 actors:
-pc_, pc, OFF
-hed, hedgehog, DEFAULT
-pla, player, SOUTH
-buC, bulkhead, ON
-hydrau, hydraulic, ON
+pc_, 											pc, 				OFF, 				SOUTH
+hed, 					hedgehog, DEFAULT,					SOUTH
+pla, 							player, 		SOUTH, 				EAST
+buC, 					bulkhead, 					ON, 				SOUTH
+hydrau,		hydraulic, 					ON, 				SOUTH
 
 
 #sets 64 bits tiles as raster; you can add multiple layers; later defined layers are higher prioritized in case of same defined heightLayer

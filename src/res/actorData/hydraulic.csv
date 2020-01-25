@@ -2,8 +2,8 @@
 action, statusChange
 
 #status to image
-#status,								name, 				spritename, 												blocker, heightLayer,	fps, totalFrames, cols, rows, frameWidth, frameHeight, velocity, direction, hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight,lightning 		,	duration
-ON, 		hydraulicT, 		machines/hydraulicTop,							false,						2,								0,			0,											0,				0,				0,										0,											0, 							0		,							0,													0,												0,											0,					none,				 						0
-ON, 		hydraulicB, 		machines/hydraulicBtm,							true,						0,								0,			0,											0,				0,				0,										0,											0, 							0		,							0,											64,												128,										64,					redlight,				 						0
-OFF, 		hydraulicT, 		machines/hydraulicTop,							false,						2,								0,			0,											0,				0,				0,										0,											0, 							0		,							0,													0,												0,											0,					none,				 						0
-OFF, 		hydraulicB, 		machines/hydraulicBtm,							true,						0,								0,			0,											0,				0,				0,										0,											0, 							0		,							0,											64,												128,										64,					greenlight256,				 						0
+#status,								name, 				spritename, 												blocker, heightLayer,	fps, totalFrames, cols, rows, frameWidth, frameHeight,  hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight,lightning,	duration,  velocity
+ON, 		hydraulicT, 		machines/hydraulicTop,							false,						2,								0,			0,											0,				0,				0,										0,													 		0,													0,												0,											0,					none,				 								0, 		0
+ON, 		hydraulicB, 		machines/hydraulicBtm,							true,						0,								0,			0,											0,				0,				0,										0,													  	0,											64,												128,										64,					redlight,				 				0, 	0
+OFF, 		hydraulicT, 		machines/hydraulicTop,							false,						2,								0,			0,											0,				0,				0,										0,												0,													0,												0,											0,					none,				 											0, 	0
+OFF, 		hydraulicB, 		machines/hydraulicBtm,							true,						0,								0,			0,											0,				0,				0,										0,													 		0,											64,												128,										64,					greenlight256,			0, 		0

@@ -23,7 +23,7 @@ public class WorldLoader
     int maxHorizontalTile = 0;
     String readMode;
 
-    private final String className = "WorldLoader";
+    private final String className = "WorldLoader ";
     private final String KEYWORD_NEW_LAYER = "layer:";
     private final String KEYWORD_PASSIV_LAYER = "passivlayer:";
     private final String KEYWORD_ACTORS = "actors:";
@@ -134,14 +134,22 @@ public class WorldLoader
             else if(actorDataMap.containsKey(lineData[i]))
             {
                 ActorData actorData = actorDataMap.get(lineData[i]);
+
                 //foreach Sprite Data add Sprite to layer, Actor save sprite
-                Actor actor = new Actor(actorData.actorname, actorData.status);
+                Actor actor = new Actor(actorData.actorname, actorData.status, actorData.direction);
+                //actor.updateStatus();
+                System.out.println(className + methodName + actorData.actorname + " " + actor.status);
+
+
                 List<SpriteData> spriteDataList = actor.spriteDataList.get(actor.status);
                 for(int j=0; j<spriteDataList.size(); j++)
                 {
                     Sprite actorSprite;
-                    actorSprite = createSprite(spriteDataList.get(j), i*64, currentVerticalTile  * 64);
+                    SpriteData spriteData = spriteDataList.get(j);
+                    actorSprite = createSprite(spriteData, i*64, currentVerticalTile  * 64);
                     actorSprite.actor = actor;
+                    actor.setSpeed(spriteData.velocity);
+
                     //TODO check if active Sprite via definition
                     if(actorSprite.getName().equals("bulkhead"))
                     {
@@ -173,8 +181,10 @@ public class WorldLoader
         int actorCodeIdx = 0;
         int actorNameIdx = 1;
         int statusIdx = 2;
+        int directionIdx = 3;
         Status actorstatus = Status.getStatus(lineData[statusIdx]);
-        ActorData actorData = new ActorData(lineData[actorNameIdx], actorstatus);
+        Direction direction = Direction.getDirectionFromValue(lineData[directionIdx]);
+        ActorData actorData = new ActorData(lineData[actorNameIdx], actorstatus, direction);
         actorDataMap.put(lineData[actorCodeIdx], actorData);
     }
 
@@ -182,11 +192,13 @@ public class WorldLoader
     {
         String actorname;
         Status status;
+        Direction direction;
 
-        public ActorData(String actorname, Status status)
+        public ActorData(String actorname, Status status, Direction direction)
         {
             this.actorname = actorname;
             this.status = status;
+            this.direction = direction;
         }
 
         @Override
@@ -203,14 +215,14 @@ public class WorldLoader
     {
         Sprite ca;
         if (tile.totalFrames > 1)
-            ca = new Sprite(tile.spriteName, tile.fps, tile.totalFrames, tile.cols, tile.rows, tile.frameWidth, tile.frameHeight, tile.direction);
+            ca = new Sprite(tile.spriteName, tile.fps, tile.totalFrames, tile.cols, tile.rows, tile.frameWidth, tile.frameHeight);
         else
-            ca = new Sprite(tile.spriteName, tile.direction);
+            ca = new Sprite(tile.spriteName);
 
         ca.setName(tile.name);
         ca.setPosition(x, y);
         ca.setBlocker(tile.blocking);
-        ca.setSpeed(tile.velocity);
+        //ca.setSpeed(tile.velocity);
         ca.setLightningSpriteName(tile.lightningSprite);
 
         if (ca.getName().toLowerCase().equals("player"))

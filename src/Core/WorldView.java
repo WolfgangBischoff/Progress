@@ -87,44 +87,60 @@ public class WorldView implements GUIController
         int addedVelocityX = 0, addedVelocityY = 0;
         //player.setVelocity(0, 0);
 
+        Actor playerActor = player.actor;
         //Interpret Input from GameWindow
         if (input.contains("UP") || input.contains("W"))
         {
             //player.addVelocity(0, -player.getSpeed());
-            addedVelocityY += -player.getSpeed();
-            if (player.getDirection() != Direction.NORTH)
-                player.setDirection(Direction.NORTH);
+            //addedVelocityY += -player.getSpeed();
+            addedVelocityY += -playerActor.getSpeed();
+            //if (player.getDirection() != Direction.NORTH)
+            if (playerActor.getDirection() != Direction.NORTH)
+                //player.setDirection(Direction.NORTH);
+                playerActor.setDirection(Direction.NORTH);
             moveButtonPressed = true;
         }
         if (input.contains("DOWN") || input.contains("S"))
         {
             //player.addVelocity(0, player.getSpeed());
-            addedVelocityY += player.getSpeed();
-            if (player.getDirection() != Direction.SOUTH)
-                player.setDirection(Direction.SOUTH);
+            //addedVelocityY += player.getSpeed();
+            addedVelocityY += playerActor.getSpeed();
+            //if (player.getDirection() != Direction.SOUTH)
+            if (playerActor.getDirection() != Direction.SOUTH)
+                //player.setDirection(Direction.SOUTH);
+                playerActor.setDirection(Direction.SOUTH);
             moveButtonPressed = true;
         }
         if (input.contains("LEFT") || input.contains("A"))
         {
             //player.addVelocity(-player.getSpeed(), 0);
-            addedVelocityX += -player.getSpeed();
-            if (player.getDirection() != Direction.WEST)
-                player.setDirection(Direction.WEST);
+            //addedVelocityX += -player.getSpeed();
+            addedVelocityX += -playerActor.getSpeed();
+            //if (player.getDirection() != Direction.WEST)
+            if (playerActor.getDirection() != Direction.WEST)
+                //player.setDirection(Direction.WEST);
+                playerActor.setDirection(Direction.WEST);
             moveButtonPressed = true;
         }
         if (input.contains("RIGHT") || input.contains("D"))
         {
             //player.addVelocity(player.getSpeed(), 0);
-            addedVelocityX += player.getSpeed();
-            if (player.getDirection() != Direction.EAST)
-                player.setDirection(Direction.EAST);
+            //addedVelocityX += player.getSpeed();
+            addedVelocityX += playerActor.getSpeed();
+            //if (player.getDirection() != Direction.EAST)
+            if (playerActor.getDirection() != Direction.EAST)
+                //player.setDirection(Direction.EAST);
+                playerActor.setDirection(Direction.EAST);
             moveButtonPressed = true;
         }
 
         if (moveButtonPressed)
-            player.setVelocity(addedVelocityX, addedVelocityY);
-        else if(player.isMoving())
-            player.setVelocity(0, 0);
+            //player.setVelocity(addedVelocityX, addedVelocityY);
+            player.actor.setVelocity(addedVelocityX, addedVelocityY);
+        //else if(player.isMoving())
+        else if(player.actor.isMoving())
+            //player.setVelocity(0, 0);
+            player.actor.setVelocity(0, 0);
 
         if (input.contains("E"))
         {

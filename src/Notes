@@ -4,6 +4,12 @@ Logic:
     add timer to prevent multiple events
     add interaction range to config
 - Player two sprites, upper part higher layer => Table render problem
+- Konzeptionelles Problem Status/Direction, UpdateStatus muss für alle Actoren passen auch die keine Directionänderung haben
+            => Status DEFAULT/TRIGGERED/MOVING/ANIMATION
+            => Direction
+
+
+
 - schlafen, fade out
 - player animation https://opengameart.org/content/2d-sprite-skins-walking-animation
 - Message Box
