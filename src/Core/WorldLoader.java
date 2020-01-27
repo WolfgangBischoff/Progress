@@ -138,7 +138,7 @@ public class WorldLoader
                 //foreach Sprite Data add Sprite to layer, Actor save sprite
                 Actor actor = new Actor(actorData.actorname, actorData.status, actorData.direction);
                 //actor.updateStatus();
-                System.out.println(className + methodName + actorData.actorname + " " + actor.status);
+                //System.out.println(className + methodName + actorData.actorname + " " + actor.status);
 
 
                 List<SpriteData> spriteDataList = actor.spriteDataList.get(actor.status);
@@ -163,7 +163,7 @@ public class WorldLoader
 
             }
             //Is Placeholder
-            else if (!lineData[i].equals("___"))
+            else if (!lineData[i].equals(Config.MAPDEFINITION_EMPTY))
                 System.out.println("WorldLoader readTile: tile definition not found: " + lineData[i]);
 
             maxHorizontalTile = i > maxHorizontalTile ? i : maxHorizontalTile;

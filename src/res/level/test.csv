@@ -9,27 +9,27 @@ tiledefinition:
 #layer: 0 => behind, 1 => middle, 2 => in front
 #code, 							name,												spritename, 																			blocker, heightLayer,	fps, totalFrames, cols, rows, frameWidth, frameHeight, hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight, lightning
 #Floor
-0, 				plank,																 floor/plank,																						false,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
-1, 				plank1,															floor/plank1,																						false,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
-2, 				plank2,															floor/plank2,																						false,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
+metalU, 				darkMetal,															floor/darkMetalUpper,						false,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
+metal_, 				darkMetal,															floor/darkMetal,											false,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
+metalL, 				darkMetal,															floor/darkMetalLower,						false,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
 carpe0, 				carpet,									floor/carpet0,																						false,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
 carpe1, 				carpet,									floor/carpet1, 																					false,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
 slab__, 				carpet,												floor/slab,																						false,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
 slabDr, 				carpet,							floor/slabDrain,																						false,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
 #Walls
 #code, 							name,												spritename, 																			blocker, heightLayer,	fps, totalFrames, cols, rows, frameWidth, frameHeight, hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight, lightning
-waT, 		bluewall,								walls/bluewallFront,																					true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
-por, 		porthole,							 porthole,																																true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
+waT___, 		bluewall,								walls/bluewallFront,																					true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
+por___, 		porthole,							 porthole,																																true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
 poS, 		portholestars,			portholeStars,																											true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
 poG, 		portholegalaxy,		portholeGalaxy,																										true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
 poC, 		portholescratch,			portholeScratch,																							true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
 wTL, 		bluewallTL,						walls/bluewallcornerTL,																		true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
 wTR, 		bluewallTR,						walls/bluewallcornerTR,																		true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
-waL, 		wall,												walls/wallLeft, 																									true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
+waL___, 		wall,												walls/wallLeft, 																									true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
 waR, 		wall,												walls/wallWest, 																									true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
-waB, 		wall,												walls/wallBackNorth,																					true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
-wBR, 		wallcorner,						walls/wallCornerNW,																						true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
-wBL, 		wallcorner,						walls/wallCornerNE,																						true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
+waB___, 		wall,												walls/wallBackNorth,																					true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
+waBNW_, 		wallcorner,						walls/wallCornerNW,																						true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
+wBL___, 		wallcorner,						walls/wallCornerNE,																						true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
 wFBL, 		wallcorner,						walls/bluewallCornerFrontBL,												true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
 wFBR, 		wallcorner,						walls/bluewallCornerFrontBR,												true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
 wBTL, 		wallcorner,						walls/wallBackTL,																							true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
@@ -37,21 +37,19 @@ wBTR, 		wallcorner,						walls/wallBackTR,																							true,				0,				
 walCab, 		wallcable,						walls/wallcabel,																							true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
 #Furniture, 								none
 #code, name,												spritename, 																		blocker, heightLayer,	fps, totalFrames, cols, rows, frameWidth, frameHeight, hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight, lightning
-tabBot, 		table,			furniture/roundWoddenTableBtm,								true,				0,								0,			0,											0,				0,				0,										0,											0,													32,													128,											64							,none
-tabTop, 		table,			furniture/roundWoddenTableTop,							false,				2,								0,			0,											0,				0,				0,										0,											0,													32,													128,											64							,none
+tabBot, 		table,			furniture/roundWoddenTableBtm,								true,				0,								0,			0,											0,				0,				0,										0,											0,													32,													128,											74							,none
+tabTop, 		table,			furniture/roundWoddenTableTop,							false,				2,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0							,none
 desk__,			desk,				furniture/tableSqare,																true,				0,								0,			0,											0,				0,				0,										0,														0,													0,													0,										0							,none
 deskL_,			desk,				furniture/tableSqareL,																true,				0,								0,			0,											0,				0,				0,										0,										0,													0,													0,										0							,none
-#flo, 		flowers,									flowers,																									true,			 0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0							,none
-bee, 		bee,													bee, 																											false,				2,								12, 		3, 									3, 			1, 		32, 								32,										0,													0,													0,											0							,none
-bed, 		bed,													bed,																													true,				0,								0,			0,											0,				0,				0,										0,												0,													0,													0,											0							,none
+bee___, 		bee___,													bee, 																											false,				2,								12, 		3, 									3, 			1, 		32, 								32,										0,													0,													0,											0							,none
+bed___, 		bed___,													bed,																													true,				0,								0,			0,											0,				0,				0,										0,												0,													0,													0,											0							,none
 cou, 		couch,											/furniture/couch,																true,				0,								0,			0,											0,				0,				0,										0,												0,													0,													0,											0							,none
 plt,			potPlantTop,					potPlantTop,																				false,				2,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0							,none
-pot,			pot,													pot,																													true,				0,								0,			0,											0,				0,				0,										0,												0,													0,													0,											0							,none
+pot,			pot,													pot,																													true,				0,								0,			0,											0,				0,				0,										0,												0,													0,													64,											74							,none
 pb2,			plantBig,								plantBig,																							false,				2,								0,			0,											0,				0,				0,										0,												0,													0,													0,											0							,none
-scu,			skubb,											/furniture/skubb,																true,				0,								0,			0,											0,				0,				0,										0,										0,													64,												128,										64							,none
-l__,			lights,										/lightsources/ligther,											true,				1,								0,			0,											0,				0,				0,										0,										0,													0,												0,										0							,whitelight
+scubb_,			skubb,											/furniture/skubb,																true,				0,								0,			0,											0,				0,				0,										0,										0,													64,												128,										64							,none
 l_____,			lights,										/lightsources/ligtherS,											true,				1,								0,			0,											0,				0,				0,										0,										0,													0,												0,										0							,whitelight
-nig,			nightstand,						/lightsources/nightstand,								true,				1,								0,			0,											0,				0,				0,										0,										0,													0,												0,										0							,redlight
+nights,			nightstand,						/lightsources/nightstand,								true,				1,								0,			0,											0,				0,				0,										0,										0,													0,												0,										0							,redlight
 
 #Bath
 #code, name,												spritename, 																			blocker, heightLayer,	fps, totalFrames, cols, rows, frameWidth, frameHeight,   hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight, lightning
@@ -67,9 +65,9 @@ walki2,			conceptDummy,					concept128_1.1,																			false,				1,						
 
 #code, 			actorname, 	status, direction
 actors:
-pc_, 											pc, 				OFF, 				SOUTH
-hed, 					hedgehog, DEFAULT,					SOUTH
-pla, 							player, 		SOUTH, 				EAST
+pc____, 											pc, 				OFF, 				SOUTH
+hedgeh, 					hedgehog, DEFAULT,					SOUTH
+player, 							player, 		SOUTH, 				EAST
 buC, 					bulkhead, 					ON, 				SOUTH
 hydrau,		hydraulic, 					ON, 				SOUTH
 
@@ -77,7 +75,7 @@ hydrau,		hydraulic, 					ON, 				SOUTH
 #sets 64 bits tiles as raster; you can add multiple layers; later defined layers are higher prioritized in case of same defined heightLayer
 #passivlayer will not be checked for interaction or collision
 passivlayer:
-___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___
+______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
 carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1,	carpe0
 carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1,	carpe0
 carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1,	carpe0
@@ -88,49 +86,50 @@ carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, 
 carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1,	carpe0
 carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1,	carpe0
 carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1,	carpe0
-slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, 2, 0, 1, 2, 0, 1, 2, 0,	1
-2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0,	1
-2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0,	1
-2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0,	1
-2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0,	1
-2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0,	1
+slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__
+metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU
+metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_
+metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL
+metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU
+______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
 
-
-layer:
-wTL, waT, waT, waT, waT, waT, waT, waT, waT, waT, waT, waT, wTR, wTL, waT, waT, waT, waT, waT, waT, wTR
-___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, sink__, ___, ___, ___, ___, ___
-waL, ___, ___, ___, ___, ___, ___, ___, pb2, ___, ___, ___, waR, waL, ___, ___, ___, ___, ___, ___, waR
-waL, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, bee, waR,	waL, ___, ___, ___, ___, ___, ___, waR
-waL, ___, ___, ___, ___, ___, ___, ___, ___, pot, ___, cou, waR, waL, shower, ___, ___, walki2, ___, ___, waR
-waL, desk__, ___, ___, tabBot, ___, ___, ___, ___,	l_____,	l__, ___,	waR, waL, ___, ___, ___, ___, ___, ___, waR
-waL, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, waR, waL, ___, ___, ___, ___, ___, ___, waR
-waL, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, wc_, waR, waL, ___, ___, ___, ___, ___, ___, waR
-wBL, waB, waB, waB, wBTR, ___, wBTL, wBTR, ___, ___, wBTL, waB, wBR, waL, ___, ___, ___, ___, ___, ___, waR
-wTL, waT, waT, waT, wFBR, buC, wFBL, wFBR, ___, ___, wFBL, waT, waT, wFBR, deskL_, ___, ___, hydra2, ___, ___, waR
-waL, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, waR
-waL, ___, ___, ___, hed, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, waR
-waL, ___, ___, tonage, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, waR
-waL, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, waR
-waL, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, waR
-waL, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, waR
-wBL, waB, waB, waB, waB, waB, waB, waB, waB,	waB, waB, waB, waB, waB, waB, waB, waB, waB, waB, waB,	wBR
 
 
 layer:
-___, ___, poG, ___, poS, ___, por, ___, por, ___, poC, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___
-___, plt, ___, ___, pc_, ___, ___, scu, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___
-___, pot, bed, hed, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___
-___, nig, ___, ___, ___, pla, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___
-___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___
-___, ___, ___, ___, tabTop, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___
-___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___
-___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___
-___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___
-___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, walCab, ___, ___, ___, ___, ___, ___, ___, ___
-___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___
-___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___
-___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___
-___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___
-___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___
-___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___
-___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___
+wTL, waT___, waT___, waT___, waT___, waT___, waT___, waT___, waT___, waT___, waT___, waT___, wTR, wTL, waT___, waT___, waT___, waT___, waT___, waT___, wTR
+______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, sink__, ______, ______, ______, ______, ______
+waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR, waL___, ______, ______, ______, ______, ______, ______, waR
+waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, bee___, waR,	waL___, ______, ______, ______, ______, ______, ______, waR
+waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, cou, waR, waL___, shower, ______, ______, ______, ______, ______, waR
+waL___, desk__, ______, ______, tabBot, ______, ______, ______, ______,	l_____,	______, ______,	waR, waL___, ______, ______, ______, ______, ______, ______, waR
+waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR, waL___, ______, ______, ______, ______, ______, ______, waR
+waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, wc_, waR, waL___, ______, ______, ______, ______, ______, ______, waR
+wBL___, waB___, waB___, waB___, wBTR, ______, wBTL, wBTR, ______, ______, wBTL, waB___, waBNW_, waL___, ______, ______, ______, ______, ______, ______, waR
+wTL, waT___, waT___, waT___, wFBR, buC, wFBL, wFBR, ______, ______, wFBL, waT___, waT___, wFBR, deskL_, ______, ______, hydra2, ______, ______, waR
+waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR
+waL___, ______, ______, ______, hedgeh, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, pb2, ______, ______, waR
+waL___, ______, ______, tonage, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR
+waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, pot, ______, waR
+waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR
+waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR
+wBL___, waB___, waB___, waB___, waB___, waB___, waB___, waB___, waB___,	waB___, waB___, waB___, waB___, waB___, waB___, waB___, waB___, waB___, waB___, waB___,	waBNW_
+
+
+layer:
+______, ______, poG, ______, poS, ______, por___, ______, por___, ______, poC, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
+______, plt, ______, ______, pc____, ______, ______, scubb_, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
+______, pot, bed___, hedgeh, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
+______, nights, ______, ______, ______, player, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
+______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
+______, ______, ______, ______, tabTop, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
+______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
+______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
+______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
+______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, walCab, ______, ______, ______, ______, ______, ______, ______, ______
+______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
+______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
+______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
+______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
+______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
+______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
+______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
