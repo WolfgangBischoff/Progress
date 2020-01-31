@@ -22,7 +22,7 @@ waT___, 		bluewall,								walls/bluewallFront,																					true,				0,	
 por___, 		porthole,							 porthole,																																true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
 poS, 		portholestars,			portholeStars,																											true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
 poG, 		portholegalaxy,		portholeGalaxy,																										true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
-poC, 		portholescratch,			portholeScratch,																							true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
+#poC, 		portholescratch,			portholeScratch,																							true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
 wTL___, 		bluewallTL,						walls/bluewallcornerTL,																		true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
 wTR___, 		bluewallTR,						walls/bluewallcornerTR,																		true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
 waL___, 		wall,												walls/wallLeft, 																									true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
@@ -35,31 +35,37 @@ wFBR, 		wallcorner,						walls/bluewallCornerFrontBR,												true,				0,				
 wBTL, 		wallcorner,						walls/wallBackTL,																							true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
 wBTR, 		wallcorner,						walls/wallBackTR,																							true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
 walCab, 		wallcable,						walls/wallcabel,																							true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
+
 #Furniture, 								none
-#code, name,												spritename, 																		blocker, heightLayer,	fps, totalFrames, cols, rows, frameWidth, frameHeight, hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight, lightning
-tabBot, 		table,			furniture/roundWoddenTableBtm,								true,				0,								0,			0,											0,				0,				0,										0,											0,													32,													128,											74							,none
-tabTop, 		table,			furniture/roundWoddenTableTop,							false,				2,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0							,none
-desk__,			desk,				furniture/tableSqare,																true,				0,								0,			0,											0,				0,				0,										0,														0,													0,													0,										0							,none
-deskL_,			desk,				furniture/tableSqareL,																true,				0,								0,			0,											0,				0,				0,										0,										0,													0,													0,										0							,none
-bee___, 		bee___,													bee, 																											false,				2,								12, 		3, 									3, 			1, 		32, 								32,										0,													0,													0,											0							,none
-bed___, 		bed___,													bed,																													true,				0,								0,			0,											0,				0,				0,										0,												0,													0,													0,											0							,none
-cou, 		couch,											/furniture/couch,																true,				0,								0,			0,											0,				0,				0,										0,												0,													0,													0,											0							,none
-plt___,			potPlantTop,					potPlantTop,																				false,				2,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0							,none
-pot___,			pot,													pot,																													true,				0,								0,			0,											0,				0,				0,										0,												0,													0,													64,											74							,none
-pb2___,			plantBig,								plantBig,																							false,				2,								0,			0,											0,				0,				0,										0,												0,													0,													0,											0							,none
-scubb_,			skubb,											/furniture/skubb,																true,				0,								0,			0,											0,				0,				0,										0,										0,													64,												128,										64							,none
-l_____,			lights,										/lightsources/ligtherS,											true,				1,								0,			0,											0,				0,				0,										0,										0,													0,												0,										0							,whitelight
-nights,			nightstand,						/lightsources/nightstand,								true,				1,								0,			0,											0,				0,				0,										0,										0,													0,												0,										0							,redlight
+#code, name,												spritename, 																							blocker, heightLayer,	fps, totalFrames, cols, rows, frameWidth, frameHeight, hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight, lightning
+tabBot, 		table,			furniture/roundWoddenTableBtm,													true,				0,								0,			0,											0,				0,				0,										0,											0,													32,													128,											74							,none
+tabTop, 		table,			furniture/roundWoddenTableTop,												false,				2,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0							,none
+desk__,			desk,				furniture/tableSqare,																						true,				0,								0,			0,											0,				0,				0,										0,														0,													0,													0,										0							,none
+deskL_,			desk,				furniture/tableSqareL,																					true,				0,								0,			0,											0,				0,				0,										0,										0,													0,													0,										0							,none
+bee___, 		bee___,													bee, 																										false,				2,								12, 		3, 									3, 			1, 		32, 								32,										0,													0,													0,											0							,none
+bed___, 		bed___,													bed,																												true,				0,								0,			0,											0,				0,				0,										0,												0,													0,													0,											0							,none
+couch_, 		couch,											/furniture/couch,																					true,				0,								0,			0,											0,				0,				0,										0,												0,													0,													0,											0							,none
+plt___,			potPlantTop,					potPlantTop,																						false,				2,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0							,none
+pot___,			pot,													pot,																															true,				0,								0,			0,											0,				0,				0,										0,												0,													0,													64,											74							,none
+pb2___,			plantBig,								plantBig,																									false,				2,								0,			0,											0,				0,				0,										0,												0,													0,													0,											0							,none
+diff_d,			diffuser,								furniture/diffuser128,													true,				0,								0,			0,											0,				0,				0,										0,												0,													50,													128,								64,										,none
+diff_s,			diffuserSmoke,			furniture/diffuser128Smoke,							false,				2,								3,			3,											3,				1,		128,							 128,												0,													0,													0,											0							,none
+scubb_,			skubb,											/furniture/skubb,																		true,				0,								0,			0,											0,				0,				0,										0,										0,													64,												128,										64							,none
+l_____,			lights,										/lightsources/ligtherS,												true,				1,								0,			0,											0,				0,				0,										0,										0,													0,												0,										0							,whitelight
+nights,			nightstand,						/lightsources/nightstand,										true,				1,								0,			0,											0,				0,				0,										0,										0,													0,												0,										0							,redlight
+bench_,				bench,											furniture/bench,																			true,				1,								0,			0,											0,				0,				0,										0,										0,													50,												128,										50							,none
 
 #Bath
 #code, name,												spritename, 																			blocker, heightLayer,	fps, totalFrames, cols, rows, frameWidth, frameHeight,   hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight, lightning
-wc_,						wc,									/bath/toilet,																					true,				1,								0,			0,											0,				0,				0,										0,											0, 											0,												0,										0							,none
+wc____,						wc,									/bath/toilet,																					true,				1,								0,			0,											0,				0,				0,										0,											0, 											0,												0,										0							,none
 shower,			shower,					/bath/shower,																					false,				2,								0,			0,											0,				0,				0,										0,											0,												0,												0,										0							,none
 sink__,			sink,							/bath/sink,																							false,				1,								0,			0,											0,				0,				0,										0,											0,												0,												0,										0							,none
+
 #Machines
 #code, name,												spritename, 																			blocker, heightLayer,	fps, totalFrames, cols, rows, frameWidth, frameHeight,   hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight, lightning
-hydra2,			hydro,					/machines/hydraulicShadows,								true,				1,								0,			0,											0,				0,				0,										0,											0, 											0,												0,										0							,none
-tonage,			tonage,						machines/ton,																											true,				1,								0,			0,											0,				0,				0,										0,										0,													0,												0,										0							,greenlight256
+hydra2,			hydro,					/machines/hydraulicShadows,										true,											1,			0,		        	0, 			0,				0,				      0, 										0,															0, 			 							0,												0,										0							,none
+tonage,			tonage,						machines/ton,																						true,											1,			0,		        	0, 			0,				0,				      0, 										0,					 									0,				 								0,												0,										0							,greenlight256
+screen,			screen,						machines/statusScreen,													true,											1,			0,		        	0, 			0,				0,				      0, 										0,					 									0,				 								0,												0,										0							,none
 
 walki2,			conceptDummy,					concept128_1.1,																			false,				1,								6,			8,											8,				1,				64,										128,										0,													0,												0,										0							,none
 
@@ -76,21 +82,21 @@ hydrau,		hydraulic, 					ON, 				SOUTH
 #passivlayer will not be checked for interaction or collision
 passivlayer:
 ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
-carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1,	carpe0
-carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1,	carpe0
-carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1,	carpe0
-carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, slab__, slab__, slab__, carpe0, carpe1, carpe0, carpe1,	carpe0
-carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, slab__, carpe0, slab__, slab__, slab__, carpe0, carpe1, carpe0, carpe1,	carpe0
-carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, slab__, carpe0, slab__, slabDr, slab__, carpe0, carpe1, carpe0, carpe1,	carpe0
-carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, slab__, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1,	carpe0
-carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1,	carpe0
-carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1,	carpe0
-carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1,	carpe0
-slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__
-metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU
-metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_
-metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL
-metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU
+carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, slab__, slab__, slab__, slab__, slab__, slab__, slab__,	______
+carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, slab__, slab__, slab__, slab__, slab__, slab__, slab__,	______
+carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, slab__, slab__, slab__, slab__, slab__, slab__, slab__,	______
+carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, slab__, slab__, slab__, slab__, slab__, slab__, slab__,	______
+carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, slab__, slab__, slab__, slab__, slab__, slab__, slab__,	______
+carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, slab__, slabDr, slab__, slab__, slab__, slab__, slab__,	______
+carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1,	______
+carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1,	______
+carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1,	______
+carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1,	______
+slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, ______
+metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, ______
+metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, ______
+metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, ______
+slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, ______
 ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
 
 
@@ -98,37 +104,37 @@ ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, 
 layer:
 wTL___, waT___, waT___, waT___, waT___, waT___, waT___, waT___, waT___, waT___, waT___, waT___, wTR___, wTL___, waT___, waT___, waT___, waT___, waT___, waT___, wTR___
 ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, sink__, ______, ______, ______, ______, ______
+waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___, waL___, ______, ______, ______, ______, ______, wc____, waR___
+waL___, ______, ______, ______, ______, ______, ______, bee___, ______, ______, ______, ______, waR___,	waL___, ______, ______, ______, ______, ______, ______, waR___
+waL___, ______, ______, ______, ______, ______, ______, couch_, ______, ______, ______, ______, waR___, waL___, shower, ______, ______, ______, ______, ______, waR___
+waL___, ______, tabBot, ______, ______, ______, ______, L_____, ______,	______,	______, ______,	waR___, waL___, ______, ______, ______, ______, desk__, ______, waR___
 waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___, waL___, ______, ______, ______, ______, ______, ______, waR___
-waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, bee___, waR___,	waL___, ______, ______, ______, ______, ______, ______, waR___
-waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, cou, waR___, waL___, shower, ______, ______, ______, ______, ______, waR___
-waL___, desk__, ______, ______, tabBot, ______, ______, ______, ______,	l_____,	______, ______,	waR___, waL___, ______, ______, ______, ______, ______, ______, waR___
 waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___, waL___, ______, ______, ______, ______, ______, ______, waR___
-waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, wc_, waR___, waL___, ______, ______, ______, ______, ______, ______, waR___
 wBL___, waB___, waB___, waB___, wBTR, ______, wBTL, wBTR, ______, ______, wBTL, waB___, waBNW_, waL___, ______, ______, ______, ______, ______, ______, waR___
-wTL___, waT___, waT___, waT___, wFBR, buC, wFBL, wFBR, ______, ______, wFBL, waT___, waT___, wFBR, deskL_, ______, ______, hydra2, ______, ______, waR___
-waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
-waL___, ______, ______, ______, hedgeh, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, pb2___, ______, ______, waR___
-waL___, ______, ______, tonage, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
+wTL___, waT___, waT___, waT___, wFBR, buC, wFBL, wFBR, ______, ______, wFBL, waT___, waT___, wFBR, desk__, ______, ______, hydra2, ______, ______, waR___
+waL___, ______, bench_, ______, ______, ______, bench_, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
+waL___, ______, diff_s, ______, hedgeh, ______, diff_s, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, pb2___, ______, ______, waR___
+waL___, ______, diff_d, ______, ______, ______, diff_d, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
 waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, pot___, ______, waR___
-waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
+waL___, ______, bench_, ______, ______, ______, bench_, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
 waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
 wBL___, waB___, waB___, waB___, waB___, waB___, waB___, waB___, waB___,	waB___, waB___, waB___, waB___, waB___, waB___, waB___, waB___, waB___, waB___, waB___,	waBNW_
 
 
 layer:
-______, ______, poG, ______, poS, ______, por___, ______, por___, ______, poC, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
+______, ______, poG, ______, poS, ______, por___, ______, por___, ______, ______, ______, ______, ______, ______, ______, ______, ______, walCab, ______, ______
 ______, plt___, ______, ______, pc____, ______, ______, scubb_, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
 ______, pot___, bed___, hedgeh, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
-______, nights, ______, ______, ______, player, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
+______, nights, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
 ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
-______, ______, ______, ______, tabTop, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
-______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
-______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
-______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
-______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, walCab, ______, ______, ______, ______, ______, ______, ______, ______
+______, ______, tabTop, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
 ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
 ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
 ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
+______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, screen, ______, walCab, ______, ______, ______, ______, ______, ______, ______
+______, ______, ______, ______, ______, ______, ______, ______, ______, ______, tonage, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
+______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
+______, ______, ______, ______, ______, ______, ______, ______, ______, player, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
 ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
 ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
 ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
