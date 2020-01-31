@@ -1,5 +1,10 @@
 
-action, animation
+#Status Changes
+onAction, timed, transition
+
+#Status transition map
+transition, default, animation
+transition, animation, default
 
 #status to image
 #status, 										name,							spritename, 				blocker, heightLayer,	fps, totalFrames, cols, rows, frameWidth, frameHeight,   hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight,lightning 		,	duration, velocity

@@ -88,15 +88,6 @@ public class Sprite
         hitBoxHeight = frameHeight;
     }
 
-    /*
-    public void addVelocity(double x, double y)
-    {
-        setVelocity(velocityX + x, velocityY + y);
-        //velocityX += x;
-        //velocityY += y;
-    }
-    */
-
     private Rectangle2D calcInteractionRectangle(int maxInteractionDistance)
     {
         String methodName = "calcInteractionRectangle() ";
@@ -127,10 +118,12 @@ public class Sprite
         interactionArea = calcInteractionRectangle(maxDistanceInteraction);
         Rectangle2D worldBorders = WorldView.getBorders();
         List<Sprite> activeSprites = WorldView.getPassiveCollisionRelevantSpritesLayer();
-        //Rectangle2D plannedPosition = new Rectangle2D(positionX + hitBoxOffsetX + velocityX * time, positionY + hitBoxOffsetY + velocityY * time, hitBoxWidth, hitBoxHeight);
         double velocityX = actor.getVelocityX();
         double velocityY = actor.getVelocityY();
         Rectangle2D plannedPosition = new Rectangle2D(positionX + hitBoxOffsetX + velocityX * time, positionY + hitBoxOffsetY + velocityY * time, hitBoxWidth, hitBoxHeight);
+
+        if(actor != null && actor.onUpdate != TriggerType.NOTHING)
+            actor.update();
 
         for (Sprite otherSprite : activeSprites)
         {
@@ -162,7 +155,7 @@ public class Sprite
             }
 
             //Intersect
-            if (intersects(otherSprite))
+            if (intersects(otherSprite) && actor.onIntersection != TriggerType.NOTHING)
             {
                 //System.out.println(className + methodName + name + " intersects " + otherSprite.getName());
                 actor.actOnIntersection(otherSprite);
@@ -170,6 +163,7 @@ public class Sprite
 
             //In range
             if(otherSprite.actor != null
+                    && actor.onInRange != TriggerType.NOTHING
                 && otherSprite.getBoundary().intersects(interactionArea))
             {
                 //System.out.println(className + methodName + name + " found " + otherSprite.getName() + " in range");
@@ -191,7 +185,7 @@ public class Sprite
 
     public void actActive(Sprite passiveSprite)
     {
-        System.out.println("Sprite " + name + " activated " + passiveSprite.getName());
+        //System.out.println("Sprite " + name + " activated " + passiveSprite.getName());
         passiveSprite.actPassive(this);
     }
 
@@ -199,7 +193,7 @@ public class Sprite
     public void actPassive(Sprite activeSprite)
     {
         String methodName = "actPassive() ";
-        System.out.println(className + methodName + name + " activated by " + activeSprite.getName() + " actorStatusPassiv: " + actor);
+        //System.out.println(className + methodName + name + " activated by " + activeSprite.getName() + " actorStatusPassiv: " + actor);
         if (actor != null)
             actor.act();
     }
@@ -232,7 +226,7 @@ public class Sprite
         }
 
 
-        if (Config.DEBUGMODE)
+        if (Config.DEBUGMODE && isBlocker)
         {
             gc.strokeRect(positionX + hitBoxOffsetX, positionY + hitBoxOffsetY, hitBoxWidth, hitBoxHeight);
             if (interactionArea != null)

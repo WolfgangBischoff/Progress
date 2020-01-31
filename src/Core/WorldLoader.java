@@ -136,12 +136,13 @@ public class WorldLoader
                 ActorData actorData = actorDataMap.get(lineData[i]);
 
                 //foreach Sprite Data add Sprite to layer, Actor save sprite
-                Actor actor = new Actor(actorData.actorname, actorData.status, actorData.direction);
-                //actor.updateStatus();
-                //System.out.println(className + methodName + actorData.actorname + " " + actor.status);
+                Actor actor = new Actor(actorData.actorname, actorData.generalStatus, actorData.direction);
+                actor.updateCompoundStatus();
 
+                //System.out.println(className + methodName + actorData.actorname + " " + actor.compoundStatus);
 
-                List<SpriteData> spriteDataList = actor.spriteDataList.get(actor.status);
+                List<SpriteData> spriteDataList = actor.spriteDataMap.get(actor.compoundStatus);
+
                 for(int j=0; j<spriteDataList.size(); j++)
                 {
                     Sprite actorSprite;
@@ -182,22 +183,24 @@ public class WorldLoader
         int actorNameIdx = 1;
         int statusIdx = 2;
         int directionIdx = 3;
-        Status actorstatus = Status.getStatus(lineData[statusIdx]);
+        //Status actorstatus = Status.getStatus(lineData[statusIdx]);
         Direction direction = Direction.getDirectionFromValue(lineData[directionIdx]);
-        ActorData actorData = new ActorData(lineData[actorNameIdx], actorstatus, direction);
+        ActorData actorData = new ActorData(lineData[actorNameIdx], lineData[statusIdx], direction);
         actorDataMap.put(lineData[actorCodeIdx], actorData);
     }
 
     class ActorData
     {
         String actorname;
-        Status status;
+        String generalStatus;
+        //Status status;
         Direction direction;
 
-        public ActorData(String actorname, Status status, Direction direction)
+        public ActorData(String actorname, String generalStatus, Direction direction)
         {
             this.actorname = actorname;
-            this.status = status;
+            this.generalStatus = generalStatus;
+            //this.status = status;
             this.direction = direction;
         }
 
@@ -206,7 +209,7 @@ public class WorldLoader
         {
             return "ActorData{" +
                     "actorname='" + actorname + '\'' +
-                    ", status=" + status +
+                   // ", status=" + status +
                     '}';
         }
     }

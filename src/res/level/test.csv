@@ -71,11 +71,11 @@ walki2,			conceptDummy,					concept128_1.1,																			false,				1,						
 
 #code, 			actorname, 	status, direction
 actors:
-pc____, 											pc, 				OFF, 				SOUTH
-hedgeh, 					hedgehog, DEFAULT,					SOUTH
-player, 							player, 		SOUTH, 				EAST
-buC, 					bulkhead, 					ON, 				SOUTH
-hydrau,		hydraulic, 					ON, 				SOUTH
+pc____, 											pc, 				OFF, 				undefined
+hedgeh, 					hedgehog, DEFAULT,					undefined
+player, 							player, 		default, 				EAST
+buC, 					bulkhead, 					ON, 				south
+#hydrau,		hydraulic, 					ON, 				undefined
 
 
 #sets 64 bits tiles as raster; you can add multiple layers; later defined layers are higher prioritized in case of same defined heightLayer
@@ -107,7 +107,7 @@ ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, 
 waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___, waL___, ______, ______, ______, ______, ______, wc____, waR___
 waL___, ______, ______, ______, ______, ______, ______, bee___, ______, ______, ______, ______, waR___,	waL___, ______, ______, ______, ______, ______, ______, waR___
 waL___, ______, ______, ______, ______, ______, ______, couch_, ______, ______, ______, ______, waR___, waL___, shower, ______, ______, ______, ______, ______, waR___
-waL___, ______, tabBot, ______, ______, ______, ______, L_____, ______,	______,	______, ______,	waR___, waL___, ______, ______, ______, ______, desk__, ______, waR___
+waL___, ______, tabBot, ______, ______, ______, ______, l_____, ______,	______,	______, ______,	waR___, waL___, ______, ______, ______, ______, desk__, ______, waR___
 waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___, waL___, ______, ______, ______, ______, ______, ______, waR___
 waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___, waL___, ______, ______, ______, ______, ______, ______, waR___
 wBL___, waB___, waB___, waB___, wBTR, ______, wBTL, wBTR, ______, ______, wBTL, waB___, waBNW_, waL___, ______, ______, ______, ______, ______, ______, waR___

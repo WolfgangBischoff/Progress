@@ -16,26 +16,33 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static Core.Status.*;
-
 public class Actor implements PropertyChangeListener
 {
     String className = "Actor ";
-    String onAction = "nothing";
-    String onInRange = "nothing";
-    String onIntersection = "nothing";
+    TriggerType onAction = TriggerType.NOTHING;
+    TriggerType onInRange = TriggerType.NOTHING;
+    TriggerType onUpdate = TriggerType.NOTHING;
+    TriggerType onIntersection = TriggerType.NOTHING;
+    String onUpdateToStatus = Config.KEYWORD_transition;
+    String onInRangeToStatus = Config.KEYWORD_transition;
+    String onIntersectionToStatus = Config.KEYWORD_transition;
     Status status;
     Map<Status, List<SpriteData>> spriteDataList = new HashMap<>();
-    List<Sprite> spriteList = new ArrayList<>();
-    private Direction direction = Direction.SOUTH;
+    List<Sprite> spriteList = new ArrayList<>();//TODO remove
+    private Direction direction;
     private double velocityX;
     private double velocityY;
     private double speed = 50;
 
+    Map<String, String> statusTransitions = new HashMap<>();
+    Map<String, List<SpriteData>> spriteDataMap = new HashMap<>();
+    String generalStatus;
+    String compoundStatus = "default";
 
-    public Actor(String spritename, Status initStatus, Direction direction)
+
+    public Actor(String spritename, String initGeneralStatus, Direction direction)
     {
-        this.status = initStatus;
+        this.generalStatus = initGeneralStatus.toLowerCase();
         this.direction = direction;
         List<String[]> actordata;
         Path path = Paths.get("src/res/actorData/" + spritename + ".csv");
@@ -44,25 +51,66 @@ public class Actor implements PropertyChangeListener
             actordata = Utilities.readAllLineFromTxt("src/res/actorData/" + spritename + ".csv");
             for (String[] linedata : actordata)
             {
-                if (linedata[0].equals("action"))
+                if (linedata[0].equals(Config.KEYWORD_onAction))
                 {
-                    onAction = linedata[1];//Different to method readSpriteData
+                    TriggerType triggerType = TriggerType.getStatus(linedata[1]);
+                    onAction = triggerType;//Different to method readSpriteData
+                    continue;
+                }
+                if (linedata[0].equals(Config.KEYWORD_onInRange))
+                {
+                    TriggerType triggerType = TriggerType.getStatus(linedata[1]);
+                    String targetGeneralStatus = linedata[2];
+                    onInRangeToStatus = targetGeneralStatus;
+                    onInRange = triggerType;//Different to method readSpriteData
+                    continue;
+                }
+                if (linedata[0].equals(Config.KEYWORD_onUpdate))
+                {
+                    TriggerType triggerType = TriggerType.getStatus(linedata[1]);
+                    String targetGeneralStatus = linedata[2];
+                    onUpdateToStatus = targetGeneralStatus;
+                    onUpdate = triggerType;//Different to method readSpriteData
+                    continue;
+                }
+                if (linedata[0].equals(Config.KEYWORD_onIntersection))
+                {
+                    TriggerType triggerType = TriggerType.getStatus(linedata[1]);
+                    String targetGeneralStatus = linedata[2];
+                    onIntersectionToStatus = targetGeneralStatus;
+                    onIntersection = triggerType;
+                    continue;
+                }
+
+                if (linedata[0].equals(Config.KEYWORD_transition))
+                {
+                    statusTransitions.put(linedata[1], linedata[2]);
                     continue;
                 }
 
                 //Collect ActorData
-                Status status = Status.getStatus(linedata[0]);
                 SpriteData data = SpriteData.tileDefinition(linedata);
                 data.animationDuration = Integer.parseInt(linedata[SpriteData.animationDurationIdx]);
                 data.velocity = Integer.parseInt(linedata[SpriteData.velocityIdx]);
 
-                if (!spriteDataList.containsKey(status))
-                    spriteDataList.put(status, new ArrayList<>());
-                spriteDataList.get(status).add(data);
+                String statusName = linedata[0].toLowerCase();
+                if (!spriteDataMap.containsKey(statusName))
+                    spriteDataMap.put(statusName, new ArrayList<>());
+                spriteDataMap.get(statusName).add(data);
 
             }
         }
         else throw new RuntimeException("Actordata not found: " + spritename);
+    }
+
+    public void update()
+    {
+        if (onUpdateToStatus.equals(Config.KEYWORD_transition))
+            transitionGeneralStatus();
+        {
+            generalStatus = onUpdateToStatus;
+            updateCompoundStatus();
+        }
     }
 
     static public Map<Status, SpriteData> readSpriteData(String actorname)
@@ -75,7 +123,13 @@ public class Actor implements PropertyChangeListener
             actordata = Utilities.readAllLineFromTxt("src/res/actorData/" + actorname + ".csv");
             for (String[] linedata : actordata)
             {
-                if (linedata[0].equals("action"))
+                if (
+                        linedata[0].equals(Config.KEYWORD_onAction) ||
+                                linedata[0].equals(Config.KEYWORD_onUpdate) ||
+                                linedata[0].equals(Config.KEYWORD_onInRange) ||
+                                linedata[0].equals(Config.KEYWORD_transition)
+
+                )
                     continue;
 
                 Status status = Status.getStatus(linedata[0]);
@@ -117,7 +171,15 @@ public class Actor implements PropertyChangeListener
     private void changeSprites()
     {
         String methodName = "changeSprites() ";
-        List<SpriteData> targetSpriteData = spriteDataList.get(status);
+
+        //System.out.println(className + methodName + compoundStatus);
+        //System.out.println(className + methodName + spriteDataMap);
+
+        List<SpriteData> targetSpriteData = spriteDataMap.get(compoundStatus);
+
+        if (targetSpriteData == null)
+            System.out.println(className + methodName + compoundStatus + " not found in " + spriteDataMap);
+
         //For all Sprites of the actor update to new Status
         for (int i = 0; i < spriteList.size(); i++)
         {
@@ -126,8 +188,6 @@ public class Actor implements PropertyChangeListener
             toChange.setImage(ts.spriteName, ts.fps, ts.totalFrames, ts.cols, ts.rows, ts.frameWidth, ts.frameHeight);
             toChange.setBlocker(ts.blocking);
             toChange.setLightningSpriteName(ts.lightningSprite);
-
-            //System.out.println(className + methodName + " animated: " + toChange.getAnimated() + " heightLayer: " + ts.heightLayer);
             changeLayer(toChange, ts.heightLayer);
         }
 
@@ -137,13 +197,12 @@ public class Actor implements PropertyChangeListener
     {
         String methodName = "actOnIntersection() ";
 
-        //TODO from config
-        if (spriteList.get(0).getName().equals("bulkhead"))
-            onIntersection = "statusChangeTimer";
-
-        if (onIntersection.equals("statusChangeTimer"))
+        if (onIntersectionToStatus.equals(Config.KEYWORD_transition))
+            transitionGeneralStatus();
+        else
         {
-            onInRange(otherSprite);
+            generalStatus = onIntersectionToStatus;
+            updateCompoundStatus();
         }
 
     }
@@ -151,52 +210,30 @@ public class Actor implements PropertyChangeListener
     public void onInRange(Sprite otherSprite)
     {
         String methodName = "onInRange() ";
-
-        //TODO from config
-        if (spriteList.get(0).getName().equals("bulkhead"))
-            onInRange = "statusChangeTimer";
-
-        if (onInRange.equals("statusChangeTimer"))
+        if (onInRangeToStatus.equals("transition"))
+            transitionGeneralStatus();
+        else
         {
-            status = OFF;
-            System.out.println(className + methodName + spriteList.get(0).getName());
-
-            changeSprites();
-            List<SpriteData> targetSpriteData = spriteDataList.get(status);
-            int animationDuration = targetSpriteData.get(0).animationDuration;
-            PauseTransition delay = new PauseTransition(Duration.millis(animationDuration * 1000));
-            delay.setOnFinished(new EventHandler<ActionEvent>()
-            {
-                @Override
-                public void handle(ActionEvent t)
-                {
-                    System.out.println(className + methodName + spriteList.get(0).getName() + " reset");
-                    status = ON;
-                    changeSprites();
-                }
-            });
-            delay.play();
+            generalStatus = onInRangeToStatus;
+            updateCompoundStatus();
         }
+        System.out.println(className + methodName + generalStatus + " found " + otherSprite.getName());
     }
 
     public void act()
     {
         String methodName = "act(): ";
 
-        if (onAction == "nothing")
+        if (onAction == TriggerType.NOTHING)
             return;
 
-        if (onAction.equals("statusChange"))
-        {
-            changeStatus();
-            changeSprites();
-        }
+        if (onAction == TriggerType.PERSISTENT)
+            transitionGeneralStatus();
 
-        if (onAction.equals("animation"))
+        if (onAction == TriggerType.TIMED)
         {
-            status = ANIMATION;
-            changeSprites();
-            List<SpriteData> targetSpriteData = spriteDataList.get(status);
+            transitionGeneralStatus();
+            List<SpriteData> targetSpriteData = spriteDataMap.get(compoundStatus);
             int animationDuration = targetSpriteData.get(0).animationDuration;
             PauseTransition delay = new PauseTransition(Duration.millis(animationDuration * 1000));
             delay.setOnFinished(new EventHandler<ActionEvent>()
@@ -204,10 +241,11 @@ public class Actor implements PropertyChangeListener
                 @Override
                 public void handle(ActionEvent t)
                 {
-                    status = DEFAULT;
-                    changeSprites();
+                    transitionGeneralStatus();
                 }
             });
+
+
             delay.play();
         }
 
@@ -218,34 +256,41 @@ public class Actor implements PropertyChangeListener
     {
         return "Actor{" +
                 "onAction='" + onAction + '\'' +
-                ", status=" + status +
-                //  ", sprite=" + sprite.getName() +
+                // ", status=" + status +
+                ", Generalstatus=" + generalStatus +
+                ", transitions: " + statusTransitions.toString() +
                 '}';
     }
 
-    private void changeStatus()
+    private void transitionGeneralStatus()
     {
-        if (status == ON)
-            status = OFF;
-        else if (status == OFF)
-            status = ON;
+        String methodName = "transitionGeneralStatus() ";
+        if (statusTransitions.containsKey(generalStatus))
+        {
+            generalStatus = statusTransitions.get(generalStatus);
+            //System.out.println(className + methodName + generalStatus + " " + statusTransitions);
+        }
+        else
+            System.out.print(className + methodName + "No status transition found: " + generalStatus);
 
+        updateCompoundStatus();
     }
 
-    void updateStatus()
+    void updateCompoundStatus()
     {
-        String methodName = "updateStatus() ";
-        Status oldStatus = status;
-        String statusString = direction.toString();
+        String methodName = "updateCompoundStatus() ";
+        String oldCompoundStatus = compoundStatus;
+        String newStatusString = generalStatus;
+
+        if (!(direction == Direction.UNDEFINED))
+            newStatusString = newStatusString + "-" + direction.toString().toLowerCase();
 
         if (isMoving())
-            statusString = statusString + "moving";
-        status = Status.getStatus(statusString);
+            newStatusString = newStatusString + "-" + "moving";
 
-        if (status != oldStatus)
-        {
+        compoundStatus = newStatusString;
+        if (!(oldCompoundStatus.equals(compoundStatus)))
             changeSprites();
-        }
     }
 
     @Override
@@ -253,29 +298,7 @@ public class Actor implements PropertyChangeListener
     {
         String methodName = "propertyChange() ";
         Status oldStatus = status;
-        updateStatus();
-        /*
-        if (evt.getPropertyName() == "direction" || evt.getPropertyName() == "velocity")
-        {
-            Sprite firstSprite = spriteList.get(0);//First Sprite of Sprite list
-            //String statusString = sprite.getDirection().toString();
-            String statusString = firstSprite.getDirection().toString();
-
-            for (int i = 0; i < spriteList.size(); i++)
-            {
-                //System.out.println(className + methodName + spriteList.get(i).getName() + " " + i);
-            }
-
-            if (firstSprite.isMoving())
-                statusString = statusString + "moving";
-            status = Status.getStatus(statusString);
-        }
-
-        if (status != oldStatus)
-        {
-            changeSprites();
-        }
-        */
+        updateCompoundStatus();
     }
 
     public void addSprite(Sprite sprite)
@@ -293,20 +316,19 @@ public class Actor implements PropertyChangeListener
     public void setDirection(Direction direction)
     {
         this.direction = direction;
-        updateStatus();
+        updateCompoundStatus();
     }
 
     public void setVelocity(double x, double y)
     {
         velocityX = x;
         velocityY = y;
-        //propertyChangeSupport.firePropertyChange("velocity", null, null);
-        updateStatus();
+        updateCompoundStatus();
     }
 
     public boolean isMoving()
     {
-        if(velocityX != 0 || velocityY != 0)
+        if (velocityX != 0 || velocityY != 0)
             return true;
         else
             return false;

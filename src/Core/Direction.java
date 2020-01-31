@@ -2,7 +2,7 @@ package Core;
 
 public enum Direction
 {
-    NORTH(0), EAST(1), SOUTH(2), WEST(3);
+    NORTH(0), EAST(1), SOUTH(2), WEST(3), UNDEFINED(4);
 
     Integer value;
     Direction(Integer value)
@@ -18,6 +18,7 @@ public enum Direction
             case "east": return EAST;
             case "south": return SOUTH;
             case "west": return WEST;
+            case "undefined": return UNDEFINED;
             default: throw new RuntimeException("Direction not defined: " + value);
         }
     }
