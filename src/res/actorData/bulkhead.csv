@@ -1,7 +1,7 @@
 
 #Status Changes
 #ActionType, TriggerType, GeneralStatus
-onAction, timed, off
+#onAction, persistent, transition
 onInRange, persistent, off
 onUpdate, persistent, on
 onIntersection, persistent, off
@@ -9,6 +9,9 @@ onIntersection, persistent, off
 #Status transition map
 transition, on, off
 transition, off, on
+
+#InteractionArea, Distance, Width, OffsetX, OffsetY
+interactionArea, 						250,				15,							0,				-200
 
 #status to image
 #status,	name, 											spritename, 					blocker, heightLayer,	fps, totalFrames, cols, rows, frameWidth, frameHeight,   hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight,lightning,	duration, velocity

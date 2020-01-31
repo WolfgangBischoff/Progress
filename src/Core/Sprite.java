@@ -76,7 +76,6 @@ public class Sprite
     public Sprite(String imagename, float fps, int totalFrames, int cols, int rows, int frameWidth, int frameHeight)
     {
         animated = true;
-        //this.direction = Direction.getDirectionFromValue(direction);
         setImage(imagename);
         this.fps = fps;
         this.totalFrames = totalFrames;
@@ -88,20 +87,24 @@ public class Sprite
         hitBoxHeight = frameHeight;
     }
 
-    private Rectangle2D calcInteractionRectangle(int maxInteractionDistance)
+    //private Rectangle2D calcInteractionRectangle(int maxInteractionDistance)
+    private Rectangle2D calcInteractionRectangle()
     {
         String methodName = "calcInteractionRectangle() ";
-        int interactionWidth = 8;
+        //int interactionWidth = 8;
+        double interactionWidth = actor.getInteractionAreaWidth();
+        double maxInteractionDistance = actor.getInteractionAreaDistance();
+        double offsetX = actor.getInteractionAreaOffsetX();
+        double offsetY = actor.getInteractionAreaOffsetY();
 
-        //switch (direction)
         switch (actor.getDirection())
         {
             case NORTH:
-                return new Rectangle2D(positionX + hitBoxOffsetX + hitBoxWidth / 2 - interactionWidth / 2, positionY + hitBoxOffsetY - maxInteractionDistance, interactionWidth, maxInteractionDistance);
+                return new Rectangle2D(positionX + hitBoxOffsetX + hitBoxWidth / 2 - interactionWidth / 2 + offsetX, positionY + hitBoxOffsetY - maxInteractionDistance + offsetY, interactionWidth, maxInteractionDistance);
            case EAST:
                 return new Rectangle2D(positionX + hitBoxOffsetX + hitBoxWidth, positionY + hitBoxOffsetY + hitBoxHeight / 2 - interactionWidth / 2, maxInteractionDistance, interactionWidth);
             case SOUTH:
-                return new Rectangle2D(positionX + hitBoxOffsetX + hitBoxWidth / 2 - interactionWidth / 2, positionY + hitBoxOffsetY + hitBoxHeight, interactionWidth, maxInteractionDistance);
+                return new Rectangle2D(positionX + hitBoxOffsetX + hitBoxWidth / 2 - interactionWidth / 2 + offsetX, positionY + hitBoxOffsetY + hitBoxHeight + offsetY, interactionWidth, maxInteractionDistance);
            case WEST:
                 return new Rectangle2D(positionX + hitBoxOffsetX - maxInteractionDistance, positionY + hitBoxOffsetY + hitBoxHeight / 2 - interactionWidth / 2, maxInteractionDistance, interactionWidth);
             default:
@@ -115,7 +118,8 @@ public class Sprite
         double time = (currentNanoTime - lastUpdated) / 1000000000.0;
         double elapsedTimeSinceLastInteraction = (currentNanoTime - lastInteraction) / 1000000000.0;
         int maxDistanceInteraction = 30;
-        interactionArea = calcInteractionRectangle(maxDistanceInteraction);
+        //interactionArea = calcInteractionRectangle(maxDistanceInteraction);
+        interactionArea = calcInteractionRectangle();
         Rectangle2D worldBorders = WorldView.getBorders();
         List<Sprite> activeSprites = WorldView.getPassiveCollisionRelevantSpritesLayer();
         double velocityX = actor.getVelocityX();
@@ -138,9 +142,7 @@ public class Sprite
                     || !worldBorders.contains(positionX + velocityX * time, positionY + velocityY * time)
             )
             {
-                //System.out.println(className + methodName + name + " blocked by " + otherSprite.getName());
                 blockedByOtherSprite = true;
-                //break;
             }
 
             //Interact

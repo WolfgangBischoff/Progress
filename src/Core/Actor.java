@@ -33,6 +33,10 @@ public class Actor implements PropertyChangeListener
     private double velocityX;
     private double velocityY;
     private double speed = 50;
+    private double interactionAreaWidth = 8;
+    private double interactionAreaDistance = 30;
+    private double interactionAreaOffsetX = 0;
+    private double interactionAreaOffsetY = 0;
 
     Map<String, String> statusTransitions = new HashMap<>();
     Map<String, List<SpriteData>> spriteDataMap = new HashMap<>();
@@ -81,10 +85,21 @@ public class Actor implements PropertyChangeListener
                     onIntersection = triggerType;
                     continue;
                 }
-
                 if (linedata[0].equals(Config.KEYWORD_transition))
                 {
                     statusTransitions.put(linedata[1], linedata[2]);
+                    continue;
+                }
+                if(linedata[0].equals(Config.KEYWORD_interactionArea))
+                {
+                    Double areaDistance = Double.parseDouble(linedata[1]);
+                    Double areaWidth = Double.parseDouble(linedata[2]);
+                    Double offsetX = Double.parseDouble(linedata[3]);
+                    Double offsetY = Double.parseDouble(linedata[4]);
+                    interactionAreaDistance = areaDistance;
+                    interactionAreaWidth = areaWidth;
+                    interactionAreaOffsetX = offsetX;
+                    interactionAreaOffsetY = offsetY;
                     continue;
                 }
 
@@ -352,5 +367,25 @@ public class Actor implements PropertyChangeListener
     public double getSpeed()
     {
         return speed;
+    }
+
+    public double getInteractionAreaWidth()
+    {
+        return interactionAreaWidth;
+    }
+
+    public double getInteractionAreaDistance()
+    {
+        return interactionAreaDistance;
+    }
+
+    public double getInteractionAreaOffsetX()
+    {
+        return interactionAreaOffsetX;
+    }
+
+    public double getInteractionAreaOffsetY()
+    {
+        return interactionAreaOffsetY;
     }
 }

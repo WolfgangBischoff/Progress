@@ -22,7 +22,6 @@ waT___, 		bluewall,								walls/bluewallFront,																					true,				0,	
 por___, 		porthole,							 porthole,																																true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
 poS, 		portholestars,			portholeStars,																											true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
 poG, 		portholegalaxy,		portholeGalaxy,																										true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
-#poC, 		portholescratch,			portholeScratch,																							true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
 wTL___, 		bluewallTL,						walls/bluewallcornerTL,																		true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
 wTR___, 		bluewallTR,						walls/bluewallcornerTR,																		true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
 waL___, 		wall,												walls/wallLeft, 																									true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
@@ -41,7 +40,7 @@ walCab, 		wallcable,						walls/wallcabel,																							true,				0,				
 tabBot, 		table,			furniture/roundWoddenTableBtm,													true,				0,								0,			0,											0,				0,				0,										0,											0,													32,													128,											74							,none
 tabTop, 		table,			furniture/roundWoddenTableTop,												false,				2,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0							,none
 desk__,			desk,				furniture/tableSqare,																						true,				0,								0,			0,											0,				0,				0,										0,														0,													0,													0,										0							,none
-deskL_,			desk,				furniture/tableSqareL,																					true,				0,								0,			0,											0,				0,				0,										0,										0,													0,													0,										0							,none
+#deskL_,			desk,				furniture/tableSqareL,																					true,				0,								0,			0,											0,				0,				0,										0,										0,													0,													0,										0							,none
 bee___, 		bee___,													bee, 																										false,				2,								12, 		3, 									3, 			1, 		32, 								32,										0,													0,													0,											0							,none
 bed___, 		bed___,													bed,																												true,				0,								0,			0,											0,				0,				0,										0,												0,													0,													0,											0							,none
 couch_, 		couch,											/furniture/couch,																					true,				0,								0,			0,											0,				0,				0,										0,												0,													0,													0,											0							,none
@@ -63,19 +62,19 @@ sink__,			sink,							/bath/sink,																							false,				1,								0,		
 
 #Machines
 #code, name,												spritename, 																			blocker, heightLayer,	fps, totalFrames, cols, rows, frameWidth, frameHeight,   hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight, lightning
-hydra2,			hydro,					/machines/hydraulicShadows,										true,											1,			0,		        	0, 			0,				0,				      0, 										0,															0, 			 							0,												0,										0							,none
 tonage,			tonage,						machines/ton,																						true,											1,			0,		        	0, 			0,				0,				      0, 										0,					 									0,				 								0,												0,										0							,greenlight256
 screen,			screen,						machines/statusScreen,													true,											1,			0,		        	0, 			0,				0,				      0, 										0,					 									0,				 								0,												0,										0							,none
 
 walki2,			conceptDummy,					concept128_1.1,																			false,				1,								6,			8,											8,				1,				64,										128,										0,													0,												0,										0							,none
+crates,			crates,					crates,																													true,											0,			0,											0,				0,				0,										0,											0,															0,												32,												128,							74,							none
 
-#code, 			actorname, 	status, direction
 actors:
+#code, 			actorname, 	status, direction
 pc____, 											pc, 				OFF, 				undefined
 hedgeh, 					hedgehog, DEFAULT,					undefined
 player, 							player, 		default, 				EAST
 buC, 					bulkhead, 					ON, 				south
-#hydrau,		hydraulic, 					ON, 				undefined
+hydrau,		hydraulic, 					ON, 				undefined
 
 
 #sets 64 bits tiles as raster; you can add multiple layers; later defined layers are higher prioritized in case of same defined heightLayer
@@ -105,13 +104,13 @@ layer:
 wTL___, waT___, waT___, waT___, waT___, waT___, waT___, waT___, waT___, waT___, waT___, waT___, wTR___, wTL___, waT___, waT___, waT___, waT___, waT___, waT___, wTR___
 ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, sink__, ______, ______, ______, ______, ______
 waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___, waL___, ______, ______, ______, ______, ______, wc____, waR___
-waL___, ______, ______, ______, ______, ______, ______, bee___, ______, ______, ______, ______, waR___,	waL___, ______, ______, ______, ______, ______, ______, waR___
+waL___, ______, ______, ______, ______, ______, ______, bee___, ______, ______, crates, ______, waR___,	waL___, ______, ______, ______, ______, ______, ______, waR___
 waL___, ______, ______, ______, ______, ______, ______, couch_, ______, ______, ______, ______, waR___, waL___, shower, ______, ______, ______, ______, ______, waR___
 waL___, ______, tabBot, ______, ______, ______, ______, l_____, ______,	______,	______, ______,	waR___, waL___, ______, ______, ______, ______, desk__, ______, waR___
 waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___, waL___, ______, ______, ______, ______, ______, ______, waR___
 waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___, waL___, ______, ______, ______, ______, ______, ______, waR___
 wBL___, waB___, waB___, waB___, wBTR, ______, wBTL, wBTR, ______, ______, wBTL, waB___, waBNW_, waL___, ______, ______, ______, ______, ______, ______, waR___
-wTL___, waT___, waT___, waT___, wFBR, buC, wFBL, wFBR, ______, ______, wFBL, waT___, waT___, wFBR, desk__, ______, ______, hydra2, ______, ______, waR___
+wTL___, waT___, waT___, waT___, wFBR, buC, wFBL, wFBR, ______, ______, wFBL, waT___, waT___, wFBR, desk__, ______, ______, hydrau, ______, ______, waR___
 waL___, ______, bench_, ______, ______, ______, bench_, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
 waL___, ______, diff_s, ______, hedgeh, ______, diff_s, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, pb2___, ______, ______, waR___
 waL___, ______, diff_d, ______, ______, ______, diff_d, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
