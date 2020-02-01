@@ -9,8 +9,8 @@ transition, off, on
 #status to image
 #status,								name, 				spritename, 												blocker, heightLayer,	fps, totalFrames, cols, rows, frameWidth, frameHeight,  hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight,lightning,	duration,  velocity
 ON, 		hydraulicT, 		machines/hydraulicWorkingTop,							false,						2,								0,			0,											0,				0,				0,										0,													 		0,													0,												0,											0,					none,				 								0, 		0
-ON, 		hydraulicB, 		machines/hydraulicWorkingBtm,							true,						0,								0,			0,											0,				0,				0,										0,													  	0,											64,												128,										74,					redlight,				 				0, 	0
+ON, 		hydraulicB, 		machines/hydraulicWorkingBtm,							true,						0,								0,			0,											0,				0,				0,										0,													  	0,											64,												128,										74,					greenlight256,				 				0, 	0
 OFF, 		hydraulicT, 		machines/hydraulicWorkingTop,							false,						2,								0,			0,											0,				0,				0,										0,													 		0,													0,												0,											0,					none,				 								0, 		0
 OFF, 		hydraulicB, 		machines/hydraulicBrokenBtm,							true,						0,								0,			0,											0,				0,				0,										0,													  	0,											64,												128,										74,					redlight,				 				0, 	0
 FAIL, 		hydraulicT, 		machines/hydraulicWorkingTop,							false,						2,								0,			0,											0,				0,				0,										0,													 		0,													0,												0,											0,					none,				 								0, 		0
-FAIL, 		hydraulicB, 		machines/hydraulicFailureBtm,							true,						0,								0,			0,											0,				0,				0,										0,													  	0,											64,												128,										74,					redlight,				 				0, 	0
+FAIL, 		hydraulicB, 		machines/hydraulicFailureBtm,							true,						0,								0,			0,											0,				0,				0,										0,													  	0,											64,												128,										74,					greenlight256,				 				0, 	0

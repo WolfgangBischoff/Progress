@@ -47,8 +47,8 @@ couch_, 		couch,											/furniture/couch,																					true,				0,				
 plt___,			potPlantTop,					potPlantTop,																						false,				2,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0							,none
 pot___,			pot,													pot,																															true,				0,								0,			0,											0,				0,				0,										0,												0,													0,													64,											74							,none
 pb2___,			plantBig,								plantBig,																									false,				2,								0,			0,											0,				0,				0,										0,												0,													0,													0,											0							,none
-diff_d,			diffuser,								furniture/diffuser128,													true,				0,								0,			0,											0,				0,				0,										0,												0,													50,													128,								64,										,none
-diff_s,			diffuserSmoke,			furniture/diffuser128Smoke,							false,				2,								3,			3,											3,				1,		128,							 128,												0,													0,													0,											0							,none
+diff_d,			diffuser,								furniture/diffuser128,													true,				0,								0,			0,											0,				0,				0,										0,												0,													50,													128,								64,						whitelight
+diff_s,			diffuserSmoke,			furniture/diffuser128Smoke,							false,				2,								3,			3,											3,				1,		128,							 128,												0,													0,													0,											0,			none
 scubb_,			skubb,											/furniture/skubb,																		true,				0,								0,			0,											0,				0,				0,										0,										0,													64,												128,										64							,none
 l_____,			lights,										/lightsources/ligtherS,												true,				1,								0,			0,											0,				0,				0,										0,										0,													0,												0,										0							,whitelight
 nights,			nightstand,						/lightsources/nightstand,										true,				1,								0,			0,											0,				0,				0,										0,										0,													0,												0,										0							,redlight
@@ -65,7 +65,7 @@ sink__,			sink,							/bath/sink,																							false,				1,								0,		
 tonage,			tonage,						machines/ton,																						true,											1,			0,		        	0, 			0,				0,				      0, 										0,					 									0,				 								0,												0,										0							,greenlight256
 screen,			screen,						machines/statusScreen,													true,											1,			0,		        	0, 			0,				0,				      0, 										0,					 									0,				 								0,												0,										0							,none
 
-walki2,			conceptDummy,					concept128_1.1,																			false,				1,								6,			8,											8,				1,				64,										128,										0,													0,												0,										0							,none
+#walki2,			conceptDummy,					concept128_1.1,																			false,				1,								6,			8,											8,				1,				64,										128,										0,													0,												0,										0							,none
 crates,			crates,					crates,																													true,											0,			0,											0,				0,				0,										0,											0,															0,												32,												128,							74,							none
 
 actors:
@@ -87,8 +87,8 @@ carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, 
 carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, slab__, slab__, slab__, slab__, slab__, slab__, slab__,	______
 carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, slab__, slab__, slab__, slab__, slab__, slab__, slab__,	______
 carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, slab__, slabDr, slab__, slab__, slab__, slab__, slab__,	______
-carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1,	______
-carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1,	______
+carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, slab__, slab__, slab__, slab__, slab__, slab__, slab__,	______
+carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, slab__, slab__, slab__, slab__, slab__, slab__, slab__,	______
 carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1,	______
 carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1,	______
 slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, ______

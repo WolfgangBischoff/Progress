@@ -1,5 +1,6 @@
 package Core;
 
+
 public class SpriteData
 {
     final static int tileCodeIdx = 0;
@@ -13,8 +14,6 @@ public class SpriteData
     final static int rowsIdx = 8;
     final static int frameWidthIdx = 9;
     final static int frameHeightIdx = 10;
-    //final static int velocityIdx = 11;
-    //final static int directionIdx = 12;
     final static int hitboxOffsetXIdx = 11;
     final static int hitboxOffsetYIdx = 12;
     final static int hitboxWidthIdx = 13;
@@ -27,12 +26,8 @@ public class SpriteData
     public String name, spriteName, lightningSprite;
     public Boolean blocking;
     public Integer fps, totalFrames, cols, rows, frameWidth, frameHeight, heightLayer, hitboxOffsetX, hitboxOffsetY, hitboxWidth, hitboxHeight, animationDuration, velocity;
-    public Status actorStatus = null;
 
-    public void setActorStatus(Status actorStatus)
-    {
-        this.actorStatus = actorStatus;
-    }
+
 
     public SpriteData(String name, String spriteName, Boolean blocking, Integer fps, Integer totalFrames, Integer cols, Integer rows, Integer frameWidth, Integer frameHeight, Integer heightLayer, Integer hitboxOffsetX, Integer hitboxOffsetY, Integer hitboxWidth, Integer hitboxHeight, String lightningSprite)
     {
@@ -45,7 +40,6 @@ public class SpriteData
         this.rows = rows;
         this.frameWidth = frameWidth;
         this.frameHeight = frameHeight;
-        //this.velocity = velocity;
         this.heightLayer = heightLayer;
         this.hitboxOffsetX = hitboxOffsetX;
         this.hitboxOffsetY = hitboxOffsetY;
@@ -56,7 +50,6 @@ public class SpriteData
 
     public static SpriteData tileDefinition(String[] lineData)
     {
-        //System.out.println("TileDate/tileDefinition: " + lineData[0]);
         Boolean blocking = Boolean.parseBoolean(lineData[blockingIdx]);
         Integer priority = Integer.parseInt(lineData[layerIdx]);
         Integer fps = Integer.parseInt(lineData[fpsIdx]);
@@ -65,8 +58,6 @@ public class SpriteData
         Integer rows = Integer.parseInt(lineData[rowsIdx]);
         Integer frameWidth = Integer.parseInt(lineData[frameWidthIdx]);
         Integer frameHeight = Integer.parseInt(lineData[frameHeightIdx]);
-        //Integer velocity = Integer.parseInt(lineData[velocityIdx]);
-        //Integer direction = Integer.parseInt(lineData[directionIdx]);
         Integer hitboxOffsetX = Integer.parseInt(lineData[hitboxOffsetXIdx]);
         Integer hitboxOffsetY = Integer.parseInt(lineData[hitboxOffsetYIdx]);
         Integer hitboxWidth = Integer.parseInt(lineData[hitboxWidthIdx]);
@@ -75,32 +66,16 @@ public class SpriteData
 
         SpriteData current = new SpriteData(lineData[nameIdx], lineData[spriteNameIdx], blocking, fps, totalFrames, cols, rows, frameWidth, frameHeight, priority, hitboxOffsetX, hitboxOffsetY, hitboxWidth, hitboxHeight, lightningSprite);
         return current;
-        //tileDataMap.put(lineData[tileCodeIdx], current);
     }
 
     @Override
     public String toString()
     {
         return "SpriteData{" +
-                //"name='" + name + '\'' +
                 ", spriteName='" + spriteName + '\'' +
-                //", lightningSprite='" + lightningSprite + '\'' +
-                //", blocking=" + blocking +
                 ", fps=" + fps +
                 ", totalFrames=" + totalFrames +
-                //", cols=" + cols +
-                //", rows=" + rows +
-                //", frameWidth=" + frameWidth +
-                //", frameHeight=" + frameHeight +
-                //", velocity=" + velocity +
-                //", direction=" + direction +
-                //", heightLayer=" + heightLayer +
-                //", hitboxOffsetX=" + hitboxOffsetX +
-                //", hitboxOffsetY=" + hitboxOffsetY +
-                //", hitboxWidth=" + hitboxWidth +
-                //", hitboxHeight=" + hitboxHeight +
                 ", animationDuration=" + animationDuration +
-                ", actorStatus=" + actorStatus +
                 '}';
     }
 }

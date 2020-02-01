@@ -1,22 +1,44 @@
 package Core;
 
+import Core.Enums.Direction;
 import javafx.geometry.Rectangle2D;
+import javafx.geometry.VPos;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
+import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static Core.Config.CAMERA_HEIGTH;
+import static Core.Config.CAMERA_WIDTH;
+
 public class WorldView implements GUIController
 {
+    Pane root;
+    Canvas worldCanvas;
+    GraphicsContext gc;
+    Canvas shadowMask;
+    GraphicsContext ShadowMaskGc;
+    Map<String, Image> lightsImageMap = new HashMap<>();
+    Color shadowColor;
+
+    //Textbox
+    boolean isTextBoxActive = false;
+    Textbox textbox = new Textbox();
+    String textboxIdentifier;
+
+    //Sprites
     private static Rectangle2D borders;
     static List<Sprite> activeSpritesLayer = new ArrayList<>();
     static List<Sprite> passiveCollisionRelevantSpritesLayer = new ArrayList<>();
@@ -27,8 +49,7 @@ public class WorldView implements GUIController
     String levelName;
     Sprite player;
 
-    double VIEWPORT_SIZE_X = Config.CAMERA_WIDTH;
-    double VIEWPORT_SIZE_Y = Config.CAMERA_HEIGTH;
+    //Camera
     double offsetMaxX;
     double offsetMaxY;
     int offsetMinX = 0;
@@ -36,26 +57,18 @@ public class WorldView implements GUIController
     double camX;
     double camY;
 
-    Pane root;
-    Canvas worldCanvas;
-    GraphicsContext gc;
-    Canvas shadowMask;
-    GraphicsContext ShadowMaskGc;
-    Map<String, Image> lightsImageMap = new HashMap<>();
-    Color shadowColor;
-
     public WorldView(String levelName, Pane root)
     {
         this.root = root;
-        worldCanvas = new Canvas(VIEWPORT_SIZE_X, VIEWPORT_SIZE_Y);
-        shadowMask = new Canvas(VIEWPORT_SIZE_X, VIEWPORT_SIZE_Y);
+        worldCanvas = new Canvas(CAMERA_WIDTH, Config.CAMERA_HEIGTH);
+        shadowMask = new Canvas(CAMERA_WIDTH, Config.CAMERA_HEIGTH);
         gc = worldCanvas.getGraphicsContext2D();
         ShadowMaskGc = shadowMask.getGraphicsContext2D();
         this.levelName = levelName;
 
         loadEnvironment();
-        offsetMaxX = borders.getMaxX() - VIEWPORT_SIZE_X;
-        offsetMaxY = borders.getMaxY() - VIEWPORT_SIZE_Y;
+        offsetMaxX = borders.getMaxX() - CAMERA_WIDTH;
+        offsetMaxY = borders.getMaxY() - Config.CAMERA_HEIGTH;
     }
 
     private void loadEnvironment()
@@ -64,7 +77,7 @@ public class WorldView implements GUIController
         worldLoader.load();
         player = worldLoader.getPlayer();
         passiveSpritesLayer = worldLoader.getPassivLayer(); //No collision just render
-        activeSpritesLayer = worldLoader.activeLayer; //TODO Active Sprites that check enviroment
+        activeSpritesLayer = worldLoader.activeLayer;
         bottomLayer = worldLoader.getBttmLayer(); //Render height
         middleLayer = worldLoader.getMediumLayer();
         topLayer = worldLoader.getUpperLayer();
@@ -85,61 +98,41 @@ public class WorldView implements GUIController
         ArrayList<String> input = GameWindow.getInput();
         boolean moveButtonPressed = false;
         int addedVelocityX = 0, addedVelocityY = 0;
-        //player.setVelocity(0, 0);
-
         Actor playerActor = player.actor;
+
         //Interpret Input from GameWindow
         if (input.contains("UP") || input.contains("W"))
         {
-            //player.addVelocity(0, -player.getSpeed());
-            //addedVelocityY += -player.getSpeed();
             addedVelocityY += -playerActor.getSpeed();
-            //if (player.getDirection() != Direction.NORTH)
-            if (playerActor.getDirection() != Direction.NORTH)
-                //player.setDirection(Direction.NORTH);
-                playerActor.setDirection(Direction.NORTH);
             moveButtonPressed = true;
+            if (playerActor.getDirection() != Direction.NORTH)
+                playerActor.setDirection(Direction.NORTH);
         }
         if (input.contains("DOWN") || input.contains("S"))
         {
-            //player.addVelocity(0, player.getSpeed());
-            //addedVelocityY += player.getSpeed();
             addedVelocityY += playerActor.getSpeed();
-            //if (player.getDirection() != Direction.SOUTH)
-            if (playerActor.getDirection() != Direction.SOUTH)
-                //player.setDirection(Direction.SOUTH);
-                playerActor.setDirection(Direction.SOUTH);
             moveButtonPressed = true;
+            if (playerActor.getDirection() != Direction.SOUTH)
+                playerActor.setDirection(Direction.SOUTH);
         }
         if (input.contains("LEFT") || input.contains("A"))
         {
-            //player.addVelocity(-player.getSpeed(), 0);
-            //addedVelocityX += -player.getSpeed();
             addedVelocityX += -playerActor.getSpeed();
-            //if (player.getDirection() != Direction.WEST)
-            if (playerActor.getDirection() != Direction.WEST)
-                //player.setDirection(Direction.WEST);
-                playerActor.setDirection(Direction.WEST);
             moveButtonPressed = true;
+            if (playerActor.getDirection() != Direction.WEST)
+                playerActor.setDirection(Direction.WEST);
         }
         if (input.contains("RIGHT") || input.contains("D"))
         {
-            //player.addVelocity(player.getSpeed(), 0);
-            //addedVelocityX += player.getSpeed();
             addedVelocityX += playerActor.getSpeed();
-            //if (player.getDirection() != Direction.EAST)
-            if (playerActor.getDirection() != Direction.EAST)
-                //player.setDirection(Direction.EAST);
-                playerActor.setDirection(Direction.EAST);
             moveButtonPressed = true;
+            if (playerActor.getDirection() != Direction.EAST)
+                playerActor.setDirection(Direction.EAST);
         }
 
         if (moveButtonPressed)
-            //player.setVelocity(addedVelocityX, addedVelocityY);
             player.actor.setVelocity(addedVelocityX, addedVelocityY);
-        //else if(player.isMoving())
-        else if(player.actor.isMoving())
-            //player.setVelocity(0, 0);
+        else if (player.actor.isMoving())
             player.actor.setVelocity(0, 0);
 
         if (input.contains("E"))
@@ -147,14 +140,16 @@ public class WorldView implements GUIController
             player.setInteract(true);
         }
 
+
+        //Todo set/unset textbox Visible from Actors
         player.update(currentNanoTime);
 
-        for(Sprite active : activeSpritesLayer)
+        for (Sprite active : activeSpritesLayer)
             active.update(currentNanoTime);
 
         //Camera at world border
-        camX = player.positionX - VIEWPORT_SIZE_X / 2;
-        camY = player.positionY - VIEWPORT_SIZE_Y / 2;
+        camX = player.positionX - CAMERA_WIDTH / 2;
+        camY = player.positionY - Config.CAMERA_HEIGTH / 2;
         if (camX < offsetMinX)
             camX = offsetMinX;
         if (camY < offsetMinY)
@@ -165,10 +160,10 @@ public class WorldView implements GUIController
             camY = offsetMaxY;
 
         //If World smaller as Camera
-        if (VIEWPORT_SIZE_X > borders.getWidth())
-            camX = borders.getWidth() / 2 - VIEWPORT_SIZE_X / 2;
-        if (VIEWPORT_SIZE_Y > borders.getHeight())
-            camY = borders.getHeight() / 2 - VIEWPORT_SIZE_Y / 2;
+        if (CAMERA_WIDTH > borders.getWidth())
+            camX = borders.getWidth() / 2 - CAMERA_WIDTH / 2;
+        if (Config.CAMERA_HEIGTH > borders.getHeight())
+            camY = borders.getHeight() / 2 - Config.CAMERA_HEIGTH / 2;
 
 
     }
@@ -177,7 +172,7 @@ public class WorldView implements GUIController
     public void render(Long currentNanoTime)
     {
 
-        gc.clearRect(0, 0, VIEWPORT_SIZE_X, VIEWPORT_SIZE_Y);
+        gc.clearRect(0, 0, CAMERA_WIDTH, Config.CAMERA_HEIGTH);
         gc.translate(-camX, -camY);
 
         //Passiv Layer
@@ -203,17 +198,11 @@ public class WorldView implements GUIController
             sprite.render(gc, currentNanoTime);
         }
 
-        if (Config.DEBUGMODE)
-        {
-            gc.setStroke(Color.RED);
-            gc.strokeRect(borders.getMinX(), borders.getMinY(), borders.getWidth() + player.basewidth, borders.getHeight() + player.baseheight);
-        }
-
         //LightMap
         if (shadowColor != null)
         {
             ShadowMaskGc.setFill(shadowColor);
-            ShadowMaskGc.fillRect(0, 0, VIEWPORT_SIZE_X, VIEWPORT_SIZE_Y);
+            ShadowMaskGc.fillRect(0, 0, CAMERA_WIDTH, Config.CAMERA_HEIGTH);
             for (Sprite sprite : passiveCollisionRelevantSpritesLayer)
             {
                 if (sprite.getLightningSpriteName().toLowerCase().equals("none"))
@@ -221,7 +210,16 @@ public class WorldView implements GUIController
 
                 String lightSpriteName = sprite.getLightningSpriteName();
                 if (!lightsImageMap.containsKey(sprite.getLightningSpriteName()))
-                    lightsImageMap.put(lightSpriteName, new Image("/res/img/lightglows/" + lightSpriteName + ".png"));
+                {
+                    try
+                    {
+                        lightsImageMap.put(lightSpriteName, new Image("/res/img/lightglows/" + lightSpriteName + ".png"));
+                    }
+                    catch (IllegalArgumentException e)
+                    {
+                        throw new IllegalArgumentException("Invalid URL: " + "/res/img/lightglows/" + lightSpriteName + ".png" + " of sprite " + sprite.getName());
+                    }
+                }
                 Image lightimage = lightsImageMap.get(lightSpriteName);
                 ShadowMaskGc.drawImage(lightimage, sprite.positionX + sprite.getHitBoxOffsetX() + sprite.getHitBoxWidth() / 2 - lightimage.getWidth() / 2 - camX, sprite.positionY + sprite.getHitBoxOffsetY() + sprite.getHitBoxHeight() / 2 - lightimage.getHeight() / 2 - camY);
             }
@@ -234,11 +232,24 @@ public class WorldView implements GUIController
             gc.setGlobalBlendMode(BlendMode.SRC_OVER);
         }
 
+        //Debugdata
+        if (Config.DEBUGMODE)
+        {
+            gc.setStroke(Color.RED);
+            gc.strokeRect(borders.getMinX(), borders.getMinY(), borders.getWidth() + player.basewidth, borders.getHeight() + player.baseheight);
+        }
 
         root.getChildren().clear();
         root.getChildren().add(worldCanvas);
 
         gc.translate(camX, camY);
+
+        //Overlays
+        if (isTextBoxActive)
+        {
+            WritableImage textBoxImg = textbox.showMessage(textboxIdentifier);
+            gc.drawImage(textBoxImg, CAMERA_WIDTH / 2 - textBoxImg.getWidth() / 2, CAMERA_HEIGTH - textBoxImg.getHeight() - 32);
+        }
     }
 
 

@@ -1,5 +1,6 @@
 package Core;
 
+import Core.Enums.TriggerType;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.GraphicsContext;
@@ -17,17 +18,12 @@ public class Sprite
     String className = "Sprite ";
     int TIME_BETWEEN_ACTION = 1;
 
-
-    //https://stackoverflow.com/questions/10708642/javafx-2-0-an-approach-to-game-sprite-animation
     Image baseimage;
     private String name = "notSet";
     double basewidth; //width of whole sprite, in therms of animation multiple frames
     double baseheight;
     double positionX;//referece is upper left corner
     double positionY;
-    //private double speed = 50; //in case sprite moves
-    //private double velocityX;//TODO change to Actor
-    //private double velocityY;
     private float fps; //frames per second I.E. 24
     Long lastFrame = 0l;
     Long lastUpdated = 0l;
@@ -41,31 +37,17 @@ public class Sprite
     private int currentRow = 0;
     private Boolean isBlocker = false;
     private Boolean animated;
-    //private Direction direction;
     private Boolean interact = false;
     private Boolean blockedByOtherSprite = false;
     Rectangle2D interactionArea;
     private double hitBoxOffsetX = 0, hitBoxOffsetY = 0, hitBoxWidth, hitBoxHeight;
     Actor actor; //Logic for sprite
     private String lightningSpriteName;
-    PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
-
-
-    public void addToListener(PropertyChangeListener listener)
-    {
-        propertyChangeSupport.addPropertyChangeListener(listener);
-    }
-
-    public void removeFromListener(PropertyChangeListener listener)
-    {
-        propertyChangeSupport.removePropertyChangeListener(listener);
-    }
 
 
     public Sprite(String imagename)
     {
         animated = false;
-        //this.direction = Direction.getDirectionFromValue(direction);
         setImage(imagename);
         frameWidth = basewidth;
         frameHeight = baseheight;
@@ -87,11 +69,9 @@ public class Sprite
         hitBoxHeight = frameHeight;
     }
 
-    //private Rectangle2D calcInteractionRectangle(int maxInteractionDistance)
     private Rectangle2D calcInteractionRectangle()
     {
         String methodName = "calcInteractionRectangle() ";
-        //int interactionWidth = 8;
         double interactionWidth = actor.getInteractionAreaWidth();
         double maxInteractionDistance = actor.getInteractionAreaDistance();
         double offsetX = actor.getInteractionAreaOffsetX();
@@ -117,8 +97,6 @@ public class Sprite
         String methodName = "update() ";
         double time = (currentNanoTime - lastUpdated) / 1000000000.0;
         double elapsedTimeSinceLastInteraction = (currentNanoTime - lastInteraction) / 1000000000.0;
-        int maxDistanceInteraction = 30;
-        //interactionArea = calcInteractionRectangle(maxDistanceInteraction);
         interactionArea = calcInteractionRectangle();
         Rectangle2D worldBorders = WorldView.getBorders();
         List<Sprite> activeSprites = WorldView.getPassiveCollisionRelevantSpritesLayer();
@@ -200,14 +178,6 @@ public class Sprite
             actor.act();
     }
 
-    /*
-    public void actOnIntersection(Sprite passivSprite)
-    {
-        String methodName = "actOnIntersection() ";
-        System.out.println(className + methodName + name + " found intersection of " + passivSprite.getName());
-    }
-    */
-
     public boolean intersects(Sprite s)
     {
         return s.getBoundary().intersects(this.getBoundary());
@@ -288,9 +258,6 @@ public class Sprite
     public String toString()
     {
         return name + " Position: [" + positionX + "," + positionY + "]"
-               // + " Velocity: [" + velocityX + "," + velocityY + "]"
-                //+ " Speed: " + getSpeed()
-                //+ " Blocker: " + isBlocker
                 + " Animated: " + animated
                 ;
     }
@@ -322,11 +289,6 @@ public class Sprite
             throw new IllegalArgumentException("/res/img/" + filename + ".png" + " not found");
         }
 
-        //Visible Sprite
-        if (!animated)
-        {
-          //  i = rotateImage(i, direction.value * 90);
-        }
         baseimage = i;
         basewidth = i.getWidth();
         baseheight = i.getHeight();
@@ -355,41 +317,12 @@ public class Sprite
         this.hitBoxHeight = hitBoxHeight;
     }
 
-    public Image rotateImage(Image image, int rotation)
-    {
-        ImageView iv = new ImageView(image);
-        SnapshotParameters params = new SnapshotParameters();
-        params.setFill(Color.TRANSPARENT);
-        params.setTransform(new Rotate(rotation, image.getHeight() / 2, image.getWidth() / 2));
-        //params.setViewport(new Rectangle2D(0, 0, image.getHeight(), image.getWidth()));
-        return iv.snapshot(params, null);
-    }
-
     public void setPosition(double x, double y)
     {
         positionX = x;
         positionY = y;
     }
 
-    /*
-    public void setVelocity(double x, double y)
-    {
-        velocityX = x;
-        velocityY = y;
-        propertyChangeSupport.firePropertyChange("velocity", null, null);
-    }
-
-
-    public void setSpeed(double speed)
-    {
-        this.speed = speed;
-    }
-
-    public double getSpeed()
-    {
-        return speed;
-    }
-*/
     public void setAnimated(Boolean animated)
     {
         this.animated = animated;
@@ -399,14 +332,6 @@ public class Sprite
     {
         return animated;
     }
-
-    /*
-    public void setDirection(Direction direction)
-    {
-        Direction oldDirection = this.direction;
-        this.direction = direction;
-        propertyChangeSupport.firePropertyChange("direction", oldDirection, direction);
-    }*/
 
     public void setInteract(Boolean interact)
     {
@@ -447,18 +372,5 @@ public class Sprite
     {
         return lightningSpriteName;
     }
-/*
-    public boolean isMoving()
-    {
-        if(velocityX != 0 || velocityY != 0)
-            return true;
-        else
-            return false;
-    }
-    */
-/*
-    public Direction getDirection()
-    {
-        return direction;
-    }*/
+
 }

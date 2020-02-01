@@ -1,5 +1,6 @@
 package Core;
 
+import Core.Enums.Direction;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.paint.Color;
 import java.util.*;

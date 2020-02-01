@@ -1,11 +1,12 @@
 package Core;
 
 
+import Core.Enums.Direction;
+import Core.Enums.TriggerType;
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.util.Duration;
-
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.nio.file.Files;
@@ -16,19 +17,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Actor implements PropertyChangeListener
+public class Actor// implements PropertyChangeListener
 {
     String className = "Actor ";
-    TriggerType onAction = TriggerType.NOTHING;
-    TriggerType onInRange = TriggerType.NOTHING;
-    TriggerType onUpdate = TriggerType.NOTHING;
-    TriggerType onIntersection = TriggerType.NOTHING;
-    String onUpdateToStatus = Config.KEYWORD_transition;
-    String onInRangeToStatus = Config.KEYWORD_transition;
-    String onIntersectionToStatus = Config.KEYWORD_transition;
-    Status status;
-    Map<Status, List<SpriteData>> spriteDataList = new HashMap<>();
-    List<Sprite> spriteList = new ArrayList<>();//TODO remove
     private Direction direction;
     private double velocityX;
     private double velocityY;
@@ -38,6 +29,15 @@ public class Actor implements PropertyChangeListener
     private double interactionAreaOffsetX = 0;
     private double interactionAreaOffsetY = 0;
 
+
+    TriggerType onAction = TriggerType.NOTHING;
+    TriggerType onInRange = TriggerType.NOTHING;
+    TriggerType onUpdate = TriggerType.NOTHING;
+    TriggerType onIntersection = TriggerType.NOTHING;
+    String onUpdateToStatus = Config.KEYWORD_transition;
+    String onInRangeToStatus = Config.KEYWORD_transition;
+    String onIntersectionToStatus = Config.KEYWORD_transition;
+    List<Sprite> spriteList = new ArrayList<>();
     Map<String, String> statusTransitions = new HashMap<>();
     Map<String, List<SpriteData>> spriteDataMap = new HashMap<>();
     String generalStatus;
@@ -55,10 +55,11 @@ public class Actor implements PropertyChangeListener
             actordata = Utilities.readAllLineFromTxt("src/res/actorData/" + spritename + ".csv");
             for (String[] linedata : actordata)
             {
+                //Check for keywords
                 if (linedata[0].equals(Config.KEYWORD_onAction))
                 {
                     TriggerType triggerType = TriggerType.getStatus(linedata[1]);
-                    onAction = triggerType;//Different to method readSpriteData
+                    onAction = triggerType;
                     continue;
                 }
                 if (linedata[0].equals(Config.KEYWORD_onInRange))
@@ -66,7 +67,7 @@ public class Actor implements PropertyChangeListener
                     TriggerType triggerType = TriggerType.getStatus(linedata[1]);
                     String targetGeneralStatus = linedata[2];
                     onInRangeToStatus = targetGeneralStatus;
-                    onInRange = triggerType;//Different to method readSpriteData
+                    onInRange = triggerType;
                     continue;
                 }
                 if (linedata[0].equals(Config.KEYWORD_onUpdate))
@@ -74,7 +75,7 @@ public class Actor implements PropertyChangeListener
                     TriggerType triggerType = TriggerType.getStatus(linedata[1]);
                     String targetGeneralStatus = linedata[2];
                     onUpdateToStatus = targetGeneralStatus;
-                    onUpdate = triggerType;//Different to method readSpriteData
+                    onUpdate = triggerType;
                     continue;
                 }
                 if (linedata[0].equals(Config.KEYWORD_onIntersection))
@@ -103,7 +104,7 @@ public class Actor implements PropertyChangeListener
                     continue;
                 }
 
-                //Collect ActorData
+                //Collect Actor Sprite Data
                 SpriteData data = SpriteData.tileDefinition(linedata);
                 data.animationDuration = Integer.parseInt(linedata[SpriteData.animationDurationIdx]);
                 data.velocity = Integer.parseInt(linedata[SpriteData.velocityIdx]);
@@ -127,40 +128,6 @@ public class Actor implements PropertyChangeListener
             updateCompoundStatus();
         }
     }
-
-    static public Map<Status, SpriteData> readSpriteData(String actorname)
-    {
-        Map<Status, SpriteData> spriteData = new HashMap<>();
-        List<String[]> actordata;
-        Path path = Paths.get("src/res/actorData/" + actorname + ".csv");
-        if (Files.exists(path))
-        {
-            actordata = Utilities.readAllLineFromTxt("src/res/actorData/" + actorname + ".csv");
-            for (String[] linedata : actordata)
-            {
-                if (
-                        linedata[0].equals(Config.KEYWORD_onAction) ||
-                                linedata[0].equals(Config.KEYWORD_onUpdate) ||
-                                linedata[0].equals(Config.KEYWORD_onInRange) ||
-                                linedata[0].equals(Config.KEYWORD_transition)
-
-                )
-                    continue;
-
-                Status status = Status.getStatus(linedata[0]);
-                spriteData.put(status, SpriteData.tileDefinition(linedata));
-            }
-        }
-        else throw new RuntimeException("Actordata not found: " + actorname);
-
-        return spriteData;
-    }
-
-    static public SpriteData readSpriteData(String actorname, Status initStatus)
-    {
-        return readSpriteData(actorname).get(initStatus);
-    }
-
 
     private void changeLayer(Sprite sprite, int targetLayer)
     {
@@ -186,10 +153,6 @@ public class Actor implements PropertyChangeListener
     private void changeSprites()
     {
         String methodName = "changeSprites() ";
-
-        //System.out.println(className + methodName + compoundStatus);
-        //System.out.println(className + methodName + spriteDataMap);
-
         List<SpriteData> targetSpriteData = spriteDataMap.get(compoundStatus);
 
         if (targetSpriteData == null)
@@ -232,7 +195,7 @@ public class Actor implements PropertyChangeListener
             generalStatus = onInRangeToStatus;
             updateCompoundStatus();
         }
-        System.out.println(className + methodName + generalStatus + " found " + otherSprite.getName());
+        //System.out.println(className + methodName + generalStatus + " found " + otherSprite.getName());
     }
 
     public void act()
@@ -260,10 +223,8 @@ public class Actor implements PropertyChangeListener
                 }
             });
 
-
             delay.play();
         }
-
     }
 
     @Override
@@ -271,7 +232,6 @@ public class Actor implements PropertyChangeListener
     {
         return "Actor{" +
                 "onAction='" + onAction + '\'' +
-                // ", status=" + status +
                 ", Generalstatus=" + generalStatus +
                 ", transitions: " + statusTransitions.toString() +
                 '}';
@@ -283,7 +243,6 @@ public class Actor implements PropertyChangeListener
         if (statusTransitions.containsKey(generalStatus))
         {
             generalStatus = statusTransitions.get(generalStatus);
-            //System.out.println(className + methodName + generalStatus + " " + statusTransitions);
         }
         else
             System.out.print(className + methodName + "No status transition found: " + generalStatus);
@@ -308,19 +267,20 @@ public class Actor implements PropertyChangeListener
             changeSprites();
     }
 
+    /*
     @Override
     public void propertyChange(PropertyChangeEvent evt)
     {
         String methodName = "propertyChange() ";
-        Status oldStatus = status;
         updateCompoundStatus();
     }
+    */
 
     public void addSprite(Sprite sprite)
     {
         spriteList.add(sprite);
         sprite.actor = this;
-        sprite.addToListener(this);
+        //sprite.addToListener(this);
     }
 
     public Direction getDirection()
