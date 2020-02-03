@@ -44,6 +44,7 @@ public class Actor// implements PropertyChangeListener
     String generalStatus;
     String compoundStatus = "default";
     String dialogueFileName = "descriptions";
+    String dialogueStatusID = "none";
 
 
     public Actor(String actorname, String initGeneralStatus, Direction direction)
@@ -106,11 +107,17 @@ public class Actor// implements PropertyChangeListener
                     interactionAreaOffsetY = offsetY;
                     continue;
                 }
+                if(linedata[0].equals(Config.KEYWORD_diologueFile))
+                {
+                    dialogueFileName = linedata[1];
+                    continue;
+                }
 
                 //Collect Actor Sprite Data
                 SpriteData data = SpriteData.tileDefinition(linedata);
                 data.animationDuration = Integer.parseInt(linedata[SpriteData.animationDurationIdx]);
                 data.velocity = Integer.parseInt(linedata[SpriteData.velocityIdx]);
+                data.dialogueID = linedata[SpriteData.dialogueIDIdx];
 
                 String statusName = linedata[0].toLowerCase();
                 if (!spriteDataMap.containsKey(statusName))
@@ -170,6 +177,9 @@ public class Actor// implements PropertyChangeListener
             toChange.setBlocker(ts.blocking);
             toChange.setLightningSpriteName(ts.lightningSprite);
             changeLayer(toChange, ts.heightLayer);
+
+
+            dialogueStatusID = ts.dialogueID;
         }
 
     }
@@ -243,7 +253,7 @@ public class Actor// implements PropertyChangeListener
         if(gameWindow instanceof WorldView)
         {
             WorldView worldView = (WorldView)gameWindow;
-            worldView.textbox.readDialogue(actorname, "trig");//TODO actor defines txt file
+            worldView.textbox.readDialogue(dialogueFileName, dialogueStatusID);//TODO actor defines txt file
             worldView.isTextBoxActive = true;
         }
         else
@@ -291,20 +301,11 @@ public class Actor// implements PropertyChangeListener
             changeSprites();
     }
 
-    /*
-    @Override
-    public void propertyChange(PropertyChangeEvent evt)
-    {
-        String methodName = "propertyChange() ";
-        updateCompoundStatus();
-    }
-    */
 
     public void addSprite(Sprite sprite)
     {
         spriteList.add(sprite);
         sprite.actor = this;
-        //sprite.addToListener(this);
     }
 
     public Direction getDirection()

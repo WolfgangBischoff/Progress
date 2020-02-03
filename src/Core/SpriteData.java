@@ -21,9 +21,10 @@ public class SpriteData
     final static int lightningSpriteNameIdx = 15;
     final static int animationDurationIdx = 16;
     final static int velocityIdx = 17;
+    final static int dialogueIDIdx = 18;
 
 
-    public String name, spriteName, lightningSprite;
+    public String name, spriteName, lightningSprite, dialogueID;
     public Boolean blocking;
     public Integer fps, totalFrames, cols, rows, frameWidth, frameHeight, heightLayer, hitboxOffsetX, hitboxOffsetY, hitboxWidth, hitboxHeight, animationDuration, velocity;
 

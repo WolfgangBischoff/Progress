@@ -14,8 +14,8 @@ transition, off, on
 interactionArea, 						250,				15,							0,				-200
 
 #status to image
-#status,	name, 											spritename, 					blocker, heightLayer,	fps, totalFrames, cols, rows, frameWidth, frameHeight,   hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight,lightning,	duration, velocity
-ON-south, 					bulkhead, 		bulkheadUpp,												false,								2,								0,			0,											0,				0,				0,										0,													0,													64,												64,											64,								none,				 					0, 				0
-ON-south, 					bulkhead, 		bulkheadLow,												true,								0,								0,			0,											0,				0,				0,										0,													0,													64,													64,											64,								none,				 					0, 			0
-OFF-south, 				bulkhead, 			bulkheadOpenTop,									false,								0,								0,			0,											0,				0,				0,										0,													0,													0,												0,											0,									none,				 				3, 						0
-OFF-south, 				bulkhead, 			bulkheadOpenBtm,									false,								0,								0,			0,											0,				0,				0,										0,													0,													0,												0,											0,									none,				 				3, 						0
+#status,	name, 											spritename, 					blocker, heightLayer,	fps, totalFrames, cols, rows, frameWidth, frameHeight,   hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight,lightning,	duration, velocity, dialogueID
+ON-south, 					bulkhead, 		bulkheadUpp,												false,								2,								0,			0,											0,				0,				0,										0,													0,													64,												64,											64,								none,				 					0, 				0, none
+ON-south, 					bulkhead, 		bulkheadLow,												true,								0,								0,			0,											0,				0,				0,										0,													0,													64,													64,											64,								none,				 					0, 			0, none
+OFF-south, 				bulkhead, 			bulkheadOpenTop,									false,								0,								0,			0,											0,				0,				0,										0,													0,													0,												0,											0,									none,				 				3, 						0, none
+OFF-south, 				bulkhead, 			bulkheadOpenBtm,									false,								0,								0,			0,											0,				0,				0,										0,													0,													0,												0,											0,									none,				 				3, 						0, none

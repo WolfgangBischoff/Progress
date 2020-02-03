@@ -33,10 +33,11 @@ public class Textbox
     List<String> messages;
     int msgIdx =0;
 
-    public void readDialogue(String fileID, String dialogueID)
+    public void readDialogue(String fileIdentifier, String dialogueIdentifier)
     {
-        String fileIdentifier = "descriptions";
-        String dialogueIdentifier = "test";
+        String methodName = "readDialogue() ";
+        //String fileIdentifier = "descriptions";
+        //String dialogueIdentifier = "test";
 
         messages = new ArrayList<>();
         List<String[]> fileData;
@@ -51,6 +52,9 @@ public class Textbox
             }
         }
         else throw new RuntimeException("Actordata not found: " + path.toString());
+
+        if(messages.isEmpty())
+            System.out.println(classname + methodName + "No messages foung with ID: " + dialogueIdentifier);
 
         nextMessage();
     }
@@ -93,7 +97,6 @@ public class Textbox
             if(hasNextMessage())
             {
                 msgIdx++;
-                System.out.println(classname + methodName + msgIdx);
                 nextMessage();
             }
             else

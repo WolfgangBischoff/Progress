@@ -1,17 +1,17 @@
 
 #Status Change
-onAction, nothing, transition
+onAction, nothing
 
 #Status transition Map
 transition, default, default
 
 #status to image
-#status, 																		name,														spritename, 														blocker, heightLayer,	fps, totalFrames, cols, rows, frameWidth, frameHeight,  hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight,								lightning 		,		duration, velocity
-default-NORTH, 										player,  		person/humanAlexBack,									true,								1,			0,											0,				0,				0,										0,											0,												10,													84,												44,															44,			whitelight,				 							0, 		   250
-default-NORTH-MOVING, 			player,  		person/concept128_Back,	true,								1,			15,											6,				6,				1,										64,											128,						10,													84,												44,															44,			whitelight,				 							0, 				 250
-default-SOUTH, 										player,  		person/personAlex2,											true,								1,			0,											0,				0,				0,										0,											0,												10,													84,												44,															44,		whitelight,				 								0, 					250
-default-SOUTH-MOVING, 			player,  		person/concept128_1.2,									true,								1,			15,											8,				8,				1,				64,										128,												 			10,													84,												44,															44,		whitelight,				 								0, 					250
-default-EAST, 											player,  		person/humanAlexEast,									true,								1,			0,											0,				0,				0,										0,											0,										10,													84,												44,															44,			whitelight,				 							0, 					250
-default-EAST-MOVING, 				player,  		person/humanAlexBack,			true,								1,			0,											0,				0,				0,										0,											0,										10,													84,												44,															44,			whitelight,				 							0, 					250
-default-WEST, 											player,  		person/humanAlexWest,									true,								1,			0,											0,				0,				0,										0,											0,										10,													84,												44,															44,			whitelight,				 							0, 					250
-default-WEST-MOVING, 				player,   person/humanAlexBack,			true,								1,			0,											0,				0,				0,										0,											0,											10,													84,												44,															44,			whitelight,				 							0, 					250
+#status, 																		name,														spritename, 														blocker, heightLayer,	fps, totalFrames, cols, rows, frameWidth, frameHeight,  hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight,								lightning 		,		duration, velocity, dialogueID
+default-NORTH, 										player,  		person/humanAlexBack,									true,								1,			0,											0,				0,				0,										0,											0,												10,													84,												44,															44,			whitelight,				 							0, 		   250, 				none
+default-NORTH-MOVING, 			player,  		person/concept128_Back,							true,								1,			15,											6,				6,				1,										64,											128,						10,													84,												44,															44,			whitelight,				 							0, 				 250, 				none
+default-SOUTH, 										player,  		person/personAlex2,											true,								1,			0,											0,				0,				0,										0,											0,												10,													84,												44,															44,		whitelight,				 								0, 					250, 				none
+default-SOUTH-MOVING, 			player,  		person/concept128_1.2,								true,								1,			15,											8,				8,				1,				64,										128,												 			10,													84,												44,															44,		whitelight,				 								0, 					250, 				none
+default-EAST, 											player,  		person/humanAlexEast,									true,								1,			0,											0,				0,				0,										0,											0,										10,													84,												44,															44,			whitelight,				 							0, 					250, 				none
+default-EAST-MOVING, 				player,  		person/humanAlexBack,									true,								1,			0,											0,				0,				0,										0,											0,										10,													84,												44,															44,			whitelight,				 							0, 					250, 				none
+default-WEST, 											player,  		person/humanAlexWest,									true,								1,			0,											0,				0,				0,										0,											0,										10,													84,												44,															44,			whitelight,				 							0, 					250, 				none
+default-WEST-MOVING, 				player,   person/humanAlexBack,										true,								1,			0,											0,				0,				0,										0,											0,											10,													84,												44,															44,			whitelight,				 							0, 					250, 				none

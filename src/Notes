@@ -1,10 +1,11 @@
 
 Logic:
+- MouseClick PoC
 - bulkhead
     add timer to prevent multiple events
 - schlafen, fade out
-- player animation https://opengameart.org/content/2d-sprite-skins-walking-animation
 - Message Box
+    Add Dialogue Options for Status changes
 - Console
 - Menu
 
