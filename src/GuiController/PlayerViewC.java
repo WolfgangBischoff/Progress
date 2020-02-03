@@ -15,8 +15,6 @@ import java.io.IOException;
 
 public class PlayerViewC implements GUIController
 {
-    //@FXML
-    //Canvas worldCanvas;
     @FXML
     Pane root;
     FXMLLoader loader;
@@ -31,8 +29,7 @@ public class PlayerViewC implements GUIController
     @FXML
     void initialize()
     {
-        //center = new WorldView("test", worldCanvas);
-        center = new WorldView("test", root);
+        //center = new WorldView("test", root);
     }
 
     @Override

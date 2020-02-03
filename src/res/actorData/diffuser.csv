@@ -1,0 +1,10 @@
+
+onAction, textbox, descriptions
+
+#Status transition map
+#transition, on, off
+#transition, off, on
+
+#status to image
+#status,					name, 													spritename,	blocker, heightLayer,	fps, totalFrames, cols, rows, frameWidth, frameHeight,   hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight, lightning,	duration, velocity
+DEFAULT, 					diffuser,			furniture/diffuser128,				true,											0,			0,											0,				0,				0,										0,											0,															0,												50,									128,											64,	whitelight, 						0,								0

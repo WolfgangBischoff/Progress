@@ -52,7 +52,7 @@ couch_, 		couch,											/furniture/couch,																					true,				0,				
 plt___,			potPlantTop,					potPlantTop,																						false,				2,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0							,none
 pot___,			pot,													pot,																															true,				0,								0,			0,											0,				0,				0,										0,												0,													0,													64,											74							,none
 pb2___,			plantBig,								plantBig,																									false,				2,								0,			0,											0,				0,				0,										0,												0,													0,													0,											0							,none
-diff_d,			diffuser,								furniture/diffuser128,													true,				0,								0,			0,											0,				0,				0,										0,												0,													50,													128,								64,						whitelight
+#diff_d,			diffuser,								furniture/diffuser128,													true,				0,								0,			0,											0,				0,				0,										0,												0,													50,													128,								64,						whitelight
 diff_s,			diffuserSmoke,			furniture/diffuser128Smoke,							false,				2,								3,			3,											3,				1,		128,							 128,												0,													0,													0,											0,			none
 scubb_,			skubb,											/furniture/skubb,																		true,				0,								0,			0,											0,				0,				0,										0,										0,													64,												128,										64							,none
 l_____,			lights,										/lightsources/ligtherS,												true,				1,								0,			0,											0,				0,				0,										0,										0,													0,												0,										0							,whitelight
@@ -80,6 +80,7 @@ hedgeh, 					hedgehog, DEFAULT,					undefined
 player, 							player, 		default, 				EAST
 buC___, 					bulkhead, 					ON, 				south
 hydrau,		hydraulic, 					ON, 				undefined
+diff_d,			diffuser,			default, undefined
 
 
 #sets 64 bits tiles as raster; you can add multiple layers; later defined layers are higher prioritized in case of same defined heightLayer

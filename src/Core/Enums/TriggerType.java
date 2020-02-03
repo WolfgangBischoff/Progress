@@ -2,7 +2,7 @@ package Core.Enums;
 
 public enum TriggerType
 {
-    NOTHING, PERSISTENT, TIMED;
+    NOTHING, PERSISTENT, TIMED, TEXTBOX;
 
     public static TriggerType getStatus(String status)
     {
@@ -11,6 +11,7 @@ public enum TriggerType
             case "nothing": return NOTHING;
             case "persistent": return PERSISTENT;
             case "timed": return TIMED;
+            case "textbox": return TEXTBOX;
             default: throw new RuntimeException("TriggerType unknown: " + status);
         }
     }

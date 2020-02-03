@@ -23,20 +23,23 @@ import static Core.Config.CAMERA_WIDTH;
 
 public class Textbox
 {
+    String classname = "Textbox ";
     double TEXTBOX_WIDTH = CAMERA_WIDTH / 1.5;
     double TEXTBOX_HEIGHT = Config.CAMERA_HEIGTH / 3;
     Canvas textboxCanvas = new Canvas(TEXTBOX_WIDTH, TEXTBOX_HEIGHT);
     GraphicsContext textboxGc = textboxCanvas.getGraphicsContext2D();
 
+    WritableImage textboxImage;
+    List<String> messages;
+    int msgIdx =0;
 
-    public WritableImage showMessage(String actorname)
+    public void readDialogue(String fileID, String dialogueID)
     {
         String fileIdentifier = "descriptions";
         String dialogueIdentifier = "test";
 
-        //TODO just reloade if other file
+        messages = new ArrayList<>();
         List<String[]> fileData;
-        List<String> messages = new ArrayList<>();
         Path path = Paths.get("src/res/texts/" + fileIdentifier + ".csv");
         if (Files.exists(path))
         {
@@ -49,7 +52,14 @@ public class Textbox
         }
         else throw new RuntimeException("Actordata not found: " + path.toString());
 
-        //TODO Just Show next message till next signal
+        nextMessage();
+    }
+
+    private void nextMessage()
+    {
+        String methodName = "nextMessage() ";
+        //System.out.println(classname + methodName + messages.toString());
+
         textboxGc.setFill(Color.CADETBLUE);
         textboxGc.fillRect(0, 0, TEXTBOX_WIDTH, TEXTBOX_HEIGHT);
         textboxGc.setFill(Color.BLACK);
@@ -57,12 +67,48 @@ public class Textbox
         textboxGc.setTextAlign(TextAlignment.CENTER);
         textboxGc.setTextBaseline(VPos.CENTER);
         textboxGc.fillText(
-                messages.toString(),
+                messages.get(msgIdx),
                 Math.round(textboxCanvas.getWidth() / 2),
                 Math.round(textboxCanvas.getHeight() / 2)
         );
 
-        WritableImage box = textboxCanvas.snapshot(new SnapshotParameters(), null);
-        return box;
+        textboxImage = textboxCanvas.snapshot(new SnapshotParameters(), null);
+    }
+
+    private boolean hasNextMessage()
+    {
+        if(messages.size() > msgIdx+1)
+            return true;
+        else return false;
+    }
+
+    public void nextMessage(Long currentNanoTime)
+    {
+        String methodName = "nextMessage(Long) ";
+        Sprite player = WorldView.getPlayer();
+        double elapsedTimeSinceLastInteraction = (currentNanoTime - player.lastInteraction) / 1000000000.0;
+
+        if(elapsedTimeSinceLastInteraction > 1)
+        {
+            if(hasNextMessage())
+            {
+                msgIdx++;
+                System.out.println(classname + methodName + msgIdx);
+                nextMessage();
+            }
+            else
+            {
+                System.out.println(classname + methodName + "No further Messages");
+                ((WorldView)(GameWindow.getSingleton().currentView)).isTextBoxActive = false;
+                msgIdx = 0;
+            }
+            player.lastInteraction = currentNanoTime;
+        }
+
+    }
+
+    public WritableImage showMessage()
+    {
+        return textboxImage;
     }
 }

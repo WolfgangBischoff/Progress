@@ -56,8 +56,11 @@ public class MainMenuController implements GUIController
     @FXML
     private void startAsCiv(ActionEvent event)
     {
-        PlayerViewC playerViewC = new PlayerViewC();
-        GameWindow.getSingleton().createNextScene(playerViewC);
+        WorldView worldView = new WorldView("test");
+        GameWindow.getSingleton().createNextScene(worldView);
+
+        //PlayerViewC playerViewC = new PlayerViewC();
+        //GameWindow.getSingleton().createNextScene(playerViewC);
     }
 
     @Override

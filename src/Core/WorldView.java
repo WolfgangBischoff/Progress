@@ -1,20 +1,19 @@
 package Core;
 
 import Core.Enums.Direction;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
-import javafx.geometry.VPos;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
-import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.TextAlignment;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +24,10 @@ import static Core.Config.CAMERA_WIDTH;
 
 public class WorldView implements GUIController
 {
+    @FXML
     Pane root;
+    FXMLLoader fxmlLoader;
+
     Canvas worldCanvas;
     GraphicsContext gc;
     Canvas shadowMask;
@@ -47,7 +49,7 @@ public class WorldView implements GUIController
     static List<Sprite> middleLayer = new ArrayList<>();
     static List<Sprite> topLayer = new ArrayList<>();
     String levelName;
-    Sprite player;
+    static Sprite player;
 
     //Camera
     double offsetMaxX;
@@ -57,9 +59,13 @@ public class WorldView implements GUIController
     double camX;
     double camY;
 
-    public WorldView(String levelName, Pane root)
+    //public WorldView(String levelName, Pane root)
+    public WorldView(String levelName)
     {
-        this.root = root;
+        fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/PlayerView.fxml"));
+        fxmlLoader.setController(this);
+
+        //this.root = root;
         worldCanvas = new Canvas(CAMERA_WIDTH, Config.CAMERA_HEIGTH);
         shadowMask = new Canvas(CAMERA_WIDTH, Config.CAMERA_HEIGTH);
         gc = worldCanvas.getGraphicsContext2D();
@@ -137,7 +143,10 @@ public class WorldView implements GUIController
 
         if (input.contains("E"))
         {
-            player.setInteract(true);
+            if (isTextBoxActive)
+                textbox.nextMessage(currentNanoTime);
+            else
+                player.setInteract(true);
         }
 
 
@@ -149,7 +158,7 @@ public class WorldView implements GUIController
 
         //Camera at world border
         camX = player.positionX - CAMERA_WIDTH / 2;
-        camY = player.positionY - Config.CAMERA_HEIGTH / 2;
+        camY = player.positionY - CAMERA_HEIGTH / 2;
         if (camX < offsetMinX)
             camX = offsetMinX;
         if (camY < offsetMinY)
@@ -247,15 +256,30 @@ public class WorldView implements GUIController
         //Overlays
         if (isTextBoxActive)
         {
-            WritableImage textBoxImg = textbox.showMessage(textboxIdentifier);
+            //WritableImage textBoxImg = textbox.showMessage(textboxIdentifier);
+            WritableImage textBoxImg = textbox.showMessage();
             gc.drawImage(textBoxImg, CAMERA_WIDTH / 2 - textBoxImg.getWidth() / 2, CAMERA_HEIGTH - textBoxImg.getHeight() - 32);
         }
     }
 
 
     @Override
+    /*public Pane load()
+    {
+        return null;
+    }*/
+
     public Pane load()
     {
+
+        try
+        {
+            return fxmlLoader.load();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
         return null;
     }
 
@@ -277,5 +301,10 @@ public class WorldView implements GUIController
     public static Rectangle2D getBorders()
     {
         return borders;
+    }
+
+    public static Sprite getPlayer()
+    {
+        return player;
     }
 }

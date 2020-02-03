@@ -20,6 +20,7 @@ import java.util.Map;
 public class Actor// implements PropertyChangeListener
 {
     String className = "Actor ";
+    String actorname;
     private Direction direction;
     private double velocityX;
     private double velocityY;
@@ -42,17 +43,19 @@ public class Actor// implements PropertyChangeListener
     Map<String, List<SpriteData>> spriteDataMap = new HashMap<>();
     String generalStatus;
     String compoundStatus = "default";
+    String dialogueFileName = "descriptions";
 
 
-    public Actor(String spritename, String initGeneralStatus, Direction direction)
+    public Actor(String actorname, String initGeneralStatus, Direction direction)
     {
+        this.actorname = actorname;
         this.generalStatus = initGeneralStatus.toLowerCase();
         this.direction = direction;
         List<String[]> actordata;
-        Path path = Paths.get("src/res/actorData/" + spritename + ".csv");
+        Path path = Paths.get("src/res/actorData/" + actorname + ".csv");
         if (Files.exists(path))
         {
-            actordata = Utilities.readAllLineFromTxt("src/res/actorData/" + spritename + ".csv");
+            actordata = Utilities.readAllLineFromTxt("src/res/actorData/" + actorname + ".csv");
             for (String[] linedata : actordata)
             {
                 //Check for keywords
@@ -116,7 +119,7 @@ public class Actor// implements PropertyChangeListener
 
             }
         }
-        else throw new RuntimeException("Actordata not found: " + spritename);
+        else throw new RuntimeException("Actordata not found: " + actorname);
     }
 
     public void update()
@@ -225,7 +228,28 @@ public class Actor// implements PropertyChangeListener
 
             delay.play();
         }
+
+        if (onAction == TriggerType.TEXTBOX)
+        {
+            activateTextbox();
+        }
     }
+
+    public void activateTextbox()
+    {
+        String methodName = "activateDialogue() ";
+        GUIController gameWindow = GameWindow.getSingleton().currentView;
+
+        if(gameWindow instanceof WorldView)
+        {
+            WorldView worldView = (WorldView)gameWindow;
+            worldView.textbox.readDialogue(actorname, "trig");//TODO actor defines txt file
+            worldView.isTextBoxActive = true;
+        }
+        else
+            System.out.println(className + methodName + " Game Window not instance of WorldView, cannot show Dialogue");
+    }
+
 
     @Override
     public String toString()
