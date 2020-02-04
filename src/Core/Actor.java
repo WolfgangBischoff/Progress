@@ -36,11 +36,13 @@ public class Actor// implements PropertyChangeListener
     TriggerType onInRange = TriggerType.NOTHING;
     TriggerType onUpdate = TriggerType.NOTHING;
     TriggerType onIntersection = TriggerType.NOTHING;
+    TriggerType onMonitorSignal = TriggerType.NOTHING;
     static Set<String> actorDefinitionKeywords = new HashSet<>();
     String onInteractionToStatus = Config.KEYWORD_transition;
     String onUpdateToStatus = Config.KEYWORD_transition;
     String onInRangeToStatus = Config.KEYWORD_transition;
     String onIntersectionToStatus = Config.KEYWORD_transition;
+    String onMonitorSignalToStatus = Config.KEYWORD_transition;
     List<Sprite> spriteList = new ArrayList<>();
     Map<String, String> statusTransitions = new HashMap<>();
     Map<String, List<SpriteData>> spriteDataMap = new HashMap<>();
@@ -48,6 +50,8 @@ public class Actor// implements PropertyChangeListener
     String compoundStatus = "default";
     String dialogueFileName = "descriptions";
     String dialogueStatusID = "none";
+
+    StageMonitor stageMonitor;
 
 
     public Actor(String actorname, String initGeneralStatus, Direction direction)
@@ -166,24 +170,23 @@ public class Actor// implements PropertyChangeListener
             evaluateTriggerType(onInteraction, onIntersectionToStatus);
             lastInteraction = currentNanoTime;
         }
+    }
+
+    public void onMonitorSignal()
+    {
+        String methodName = "onMonitorSignal(): ";
+
+        //TODO from definition
+        if(actorname.equals("statusScreen"))
+            onMonitorSignal = TriggerType.PERSISTENT;
+
+        evaluateTriggerType(onMonitorSignal, onMonitorSignalToStatus);
 
     }
 
     public void onIntersection(Sprite otherSprite, Long currentNanoTime)
     {
         String methodName = "onIntersection() ";
-/*
-        if (onIntersectionToStatus.equals(Config.KEYWORD_transition))
-        {
-            transitionGeneralStatus();
-            updateCompoundStatus();
-        }
-        else
-        {
-            generalStatus = onIntersectionToStatus;
-            updateCompoundStatus();
-        }*/
-
     }
 
     public void onInRange(Sprite otherSprite, Long currentNanoTime)
@@ -338,22 +341,32 @@ public class Actor// implements PropertyChangeListener
 
         if (!(direction == Direction.UNDEFINED))
             newStatusString = newStatusString + "-" + direction.toString().toLowerCase();
-
         if (isMoving())
             newStatusString = newStatusString + "-" + "moving";
-
         compoundStatus = newStatusString;
+
         if (!(oldCompoundStatus.equals(compoundStatus)))
             changeSprites();
+
+
+        //TODO read from field
+        if(stageMonitor != null)
+        {
+            if(actorname.equals("lever"))
+                stageMonitor.notify("energy", this);
+            else
+                stageMonitor.notify("screen", this);
+        }
     }
 
     @Override
     public String toString()
     {
         return "Actor{" +
-                "onInteraction='" + onInteraction + '\'' +
+                ", name " + actorname +
+                //"onInteraction='" + onInteraction + '\'' +
                 ", Generalstatus=" + generalStatus +
-                ", transitions: " + statusTransitions.toString() +
+              //  ", transitions: " + statusTransitions.toString() +
                 '}';
     }
 

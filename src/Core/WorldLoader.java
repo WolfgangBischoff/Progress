@@ -25,6 +25,8 @@ public class WorldLoader
     int maxHorizontalTile = 0;
     String readMode;
 
+    StageMonitor stageMonitor = new StageMonitor();
+
     private final String className = "WorldLoader ";
     private final String KEYWORD_NEW_LAYER = "layer:";
     private final String KEYWORD_PASSIV_LAYER = "passivlayer:";
@@ -141,6 +143,18 @@ public class WorldLoader
                 Actor actor = new Actor(actorData.actorname, actorData.generalStatus, actorData.direction);
                 actor.updateCompoundStatus();
                 List<SpriteData> spriteDataList = actor.spriteDataMap.get(actor.compoundStatus);
+
+                //TODO read from ActorData
+                if (actor.actorname.equals("lever"))
+                {
+                    actor.stageMonitor = stageMonitor;
+                    stageMonitor.addActor("energy", actor);
+                }
+                if (actor.actorname.equals("statusScreen"))
+                {
+                    actor.stageMonitor = stageMonitor;
+                    stageMonitor.addActor("screen", actor);
+                }
 
                 for (int j = 0; j < spriteDataList.size(); j++)
                 {

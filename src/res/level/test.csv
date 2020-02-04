@@ -68,19 +68,21 @@ sink__,			sink,							/bath/sink,																							false,				1,								0,		
 #Machines
 #code, name,												spritename, 																			blocker, heightLayer,	fps, totalFrames, cols, rows, frameWidth, frameHeight,   hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight, lightning
 tonage,			tonage,						machines/ton,																						true,											1,			0,		        	0, 			0,				0,				      0, 										0,					 									0,				 								0,												0,										0							,greenlight256
-tonagB,			tonage,						machines/tonBlue,																						true,											1,			0,		        	0, 			0,				0,				      0, 										0,					 									0,				 								0,												0,										0							,greenlight256
-screen,			screen,						machines/statusScreen,													true,											1,			0,		        	0, 			0,				0,				      0, 										0,					 									0,				 								0,												0,										0							,none
+tonagB,			tonage,						machines/tonBlue,																		true,											1,			0,		        	0, 			0,				0,				      0, 										0,					 									0,				 								0,												0,										0							,greenlight256
+#screen,			screen,						machines/statusScreen,													true,											1,			0,		        	0, 			0,				0,				      0, 										0,					 									0,				 								0,												0,										0							,none
 
 crates,			crates,					crates,																													true,											0,			0,											0,				0,				0,										0,											0,															0,												32,												128,							74,							none
 
 actors:
-#code, 					actorname, 		status, 	direction
-pc____, 											pc, 					OFF, 	undefined
-hedgeh, 					hedgehog, 	DEFAULT,		undefined
-player, 							player, 	default, 	EAST
-buC___, 					bulkhead, 						ON, 	south
-hydrau,					hydraulic, 						ON, 	undefined
-diff_d,						diffuser,		default, 	undefined
+#code 					,actorname 		,status   ,direction
+pc____					,pc										,OFF						,undefined
+hedgeh					,hedgehog 			,DEFAULT		,undefined
+player					,player						,default		,EAST
+buC___					,bulkhead				,ON							,south
+hydrau					,hydraulic			,ON							,undefined
+diff_d					,diffuser				,default		,undefined
+lever_					,lever							,off						,undefined
+screen					,statusScreen,off						,undefined
 
 
 #sets 64 bits tiles as raster; you can add multiple layers; later defined layers are higher prioritized in case of same defined heightLayer
@@ -116,7 +118,7 @@ waL___, ______, tabBot, ______, ______, ______, ______, ______, couch_,	waR___, 
 waL___, ______, ______, ______, ______, ______, ______, ______, ______, waR___, wBL___, waB___, wBTR__, ______, ______, ______, ______, ______, ottomR, ottomC, waR___
 waL___, ______, ______, ______, ______, ______, ______, ______, ______, waR___, wTL___, waT___, wFBR__, ______, ______, ______, ______, ______, ______, ______, waR___
 wBL___, waB___, waB___, waB___, wBTR__, ______, waB___, waB___, waB___, waBNW_, waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
-wTL___, waT___, waT___, waT___, wFBR__, buC___, waT___, waT___, waT___, waT___, waT___, hydrau, ______, ______, ______, ______, ______, ______, ______, ______, waR___
+wTL___, waT___, waT___, waT___, wFBR__, buC___, waT___, waT___, waT___, waT___, waT___, hydrau, ______, ______, lever_, ______, lever_, ______, ______, ______, waR___
 waL___, ______, bench_, ______, ______, ______, bench_, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
 waL___, ______, diff_s, ______, ______, ______, diff_s, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, pb2___, ______, ______, waR___
 waL___, ______, diff_d, ______, ______, ______, diff_d, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
