@@ -34,6 +34,7 @@ public class Actor// implements PropertyChangeListener
     TriggerType onUpdate = TriggerType.NOTHING;
     TriggerType onIntersection = TriggerType.NOTHING;
     static Set<String> actorDefinitionKeywords = new HashSet<>();
+    String onInteractionToStatus = Config.KEYWORD_transition;
     String onUpdateToStatus = Config.KEYWORD_transition;
     String onInRangeToStatus = Config.KEYWORD_transition;
     String onIntersectionToStatus = Config.KEYWORD_transition;
@@ -58,18 +59,18 @@ public class Actor// implements PropertyChangeListener
             actordata = Utilities.readAllLineFromTxt("src/res/actorData/" + actorname + ".csv");
             for (String[] linedata : actordata)
             {
-                actorDefinitionKeywords.add(KEYWORD_onAction);
+                actorDefinitionKeywords.add(KEYWORD_onInteraction);
                 actorDefinitionKeywords.add(KEYWORD_onInRange);
                 actorDefinitionKeywords.add(KEYWORD_onUpdate);
                 actorDefinitionKeywords.add(KEYWORD_onIntersection);
                 actorDefinitionKeywords.add(KEYWORD_transition);
                 actorDefinitionKeywords.add(KEYWORD_interactionArea);
                 actorDefinitionKeywords.add(KEYWORD_diologueFile);
-                if(checkForKeywords(linedata))
+                if (checkForKeywords(linedata))
                     continue;
                 //Check for keywords
                 /*
-                if (linedata[0].equals(Config.KEYWORD_onAction))
+                if (linedata[0].equals(Config.KEYWORD_onInteraction))
                 {
                     TriggerType triggerType = TriggerType.getStatus(linedata[1]);
                     onInteraction = triggerType;
@@ -156,8 +157,9 @@ public class Actor// implements PropertyChangeListener
 
         switch (keyword)
         {
-            case KEYWORD_onAction:
+            case KEYWORD_onInteraction:
                 onInteraction = TriggerType.getStatus(linedata[triggerTypeIdx]);
+                onInteractionToStatus = linedata[targetStatusIdx];
                 return true;
             case KEYWORD_onInRange:
                 onInRange = TriggerType.getStatus(linedata[triggerTypeIdx]);
@@ -240,8 +242,6 @@ public class Actor// implements PropertyChangeListener
             toChange.setBlocker(ts.blocking);
             toChange.setLightningSpriteName(ts.lightningSprite);
             changeLayer(toChange, ts.heightLayer);
-
-
             dialogueStatusID = ts.dialogueID;
         }
 
@@ -271,41 +271,57 @@ public class Actor// implements PropertyChangeListener
             generalStatus = onInRangeToStatus;
             updateCompoundStatus();
         }
-        //System.out.println(className + methodName + generalStatus + " found " + otherSprite.getName());
     }
 
     public void actOnInteraction()
     {
         String methodName = "actOnInteraction(): ";
 
-        if (onInteraction == TriggerType.NOTHING)
-            return;
-
-        if (onInteraction == TriggerType.PERSISTENT)
-            transitionGeneralStatus();
-
-        if (onInteraction == TriggerType.TIMED)
+        switch (onInteraction)
         {
-            transitionGeneralStatus();
-            List<SpriteData> targetSpriteData = spriteDataMap.get(compoundStatus);
-            int animationDuration = targetSpriteData.get(0).animationDuration;
-            PauseTransition delay = new PauseTransition(Duration.millis(animationDuration * 1000));
-            delay.setOnFinished(new EventHandler<ActionEvent>()
+            case NOTHING:
+                return;
+            case PERSISTENT:
+                transitionGeneralStatus();
+                break;
+            case PERSISTENT_TEXT:
+                transitionGeneralStatus();
+                activateTextbox();
+                break;
+            case TIMED_TEXT:
+                transitionGeneralStatus();
+                playTimedStatus();
+                activateTextbox();
+                break;
+            case TIMED:
+                transitionGeneralStatus();
+                playTimedStatus();
+                break;
+            case TEXTBOX:
+                activateTextbox();
+                break;
+            default:
+                throw new RuntimeException("Trigger type not defined: " + onInteraction);
+        }
+    }
+
+    private void playTimedStatus()
+    {
+        String methodName = "playTimedStatus()";
+        List<SpriteData> targetSpriteData = spriteDataMap.get(compoundStatus);
+        int animationDuration = targetSpriteData.get(0).animationDuration;
+        PauseTransition delay = new PauseTransition(Duration.millis(animationDuration * 1000));
+        delay.setOnFinished(new EventHandler<ActionEvent>()
+        {
+            @Override
+            public void handle(ActionEvent t)
             {
-                @Override
-                public void handle(ActionEvent t)
-                {
-                    transitionGeneralStatus();
-                }
-            });
+                transitionGeneralStatus();
+                System.out.println(className + methodName + "changed status to: " + compoundStatus);
+            }
+        });
 
-            delay.play();
-        }
-
-        if (onInteraction == TriggerType.TEXTBOX)
-        {
-            activateTextbox();
-        }
+        delay.play();
     }
 
     public void activateTextbox()
@@ -342,7 +358,7 @@ public class Actor// implements PropertyChangeListener
             generalStatus = statusTransitions.get(generalStatus);
         }
         else
-            System.out.println(className + methodName + "No status transition found for " +actorname + " " + generalStatus);
+            System.out.println(className + methodName + "No status transition found for " + actorname + " " + generalStatus);
 
         updateCompoundStatus();
     }

@@ -1,5 +1,5 @@
 
-onInteraction, persistent
+onInteraction, persistent, transition
 
 #Status transition map
 transition, on, fail

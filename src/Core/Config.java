@@ -9,10 +9,10 @@ public class Config
     public static final int CAMERA_WIDTH = 1200;
     public static final int CAMERA_HEIGTH = 800;
 
-    public static final String KEYWORD_onInRange = "onInRange";
-    public static final String KEYWORD_onAction = "onInteraction";
-    public static final String KEYWORD_onUpdate = "onUpdate";
+    public static final String KEYWORD_onInteraction = "onInteraction";
     public static final String KEYWORD_onIntersection = "onIntersection";
+    public static final String KEYWORD_onInRange = "onInRange";
+    public static final String KEYWORD_onUpdate = "onUpdate";
     public static final String KEYWORD_transition = "transition";
     public static final String KEYWORD_interactionArea = "interactionArea";
     public static final String KEYWORD_diologueFile = "dialogueFile";

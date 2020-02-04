@@ -10,9 +10,9 @@ public enum TriggerType
         {
             case "nothing": return NOTHING;
             case "persistent": return PERSISTENT;
-            case "persistentText": return PERSISTENT_TEXT;
+            case "persistent_text": return PERSISTENT_TEXT;
             case "timed": return TIMED;
-            case "timedText": return TIMED_TEXT;
+            case "timed_text": return TIMED_TEXT;
             case "textbox": return TEXTBOX;
             default: throw new RuntimeException("TriggerType unknown: " + status);
         }
