@@ -36,12 +36,10 @@ public class Textbox
     public void readDialogue(String fileIdentifier, String dialogueIdentifier)
     {
         String methodName = "readDialogue() ";
-        //String fileIdentifier = "descriptions";
-        //String dialogueIdentifier = "test";
-
         messages = new ArrayList<>();
         List<String[]> fileData;
         Path path = Paths.get("src/res/texts/" + fileIdentifier + ".csv");
+
         if (Files.exists(path))
         {
             fileData = Utilities.readAllLineFromTxt(path.toString());
@@ -62,8 +60,6 @@ public class Textbox
     private void nextMessage()
     {
         String methodName = "nextMessage() ";
-        //System.out.println(classname + methodName + messages.toString());
-
         textboxGc.setFill(Color.CADETBLUE);
         textboxGc.fillRect(0, 0, TEXTBOX_WIDTH, TEXTBOX_HEIGHT);
         textboxGc.setFill(Color.BLACK);
@@ -75,7 +71,6 @@ public class Textbox
                 Math.round(textboxCanvas.getWidth() / 2),
                 Math.round(textboxCanvas.getHeight() / 2)
         );
-
         textboxImage = textboxCanvas.snapshot(new SnapshotParameters(), null);
     }
 
@@ -89,8 +84,8 @@ public class Textbox
     public void nextMessage(Long currentNanoTime)
     {
         String methodName = "nextMessage(Long) ";
-        Sprite player = WorldView.getPlayer();
-        double elapsedTimeSinceLastInteraction = (currentNanoTime - player.lastInteraction) / 1000000000.0;
+        Actor playerActor = WorldView.getPlayer().actor;
+        double elapsedTimeSinceLastInteraction = (currentNanoTime - playerActor.lastInteraction) / 1000000000.0;
 
         if(elapsedTimeSinceLastInteraction > 1)
         {
@@ -101,11 +96,10 @@ public class Textbox
             }
             else
             {
-                System.out.println(classname + methodName + "No further Messages");
                 ((WorldView)(GameWindow.getSingleton().currentView)).isTextBoxActive = false;
                 msgIdx = 0;
             }
-            player.lastInteraction = currentNanoTime;
+            playerActor.lastInteraction = currentNanoTime;
         }
 
     }

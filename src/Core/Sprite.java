@@ -11,7 +11,7 @@ import java.util.List;
 public class Sprite
 {
     String className = "Sprite ";
-    int TIME_BETWEEN_ACTION = 1;
+    //int TIME_BETWEEN_ACTION = 1; //TODO change to Actor
 
     Image baseimage;
     private String name = "notSet";
@@ -22,7 +22,7 @@ public class Sprite
     private float fps; //frames per second I.E. 24
     Long lastFrame = 0l;
     Long lastUpdated = 0l;
-    Long lastInteraction = 0l; //TODO change to Actor
+    //Long lastInteraction = 0l; //TODO change to Actor
     private int totalFrames; //Total number of frames in the sequence
     private int cols; //Number of columns on the sprite sheet
     private int rows; //Number of rows on the sprite sheet
@@ -89,9 +89,9 @@ public class Sprite
 
     public void update(Long currentNanoTime)
     {
-        String methodName = "update() ";
+        String methodName = "onUpdate() ";
         double time = (currentNanoTime - lastUpdated) / 1000000000.0;
-        double elapsedTimeSinceLastInteraction = (currentNanoTime - lastInteraction) / 1000000000.0;
+        double elapsedTimeSinceLastInteraction = (currentNanoTime - actor.lastInteraction) / 1000000000.0;
         interactionArea = calcInteractionRectangle();
         Rectangle2D worldBorders = WorldView.getBorders();
         List<Sprite> activeSprites = WorldView.getPassiveCollisionRelevantSpritesLayer();
@@ -100,7 +100,7 @@ public class Sprite
         Rectangle2D plannedPosition = new Rectangle2D(positionX + hitBoxOffsetX + velocityX * time, positionY + hitBoxOffsetY + velocityY * time, hitBoxWidth, hitBoxHeight);
 
         if(actor != null && actor.onUpdate != TriggerType.NOTHING)
-            actor.update();
+            actor.onUpdate(currentNanoTime);
 
         for (Sprite otherSprite : activeSprites)
         {
@@ -122,10 +122,11 @@ public class Sprite
             if (interact
                     && otherSprite.actor != null
                     && otherSprite.getBoundary().intersects(interactionArea)
-                    && elapsedTimeSinceLastInteraction > TIME_BETWEEN_ACTION)
+                    && elapsedTimeSinceLastInteraction > actor.TIME_BETWEEN_ACTION)
             {
-                actActive(otherSprite);
-                lastInteraction = currentNanoTime;
+                //actActive(otherSprite);
+                otherSprite.actor.onInteraction(otherSprite, currentNanoTime); //Passive reacts
+                actor.lastInteraction = currentNanoTime;
                 interact = false; //Interacts with first found sprite;
             }
 
@@ -133,7 +134,7 @@ public class Sprite
             if (intersects(otherSprite) && actor.onIntersection != TriggerType.NOTHING)
             {
                 //System.out.println(className + methodName + name + " intersects " + otherSprite.getName());
-                actor.actOnIntersection(otherSprite);
+                actor.onIntersection(otherSprite, currentNanoTime);
             }
 
             //In range
@@ -142,7 +143,7 @@ public class Sprite
                 && otherSprite.getBoundary().intersects(interactionArea))
             {
                 //System.out.println(className + methodName + name + " found " + otherSprite.getName() + " in range");
-                actor.onInRange(otherSprite);
+                actor.onInRange(otherSprite, currentNanoTime);
             }
         }
 
@@ -156,21 +157,6 @@ public class Sprite
         blockedByOtherSprite = false;
         lastUpdated = currentNanoTime;
 
-    }
-
-    public void actActive(Sprite passiveSprite)
-    {
-        //System.out.println("Sprite " + name + " activated " + passiveSprite.getName());
-        passiveSprite.actPassive(this);
-    }
-
-
-    public void actPassive(Sprite activeSprite)
-    {
-        String methodName = "actPassive() ";
-        //System.out.println(className + methodName + name + " activated by " + activeSprite.getName() + " actorStatusPassiv: " + actor);
-        if (actor != null)
-            actor.actOnInteraction();
     }
 
     public boolean intersects(Sprite s)
