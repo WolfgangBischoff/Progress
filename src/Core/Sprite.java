@@ -2,15 +2,10 @@ package Core;
 
 import Core.Enums.TriggerType;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-import javafx.scene.transform.Rotate;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.util.List;
 
 public class Sprite
@@ -88,7 +83,7 @@ public class Sprite
            case WEST:
                 return new Rectangle2D(positionX + hitBoxOffsetX - maxInteractionDistance, positionY + hitBoxOffsetY + hitBoxHeight / 2 - interactionWidth / 2, maxInteractionDistance, interactionWidth);
             default:
-                throw new RuntimeException("calcInteractionRectangle: No Direction Set");
+                throw new RuntimeException("calcInteractionRectangle: No Direction Set at " + name);
         }
     }
 
@@ -175,7 +170,7 @@ public class Sprite
         String methodName = "actPassive() ";
         //System.out.println(className + methodName + name + " activated by " + activeSprite.getName() + " actorStatusPassiv: " + actor);
         if (actor != null)
-            actor.act();
+            actor.actOnInteraction();
     }
 
     public boolean intersects(Sprite s)

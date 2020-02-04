@@ -7,15 +7,13 @@ import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.util.Duration;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
+import static Core.Config.*;
 
 public class Actor// implements PropertyChangeListener
 {
@@ -31,10 +29,11 @@ public class Actor// implements PropertyChangeListener
     private double interactionAreaOffsetY = 0;
 
 
-    TriggerType onAction = TriggerType.NOTHING;
+    TriggerType onInteraction = TriggerType.NOTHING;
     TriggerType onInRange = TriggerType.NOTHING;
     TriggerType onUpdate = TriggerType.NOTHING;
     TriggerType onIntersection = TriggerType.NOTHING;
+    static Set<String> actorDefinitionKeywords = new HashSet<>();
     String onUpdateToStatus = Config.KEYWORD_transition;
     String onInRangeToStatus = Config.KEYWORD_transition;
     String onIntersectionToStatus = Config.KEYWORD_transition;
@@ -59,11 +58,21 @@ public class Actor// implements PropertyChangeListener
             actordata = Utilities.readAllLineFromTxt("src/res/actorData/" + actorname + ".csv");
             for (String[] linedata : actordata)
             {
+                actorDefinitionKeywords.add(KEYWORD_onAction);
+                actorDefinitionKeywords.add(KEYWORD_onInRange);
+                actorDefinitionKeywords.add(KEYWORD_onUpdate);
+                actorDefinitionKeywords.add(KEYWORD_onIntersection);
+                actorDefinitionKeywords.add(KEYWORD_transition);
+                actorDefinitionKeywords.add(KEYWORD_interactionArea);
+                actorDefinitionKeywords.add(KEYWORD_diologueFile);
+                if(checkForKeywords(linedata))
+                    continue;
                 //Check for keywords
+                /*
                 if (linedata[0].equals(Config.KEYWORD_onAction))
                 {
                     TriggerType triggerType = TriggerType.getStatus(linedata[1]);
-                    onAction = triggerType;
+                    onInteraction = triggerType;
                     continue;
                 }
                 if (linedata[0].equals(Config.KEYWORD_onInRange))
@@ -111,7 +120,7 @@ public class Actor// implements PropertyChangeListener
                 {
                     dialogueFileName = linedata[1];
                     continue;
-                }
+                }*/
 
                 //Collect Actor Sprite Data
                 SpriteData data = SpriteData.tileDefinition(linedata);
@@ -127,6 +136,60 @@ public class Actor// implements PropertyChangeListener
             }
         }
         else throw new RuntimeException("Actordata not found: " + actorname);
+    }
+
+    private boolean checkForKeywords(String[] linedata)
+    {
+        int keywordIdx = 0;
+        int triggerTypeIdx = 1;
+        int targetStatusIdx = 2;
+        String possibleKeyword = linedata[keywordIdx];
+        String keyword;
+        if (actorDefinitionKeywords.contains(possibleKeyword))
+        {
+            keyword = possibleKeyword;
+        }
+        else
+        {
+            return false;
+        }
+
+        switch (keyword)
+        {
+            case KEYWORD_onAction:
+                onInteraction = TriggerType.getStatus(linedata[triggerTypeIdx]);
+                return true;
+            case KEYWORD_onInRange:
+                onInRange = TriggerType.getStatus(linedata[triggerTypeIdx]);
+                onInRangeToStatus = linedata[targetStatusIdx];
+                return true;
+            case KEYWORD_onUpdate:
+                onUpdate = TriggerType.getStatus(linedata[triggerTypeIdx]);
+                onUpdateToStatus = linedata[targetStatusIdx];
+                return true;
+            case KEYWORD_onIntersection:
+                onIntersection = TriggerType.getStatus(linedata[triggerTypeIdx]);
+                onIntersectionToStatus = linedata[targetStatusIdx];
+                return true;
+            case KEYWORD_transition:
+                statusTransitions.put(linedata[1], linedata[2]);// old/new status
+                return true;
+            case KEYWORD_interactionArea:
+                Double areaDistance = Double.parseDouble(linedata[1]);
+                Double areaWidth = Double.parseDouble(linedata[2]);
+                Double offsetX = Double.parseDouble(linedata[3]);
+                Double offsetY = Double.parseDouble(linedata[4]);
+                interactionAreaDistance = areaDistance;
+                interactionAreaWidth = areaWidth;
+                interactionAreaOffsetX = offsetX;
+                interactionAreaOffsetY = offsetY;
+                return true;
+            case KEYWORD_diologueFile:
+                dialogueFileName = linedata[1];
+                return true;
+            default:
+                throw new RuntimeException("Keyword unknown: " + keyword);
+        }
     }
 
     public void update()
@@ -211,17 +274,17 @@ public class Actor// implements PropertyChangeListener
         //System.out.println(className + methodName + generalStatus + " found " + otherSprite.getName());
     }
 
-    public void act()
+    public void actOnInteraction()
     {
-        String methodName = "act(): ";
+        String methodName = "actOnInteraction(): ";
 
-        if (onAction == TriggerType.NOTHING)
+        if (onInteraction == TriggerType.NOTHING)
             return;
 
-        if (onAction == TriggerType.PERSISTENT)
+        if (onInteraction == TriggerType.PERSISTENT)
             transitionGeneralStatus();
 
-        if (onAction == TriggerType.TIMED)
+        if (onInteraction == TriggerType.TIMED)
         {
             transitionGeneralStatus();
             List<SpriteData> targetSpriteData = spriteDataMap.get(compoundStatus);
@@ -239,7 +302,7 @@ public class Actor// implements PropertyChangeListener
             delay.play();
         }
 
-        if (onAction == TriggerType.TEXTBOX)
+        if (onInteraction == TriggerType.TEXTBOX)
         {
             activateTextbox();
         }
@@ -250,9 +313,9 @@ public class Actor// implements PropertyChangeListener
         String methodName = "activateDialogue() ";
         GUIController gameWindow = GameWindow.getSingleton().currentView;
 
-        if(gameWindow instanceof WorldView)
+        if (gameWindow instanceof WorldView)
         {
-            WorldView worldView = (WorldView)gameWindow;
+            WorldView worldView = (WorldView) gameWindow;
             worldView.textbox.readDialogue(dialogueFileName, dialogueStatusID);//TODO actor defines txt file
             worldView.isTextBoxActive = true;
         }
@@ -265,7 +328,7 @@ public class Actor// implements PropertyChangeListener
     public String toString()
     {
         return "Actor{" +
-                "onAction='" + onAction + '\'' +
+                "onInteraction='" + onInteraction + '\'' +
                 ", Generalstatus=" + generalStatus +
                 ", transitions: " + statusTransitions.toString() +
                 '}';
@@ -279,7 +342,7 @@ public class Actor// implements PropertyChangeListener
             generalStatus = statusTransitions.get(generalStatus);
         }
         else
-            System.out.print(className + methodName + "No status transition found: " + generalStatus);
+            System.out.println(className + methodName + "No status transition found for " +actorname + " " + generalStatus);
 
         updateCompoundStatus();
     }

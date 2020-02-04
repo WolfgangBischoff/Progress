@@ -3,6 +3,7 @@ package Core;
 import Core.Enums.Direction;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.paint.Color;
+
 import java.util.*;
 
 public class WorldLoader
@@ -87,7 +88,7 @@ public class WorldLoader
     {
         String methodName = className + " readWorldShadow ";
         Integer red, green, blue;
-        if(lineData[0].toLowerCase().equals("none"))
+        if (lineData[0].toLowerCase().equals("none"))
             shadowColor = null;
         else
         {
@@ -132,7 +133,7 @@ public class WorldLoader
                     addToCollisionLayer(ca, tile.heightLayer);
             }
             //Is Actor
-            else if(actorDataMap.containsKey(lineData[i]))
+            else if (actorDataMap.containsKey(lineData[i]))
             {
                 ActorData actorData = actorDataMap.get(lineData[i]);
 
@@ -141,21 +142,17 @@ public class WorldLoader
                 actor.updateCompoundStatus();
                 List<SpriteData> spriteDataList = actor.spriteDataMap.get(actor.compoundStatus);
 
-                for(int j=0; j<spriteDataList.size(); j++)
+                for (int j = 0; j < spriteDataList.size(); j++)
                 {
                     Sprite actorSprite;
                     SpriteData spriteData = spriteDataList.get(j);
-                    actorSprite = createSprite(spriteData, i*64, currentVerticalTile  * 64);
+                    actorSprite = createSprite(spriteData, i * 64, currentVerticalTile * 64);
                     actorSprite.actor = actor;
                     actor.setSpeed(spriteData.velocity);//Set as often as Sprites exist?
                     actor.dialogueStatusID = spriteData.dialogueID;
 
-                    //TODO check if active Sprite via definition
-                    if(actorSprite.getName().equals("bulkhead"))
-                    {
-                     System.out.println(className + methodName + " found bulkhead");
-                     activeLayer.add(actorSprite);
-                    }
+                    if (actor.getDirection() != Direction.UNDEFINED)//If a sprite has a direction it typically can move or detect something actively
+                        activeLayer.add(actorSprite);
 
                     actor.addSprite(actorSprite);
                     addToCollisionLayer(actorSprite, spriteDataList.get(j).heightLayer);

@@ -74,13 +74,13 @@ screen,			screen,						machines/statusScreen,													true,											1,			0
 crates,			crates,					crates,																													true,											0,			0,											0,				0,				0,										0,											0,															0,												32,												128,							74,							none
 
 actors:
-#code, 			actorname, 	status, direction
-pc____, 											pc, 				OFF, 				undefined
-hedgeh, 					hedgehog, DEFAULT,					undefined
-player, 							player, 		default, 				EAST
-buC___, 					bulkhead, 					ON, 				south
-hydrau,		hydraulic, 					ON, 				undefined
-diff_d,			diffuser,			default, undefined
+#code, 					actorname, 		status, 	direction
+pc____, 											pc, 					OFF, 	undefined
+hedgeh, 					hedgehog, 	DEFAULT,		undefined
+player, 							player, 	default, 	EAST
+buC___, 					bulkhead, 						ON, 	south
+hydrau,					hydraulic, 						ON, 	undefined
+diff_d,						diffuser,		default, 	undefined
 
 
 #sets 64 bits tiles as raster; you can add multiple layers; later defined layers are higher prioritized in case of same defined heightLayer

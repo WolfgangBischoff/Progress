@@ -1,5 +1,5 @@
 
-onAction, persistent
+onInteraction, persistent
 
 #Status transition map
 transition, on, off

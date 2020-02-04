@@ -29,7 +29,6 @@ public class SpriteData
     public Integer fps, totalFrames, cols, rows, frameWidth, frameHeight, heightLayer, hitboxOffsetX, hitboxOffsetY, hitboxWidth, hitboxHeight, animationDuration, velocity;
 
 
-
     public SpriteData(String name, String spriteName, Boolean blocking, Integer fps, Integer totalFrames, Integer cols, Integer rows, Integer frameWidth, Integer frameHeight, Integer heightLayer, Integer hitboxOffsetX, Integer hitboxOffsetY, Integer hitboxWidth, Integer hitboxHeight, String lightningSprite)
     {
         this.name = name;
@@ -51,22 +50,36 @@ public class SpriteData
 
     public static SpriteData tileDefinition(String[] lineData)
     {
-        Boolean blocking = Boolean.parseBoolean(lineData[blockingIdx]);
-        Integer priority = Integer.parseInt(lineData[layerIdx]);
-        Integer fps = Integer.parseInt(lineData[fpsIdx]);
-        Integer totalFrames = Integer.parseInt(lineData[totalFramesIdx]);
-        Integer cols = Integer.parseInt(lineData[colsIdx]);
-        Integer rows = Integer.parseInt(lineData[rowsIdx]);
-        Integer frameWidth = Integer.parseInt(lineData[frameWidthIdx]);
-        Integer frameHeight = Integer.parseInt(lineData[frameHeightIdx]);
-        Integer hitboxOffsetX = Integer.parseInt(lineData[hitboxOffsetXIdx]);
-        Integer hitboxOffsetY = Integer.parseInt(lineData[hitboxOffsetYIdx]);
-        Integer hitboxWidth = Integer.parseInt(lineData[hitboxWidthIdx]);
-        Integer hitboxHeight = Integer.parseInt(lineData[hitboxHeightIdx]);
-        String lightningSprite = lineData[lightningSpriteNameIdx];
+        try
+        {
+            Boolean blocking = Boolean.parseBoolean(lineData[blockingIdx]);
+            Integer priority = Integer.parseInt(lineData[layerIdx]);
+            Integer fps = Integer.parseInt(lineData[fpsIdx]);
+            Integer totalFrames = Integer.parseInt(lineData[totalFramesIdx]);
+            Integer cols = Integer.parseInt(lineData[colsIdx]);
+            Integer rows = Integer.parseInt(lineData[rowsIdx]);
+            Integer frameWidth = Integer.parseInt(lineData[frameWidthIdx]);
+            Integer frameHeight = Integer.parseInt(lineData[frameHeightIdx]);
+            Integer hitboxOffsetX = Integer.parseInt(lineData[hitboxOffsetXIdx]);
+            Integer hitboxOffsetY = Integer.parseInt(lineData[hitboxOffsetYIdx]);
+            Integer hitboxWidth = Integer.parseInt(lineData[hitboxWidthIdx]);
+            Integer hitboxHeight = Integer.parseInt(lineData[hitboxHeightIdx]);
+            String lightningSprite = lineData[lightningSpriteNameIdx];
 
-        SpriteData current = new SpriteData(lineData[nameIdx], lineData[spriteNameIdx], blocking, fps, totalFrames, cols, rows, frameWidth, frameHeight, priority, hitboxOffsetX, hitboxOffsetY, hitboxWidth, hitboxHeight, lightningSprite);
-        return current;
+            SpriteData current = new SpriteData(lineData[nameIdx], lineData[spriteNameIdx], blocking, fps, totalFrames, cols, rows, frameWidth, frameHeight, priority, hitboxOffsetX, hitboxOffsetY, hitboxWidth, hitboxHeight, lightningSprite);
+            return current;
+        }
+        catch (IndexOutOfBoundsException e)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            for(String s : lineData)
+            {
+                stringBuilder.append(s);
+                stringBuilder.append(", ");
+            }
+            throw new IndexOutOfBoundsException("Tile Definition failed with line:\n" + stringBuilder.toString());
+        }
+
     }
 
     @Override

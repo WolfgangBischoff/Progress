@@ -1,6 +1,6 @@
 
 
-onAction, textbox
+onInteraction, textbox
 
 dialogueFile, diffuser
 

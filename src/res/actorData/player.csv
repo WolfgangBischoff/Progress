@@ -1,6 +1,6 @@
 
 #Status Change
-onAction, nothing
+onInteraction, nothing
 
 #Status transition Map
 transition, default, default
