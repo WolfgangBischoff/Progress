@@ -10,11 +10,16 @@ Logic:
 - Menu
 
 Sprites:
-- kitchen, algaetank
 - Couchtisch, Kleiderschrank, Diffuser
 - Bett
 - Automatische Tür
 - Lagerschrank, Lautsprecher, große Rohre, Säulen
+
+1) Find pic that is cool
+2) Use Sat and Vib to create base color with other HUE
+
+Base color to brighter, HUE+-, SAT-, BRI+
+Base color to darker,   HUE+-, SAT-, BRI-
 
 Topics:
 - Erben

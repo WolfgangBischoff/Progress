@@ -40,22 +40,25 @@ walCab				,wallcable,						walls/wallcabel,																							true,				0,			
 
 #Furniture, 								none
 #code     ,name        ,spritename                     ,blocker		,heightLayer		,fps ,totalFrames  ,cols ,rows ,frameWidth ,frameHeight ,hitboxOffsetX ,hitboxOffsetY ,hitBoxWidth ,hitBoxHeight ,lightning
-tabBot, 		table,			furniture/roundWoddenTableBtm,													true,				0,								0,			0,											0,				0,				0,										0,											0,													32,													128,											74							,none
-tabTop, 		table,			furniture/roundWoddenTableTop,												false,				2,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0							,none
-desk__,			desk,				furniture/tableSqare,																						true,				0,								0,			0,											0,				0,				0,										0,														0,													0,													0,										0							,none
-ottomC,			ottoman,				furniture/ottomanColour,														false,				0,								0,			0,											0,				0,				0,										0,														0,													0,													0,										0							,none
-ottomR,			ottoman,				furniture/ottomanRed,																		false,				0,								0,			0,											0,				0,				0,										0,														0,													0,													0,										0							,none
-bee___, 		bee___,													bee, 																										false,				2,								12, 		3, 									3, 			1, 		32, 								32,										0,													0,													0,											0							,none
-bed___, 		bed___,													bed,																												true,				0,								0,			0,											0,				0,				0,										0,												0,													0,													0,											0							,none
-couch_, 		couch,											/furniture/couch,																					true,				0,								0,			0,											0,				0,				0,										0,												0,													0,													0,											0							,none
-plt___,			potPlantTop,					potPlantTop,																						false,				2,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0							,none
-pot___,			pot,													pot,																															true,				0,								0,			0,											0,				0,				0,										0,												0,													0,													64,											74							,none
-pb2___,			plantBig,								plantBig,																									false,				2,								0,			0,											0,				0,				0,										0,												0,													0,													0,											0							,none
-diff_s,			diffuserSmoke,			furniture/diffuser128Smoke,							false,				2,								3,			3,											3,				1,		128,							 128,												0,													0,													0,											0,			none
-scubb_,			skubb,											/furniture/skubb,																		true,				0,								0,			0,											0,				0,				0,										0,										0,													64,												128,										64							,none
-l_____,			lights,										/lightsources/ligtherS,												true,				1,								0,			0,											0,				0,				0,										0,										0,													0,												0,										0							,whitelight
-nights,			nightstand,						/lightsources/nightstand,										true,				1,								0,			0,											0,				0,				0,										0,										0,													0,												0,										0							,redlight
-bench_,				bench,											furniture/bench,																			true,				1,								0,			0,											0,				0,				0,										0,										0,													50,												128,										50							,none
+tabBot				,table							,furniture/roundWoddenTableBtm		,true					,0												,0			,0												,0				,0				,0										,0											,0													,32												,128									,74											,none
+tabTop				,table							,furniture/roundWoddenTableTop		,false				,2												,0			,0												,0				,0				,0										,0											,0													,0													,0											,0												,none
+desk__				,desk								,furniture/tableSqare											,true					,0												,0			,0												,0				,0				,0										,0											,0             ,0             ,0           ,0							     ,none
+ottomC				,ottoman     ,furniture/ottomanColour								,false				,0												,0			,0												,0				,0				,0										,0											,0													,0													,0											,0												,none
+ottomR				,ottoman     ,furniture/ottomanRed											,false				,0												,0			,0												,0				,0				,0										,0											,0													,0													,0											,0												,none
+couch_				,couch							,furniture/couch																,true					,0            ,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0     							,none
+couchB				,couch							,furniture/modernCouch										,true					,0            ,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0     							,none
+couchW				,couch							,furniture/modernCouchWhite					,true					,0            ,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0     							,none
+couchR				,couch							,furniture/modernCouchRed							,true					,0            ,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0     							,none
+bee___				,bee___,													bee, 																										false,				2,								12, 		3, 									3, 			1, 		32, 								32,										0,													0,													0,											0							,none
+bed___				,bed___,													bed,																												true,				0,								0,			0,											0,				0,				0,										0,												0,													0,													0,											0							,none
+plt___				,potPlantTop,					potPlantTop,																						false,				2,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0							,none
+pot___				,pot,													pot,																															true,				0,								0,			0,											0,				0,				0,										0,												0,													0,													64,											74							,none
+pb2___				,plantBig,								plantBig,																									false,				2,								0,			0,											0,				0,				0,										0,												0,													0,													0,											0							,none
+diff_s				,diffuserSmoke,			furniture/diffuser128Smoke	,false				,				2,								3,			3,											3,				1,		128,							 128,												0,													0,													0,											0,			none
+scubb_				,skubb,											/furniture/skubb,																		true,				0,								0,			0,											0,				0,				0,										0,										0,													64,												128,										64							,none
+l_____				,lights,										/lightsources/ligtherS,												true,				1,								0,			0,											0,				0,				0,										0,										0,													0,												0,										0							,whitelight
+nights				,nightstand,						/lightsources/nightstand,										true,				1,								0,			0,											0,				0,				0,										0,										0,													0,												0,										0							,redlight
+bench_				,	bench,											furniture/bench,																			true,				1,								0,			0,											0,				0,				0,										0,										0,													50,												128,										50							,none
 
 #Bath
 #code     ,name        ,spritename                     ,blocker		,heightLayer		,fps ,totalFrames  ,cols ,rows ,frameWidth ,frameHeight ,hitboxOffsetX ,hitboxOffsetY ,hitBoxWidth ,hitBoxHeight ,lightning
@@ -64,16 +67,18 @@ shower,			shower,					/bath/shower,																					false,				2,								0,		
 sink__,			sink,							/bath/sink,																							false,				1,								0,			0,											0,				0,				0,										0,											0,												0,												0,										0							,none
 
 #Machines
-#code     ,name        ,spritename                     ,blocker		,heightLayer		,fps ,totalFrames  ,cols ,rows ,frameWidth ,frameHeight ,hitboxOffsetX ,hitboxOffsetY ,hitBoxWidth ,hitBoxHeight ,lightning
-tonage				,tonage						,machines/ton																			,true					,1 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,greenlight256
-tonagB				,tonage						,machines/tonBlue															,true					,1 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,greenlight256
-convBR				,conveyer				,machines/conveyerBR												,true					,1 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,greenlight256
-convHo				,conveyer				,machines/conveyerH													,true					,1 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,greenlight256
-convTR				,conveyer				,machines/conveyerTR												,true					,1 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,greenlight256
-tank_G				,tank								,machines/tankGreen													,true					,1 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,greenlight256
-tank_A				,tank								,machines/greenTank_Anim								,true					,1 											,4   ,4            ,4    ,1    ,64         ,128         ,0             ,0             ,0           ,0												,greenlight256
-tank_B				,tank								,machines/tankBlue														,true					,1 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,greenlight256
-tank_R				,tank								,machines/tankRed															,true					,1 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,greenlight256
+#code     ,name        ,spritename                     								,blocker		,heightLayer		,fps ,totalFrames  ,cols ,rows ,frameWidth ,frameHeight ,hitboxOffsetX ,hitboxOffsetY ,hitBoxWidth ,hitBoxHeight ,lightning
+tonage				,tonage						,machines/ton																											,true					,1 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,greenlight256
+tonagB				,tonage						,machines/tonBlue																							,true					,1 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,greenlight256
+convBR				,conveyer				,machines/conveyerBR																				,true					,1 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,greenlight256
+convHo				,conveyer				,machines/conveyerH																					,true					,1 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,greenlight256
+convTR				,conveyer				,machines/conveyerTR																				,true					,1 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,greenlight256
+tank_G				,tank								,machines/tankGreen																					,true					,1 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,greenlight256
+tank_A				,tank								,machines/greenTank_Anim																,true					,1 											,4   ,4            ,4    ,1    ,64         ,128         ,0             ,0             ,0           ,0												,greenlight256
+tank_B				,tank								,machines/tankBlue																						,true					,1 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,greenlight256
+tank_R				,tank								,machines/tankRed																							,true					,1 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,greenlight256
+robotA				,robot							,machines/robotArm1																					,true					,2 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,greenlight256
+rob_An				,robot							,machines/robotArm1.1_8_256_320									,true					,2 											,10   ,8            ,8    ,1    ,256        ,320         ,0             ,0             ,0           ,0												,greenlight256
 
 crates,			crates,					crates,																													true,											0,			0,											0,				0,				0,										0,											0,															0,												32,												128,							74,							none
 
@@ -128,24 +133,24 @@ ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, 
 waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, wc____, waR___
 waL___, ______, ______, ______, ______, ______, ______, bee___, l_____, wBTL__,	wBTR__, shower, ______, ______, ______, ______, ______, ______, ______, ______, waR___
 waL___, ______, ______, ______, ______, ______, ______, ______, ______, waR___, waL___, ______, ______, ______, ______, ______, ______, ______, ottomR, ottomC, waR___
-waL___, ______, tabBot, ______, ______, ______, ______, ______, ______,	waR___, waL___, ______,	______, ______,	______, ______, ______, ottomC, desk__, ______, waR___
+waL___, ______, tabBot, ______, ______, ______, ______, ______, couch_,	waR___, waL___, ______,	______, ______,	______, ______, ______, ottomC, desk__, ______, waR___
 waL___, ______, ______, ______, ______, ______, ______, ______, ______, waR___, wBL___, waB___, wBTR__, ______, ______, ______, ______, ______, ottomR, ottomC, waR___
-waL___, ______, couch_, couch_, ______, ______, ______, ______, ______, waR___, wTL___, waT___, wFBR__, ______, ______, ______, ______, ______, ______, ______, waR___
+waL___, ______, couchB, ______, ______, ______, ______, ______, ______, waR___, wTL___, waT___, wFBR__, ______, ______, ______, ______, ______, ______, ______, waR___
 wBL___, waBGap, waBGap, waB___, wBTR__, ______, waB___, waB___, waB___, waBNW_, waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
 wTL___, waT___, waT___, waT___, wFBR__, buC___, waT___, waT___, waT___, waT___, waT___, hydrau, ______, ______, lever_, ______, lever_, ______, ______, ______, waR___
 waL___, ______, bench_, ______, ______, ______, bench_, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
 waL___, ______, diff_s, ______, ______, ______, diff_s, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, pb2___, ______, ______, waR___
 waL___, ______, diff_d, ______, ______, ______, diff_d, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
 waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, pot___, ______, waR___
-waL___, ______, bench_, ______, ______, ______, bench_, ______, ______, ______, ______, tonage, tonagB, crates, ______, ______, ______, ______, ______, ______, waR___
-waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, tank_A, tank_G, tank_B, tank_R, ______, waR___
+waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, tonage, tonagB, crates, ______, ______, ______, ______, ______, ______, waR___
 waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
+waL___, ______, ______, ______, ______, ______, desk__, ______, ______, desk__, ______, ______, couch_, ______, ______, ______, rob_An, ______, ______, ______, waR___
 waL___, convHo, convHo, convTR, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
-waL___, convHo, convHo, convBR, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
+waL___, convHo, convHo, convBR, ______, ______, couchB, ______, ______, couchW, ______, ______, couchR, ______, ______, ______, ______, ______, ______, ______, waR___
+waL___, ______, ______, ______, ______, ______, waB___, waB___, waB___, waB___, waB___, waB___, waB___, waB___, ______, ______, ______, ______, ______, ______, waR___
+waL___, ______, ______, ______, ______, ______, waT___, waT___, waT___, waT___, waT___, waT___, waT___, waT___, ______, ______, ______, ______, ______, ______, waR___
 waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
-waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
-waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
-waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
+waL___, tank_A, tank_G, tank_B, tank_R, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
 waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
 waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
 waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
