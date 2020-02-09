@@ -1,0 +1,19 @@
+
+#Status Changes
+#onInteraction, timed, transition
+onInteraction, persistent, transition
+
+#Status transition map
+transition, off, animationOn, #onetime
+transition, animationOn, on
+transition, on, animationOff, #onetime
+transition, animationOff, off
+
+dialogueFile, hedgehogDialogue
+
+#status to image
+#status 										,name   					,spritename  																											,blocker		,heightLayer		,fps			,totalFrames		,cols	,rows	,frameWidth	,frameHeight	,hitboxOffsetX	,hitboxOffsetY	,hitBoxWidth	,hitBoxHeight	,lightning				,duration		,velocity,dialogueID
+off 														,off									,machines/armOff																								,true					,0												,0					,0												,0				,0				,0										,0											,0													,0													,0											,0												,none									,0									,0							,none
+animationOn							,robot							,machines/robotArm1.1_7_256_320									,true					,2 											,7   	,7            ,7    ,1    ,256        ,320         ,0             ,0             ,0           ,0												,greenlight256,1									,0							,none
+animationOff						,robot							,machines/robotArm1.1_7_256_320									,true					,2 											,7   	,7            ,7    ,1    ,256        ,320         ,0             ,0             ,0           ,0												,greenlight256,1									,0							,none
+on	 														,off									,machines/armOn																									,true					,0												,0					,0												,0				,0				,0										,0											,0													,0													,0											,0												,none									,0									,0							,none

@@ -78,7 +78,8 @@ public class Actor// implements PropertyChangeListener
 
                 //Collect Actor Sprite Data
                 SpriteData data = SpriteData.tileDefinition(linedata);
-                data.animationDuration = Integer.parseInt(linedata[SpriteData.animationDurationIdx]);
+                //data.animationDuration = Integer.parseInt(linedata[SpriteData.animationDurationIdx]);
+                data.animationDuration = Double.parseDouble(linedata[SpriteData.animationDurationIdx]);
                 data.velocity = Integer.parseInt(linedata[SpriteData.velocityIdx]);
                 data.dialogueID = linedata[SpriteData.dialogueIDIdx];
 
@@ -224,7 +225,8 @@ public class Actor// implements PropertyChangeListener
     private void changeSprites()
     {
         String methodName = "changeSprites() ";
-        List<SpriteData> targetSpriteData = spriteDataMap.get(compoundStatus);
+        //List<SpriteData> targetSpriteData = spriteDataMap.get(compoundStatus);
+        List<SpriteData> targetSpriteData = spriteDataMap.get(compoundStatus.toLowerCase());
 
         if (targetSpriteData == null)
             System.out.println(className + methodName + compoundStatus + " not found in " + spriteDataMap);
@@ -290,8 +292,13 @@ public class Actor// implements PropertyChangeListener
     private void playTimedStatus()
     {
         String methodName = "playTimedStatus()";
-        List<SpriteData> targetSpriteData = spriteDataMap.get(compoundStatus);
-        int animationDuration = targetSpriteData.get(0).animationDuration;
+        List<SpriteData> targetSpriteData = spriteDataMap.get(compoundStatus.toLowerCase());
+
+        if (targetSpriteData == null)
+            System.out.println(className + methodName + compoundStatus + " not found in " + spriteDataMap);
+
+        //int animationDuration = targetSpriteData.get(0).animationDuration;
+        double animationDuration = targetSpriteData.get(0).animationDuration;
         PauseTransition delay = new PauseTransition(Duration.millis(animationDuration * 1000));
         delay.setOnFinished(new EventHandler<ActionEvent>()
         {

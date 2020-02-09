@@ -1,8 +1,7 @@
 
 Logic:
 - MouseClick PoC
-- bulkhead
-    add timer to prevent multiple events
+- TransitionAnimation should stop at the end
 - schlafen, fade out
 - Message Box
     Add Dialogue Options for Status changes

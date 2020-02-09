@@ -78,7 +78,8 @@ tank_A				,tank								,machines/greenTank_Anim																,true					,1 				
 tank_B				,tank								,machines/tankBlue																						,true					,1 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,greenlight256
 tank_R				,tank								,machines/tankRed																							,true					,1 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,greenlight256
 robotA				,robot							,machines/robotArm1																					,true					,2 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,greenlight256
-rob_An				,robot							,machines/robotArm1.1_8_256_320									,true					,2 											,10   ,8            ,8    ,1    ,256        ,320         ,0             ,0             ,0           ,0												,greenlight256
+#rob_An				,robot							,machines/robotArm1.1_8_256_320									,true					,2 											,10   ,8            ,8    ,1    ,256        ,320         ,0             ,0             ,0           ,0												,greenlight256
+rob_A2				,robot							,machines/robotArm1.1_7_256_320									,true					,2 											,10   ,8            ,8    ,1    ,256        ,320         ,0             ,0             ,0           ,0												,greenlight256
 
 crates,			crates,					crates,																													true,											0,			0,											0,				0,				0,										0,											0,															0,												32,												128,							74,							none
 
@@ -92,6 +93,7 @@ hydrau					,hydraulic			,ON							,undefined
 diff_d					,diffuser				,default		,undefined
 lever_					,lever							,off						,undefined
 screen					,statusScreen,off						,undefined
+rob_An					,robotArm				,off						,undefined
 
 
 #sets 64 bits tiles as raster; you can add multiple layers; later defined layers are higher prioritized in case of same defined heightLayer
@@ -149,7 +151,7 @@ waL___, convHo, convHo, convTR, ______, ______, ______, ______, ______, ______, 
 waL___, convHo, convHo, convBR, ______, ______, couchB, ______, ______, couchW, ______, ______, couchR, ______, ______, ______, ______, ______, ______, ______, waR___
 waL___, ______, ______, ______, ______, ______, waB___, waB___, waB___, waB___, waB___, waB___, waB___, waB___, ______, ______, ______, ______, ______, ______, waR___
 waL___, ______, ______, ______, ______, ______, waT___, waT___, waT___, waT___, waT___, waT___, waT___, waT___, ______, ______, ______, ______, ______, ______, waR___
-waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
+waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, rob_A2, ______, ______, ______, waR___
 waL___, tank_A, tank_G, tank_B, tank_R, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
 waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
 waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
