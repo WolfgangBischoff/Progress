@@ -225,7 +225,6 @@ public class Actor// implements PropertyChangeListener
     private void changeSprites()
     {
         String methodName = "changeSprites() ";
-        //List<SpriteData> targetSpriteData = spriteDataMap.get(compoundStatus);
         List<SpriteData> targetSpriteData = spriteDataMap.get(compoundStatus.toLowerCase());
 
         if (targetSpriteData == null)

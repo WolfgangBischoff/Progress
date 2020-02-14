@@ -77,9 +77,9 @@ tank_G				,tank								,machines/tankGreen																					,true					,1 				
 tank_A				,tank								,machines/greenTank_Anim																,true					,1 											,4   ,4            ,4    ,1    ,64         ,128         ,0             ,0             ,0           ,0												,greenlight256
 tank_B				,tank								,machines/tankBlue																						,true					,1 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,greenlight256
 tank_R				,tank								,machines/tankRed																							,true					,1 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,greenlight256
-robotA				,robot							,machines/robotArm1																					,true					,2 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,greenlight256
+#robotA				,robotArm							,machines/robotArm1																					,true					,2 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,greenlight256
 #rob_An				,robot							,machines/robotArm1.1_8_256_320									,true					,2 											,10   ,8            ,8    ,1    ,256        ,320         ,0             ,0             ,0           ,0												,greenlight256
-rob_A2				,robot							,machines/robotArm1.1_7_256_320									,true					,2 											,10   ,8            ,8    ,1    ,256        ,320         ,0             ,0             ,0           ,0												,greenlight256
+rob_A2				,robotArm							,machines/robotArm1.1_7_256_320									,true					,2 											,10   ,8            ,8    ,1    ,256        ,320         ,0             ,0             ,0           ,0												,greenlight256
 
 crates,			crates,					crates,																													true,											0,			0,											0,				0,				0,										0,											0,															0,												32,												128,							74,							none
 

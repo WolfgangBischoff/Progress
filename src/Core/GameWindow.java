@@ -15,6 +15,7 @@ public class GameWindow extends Stage
     private Stage gameStage;
     private Scene gameScene;
     GUIController currentView;
+    private static long currentNanoRenderTimeGameWindow = 0l;
 
     public static ArrayList<String> getInput()
     {
@@ -67,6 +68,7 @@ public class GameWindow extends Stage
 
     public void render(Long currentNanoTime)
     {
+        currentNanoRenderTimeGameWindow = currentNanoTime; //To get Time somewhere else when needed
         currentView.render(currentNanoTime);
     }
 
@@ -84,6 +86,11 @@ public class GameWindow extends Stage
     public void showWindow()
     {
         gameStage.show();
+    }
+
+    public long getRenderTime()
+    {
+        return currentNanoRenderTimeGameWindow;
     }
 
 }

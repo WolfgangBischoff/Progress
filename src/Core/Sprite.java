@@ -11,8 +11,6 @@ import java.util.List;
 public class Sprite
 {
     String className = "Sprite ";
-    //int TIME_BETWEEN_ACTION = 1; //TODO change to Actor
-
     Image baseimage;
     private String name = "notSet";
     double basewidth; //width of whole sprite, in therms of animation multiple frames
@@ -22,7 +20,6 @@ public class Sprite
     private float fps; //frames per second I.E. 24
     Long lastFrame = 0l;
     Long lastUpdated = 0l;
-    //Long lastInteraction = 0l; //TODO change to Actor
     private int totalFrames; //Total number of frames in the sequence
     private int cols; //Number of columns on the sprite sheet
     private int rows; //Number of rows on the sprite sheet
@@ -32,6 +29,7 @@ public class Sprite
     private int currentRow = 0;
     private Boolean isBlocker = false;
     private Boolean animated;
+    private Boolean animationEnds = false;
     private Boolean interact = false;
     private Boolean blockedByOtherSprite = false;
     Rectangle2D interactionArea;
@@ -198,20 +196,26 @@ public class Sprite
         String methodName = "renderAnimated() ";
         int frameJump = (int) Math.floor((now - lastFrame) / (1000000000 / fps)); //Determine how many frames we need to advance to maintain frame rate independence
 
+        //TODO from Actorfile
+        if(name.equals("robot"))
+            animationEnds = true;
+
+
         //Do a bunch of math to determine where the viewport needs to be positioned on the sprite sheet
-        if (frameJump >= 1)
+        if (frameJump >= 1 && !(isAtLastFrame() && animationEnds))
+        //if (frameJump >= 1)
         {
             lastFrame = now;
 
             int addRows = (int) Math.floor((float) frameJump / (float) cols);
             int frameAdd = frameJump - (addRows * cols);
 
-            if (currentCol + frameAdd >= cols)
+            if (currentCol + frameAdd >= cols)//column finished, move no next row
             {
                 currentRow += addRows + 1;
                 currentCol = frameAdd - (cols - currentCol);
             }
-            else
+            else//add FrameJump To current row
             {
                 currentRow += addRows;
                 currentCol += frameAdd;
@@ -219,15 +223,22 @@ public class Sprite
             currentRow = (currentRow >= rows) ? currentRow - ((int) Math.floor((float) currentRow / rows) * rows) : currentRow;
 
             //The last row may or may not contain the full number of columns
-            if ((currentRow * cols) + currentCol >= totalFrames)
+            if (isAtLastFrame())//if last frame considering rows
             {
                 currentRow = 0;
                 currentCol = Math.abs(currentCol - (totalFrames - (int) (Math.floor((float) totalFrames / cols) * cols)));
             }
         }
+        if(name.equals("robot"))
+            System.out.println(className + methodName + "frameJump: " + frameJump + " current Col: " + currentCol);
 
         gc.drawImage(baseimage, currentCol * frameWidth, currentRow * frameHeight, frameWidth, frameHeight, positionX, positionY, frameWidth, frameHeight); //(img, srcX, srcY, srcWidht, srcHeight, TargetX, TargetY, TargetWidht, TargetHeight)
 
+    }
+
+    private boolean isAtLastFrame()
+    {
+        return (currentRow * cols) + currentCol >= totalFrames;
     }
 
     public Rectangle2D getBoundary()
@@ -277,10 +288,15 @@ public class Sprite
 
     public void setImage(String filename, int fps, int totalFrames, int cols, int row, int frameWidth, int frameHeight)
     {
-        if (totalFrames > 1)
+        /*if (totalFrames > 1)
             animated = true;
         else
             animated = false;
+            */
+        if(totalFrames > 1)
+            setAnimated(true);
+        else
+            setAnimated(false);
         setImage(filename);
         this.fps = fps;
         this.totalFrames = totalFrames;
@@ -306,6 +322,7 @@ public class Sprite
 
     public void setAnimated(Boolean animated)
     {
+        lastFrame = GameWindow.getSingleton().getRenderTime(); //To set frameJump to first image, if Animation starts later with interaction
         this.animated = animated;
     }
 
