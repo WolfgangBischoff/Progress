@@ -7,10 +7,10 @@ transition, fail, off
 transition, off, on
 
 #status to image
-#status,								name, 				spritename, 												blocker, heightLayer,	fps, totalFrames, cols, rows, frameWidth, frameHeight,  hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight,lightning,	duration,  velocity, dialogueID
-ON, 		hydraulicT, 		machines/hydraulicWorkingTop,							false,						2,								0,			0,											0,				0,				0,										0,													 		0,													0,												0,											0,					none,				 								0, 		0, none
-ON, 		hydraulicB, 		machines/hydraulicWorkingBtm,							true,						0,								0,			0,											0,				0,				0,										0,													  	0,											64,												128,										74,					greenlight256,				 				0, 	0, none
-OFF, 		hydraulicT, 		machines/hydraulicWorkingTop,							false,						2,								0,			0,											0,				0,				0,										0,													 		0,													0,												0,											0,					none,				 								0, 		0, none
-OFF, 		hydraulicB, 		machines/hydraulicBrokenBtm,							true,						0,								0,			0,											0,				0,				0,										0,													  	0,											64,												128,										74,					redlight,				 				0, 	0, none
-FAIL, 		hydraulicT, 		machines/hydraulicWorkingTop,							false,						2,								0,			0,											0,				0,				0,										0,													 		0,													0,												0,											0,					none,				 								0, 		0, none
-FAIL, 		hydraulicB, 		machines/hydraulicFailureBtm,							true,						0,								0,			0,											0,				0,				0,										0,													  	0,											64,												128,										74,					greenlight256,				 				0, 	0, none
+#status,								name, 				spritename, 												blocker, heightLayer,	fps, totalFrames, cols, rows, frameWidth, frameHeight,  hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight,lightning,	duration,  velocity, dialogueID,AnimationEnds
+ON, 		hydraulicT, 		machines/hydraulicWorkingTop,							false,						2,								0,			0,											0,				0,				0,										0,													 		0,													0,												0,											0,					none,				 								0, 		0, none, false
+ON, 		hydraulicB, 		machines/hydraulicWorkingBtm,							true,						0,								0,			0,											0,				0,				0,										0,													  	0,											64,												128,										74,					greenlight256,				 				0, 	0, none, false
+OFF, 		hydraulicT, 		machines/hydraulicWorkingTop,							false,						2,								0,			0,											0,				0,				0,										0,													 		0,													0,												0,											0,					none,				 								0, 		0, none, false
+OFF, 		hydraulicB, 		machines/hydraulicBrokenBtm,							true,						0,								0,			0,											0,				0,				0,										0,													  	0,											64,												128,										74,					redlight,				 				0, 	0, none, false
+FAIL, 		hydraulicT, 		machines/hydraulicWorkingTop,							false,						2,								0,			0,											0,				0,				0,										0,													 		0,													0,												0,											0,					none,				 								0, 		0, none, false
+FAIL, 		hydraulicB, 		machines/hydraulicFailureBtm,							true,						0,								0,			0,											0,				0,				0,										0,													  	0,											64,												128,										74,					greenlight256,				 				0, 	0, none, false

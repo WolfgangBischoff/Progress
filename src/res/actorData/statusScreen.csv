@@ -5,6 +5,6 @@ transition, on, off
 transition, off, on
 
 #status to image
-#status ,name   ,spritename  																,blocker	,heightLayer		,fps	,totalFrames		,cols, rows, frameWidth, frameHeight,   hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight,  lightning,	duration, velocity, dialogueID
-ON  			 ,screen ,machines/statusScreenG						,true				,0												,0			,0												,				0,				0,										0,		 								0,															0,													0,											0,												0,	whitelight,				 			0, 							0, on
-OFF 		  ,screen ,machines/statusScreenR						,true				,0												,0			,0												,				0,				0,										0,		 								0,												 		0,													0,											0,												0,							none,				 			0, 							0, off
+#status ,name   ,spritename  																,blocker	,heightLayer		,fps	,totalFrames		,cols, rows, frameWidth, frameHeight,   hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight,  lightning,	duration, velocity, dialogueID,AnimationEnds
+ON  			 ,screen ,machines/statusScreenG						,true				,0												,0			,0												,				0,				0,										0,		 								0,															0,													0,											0,												0,	whitelight,				 			0, 							0, on,false
+OFF 		  ,screen ,machines/statusScreenR						,true				,0												,0			,0												,				0,				0,										0,		 								0,												 		0,													0,											0,												0,							none,				 			0, 							0, off, false

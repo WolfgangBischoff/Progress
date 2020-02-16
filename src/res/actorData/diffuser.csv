@@ -9,5 +9,5 @@ dialogueFile, diffuser
 #transition, off, on
 
 #status to image
-#status,					name, 													spritename,	blocker, heightLayer,	fps, totalFrames, cols, rows, frameWidth, frameHeight,   hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight, lightning,	duration, velocity, dialogueID
-DEFAULT, diffuser,			furniture/diffuser128,				true,											0,			0,											0,				0,				0,										0,											0,															0,												50,									128,											64,	whitelight, 						0,								0,					rose
+#status,					name, 													spritename,	blocker, heightLayer,	fps, totalFrames, cols, rows, frameWidth, frameHeight,   hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight, lightning,	duration, velocity, dialogueID,AnimationEnds
+DEFAULT, diffuser,			furniture/diffuser128,				true,											0,			0,											0,				0,				0,										0,											0,															0,												50,									128,											64,	whitelight, 						0,								0,					rose		,false

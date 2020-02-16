@@ -162,8 +162,10 @@ public class WorldLoader
                     SpriteData spriteData = spriteDataList.get(j);
                     actorSprite = createSprite(spriteData, i * 64, currentVerticalTile * 64);
                     actorSprite.actor = actor;
+                    actorSprite.setAnimationEnds(spriteData.animationEnds);
                     actor.setSpeed(spriteData.velocity);//Set as often as Sprites exist?
                     actor.dialogueStatusID = spriteData.dialogueID;
+
 
                     if (actor.getDirection() != Direction.UNDEFINED)//If a sprite has a direction it typically can move or detect something actively
                         activeLayer.add(actorSprite);

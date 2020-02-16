@@ -196,14 +196,8 @@ public class Sprite
         String methodName = "renderAnimated() ";
         int frameJump = (int) Math.floor((now - lastFrame) / (1000000000 / fps)); //Determine how many frames we need to advance to maintain frame rate independence
 
-        //TODO from Actorfile
-        if(name.equals("robot"))
-            animationEnds = true;
-
-
         //Do a bunch of math to determine where the viewport needs to be positioned on the sprite sheet
         if (frameJump >= 1 && !(isAtLastFrame() && animationEnds))
-        //if (frameJump >= 1)
         {
             lastFrame = now;
 
@@ -229,8 +223,6 @@ public class Sprite
                 currentCol = Math.abs(currentCol - (totalFrames - (int) (Math.floor((float) totalFrames / cols) * cols)));
             }
         }
-        if(name.equals("robot"))
-            System.out.println(className + methodName + "frameJump: " + frameJump + " current Col: " + currentCol);
 
         gc.drawImage(baseimage, currentCol * frameWidth, currentRow * frameHeight, frameWidth, frameHeight, positionX, positionY, frameWidth, frameHeight); //(img, srcX, srcY, srcWidht, srcHeight, TargetX, TargetY, TargetWidht, TargetHeight)
 
@@ -238,7 +230,8 @@ public class Sprite
 
     private boolean isAtLastFrame()
     {
-        return (currentRow * cols) + currentCol >= totalFrames;
+        return (currentRow * cols) + currentCol >= totalFrames -1;
+        //return (currentRow * cols) + currentCol >= totalFrames;
     }
 
     public Rectangle2D getBoundary()
@@ -284,6 +277,8 @@ public class Sprite
         baseimage = i;
         basewidth = i.getWidth();
         baseheight = i.getHeight();
+
+        currentCol = currentRow = 0;
     }
 
     public void setImage(String filename, int fps, int totalFrames, int cols, int row, int frameWidth, int frameHeight)
@@ -371,4 +366,8 @@ public class Sprite
         return lightningSpriteName;
     }
 
+    public void setAnimationEnds(Boolean animationEnds)
+    {
+        this.animationEnds = animationEnds;
+    }
 }

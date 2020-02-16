@@ -61,27 +61,29 @@ public class Actor// implements PropertyChangeListener
         this.direction = direction;
         List<String[]> actordata;
         Path path = Paths.get("src/res/actorData/" + actorname + ".csv");
+        actorDefinitionKeywords.add(KEYWORD_onInteraction);
+        actorDefinitionKeywords.add(KEYWORD_onInRange);
+        actorDefinitionKeywords.add(KEYWORD_onUpdate);
+        actorDefinitionKeywords.add(KEYWORD_onIntersection);
+        actorDefinitionKeywords.add(KEYWORD_transition);
+        actorDefinitionKeywords.add(KEYWORD_interactionArea);
+        actorDefinitionKeywords.add(KEYWORD_diologueFile);
+
         if (Files.exists(path))
         {
             actordata = Utilities.readAllLineFromTxt("src/res/actorData/" + actorname + ".csv");
             for (String[] linedata : actordata)
             {
-                actorDefinitionKeywords.add(KEYWORD_onInteraction);
-                actorDefinitionKeywords.add(KEYWORD_onInRange);
-                actorDefinitionKeywords.add(KEYWORD_onUpdate);
-                actorDefinitionKeywords.add(KEYWORD_onIntersection);
-                actorDefinitionKeywords.add(KEYWORD_transition);
-                actorDefinitionKeywords.add(KEYWORD_interactionArea);
-                actorDefinitionKeywords.add(KEYWORD_diologueFile);
                 if (checkForKeywords(linedata))
                     continue;
 
                 //Collect Actor Sprite Data
                 SpriteData data = SpriteData.tileDefinition(linedata);
-                //data.animationDuration = Integer.parseInt(linedata[SpriteData.animationDurationIdx]);
+
                 data.animationDuration = Double.parseDouble(linedata[SpriteData.animationDurationIdx]);
                 data.velocity = Integer.parseInt(linedata[SpriteData.velocityIdx]);
                 data.dialogueID = linedata[SpriteData.dialogueIDIdx];
+                data.animationEnds = Boolean.parseBoolean(linedata[SpriteData.animationEndsIdx]);
 
                 String statusName = linedata[0].toLowerCase();
                 if (!spriteDataMap.containsKey(statusName))
@@ -238,11 +240,14 @@ public class Actor// implements PropertyChangeListener
             toChange.setImage(ts.spriteName, ts.fps, ts.totalFrames, ts.cols, ts.rows, ts.frameWidth, ts.frameHeight);
             toChange.setBlocker(ts.blocking);
             toChange.setLightningSpriteName(ts.lightningSprite);
+            toChange.setAnimationEnds(ts.animationEnds);
             changeLayer(toChange, ts.heightLayer);
             dialogueStatusID = ts.dialogueID;
         }
 
     }
+
+
 
     private void evaluateTargetStatus(String targetStatusField)
     {

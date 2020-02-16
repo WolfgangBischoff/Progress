@@ -6,6 +6,6 @@ transition, on, off
 transition, off, on
 
 #status to image
-#status			,name				,spritename														,blocker		,heightLayer	,fps	,totalFrames	,cols	,rows, frameWidth, frameHeight,   hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight,  lightning,	duration, velocity, dialogueID
-ON								,lever			,machines/leverLeft						,true					,0											,0			,0											,0,				0,										0,		 								0,															0,													0,											0,												0,							none,				 			0, 							0, on
-OFF							,lever			,machines/leverRight					,true					,0											,0			,0											,0,				0,										0,		 								0,												 		0,													0,											0,												0,							none,				 			0, 							0, off
+#status			,name				,spritename														,blocker		,heightLayer	,fps	,totalFrames	,cols	,rows, frameWidth, frameHeight,   hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight,  lightning,	duration, velocity, dialogueID,AnimationEnds
+ON								,lever			,machines/leverLeft						,true					,0											,0			,0											,0,				0,										0,		 								0,															0,													0,											0,												0,							none,				 			0, 							0, on,false
+OFF							,lever			,machines/leverRight					,true					,0											,0			,0											,0,				0,										0,		 								0,												 		0,													0,											0,												0,							none,				 			0, 							0, off, false
