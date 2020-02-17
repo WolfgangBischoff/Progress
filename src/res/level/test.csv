@@ -9,13 +9,13 @@ tiledefinition:
 #layer: 0 => behind, 1 => middle, 2 => in front
 #code     ,name        ,spritename                     ,blocker		,heightLayer		,fps ,totalFrames  ,cols ,rows ,frameWidth ,frameHeight ,hitboxOffsetX ,hitboxOffsetY ,hitBoxWidth ,hitBoxHeight ,lightning
 #Floor
-metalU, 				darkMetal,															floor/darkMetalUpper,						false,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
-metal_, 				darkMetal,															floor/darkMetal,											false,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
-metalL, 				darkMetal,															floor/darkMetalLower,						false,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
-carpe0, 				carpet,									floor/carpet0,																						false,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
-carpe1, 				carpet,									floor/carpet1, 																					false,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
-slab__, 				carpet,												floor/slab,																						false,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
-slabDr, 				carpet,							floor/slabDrain,																						false,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
+metalU    ,darkMetal			,floor/darkMetalUpper,						false,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
+metal_    ,darkMetal			,floor/darkMetal,											false,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
+metalL    ,darkMetal			,floor/darkMetalLower,						false,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
+carpe0    ,carpet						,floor/carpet0,																						false,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
+carpe1    ,carpet						,floor/carpet1, 																					false,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
+slab__    ,carpet						,floor/slab,																						false,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
+slabDr    ,carpet						,floor/slabDrain,																						false,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
 
 #Walls
 #code     ,name        ,spritename                     ,blocker		,heightLayer		,fps ,totalFrames  ,cols ,rows ,frameWidth ,frameHeight ,hitboxOffsetX ,hitboxOffsetY ,hitBoxWidth ,hitBoxHeight ,lightning
