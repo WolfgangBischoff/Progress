@@ -50,15 +50,11 @@ couchB				,couch							,furniture/modernCouch										,true					,0            ,
 couchW				,couch							,furniture/modernCouchWhite					,true					,0            ,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0     							,none
 couchR				,couch							,furniture/modernCouchRed							,true					,0            ,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0     							,none
 bee___				,bee___,													bee, 																										false,				2,								12, 		3, 									3, 			1, 		32, 								32,										0,													0,													0,											0							,none
-#bed___				,bed___,													bed,																												true,				0,								0,			0,											0,				0,				0,										0,												0,													0,													0,											0							,none
-#plt___				,potPlantTop,					potPlantTop,																						false,				2,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0							,none
-#pot___				,pot,													pot,																															true,				0,								0,			0,											0,				0,				0,										0,												0,													0,													64,											74							,none
-#pb2___				,plantBig,								plantBig,																									false,				2,								0,			0,											0,				0,				0,										0,												0,													0,													0,											0							,none
 diff_s				,diffuserSmoke,			furniture/diffuser128Smoke	,false				,2												,3			,3												,3				,1				,128								,128,												0,													0,													0,											0,			none
 scubb_				,skubb,											/furniture/skubb,																		true,				0,								0,			0,											0,				0,				0,										0,										0,													64,												128,										64							,none
 l_____				,lights,										/lightsources/ligtherS,												true,				1,								0,			0,											0,				0,				0,										0,										0,													0,												0,										0							,whitelight
 nights				,nightstand,						/lightsources/nightstand,										true,				1,								0,			0,											0,				0,				0,										0,										0,													0,												0,										0							,redlight
-bench_				,	bench,											furniture/bench,																			true,				1,								0,			0,											0,				0,				0,										0,										0,													50,												128,										50							,none
+bench_				,bench,											furniture/bench,																			true,				1,								0,			0,											0,				0,				0,										0,										0,													50,												128,										50							,none
 
 #Bath
 #code     ,name        ,spritename                     ,blocker		,heightLayer		,fps ,totalFrames  ,cols ,rows ,frameWidth ,frameHeight ,hitboxOffsetX ,hitboxOffsetY ,hitBoxWidth ,hitBoxHeight ,lightning
@@ -78,6 +74,8 @@ tank_A				,tank								,machines/greenTank_Anim																,true					,1 				
 tank_B				,tank								,machines/tankBlue																						,true					,1 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,greenlight256
 tank_R				,tank								,machines/tankRed																							,true					,1 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,greenlight256
 refine				,refinery				,machines/refinery																						,true					,1 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,none
+airHub				,airHub						,machines/airSupport_256_256												,true					,1 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,none
+airHuS				,airHub						,machines/airSupport_256_256_Desat 					,true					,1 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,none
 
 #Plants
 boge_1				,bogenhanf				,plants/plant_64_128_shoot													,true					,1 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,none
@@ -156,12 +154,12 @@ waL___, ______, diff_s, ______, ______, ______, ______, ______, ______, ______, 
 waL___, ______, diff_d, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
 waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
 waL___, ______, ______, ______, ______, ______, boge_1,	boge_2, boge_3, boge_4, ______, tonage, tonagB, crates, ______, ______, ______, ______, ______, ______, waR___
-waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
+waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, airHub, ______, ______, ______, waR___
 waL___, ______, ______, ______, ______, ______, desk__, ______, ______, desk__, ______, ______, couch_, ______, ______, ______, ______, ______, ______, ______, waR___
 waL___, convHo, convHo, convTR, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
 waL___, convHo, convHo, convBR, ______, ______, couchB, ______, ______, couchW, ______, ______, couchR, ______, ______, ______, ______, ______, ______, ______, waR___
 waL___, ______, ______, ______, ______, ______, waB___, waB___, waB___, waB___, waB___, waB___, waB___, waB___, ______, ______, ______, ______, ______, ______, waR___
-waL___, ______, ______, ______, ______, ______, waT___, waT___, waT___, waT___, waT___, waT___, waT___, waT___, ______, ______, ______, ______, ______, ______, waR___
+waL___, ______, ______, ______, ______, ______, waT___, waT___, waT___, waT___, waT___, waT___, waT___, waT___, ______, ______, airHuS, ______, ______, ______, waR___
 waL___, ______, ______, ______, ______, ______, ______, ______, refine, ______, refine, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
 waL___, tank_A, tank_G, tank_B, tank_R, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
 waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
