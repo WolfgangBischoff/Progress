@@ -131,7 +131,7 @@ public class Sprite
             //Intersect
             if (intersects(otherSprite) && actor.onIntersection != TriggerType.NOTHING)
             {
-                //System.out.println(className + methodName + name + " intersects " + otherSprite.getName());
+                //System.out.println(classname + methodName + name + " intersects " + otherSprite.getName());
                 actor.onIntersection(otherSprite, currentNanoTime);
             }
 
@@ -140,7 +140,7 @@ public class Sprite
                     && actor.onInRange != TriggerType.NOTHING
                 && otherSprite.getBoundary().intersects(interactionArea))
             {
-                //System.out.println(className + methodName + name + " found " + otherSprite.getName() + " in range");
+                //System.out.println(classname + methodName + name + " found " + otherSprite.getName() + " in range");
                 actor.onInRange(otherSprite, currentNanoTime);
             }
         }

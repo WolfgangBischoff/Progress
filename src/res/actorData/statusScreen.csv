@@ -1,4 +1,5 @@
-onInteraction, nothing, none
+
+onMonitor, persistent, none
 
 #Status transition map
 transition, on, off

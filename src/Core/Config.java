@@ -13,6 +13,7 @@ public class Config
     public static final String KEYWORD_onIntersection = "onIntersection";
     public static final String KEYWORD_onInRange = "onInRange";
     public static final String KEYWORD_onUpdate = "onUpdate";
+    public static final String KEYWORD_onMonitor = "onMonitor";
     public static final String KEYWORD_transition = "transition";
     public static final String KEYWORD_interactionArea = "interactionArea";
     public static final String KEYWORD_diologueFile = "dialogueFile";

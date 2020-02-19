@@ -26,6 +26,7 @@ public class WorldLoader
     String readMode;
 
     StageMonitor stageMonitor = new StageMonitor();
+    Map<String, ActorGroupData> actorGroupDataMap = new HashMap<>();
 
     private final String className = "WorldLoader ";
     private final String KEYWORD_NEW_LAYER = "layer:";
@@ -33,6 +34,7 @@ public class WorldLoader
     private final String KEYWORD_ACTORS = "actors:";
     private final String KEYWORD_TILEDEF = "tiledefinition:";
     private final String KEYWORD_WORLDSHADOW = "shadow:";
+    private final String KEYWORD_GROUPS = "actorgroups:";
 
     public WorldLoader(String stageName)
     {
@@ -43,21 +45,22 @@ public class WorldLoader
     {
         leveldata = Utilities.readAllLineFromTxt("src/res/level/" + levelName + ".csv");
         readMode = null;
+        //Check for keyword
+        Set<String> keywords = new HashSet<>();
+        keywords.add(KEYWORD_NEW_LAYER);
+        keywords.add(KEYWORD_ACTORS);
+        keywords.add(KEYWORD_TILEDEF);
+        keywords.add(KEYWORD_PASSIV_LAYER);
+        keywords.add(KEYWORD_WORLDSHADOW);
+        keywords.add(KEYWORD_GROUPS);
 
         for (int i = 0; i < leveldata.size(); i++)
         {
             String[] lineData = leveldata.get(i);
 
-            //Check for keyword
-            Set<String> keywords = new HashSet<>();
-            keywords.add(KEYWORD_NEW_LAYER);
-            keywords.add(KEYWORD_ACTORS);
-            keywords.add(KEYWORD_TILEDEF);
-            keywords.add(KEYWORD_PASSIV_LAYER);
-            keywords.add(KEYWORD_WORLDSHADOW);
-            if (keywords.contains(lineData[0]))
+            if (keywords.contains(lineData[0].toLowerCase()))
             {
-                readMode = lineData[0];
+                readMode = lineData[0].toLowerCase();
                 currentVerticalTile = 0;
                 continue;
             }
@@ -80,10 +83,30 @@ public class WorldLoader
                 case KEYWORD_WORLDSHADOW:
                     readWorldShadow(lineData);
                     continue;
+                case KEYWORD_GROUPS:
+                    readActorGroups(lineData);
+                    continue;
 
             }
         }
         borders = new Rectangle2D(0, 0, (maxHorizontalTile + 1) * 64, (maxVerticalTile) * 64);
+    }
+
+    private void readActorGroups(String[] lineData)
+    {
+        String methodName = "readActorGroups() ";
+        ActorGroupData actorGroupData = new ActorGroupData();
+        actorGroupData.GroupName = lineData[1];
+        //actorGroupData.logic = lineData[2];
+        //actorGroupData.targetGroupName = lineData[3];
+        actorGroupDataMap.put(lineData[0], actorGroupData);
+        stageMonitor.groupsTologicCodeMap.put(lineData[1], lineData[2]);
+        stageMonitor.groupsToTargetGroupsMap.put(lineData[1], lineData[3]);
+    }
+
+    class ActorGroupData
+    {
+        String GroupName, logic, targetGroupName;
     }
 
     private void readWorldShadow(String[] lineData)
@@ -144,18 +167,17 @@ public class WorldLoader
                 actor.updateCompoundStatus();
                 List<SpriteData> spriteDataList = actor.spriteDataMap.get(actor.compoundStatus);
 
-                //TODO read from ActorData
-                if (actor.actorname.equals("lever"))
+                //check for actorgroup Data
+                ActorGroupData actorGroupData = actorGroupDataMap.get(lineData[i]);
+                if(actorGroupData != null)
                 {
                     actor.stageMonitor = stageMonitor;
-                    stageMonitor.addActor("energy", actor);
-                }
-                if (actor.actorname.equals("statusScreen"))
-                {
-                    actor.stageMonitor = stageMonitor;
-                    stageMonitor.addActor("screen", actor);
+                    actor.memberActorGroups.add(actorGroupData.GroupName);
+                    stageMonitor.addActor(actorGroupData.GroupName, actor);
+                    //TODO save logic and target
                 }
 
+                //Create initial Sprites of Actor
                 for (int j = 0; j < spriteDataList.size(); j++)
                 {
                     Sprite actorSprite;

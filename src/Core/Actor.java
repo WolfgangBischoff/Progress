@@ -19,7 +19,7 @@ public class Actor// implements PropertyChangeListener
 {
     int TIME_BETWEEN_ACTION = 1;
 
-    String className = "Actor ";
+    String classname = "Actor ";
     String actorname;
     private Direction direction;
     private double velocityX;
@@ -42,7 +42,7 @@ public class Actor// implements PropertyChangeListener
     String onUpdateToStatus = Config.KEYWORD_transition;
     String onInRangeToStatus = Config.KEYWORD_transition;
     String onIntersectionToStatus = Config.KEYWORD_transition;
-    String onMonitorSignalToStatus = Config.KEYWORD_transition;
+    //String onMonitorSignalToStatus = Config.KEYWORD_transition;
     List<Sprite> spriteList = new ArrayList<>();
     Map<String, String> statusTransitions = new HashMap<>();
     Map<String, List<SpriteData>> spriteDataMap = new HashMap<>();
@@ -52,6 +52,7 @@ public class Actor// implements PropertyChangeListener
     String dialogueStatusID = "none";
 
     StageMonitor stageMonitor;
+    List<String> memberActorGroups = new ArrayList<>();
 
 
     public Actor(String actorname, String initGeneralStatus, Direction direction)
@@ -65,6 +66,7 @@ public class Actor// implements PropertyChangeListener
         actorDefinitionKeywords.add(KEYWORD_onInRange);
         actorDefinitionKeywords.add(KEYWORD_onUpdate);
         actorDefinitionKeywords.add(KEYWORD_onIntersection);
+        actorDefinitionKeywords.add(KEYWORD_onMonitor);
         actorDefinitionKeywords.add(KEYWORD_transition);
         actorDefinitionKeywords.add(KEYWORD_interactionArea);
         actorDefinitionKeywords.add(KEYWORD_diologueFile);
@@ -102,14 +104,11 @@ public class Actor// implements PropertyChangeListener
         int targetStatusIdx = 2;
         String possibleKeyword = linedata[keywordIdx];
         String keyword;
+
         if (actorDefinitionKeywords.contains(possibleKeyword))
-        {
             keyword = possibleKeyword;
-        }
         else
-        {
             return false;
-        }
 
         switch (keyword)
         {
@@ -129,6 +128,9 @@ public class Actor// implements PropertyChangeListener
                 onIntersection = TriggerType.getStatus(linedata[triggerTypeIdx]);
                 onIntersectionToStatus = linedata[targetStatusIdx];
                 return true;
+            case KEYWORD_onMonitor:
+                onMonitorSignal = TriggerType.getStatus(linedata[triggerTypeIdx]);
+                //New status is set by StageMonitor
             case KEYWORD_transition:
                 statusTransitions.put(linedata[1], linedata[2]);// old/new status
                 return true;
@@ -157,7 +159,7 @@ public class Actor// implements PropertyChangeListener
         double elapsedTimeSinceLastInteraction = (currentNanoTime - lastInteraction) / 1000000000.0;
         if(elapsedTimeSinceLastInteraction > TIME_BETWEEN_ACTION)
         {
-            //System.out.println(className + methodName + actorname + " " + elapsedTimeSinceLastInteraction);
+            //System.out.println(classname + methodName + actorname + " " + elapsedTimeSinceLastInteraction);
             evaluateTriggerType(onUpdate, onUpdateToStatus);
 
         }
@@ -175,15 +177,13 @@ public class Actor// implements PropertyChangeListener
         }
     }
 
-    public void onMonitorSignal()
+    public void onMonitorSignal(String newCompoundStatus)
     {
         String methodName = "onMonitorSignal(): ";
 
-        //TODO from definition
-        if(actorname.equals("statusScreen"))
-            onMonitorSignal = TriggerType.PERSISTENT;
-
-        evaluateTriggerType(onMonitorSignal, onMonitorSignalToStatus);
+        //System.out.println(classname + methodName + actorname + " " + newCompoundStatus);
+        evaluateTriggerType(onMonitorSignal, newCompoundStatus);
+        //evaluateTriggerType(onMonitorSignal, onMonitorSignalToStatus);
 
     }
 
@@ -198,7 +198,7 @@ public class Actor// implements PropertyChangeListener
         double elapsedTimeSinceLastInteraction = (currentNanoTime - lastInteraction) / 1000000000.0;
         if(elapsedTimeSinceLastInteraction > TIME_BETWEEN_ACTION)
         {
-            System.out.println(className + methodName + elapsedTimeSinceLastInteraction);
+            System.out.println(classname + methodName + elapsedTimeSinceLastInteraction);
             evaluateTriggerType(onInRange, onInRangeToStatus);
             lastInteraction = currentNanoTime;
         }
@@ -230,7 +230,7 @@ public class Actor// implements PropertyChangeListener
         List<SpriteData> targetSpriteData = spriteDataMap.get(compoundStatus.toLowerCase());
 
         if (targetSpriteData == null)
-            System.out.println(className + methodName + compoundStatus + " not found in " + spriteDataMap);
+            System.out.println(classname + methodName + compoundStatus + " not found in " + spriteDataMap);
 
         //For all Sprites of the actor onUpdate to new Status
         for (int i = 0; i < spriteList.size(); i++)
@@ -299,7 +299,7 @@ public class Actor// implements PropertyChangeListener
         List<SpriteData> targetSpriteData = spriteDataMap.get(compoundStatus.toLowerCase());
 
         if (targetSpriteData == null)
-            System.out.println(className + methodName + compoundStatus + " not found in " + spriteDataMap);
+            System.out.println(classname + methodName + compoundStatus + " not found in " + spriteDataMap);
 
         //int animationDuration = targetSpriteData.get(0).animationDuration;
         double animationDuration = targetSpriteData.get(0).animationDuration;
@@ -311,7 +311,7 @@ public class Actor// implements PropertyChangeListener
             {
                 transitionGeneralStatus();
                 updateCompoundStatus();
-                //System.out.println(className + methodName + "changed status to: " + compoundStatus);
+                //System.out.println(classname + methodName + "changed status to: " + compoundStatus);
             }
         });
 
@@ -330,7 +330,7 @@ public class Actor// implements PropertyChangeListener
             worldView.isTextBoxActive = true;
         }
         else
-            System.out.println(className + methodName + " Game Window not instance of WorldView, cannot show Dialogue");
+            System.out.println(classname + methodName + " Game Window not instance of WorldView, cannot show Dialogue");
     }
 
     private void transitionGeneralStatus()
@@ -341,7 +341,7 @@ public class Actor// implements PropertyChangeListener
             generalStatus = statusTransitions.get(generalStatus);
         }
         else
-            System.out.println(className + methodName + "No status transition found for " + actorname + " " + generalStatus);
+            System.out.println(classname + methodName + "No status transition found for " + actorname + " " + generalStatus);
     }
 
     void updateCompoundStatus()
@@ -359,26 +359,21 @@ public class Actor// implements PropertyChangeListener
         if (!(oldCompoundStatus.equals(compoundStatus)))
             changeSprites();
 
-
-        //TODO read from field
+        //If is part of a group
         if(stageMonitor != null)
         {
-            if(actorname.equals("lever"))
-                stageMonitor.notify("energy", this);
-            else
-                stageMonitor.notify("screen", this);
+            stageMonitor.notify(memberActorGroups);
         }
     }
 
     @Override
     public String toString()
     {
-        return "Actor{" +
-                ", name " + actorname +
-                //"onInteraction='" + onInteraction + '\'' +
+        return "\nActor{" +
+                actorname +
                 ", Generalstatus=" + generalStatus +
-              //  ", transitions: " + statusTransitions.toString() +
-                '}';
+                ", ActorGroup=" + memberActorGroups.toString() +
+                "}";
     }
 
 

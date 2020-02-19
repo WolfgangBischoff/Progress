@@ -1,17 +1,19 @@
 
 Logic:
 - MouseClick PoW
-- schlafen, fade out
+- schlafen, fade out, calender
 - Message Box
     Add Dialogue Options for Status changes
 - Console
 - Menu
+- level change
+- Calender
 
 Sprites:
 - Couchtisch, Kleiderschrank, Diffuser, Chair
 - Bett, Bau
 - Automatische Tür, Puplic information terminal, runter UFO Roboter
-- Lagerschrank, Lautsprecher, große Rohre, Säulen
+- Lagerschrank, Lautsprecher, große Rohre, Säulen, AirControlSystem
 
 1) Find pic that is cool
 2) Use Sat and Vib to create base color with other HUE
@@ -27,6 +29,7 @@ Topics:
 - Selbstzweifel
 - AppsDating
 - stamps
+- company is privat auticraty
 Spieler von Anfang an überzeugt?
 Reparaturarbeiten bringen Geld. Hausmeister
 Bildung neues Entdecken nicht Grlf, aber mehr Fähigkeiten.Synergie mit Hausmeister.
