@@ -10,6 +10,7 @@ Logic:
 - Calender
 
 Sprites:
+- Person
 - Couchtisch, Kleiderschrank, Diffuser, Chair
 - Bett, Bau
 - Automatische Tür, Puplic information terminal, runter UFO Roboter
@@ -17,16 +18,18 @@ Sprites:
 
 1) Find pic that is cool
 2) Use Sat and Vib to create base color with other HUE
-
 Base color to brighter, HUE+-, SAT-, BRI+
 Base color to darker,   HUE+-, SAT-, BRI-
 
 Topics:
 - Erben
-- Verbindung, Social
+- Verbindung, Social layers
+    -> Drugs, Spirituality
+    -> Gay
+    -> Hobbies
 - Polizei concerns
 - Education
-- Selbstzweifel
+- Selbstzweifel Education
 - AppsDating
 - stamps
 - company is privat auticraty
