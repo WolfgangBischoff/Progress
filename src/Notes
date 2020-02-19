@@ -16,6 +16,9 @@ Sprites:
 - Automatische Tür, Puplic information terminal, runter UFO Roboter
 - Lagerschrank, Lautsprecher, große Rohre, Säulen, AirControlSystem
 
+Level:
+- First Machine Status => Screen => RandomDirt if Fail (test different actors in one Group)
+
 1) Find pic that is cool
 2) Use Sat and Vib to create base color with other HUE
 Base color to brighter, HUE+-, SAT-, BRI+
