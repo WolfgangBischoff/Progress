@@ -262,17 +262,9 @@ public class Sprite
         this.name = name;
     }
 
-    public void setImage(String filename)
+    public void setImage(String filename) throws IllegalArgumentException
     {
-        Image i;
-        try
-        {
-            i = new Image("/res/img/" + filename + ".png");
-        }
-        catch (IllegalArgumentException e)
-        {
-            throw new IllegalArgumentException("/res/img/" + filename + ".png" + " not found");
-        }
+        Image i= new Image("/res/img/" + filename + ".png");
 
         baseimage = i;
         basewidth = i.getWidth();

@@ -53,7 +53,7 @@ bee___				,bee___,													bee, 																										false,				2,						
 diff_s				,diffuserSmoke,			furniture/diffuser128Smoke	,false				,2												,3			,3												,3				,1				,128								,128,												0,													0,													0,											0,			none
 scubb_				,skubb,											/furniture/skubb,																		true,				0,								0,			0,											0,				0,				0,										0,										0,													64,												128,										64							,none
 l_____				,lights,										/lightsources/ligtherS,												true,				1,								0,			0,											0,				0,				0,										0,										0,													0,												0,										0							,whitelight
-nights				,nightstand,						/lightsources/nightstand,										true,				1,								0,			0,											0,				0,				0,										0,										0,													0,												0,										0							,redlight
+nights				,nightstand,						/lightsources/nightStand,										true,				1,								0,			0,											0,				0,				0,										0,										0,													0,												0,										0							,redlight
 bench_				,bench,											furniture/bench,																			true,				1,								0,			0,											0,				0,				0,										0,										0,													50,												128,										50							,none
 
 #Bath

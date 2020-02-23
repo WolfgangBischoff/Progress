@@ -2,6 +2,7 @@ package Core;
 
 import Core.Enums.Direction;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 import java.util.*;
@@ -150,7 +151,22 @@ public class WorldLoader
             if (tileDataMap.containsKey(lineData[i]))
             {
                 SpriteData tile = tileDataMap.get(lineData[i]);
-                Sprite ca = createSprite(tile, 64 * i, currentVerticalTile * 64);
+                Sprite ca;
+                try
+                {
+                    ca = createSprite(tile, 64 * i, currentVerticalTile * 64);
+                }
+                catch (IllegalArgumentException e)
+                {
+                    StringBuilder stringBuilder = new StringBuilder();
+                    for (String s: lineData)
+                    {
+                     stringBuilder.append(s + " ");
+                    }
+                    throw new IllegalArgumentException("\nLine: " + stringBuilder.toString() +
+                            "\n " + lineData[i] + " ===> /res/img/" + tile.spriteName + ".png" + " not found");
+                }
+
 
                 if (isPassiv)
                     passivLayer.add(ca);
