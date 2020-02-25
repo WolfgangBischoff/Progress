@@ -69,8 +69,7 @@ public class SpriteData
             Integer hitboxHeight = Integer.parseInt(lineData[hitboxHeightIdx]);
             String lightningSprite = lineData[lightningSpriteNameIdx];
 
-            SpriteData current = new SpriteData(lineData[nameIdx], lineData[spriteNameIdx], blocking, fps, totalFrames, cols, rows, frameWidth, frameHeight, priority, hitboxOffsetX, hitboxOffsetY, hitboxWidth, hitboxHeight, lightningSprite);
-            return current;
+            return new SpriteData(lineData[nameIdx], lineData[spriteNameIdx], blocking, fps, totalFrames, cols, rows, frameWidth, frameHeight, priority, hitboxOffsetX, hitboxOffsetY, hitboxWidth, hitboxHeight, lightningSprite);
         }
         catch (IndexOutOfBoundsException e)
         {

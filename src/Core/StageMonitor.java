@@ -56,8 +56,10 @@ public class StageMonitor
         for (Actor toCheck : actorgroup)
         {
             //System.out.println(classname + methodName + toCheck.generalStatus);
-            if (!toCheck.generalStatus.equals("on"))
+            if (!toCheck.generalStatus.equals("on")) {
                 allActorsStatusOn = false;
+                break;
+            }
         }
 
         //Set target Actors

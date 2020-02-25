@@ -15,11 +15,11 @@ public class Sprite
     private String name = "notSet";
     double basewidth; //width of whole sprite, in therms of animation multiple frames
     double baseheight;
-    double positionX;//referece is upper left corner
+    double positionX;//reference is upper left corner
     double positionY;
     private float fps; //frames per second I.E. 24
-    Long lastFrame = 0l;
-    Long lastUpdated = 0l;
+    Long lastFrame = 0L;
+    Long lastUpdated = 0L;
     private int totalFrames; //Total number of frames in the sequence
     private int cols; //Number of columns on the sprite sheet
     private int rows; //Number of rows on the sprite sheet
@@ -122,7 +122,6 @@ public class Sprite
                     && otherSprite.getBoundary().intersects(interactionArea)
                     && elapsedTimeSinceLastInteraction > actor.TIME_BETWEEN_ACTION)
             {
-                //actActive(otherSprite);
                 otherSprite.actor.onInteraction(otherSprite, currentNanoTime); //Passive reacts
                 actor.lastInteraction = currentNanoTime;
                 interact = false; //Interacts with first found sprite;
@@ -131,7 +130,6 @@ public class Sprite
             //Intersect
             if (intersects(otherSprite) && actor.onIntersection != TriggerType.NOTHING)
             {
-                //System.out.println(classname + methodName + name + " intersects " + otherSprite.getName());
                 actor.onIntersection(otherSprite, currentNanoTime);
             }
 
@@ -140,7 +138,6 @@ public class Sprite
                     && actor.onInRange != TriggerType.NOTHING
                 && otherSprite.getBoundary().intersects(interactionArea))
             {
-                //System.out.println(classname + methodName + name + " found " + otherSprite.getName() + " in range");
                 actor.onInRange(otherSprite, currentNanoTime);
             }
         }
@@ -231,7 +228,6 @@ public class Sprite
     private boolean isAtLastFrame()
     {
         return (currentRow * cols) + currentCol >= totalFrames -1;
-        //return (currentRow * cols) + currentCol >= totalFrames;
     }
 
     public Rectangle2D getBoundary()
@@ -265,21 +261,14 @@ public class Sprite
     public void setImage(String filename) throws IllegalArgumentException
     {
         Image i= new Image("/res/img/" + filename + ".png");
-
         baseimage = i;
         basewidth = i.getWidth();
         baseheight = i.getHeight();
-
         currentCol = currentRow = 0;
     }
 
     public void setImage(String filename, int fps, int totalFrames, int cols, int row, int frameWidth, int frameHeight)
     {
-        /*if (totalFrames > 1)
-            animated = true;
-        else
-            animated = false;
-            */
         if(totalFrames > 1)
             setAnimated(true);
         else

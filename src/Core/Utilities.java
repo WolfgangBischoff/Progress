@@ -33,8 +33,8 @@ public class Utilities
     public static List<String[]> readAllLineFromTxt(String pathToCsv)
     {
         //Reads all line
-        String row = null;
-        Integer linecounter = 0;
+        String row;
+        int linecounter = 0;
         List<String[]> data = new ArrayList<>();
         try
         {

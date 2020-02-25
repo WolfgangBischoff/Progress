@@ -10,12 +10,12 @@ import java.util.ArrayList;
 
 public class GameWindow extends Stage
 {
-    public static ArrayList<String> input = new ArrayList<String>();
+    public static ArrayList<String> input = new ArrayList<>();
     private static GameWindow singleton;
     private Stage gameStage;
     private Scene gameScene;
     GUIController currentView;
-    private static long currentNanoRenderTimeGameWindow = 0l;
+    private static long currentNanoRenderTimeGameWindow = 0L;
 
     public static ArrayList<String> getInput()
     {

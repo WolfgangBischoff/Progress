@@ -1,7 +1,5 @@
 package Core;
 
-import Core.Enums.TriggerType;
-import com.sun.webkit.network.Util;
 import javafx.geometry.VPos;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
@@ -11,14 +9,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
-import java.io.WriteAbortedException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import static Core.Config.CAMERA_HEIGTH;
 import static Core.Config.CAMERA_WIDTH;
 
 public class Textbox
@@ -76,9 +72,7 @@ public class Textbox
 
     private boolean hasNextMessage()
     {
-        if(messages.size() > msgIdx+1)
-            return true;
-        else return false;
+        return messages.size() > msgIdx + 1;
     }
 
     public void nextMessage(Long currentNanoTime)

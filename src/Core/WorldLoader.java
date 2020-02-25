@@ -2,7 +2,6 @@ package Core;
 
 import Core.Enums.Direction;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 import java.util.*;
@@ -98,8 +97,6 @@ public class WorldLoader
         String methodName = "readActorGroups() ";
         ActorGroupData actorGroupData = new ActorGroupData();
         actorGroupData.GroupName = lineData[1];
-        //actorGroupData.logic = lineData[2];
-        //actorGroupData.targetGroupName = lineData[3];
         actorGroupDataMap.put(lineData[0], actorGroupData);
         stageMonitor.groupsTologicCodeMap.put(lineData[1], lineData[2]);
         stageMonitor.groupsToTargetGroupsMap.put(lineData[1], lineData[3]);
@@ -113,7 +110,7 @@ public class WorldLoader
     private void readWorldShadow(String[] lineData)
     {
         String methodName = className + " readWorldShadow ";
-        Integer red, green, blue;
+        int red, green, blue;
         if (lineData[0].toLowerCase().equals("none"))
             shadowColor = null;
         else
@@ -161,7 +158,7 @@ public class WorldLoader
                     StringBuilder stringBuilder = new StringBuilder();
                     for (String s: lineData)
                     {
-                     stringBuilder.append(s + " ");
+                     stringBuilder.append(s).append(" ");
                     }
                     throw new IllegalArgumentException("\nLine: " + stringBuilder.toString() +
                             "\n " + lineData[i] + " ===> /res/img/" + tile.spriteName + ".png" + " not found");
@@ -217,7 +214,7 @@ public class WorldLoader
             else if (!lineData[i].equals(Config.MAPDEFINITION_EMPTY))
                 System.out.println("WorldLoader readTile: tile definition not found: " + lineData[i]);
 
-            maxHorizontalTile = i > maxHorizontalTile ? i : maxHorizontalTile;
+            maxHorizontalTile = Math.max(i, maxHorizontalTile);
         }
 
         currentVerticalTile++;
