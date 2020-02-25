@@ -10,6 +10,6 @@ transition, animation, default
 dialogueFile, hedgehogDialogue
 
 #status to image
-#status, 										name,							spritename, 				blocker, heightLayer,	fps, totalFrames, cols, rows, frameWidth, frameHeight,   hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight,lightning 		,	duration, velocity, dialogueID,AnimationEnds
+#status 																,name   				,spritename  																						,blocker	,heightLayer		,fps	,totalFrames		,cols,rows,frameWidth	,frameHeight	,hitboxOffsetX	,hitboxOffsetY ,hitBoxWidth ,hitBoxHeight ,lightning ,duration ,velocity ,dialogueID ,AnimationEnds
 DEFAULT, 						hedgehog,									hedgehog,								true,								0, 		0,											0,				0,				0,				      0,										0,					 				      0,													0,											0,								   	0,none,				 								   0, 				0, 					none,false
 ANIMATION,					hedgehog,					hedgehogAnim, 							true,								0, 		5, 										3, 			3, 			1, 			     32, 								32,											     0,													0,											0,								  		0,none,				 			 							2, 				0, 					animated, false

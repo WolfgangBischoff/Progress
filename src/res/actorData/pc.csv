@@ -6,6 +6,6 @@ transition, on, off
 transition, off, on
 
 #status to image
-#status,	name, spritename, 			blocker, heightLayer,	fps, totalFrames, cols, rows, frameWidth, frameHeight,   hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight,  lightning,	duration, velocity, dialogueID,AnimationEnds
+#status 																,name   				,spritename  																						,blocker	,heightLayer		,fps	,totalFrames		,cols,rows,frameWidth	,frameHeight	,hitboxOffsetX	,hitboxOffsetY ,hitBoxWidth ,hitBoxHeight ,lightning ,duration ,velocity ,dialogueID ,AnimationEnds
 ON, 							pc, 						pcOn,							true,											0,			0,											0,				0,				0,										0,		 								0,															0,													0,											0,												0,	whitelight,				 			0, 							0, on,false
 OFF, 						pc, 					pcOff,							true,											0,			0,											0,				0,				0,										0,		 								0,												 		0,													0,											0,												0,							none,				 			0, 							0, off, false

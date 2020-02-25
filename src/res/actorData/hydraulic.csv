@@ -7,7 +7,7 @@ transition, fail, off
 transition, off, on
 
 #status to image
-#status,								name, 				spritename, 												blocker, heightLayer,	fps, totalFrames, cols, rows, frameWidth, frameHeight,  hitboxOffsetX, hitboxOffsetY, hitBoxWidth, hitBoxHeight,lightning,	duration,  velocity, dialogueID,AnimationEnds
+#status 																,name   				,spritename  																						,blocker	,heightLayer		,fps	,totalFrames		,cols,rows,frameWidth	,frameHeight	,hitboxOffsetX	,hitboxOffsetY ,hitBoxWidth ,hitBoxHeight ,lightning ,duration ,velocity ,dialogueID ,AnimationEnds
 ON, 		hydraulicT, 		machines/hydraulicWorkingTop,							false,						2,								0,			0,											0,				0,				0,										0,													 		0,													0,												0,											0,					none,				 								0, 		0, none, false
 ON, 		hydraulicB, 		machines/hydraulicWorkingBtm,							true,						0,								0,			0,											0,				0,				0,										0,													  	0,											64,												128,										74,					greenlight256,				 				0, 	0, none, false
 OFF, 		hydraulicT, 		machines/hydraulicWorkingTop,							false,						2,								0,			0,											0,				0,				0,										0,													 		0,													0,												0,											0,					none,				 								0, 		0, none, false
