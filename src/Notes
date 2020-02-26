@@ -13,8 +13,8 @@ Sprites:
 - Person
 - Couchtisch, Kleiderschrank, Diffuser, Chair
 - Bett, Bau
-- Automatische Tür, Puplic information terminal, runter UFO Roboter, BrükenControls, Seats
-- Lagerschrank, Lautsprecher, große Rohre, Säulen, AirControlSystem
+- Automatische Tür, Puplic information terminal, runder UFO Roboter, BrückenControls, Seats
+- Lagerschrank, Lautsprecher, große Rohre, Säulen
 
 Level:
 - First Machine Status => Screen => RandomDirt if Fail (test different actors in one Group)
