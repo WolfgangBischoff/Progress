@@ -16,6 +16,6 @@ public class Config
     public static final String KEYWORD_onMonitor = "onMonitor";
     public static final String KEYWORD_transition = "transition";
     public static final String KEYWORD_interactionArea = "interactionArea";
-    public static final String KEYWORD_diologueFile = "dialogueFile";
+    public static final String KEYWORD_dialogueFile = "dialogueFile";
 
 }

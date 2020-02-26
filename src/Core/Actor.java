@@ -68,7 +68,7 @@ public class Actor// implements PropertyChangeListener
         actorDefinitionKeywords.add(KEYWORD_onMonitor);
         actorDefinitionKeywords.add(KEYWORD_transition);
         actorDefinitionKeywords.add(KEYWORD_interactionArea);
-        actorDefinitionKeywords.add(KEYWORD_diologueFile);
+        actorDefinitionKeywords.add(KEYWORD_dialogueFile);
 
         if (Files.exists(path)) {
             actordata = Utilities.readAllLineFromTxt("src/res/actorData/" + actorname + ".csv");
@@ -138,7 +138,7 @@ public class Actor// implements PropertyChangeListener
                 interactionAreaOffsetX = offsetX;
                 interactionAreaOffsetY = offsetY;
                 return true;
-            case KEYWORD_diologueFile:
+            case KEYWORD_dialogueFile:
                 dialogueFileName = linedata[1];
                 return true;
             default:
