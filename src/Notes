@@ -1,5 +1,7 @@
 
 Logic:
+- repair mechanic
+    => Screen shows message with hint with group member is broken
 - MouseClick PoW
 - schlafen, fade out, calender
 - Message Box
@@ -13,7 +15,7 @@ Sprites:
 - Person
 - Couchtisch, Kleiderschrank, Diffuser, Chair
 - Bett, Bau
-- Automatische Tür, Puplic information terminal, runder UFO Roboter, BrückenControls, Seats
+- Automatische Tür, Puplic information terminal, runder UFO Roboter, BrückenControls, Seats, Ventilation/Movingpart with bridge
 - Lagerschrank, Lautsprecher, große Rohre, Säulen
 
 Level:
@@ -23,6 +25,16 @@ Level:
 2) Use Sat and Vib to create base color with other HUE
 Base color to brighter, HUE+-, SAT-, BRI+
 Base color to darker,   HUE+-, SAT-, BRI-
+
+
+Reapair mechanic:
+You are technican, Hausmeister, brings money
+1) Get message over incident => Analyze at Hub
+2) get hint, sometimes error hidden, check multiple places
+3) Found problem => Need more tools/ersatzteile/way blocked => repair
+Systemgroup state relies on parts state, if one is broken send message
+Each part gives other message, Hub give hint which part is broken (So hub message relies on Group status)
+
 
 Topics:
 - Erben
@@ -38,7 +50,6 @@ Topics:
 - company is privat auticraty
 - Robot Avatars, remote control
 Spieler von Anfang an überzeugt?
-Reparaturarbeiten bringen Geld. Hausmeister
 Bildung neues Entdecken nicht Grlf, aber mehr Fähigkeiten.Synergie mit Hausmeister.
 
 Entdecken der Station auf Komet/Panet?. Minenoperation. Mine ist planet erkunden
