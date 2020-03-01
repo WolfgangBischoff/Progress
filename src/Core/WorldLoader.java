@@ -138,10 +138,13 @@ public class WorldLoader
         }
     }
 
-    private void readTile(String[] lineData, Boolean isPassiv)
+    private void readTile(String[] lineData, Boolean isPassiv) throws IllegalArgumentException
     {
         String methodName = "readTile ";
         //from left to right, reads tile codes
+
+
+
         for (int i = 0; i < lineData.length; i++)
         {
             //Is Tile
@@ -187,7 +190,6 @@ public class WorldLoader
                     actor.stageMonitor = stageMonitor;
                     actor.memberActorGroups.add(actorGroupData.GroupName);
                     stageMonitor.addActor(actorGroupData.GroupName, actor);
-                    //TODO save logic and target
                 }
 
                 //Create initial Sprites of Actor
@@ -260,10 +262,18 @@ public class WorldLoader
     private Sprite createSprite(SpriteData tile, Integer x, Integer y)
     {
         Sprite ca;
-        if (tile.totalFrames > 1)
-            ca = new Sprite(tile.spriteName, tile.fps, tile.totalFrames, tile.cols, tile.rows, tile.frameWidth, tile.frameHeight);
-        else
-            ca = new Sprite(tile.spriteName);
+        try
+        {
+            if (tile.totalFrames > 1)
+                ca = new Sprite(tile.spriteName, tile.fps, tile.totalFrames, tile.cols, tile.rows, tile.frameWidth, tile.frameHeight);
+            else
+                ca = new Sprite(tile.spriteName);
+        }
+        catch (IllegalArgumentException e)
+        {
+            throw new IllegalArgumentException("===> /res/img/" + tile.spriteName + ".png" + " not found");
+        }
+
 
         ca.setName(tile.name);
         ca.setPosition(x, y);

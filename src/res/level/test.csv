@@ -70,7 +70,7 @@ convHo				,conveyer				,machines/conveyerH																					,true					,1 				
 convTR				,conveyer				,machines/conveyerTR																				,true					,1 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,greenlight256
 tank_A				,tank								,machines/greenTank_Anim																,true					,1 											,4   ,4            ,4    ,1    ,64         ,128         ,0             ,0             ,0           ,0												,greenlight256
 refine				,refinery				,machines/refinery																						,true					,1 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,none
-airHuA				,airHub						,machines/airSupport_256_256_Anim2 					,true					,1 											,6   ,2            ,2    ,0    ,256        ,256         ,0             ,0             ,0           ,0												,none
+#airHuA				,airHub						,machines/airSupport_256_256_Anim2 					,true					,1 											,6   ,2            ,2    ,0    ,256        ,256         ,0             ,0             ,0           ,0												,none
 
 #Plants
 boge_1				,bogenhanf				,plants/plant_64_128_shoot													,true					,1 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,none
@@ -91,13 +91,16 @@ diff_d					,diffuser				,default		,undefined
 lever_					,lever							,off						,undefined
 screen					,statusScreen,off						,undefined
 rob_An					,robotArm				,off						,undefined
+airCon					,airControl		,off						,undefined
 
 
 Actorgroups:
 #code			,groupname	,logic																			,targetGroup
 lever_		,energy				,setOnIfBaseActorAllOn			,screen
-screen		,screen				,setOnIfBaseActorAllOn			,robotArm
-rob_An		,robotArm		,none																				,none
+airCon		,energy				,setOnIfBaseActorAllOn			,screen
+screen		,screen				,none			,none
+#screen		,screen				,setOnIfBaseActorAllOn			,robotArm
+#rob_An		,robotArm		,none																				,none
 
 
 #sets 64 bits tiles as raster; you can add multiple layers; later defined layers are higher prioritized in case of same defined heightLayer
@@ -154,12 +157,12 @@ waL___, ______, ______, ______, ______, ______, desk__, ______, ______, desk__, 
 waL___, convHo, convHo, convTR, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
 waL___, convHo, convHo, convBR, ______, ______, couchB, ______, ______, couchW, ______, ______, couchR, ______, ______, ______, ______, ______, ______, ______, waR___
 waL___, ______, ______, ______, ______, ______, wBTL__, waB___, waB___, waB___, waB___, waB___, waB___, wBTR__, ______, ______, ______, ______, ______, ______, waR___
-waL___, hydrau, ______, ______, ______, ______, wFBL__, waT___, waT___, waT___, waT___, waT___, waT___, wFBR__, ______, ______, ______, ______, ______, ______, waR___
+waL___, hydrau, ______, ______, ______, ______, wFBL__, waT___, waT___, waT___, waT___, waT___, waT___, wFBR__, ______, airCon, ______, ______, ______, ______, waR___
 waL___, ______, ______, ______, ______, ______, ______, ______, refine, ______, refine, ______, tank_A, tank_A, ______, ______, ______, ______, ______, ______, waR___
-waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, airHuA, ______, ______, ______, waR___
 waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
-waL___, ______, lever_, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
+waL___, ______, ______, ______, ______, ______, hydrau, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
 waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
+waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, lever_, ______, ______, ______, ______, waR___
 wBL___, waB___, waB___, waB___, waB___, waB___, waB___, waB___, waB___,	waB___, waB___, waB___, waB___, waB___, waB___, waB___, waB___, waB___, waB___, waB___,	waBNW_
 
 

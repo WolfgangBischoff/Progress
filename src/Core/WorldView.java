@@ -80,7 +80,7 @@ public class WorldView implements GUIController
     private void loadEnvironment()
     {
         WorldLoader worldLoader = new WorldLoader(levelName);
-        worldLoader.load();
+            worldLoader.load();
         player = worldLoader.getPlayer();
         passiveSpritesLayer = worldLoader.getPassivLayer(); //No collision just render
         activeSpritesLayer = worldLoader.activeLayer;

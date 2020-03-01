@@ -1,7 +1,10 @@
 
 Logic:
 - repair mechanic
-    => Screen shows message with hint with group member is broken
+    => Screen shows message with hint with group member is broken (onInteraction analysis)
+    => system is dependent on another system.   O----O---S
+                                                    /
+                                                   O
 - MouseClick PoW
 - schlafen, fade out, calender
 - Message Box
