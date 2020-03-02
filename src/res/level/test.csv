@@ -98,7 +98,9 @@ Actorgroups:
 #code			,groupname	,logic																			,targetGroup
 lever_		,energy				,setOnIfBaseActorAllOn			,screen
 airCon		,energy				,setOnIfBaseActorAllOn			,screen
+hydrau		,energy				,setOnIfBaseActorAllOn			,screen
 screen		,screen				,none			,none
+
 #screen		,screen				,setOnIfBaseActorAllOn			,robotArm
 #rob_An		,robotArm		,none																				,none
 

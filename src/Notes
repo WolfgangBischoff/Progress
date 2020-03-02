@@ -1,10 +1,8 @@
 
 Logic:
 - repair mechanic
-    => Screen shows message with hint with group member is broken (onInteraction analysis)
-    => system is dependent on another system.   O----O---S
-                                                    /
-                                                   O
+    => Screen shows message with hint with group member is broken, or underlying system (onInteraction Textbox_GroupAnalysis)
+    => A system can rely on other system
 - MouseClick PoW
 - schlafen, fade out, calender
 - Message Box
