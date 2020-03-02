@@ -5,7 +5,9 @@ onInteraction, persistent, transition
 transition, on, off
 transition, off, on
 
+dialogueFile, airControl
+
 #status to image
 #status			,name		 		,spritename																													,blocker		,heightLayer	,fps	,totalFrames	,cols	,rows,frameWidth	,frameHeight	,hitboxOffsetX, hitboxOffsetY,hitBoxWidth,hitBoxHeight,lightning	,duration		,velocity,dialogueID ,AnimationEnds
-ON								,airHub			,machines/airSupport_256_256_Anim2 					,true					,0 										,6   ,2           ,2    ,0   ,256        ,256         ,0         	  ,0             ,0          ,0											,none						,0									,0							,none							,false
-OFF							,airHub			,machines/airSupport_256_256_off								,true					,0 										,0   ,0           ,0    ,0   ,000        ,000         ,0        	   ,0             ,0          ,0											,none						,0									,0							,none							,false
+ON								,airHub			,machines/airSupport_256_256_Anim2 					,true					,0 										,6   ,2           ,2    ,0   ,256        ,256         ,0         	  ,0             ,0          ,0											,none						,0									,0							,on							,false
+OFF							,airHub			,machines/airSupport_256_256_off								,true					,0 										,0   ,0           ,0    ,0   ,000        ,000         ,0        	   ,0             ,0          ,0											,none						,0									,0							,off							,false

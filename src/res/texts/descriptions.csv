@@ -1,10 +1,12 @@
 
 none, ...
 
-test, Hier könnte ihre Werbung stehen
-test, Alexander
-test, Third Msg
-trig, This is triggered
+#test, Hier könnte ihre Werbung stehen
+#test, Alexander
+#test, Third Msg
+#trig, This is triggered
 
 on, You turned the machine on
 off, You turned the machine off
+
+analysis-none, Nothing to analyse

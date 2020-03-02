@@ -96,10 +96,16 @@ airCon					,airControl		,off						,undefined
 
 Actorgroups:
 #code			,groupname	,logic																			,targetGroup
-lever_		,energy				,setOnIfBaseActorAllOn			,screen
-airCon		,energy				,setOnIfBaseActorAllOn			,screen
-hydrau		,energy				,setOnIfBaseActorAllOn			,screen
-screen		,screen				,none			,none
+#lever_		,energy				,none			,none
+airCon		,energy				,none			,none
+hydrau		,energy				,none			,none
+screen		,energy				,none			,none
+
+
+#lever_		,energy				,setOnIfBaseActorAllOn			,screen
+#airCon		,energy				,setOnIfBaseActorAllOn			,screen
+#hydrau		,energy				,setOnIfBaseActorAllOn			,screen
+#screen		,screen				,none			,none
 
 #screen		,screen				,setOnIfBaseActorAllOn			,robotArm
 #rob_An		,robotArm		,none																				,none

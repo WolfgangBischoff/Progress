@@ -295,6 +295,12 @@ public class Actor// implements PropertyChangeListener
         if (gameWindow instanceof WorldView) {
             WorldView worldView = (WorldView) gameWindow;
             //TODO check if Textbox_GroupAnalysis, groupAnalysis(ActorGroup, "hub"+status)
+            if(actorname.equals("statusScreen"))
+            {
+                List<Actor> analysisList = stageMonitor.actorGroups.get(memberActorGroups.get(0));
+                worldView.textbox.groupAnalysis(analysisList, dialogueFileName, dialogueStatusID);
+            }
+            else
             worldView.textbox.readDialogue(dialogueFileName, dialogueStatusID);
             worldView.isTextBoxActive = true;
         } else

@@ -7,6 +7,7 @@ onInteraction, textbox, none
 transition, on, off
 transition, off, on
 
+
 #status to image
 #status 																,name   				,spritename  																						,blocker	,heightLayer		,fps	,totalFrames		,cols,rows,frameWidth	,frameHeight	,hitboxOffsetX	,hitboxOffsetY ,hitBoxWidth ,hitBoxHeight ,lightning ,duration ,velocity ,dialogueID ,AnimationEnds
 ON  			 																,screen 				,machines/statusScreenG												,true				,0												,0			,0												,0			,0			,0										,0											,0													,0													,0											,0												,whitelight,0								,0								,none							,false

@@ -1,0 +1,12 @@
+
+
+
+none, airTerminal ...
+
+on, Looks good
+fail, looks strange
+off, is broken
+
+analysis-fail, Terminal problems detected
+analysis-on, Terminal at Working fine
+analysis-off, Terminal at null function
