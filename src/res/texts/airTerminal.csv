@@ -4,9 +4,9 @@
 none, airTerminal ...
 
 on, Looks good
-fail, looks strange
-off, is broken
+fail, Looks strange
+off, Looks broken
 
 analysis-fail, Terminal problems detected
-analysis-on, Terminal at Working fine
+analysis-on, Terminal is Working fine
 analysis-off, Terminal at null function

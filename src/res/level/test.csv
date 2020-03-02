@@ -16,6 +16,7 @@ carpe0    ,carpet						,floor/carpet0,																						false,				0,								
 carpe1    ,carpet						,floor/carpet1, 																					false,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
 slab__    ,carpet						,floor/slab,																						false,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
 slabDr    ,carpet						,floor/slabDrain,																						false,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
+metal1    ,metal							,floor/metalfloor_64_64,																						false,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
 
 #Walls
 #code     ,name        ,spritename                     ,blocker		,heightLayer		,fps ,totalFrames  ,cols ,rows ,frameWidth ,frameHeight ,hitboxOffsetX ,hitboxOffsetY ,hitBoxWidth ,hitBoxHeight ,lightning
@@ -70,7 +71,7 @@ convHo				,conveyer				,machines/conveyerH																					,true					,1 				
 convTR				,conveyer				,machines/conveyerTR																				,true					,1 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,greenlight256
 tank_A				,tank								,machines/greenTank_Anim																,true					,1 											,4   ,4            ,4    ,1    ,64         ,128         ,0             ,0             ,0           ,0												,greenlight256
 refine				,refinery				,machines/refinery																						,true					,1 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,none
-#airHuA				,airHub						,machines/airSupport_256_256_Anim2 					,true					,1 											,6   ,2            ,2    ,0    ,256        ,256         ,0             ,0             ,0           ,0												,none
+air_Ve				,ventilation	,machines/air_ventilation																						,true					,1 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,none
 
 #Plants
 boge_1				,bogenhanf				,plants/plant_64_128_shoot													,true					,1 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,none
@@ -129,17 +130,17 @@ slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, 
 metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, ______
 metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, ______
 metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, ______
-slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, ______
-slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, ______
-slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, ______
-slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, ______
-slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, ______
-slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, ______
-slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, ______
-slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, ______
-slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, ______
-slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, ______
-slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, ______
+metal1, metal1, metal1, metal1, metal1, metal1, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, ______
+metal1, metal1, metal1, metal1, metal1, metal1, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, ______
+metal1, metal1, metal1, metal1, metal1, metal1, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, ______
+metal1, metal1, metal1, metal1, metal1, metal1, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, ______
+metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, ______
+metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, ______
+metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, ______
+metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, ______
+metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, ______
+metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, ______
+metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, ______
 ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
 
 
@@ -159,23 +160,23 @@ waL___, ______, bench_, ______, ______, ______, bench_, ______, ______, ______, 
 waL___, ______, diff_s, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, rob_An, ______, ______, ______, waR___
 waL___, ______, diff_d, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
 waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
-waL___, ______, ______, ______, ______, ______, boge_1,	boge_2, boge_3, boge_4, ______, tonage, tonagB, crates, ______, ______, ______, ______, ______, ______, waR___
+waL___, ______, ______, ______, ______, ______, boge_1,	boge_2, boge_3, boge_4, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
 waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
 waL___, ______, ______, ______, ______, ______, desk__, ______, ______, desk__, ______, ______, couch_, ______, ______, ______, ______, ______, ______, ______, waR___
 waL___, convHo, convHo, convTR, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
 waL___, convHo, convHo, convBR, ______, ______, couchB, ______, ______, couchW, ______, ______, couchR, ______, ______, ______, ______, ______, ______, ______, waR___
 waL___, ______, ______, ______, ______, ______, wBTL__, waB___, waB___, waB___, waB___, waB___, waB___, wBTR__, ______, ______, ______, ______, ______, ______, waR___
-waL___, hydrau, ______, ______, ______, ______, wFBL__, waT___, waT___, waT___, waT___, waT___, waT___, wFBR__, ______, airCon, ______, ______, ______, ______, waR___
-waL___, ______, ______, ______, ______, ______, ______, ______, refine, ______, refine, ______, tank_A, tank_A, ______, ______, ______, ______, ______, ______, waR___
+waL___, ______, ______, ______, ______, ______, wFBL__, waT___, waT___, waT___, waT___, waT___, waT___, wFBR__, ______, airCon, ______, ______, ______, ______, waR___
+waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, refine, ______, tank_A, tank_A, ______, ______, ______, ______, ______, ______, waR___
 waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
 waL___, ______, ______, ______, ______, ______, hydrau, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
 waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
-waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, lever_, ______, ______, ______, ______, waR___
+waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, lever_, tonage, tonagB, crates, ______, waR___
 wBL___, waB___, waB___, waB___, waB___, waB___, waB___, waB___, waB___,	waB___, waB___, waB___, waB___, waB___, waB___, waB___, waB___, waB___, waB___, waB___,	waBNW_
 
 
 layer:
-______, ______, poG___, ______, poS___, ______, bigPoS, ______, ______, ______, bigPor, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
+______, ______, poG___, ______, poS___, ______, bigPoS, ______, ______, ______, bigPor, ______, ______, ______, ______, air_Ve, ______, ______, ______, ______, ______
 ______, ______, ______, ______, pc____, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
 ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
 ______, nights, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
@@ -184,7 +185,7 @@ ______, ______, tabTop, ______, ______, ______, ______, ______, ______, ______, 
 ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, hedgeh, ______, ______
 ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, screen, ______, ______, ______, ______, ______, ______, ______, ______, ______
 ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
-______, ______, ______, ______, ______, ______, ______, ______, ______, walCab, walCab, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
+______, ______, ______, ______, ______, ______, ______, air_Ve, ______, walCab, walCab, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
 ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
 ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
 ______, ______, ______, ______, ______, ______, ______, ______, ______, player, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
@@ -195,7 +196,7 @@ ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, 
 ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
 ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
 ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
-______, ______, ______, ______, ______, ______, screen, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
+______, ______, ______, ______, ______, ______, screen, ______, ______, air_Ve, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
 ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
 ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
 ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
