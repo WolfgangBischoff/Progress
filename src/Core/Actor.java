@@ -300,7 +300,7 @@ public class Actor// implements PropertyChangeListener
                 //TargetGroup is observed group
                 String targetGroup = stageMonitor.groupsToTargetGroupsMap.get(memberActorGroups.get(0));
                 //List<Actor> analysisList = stageMonitor.actorGroups.get(memberActorGroups.get(0));
-                List<Actor> analysisList = stageMonitor.actorGroups.get(targetGroup);
+                List<Actor> analysisList = stageMonitor.actorSystemMap.get(targetGroup).getSystemMembers();
                 worldView.textbox.groupAnalysis(analysisList, dialogueFileName, dialogueStatusID);
             }
             else

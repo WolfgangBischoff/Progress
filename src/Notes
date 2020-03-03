@@ -2,8 +2,6 @@
 Logic:
 - repair mechanic
     => Information Terminal grants insight over System status (onInteraction Textbox_GroupAnalysis)
-    => ActorGroup should be new Class System
-    => System has Status, Dependent System, is dependent over StageMonitor
     => EndSystem spread over Map, MiddleSystem is behind Scenes, Root are other Maps => Erkundung
 - MouseClick PoW
 - schlafen, fade out, calender

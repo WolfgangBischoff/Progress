@@ -83,7 +83,6 @@ crates,			crates,					crates,																													true,											0,			0
 
 actors:
 #code 					,actorname 		,status   ,direction
-
 hedgeh					,hedgehog 			,DEFAULT		,undefined
 player					,player						,default		,EAST
 buC___					,bulkhead				,ON							,south
@@ -91,12 +90,13 @@ hydrau					,hydraulic			,ON							,undefined
 diff_d					,diffuser				,default		,undefined
 lever_					,lever							,off						,undefined
 screen					,statusScreen,off						,undefined
-rob_An					,robotArm				,off						,undefined
 airCon					,airControl		,off						,undefined
 
 #Air System
 pc____					,pc										,OFF						,undefined
-
+rob_An					,robotArm				,off						,undefined
+leverA					,lever							,off						,undefined
+screeA					,statusScreen,ON							,undefined
 
 Actorgroups:
 #code			,groupname	,logic																			,targetGroup
@@ -104,6 +104,12 @@ screen		,energyA			,none																				,energy
 lever_		,energy				,setOnIfBaseActorAllOn			,energyM
 hydrau		,energy				,setOnIfBaseActorAllOn			,energyM
 airCon		,energyM			,none																				,none
+
+#Air System
+screeA		,armA						,none																				,arm
+leverA		,arm							,setOnIfBaseActorAllOn			,armT
+pc____		,arm							,setOnIfBaseActorAllOn			,armT
+rob_An		,armT						,none																				,none
 
 
 #lever_		,energy				,setOnIfBaseActorAllOn			,screen
@@ -169,10 +175,10 @@ waL___, ______, ______, ______, ______, ______, desk__, ______, ______, desk__, 
 waL___, convHo, convHo, convTR, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
 waL___, convHo, convHo, convBR, ______, ______, couchB, ______, ______, couchW, ______, ______, couchR, ______, ______, ______, ______, ______, ______, ______, waR___
 waL___, ______, ______, ______, ______, ______, wBTL__, waB___, waB___, waB___, waB___, waB___, waB___, wBTR__, ______, ______, ______, ______, ______, ______, waR___
-waL___, ______, ______, ______, ______, ______, wFBL__, waT___, waT___, waT___, waT___, waT___, waT___, wFBR__, ______, airCon, ______, ______, ______, ______, waR___
+waL___, pc____, ______, leverA, ______, ______, wFBL__, waT___, waT___, waT___, waT___, waT___, waT___, wFBR__, ______, airCon, ______, ______, ______, ______, waR___
 waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, refine, ______, tank_A, tank_A, ______, ______, ______, ______, ______, ______, waR___
 waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
-waL___, ______, ______, ______, ______, ______, hydrau, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
+waL___, screeA, ______, rob_An, ______, ______, hydrau, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
 waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
 waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, lever_, tonage, tonagB, crates, ______, waR___
 wBL___, waB___, waB___, waB___, waB___, waB___, waB___, waB___, waB___,	waB___, waB___, waB___, waB___, waB___, waB___, waB___, waB___, waB___, waB___, waB___,	waBNW_
@@ -180,7 +186,7 @@ wBL___, waB___, waB___, waB___, waB___, waB___, waB___, waB___, waB___,	waB___, 
 
 layer:
 ______, ______, poG___, ______, poS___, ______, bigPoS, ______, ______, ______, bigPor, ______, ______, ______, ______, air_Ve, ______, ______, ______, ______, ______
-______, ______, ______, ______, pc____, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
+______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
 ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
 ______, nights, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
 ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______

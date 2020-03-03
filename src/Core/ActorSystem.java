@@ -69,4 +69,9 @@ public class ActorSystem
                 ", systemMembers=" + systemMembers.toString() +
                 '}';
     }
+
+    public List<Actor> getSystemMembers()
+    {
+        return systemMembers;
+    }
 }
