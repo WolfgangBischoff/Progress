@@ -83,7 +83,7 @@ crates,			crates,					crates,																													true,											0,			0
 
 actors:
 #code 					,actorname 		,status   ,direction
-pc____					,pc										,OFF						,undefined
+
 hedgeh					,hedgehog 			,DEFAULT		,undefined
 player					,player						,default		,EAST
 buC___					,bulkhead				,ON							,south
@@ -94,13 +94,16 @@ screen					,statusScreen,off						,undefined
 rob_An					,robotArm				,off						,undefined
 airCon					,airControl		,off						,undefined
 
+#Air System
+pc____					,pc										,OFF						,undefined
+
 
 Actorgroups:
 #code			,groupname	,logic																			,targetGroup
-#lever_		,energy				,none			,none
-airCon		,energy				,none			,none
-hydrau		,energy				,none			,none
-screen		,energy				,none			,none
+screen		,energyA			,none																				,energy
+lever_		,energy				,setOnIfBaseActorAllOn			,energyM
+hydrau		,energy				,setOnIfBaseActorAllOn			,energyM
+airCon		,energyM			,none																				,none
 
 
 #lever_		,energy				,setOnIfBaseActorAllOn			,screen

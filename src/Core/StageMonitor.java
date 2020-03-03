@@ -12,13 +12,23 @@ public class StageMonitor
     Map<String, String> groupsTologicCodeMap = new HashMap<>(); //TODO Use ENUM
     Map<String, String> groupsToTargetGroupsMap = new HashMap<>();
 
+    Map<String, ActorSystem> actorSystemMap = new HashMap<>();
+
     public void addActor(String groupID, Actor actor)
     {
+        //TODO remove old logic
         String methodName = "addActor() ";
         if (!actorGroups.containsKey(groupID))
             actorGroups.put(groupID, new ArrayList<>());
         List<Actor> actorgroup = actorGroups.get(groupID);
         actorgroup.add(actor);
+
+
+        if (!actorSystemMap.containsKey(groupID))
+            actorSystemMap.put(groupID, new ActorSystem(groupID));
+        ActorSystem actorSystem = actorSystemMap.get(groupID);
+        actorSystem.addActor(actor);
+
     }
 
     public void notify(List<String> groupIDList)
@@ -32,12 +42,14 @@ public class StageMonitor
             String logicCode = groupsTologicCodeMap.get(groupID);
             List<Actor> actorgroup = actorGroups.get(groupID);
             List<Actor> targetActorGroup = actorGroups.get(targetGroupID);
+
             switch (logicCode)
             {
                 case "none":
                     break;
                 case "setOnIfBaseActorAllOn":
-                    setOnIfBaseActorAllOn(actorgroup, targetActorGroup);
+                    //setOnIfBaseActorAllOn(actorgroup, targetActorGroup);
+                    setOnIfBaseActorAllOn(groupID, targetGroupID);
                     break;
                 default:
                     throw new RuntimeException(classname + methodName + "logicCode not found: " + logicCode);
@@ -48,6 +60,7 @@ public class StageMonitor
 
     }
 
+    //TODO move to ActorSystem
     private void setOnIfBaseActorAllOn(List<Actor> actorgroup, List<Actor> targetGroup)
     {
         String methodName = "setOnIfBaseActorAllOn() ";
@@ -69,6 +82,23 @@ public class StageMonitor
         else
             for (Actor target : targetGroup)
                 target.onMonitorSignal("off");
+
+    }
+
+    private void setOnIfBaseActorAllOn(String actorgroup, String targetGroup)
+    {
+        String methodName = "setOnIfBaseActorAllOn(String, String) ";
+        ActorSystem checkedSystem = actorSystemMap.get(actorgroup);
+        ActorSystem dependentSystem = actorSystemMap.get(targetGroup);
+
+        //Set target Actors
+        if (checkedSystem.areAllMembersStatusOn())
+        {
+            System.out.println(classname + methodName + checkedSystem.areAllMembersStatusOn());
+            dependentSystem.setMemberToGeneralStatus("on");
+        }
+        else
+            dependentSystem.setMemberToGeneralStatus("off");
 
     }
 }

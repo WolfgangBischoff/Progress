@@ -7,6 +7,8 @@ none, ...
 #trig, This is triggered
 
 on, You turned the machine on
+analysis-on, Machine is online
 off, You turned the machine off
+analysis-off, Machine is offline
 
-analysis-none, Nothing to analyse
+#analysis-none, Nothing to analyse

@@ -36,7 +36,7 @@ public class Actor// implements PropertyChangeListener
     TriggerType onInRange = TriggerType.NOTHING;
     TriggerType onUpdate = TriggerType.NOTHING;
     TriggerType onIntersection = TriggerType.NOTHING;
-    TriggerType onMonitorSignal = TriggerType.NOTHING;
+    TriggerType onMonitorSignal = null;
     static final Set<String> actorDefinitionKeywords = new HashSet<>();
     String onInteractionToStatus = Config.KEYWORD_transition;
     String onUpdateToStatus = Config.KEYWORD_transition;
@@ -297,7 +297,10 @@ public class Actor// implements PropertyChangeListener
             //TODO check if Textbox_GroupAnalysis, groupAnalysis(ActorGroup, "hub"+status)
             if(actorname.equals("statusScreen"))
             {
-                List<Actor> analysisList = stageMonitor.actorGroups.get(memberActorGroups.get(0));
+                //TargetGroup is observed group
+                String targetGroup = stageMonitor.groupsToTargetGroupsMap.get(memberActorGroups.get(0));
+                //List<Actor> analysisList = stageMonitor.actorGroups.get(memberActorGroups.get(0));
+                List<Actor> analysisList = stageMonitor.actorGroups.get(targetGroup);
                 worldView.textbox.groupAnalysis(analysisList, dialogueFileName, dialogueStatusID);
             }
             else

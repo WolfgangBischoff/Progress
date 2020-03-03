@@ -1,6 +1,8 @@
 #Sensor,					 TriggerType,	targetStatus
 onInteraction, persistent, transition
 
+onMonitor, persistent, none
+
 #Status transition map
 transition, on, off
 transition, off, on
