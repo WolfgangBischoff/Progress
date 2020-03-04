@@ -1,8 +1,5 @@
 
 Logic:
-- repair mechanic
-    => Information Terminal grants insight over System status (onInteraction Textbox_GroupAnalysis)
-    => EndSystem spread over Map, MiddleSystem is behind Scenes, Root are other Maps => Erkundung
 - MouseClick PoW
 - schlafen, fade out, calender
 - Message Box
@@ -20,12 +17,8 @@ Sprites:
 - Lagerschrank, Lautsprecher, große Rohre, Säulen
 
 Level:
-- First Machine Status => Screen => RandomDirt if Fail (test different actors in one Group)
 
-1) Find pic that is cool
-2) Use Sat and Vib to create base color with other HUE
-Base color to brighter, HUE+-, SAT-, BRI+
-Base color to darker,   HUE+-, SAT-, BRI-
+
 
 
 Reapair mechanic:
@@ -35,7 +28,7 @@ You are technican, Hausmeister, brings money
 3) Found problem => Need more tools/ersatzteile/way blocked => repair
 Systemgroup state relies on parts state, if one is broken send message
 Each part gives other message, Hub give hint which part is broken (So hub message relies on Group status)
-
+=> EndSystem spread over Map, MiddleSystem is behind Scenes, Root are other Maps => Erkundung
 
 Topics:
 - Erben
