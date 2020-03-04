@@ -16,20 +16,11 @@ public class StageMonitor
 
     public void addActor(String groupID, Actor actor)
     {
-        //TODO remove old logic
         String methodName = "addActor() ";
-
-        /*
-        if (!actorGroups.containsKey(groupID))
-            actorGroups.put(groupID, new ArrayList<>());
-        List<Actor> actorgroup = actorGroups.get(groupID);
-        actorgroup.add(actor);
-        */
         if (!actorSystemMap.containsKey(groupID))
             actorSystemMap.put(groupID, new ActorSystem(groupID));
         ActorSystem actorSystem = actorSystemMap.get(groupID);
         actorSystem.addActor(actor);
-
     }
 
     public void notify(List<String> groupIDList)
@@ -53,31 +44,6 @@ public class StageMonitor
             }
         }
     }
-
-    //TODO move to ActorSystem
-    /*
-    private void setOnIfBaseActorAllOn(List<Actor> actorgroup, List<Actor> targetGroup)
-    {
-        String methodName = "setOnIfBaseActorAllOn() ";
-        //Check Condition
-        boolean allActorsStatusOn = true;
-        for (Actor toCheck : actorgroup)
-        {
-            if (!toCheck.generalStatus.equals("on")) {
-                allActorsStatusOn = false;
-                break;
-            }
-        }
-
-        //Set target Actors
-        if (allActorsStatusOn)
-            for (Actor target : targetGroup)
-                target.onMonitorSignal("on");
-        else
-            for (Actor target : targetGroup)
-                target.onMonitorSignal("off");
-
-    }*/
 
     private void setOnIfBaseActorAllOn(String actorgroup, String targetGroup)
     {
