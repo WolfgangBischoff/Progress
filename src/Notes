@@ -14,15 +14,28 @@ Sprites:
 - Person
 - Couchtisch, Kleiderschrank, Diffuser, Chair
 - Bett, Bau
-- Automatische Tür, Puplic information terminal, runder UFO Roboter, BrückenControls, Seats, Ventilation/Movingpart with bridge
-- Lagerschrank, Lautsprecher, große Rohre, Säulen
+- Automatische Tür, Puplic information terminal, runder UFO Roboter, BrückenControls, Seats, Ventilation/Movingpart with bridge, Lautsprecher
+- LocalEnergy: Main generator, solar panels, Transformator, EnergyHub, Cabel
+- AirSystem: Aufbereiter, AirHub, big pipe, Ventilation, Broken Hull
+- General: Hüllen beschädigt, Non critical System damaged
+- HeatSystem
+- Storage: Lagerschrank, Säulen, Tank, Big Crate
 
 Level:
 
+Story:
+    Start aussteigen aus Raumschiff
+    Gehen durch empfangsbereich
+    Einführung Arbeits(Purpose) und Wohnbereich
+    Kennenlernen von Kollegen blöd - erste Quest overcome
+        => anfreunden (muss Pop culturwissen sammeln)
+        => Ignoriern (sprach option, unsympatisch)
+        => Aggresiv (Sprach Option, unsympatisch)
+        => Find secret information (positiv)
+        => Revenge (negativ)
 
 
-
-Reapair mechanic:
+Repair mechanic:
 You are technican, Hausmeister, brings money
 1) Get message over incident => Analyze at Hub
 2) get hint, sometimes error hidden, check multiple places
@@ -40,11 +53,10 @@ Topics:
 - Polizei concerns
 - Education
 - Selbstzweifel Education
-- AppsDating
-- stamps
+- AppsDating if Love
 - company is privat auticraty
 - Robot Avatars, remote control
-Spieler von Anfang an überzeugt?
+
 Bildung neues Entdecken nicht Grlf, aber mehr Fähigkeiten.Synergie mit Hausmeister.
 
 Entdecken der Station auf Komet/Panet?. Minenoperation. Mine ist planet erkunden
