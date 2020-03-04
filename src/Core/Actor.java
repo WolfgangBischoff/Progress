@@ -4,8 +4,6 @@ package Core;
 import Core.Enums.Direction;
 import Core.Enums.TriggerType;
 import javafx.animation.PauseTransition;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.util.Duration;
 
 import java.nio.file.Files;
@@ -163,9 +161,7 @@ public class Actor// implements PropertyChangeListener
         double elapsedTimeSinceLastInteraction = (currentNanoTime - lastInteraction) / 1000000000.0;
         if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_ACTION)
         {
-            //System.out.println(classname + methodName + actorname + " " + elapsedTimeSinceLastInteraction);
             evaluateTriggerType(onUpdate, onUpdateToStatus);
-
         }
     }
 
@@ -184,8 +180,6 @@ public class Actor// implements PropertyChangeListener
     public void onMonitorSignal(String newCompoundStatus)
     {
         String methodName = "onMonitorSignal(): ";
-
-        //System.out.println(classname + methodName + actorname + " " + newCompoundStatus);
         evaluateTriggerType(onMonitorSignal, newCompoundStatus);
     }
 
@@ -300,14 +294,9 @@ public class Actor// implements PropertyChangeListener
 
         double animationDuration = targetSpriteData.get(0).animationDuration;
         PauseTransition delay = new PauseTransition(Duration.millis(animationDuration * 1000));
-        delay.setOnFinished(new EventHandler<ActionEvent>()
-        {
-            @Override
-            public void handle(ActionEvent t)
-            {
-                transitionGeneralStatus();
-                updateCompoundStatus();
-            }
+        delay.setOnFinished(t -> {
+            transitionGeneralStatus();
+            updateCompoundStatus();
         });
 
         delay.play();
@@ -320,6 +309,8 @@ public class Actor// implements PropertyChangeListener
 
         if (gameWindow instanceof WorldView)
         {
+            //TODO add TextSequence Variation personal/World State
+            //TODO add TextOption: WorldRumors
             WorldView worldView = (WorldView) gameWindow;
             if (onInteraction.equals(TriggerType.TEXTBOX_ANALYSIS))
             {

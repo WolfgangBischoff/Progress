@@ -1,5 +1,6 @@
 
 Logic:
+- Person, different dialogues based on state of StageMonitor and Person (Subclass?) at Actor activateTextbox()
 - MouseClick PoW
 - schlafen, fade out, calender
 - Message Box
@@ -7,7 +8,7 @@ Logic:
 - Console
 - Menu
 - level change
-- Calender
+
 
 Sprites:
 - Person

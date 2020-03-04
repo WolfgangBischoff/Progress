@@ -71,7 +71,7 @@ convHo				;conveyer				;machines/conveyerH																					;true					;1 				
 convTR				;conveyer				;machines/conveyerTR																				;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;greenlight256
 tank_A				;tank								;machines/greenTank_Anim																;true					;1 											;4   ;4            ;4    ;1    ;64         ;128         ;0             ;0             ;0           ;0												;greenlight256
 refine				;refinery				;machines/refinery																						;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
-air_Ve				;ventilation	;machines/air_ventilation																						;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
+air_Ve				;ventilation	;machines/air_ventilation															;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
 
 #Plants
 boge_1				;bogenhanf				;plants/plant_64_128_shoot													;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
@@ -111,16 +111,6 @@ screeA		;armA						;none																				;arm
 leverA		;arm							;setOnIfBaseActorAllOn			;armT
 pc____		;arm							;setOnIfBaseActorAllOn			;armT
 rob_An		;armT						;none																				;none
-
-
-#lever_		;energy				;setOnIfBaseActorAllOn			;screen
-#airCon		;energy				;setOnIfBaseActorAllOn			;screen
-#hydrau		;energy				;setOnIfBaseActorAllOn			;screen
-#screen		;screen				;none			;none
-
-#screen		;screen				;setOnIfBaseActorAllOn			;robotArm
-#rob_An		;robotArm		;none																				;none
-
 
 #sets 64 bits tiles as raster; you can add multiple layers; later defined layers are higher prioritized in case of same defined heightLayer
 #passivlayer will not be checked for interaction or collision
