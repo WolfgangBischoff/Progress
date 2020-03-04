@@ -80,18 +80,22 @@ public class Actor// implements PropertyChangeListener
                     continue;
 
                 //Collect Actor Sprite Data
-                SpriteData data = SpriteData.tileDefinition(linedata);
-
-                data.animationDuration = Double.parseDouble(linedata[SpriteData.animationDurationIdx]);
-                data.velocity = Integer.parseInt(linedata[SpriteData.velocityIdx]);
-                data.dialogueID = linedata[SpriteData.dialogueIDIdx];
-                data.animationEnds = Boolean.parseBoolean(linedata[SpriteData.animationEndsIdx]);
-
-                String statusName = linedata[0].toLowerCase();
-                if (!spriteDataMap.containsKey(statusName))
-                    spriteDataMap.put(statusName, new ArrayList<>());
-                spriteDataMap.get(statusName).add(data);
-
+                try
+                {
+                    SpriteData data = SpriteData.tileDefinition(linedata);
+                    data.animationDuration = Double.parseDouble(linedata[SpriteData.animationDurationIdx]);
+                    data.velocity = Integer.parseInt(linedata[SpriteData.velocityIdx]);
+                    data.dialogueID = linedata[SpriteData.dialogueIDIdx];
+                    data.animationEnds = Boolean.parseBoolean(linedata[SpriteData.animationEndsIdx]);
+                    String statusName = linedata[0].toLowerCase();
+                    if (!spriteDataMap.containsKey(statusName))
+                        spriteDataMap.put(statusName, new ArrayList<>());
+                    spriteDataMap.get(statusName).add(data);
+                }
+                catch (IndexOutOfBoundsException e)
+                {
+                    throw new IndexOutOfBoundsException(e.getMessage() + "\n in Actorfile: " + actorname);
+                }
             }
         }
         else throw new RuntimeException("Actordata not found: " + actorname);

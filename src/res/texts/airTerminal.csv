@@ -1,12 +1,12 @@
 
 
 
-none, airTerminal ...
+none; airTerminal ...
 
-on, Looks good
-fail, Looks strange
-off, Looks broken
+on; Looks good
+fail; Looks strange
+off; Looks broken
 
-analysis-fail, Terminal problems detected
-analysis-on, Terminal is Working fine
-analysis-off, Terminal at null function
+analysis-fail; Terminal problems detected
+analysis-on; Terminal is Working fine
+analysis-off; Terminal at null function

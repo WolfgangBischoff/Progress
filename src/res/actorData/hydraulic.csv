@@ -1,18 +1,18 @@
 
-onInteraction, persistent_text, transition
+onInteraction; persistent_text; transition
 
 #Status transition map
-transition, on, fail
-transition, fail, off
-transition, off, on
+transition; on; fail
+transition; fail; off
+transition; off; on
 
-dialogueFile, airTerminal
+dialogueFile; airTerminal
 
 #status to image
-#status 																,name   				,spritename  																						,blocker	,heightLayer		,fps	,totalFrames		,cols,rows,frameWidth	,frameHeight	,hitboxOffsetX	,hitboxOffsetY ,hitBoxWidth ,hitBoxHeight ,lightning ,duration ,velocity ,dialogueID ,AnimationEnds
-ON, 		hydraulicT, 		machines/hydraulicWorkingTop,							false,						2,								0,			0,											0,				0,				0,										0,													 		0,													0,												0,											0,					none,				 								0, 		0, on, false
-ON, 		hydraulicB, 		machines/hydraulicWorkingBtm,							true,						0,								0,			0,											0,				0,				0,										0,													  	0,											64,												128,										74,					greenlight256,				 				0, 	0, on, false
-OFF, 		hydraulicT, 		machines/hydraulicWorkingTop,							false,						2,								0,			0,											0,				0,				0,										0,													 		0,													0,												0,											0,					none,				 								0, 		0, off, false
-OFF, 		hydraulicB, 		machines/hydraulicBrokenBtm,							true,						0,								0,			0,											0,				0,				0,										0,													  	0,											64,												128,										74,					redlight,				 				0, 	0, off, false
-FAIL, 		hydraulicT, 		machines/hydraulicWorkingTop,							false,						2,								0,			0,											0,				0,				0,										0,													 		0,													0,												0,											0,					none,				 								0, 		0, fail, false
-FAIL, 		hydraulicB, 		machines/hydraulicFailureBtm,							true,						0,								0,			0,											0,				0,				0,										0,													  	0,											64,												128,										74,					greenlight256,				 				0, 	0, fail, false
+#status 																;name   				;spritename  																						;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;duration ;velocity ;dialogueID ;AnimationEnds
+ON; 		hydraulicT; 		machines/hydraulicWorkingTop;							false;						2;								0;			0;											0;				0;				0;										0;													 		0;													0;												0;											0;					none;				 								0; 		0; on; false
+ON; 		hydraulicB; 		machines/hydraulicWorkingBtm;							true;						0;								0;			0;											0;				0;				0;										0;													  	0;											64;												128;										74;					greenlight256;				 				0; 	0; on; false
+OFF; 		hydraulicT; 		machines/hydraulicWorkingTop;							false;						2;								0;			0;											0;				0;				0;										0;													 		0;													0;												0;											0;					none;				 								0; 		0; off; false
+OFF; 		hydraulicB; 		machines/hydraulicBrokenBtm;							true;						0;								0;			0;											0;				0;				0;										0;													  	0;											64;												128;										74;					redlight;				 				0; 	0; off; false
+FAIL; 		hydraulicT; 		machines/hydraulicWorkingTop;							false;						2;								0;			0;											0;				0;				0;										0;													 		0;													0;												0;											0;					none;				 								0; 		0; fail; false
+FAIL; 		hydraulicB; 		machines/hydraulicFailureBtm;							true;						0;								0;			0;											0;				0;				0;										0;													  	0;											64;												128;										74;					greenlight256;				 				0; 	0; fail; false

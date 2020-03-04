@@ -45,7 +45,8 @@ public class Utilities
                 if(row.isEmpty() || row.startsWith("#"))
                     continue;
 
-                String[] rawdata = row.split(",");
+                //String[] rawdata = row.split(",");
+                String[] rawdata = row.split(";");
                 String[] trimmed = new String[rawdata.length];
                 for (int i = 0; i < rawdata.length; i++)
                     trimmed[i] = rawdata[i].trim();

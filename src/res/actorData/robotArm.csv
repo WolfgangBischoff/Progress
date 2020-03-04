@@ -1,17 +1,17 @@
 
 #Status Changes
-onInteraction, timed, transition
-onMonitor, persistent, none
+onInteraction; timed; transition
+onMonitor; persistent; none
 
 #Status transition map
-transition, off, animationOn
-transition, animationOn, on
-transition, on, animationOff
-transition, animationOff, off
+transition; off; animationOn
+transition; animationOn; on
+transition; on; animationOff
+transition; animationOff; off
 
 #status to image
-#status 										,name   					,spritename  																											,blocker		,heightLayer		,fps			,totalFrames		,cols	,rows	,frameWidth	,frameHeight	,hitboxOffsetX	,hitboxOffsetY	,hitBoxWidth	,hitBoxHeight	,lightning				,duration		,velocity,dialogueID ,AnimationEnds
-off 														,robot							,machines/armOff																								,true					,0												,0					,0												,0				,0				,0										,0											,0													,0													,0											,0												,none									,0									,0							,none							,false
-animationOn							,robot							,machines/robotArm1.1_7_256_320									,true					,0 											,7   	 ,7            ,7    ,1    ,256        ,320         ,0             ,0             ,0           ,0												,greenlight256,1									,0							,none							,true
-animationOff						,robot							,machines/robotArm1.1Rev_7_256_320		 			,true					,0 											,7   	 ,7            ,7    ,1    ,256        ,320         ,0             ,0             ,0           ,0												,greenlight256,1									,0							,none							,true
-on	 														,robot							,machines/armOn																									,true					,0												,0					,0												,0				,0				,0										,0											,0													,0													,0											,0												,none									,0									,0							,none							,false
+#status 										;name   					;spritename  																											;blocker		;heightLayer		;fps			;totalFrames		;cols	;rows	;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY	;hitBoxWidth	;hitBoxHeight	;lightning				;duration		;velocity;dialogueID ;AnimationEnds
+off 														;robot							;machines/armOff																								;true					;0												;0					;0												;0				;0				;0										;0											;0													;0													;0											;0												;none									;0									;0							;none							;false
+animationOn							;robot							;machines/robotArm1.1_7_256_320									;true					;0 											;7   	 ;7            ;7    ;1    ;256        ;320         ;0             ;0             ;0           ;0												;greenlight256;1									;0							;none							;true
+animationOff						;robot							;machines/robotArm1.1Rev_7_256_320		 			;true					;0 											;7   	 ;7            ;7    ;1    ;256        ;320         ;0             ;0             ;0           ;0												;greenlight256;1									;0							;none							;true
+on	 														;robot							;machines/armOn																									;true					;0												;0					;0												;0				;0				;0										;0											;0													;0													;0											;0												;none									;0									;0							;none							;false

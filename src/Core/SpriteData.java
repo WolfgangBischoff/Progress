@@ -51,7 +51,7 @@ public class SpriteData
         this.lightningSprite = lightningSprite;
     }
 
-    public static SpriteData tileDefinition(String[] lineData)
+    public static SpriteData tileDefinition(String[] lineData) throws IndexOutOfBoundsException
     {
         try
         {
@@ -79,7 +79,7 @@ public class SpriteData
                 stringBuilder.append(s);
                 stringBuilder.append(", ");
             }
-            throw new IndexOutOfBoundsException("Tile Definition failed with line:\n" + stringBuilder.toString());
+            throw new IndexOutOfBoundsException("\nTile Definition failed with line: " + stringBuilder.toString());
         }
 
     }

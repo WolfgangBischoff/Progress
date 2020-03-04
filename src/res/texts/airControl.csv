@@ -1,7 +1,7 @@
 
 
 
-none, aircontrol ...
+none; aircontrol ...
 
-analysis-on, Main air hub is online
-analysis-off, Failure in main air hub
+analysis-on; Main air hub is online
+analysis-off; Failure in main air hub

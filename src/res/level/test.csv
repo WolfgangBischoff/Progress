@@ -1,215 +1,215 @@
 #Testlevel
 
-#Red Green Blue, the higher the brighter; >none< leads to no shadow
+#Red Green Blue; the higher the brighter; >none< leads to no shadow
 shadow:
-#30,30,30
+#30;30;30
 none
 
 tiledefinition:
-#layer: 0 => behind, 1 => middle, 2 => in front
-#code     ,name        ,spritename                     ,blocker		,heightLayer		,fps ,totalFrames  ,cols ,rows ,frameWidth ,frameHeight ,hitboxOffsetX ,hitboxOffsetY ,hitBoxWidth ,hitBoxHeight ,lightning
+#layer: 0 => behind; 1 => middle; 2 => in front
+#code     ;name        ;spritename                     ;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning
 #Floor
-metalU    ,darkMetal			,floor/darkMetalUpper,						false,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
-metal_    ,darkMetal			,floor/darkMetal,											false,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
-metalL    ,darkMetal			,floor/darkMetalLower,						false,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
-carpe0    ,carpet						,floor/carpet0,																						false,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
-carpe1    ,carpet						,floor/carpet1, 																					false,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
-slab__    ,carpet						,floor/slab,																						false,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
-slabDr    ,carpet						,floor/slabDrain,																						false,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
-metal1    ,metal							,floor/metalfloor_64_64,																						false,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
+metalU    ;darkMetal			;floor/darkMetalUpper;						false;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0; 								none
+metal_    ;darkMetal			;floor/darkMetal;											false;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0; 								none
+metalL    ;darkMetal			;floor/darkMetalLower;						false;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0; 								none
+carpe0    ;carpet						;floor/carpet0;																						false;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0; 								none
+carpe1    ;carpet						;floor/carpet1; 																					false;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0; 								none
+slab__    ;carpet						;floor/slab;																						false;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0; 								none
+slabDr    ;carpet						;floor/slabDrain;																						false;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0; 								none
+metal1    ;metal							;floor/metalfloor_64_64;																						false;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0; 								none
 
 #Walls
-#code     ,name        ,spritename                     ,blocker		,heightLayer		,fps ,totalFrames  ,cols ,rows ,frameWidth ,frameHeight ,hitboxOffsetX ,hitboxOffsetY ,hitBoxWidth ,hitBoxHeight ,lightning
-waT___				,bluewall,								walls/bluewallFront,																					true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
-poS___				,portholestars,			portholeStars,																											true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
-poG___				,portholegalaxy,		portholeGalaxy,																										true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
-bigPor				,portholeBig,		walls/bulkheadRound128,																										true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
-bigPoS				,portholeBig,		walls/bulkheadRoundStars128,																										true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
-wTL___				,bluewallTL,						walls/bluewallcornerTL,																		true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
-wTR___				,bluewallTR,						walls/bluewallcornerTR,																		true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
-waL___				,wall,												walls/wallLeft, 																									true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
-waR___				,wall,												walls/wallWest, 																									true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
-waB___				,wall								,walls/wallBackNorth												,true					,2												,0			,0											,0				,0				,0										,0											,0														,20													,64											,64													,none
-waBNW_				,wallcorner			,walls/wallCornerNW												,true						,0											,0			,0											,0,				0,				0,										0,											0,													0,													0,											0, 								none
-wBL___				,wallcorner,						walls/wallCornerNE,																						true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
-wFBL__				,wallcorner,						walls/bluewallCornerFrontBL,												true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
-wFBR__				,wallcorner,						walls/bluewallCornerFrontBR,												true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
-wBTL__				,wallcorner,						walls/wallBackTL,																							true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
-wBTR__				,wallcorner,						walls/wallBackTR,																							true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
-walCab				,wallcable,						walls/wallcabel,																							true,				0,								0,			0,											0,				0,				0,										0,											0,													0,													0,											0, 								none
+#code     ;name        ;spritename                     ;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning
+waT___				;bluewall;								walls/bluewallFront;																					true;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0; 								none
+poS___				;portholestars;			portholeStars;																											true;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0; 								none
+poG___				;portholegalaxy;		portholeGalaxy;																										true;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0; 								none
+bigPor				;portholeBig;		walls/bulkheadRound128;																										true;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0; 								none
+bigPoS				;portholeBig;		walls/bulkheadRoundStars128;																										true;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0; 								none
+wTL___				;bluewallTL;						walls/bluewallcornerTL;																		true;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0; 								none
+wTR___				;bluewallTR;						walls/bluewallcornerTR;																		true;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0; 								none
+waL___				;wall;												walls/wallLeft; 																									true;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0; 								none
+waR___				;wall;												walls/wallWest; 																									true;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0; 								none
+waB___				;wall								;walls/wallBackNorth												;true					;2												;0			;0											;0				;0				;0										;0											;0														;20													;64											;64													;none
+waBNW_				;wallcorner			;walls/wallCornerNW												;true						;0											;0			;0											;0;				0;				0;										0;											0;													0;													0;											0; 								none
+wBL___				;wallcorner;						walls/wallCornerNE;																						true;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0; 								none
+wFBL__				;wallcorner;						walls/bluewallCornerFrontBL;												true;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0; 								none
+wFBR__				;wallcorner;						walls/bluewallCornerFrontBR;												true;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0; 								none
+wBTL__				;wallcorner;						walls/wallBackTL;																							true;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0; 								none
+wBTR__				;wallcorner;						walls/wallBackTR;																							true;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0; 								none
+walCab				;wallcable;						walls/wallcabel;																							true;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0; 								none
 
-#Furniture, 								none
-#code     ,name        ,spritename                     ,blocker		,heightLayer		,fps ,totalFrames  ,cols ,rows ,frameWidth ,frameHeight ,hitboxOffsetX ,hitboxOffsetY ,hitBoxWidth ,hitBoxHeight ,lightning
-tabBot				,table							,furniture/roundWoddenTableBtm		,true					,0												,0			,0												,0				,0				,0										,0											,0													,32												,128									,74											,none
-tabTop				,table							,furniture/roundWoddenTableTop		,false				,2												,0			,0												,0				,0				,0										,0											,0													,0													,0											,0												,none
-desk__				,desk								,furniture/tableSqare											,true					,0												,0			,0												,0				,0				,0										,0											,0             ,0             ,0           ,0							     ,none
-ottomC				,ottoman     ,furniture/ottomanColour								,false				,0												,0			,0												,0				,0				,0										,0											,0													,0													,0											,0												,none
-ottomR				,ottoman     ,furniture/ottomanRed											,false				,0												,0			,0												,0				,0				,0										,0											,0													,0													,0											,0												,none
-couch_				,couch							,furniture/couch																,true					,0            ,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0     							,none
-couchB				,couch							,furniture/modernCouch										,true					,0            ,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0     							,none
-couchW				,couch							,furniture/modernCouchWhite					,true					,0            ,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0     							,none
-couchR				,couch							,furniture/modernCouchRed							,true					,0            ,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0     							,none
-bee___				,bee___,													bee, 																										false,				2,								12, 		3, 									3, 			1, 		32, 								32,										0,													0,													0,											0							,none
-diff_s				,diffuserSmoke,			furniture/diffuser128Smoke	,false				,2												,3			,3												,3				,1				,128								,128,												0,													0,													0,											0,			none
-scubb_				,skubb,											/furniture/skubb,																		true,				0,								0,			0,											0,				0,				0,										0,										0,													64,												128,										64							,none
-l_____				,lights,										/lightsources/ligtherS,												true,				1,								0,			0,											0,				0,				0,										0,										0,													0,												0,										0							,whitelight
-nights				,nightstand,						/lightsources/nightStand,										true,				1,								0,			0,											0,				0,				0,										0,										0,													0,												0,										0							,redlight
-bench_				,bench,											furniture/bench,																			true,				1,								0,			0,											0,				0,				0,										0,										0,													50,												128,										50							,none
+#Furniture; 								none
+#code     ;name        ;spritename                     ;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning
+tabBot				;table							;furniture/roundWoddenTableBtm		;true					;0												;0			;0												;0				;0				;0										;0											;0													;32												;128									;74											;none
+tabTop				;table							;furniture/roundWoddenTableTop		;false				;2												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+desk__				;desk								;furniture/tableSqare											;true					;0												;0			;0												;0				;0				;0										;0											;0             ;0             ;0           ;0							     ;none
+ottomC				;ottoman     ;furniture/ottomanColour								;false				;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+ottomR				;ottoman     ;furniture/ottomanRed											;false				;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+couch_				;couch							;furniture/couch																;true					;0            ;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0     							;none
+couchB				;couch							;furniture/modernCouch										;true					;0            ;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0     							;none
+couchW				;couch							;furniture/modernCouchWhite					;true					;0            ;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0     							;none
+couchR				;couch							;furniture/modernCouchRed							;true					;0            ;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0     							;none
+bee___				;bee___;													bee; 																										false;				2;								12; 		3; 									3; 			1; 		32; 								32;										0;													0;													0;											0							;none
+diff_s				;diffuserSmoke;			furniture/diffuser128Smoke	;false				;2												;3			;3												;3				;1				;128								;128;												0;													0;													0;											0;			none
+scubb_				;skubb;											/furniture/skubb;																		true;				0;								0;			0;											0;				0;				0;										0;										0;													64;												128;										64							;none
+l_____				;lights;										/lightsources/ligtherS;												true;				1;								0;			0;											0;				0;				0;										0;										0;													0;												0;										0							;whitelight
+nights				;nightstand;						/lightsources/nightStand;										true;				1;								0;			0;											0;				0;				0;										0;										0;													0;												0;										0							;redlight
+bench_				;bench;											furniture/bench;																			true;				1;								0;			0;											0;				0;				0;										0;										0;													50;												128;										50							;none
 
 #Bath
-#code     ,name        ,spritename                     ,blocker		,heightLayer		,fps ,totalFrames  ,cols ,rows ,frameWidth ,frameHeight ,hitboxOffsetX ,hitboxOffsetY ,hitBoxWidth ,hitBoxHeight ,lightning
-wc____,						wc,									/bath/toilet,																					true,				1,								0,			0,											0,				0,				0,										0,											0, 											0,												0,										0							,none
-shower,			shower,					/bath/shower,																					false,				2,								0,			0,											0,				0,				0,										0,											0,												0,												0,										0							,none
-sink__,			sink,							/bath/sink,																							false,				1,								0,			0,											0,				0,				0,										0,											0,												0,												0,										0							,none
+#code     ;name        ;spritename                     ;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning
+wc____;						wc;									/bath/toilet;																					true;				1;								0;			0;											0;				0;				0;										0;											0; 											0;												0;										0							;none
+shower;			shower;					/bath/shower;																					false;				2;								0;			0;											0;				0;				0;										0;											0;												0;												0;										0							;none
+sink__;			sink;							/bath/sink;																							false;				1;								0;			0;											0;				0;				0;										0;											0;												0;												0;										0							;none
 
 #Machines
-#code     ,name        ,spritename                     								,blocker		,heightLayer		,fps ,totalFrames  ,cols ,rows ,frameWidth ,frameHeight ,hitboxOffsetX ,hitboxOffsetY ,hitBoxWidth ,hitBoxHeight ,lightning
-tonage				,tonage						,machines/ton																											,true					,1 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,greenlight256
-tonagB				,tonage						,machines/tonBlue																							,true					,1 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,greenlight256
-convBR				,conveyer				,machines/conveyerBR																				,true					,1 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,greenlight256
-convHo				,conveyer				,machines/conveyerH																					,true					,1 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,greenlight256
-convTR				,conveyer				,machines/conveyerTR																				,true					,1 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,greenlight256
-tank_A				,tank								,machines/greenTank_Anim																,true					,1 											,4   ,4            ,4    ,1    ,64         ,128         ,0             ,0             ,0           ,0												,greenlight256
-refine				,refinery				,machines/refinery																						,true					,1 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,none
-air_Ve				,ventilation	,machines/air_ventilation																						,true					,1 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,none
+#code     ;name        ;spritename                     								;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning
+tonage				;tonage						;machines/ton																											;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;greenlight256
+tonagB				;tonage						;machines/tonBlue																							;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;greenlight256
+convBR				;conveyer				;machines/conveyerBR																				;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;greenlight256
+convHo				;conveyer				;machines/conveyerH																					;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;greenlight256
+convTR				;conveyer				;machines/conveyerTR																				;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;greenlight256
+tank_A				;tank								;machines/greenTank_Anim																;true					;1 											;4   ;4            ;4    ;1    ;64         ;128         ;0             ;0             ;0           ;0												;greenlight256
+refine				;refinery				;machines/refinery																						;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
+air_Ve				;ventilation	;machines/air_ventilation																						;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
 
 #Plants
-boge_1				,bogenhanf				,plants/plant_64_128_shoot													,true					,1 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,none
-boge_2				,bogenhanf				,plants/plant_64_128_small													,true					,1 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,none
-boge_3				,bogenhanf				,plants/plant_64_128_medium												,true					,1 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,none
-boge_4				,bogenhanf				,plants/plant_64_128_large	 											,true					,1 											,0   ,0            ,0    ,0    ,0          ,0           ,0             ,0             ,0           ,0												,none
+boge_1				;bogenhanf				;plants/plant_64_128_shoot													;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
+boge_2				;bogenhanf				;plants/plant_64_128_small													;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
+boge_3				;bogenhanf				;plants/plant_64_128_medium												;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
+boge_4				;bogenhanf				;plants/plant_64_128_large	 											;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
 
-crates,			crates,					crates,																													true,											0,			0,											0,				0,				0,										0,											0,															0,												32,												128,							74,							none
+crates;			crates;					crates;																													true;											0;			0;											0;				0;				0;										0;											0;															0;												32;												128;							74;							none
 
 actors:
-#code 					,actorname 		,status   ,direction
-hedgeh					,hedgehog 			,DEFAULT		,undefined
-player					,player						,default		,EAST
-guy___					,person_guy		,default		,NORTH
-buC___					,bulkhead				,ON							,south
-hydrau					,hydraulic			,ON							,undefined
-diff_d					,diffuser				,default		,undefined
-lever_					,lever							,off						,undefined
-screen					,statusScreen,off						,undefined
-airCon					,airControl		,off						,undefined
+#code 					;actorname 		;status   ;direction
+hedgeh					;hedgehog 			;DEFAULT		;undefined
+player					;player						;default		;EAST
+guy___					;person_guy		;default		;NORTH
+buC___					;bulkhead				;ON							;south
+hydrau					;hydraulic			;ON							;undefined
+diff_d					;diffuser				;default		;undefined
+lever_					;lever							;off						;undefined
+screen					;statusScreen;off						;undefined
+airCon					;airControl		;off						;undefined
 
 #Air System
-pc____					,pc										,OFF						,undefined
-rob_An					,robotArm				,off						,undefined
-leverA					,lever							,off						,undefined
-screeA					,statusScreen,ON							,undefined
+pc____					;pc										;OFF						;undefined
+rob_An					;robotArm				;off						;undefined
+leverA					;lever							;off						;undefined
+screeA					;statusScreen;ON							;undefined
 
 Actorgroups:
-#code			,groupname	,logic																			,targetGroup
-screen		,energyA			,none																				,energy
-lever_		,energy				,setOnIfBaseActorAllOn			,energyM
-hydrau		,energy				,setOnIfBaseActorAllOn			,energyM
-airCon		,energyM			,none																				,none
+#code			;groupname	;logic																			;targetGroup
+screen		;energyA			;none																				;energy
+lever_		;energy				;setOnIfBaseActorAllOn			;energyM
+hydrau		;energy				;setOnIfBaseActorAllOn			;energyM
+airCon		;energyM			;none																				;none
 
 #Air System
-screeA		,armA						,none																				,arm
-leverA		,arm							,setOnIfBaseActorAllOn			,armT
-pc____		,arm							,setOnIfBaseActorAllOn			,armT
-rob_An		,armT						,none																				,none
+screeA		;armA						;none																				;arm
+leverA		;arm							;setOnIfBaseActorAllOn			;armT
+pc____		;arm							;setOnIfBaseActorAllOn			;armT
+rob_An		;armT						;none																				;none
 
 
-#lever_		,energy				,setOnIfBaseActorAllOn			,screen
-#airCon		,energy				,setOnIfBaseActorAllOn			,screen
-#hydrau		,energy				,setOnIfBaseActorAllOn			,screen
-#screen		,screen				,none			,none
+#lever_		;energy				;setOnIfBaseActorAllOn			;screen
+#airCon		;energy				;setOnIfBaseActorAllOn			;screen
+#hydrau		;energy				;setOnIfBaseActorAllOn			;screen
+#screen		;screen				;none			;none
 
-#screen		,screen				,setOnIfBaseActorAllOn			,robotArm
-#rob_An		,robotArm		,none																				,none
+#screen		;screen				;setOnIfBaseActorAllOn			;robotArm
+#rob_An		;robotArm		;none																				;none
 
 
 #sets 64 bits tiles as raster; you can add multiple layers; later defined layers are higher prioritized in case of same defined heightLayer
 #passivlayer will not be checked for interaction or collision
 passivlayer:
-______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
-carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__,	______
-carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__,	______
-carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__,	______
-carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__,	______
-carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, slabDr, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__,	______
-carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, ______, ______, slab__, slab__, slab__, slab__, slab__, slab__, slab__,	______
-carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, ______, ______, slab__, slab__, slab__, slab__, slab__, slab__, slab__,	______
-carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, ______, ______, slab__, slab__, slab__, slab__, slab__, slab__, slab__,	______
-carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__,	______
-carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, carpe1, carpe0, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__,	______
-slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, ______
-metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, metalU, ______
-metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, metal_, ______
-metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, metalL, ______
-metal1, metal1, metal1, metal1, metal1, metal1, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, ______
-metal1, metal1, metal1, metal1, metal1, metal1, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, ______
-metal1, metal1, metal1, metal1, metal1, metal1, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, ______
-metal1, metal1, metal1, metal1, metal1, metal1, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, slab__, ______
-metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, ______
-metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, ______
-metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, ______
-metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, ______
-metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, ______
-metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, ______
-metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, metal1, ______
-______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__;	______
+carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__;	______
+carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__;	______
+carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__;	______
+carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; slabDr; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__;	______
+carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; ______; ______; slab__; slab__; slab__; slab__; slab__; slab__; slab__;	______
+carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; ______; ______; slab__; slab__; slab__; slab__; slab__; slab__; slab__;	______
+carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; ______; ______; slab__; slab__; slab__; slab__; slab__; slab__; slab__;	______
+carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__;	______
+carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__;	______
+slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; ______
+metalU; metalU; metalU; metalU; metalU; metalU; metalU; metalU; metalU; metalU; metalU; metalU; metalU; metalU; metalU; metalU; metalU; metalU; metalU; metalU; ______
+metal_; metal_; metal_; metal_; metal_; metal_; metal_; metal_; metal_; metal_; metal_; metal_; metal_; metal_; metal_; metal_; metal_; metal_; metal_; metal_; ______
+metalL; metalL; metalL; metalL; metalL; metalL; metalL; metalL; metalL; metalL; metalL; metalL; metalL; metalL; metalL; metalL; metalL; metalL; metalL; metalL; ______
+metal1; metal1; metal1; metal1; metal1; metal1; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; ______
+metal1; metal1; metal1; metal1; metal1; metal1; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; ______
+metal1; metal1; metal1; metal1; metal1; metal1; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; ______
+metal1; metal1; metal1; metal1; metal1; metal1; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; ______
+metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; ______
+metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; ______
+metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; ______
+metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; ______
+metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; ______
+metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; ______
+metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
 
 
 
 layer:
-wTL___, waT___, waT___, waT___, waT___, waT___, waT___, waT___, waT___, waT___, waT___, waT___, waT___, waT___, waT___, waT___, waT___, waT___, waT___, waT___, wTR___
-______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, scubb_, ______, ______, ______, sink__, ______, ______, ______
-waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, wc____, waR___
-waL___, ______, ______, ______, ______, ______, ______, bee___, l_____, wBTL__,	wBTR__, shower, ______, ______, ______, ______, ______, ______, ______, ______, waR___
-waL___, ______, ______, ______, ______, ______, ______, ______, ______, waR___, waL___, ______, ______, ______, ______, ______, ______, ______, ottomR, ottomC, waR___
-waL___, ______, tabBot, ______, ______, ______, ______, ______, couch_,	waR___, waL___, ______,	______, ______, ______, ______, ______, ottomC, desk__, ______, waR___
-waL___, ______, ______, ______, ______, ______, ______, ______, ______, waR___, wBL___, waB___, wBTR__, ______, ______, ______, ______, ______, ottomR, ottomC, waR___
-waL___, ______, couchB, ______, ______, ______, ______, ______, ______, waR___, wTL___, waT___, wFBR__, ______, ______, ______, ______, ______, ______, ______, waR___
-wBL___, waB___, waB___, waB___, wBTR__, ______, waB___, waB___, waB___, waBNW_, waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
-wTL___, waT___, waT___, waT___, wFBR__, buC___, waT___, waT___, waT___, waT___, waT___, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
-waL___, ______, bench_, ______, ______, ______, bench_, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
-waL___, ______, diff_s, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, rob_An, ______, ______, ______, waR___
-waL___, ______, diff_d, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
-waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
-waL___, ______, ______, ______, ______, ______, boge_1,	boge_2, boge_3, boge_4, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
-waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
-waL___, ______, ______, ______, ______, ______, desk__, ______, ______, desk__, ______, ______, couch_, ______, ______, ______, ______, ______, ______, ______, waR___
-waL___, convHo, convHo, convTR, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
-waL___, convHo, convHo, convBR, ______, ______, couchB, ______, ______, couchW, ______, ______, couchR, ______, ______, ______, ______, ______, ______, ______, waR___
-waL___, ______, ______, ______, ______, ______, wBTL__, waB___, waB___, waB___, waB___, waB___, waB___, wBTR__, ______, ______, ______, ______, ______, ______, waR___
-waL___, pc____, ______, leverA, ______, ______, wFBL__, waT___, waT___, waT___, waT___, waT___, waT___, wFBR__, ______, airCon, ______, ______, ______, ______, waR___
-waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, refine, ______, tank_A, tank_A, ______, ______, ______, ______, ______, ______, waR___
-waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
-waL___, screeA, ______, rob_An, ______, ______, hydrau, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
-waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, waR___
-waL___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, lever_, tonage, tonagB, crates, ______, waR___
-wBL___, waB___, waB___, waB___, waB___, waB___, waB___, waB___, waB___,	waB___, waB___, waB___, waB___, waB___, waB___, waB___, waB___, waB___, waB___, waB___,	waBNW_
+wTL___; waT___; waT___; waT___; waT___; waT___; waT___; waT___; waT___; waT___; waT___; waT___; waT___; waT___; waT___; waT___; waT___; waT___; waT___; waT___; wTR___
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; scubb_; ______; ______; ______; sink__; ______; ______; ______
+waL___; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; wc____; waR___
+waL___; ______; ______; ______; ______; ______; ______; bee___; l_____; wBTL__;	wBTR__; shower; ______; ______; ______; ______; ______; ______; ______; ______; waR___
+waL___; ______; ______; ______; ______; ______; ______; ______; ______; waR___; waL___; ______; ______; ______; ______; ______; ______; ______; ottomR; ottomC; waR___
+waL___; ______; tabBot; ______; ______; ______; ______; ______; couch_;	waR___; waL___; ______;	______; ______; ______; ______; ______; ottomC; desk__; ______; waR___
+waL___; ______; ______; ______; ______; ______; ______; ______; ______; waR___; wBL___; waB___; wBTR__; ______; ______; ______; ______; ______; ottomR; ottomC; waR___
+waL___; ______; couchB; ______; ______; ______; ______; ______; ______; waR___; wTL___; waT___; wFBR__; ______; ______; ______; ______; ______; ______; ______; waR___
+wBL___; waB___; waB___; waB___; wBTR__; ______; waB___; waB___; waB___; waBNW_; waL___; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___
+wTL___; waT___; waT___; waT___; wFBR__; buC___; waT___; waT___; waT___; waT___; waT___; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___
+waL___; ______; bench_; ______; ______; ______; bench_; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___
+waL___; ______; diff_s; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; rob_An; ______; ______; ______; waR___
+waL___; ______; diff_d; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___
+waL___; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___
+waL___; ______; ______; ______; ______; ______; boge_1;	boge_2; boge_3; boge_4; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___
+waL___; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___
+waL___; ______; ______; ______; ______; ______; desk__; ______; ______; desk__; ______; ______; couch_; ______; ______; ______; ______; ______; ______; ______; waR___
+waL___; convHo; convHo; convTR; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___
+waL___; convHo; convHo; convBR; ______; ______; couchB; ______; ______; couchW; ______; ______; couchR; ______; ______; ______; ______; ______; ______; ______; waR___
+waL___; ______; ______; ______; ______; ______; wBTL__; waB___; waB___; waB___; waB___; waB___; waB___; wBTR__; ______; ______; ______; ______; ______; ______; waR___
+waL___; pc____; ______; leverA; ______; ______; wFBL__; waT___; waT___; waT___; waT___; waT___; waT___; wFBR__; ______; airCon; ______; ______; ______; ______; waR___
+waL___; ______; ______; ______; ______; ______; ______; ______; ______; ______; refine; ______; tank_A; tank_A; ______; ______; ______; ______; ______; ______; waR___
+waL___; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___
+waL___; screeA; ______; rob_An; ______; ______; hydrau; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___
+waL___; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___
+waL___; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; lever_; tonage; tonagB; crates; ______; waR___
+wBL___; waB___; waB___; waB___; waB___; waB___; waB___; waB___; waB___;	waB___; waB___; waB___; waB___; waB___; waB___; waB___; waB___; waB___; waB___; waB___;	waBNW_
 
 
 layer:
-______, ______, poG___, ______, poS___, ______, bigPoS, ______, ______, ______, bigPor, ______, ______, ______, ______, air_Ve, ______, ______, ______, ______, ______
-______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
-______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
-______, nights, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
-______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
-______, ______, tabTop, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
-______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, hedgeh, ______, ______
-______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, screen, ______, ______, ______, ______, ______, ______, ______, ______, ______
-______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
-______, ______, ______, ______, ______, ______, ______, air_Ve, ______, walCab, walCab, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
-______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
-______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
-______, ______, ______, ______, ______, guy___, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
-______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
-______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
-______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
-______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
-______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
-______, ______, ______, ______, player, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
-______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
-______, ______, ______, ______, ______, ______, screen, ______, ______, air_Ve, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
-______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
-______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
-______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
-______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
-______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
-______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
+______; ______; poG___; ______; poS___; ______; bigPoS; ______; ______; ______; bigPor; ______; ______; ______; ______; air_Ve; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; nights; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; tabTop; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; hedgeh; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; screen; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; air_Ve; ______; walCab; walCab; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; guy___; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; player; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; screen; ______; ______; air_Ve; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
