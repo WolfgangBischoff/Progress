@@ -18,7 +18,8 @@ import java.util.List;
 import static Core.Config.CAMERA_HEIGTH;
 import static Core.Config.CAMERA_WIDTH;
 
-public class Textbox {
+public class Textbox
+{
     String classname = "Textbox ";
     private double TEXTBOX_WIDTH = CAMERA_WIDTH / 1.5;
     private double TEXTBOX_HEIGHT = CAMERA_HEIGTH / 3.0;
@@ -29,9 +30,9 @@ public class Textbox {
     List<String> messages;
     int msgIdx = 0;
 
-    public void readDialogue(String fileIdentifier, String dialogueIdentifier) {
+    public void readDialogue(String fileIdentifier, String dialogueIdentifier)
+    {
         String methodName = "readDialogue() ";
-        //messages = new ArrayList<>();
         messages = readMessage(fileIdentifier, dialogueIdentifier);
         nextMessage();
     }
@@ -43,34 +44,38 @@ public class Textbox {
         List<String[]> fileData;
         Path path = Paths.get("src/res/texts/" + fileIdentifier + ".csv");
 
-        if (Files.exists(path)) {
+        if (Files.exists(path))
+        {
             fileData = Utilities.readAllLineFromTxt(path.toString());
-            for (String[] linedata : fileData) {
+            for (String[] linedata : fileData)
+            {
                 {
-                    //System.out.println(classname + methodName + linedata[0] + " " + linedata[1]);
                     if (linedata[0].equals(dialogueIdentifier))
                         msgs.add(linedata[1]);
                 }
             }
-        } else throw new RuntimeException("Actordata not found: " + path.toString());
+        }
+        else throw new RuntimeException("Actordata not found: " + path.toString());
 
         if (msgs.isEmpty())
             System.out.println(classname + methodName + "No messages found with ID: " + dialogueIdentifier + " in " + fileIdentifier);
         return msgs;
     }
 
-    public void groupAnalysis(List<Actor> actorsList, String fileIdentifier, String dialogueIdentifier) {
+    public void groupAnalysis(List<Actor> actorsList, String fileIdentifier, String dialogueIdentifier)
+    {
 
         String methodName = "groupAnalysis() ";
         readDialogue(fileIdentifier, dialogueIdentifier);
-        for (Actor actor : actorsList) {
+        for (Actor actor : actorsList)
+        {
             List<String> msgs = readMessage(actor.dialogueFileName, "analysis-" + actor.dialogueStatusID);
             messages.addAll(msgs);
-            //messages.add(actor.actorname + " ");
         }
     }
 
-    private void nextMessage() {
+    private void nextMessage()
+    {
         String methodName = "nextMessage() ";
         textboxGc.setFill(Color.CADETBLUE);
         textboxGc.fillRect(0, 0, TEXTBOX_WIDTH, TEXTBOX_HEIGHT);
@@ -86,20 +91,26 @@ public class Textbox {
         textboxImage = textboxCanvas.snapshot(new SnapshotParameters(), null);
     }
 
-    private boolean hasNextMessage() {
+    private boolean hasNextMessage()
+    {
         return messages.size() > msgIdx + 1;
     }
 
-    public void nextMessage(Long currentNanoTime) {
+    public void nextMessage(Long currentNanoTime)
+    {
         String methodName = "nextMessage(Long) ";
         Actor playerActor = WorldView.getPlayer().actor;
         double elapsedTimeSinceLastInteraction = (currentNanoTime - playerActor.lastInteraction) / 1000000000.0;
 
-        if (elapsedTimeSinceLastInteraction > 1) {
-            if (hasNextMessage()) {
+        if (elapsedTimeSinceLastInteraction > 1)
+        {
+            if (hasNextMessage())
+            {
                 msgIdx++;
                 nextMessage();
-            } else {
+            }
+            else
+            {
                 ((WorldView) (GameWindow.getSingleton().currentView)).isTextBoxActive = false;
                 msgIdx = 0;
             }
@@ -108,7 +119,8 @@ public class Textbox {
 
     }
 
-    public WritableImage showMessage() {
+    public WritableImage showMessage()
+    {
         return textboxImage;
     }
 }

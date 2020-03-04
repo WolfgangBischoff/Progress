@@ -55,7 +55,8 @@ public class Actor// implements PropertyChangeListener
     final List<String> memberActorGroups = new ArrayList<>();
 
 
-    public Actor(String actorname, String initGeneralStatus, Direction direction) {
+    public Actor(String actorname, String initGeneralStatus, Direction direction)
+    {
         this.actorname = actorname;
         this.generalStatus = initGeneralStatus.toLowerCase();
         this.direction = direction;
@@ -70,9 +71,11 @@ public class Actor// implements PropertyChangeListener
         actorDefinitionKeywords.add(KEYWORD_interactionArea);
         actorDefinitionKeywords.add(KEYWORD_dialogueFile);
 
-        if (Files.exists(path)) {
+        if (Files.exists(path))
+        {
             actordata = Utilities.readAllLineFromTxt("src/res/actorData/" + actorname + ".csv");
-            for (String[] linedata : actordata) {
+            for (String[] linedata : actordata)
+            {
                 if (checkForKeywords(linedata))
                     continue;
 
@@ -90,10 +93,12 @@ public class Actor// implements PropertyChangeListener
                 spriteDataMap.get(statusName).add(data);
 
             }
-        } else throw new RuntimeException("Actordata not found: " + actorname);
+        }
+        else throw new RuntimeException("Actordata not found: " + actorname);
     }
 
-    private boolean checkForKeywords(String[] linedata) {
+    private boolean checkForKeywords(String[] linedata)
+    {
         int keywordIdx = 0;
         int triggerTypeIdx = 1;
         int targetStatusIdx = 2;
@@ -105,7 +110,8 @@ public class Actor// implements PropertyChangeListener
         else
             return false;
 
-        switch (keyword) {
+        switch (keyword)
+        {
             case KEYWORD_onInteraction:
                 onInteraction = TriggerType.getStatus(linedata[triggerTypeIdx]);
                 onInteractionToStatus = linedata[targetStatusIdx];
@@ -146,56 +152,64 @@ public class Actor// implements PropertyChangeListener
         }
     }
 
-    public void onUpdate(Long currentNanoTime) {
+    public void onUpdate(Long currentNanoTime)
+    {
         //No lastInteraction time update, just resets if not used. like a automatic door
         String methodName = "onUpdate() ";
         double elapsedTimeSinceLastInteraction = (currentNanoTime - lastInteraction) / 1000000000.0;
-        if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_ACTION) {
+        if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_ACTION)
+        {
             //System.out.println(classname + methodName + actorname + " " + elapsedTimeSinceLastInteraction);
             evaluateTriggerType(onUpdate, onUpdateToStatus);
 
         }
     }
 
-    public void onInteraction(Sprite otherSprite, Long currentNanoTime) {
+    public void onInteraction(Sprite otherSprite, Long currentNanoTime)
+    {
         String methodName = "onInteraction(): ";
         double elapsedTimeSinceLastInteraction = (currentNanoTime - lastInteraction) / 1000000000.0;
 
-        if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_ACTION) {
+        if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_ACTION)
+        {
             evaluateTriggerType(onInteraction, onIntersectionToStatus);
             lastInteraction = currentNanoTime;
         }
     }
 
-    public void onMonitorSignal(String newCompoundStatus) {
+    public void onMonitorSignal(String newCompoundStatus)
+    {
         String methodName = "onMonitorSignal(): ";
 
         //System.out.println(classname + methodName + actorname + " " + newCompoundStatus);
         evaluateTriggerType(onMonitorSignal, newCompoundStatus);
-        //evaluateTriggerType(onMonitorSignal, onMonitorSignalToStatus);
-
     }
 
-    public void onIntersection(Sprite otherSprite, Long currentNanoTime) {
+    public void onIntersection(Sprite otherSprite, Long currentNanoTime)
+    {
         String methodName = "onIntersection() ";
     }
 
-    public void onInRange(Sprite otherSprite, Long currentNanoTime) {
+    public void onInRange(Sprite otherSprite, Long currentNanoTime)
+    {
         String methodName = "onInRange() ";
         double elapsedTimeSinceLastInteraction = (currentNanoTime - lastInteraction) / 1000000000.0;
-        if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_ACTION) {
+        if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_ACTION)
+        {
             System.out.println(classname + methodName + elapsedTimeSinceLastInteraction);
             evaluateTriggerType(onInRange, onInRangeToStatus);
             lastInteraction = currentNanoTime;
         }
     }
 
-    private void changeLayer(Sprite sprite, int targetLayer) {
+    private void changeLayer(Sprite sprite, int targetLayer)
+    {
         String methodName = "changeLayer() ";
         WorldView.bottomLayer.remove(sprite);
         WorldView.middleLayer.remove(sprite);
         WorldView.topLayer.remove(sprite);
-        switch (targetLayer) {
+        switch (targetLayer)
+        {
             case 0:
                 WorldView.bottomLayer.add(sprite);
                 break;
@@ -208,7 +222,8 @@ public class Actor// implements PropertyChangeListener
         }
     }
 
-    private void changeSprites() {
+    private void changeSprites()
+    {
         String methodName = "changeSprites() ";
         List<SpriteData> targetSpriteData = spriteDataMap.get(compoundStatus.toLowerCase());
 
@@ -216,7 +231,8 @@ public class Actor// implements PropertyChangeListener
             System.out.println(classname + methodName + compoundStatus + " not found in " + spriteDataMap);
 
         //For all Sprites of the actor onUpdate to new Status
-        for (int i = 0; i < spriteList.size(); i++) {
+        for (int i = 0; i < spriteList.size(); i++)
+        {
             SpriteData ts = targetSpriteData.get(i);
             Sprite toChange = spriteList.get(i);
             toChange.setImage(ts.spriteName, ts.fps, ts.totalFrames, ts.cols, ts.rows, ts.frameWidth, ts.frameHeight);
@@ -230,7 +246,8 @@ public class Actor// implements PropertyChangeListener
     }
 
 
-    private void evaluateTargetStatus(String targetStatusField) {
+    private void evaluateTargetStatus(String targetStatusField)
+    {
         if (targetStatusField.equals(Config.KEYWORD_transition))
             transitionGeneralStatus();
         else
@@ -238,8 +255,10 @@ public class Actor// implements PropertyChangeListener
         updateCompoundStatus();
     }
 
-    private void evaluateTriggerType(TriggerType triggerType, String targetStatusField) {
-        switch (triggerType) {
+    private void evaluateTriggerType(TriggerType triggerType, String targetStatusField)
+    {
+        switch (triggerType)
+        {
             case NOTHING:
                 return;
             case PERSISTENT:
@@ -259,6 +278,7 @@ public class Actor// implements PropertyChangeListener
                 playTimedStatus();
                 break;
             case TEXTBOX:
+            case TEXTBOX_ANALYSIS:
                 activateTextbox();
                 break;
             default:
@@ -266,59 +286,64 @@ public class Actor// implements PropertyChangeListener
         }
     }
 
-    private void playTimedStatus() {
+    private void playTimedStatus()
+    {
         String methodName = "playTimedStatus()";
         List<SpriteData> targetSpriteData = spriteDataMap.get(compoundStatus.toLowerCase());
 
         if (targetSpriteData == null)
             System.out.println(classname + methodName + compoundStatus + " not found in " + spriteDataMap);
 
-        //int animationDuration = targetSpriteData.get(0).animationDuration;
         double animationDuration = targetSpriteData.get(0).animationDuration;
         PauseTransition delay = new PauseTransition(Duration.millis(animationDuration * 1000));
-        delay.setOnFinished(new EventHandler<ActionEvent>() {
+        delay.setOnFinished(new EventHandler<ActionEvent>()
+        {
             @Override
-            public void handle(ActionEvent t) {
+            public void handle(ActionEvent t)
+            {
                 transitionGeneralStatus();
                 updateCompoundStatus();
-                //System.out.println(classname + methodName + "changed status to: " + compoundStatus);
             }
         });
 
         delay.play();
     }
 
-    public void activateTextbox() {
+    public void activateTextbox()
+    {
         String methodName = "activateDialogue() ";
         GUIController gameWindow = GameWindow.getSingleton().currentView;
 
-        if (gameWindow instanceof WorldView) {
+        if (gameWindow instanceof WorldView)
+        {
             WorldView worldView = (WorldView) gameWindow;
-            //TODO check if Textbox_GroupAnalysis, groupAnalysis(ActorGroup, "hub"+status)
-            if(actorname.equals("statusScreen"))
+            if (onInteraction.equals(TriggerType.TEXTBOX_ANALYSIS))
             {
-                //TargetGroup is observed group
-                String targetGroup = stageMonitor.groupsToTargetGroupsMap.get(memberActorGroups.get(0));
-                //List<Actor> analysisList = stageMonitor.actorGroups.get(memberActorGroups.get(0));
-                List<Actor> analysisList = stageMonitor.actorSystemMap.get(targetGroup).getSystemMembers();
-                worldView.textbox.groupAnalysis(analysisList, dialogueFileName, dialogueStatusID);
+                String analizedGroupName = stageMonitor.groupsToTargetGroupsMap.get(memberActorGroups.get(0));
+                List<Actor> analizedGroup = stageMonitor.actorSystemMap.get(analizedGroupName).getSystemMembers();
+                worldView.textbox.groupAnalysis(analizedGroup, dialogueFileName, dialogueStatusID);
             }
             else
-            worldView.textbox.readDialogue(dialogueFileName, dialogueStatusID);
+                worldView.textbox.readDialogue(dialogueFileName, dialogueStatusID);
             worldView.isTextBoxActive = true;
-        } else
+        }
+        else
             System.out.println(classname + methodName + " Game Window not instance of WorldView, cannot show Dialogue");
     }
 
-    private void transitionGeneralStatus() {
+    private void transitionGeneralStatus()
+    {
         String methodName = "transitionGeneralStatus() ";
-        if (statusTransitions.containsKey(generalStatus)) {
+        if (statusTransitions.containsKey(generalStatus))
+        {
             generalStatus = statusTransitions.get(generalStatus);
-        } else
+        }
+        else
             System.out.println(classname + methodName + "No status transition found for " + actorname + " " + generalStatus);
     }
 
-    void updateCompoundStatus() {
+    void updateCompoundStatus()
+    {
         String methodName = "updateCompoundStatus() ";
         String oldCompoundStatus = compoundStatus;
         String newStatusString = generalStatus;
@@ -333,13 +358,15 @@ public class Actor// implements PropertyChangeListener
             changeSprites();
 
         //If is part of a group
-        if (stageMonitor != null) {
+        if (stageMonitor != null)
+        {
             stageMonitor.notify(memberActorGroups);
         }
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "\nActor{" +
                 actorname +
                 ", Generalstatus=" + generalStatus +
@@ -348,59 +375,72 @@ public class Actor// implements PropertyChangeListener
     }
 
 
-    public void addSprite(Sprite sprite) {
+    public void addSprite(Sprite sprite)
+    {
         spriteList.add(sprite);
         sprite.actor = this;
     }
 
-    public Direction getDirection() {
+    public Direction getDirection()
+    {
         return direction;
     }
 
-    public void setDirection(Direction direction) {
+    public void setDirection(Direction direction)
+    {
         this.direction = direction;
         updateCompoundStatus();
     }
 
-    public void setVelocity(double x, double y) {
+    public void setVelocity(double x, double y)
+    {
         velocityX = x;
         velocityY = y;
         updateCompoundStatus();
     }
 
-    public boolean isMoving() {
+    public boolean isMoving()
+    {
         return velocityX != 0 || velocityY != 0;
     }
 
-    public double getVelocityX() {
+    public double getVelocityX()
+    {
         return velocityX;
     }
 
-    public double getVelocityY() {
+    public double getVelocityY()
+    {
         return velocityY;
     }
 
-    public void setSpeed(double speed) {
+    public void setSpeed(double speed)
+    {
         this.speed = speed;
     }
 
-    public double getSpeed() {
+    public double getSpeed()
+    {
         return speed;
     }
 
-    public double getInteractionAreaWidth() {
+    public double getInteractionAreaWidth()
+    {
         return interactionAreaWidth;
     }
 
-    public double getInteractionAreaDistance() {
+    public double getInteractionAreaDistance()
+    {
         return interactionAreaDistance;
     }
 
-    public double getInteractionAreaOffsetX() {
+    public double getInteractionAreaOffsetX()
+    {
         return interactionAreaOffsetX;
     }
 
-    public double getInteractionAreaOffsetY() {
+    public double getInteractionAreaOffsetY()
+    {
         return interactionAreaOffsetY;
     }
 }
