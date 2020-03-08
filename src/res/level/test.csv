@@ -72,6 +72,8 @@ convTR				;conveyer				;machines/conveyerTR																				;true					;1 				
 tank_A				;tank								;machines/greenTank_Anim																;true					;1 											;4   ;4            ;4    ;1    ;64         ;128         ;0             ;0             ;0           ;0												;greenlight256
 refine				;refinery				;machines/refinery																						;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
 infoTe				;terminal				;machines/infoTerminal_128_128										;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
+infoWe				;terminal				;machines/infoTerminal_128_128_wel						;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
+infoDi				;terminal				;machines/infoTerminal_128_128_dia						;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
 air_Ve				;ventilation	;machines/air_ventilation															;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
 
 #Plants
@@ -125,9 +127,9 @@ carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; 
 carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; ______; ______; slab__; slab__; slab__; slab__; slab__; slab__; slab__;	______
 carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; ______; ______; slab__; slab__; slab__; slab__; slab__; slab__; slab__;	______
 carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; ______; ______; slab__; slab__; slab__; slab__; slab__; slab__; slab__;	______
-carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__;	______
-carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__;	______
-slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; ______
+carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1;	______
+carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1;	______
+metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; ______
 metalU; metalU; metalU; metalU; metalU; metalU; metalU; metalU; metalU; metalU; metalU; metalU; metalU; metalU; metalU; metalU; metalU; metalU; metalU; metalU; ______
 metal_; metal_; metal_; metal_; metal_; metal_; metal_; metal_; metal_; metal_; metal_; metal_; metal_; metal_; metal_; metal_; metal_; metal_; metal_; metal_; ______
 metalL; metalL; metalL; metalL; metalL; metalL; metalL; metalL; metalL; metalL; metalL; metalL; metalL; metalL; metalL; metalL; metalL; metalL; metalL; metalL; ______
@@ -166,8 +168,8 @@ waL___; ______; tabBot; ______; ______; ______; ______; ______; couch_;	waR___; 
 waL___; ______; ______; ______; ______; ______; ______; ______; ______; waR___; wBL___; waB___; wBTR__; ______; ______; ______; ______; ______; ottomR; ottomC; waR___
 waL___; ______; couchB; ______; ______; ______; ______; ______; ______; waR___; wTL___; waT___; wFBR__; ______; ______; ______; ______; ______; ______; ______; waR___
 wBL___; waB___; waB___; waB___; wBTR__; ______; waB___; waB___; waB___; waBNW_; waL___; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___
-wTL___; waT___; waT___; waT___; wFBR__; buC___; waT___; waT___; waT___; waT___; waT___; ______; ______; ______; infoTe; ______; ______; infoTe; ______; ______; waR___
-waL___; ______; bench_; ______; ______; ______; bench_; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; guy___; ______; ______; waR___
+wTL___; waT___; waT___; waT___; wFBR__; buC___; waT___; waT___; waT___; waT___; waT___; ______; ______; ______; infoWe; ______; infoDi; ______; infoTe; ______; waR___
+waL___; ______; bench_; ______; ______; ______; bench_; ______; ______; ______; ______; ______; ______; ______; ______; ______; guy___; ______; ______; ______; waR___
 waL___; ______; diff_s; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___
 waL___; ______; diff_d; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___
 waL___; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___
