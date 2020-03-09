@@ -38,7 +38,7 @@ public class WorldView implements GUIController
     //Textbox
     boolean isTextBoxActive = false;
     Textbox textbox = new Textbox();
-    String textboxIdentifier;
+    //String textboxIdentifier;
 
     //Sprites
     private static Rectangle2D borders;
@@ -59,13 +59,11 @@ public class WorldView implements GUIController
     double camX;
     double camY;
 
-    //public WorldView(String levelName, Pane root)
     public WorldView(String levelName)
     {
         fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/PlayerView.fxml"));
         fxmlLoader.setController(this);
 
-        //this.root = root;
         worldCanvas = new Canvas(CAMERA_WIDTH, Config.CAMERA_HEIGTH);
         shadowMask = new Canvas(CAMERA_WIDTH, Config.CAMERA_HEIGTH);
         gc = worldCanvas.getGraphicsContext2D();

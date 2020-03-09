@@ -1,0 +1,44 @@
+
+
+<!--/>
+File Identified by Actor Definition
+First Dialogue Identified by Status, MonitorData, levelname
+
+External influence, Varchange
+picture/mood
+<-->
+
+<root name = "infoTerminal">
+    <dialogue id="none" type="normal">
+        <line   >InfoTerminal Lorem Ipsum</line>
+    </dialogue>
+
+    <dialogue id="welcome" type="normal">
+        <line>Welcome to</line>
+        <line>an adventure</line>
+        <line>in Class C</line>
+        <nextDialogue>ship</nextDialogue>
+    </dialogue>
+    
+    <dialogue id="info" type="decision">
+        <option>
+            <line>option 1</line>
+            <nextDialogue>general</nextDialogue>
+        </option>
+
+        <option>
+            <line>option 2</line>
+            <nextDialogue>ship</nextDialogue>
+        </option>
+    </dialogue>
+    
+    <dialogue id="general" type="normal">
+        <line>InfoTerminal General</line>
+    </dialogue>
+    
+    <dialogue id="ship" type="normal">
+        <line>InfoTerminal Ship</line>
+    </dialogue>
+</root>
+
+
