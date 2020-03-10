@@ -51,7 +51,6 @@ public class GameWindow extends Stage
                 });
         gameScene.setOnMouseClicked(event -> {
             mouseClick = new Point2D(event.getX(), event.getY());
-            System.out.println(className + "MouseClick X/Y: " + event.getX() + " / " + event.getY());
         });
         gameStage.setScene(gameScene);
     }

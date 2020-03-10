@@ -3,6 +3,7 @@ package Core;
 import Core.Enums.Direction;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
@@ -24,6 +25,8 @@ import static Core.Config.CAMERA_WIDTH;
 
 public class WorldView implements GUIController
 {
+    private static final String className = "WorldView";
+
     @FXML
     Pane root;
     FXMLLoader fxmlLoader;
@@ -56,8 +59,8 @@ public class WorldView implements GUIController
     double offsetMaxY;
     int offsetMinX = 0;
     int offsetMinY = 0;
-    double camX;
-    double camY;
+    static double camX;
+    static double camY;
 
     public WorldView(String levelName)
     {
@@ -147,16 +150,14 @@ public class WorldView implements GUIController
                 player.setInteract(true);
         }
 
-
-        //Todo set/unset textbox Visible from Actors
         player.update(currentNanoTime);
 
         for (Sprite active : activeSpritesLayer)
             active.update(currentNanoTime);
 
         //Camera at world border
-        camX = player.positionX - CAMERA_WIDTH / 2;
-        camY = player.positionY - CAMERA_HEIGTH / 2;
+        camX = player.positionX - CAMERA_WIDTH / 2f;
+        camY = player.positionY - CAMERA_HEIGTH / 2f;
         if (camX < offsetMinX)
             camX = offsetMinX;
         if (camY < offsetMinY)
@@ -168,9 +169,9 @@ public class WorldView implements GUIController
 
         //If World smaller as Camera
         if (CAMERA_WIDTH > borders.getWidth())
-            camX = borders.getWidth() / 2 - CAMERA_WIDTH / 2;
+            camX = borders.getWidth() / 2 - CAMERA_WIDTH / 2f;
         if (Config.CAMERA_HEIGTH > borders.getHeight())
-            camY = borders.getHeight() / 2 - Config.CAMERA_HEIGTH / 2;
+            camY = borders.getHeight() / 2 - CAMERA_HEIGTH / 2f;
 
 
     }

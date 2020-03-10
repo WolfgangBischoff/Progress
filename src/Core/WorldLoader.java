@@ -204,7 +204,7 @@ public class WorldLoader
                     actor.dialogueStatusID = spriteData.dialogueID;
 
 
-                    if (actor.getDirection() != Direction.UNDEFINED)//If a sprite has a direction it typically can move or detect something actively
+                    //if (actor.getDirection() != Direction.UNDEFINED)//If a sprite has a direction it typically can move or detect something actively
                         activeLayer.add(actorSprite);
 
                     actor.addSprite(actorSprite);
