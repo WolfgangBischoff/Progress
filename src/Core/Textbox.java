@@ -1,6 +1,7 @@
 package Core;
 
 import javafx.geometry.Point2D;
+import javafx.geometry.Rectangle2D;
 import javafx.geometry.VPos;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
@@ -11,22 +12,14 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-import javax.xml.stream.events.Attribute;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -51,52 +44,8 @@ public class Textbox
     Element root;
     String nextDialogueID = null;
 
-    private void readFile(String fileIdentifier)
+    public void readDialogue(String fileIdentifier, String dialogueIdentifier)
     {
-        //https://www.tutorialspoint.com/java_xml/java_dom_parse_document.htm
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        //factory.setValidating(true);
-        factory.setIgnoringElementContentWhitespace(true);
-        DocumentBuilder builder = null;
-        try {
-            builder = factory.newDocumentBuilder();
-            File file = new File("src/res/texts/" + fileIdentifier + ".xml");
-            Document doc = builder.parse(file);
-            root = doc.getDocumentElement();
-        } catch (ParserConfigurationException | SAXException | IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void readDialogue(String dialogueIdentiefier)
-    {
-        messages = new ArrayList<>();
-        NodeList dialogues = root.getElementsByTagName("dialogue");
-        for(int i=0; i<dialogues.getLength();i++) //iterate dialogues of file
-        {
-            //found doilague with ID
-            if(((Element)dialogues.item(i)).getAttribute("id").equals(dialogueIdentiefier))
-            {
-                Element currentDialogue = ((Element)dialogues.item(i));
-                NodeList lines = currentDialogue.getElementsByTagName("line");
-                NodeList nextDialogueIdList = currentDialogue.getElementsByTagName("nextDialogue");
-                if(nextDialogueIdList.getLength() > 0)
-                    nextDialogueID = nextDialogueIdList.item(0).getTextContent();
-                else
-                    nextDialogueID = null;
-
-                for(int j=0; j<lines.getLength(); j++) //add lines
-                {
-                    String message = lines.item(j).getTextContent();
-                    messages.add(message);
-                    //System.out.println(message);
-                }
-                break;
-            }
-        }
-    }
-
-    public void readDialogue(String fileIdentifier, String dialogueIdentifier) {
         String methodName = "readDialogue() ";
         //messages = readMessage(fileIdentifier, dialogueIdentifier);
         //nextMessage();
@@ -106,6 +55,57 @@ public class Textbox
         nextMessage();
     }
 
+    private void readFile(String fileIdentifier)
+    {
+        //https://www.tutorialspoint.com/java_xml/java_dom_parse_document.htm
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        //factory.setValidating(true);
+        factory.setIgnoringElementContentWhitespace(true);
+        DocumentBuilder builder = null;
+        try
+        {
+            builder = factory.newDocumentBuilder();
+            File file = new File("src/res/texts/" + fileIdentifier + ".xml");
+            Document doc = builder.parse(file);
+            root = doc.getDocumentElement();
+        } catch (ParserConfigurationException | SAXException | IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    private void readDialogue(String dialogueIdentiefier)
+    {
+        messages = new ArrayList<>();
+        NodeList dialogues = root.getElementsByTagName("dialogue");
+        for (int i = 0; i < dialogues.getLength(); i++) //iterate dialogues of file
+        {
+            //found doilague with ID
+            if (((Element) dialogues.item(i)).getAttribute("id").equals(dialogueIdentiefier))
+            {
+                Element currentDialogue = ((Element) dialogues.item(i));
+
+                //TODO check for type normal and decision
+
+                NodeList lines = currentDialogue.getElementsByTagName("line");
+                NodeList nextDialogueIdList = currentDialogue.getElementsByTagName("nextDialogue");
+                if (nextDialogueIdList.getLength() > 0)
+                    nextDialogueID = nextDialogueIdList.item(0).getTextContent();
+                else
+                    nextDialogueID = null;
+
+                for (int j = 0; j < lines.getLength(); j++) //add lines
+                {
+                    String message = lines.item(j).getTextContent();
+                    messages.add(message);
+                }
+                break;
+            }
+        }
+    }
+
+
+
     public void onClick()
     {
         System.out.println(classname + "received Click");
@@ -113,10 +113,12 @@ public class Textbox
 
     public boolean intersectsRelativeToWorldView(Point2D clickRelativeToWorldView)
     {
-        return true;
+        Point2D textboxPosition = WorldView.textboxPosition;
+        Rectangle2D positionRelativeToWorldView = new Rectangle2D(textboxPosition.getX(), textboxPosition.getY(), TEXTBOX_WIDTH, TEXTBOX_HEIGHT);
+        return positionRelativeToWorldView.contains(clickRelativeToWorldView);
     }
 
-        private List<String> readMessage(String fileIdentifier, String dialogueIdentifier)
+    private List<String> readMessage(String fileIdentifier, String dialogueIdentifier)
     {
         String methodName = "readMessage() ";
         List<String> msgs = new ArrayList<>();
@@ -155,7 +157,6 @@ public class Textbox
     }
 
 
-
     private boolean hasNextMessage()
     {
         return messages.size() > msgIdx + 1;
@@ -174,7 +175,7 @@ public class Textbox
                 msgIdx++;
                 nextMessage();
             }
-            else if(nextDialogueID != null)
+            else if (nextDialogueID != null)
             {
                 msgIdx = 0;
                 readDialogue(nextDialogueID);
@@ -208,8 +209,7 @@ public class Textbox
                     Math.round(textboxCanvas.getWidth() / 2),
                     Math.round(textboxCanvas.getHeight() / 2)
             );
-        }
-        catch (IndexOutOfBoundsException e)
+        } catch (IndexOutOfBoundsException e)
         {
             System.out.println("IndexOutOfBoundsException " + e.getMessage());
         }

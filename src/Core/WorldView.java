@@ -40,8 +40,8 @@ public class WorldView implements GUIController
 
     //Textbox
     static boolean isTextBoxActive = false;
+    static Point2D textboxPosition;
     Textbox textbox = new Textbox();
-    //String textboxIdentifier;
 
     //Sprites
     private static Rectangle2D borders;
@@ -284,18 +284,12 @@ public class WorldView implements GUIController
         //Overlays
         if (isTextBoxActive)
         {
-            //WritableImage textBoxImg = textbox.showMessage(textboxIdentifier);
             WritableImage textBoxImg = textbox.showMessage();
-            gc.drawImage(textBoxImg, CAMERA_WIDTH / 2 - textBoxImg.getWidth() / 2, CAMERA_HEIGTH - textBoxImg.getHeight() - 32);
+            textboxPosition = new Point2D(CAMERA_WIDTH / 2f - textBoxImg.getWidth() / 2, CAMERA_HEIGTH - textBoxImg.getHeight() - 32);
+            gc.drawImage(textBoxImg, textboxPosition.getX(), textboxPosition.getY());
         }
     }
 
-
-    @Override
-    /*public Pane load()
-    {
-        return null;
-    }*/
 
     public Pane load()
     {
