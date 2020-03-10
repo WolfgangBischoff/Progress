@@ -309,8 +309,6 @@ public class Actor// implements PropertyChangeListener
 
         if (gameWindow instanceof WorldView)
         {
-            //TODO add TextSequence Variation personal/World State
-            //TODO add TextOption: WorldRumors
             WorldView worldView = (WorldView) gameWindow;
             if (onInteraction.equals(TriggerType.TEXTBOX_ANALYSIS))
             {

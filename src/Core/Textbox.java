@@ -1,5 +1,6 @@
 package Core;
 
+import javafx.geometry.Point2D;
 import javafx.geometry.VPos;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
@@ -103,6 +104,16 @@ public class Textbox
         readFile(fileIdentifier);
         readDialogue(dialogueIdentifier);
         nextMessage();
+    }
+
+    public void onClick()
+    {
+        System.out.println(classname + "received Click");
+    }
+
+    public boolean intersectsRelativeToWorldView(Point2D clickRelativeToWorldView)
+    {
+        return true;
     }
 
         private List<String> readMessage(String fileIdentifier, String dialogueIdentifier)

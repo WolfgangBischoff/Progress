@@ -97,19 +97,22 @@ public class Sprite {
         if (actor != null && actor.onUpdate != TriggerType.NOTHING)
             actor.onUpdate(currentNanoTime);
 
+/*
+        //TODO remove
         //Check if was clicked by mouse
         Point2D click = GameWindow.getSingleton().mouseClick;
-        if (click != null) {
+        if (click != null && !WorldView.isTextBoxActive) {
             double screenWidth = GameWindow.getSingleton().getScreenWidth();
             double screenHeight = GameWindow.getSingleton().getScreenHeight();
             Point2D clickRelativeToWorldView = new Point2D(click.getX() - (screenWidth - Config.CAMERA_WIDTH) / 2, click.getY() - (screenHeight - Config.CAMERA_HEIGTH) / 2);
             Rectangle2D positionRelativeToWorldView = new Rectangle2D(positionX + hitBoxOffsetX - WorldView.camX, positionY + hitBoxOffsetY - WorldView.camY, hitBoxWidth, hitBoxHeight);
 
             if (positionRelativeToWorldView.contains(clickRelativeToWorldView)) {
-                System.out.println(className + name + " clicked");
+                //System.out.println(className + name + " clicked");
                 GameWindow.getSingleton().mouseClick = null;
             }
         }
+*/
 
         for (Sprite otherSprite : activeSprites) {
             if (otherSprite == this ||
@@ -157,6 +160,18 @@ public class Sprite {
         blockedByOtherSprite = false;
         lastUpdated = currentNanoTime;
 
+    }
+
+    public void onClick()
+    {
+        String methodName = "onClick() ";
+        System.out.println(className + methodName + name + " clicked");
+    }
+
+    public boolean intersectsRelativeToWorldView(Point2D point)
+    {
+        Rectangle2D positionRelativeToWorldView = new Rectangle2D(positionX + hitBoxOffsetX - WorldView.camX, positionY + hitBoxOffsetY - WorldView.camY, hitBoxWidth, hitBoxHeight);
+        return positionRelativeToWorldView.contains(point);
     }
 
     public boolean intersects(Sprite s) {

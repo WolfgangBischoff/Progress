@@ -39,7 +39,7 @@ public class WorldView implements GUIController
     Color shadowColor;
 
     //Textbox
-    boolean isTextBoxActive = false;
+    static boolean isTextBoxActive = false;
     Textbox textbox = new Textbox();
     //String textboxIdentifier;
 
@@ -81,7 +81,7 @@ public class WorldView implements GUIController
     private void loadEnvironment()
     {
         WorldLoader worldLoader = new WorldLoader(levelName);
-            worldLoader.load();
+        worldLoader.load();
         player = worldLoader.getPlayer();
         passiveSpritesLayer = worldLoader.getPassivLayer(); //No collision just render
         activeSpritesLayer = worldLoader.activeLayer;
@@ -152,6 +152,8 @@ public class WorldView implements GUIController
 
         player.update(currentNanoTime);
 
+        processClick();
+
         for (Sprite active : activeSpritesLayer)
             active.update(currentNanoTime);
 
@@ -174,6 +176,34 @@ public class WorldView implements GUIController
             camY = borders.getHeight() / 2 - CAMERA_HEIGTH / 2f;
 
 
+    }
+
+    private void processClick()
+    {
+        //Todo check click on Actors/Textbox depentdent if Textbox exists
+        //Check if was clicked by mouse
+        Point2D click = GameWindow.getSingleton().mouseClick;
+        if (click != null)
+        {
+            double screenWidth = GameWindow.getSingleton().getScreenWidth();
+            double screenHeight = GameWindow.getSingleton().getScreenHeight();
+            Point2D clickRelativeToWorldView = new Point2D(click.getX() - (screenWidth - Config.CAMERA_WIDTH) / 2, click.getY() - (screenHeight - Config.CAMERA_HEIGTH) / 2);
+
+            if (isTextBoxActive)
+            {
+                if (textbox.intersectsRelativeToWorldView(clickRelativeToWorldView))
+                    textbox.onClick();
+            }
+            else
+            {
+                //TODO Send to Actor one time, not every Sprite
+                for (Sprite active : activeSpritesLayer)
+                    if (active.intersectsRelativeToWorldView(clickRelativeToWorldView))
+                        active.onClick();
+            }
+
+            GameWindow.getSingleton().mouseClick = null;
+        }
     }
 
     @Override
@@ -222,8 +252,7 @@ public class WorldView implements GUIController
                     try
                     {
                         lightsImageMap.put(lightSpriteName, new Image("/res/img/lightglows/" + lightSpriteName + ".png"));
-                    }
-                    catch (IllegalArgumentException e)
+                    } catch (IllegalArgumentException e)
                     {
                         throw new IllegalArgumentException("Invalid URL: " + "/res/img/lightglows/" + lightSpriteName + ".png" + " of sprite " + sprite.getName());
                     }
@@ -274,8 +303,7 @@ public class WorldView implements GUIController
         try
         {
             return fxmlLoader.load();
-        }
-        catch (IOException e)
+        } catch (IOException e)
         {
             e.printStackTrace();
         }

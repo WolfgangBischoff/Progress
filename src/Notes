@@ -23,15 +23,18 @@ Sprites:
 Level:
 
 Story:
+    Third Class
+        => Earth damaged, people want to live in space and station, asteriodCracker
+        => Companies are paid for being crew
+        => Loan/Family paid you ticket (maybe paid after some time)
     Start aussteigen aus Raumschiff
-    Gehen durch empfangsbereich
+    Gehen durch empfangsbereich (Terminal)
     Einführung Arbeits(Purpose) und Wohnbereich
     Kennenlernen von Kollegen blöd - erste Quest overcome
         => anfreunden (muss Pop culturwissen sammeln)
-        => Ignoriern (sprach option, unsympatisch)
-        => Aggresiv (Sprach Option, unsympatisch)
-        => Find secret information (positiv)
-        => Revenge (negativ)
+        => Ignoriern (wait for work success to increase influence)
+        => Aggresiv & Revenge(Sprach Option, unsympatisch, destroy things)
+        => Investigative - Find secret information
 
 
 Repair mechanic:
