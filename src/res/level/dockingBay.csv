@@ -1,0 +1,156 @@
+#Testlevel
+
+#Red Green Blue; the higher the brighter; >none< leads to no shadow
+shadow:
+#30;30;30
+none
+
+tiledefinition:
+#layer: 0 => behind; 1 => middle; 2 => in front
+#Floor
+#code     ;name        ;spritename                  ;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning
+metal1    ;metal							;floor/xPat_64_64												;false				;0											;0			;0												;0				;0				;0										;0											;0													;0														;0										;0												;none
+plaiM1    ;metal							;floor/plainM1_64_64									;false				;0											;0			;0												;0				;0				;0										;0											;0													;0														;0										;0												;none
+plaiM2    ;metal							;floor/plainM2_64_64									;false				;0											;0			;0												;0				;0				;0										;0											;0													;0														;0										;0												;none
+plaiM3    ;metal							;floor/plainM3_64_64									;false				;0											;0			;0												;0				;0				;0										;0											;0													;0														;0										;0												;none
+
+#Walls
+#code     ;name        ;spritename                     ;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning
+waT___				;bluewall				;walls/wallFront												;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+wTL___				;bluewallTL		;walls/bluewallcornerTL									;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+wTR___				;bluewallTR		;walls/bluewallcornerTR									;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+waL___				;wall								;walls/wallLeft																	;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+waR___				;wall								;walls/wallWest																	;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+waB___				;wall								;walls/wallBackNorth												;true					;2												;0			;0												;0				;0				;0										;0											;0													;20												;64										;64											;none
+waBNW_				;wallcorner		;walls/wallCornerNW													;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+wBL___				;wallcorner		;walls/wallCornerNE													;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+wFBL__				;wallcorner		;walls/bluewallCornerFrontBL				;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+wFBR__				;wallcorner		;walls/bluewallCornerFrontBR				;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+wBTL__				;wallcorner		;walls/wallBackTL															;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+wBTR__				;wallcorner		;walls/wallBackTR															;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+w45FL_				;wallcorner		;walls/wall45FrontLeft						;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+w45FR_				;wallcorner		;walls/wall45FrontRight						;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+BBBBBB				;black							;walls/black_64_64													;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+
+bigPor				;portholeBig;		walls/bulkheadRound128								;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+bigPoS				;portholeBig;		walls/bulkheadRoundStars128			;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+
+#Machines
+#code     ;name        ;spritename                     								;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning
+walCab				;wallcable			;walls/wallcabel																								;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+infoWe				;terminal				;machines/infoTerminal_128_128_wel						;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
+air_Ve				;ventilation	;machines/air_ventilation															;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
+
+#Plants
+boge_1				;bogenhanf				;plants/plant_64_128_shoot													;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
+boge_2				;bogenhanf				;plants/plant_64_128_small													;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
+boge_3				;bogenhanf				;plants/plant_64_128_medium												;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
+boge_4				;bogenhanf				;plants/plant_64_128_large	 											;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
+
+actors:
+#code 					;actorname 		;status   ;direction
+player					;player						;default		;WEST
+
+#sets 64 bits tiles as raster; you can add multiple layers; later defined layers are higher prioritized in case of same defined heightLayer
+#passivlayer will not be checked for interaction or collision
+passivlayer:
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; ______
+______; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; ______
+______; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; ______
+______; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; ______
+______; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; ______
+______; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; ______
+______; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; ______
+______; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; ______
+______; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; ______
+______; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; ______
+______; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; ______
+______; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; ______
+______; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; ______
+______; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; ______
+______; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; ______
+______; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; ______
+______; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; ______
+______; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; ______
+______; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; ______
+______; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; ______
+______; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; ______
+______; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; ______
+______; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; ______
+______; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; ______
+______; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; ______
+______; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; ______
+______; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; ______
+______; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+
+
+
+layer:
+wTL___; waT___; waT___; waT___; waT___; waT___; waT___; waT___; waT___; waT___; waT___; waT___; waT___; waT___; waT___; waT___; waT___; waT___; waT___; waT___; wTR___
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+waL___; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; player; ______; ______; waR___
+waL___; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___
+waL___; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___
+wBL___; waB___; waB___; waB___; waB___; waB___; waB___; wBTR__; boge_4; ______; ______; boge_4; wBTL__; waB___; waB___; waB___; waB___; waB___; waB___; waB___; waBNW_
+BBBBBB; BBBBBB; BBBBBB; w45FL_; waT___; waT___; waT___; wFBR__; boge_4; ______; ______; boge_4; wFBL__; waT___; waT___; waT___; w45FR_; BBBBBB; BBBBBB; BBBBBB; BBBBBB
+BBBBBB; BBBBBB; w45FL_; ______; ______; ______; ______; boge_3; ______; ______; ______; ______; boge_3; ______; ______; ______; ______; w45FR_; BBBBBB; BBBBBB; BBBBBB
+BBBBBB; w45FL_; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; w45FR_; BBBBBB; BBBBBB
+waL___; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; w45FR_; BBBBBB
+waL___; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___
+waL___; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___
+waL___; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___
+waL___; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___
+waL___; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___
+waL___; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___
+waL___; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___
+waL___; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___
+waL___; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___
+waL___; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___
+waL___; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___
+waL___; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___
+waL___; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___
+waL___; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___
+waL___; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___
+waL___; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___
+waL___; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___
+waL___; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___
+waL___; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___
+wBL___; waB___; waB___; waB___; waB___; waB___; waB___; waB___; waB___;	waB___; waB___; waB___; waB___; waB___; waB___; waB___; waB___; waB___; waB___; waB___;	waBNW_
+
+
+layer:
+______; walCab; ______; bigPoS; ______; ______; ______; ______; ______; bigPor; ______; ______; ______; ______; ______; bigPoS; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; walCab; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______

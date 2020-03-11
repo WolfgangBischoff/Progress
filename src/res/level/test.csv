@@ -15,8 +15,11 @@ metalL    ;darkMetal			;floor/darkMetalLower;						false;				0;								0;			0;		
 carpe0    ;carpet						;floor/carpet0;																						false;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0; 								none
 carpe1    ;carpet						;floor/carpet1; 																					false;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0; 								none
 slab__    ;carpet						;floor/slab;																						false;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0; 								none
-slabDr    ;carpet						;floor/slabDrain;																						false;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0; 								none
-metal1    ;metal							;floor/metalfloor_64_64;																						false;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0; 								none
+#slabDr    ;carpet						;floor/slabDrain;																						false;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0; 								none
+metal1    ;metal							;floor/xPat_64_64												;false				;0											;0			;0												;0				;0				;0										;0											;0													;0														;0										;0												;none
+plaiM1    ;metal							;floor/plainM1_64_64									;false				;0											;0			;0												;0				;0				;0										;0											;0													;0														;0										;0												;none
+plaiM2    ;metal							;floor/plainM2_64_64									;false				;0											;0			;0												;0				;0				;0										;0											;0													;0														;0										;0												;none
+plaiM3    ;metal							;floor/plainM3_64_64									;false				;0											;0			;0												;0				;0				;0										;0											;0													;0														;0										;0												;none
 
 #Walls
 #code     ;name        ;spritename                     ;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning
@@ -123,13 +126,13 @@ carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; 
 carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__;	______
 carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__;	______
 carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__;	______
-carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; slabDr; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__;	______
+carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__;	______
 carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; ______; ______; slab__; slab__; slab__; slab__; slab__; slab__; slab__;	______
 carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; ______; ______; slab__; slab__; slab__; slab__; slab__; slab__; slab__;	______
 carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; ______; ______; slab__; slab__; slab__; slab__; slab__; slab__; slab__;	______
-carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1;	______
-carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1;	______
-metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; ______
+carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; metal1; metal1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1;	______
+carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; carpe1; carpe0; metal1; metal1; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3;	______
+metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; ______
 metalU; metalU; metalU; metalU; metalU; metalU; metalU; metalU; metalU; metalU; metalU; metalU; metalU; metalU; metalU; metalU; metalU; metalU; metalU; metalU; ______
 metal_; metal_; metal_; metal_; metal_; metal_; metal_; metal_; metal_; metal_; metal_; metal_; metal_; metal_; metal_; metal_; metal_; metal_; metal_; metal_; ______
 metalL; metalL; metalL; metalL; metalL; metalL; metalL; metalL; metalL; metalL; metalL; metalL; metalL; metalL; metalL; metalL; metalL; metalL; metalL; metalL; ______
@@ -137,15 +140,15 @@ metal1; metal1; metal1; metal1; metal1; metal1; slab__; slab__; slab__; slab__; 
 metal1; metal1; metal1; metal1; metal1; metal1; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; ______
 metal1; metal1; metal1; metal1; metal1; metal1; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; ______
 metal1; metal1; metal1; metal1; metal1; metal1; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; slab__; ______
-metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; ______
-metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; ______
-metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; ______
-metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; ______
-metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; ______
-metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; ______
-metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; ______
-metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; ______
-metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; ______
+metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; ______
+metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; ______
+metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; ______
+metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; ______
+metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; ______
+metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; ______
+metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; ______
+metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; ______
+metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; ______
 metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; ______
 metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; ______
 metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; metal1; ______
