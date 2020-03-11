@@ -45,7 +45,6 @@ walCab				;wallcable;						walls/wallcabel;																							true;				0;			
 #code     ;name        ;spritename                     ;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning
 tabBot				;table							;furniture/roundWoddenTableBtm		;true					;0												;0			;0												;0				;0				;0										;0											;0													;32												;128									;74											;none
 tabTop				;table							;furniture/roundWoddenTableTop		;false				;2												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
-desk__				;desk								;furniture/tableSqare											;true					;0												;0			;0												;0				;0				;0										;0											;0             ;0             ;0           ;0							     ;none
 ottomC				;ottoman     ;furniture/ottomanColour								;false				;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
 ottomR				;ottoman     ;furniture/ottomanRed											;false				;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
 couch_				;couch							;furniture/couch																;true					;0            ;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0     							;none
@@ -57,6 +56,7 @@ diff_s				;diffuserSmoke;			furniture/diffuser128Smoke	;false				;2												;
 scubb_				;skubb;											/furniture/skubb;																		true;				0;								0;			0;											0;				0;				0;										0;										0;													64;												128;										64							;none
 l_____				;lights;										/lightsources/ligtherS;												true;				1;								0;			0;											0;				0;				0;										0;										0;													0;												0;										0							;whitelight
 nights				;nightstand;						/lightsources/nightStand;										true;				1;								0;			0;											0;				0;				0;										0;										0;													0;												0;										0							;redlight
+desk__				;desk								;furniture/tableSqare											;true					;0												;0			;0												;0				;0				;0										;0											;0             ;0             ;0           ;0							     ;none
 bench_				;bench;											furniture/bench;																			true;				1;								0;			0;											0;				0;				0;										0;										0;													50;												128;										50							;none
 
 #Bath
