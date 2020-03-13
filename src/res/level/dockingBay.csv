@@ -38,7 +38,7 @@ bigPoS				;portholeBig;		walls/bulkheadRoundStars128			;true					;0												;
 #Machines
 #code     ;name        ;spritename                     								;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning
 walCab				;wallcable			;walls/wallcabel																								;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
-infoWe				;terminal				;machines/infoTerminal_128_128_wel						;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
+#infoWe				;terminal				;machines/infoTerminal_128_128_wel						;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
 air_Ve				;ventilation	;machines/air_ventilation															;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
 #vendo2				;vendor     	;machines/vendorMa_128_128															;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
 vendor				;vendor     	;machines/adiaVM_128_128															;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
@@ -59,6 +59,7 @@ bench_				;bench;											furniture/bench;																			true;				1;						
 actors:
 #code 					;actorname 		;status   ;direction
 player					;player						;default		;WEST
+infoWe					;infoTerminal;off						;undefined
 
 #sets 64 bits tiles as raster; you can add multiple layers; later defined layers are higher prioritized in case of same defined heightLayer
 #passivlayer will not be checked for interaction or collision

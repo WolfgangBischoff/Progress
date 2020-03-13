@@ -10,17 +10,18 @@ picture/mood
 
 <root name = "infoTerminal">
     <dialogue id="none" type="normal">
-        <line   >InfoTerminal Lorem Ipsum</line>
+        <line>InfoTerminal Lorem Ipsum</line>
     </dialogue>
 
-    <dialogue id="welcome" type="normal">
+    <dialogue id="welcome" type="normal" actorstatus="on">
         <line>Welcome to</line>
         <line>an adventure</line>
         <line>in Class C</line>
+        <endStatus>Status after dialogue ends</endStatus>
         <nextDialogue>ship</nextDialogue>
     </dialogue>
     
-    <dialogue id="info" type="decision">
+    <dialogue id="info" type="decision" actorstatus="on">
         <option>
             <line>option 1</line>
             <nextDialogue>general</nextDialogue>
@@ -32,11 +33,11 @@ picture/mood
         </option>
     </dialogue>
     
-    <dialogue id="general" type="normal">
+    <dialogue id="general" type="normal" actorstatus="on">
         <line>InfoTerminal General</line>
     </dialogue>
     
-    <dialogue id="ship" type="normal">
+    <dialogue id="ship" type="normal" actorstatus="off">
         <line>InfoTerminal Ship</line>
     </dialogue>
 </root>

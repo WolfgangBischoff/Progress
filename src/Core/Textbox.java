@@ -74,31 +74,57 @@ public class Textbox
         }
     }
 
-    private void readDialogue(String dialogueIdentiefier)
+    private void readDialogue(String dialogueIdentifier)
     {
+        String methodName = "readDialogue() ";
         messages = new ArrayList<>();
         NodeList dialogues = root.getElementsByTagName("dialogue");
         for (int i = 0; i < dialogues.getLength(); i++) //iterate dialogues of file
         {
             //found doilague with ID
-            if (((Element) dialogues.item(i)).getAttribute("id").equals(dialogueIdentiefier))
+            if (((Element) dialogues.item(i)).getAttribute("id").equals(dialogueIdentifier))
             {
                 Element currentDialogue = ((Element) dialogues.item(i));
 
+                //TODO check for status change
+
                 //TODO check for type normal and decision
+                String dialogueType = currentDialogue.getAttribute("type");
+                if(dialogueType.equals("decision"))
+                {
+                    System.out.println(classname + methodName + "decision");
+                    NodeList options = currentDialogue.getElementsByTagName("option");
+                    for (int optionsIdx = 0; optionsIdx < options.getLength(); optionsIdx++)
+                    {
+                        //Add options to message
+                        StringBuilder optionsShow = new StringBuilder();
+                        //optionsShow.append(options.item(optionsIdx))
+                        //String message = options.item(optionsIdx).getTextContent();
+                        //messages.add(message);
+                    }
+                }
+                else
+                {
+                    System.out.println(classname + methodName + "normal");
+                }
 
                 NodeList lines = currentDialogue.getElementsByTagName("line");
-                NodeList nextDialogueIdList = currentDialogue.getElementsByTagName("nextDialogue");
-                if (nextDialogueIdList.getLength() > 0)
-                    nextDialogueID = nextDialogueIdList.item(0).getTextContent();
-                else
-                    nextDialogueID = null;
-
                 for (int j = 0; j < lines.getLength(); j++) //add lines
                 {
                     String message = lines.item(j).getTextContent();
                     messages.add(message);
                 }
+
+                //Check for further dialogues
+                NodeList nextDialogueIdList = currentDialogue.getElementsByTagName("nextDialogue");
+                if (nextDialogueIdList.getLength() > 0) {
+                    nextDialogueID = nextDialogueIdList.item(0).getTextContent();
+                }
+                else {
+                    nextDialogueID = null;
+                }
+
+
                 break;
             }
         }
