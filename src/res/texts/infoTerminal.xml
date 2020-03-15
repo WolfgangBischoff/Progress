@@ -31,10 +31,15 @@ picture/mood
             <line>option 2</line>
             <nextDialogue>ship</nextDialogue>
         </option>
+
+        <option>
+            <line>option 3</line>
+        </option>
+
     </dialogue>
     
     <dialogue id="general" type="normal" actorstatus="on">
-        <line>InfoTerminal General</line>
+        <line>InfoTerminal General, a long text with many informations about the ship, its goal and the crew. Hopefully this take many lines</line>
     </dialogue>
     
     <dialogue id="ship" type="normal" actorstatus="off">

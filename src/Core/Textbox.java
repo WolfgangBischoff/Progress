@@ -38,17 +38,20 @@ public class Textbox
     GraphicsContext textboxGc = textboxCanvas.getGraphicsContext2D();
 
     WritableImage textboxImage;
-    List<String> messages;
+    //List<String> messages;
+    Dialogue loadedDialogue;
     int msgIdx = 0;
 
     Element root;
     String nextDialogueID = null;
 
+    List<String> lineSplittedMessage;
+    int yOffsetTextLine = 10;
+    int maxDigitsInLine = 40;
+
     public void readDialogue(String fileIdentifier, String dialogueIdentifier)
     {
         String methodName = "readDialogue() ";
-        //messages = readMessage(fileIdentifier, dialogueIdentifier);
-        //nextMessage();
 
         readFile(fileIdentifier);
         readDialogue(dialogueIdentifier);
@@ -77,7 +80,8 @@ public class Textbox
     private void readDialogue(String dialogueIdentifier)
     {
         String methodName = "readDialogue() ";
-        messages = new ArrayList<>();
+        //messages = new ArrayList<>();
+        loadedDialogue = new Dialogue();
         NodeList dialogues = root.getElementsByTagName("dialogue");
         for (int i = 0; i < dialogues.getLength(); i++) //iterate dialogues of file
         {
@@ -88,42 +92,47 @@ public class Textbox
 
                 //TODO check for status change
 
-                //TODO check for type normal and decision
+                //check for type normal and decision
                 String dialogueType = currentDialogue.getAttribute("type");
+                loadedDialogue.type = dialogueType;
                 if(dialogueType.equals("decision"))
                 {
-                    System.out.println(classname + methodName + "decision");
-                    NodeList options = currentDialogue.getElementsByTagName("option");
+
+                    NodeList options = currentDialogue.getElementsByTagName("line");
+                    //StringBuilder optionsShow = new StringBuilder();
                     for (int optionsIdx = 0; optionsIdx < options.getLength(); optionsIdx++)
                     {
                         //Add options to message
-                        StringBuilder optionsShow = new StringBuilder();
-                        //optionsShow.append(options.item(optionsIdx))
-                        //String message = options.item(optionsIdx).getTextContent();
-                        //messages.add(message);
+                        String option = options.item(optionsIdx).getTextContent();
+                        //optionsShow.append(option).append("\n");
+
+                        loadedDialogue.addOption(option);
                     }
+                    //messages.add(optionsShow.toString());
                 }
                 else
                 {
-                    System.out.println(classname + methodName + "normal");
-                }
 
-                NodeList lines = currentDialogue.getElementsByTagName("line");
-                for (int j = 0; j < lines.getLength(); j++) //add lines
-                {
-                    String message = lines.item(j).getTextContent();
-                    messages.add(message);
+                    NodeList lines = currentDialogue.getElementsByTagName("line");
+                    for (int j = 0; j < lines.getLength(); j++) //add lines
+                    {
+                        String message = lines.item(j).getTextContent();
+                        //messages.add(message);
+
+                        loadedDialogue.messages.add(message);
+                    }
                 }
 
                 //Check for further dialogues
                 NodeList nextDialogueIdList = currentDialogue.getElementsByTagName("nextDialogue");
                 if (nextDialogueIdList.getLength() > 0) {
                     nextDialogueID = nextDialogueIdList.item(0).getTextContent();
+                    loadedDialogue.nextDialogue = nextDialogueIdList.item(0).getTextContent();
                 }
                 else {
                     nextDialogueID = null;
+                    loadedDialogue.nextDialogue = null;
                 }
-
 
                 break;
             }
@@ -139,8 +148,21 @@ public class Textbox
 
     public boolean intersectsRelativeToWorldView(Point2D clickRelativeToWorldView)
     {
+        String methodName = "intersectsRelativeToWorldView(Point2D) ";
         Point2D textboxPosition = WorldView.textboxPosition;
         Rectangle2D positionRelativeToWorldView = new Rectangle2D(textboxPosition.getX(), textboxPosition.getY(), TEXTBOX_WIDTH, TEXTBOX_HEIGHT);
+
+        int yOffsetTextLine = this.yOffsetTextLine;
+        for(int checkedLineIdx = 0; checkedLineIdx <lineSplittedMessage.size(); checkedLineIdx++)
+        {
+            Rectangle2D positionOptionRelativeToWorldView = new Rectangle2D(textboxPosition.getX(), textboxPosition.getY() + yOffsetTextLine, TEXTBOX_WIDTH, textboxGc.getFont().getSize());
+            yOffsetTextLine+= textboxGc.getFont().getSize();
+            if(positionOptionRelativeToWorldView.contains(clickRelativeToWorldView))
+                System.out.println(classname + methodName + "detected click on option: " + checkedLineIdx + " Answers: " + lineSplittedMessage.size());
+        }
+
+
+
         return positionRelativeToWorldView.contains(clickRelativeToWorldView);
     }
 
@@ -178,15 +200,18 @@ public class Textbox
         for (Actor actor : actorsList)
         {
             List<String> msgs = readMessage(actor.dialogueFileName, "analysis-" + actor.dialogueStatusID);
-            messages.addAll(msgs);
+            //messages.addAll(msgs);
         }
     }
 
 
     private boolean hasNextMessage()
     {
-        return messages.size() > msgIdx + 1;
+        //return messages.size() > msgIdx + 1;
+        return loadedDialogue.messages.size() > msgIdx + 1;
     }
+
+
 
     public void nextMessage(Long currentNanoTime)
     {
@@ -224,23 +249,70 @@ public class Textbox
         textboxGc.fillRect(0, 0, TEXTBOX_WIDTH, TEXTBOX_HEIGHT);
         textboxGc.setFill(Color.BLACK);
         textboxGc.setFont(new Font("Arial", 30));
-        textboxGc.setTextAlign(TextAlignment.CENTER);
-        textboxGc.setTextBaseline(VPos.CENTER);
+        textboxGc.setTextAlign(TextAlignment.LEFT);
+        textboxGc.setTextBaseline(VPos.TOP);
+
+
+        int yOffsetTextLine = this.yOffsetTextLine;
         try
         {
-            String next = messages.get(msgIdx);
+            //String nextMessage = messages.get(msgIdx);
+            System.out.println(classname + methodName + loadedDialogue.type);
+            if(loadedDialogue.type.equals("decision"))
+            {
+                lineSplittedMessage = loadedDialogue.getOptionMessages();
+            }
+            else
+            {
+                String nextMessage = loadedDialogue.messages.get(msgIdx);
+                lineSplittedMessage = wrapText(nextMessage);
+            }
 
-            textboxGc.fillText(
-                    next,
-                    Math.round(textboxCanvas.getWidth() / 2),
-                    Math.round(textboxCanvas.getHeight() / 2)
-            );
+            for(int lineIdx = 0; lineIdx < lineSplittedMessage.size(); lineIdx++)
+            {
+                textboxGc.fillText(
+                        lineSplittedMessage.get(lineIdx),
+                        Math.round(10),
+                        Math.round(yOffsetTextLine)
+                );
+                yOffsetTextLine+= textboxGc.getFont().getSize();
+            }
+
+
         } catch (IndexOutOfBoundsException e)
         {
             System.out.println("IndexOutOfBoundsException " + e.getMessage());
         }
         textboxImage = textboxCanvas.snapshot(new SnapshotParameters(), null);
     }
+
+
+private List<String> wrapText(String longMessage)
+{
+    String methodName = "wrapText() ";
+    List<String> wrapped = new ArrayList<>();
+    String[] words = longMessage.split(" ");
+
+    //for(String s : words)
+        //System.out.println(classname + methodName + s);
+
+    int numberDigits = 0;
+    StringBuilder lineBuilder = new StringBuilder();
+    for(int wordIdx = 0; wordIdx<words.length; wordIdx++)
+    {
+        if(numberDigits + words[wordIdx].length() > maxDigitsInLine)
+        {
+            wrapped.add(lineBuilder.toString());
+            lineBuilder = new StringBuilder();
+            numberDigits = 0;
+        }
+        numberDigits += words[wordIdx].length();
+        lineBuilder.append(words[wordIdx]).append(" ");
+    }
+    wrapped.add(lineBuilder.toString());
+
+    return wrapped;
+}
 
     public WritableImage showMessage()
     {
