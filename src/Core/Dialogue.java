@@ -12,9 +12,9 @@ public class Dialogue
 
     List<Option> options = new ArrayList<>();
 
-    public void addOption(String optionMessage)
+    public void addOption(String optionMessage, String nextDialogue)
     {
-        options.add(new Option(optionMessage));
+        options.add(new Option(optionMessage, nextDialogue));
     }
 
     public List<String> getOptionMessages()
@@ -22,7 +22,6 @@ public class Dialogue
         List<String> optionMessages = new ArrayList<>();
         for(Option option : options)
         {
-            System.out.println(classname + option.optionMessage);
             optionMessages.add(option.optionMessage);
         }
         return optionMessages;
@@ -30,9 +29,10 @@ public class Dialogue
 
     class Option
     {
-        Option(String optionMessage)
+        Option(String optionMessage, String nextDialogue)
         {
             this.optionMessage = optionMessage;
+            this.nextDialogue = nextDialogue;
         }
         String nextDialogue;
         String optionMessage;

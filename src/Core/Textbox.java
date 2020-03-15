@@ -46,7 +46,7 @@ public class Textbox
     String nextDialogueID = null;
 
     List<String> lineSplittedMessage;
-    int yOffsetTextLine = 10;
+    int firstLineOffsetY = 10;
     int maxDigitsInLine = 40;
 
     public void readDialogue(String fileIdentifier, String dialogueIdentifier)
@@ -99,16 +99,16 @@ public class Textbox
                 {
 
                     NodeList options = currentDialogue.getElementsByTagName("line");
-                    //StringBuilder optionsShow = new StringBuilder();
+                    NodeList nextDialogueData = currentDialogue.getElementsByTagName("nextDialogue");
                     for (int optionsIdx = 0; optionsIdx < options.getLength(); optionsIdx++)
                     {
                         //Add options to message
                         String option = options.item(optionsIdx).getTextContent();
-                        //optionsShow.append(option).append("\n");
-
-                        loadedDialogue.addOption(option);
+                        String nextDialogue = null;
+                        if(nextDialogueData.item(optionsIdx) != null)
+                            nextDialogue = nextDialogueData.item(optionsIdx).getTextContent();
+                        loadedDialogue.addOption(option, nextDialogue);
                     }
-                    //messages.add(optionsShow.toString());
                 }
                 else
                 {
@@ -117,8 +117,6 @@ public class Textbox
                     for (int j = 0; j < lines.getLength(); j++) //add lines
                     {
                         String message = lines.item(j).getTextContent();
-                        //messages.add(message);
-
                         loadedDialogue.messages.add(message);
                     }
                 }
@@ -139,31 +137,33 @@ public class Textbox
         }
     }
 
-
-
-    public void onClick()
+    public void processClick(Point2D clickRelativeToWorldView)
     {
-        System.out.println(classname + "received Click");
-    }
-
-    public boolean intersectsRelativeToWorldView(Point2D clickRelativeToWorldView)
-    {
-        String methodName = "intersectsRelativeToWorldView(Point2D) ";
+        String methodName = "processClick(Point2D) ";
         Point2D textboxPosition = WorldView.textboxPosition;
-        Rectangle2D positionRelativeToWorldView = new Rectangle2D(textboxPosition.getX(), textboxPosition.getY(), TEXTBOX_WIDTH, TEXTBOX_HEIGHT);
-
-        int yOffsetTextLine = this.yOffsetTextLine;
-        for(int checkedLineIdx = 0; checkedLineIdx <lineSplittedMessage.size(); checkedLineIdx++)
+        Rectangle2D textboxPosRelativeToWorldview = new Rectangle2D(textboxPosition.getX(), textboxPosition.getY(), TEXTBOX_WIDTH, TEXTBOX_HEIGHT);
+        if(textboxPosRelativeToWorldview.contains(clickRelativeToWorldView))
         {
-            Rectangle2D positionOptionRelativeToWorldView = new Rectangle2D(textboxPosition.getX(), textboxPosition.getY() + yOffsetTextLine, TEXTBOX_WIDTH, textboxGc.getFont().getSize());
-            yOffsetTextLine+= textboxGc.getFont().getSize();
-            if(positionOptionRelativeToWorldView.contains(clickRelativeToWorldView))
-                System.out.println(classname + methodName + "detected click on option: " + checkedLineIdx + " Answers: " + lineSplittedMessage.size());
+            //System.out.println(classname + methodName + "Click on Textbox");
         }
 
+        //Check if clicked on Option
+        int offsetYTmp = firstLineOffsetY;
+        if(loadedDialogue.type.equals("decision"))
+        for(int checkedLineIdx = 0; checkedLineIdx <lineSplittedMessage.size(); checkedLineIdx++)
+        {
+            Rectangle2D positionOptionRelativeToWorldView = new Rectangle2D(textboxPosition.getX(), textboxPosition.getY() + offsetYTmp, TEXTBOX_WIDTH, textboxGc.getFont().getSize());
+            offsetYTmp+= textboxGc.getFont().getSize();
+            if(positionOptionRelativeToWorldView.contains(clickRelativeToWorldView))
+            {
+                nextDialogueID = loadedDialogue.options.get(checkedLineIdx).nextDialogue;
+                //System.out.println(classname + methodName + "detected click on option: " + checkedLineIdx + " next Dialogue: " + nextDialogueID);
+                break;
+            }
+        }
 
+        nextMessage(GameWindow.getSingleton().getRenderTime());
 
-        return positionRelativeToWorldView.contains(clickRelativeToWorldView);
     }
 
     private List<String> readMessage(String fileIdentifier, String dialogueIdentifier)
@@ -207,7 +207,6 @@ public class Textbox
 
     private boolean hasNextMessage()
     {
-        //return messages.size() > msgIdx + 1;
         return loadedDialogue.messages.size() > msgIdx + 1;
     }
 
@@ -248,16 +247,14 @@ public class Textbox
         textboxGc.setFill(Color.CADETBLUE);
         textboxGc.fillRect(0, 0, TEXTBOX_WIDTH, TEXTBOX_HEIGHT);
         textboxGc.setFill(Color.BLACK);
-        textboxGc.setFont(new Font("Arial", 30));
+        textboxGc.setFont(new Font("Verdana", 30));
         textboxGc.setTextAlign(TextAlignment.LEFT);
         textboxGc.setTextBaseline(VPos.TOP);
 
 
-        int yOffsetTextLine = this.yOffsetTextLine;
+        int yOffsetTextLine = this.firstLineOffsetY;
         try
         {
-            //String nextMessage = messages.get(msgIdx);
-            System.out.println(classname + methodName + loadedDialogue.type);
             if(loadedDialogue.type.equals("decision"))
             {
                 lineSplittedMessage = loadedDialogue.getOptionMessages();

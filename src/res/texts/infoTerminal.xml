@@ -23,27 +23,30 @@ picture/mood
     
     <dialogue id="info" type="decision" actorstatus="on">
         <option>
-            <line>option 1</line>
+            <line>What are the news?</line>
             <nextDialogue>general</nextDialogue>
         </option>
 
         <option>
-            <line>option 2</line>
+            <line>Whats the name of this Station?</line>
             <nextDialogue>ship</nextDialogue>
         </option>
 
         <option>
-            <line>option 3</line>
+            <line>Go away</line>
         </option>
 
     </dialogue>
     
     <dialogue id="general" type="normal" actorstatus="on">
-        <line>InfoTerminal General, a long text with many informations about the ship, its goal and the crew. Hopefully this take many lines</line>
+        <line>We are currently on the sun side of the asteriod orbit, therefore we have a lot of energy from solar panels</line>
+        <line>On Earth the elections of United Nations Intervention Forces are over. New Governor is Igelstan Kleidsten.</line>
+        <nextDialogue>info</nextDialogue>
     </dialogue>
     
     <dialogue id="ship" type="normal" actorstatus="off">
-        <line>InfoTerminal Ship</line>
+        <line>This station was built in 2073 and was one the generation 3 stations of his kind. Currently we are on asteriod BA43-A and in earths orbits</line>
+        <nextDialogue>info</nextDialogue>
     </dialogue>
 </root>
 

@@ -191,8 +191,9 @@ public class WorldView implements GUIController
 
             if (isTextBoxActive)
             {
-                if (textbox.intersectsRelativeToWorldView(clickRelativeToWorldView))
-                    textbox.onClick();
+                textbox.processClick(clickRelativeToWorldView);
+                //if (textbox.intersectsRelativeToWorldView(clickRelativeToWorldView))
+                 //   textbox.onClick();
             }
             else
             {
