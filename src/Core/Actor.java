@@ -318,7 +318,7 @@ public class Actor// implements PropertyChangeListener
             }
             else
                 worldView.textbox.readDialogue(dialogueFileName, dialogueStatusID);
-            worldView.isTextBoxActive = true;
+            WorldView.isTextBoxActive = true;
         }
         else
             System.out.println(classname + methodName + " Game Window not instance of WorldView, cannot show Dialogue");

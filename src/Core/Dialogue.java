@@ -7,9 +7,8 @@ public class Dialogue
 {
     String classname = "Dialogue";
     String type;
-    List<String> messages = new ArrayList<>();
     String nextDialogue;
-
+    List<String> messages = new ArrayList<>();
     List<Option> options = new ArrayList<>();
 
     public void addOption(String optionMessage, String nextDialogue)

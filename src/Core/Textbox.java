@@ -26,28 +26,23 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import static Core.Config.CAMERA_HEIGTH;
-import static Core.Config.CAMERA_WIDTH;
+import static Core.Config.*;
 
 public class Textbox
 {
-    String classname = "Textbox ";
+    String classname = "Textbox/";
     private double TEXTBOX_WIDTH = CAMERA_WIDTH / 1.5;
     private double TEXTBOX_HEIGHT = CAMERA_HEIGTH / 3.0;
     Canvas textboxCanvas = new Canvas(TEXTBOX_WIDTH, TEXTBOX_HEIGHT);
     GraphicsContext textboxGc = textboxCanvas.getGraphicsContext2D();
-
     WritableImage textboxImage;
-    //List<String> messages;
     Dialogue loadedDialogue;
-    int msgIdx = 0;
-
-    Element root;
+    Element xmlRoot;
+    int lineIdx = 0;
+    final int firstLineOffsetY = 10;
+    final int maxDigitsInLine = 40;
     String nextDialogueID = null;
-
-    List<String> lineSplittedMessage;
-    int firstLineOffsetY = 10;
-    int maxDigitsInLine = 40;
+    List<String> lineSplitMessage;
 
     public void readDialogue(String fileIdentifier, String dialogueIdentifier)
     {
@@ -65,14 +60,12 @@ public class Textbox
         //factory.setValidating(true);
         factory.setIgnoringElementContentWhitespace(true);
         DocumentBuilder builder = null;
-        try
-        {
+        try {
             builder = factory.newDocumentBuilder();
             File file = new File("src/res/texts/" + fileIdentifier + ".xml");
             Document doc = builder.parse(file);
-            root = doc.getDocumentElement();
-        } catch (ParserConfigurationException | SAXException | IOException e)
-        {
+            xmlRoot = doc.getDocumentElement();
+        } catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
         }
     }
@@ -80,40 +73,35 @@ public class Textbox
     private void readDialogue(String dialogueIdentifier)
     {
         String methodName = "readDialogue() ";
-        //messages = new ArrayList<>();
         loadedDialogue = new Dialogue();
-        NodeList dialogues = root.getElementsByTagName("dialogue");
+        NodeList dialogues = xmlRoot.getElementsByTagName(DIALOGUE_TAG);
         for (int i = 0; i < dialogues.getLength(); i++) //iterate dialogues of file
         {
-            //found doilague with ID
-            if (((Element) dialogues.item(i)).getAttribute("id").equals(dialogueIdentifier))
-            {
+            //found dialogue with ID
+            if (((Element) dialogues.item(i)).getAttribute(ID_TAG).equals(dialogueIdentifier)) {
                 Element currentDialogue = ((Element) dialogues.item(i));
 
                 //TODO check for status change
 
                 //check for type normal and decision
-                String dialogueType = currentDialogue.getAttribute("type");
+                String dialogueType = currentDialogue.getAttribute(TYPE_TAG);
                 loadedDialogue.type = dialogueType;
-                if(dialogueType.equals("decision"))
-                {
+                if (dialogueType.equals(DECISION_KEYWORD)) {
 
-                    NodeList options = currentDialogue.getElementsByTagName("line");
-                    NodeList nextDialogueData = currentDialogue.getElementsByTagName("nextDialogue");
-                    for (int optionsIdx = 0; optionsIdx < options.getLength(); optionsIdx++)
-                    {
+                    NodeList options = currentDialogue.getElementsByTagName(LINE_TAG);
+                    NodeList nextDialogueData = currentDialogue.getElementsByTagName(NEXT_DIALOGUE_TAG);
+                    for (int optionsIdx = 0; optionsIdx < options.getLength(); optionsIdx++) {
                         //Add options to message
                         String option = options.item(optionsIdx).getTextContent();
                         String nextDialogue = null;
-                        if(nextDialogueData.item(optionsIdx) != null)
+                        if (nextDialogueData.item(optionsIdx) != null)
                             nextDialogue = nextDialogueData.item(optionsIdx).getTextContent();
                         loadedDialogue.addOption(option, nextDialogue);
                     }
                 }
-                else
-                {
+                else {
 
-                    NodeList lines = currentDialogue.getElementsByTagName("line");
+                    NodeList lines = currentDialogue.getElementsByTagName(LINE_TAG);
                     for (int j = 0; j < lines.getLength(); j++) //add lines
                     {
                         String message = lines.item(j).getTextContent();
@@ -122,7 +110,7 @@ public class Textbox
                 }
 
                 //Check for further dialogues
-                NodeList nextDialogueIdList = currentDialogue.getElementsByTagName("nextDialogue");
+                NodeList nextDialogueIdList = currentDialogue.getElementsByTagName(NEXT_DIALOGUE_TAG);
                 if (nextDialogueIdList.getLength() > 0) {
                     nextDialogueID = nextDialogueIdList.item(0).getTextContent();
                     loadedDialogue.nextDialogue = nextDialogueIdList.item(0).getTextContent();
@@ -142,25 +130,22 @@ public class Textbox
         String methodName = "processClick(Point2D) ";
         Point2D textboxPosition = WorldView.textboxPosition;
         Rectangle2D textboxPosRelativeToWorldview = new Rectangle2D(textboxPosition.getX(), textboxPosition.getY(), TEXTBOX_WIDTH, TEXTBOX_HEIGHT);
-        if(textboxPosRelativeToWorldview.contains(clickRelativeToWorldView))
-        {
+        if (textboxPosRelativeToWorldview.contains(clickRelativeToWorldView)) {
             //System.out.println(classname + methodName + "Click on Textbox");
         }
 
         //Check if clicked on Option
         int offsetYTmp = firstLineOffsetY;
-        if(loadedDialogue.type.equals("decision"))
-        for(int checkedLineIdx = 0; checkedLineIdx <lineSplittedMessage.size(); checkedLineIdx++)
-        {
-            Rectangle2D positionOptionRelativeToWorldView = new Rectangle2D(textboxPosition.getX(), textboxPosition.getY() + offsetYTmp, TEXTBOX_WIDTH, textboxGc.getFont().getSize());
-            offsetYTmp+= textboxGc.getFont().getSize();
-            if(positionOptionRelativeToWorldView.contains(clickRelativeToWorldView))
-            {
-                nextDialogueID = loadedDialogue.options.get(checkedLineIdx).nextDialogue;
-                //System.out.println(classname + methodName + "detected click on option: " + checkedLineIdx + " next Dialogue: " + nextDialogueID);
-                break;
+        if (loadedDialogue.type.equals(DECISION_KEYWORD))
+            for (int checkedLineIdx = 0; checkedLineIdx < lineSplitMessage.size(); checkedLineIdx++) {
+                Rectangle2D positionOptionRelativeToWorldView = new Rectangle2D(textboxPosition.getX(), textboxPosition.getY() + offsetYTmp, TEXTBOX_WIDTH, textboxGc.getFont().getSize());
+                offsetYTmp += textboxGc.getFont().getSize();
+                if (positionOptionRelativeToWorldView.contains(clickRelativeToWorldView)) {
+                    nextDialogueID = loadedDialogue.options.get(checkedLineIdx).nextDialogue;
+                    //System.out.println(classname + methodName + "detected click on option: " + checkedLineIdx + " next Dialogue: " + nextDialogueID);
+                    break;
+                }
             }
-        }
 
         nextMessage(GameWindow.getSingleton().getRenderTime());
 
@@ -173,11 +158,9 @@ public class Textbox
         List<String[]> fileData;
         Path path = Paths.get("src/res/texts/" + fileIdentifier + ".csv");
 
-        if (Files.exists(path))
-        {
+        if (Files.exists(path)) {
             fileData = Utilities.readAllLineFromTxt(path.toString());
-            for (String[] linedata : fileData)
-            {
+            for (String[] linedata : fileData) {
                 {
                     if (linedata[0].equals(dialogueIdentifier))
                         msgs.add(linedata[1]);
@@ -197,19 +180,16 @@ public class Textbox
 
         String methodName = "groupAnalysis() ";
         readDialogue(fileIdentifier, dialogueIdentifier);
-        for (Actor actor : actorsList)
-        {
+        for (Actor actor : actorsList) {
             List<String> msgs = readMessage(actor.dialogueFileName, "analysis-" + actor.dialogueStatusID);
             //messages.addAll(msgs);
         }
     }
 
-
     private boolean hasNextMessage()
     {
-        return loadedDialogue.messages.size() > msgIdx + 1;
+        return loadedDialogue.messages.size() > lineIdx + 1;
     }
-
 
 
     public void nextMessage(Long currentNanoTime)
@@ -218,23 +198,20 @@ public class Textbox
         Actor playerActor = WorldView.getPlayer().actor;
         double elapsedTimeSinceLastInteraction = (currentNanoTime - playerActor.lastInteraction) / 1000000000.0;
 
-        if (elapsedTimeSinceLastInteraction > 0.5)
-        {
-            if (hasNextMessage())
-            {
-                msgIdx++;
+        if (elapsedTimeSinceLastInteraction > 0.5) {
+            if (hasNextMessage()) {
+                lineIdx++;
                 nextMessage();
             }
-            else if (nextDialogueID != null)
-            {
-                msgIdx = 0;
+            else if (nextDialogueID != null) {
+                lineIdx = 0;
                 readDialogue(nextDialogueID);
                 nextMessage();
             }
-            else
-            {
+            else {
+                //((WorldView) (GameWindow.getSingleton().currentView)).isTextBoxActive = false;
                 ((WorldView) (GameWindow.getSingleton().currentView)).isTextBoxActive = false;
-                msgIdx = 0;
+                lineIdx = 0;
             }
             playerActor.lastInteraction = currentNanoTime;
         }
@@ -253,63 +230,56 @@ public class Textbox
 
 
         int yOffsetTextLine = this.firstLineOffsetY;
-        try
-        {
-            if(loadedDialogue.type.equals("decision"))
-            {
-                lineSplittedMessage = loadedDialogue.getOptionMessages();
+        try {
+            if (loadedDialogue.type.equals(DECISION_KEYWORD)) {
+                lineSplitMessage = loadedDialogue.getOptionMessages();
             }
-            else
-            {
-                String nextMessage = loadedDialogue.messages.get(msgIdx);
-                lineSplittedMessage = wrapText(nextMessage);
+            else {
+                String nextMessage = loadedDialogue.messages.get(lineIdx);
+                lineSplitMessage = wrapText(nextMessage);
             }
 
-            for(int lineIdx = 0; lineIdx < lineSplittedMessage.size(); lineIdx++)
-            {
+            for (int lineIdx = 0; lineIdx < lineSplitMessage.size(); lineIdx++) {
                 textboxGc.fillText(
-                        lineSplittedMessage.get(lineIdx),
+                        lineSplitMessage.get(lineIdx),
                         Math.round(10),
                         Math.round(yOffsetTextLine)
                 );
-                yOffsetTextLine+= textboxGc.getFont().getSize();
+                yOffsetTextLine += textboxGc.getFont().getSize();
             }
 
 
-        } catch (IndexOutOfBoundsException e)
-        {
+        } catch (IndexOutOfBoundsException e) {
             System.out.println("IndexOutOfBoundsException " + e.getMessage());
         }
         textboxImage = textboxCanvas.snapshot(new SnapshotParameters(), null);
     }
 
 
-private List<String> wrapText(String longMessage)
-{
-    String methodName = "wrapText() ";
-    List<String> wrapped = new ArrayList<>();
-    String[] words = longMessage.split(" ");
+    private List<String> wrapText(String longMessage)
+    {
+        String methodName = "wrapText() ";
+        List<String> wrapped = new ArrayList<>();
+        String[] words = longMessage.split(" ");
 
-    //for(String s : words)
+        //for(String s : words)
         //System.out.println(classname + methodName + s);
 
-    int numberDigits = 0;
-    StringBuilder lineBuilder = new StringBuilder();
-    for(int wordIdx = 0; wordIdx<words.length; wordIdx++)
-    {
-        if(numberDigits + words[wordIdx].length() > maxDigitsInLine)
-        {
-            wrapped.add(lineBuilder.toString());
-            lineBuilder = new StringBuilder();
-            numberDigits = 0;
+        int numberDigits = 0;
+        StringBuilder lineBuilder = new StringBuilder();
+        for (int wordIdx = 0; wordIdx < words.length; wordIdx++) {
+            if (numberDigits + words[wordIdx].length() > maxDigitsInLine) {
+                wrapped.add(lineBuilder.toString());
+                lineBuilder = new StringBuilder();
+                numberDigits = 0;
+            }
+            numberDigits += words[wordIdx].length();
+            lineBuilder.append(words[wordIdx]).append(" ");
         }
-        numberDigits += words[wordIdx].length();
-        lineBuilder.append(words[wordIdx]).append(" ");
-    }
-    wrapped.add(lineBuilder.toString());
+        wrapped.add(lineBuilder.toString());
 
-    return wrapped;
-}
+        return wrapped;
+    }
 
     public WritableImage showMessage()
     {
