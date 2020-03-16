@@ -1,9 +1,12 @@
 
 Logic:
-- Dialogue, change groupAnalysis, Textbox change Status, Default option if not clickeds
 - schlafen, fade out, calender
 - Message Box
-    Add Dialogue Options for Status changes
+    Add StatusChanges
+    change groupAnalysis
+    default option for not clikec
+    stop walking
+    highlighthing
 - Console
 - Menu
 - level change

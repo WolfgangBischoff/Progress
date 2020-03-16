@@ -83,16 +83,16 @@ public class Textbox
 
                 //TODO check for status change
 
-                //check for type normal and decision
                 String dialogueType = currentDialogue.getAttribute(TYPE_TAG);
+                NodeList xmlLines = currentDialogue.getElementsByTagName(LINE_TAG);
                 loadedDialogue.type = dialogueType;
+                //check for type normal and decision
                 if (dialogueType.equals(DECISION_KEYWORD)) {
 
-                    NodeList options = currentDialogue.getElementsByTagName(LINE_TAG);
                     NodeList nextDialogueData = currentDialogue.getElementsByTagName(NEXT_DIALOGUE_TAG);
-                    for (int optionsIdx = 0; optionsIdx < options.getLength(); optionsIdx++) {
+                    for (int optionsIdx = 0; optionsIdx < xmlLines.getLength(); optionsIdx++) {
                         //Add options to message
-                        String option = options.item(optionsIdx).getTextContent();
+                        String option = xmlLines.item(optionsIdx).getTextContent();
                         String nextDialogue = null;
                         if (nextDialogueData.item(optionsIdx) != null)
                             nextDialogue = nextDialogueData.item(optionsIdx).getTextContent();
@@ -101,14 +101,14 @@ public class Textbox
                 }
                 else {
 
-                    NodeList lines = currentDialogue.getElementsByTagName(LINE_TAG);
-                    for (int j = 0; j < lines.getLength(); j++) //add lines
+                    for (int messageIdx = 0; messageIdx < xmlLines.getLength(); messageIdx++) //add lines
                     {
-                        String message = lines.item(j).getTextContent();
+                        String message = xmlLines.item(messageIdx).getTextContent();
                         loadedDialogue.messages.add(message);
                     }
                 }
 
+                //TODO ggf redundant
                 //Check for further dialogues
                 NodeList nextDialogueIdList = currentDialogue.getElementsByTagName(NEXT_DIALOGUE_TAG);
                 if (nextDialogueIdList.getLength() > 0) {
