@@ -101,8 +101,60 @@ public class WorldView implements GUIController
     @Override
     public void update(Long currentNanoTime)
     {
-        // game logic
         ArrayList<String> input = GameWindow.getInput();
+
+        if(isTextBoxActive)
+        {
+            //Todo interpret input as textbox input
+            if (input.contains("E"))
+            {
+                textbox.nextMessage(currentNanoTime);
+            }
+        }
+        else
+            processInputAsMovement(input);
+
+        /*
+        if (input.contains("E"))
+        {
+            if (isTextBoxActive)
+                textbox.nextMessage(currentNanoTime);
+            else
+                player.setInteract(true);
+        }
+
+         */
+
+        player.update(currentNanoTime);
+
+        processClick();
+
+        for (Sprite active : activeSpritesLayer)
+            active.update(currentNanoTime);
+
+        //Camera at world border
+        camX = player.positionX - CAMERA_WIDTH / 2f;
+        camY = player.positionY - CAMERA_HEIGTH / 2f;
+        if (camX < offsetMinX)
+            camX = offsetMinX;
+        if (camY < offsetMinY)
+            camY = offsetMinY;
+        if (camX > offsetMaxX)
+            camX = offsetMaxX;
+        if (camY > offsetMaxY)
+            camY = offsetMaxY;
+
+        //If World smaller as Camera
+        if (CAMERA_WIDTH > borders.getWidth())
+            camX = borders.getWidth() / 2 - CAMERA_WIDTH / 2f;
+        if (Config.CAMERA_HEIGTH > borders.getHeight())
+            camY = borders.getHeight() / 2 - CAMERA_HEIGTH / 2f;
+
+
+    }
+
+    private void processInputAsMovement(ArrayList<String> input)
+    {
         boolean moveButtonPressed = false;
         int addedVelocityX = 0, addedVelocityY = 0;
         Actor playerActor = player.actor;
@@ -142,45 +194,16 @@ public class WorldView implements GUIController
         else if (player.actor.isMoving())
             player.actor.setVelocity(0, 0);
 
+
         if (input.contains("E"))
         {
-            if (isTextBoxActive)
-                textbox.nextMessage(currentNanoTime);
-            else
-                player.setInteract(true);
+            player.setInteract(true);
         }
-
-        player.update(currentNanoTime);
-
-        processClick();
-
-        for (Sprite active : activeSpritesLayer)
-            active.update(currentNanoTime);
-
-        //Camera at world border
-        camX = player.positionX - CAMERA_WIDTH / 2f;
-        camY = player.positionY - CAMERA_HEIGTH / 2f;
-        if (camX < offsetMinX)
-            camX = offsetMinX;
-        if (camY < offsetMinY)
-            camY = offsetMinY;
-        if (camX > offsetMaxX)
-            camX = offsetMaxX;
-        if (camY > offsetMaxY)
-            camY = offsetMaxY;
-
-        //If World smaller as Camera
-        if (CAMERA_WIDTH > borders.getWidth())
-            camX = borders.getWidth() / 2 - CAMERA_WIDTH / 2f;
-        if (Config.CAMERA_HEIGTH > borders.getHeight())
-            camY = borders.getHeight() / 2 - CAMERA_HEIGTH / 2f;
-
 
     }
 
     private void processClick()
     {
-        //Todo check click on Actors/Textbox depentdent if Textbox exists
         //Check if was clicked by mouse
         Point2D click = GameWindow.getSingleton().mouseClick;
         if (click != null)
@@ -192,8 +215,6 @@ public class WorldView implements GUIController
             if (isTextBoxActive)
             {
                 textbox.processClick(clickRelativeToWorldView);
-                //if (textbox.intersectsRelativeToWorldView(clickRelativeToWorldView))
-                 //   textbox.onClick();
             }
             else
             {

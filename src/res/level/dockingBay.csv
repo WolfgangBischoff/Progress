@@ -38,19 +38,13 @@ bigPoS				;portholeBig;		walls/bulkheadRoundStars128			;true					;0												;
 #Machines
 #code     ;name        ;spritename                     								;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning
 walCab				;wallcable			;walls/wallcabel																								;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
-#infoWe				;terminal				;machines/infoTerminal_128_128_wel						;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
 air_Ve				;ventilation	;machines/air_ventilation															;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
-#vendo2				;vendor     	;machines/vendorMa_128_128															;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
 vendor				;vendor     	;machines/adiaVM_128_128															;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
-#vendo3				;vendor     	;machines/vendorM3_128_128															;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
 addAdi				;add			     	;machines/adiaAd_128_128																;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
 inCeil				;ceiling		  	;machines/infoCeilingT										;false				;2												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
 pillar				;pillar			  	;machines/pillarFootB_128_128										;true				;1												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
-#addAd2				;add			     	;machines/adiaAdd2_128_128																;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
 
 #Plants
-boge_1				;bogenhanf				;plants/plant_64_128_shoot													;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
-boge_2				;bogenhanf				;plants/plant_64_128_small													;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
 boge_3				;bogenhanf				;plants/plant_64_128_medium												;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
 boge_4				;bogenhanf				;plants/plant_64_128_large	 											;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
 
@@ -62,6 +56,7 @@ actors:
 #code 					;actorname 		;status   ;direction
 player					;player						;default		;WEST
 infoWe					;infoTerminal;off						;undefined
+airCon					;airControl  ;on							;undefined
 
 #sets 64 bits tiles as raster; you can add multiple layers; later defined layers are higher prioritized in case of same defined heightLayer
 #passivlayer will not be checked for interaction or collision
@@ -100,7 +95,7 @@ BBBBBB; BBBBBB; BBBBBB; w45FL_; waT___; waT___; waT___; wFBR__; boge_4; ______; 
 BBBBBB; BBBBBB; w45FL_; ______; ______; ______; ______; boge_3; ______; ______; ______; ______; boge_3; ______; ______; ______; ______; w45FR_; BBBBBB; BBBBBB; BBBBBB; ______; ______; ______; ______; ______; ______; ______; ______
 BBBBBB; w45FL_; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; w45FR_; BBBBBB; BBBBBB; ______; ______; ______; ______; ______; ______; ______; ______
 waL___; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; w45FR_; BBBBBB; ______; ______; wTL___; waT___; waT___; waT___; waT___; wTR___
-waL___; ______; ______; ______; wBTL__; wBTR__; addAdi; ______; ______; ______; ______; ______; addAdi; ______; wBTL__; wBTR__; ______; ______; ______; ______; waR___; ______; ______; ______; ______; ______; ______; ______; ______
+waL___; ______; ______; ______; wBTL__; wBTR__; addAdi; ______; ______; ______; ______; ______; addAdi; ______; wBTL__; wBTR__; ______; ______; ______; ______; waR___; ______; ______; ______; airCon; ______; ______; ______; ______
 waL___; ______; ______; ______; wFBL__; wFBR__; ______; ______; ______; inCeil; ______; ______; ______; ______; wFBL__; wFBR__; ______; ______; ______; ______; waR___; ______; ______; waL___; ______; ______; ______; ______; waR___
 waL___; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___; ______; ______; waL___; ______; ______; ______; ______; waR___
 waL___; ______; ______; ______; ______; ______; ______; ______; ______; pillar; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___; ______; ______; waL___; ______; ______; ______; ______; waR___

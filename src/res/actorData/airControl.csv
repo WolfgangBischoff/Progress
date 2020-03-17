@@ -1,5 +1,5 @@
 #Sensor;					 TriggerType;	targetStatus
-onInteraction; persistent; transition
+onInteraction; persistent_text; transition
 
 onMonitor; persistent; none
 
