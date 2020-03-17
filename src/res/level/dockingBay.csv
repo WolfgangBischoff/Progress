@@ -44,7 +44,7 @@ air_Ve				;ventilation	;machines/air_ventilation															;true					;1					
 vendor				;vendor     	;machines/adiaVM_128_128															;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
 #vendo3				;vendor     	;machines/vendorM3_128_128															;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
 addAdi				;add			     	;machines/adiaAd_128_128																;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
-inCeil				;ceiling		  	;machines/infoCeilingT_128_128										;false				;2												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
+inCeil				;ceiling		  	;machines/infoCeilingT										;false				;2												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
 pillar				;pillar			  	;machines/pillarFootB_128_128										;true				;1												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
 #addAd2				;add			     	;machines/adiaAdd2_128_128																;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
 
