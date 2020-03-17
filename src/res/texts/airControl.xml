@@ -1,0 +1,28 @@
+<root name="airControl">
+    <dialogue id="none" type="normal">
+        <line>No message defined</line>
+    </dialogue>
+
+    <dialogue id="on" type="normal" actorstatus="on">
+        <line>You activated the air hub.</line>
+        <endStatus>Status after dialogue ends</endStatus>
+    </dialogue>
+
+
+    <dialogue id="off" type="normal" actorstatus="on">
+        <line>You de-activated the air hub.</line>
+        <endStatus>Status after dialogue ends</endStatus>
+    </dialogue>
+
+
+    <dialogue id="analysis-on" type="normal" actorstatus="on">
+        <line>Athmosphere junction operates at full power.</line>
+        <endStatus>Status after dialogue ends</endStatus>
+    </dialogue>
+
+    <dialogue id="analysis-off" type="normal" actorstatus="on">
+        <line>Athmosphere junction has failed.</line>
+        <endStatus>Status after dialogue ends</endStatus>
+    </dialogue>
+</root>
+

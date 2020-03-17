@@ -6,6 +6,7 @@ import javafx.geometry.VPos;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -38,11 +39,19 @@ public class Textbox
     WritableImage textboxImage;
     Dialogue loadedDialogue;
     Element xmlRoot;
-    int lineIdx = 0;
-    final int firstLineOffsetY = 10;
+    int messageIdx = 0;
+    Integer highlightedLine = null;
+    final int firstLineOffsetY = 20;
+    final int xOffsetTextLine = 30;
     final int maxDigitsInLine = 40;
     String nextDialogueID = null;
     List<String> lineSplitMessage;
+
+    Image corner;
+    public Textbox()
+    {
+        corner = new Image("res/img/txtbox/textboxCornerTL.png");
+    }
 
     public void readDialogue(String fileIdentifier, String dialogueIdentifier)
     {
@@ -60,13 +69,18 @@ public class Textbox
         //factory.setValidating(true);
         factory.setIgnoringElementContentWhitespace(true);
         DocumentBuilder builder = null;
+        String path = "src/res/texts/" + fileIdentifier + ".xml";
         try {
             builder = factory.newDocumentBuilder();
-            File file = new File("src/res/texts/" + fileIdentifier + ".xml");
+            File file = new File(path);
             Document doc = builder.parse(file);
             xmlRoot = doc.getDocumentElement();
-        } catch (ParserConfigurationException | SAXException | IOException e) {
+        } catch (ParserConfigurationException | SAXException e) {
             e.printStackTrace();
+        }
+        catch (IOException e)
+        {
+            System.out.println("Cannot find: " + path);
         }
     }
 
@@ -85,10 +99,12 @@ public class Textbox
 
                 String dialogueType = currentDialogue.getAttribute(TYPE_TAG);
                 NodeList xmlLines = currentDialogue.getElementsByTagName(LINE_TAG);
-                loadedDialogue.type = dialogueType;
+
                 //check for type normal and decision
+                loadedDialogue.type = dialogueType;
                 if (dialogueType.equals(DECISION_KEYWORD)) {
 
+                    highlightedLine = 0;
                     NodeList nextDialogueData = currentDialogue.getElementsByTagName(NEXT_DIALOGUE_TAG);
                     for (int optionsIdx = 0; optionsIdx < xmlLines.getLength(); optionsIdx++) {
                         //Add options to message
@@ -101,10 +117,11 @@ public class Textbox
                 }
                 else {
 
+                    highlightedLine = null;
                     for (int messageIdx = 0; messageIdx < xmlLines.getLength(); messageIdx++) //add lines
                     {
                         String message = xmlLines.item(messageIdx).getTextContent();
-                        loadedDialogue.messages.add(message);
+                        loadedDialogue.messages.add(message);//Without formatting the message
                     }
                 }
 
@@ -188,7 +205,7 @@ public class Textbox
 
     private boolean hasNextMessage()
     {
-        return loadedDialogue.messages.size() > lineIdx + 1;
+        return loadedDialogue.messages.size() > messageIdx + 1;
     }
 
 
@@ -200,18 +217,18 @@ public class Textbox
 
         if (elapsedTimeSinceLastInteraction > 0.5) {
             if (hasNextMessage()) {
-                lineIdx++;
+                messageIdx++;
                 nextMessage();
             }
             else if (nextDialogueID != null) {
-                lineIdx = 0;
+                messageIdx = 0;
                 readDialogue(nextDialogueID);
                 nextMessage();
             }
             else {
                 //((WorldView) (GameWindow.getSingleton().currentView)).isTextBoxActive = false;
-                ((WorldView) (GameWindow.getSingleton().currentView)).isTextBoxActive = false;
-                lineIdx = 0;
+                WorldView.isTextBoxActive = false;
+                messageIdx = 0;
             }
             playerActor.lastInteraction = currentNanoTime;
         }
@@ -221,28 +238,42 @@ public class Textbox
     private void nextMessage()
     {
         String methodName = "nextMessage() ";
-        textboxGc.setFill(Color.CADETBLUE);
+        textboxGc.clearRect(0, 0, TEXTBOX_WIDTH, TEXTBOX_HEIGHT);
+
+        textboxGc.setFill(Color.DARKSLATEGREY);
         textboxGc.fillRect(0, 0, TEXTBOX_WIDTH, TEXTBOX_HEIGHT);
+
+        //TODO testpicture
+        textboxGc.drawImage(corner, 0,0);
+
+        //TODO highlight with chosen one by mouse hover or tastatur
+        if(highlightedLine != null)
+        {
+            textboxGc.setFill(Color.BISQUE);
+            textboxGc.setFont(new Font("Verdana", 30));
+            textboxGc.fillRect(xOffsetTextLine,firstLineOffsetY + highlightedLine * textboxGc.getFont().getSize(),TEXTBOX_WIDTH-20, textboxGc.getFont().getSize());
+        }
+
+        //textboxGc.setFont(Font.font("Calibri", FontWeight.NORMAL, 30 ));
+        //System.out.println(classname + methodName + textboxGc.getFont().toString());
         textboxGc.setFill(Color.BLACK);
-        textboxGc.setFont(new Font("Verdana", 30));
         textboxGc.setTextAlign(TextAlignment.LEFT);
         textboxGc.setTextBaseline(VPos.TOP);
 
-
-        int yOffsetTextLine = this.firstLineOffsetY;
+        int yOffsetTextLine = firstLineOffsetY;
         try {
             if (loadedDialogue.type.equals(DECISION_KEYWORD)) {
                 lineSplitMessage = loadedDialogue.getOptionMessages();
             }
             else {
-                String nextMessage = loadedDialogue.messages.get(lineIdx);
+                String nextMessage = loadedDialogue.messages.get(messageIdx);
                 lineSplitMessage = wrapText(nextMessage);
             }
 
             for (int lineIdx = 0; lineIdx < lineSplitMessage.size(); lineIdx++) {
                 textboxGc.fillText(
                         lineSplitMessage.get(lineIdx),
-                        Math.round(10),
+                        Math.round(xOffsetTextLine),
                         Math.round(yOffsetTextLine)
                 );
                 yOffsetTextLine += textboxGc.getFont().getSize();

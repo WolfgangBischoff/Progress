@@ -23,7 +23,6 @@ public class Config
     public static final String TYPE_TAG = "type";
     public static final String DECISION_KEYWORD = "decision";
     public static final String LINE_TAG = "line";
-    public static final String OPTION_TAG = "option";
     public static final String NEXT_DIALOGUE_TAG = "nextDialogue";
 
 }

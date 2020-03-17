@@ -3,10 +3,9 @@ Logic:
 - schlafen, fade out, calender
 - Message Box
     Add StatusChanges
+    Change status of player to not moving and refresh sprites
     change groupAnalysis
-    stop walking
-    highlighthing
-    default option for not clikec
+    correct highlighthing
 - Console
 - Menu
 - level change
