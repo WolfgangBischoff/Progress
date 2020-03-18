@@ -246,11 +246,11 @@ public class Textbox
         //TODO testpicture
         textboxGc.drawImage(corner, 0,0);
 
+        textboxGc.setFont(new Font("Verdana", 30));
         //TODO highlight with chosen one by mouse hover or tastatur
         if(highlightedLine != null)
         {
             textboxGc.setFill(Color.BISQUE);
-            textboxGc.setFont(new Font("Verdana", 30));
             textboxGc.fillRect(xOffsetTextLine,firstLineOffsetY + highlightedLine * textboxGc.getFont().getSize(),TEXTBOX_WIDTH-20, textboxGc.getFont().getSize());
         }
 

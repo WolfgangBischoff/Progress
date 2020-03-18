@@ -41,8 +41,10 @@ walCab				;wallcable			;walls/wallcabel																								;true					;0					
 air_Ve				;ventilation	;machines/air_ventilation															;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
 vendor				;vendor     	;machines/adiaVM_128_128																;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
 addAdi				;add			     	;machines/adiaAd_128_128																;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
-inCeil				;ceiling		  	;machines/infoCeilingT																		;false				;2												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
-pillar				;pillar			  	;machines/pillarFootB_128_128											;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;10             ;0             ;118           ;100												;none
+#inCeil				;ceiling		  	;machines/infoCeilingT																		;false				;2												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
+inCeil				;ceiling		  	;machines/infoCeilingDes																		;false				;2												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
+#pillar				;pillar			  	;machines/pillarFootB_128_128											;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;10             ;0             ;118           ;100												;none
+pillar				;pillar			  	;machines/pillarFoot_128_128_Des											;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;10             ;0             ;118           ;100												;none
 airPip				;airPipe		  	;machines/airPipe_64_192																;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
 
 #Plants
