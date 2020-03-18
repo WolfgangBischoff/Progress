@@ -13,14 +13,14 @@ Logic:
 
 Sprites:
 - Docking Bay:
-    Automatische Tür, runder UFO Roboter, Seats, Lautsprecher, Advertisment changes per 5 sec, Vending machines, crates, Arrivals/Departures
+    Automatische Tür, runder UFO Roboter, Seats, Lautsprecher, Advertisment changes per 5 sec, crates
 - Control Center: BrückenControls,
 - Machines: Ventilation/Movingpart with bridge
 - Person https://forums.rpgmakerweb.com/index.php?threads/spriting-pixel-art-tutorials.33/
 - Couchtisch, Kleiderschrank, Diffuser, Chair
 - Bett, Bau
 - LocalEnergy: Main generator, solar panels, Transformator, EnergyHub, Cabel
-- AirSystem: Aufbereiter, AirHub, big pipe, Ventilation, Broken Hull
+- AirSystem: Aufbereiter, Broken Hull
 - General: Hüllen beschädigt, Non critical System damaged
 - HeatSystem
 - Storage: Lagerschrank, Säulen, Tank, Big Crate
