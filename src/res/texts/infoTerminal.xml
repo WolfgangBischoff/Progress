@@ -17,7 +17,7 @@ picture/mood
         <line>Welcome to</line>
         <line>an adventure</line>
         <line>in Class C</line>
-        <endStatus>Status after dialogue ends</endStatus>
+        <endStatus>Status after dialllogue ends</endStatus>
         <nextDialogue>ship</nextDialogue>
     </dialogue>
     
