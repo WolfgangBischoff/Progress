@@ -15,7 +15,7 @@ import static Core.Config.*;
 
 public class Actor// implements PropertyChangeListener
 {
-    final int TIME_BETWEEN_ACTION = 1;
+    //final int TIME_BETWEEN_ACTION = 1;
 
     final String classname = "Actor ";
     String actorname;
@@ -159,7 +159,7 @@ public class Actor// implements PropertyChangeListener
         //No lastInteraction time update, just resets if not used. like a automatic door
         String methodName = "onUpdate() ";
         double elapsedTimeSinceLastInteraction = (currentNanoTime - lastInteraction) / 1000000000.0;
-        if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_ACTION)
+        if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS)
         {
             evaluateTriggerType(onUpdate, onUpdateToStatus);
         }
@@ -170,7 +170,7 @@ public class Actor// implements PropertyChangeListener
         String methodName = "onInteraction(): ";
         double elapsedTimeSinceLastInteraction = (currentNanoTime - lastInteraction) / 1000000000.0;
 
-        if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_ACTION)
+        if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS)
         {
             evaluateTriggerType(onInteraction, onIntersectionToStatus);
             lastInteraction = currentNanoTime;
@@ -192,7 +192,7 @@ public class Actor// implements PropertyChangeListener
     {
         String methodName = "onInRange() ";
         double elapsedTimeSinceLastInteraction = (currentNanoTime - lastInteraction) / 1000000000.0;
-        if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_ACTION)
+        if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS)
         {
             System.out.println(classname + methodName + elapsedTimeSinceLastInteraction);
             evaluateTriggerType(onInRange, onInRangeToStatus);

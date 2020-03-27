@@ -41,7 +41,6 @@ public class WorldView implements GUIController
     //Textbox
     static boolean isTextBoxActive = false;
     static Textbox textbox = new Textbox();
-    //static Point2D textboxPosition;
     static Point2D textboxPosition = new Point2D(CAMERA_WIDTH / 2f - textbox.getTEXTBOX_WIDTH() / 2, CAMERA_HEIGTH - textbox.getTEXTBOX_HEIGHT() - 32);
 
     //Sprites
@@ -106,12 +105,7 @@ public class WorldView implements GUIController
 
         if (isTextBoxActive)
         {
-            //Todo interpret input as textbox input
             textbox.processKey(input, currentNanoTime);
-            /*if (input.contains("E"))
-            {
-                textbox.nextMessage(currentNanoTime);
-            }*/
         }
         else
             processInputAsMovement(input);
@@ -213,10 +207,6 @@ public class WorldView implements GUIController
         if (isTextBoxActive)
         {
             textbox.processMouse(mousePositionRelativeToCamera, isMouseClicked);
-            /*if (isMouseClicked)
-            {
-                textbox.processClick(mousePositionRelativeToCamera);
-            }*/
         }
         else
         {

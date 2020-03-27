@@ -9,6 +9,9 @@ public class Config
     public static final int CAMERA_WIDTH = 1200;
     public static final int CAMERA_HEIGTH = 800;
 
+    public static final float TIME_BETWEEN_INTERACTIONS = 0.5f;
+    public static final float TIME_BETWEEN_DIALOGUE = 0.2f;
+
     public static final String KEYWORD_onInteraction = "onInteraction";
     public static final String KEYWORD_onIntersection = "onIntersection";
     public static final String KEYWORD_onInRange = "onInRange";

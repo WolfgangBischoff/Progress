@@ -19,9 +19,9 @@ public class GameWindow extends Stage
     private Stage gameStage;
     private Scene gameScene;
     GUIController currentView;
-    //Point2D mouseClick;
     boolean mouseClicked = false;
     Point2D mousePosition;
+    boolean mouseMoved;
 
     private GameWindow()
     {
@@ -37,6 +37,7 @@ public class GameWindow extends Stage
 
     public void createNextScene(GUIController controller)
     {
+        String methodName = "createNextScene() ";
         this.currentView = controller;
         gameScene = new Scene(controller.load(), Config.GAMEWINDOWWIDTH, Config.GAMEWINDOWHEIGTH);
         //input
@@ -52,10 +53,11 @@ public class GameWindow extends Stage
                     input.remove(code);
                 });
         gameScene.setOnMouseClicked(event -> {
-            //mouseClick = new Point2D(event.getX(), event.getY());
             mouseClicked = true;
         });
         gameScene.setOnMouseMoved(event -> {
+            //System.out.println(className + methodName + "Mouse moved");
+            mouseMoved = true;
             mousePosition = new Point2D(event.getX(), event.getY());
         });
 

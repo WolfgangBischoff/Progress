@@ -123,7 +123,8 @@ public class Sprite
             if (interact
                     && otherSprite.actor != null
                     && otherSprite.getBoundary().intersects(interactionArea)
-                    && elapsedTimeSinceLastInteraction > actor.TIME_BETWEEN_ACTION)
+                    //&& elapsedTimeSinceLastInteraction > actor.TIME_BETWEEN_ACTION)
+                    && elapsedTimeSinceLastInteraction > Config.TIME_BETWEEN_INTERACTIONS)
             {
                 otherSprite.actor.onInteraction(otherSprite, currentNanoTime); //Passive reacts
                 actor.lastInteraction = currentNanoTime;

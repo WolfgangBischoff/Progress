@@ -40,7 +40,6 @@ public class Textbox
     Dialogue loadedDialogue;
     Element xmlRoot;
     int messageIdx = 0;
-    //Integer highlightedLine = null;
     final int firstLineOffsetY = 20;
     final int xOffsetTextLine = 30;
     final int maxDigitsInLine = 40;
@@ -157,14 +156,14 @@ public class Textbox
         int maxMarkedOptionIdx = lineSplitMessage.size() - 1;
         int newMarkedOption = markedOption;
         double elapsedTimeSinceLastInteraction = (currentNanoTime - WorldView.getPlayer().actor.lastInteraction) / 1000000000.0;
-        if (!(elapsedTimeSinceLastInteraction > 0.3))
+        if (!(elapsedTimeSinceLastInteraction > TIME_BETWEEN_DIALOGUE))
             return;
 
-        if (input.contains("E"))
+        if (input.contains("E") || input.contains("ENTER") || input.contains("SPACE"))
             nextMessage(currentNanoTime);
-        if (input.contains("W"))
+        if (input.contains("W") || input.contains("UP"))
             newMarkedOption--;
-        if (input.contains("S"))
+        if (input.contains("S") || input.contains("DOWN"))
             newMarkedOption++;
 
         if (newMarkedOption < 0)
@@ -192,7 +191,8 @@ public class Textbox
 
         //Check if hovered on Option
         int offsetYTmp = firstLineOffsetY;
-        if (loadedDialogue.type.equals(DECISION_KEYWORD))
+        if (loadedDialogue.type.equals(DECISION_KEYWORD) && GameWindow.getSingleton().mouseMoved)
+        {
             for (int checkedLineIdx = 0; checkedLineIdx < lineSplitMessage.size(); checkedLineIdx++)
             {
                 Rectangle2D positionOptionRelativeToWorldView = new Rectangle2D(textboxPosition.getX(), textboxPosition.getY() + offsetYTmp, TEXTBOX_WIDTH, textboxGc.getFont().getSize());
@@ -200,7 +200,7 @@ public class Textbox
                 //Hovers over Option
                 if (positionOptionRelativeToWorldView.contains(mousePosition))
                 {
-                    if(markedOption != checkedLineIdx)
+                    if (markedOption != checkedLineIdx)
                     {
                         markedOption = checkedLineIdx;
                         drawTextbox();
@@ -208,6 +208,8 @@ public class Textbox
                     break;
                 }
             }
+            GameWindow.getSingleton().mouseMoved = false;
+        }
 
         if (isMouseClicked)
         {
@@ -233,8 +235,6 @@ public class Textbox
                 }
             }
         }
-        //else throw new RuntimeException("Actordata not found: " + path.toString());
-
 
         if (msgs.isEmpty())
             System.out.println(classname + methodName + "No messages found with ID: " + dialogueIdentifier + " in " + path.toString());
@@ -266,23 +266,23 @@ public class Textbox
         if (loadedDialogue.type.equals(DECISION_KEYWORD))
             nextDialogueID = loadedDialogue.options.get(markedOption).nextDialogue;
 
-            if (hasNextMessage())
-            {
-                messageIdx++;
-                drawTextbox();
-            }
-            else if (nextDialogueID != null)
-            {
-                messageIdx = 0;
-                readDialogue(nextDialogueID);
-                drawTextbox();
-            }
-            else
-            {
-                WorldView.isTextBoxActive = false;
-                messageIdx = 0;
-            }
-            playerActor.lastInteraction = currentNanoTime;
+        if (hasNextMessage())
+        {
+            messageIdx++;
+            drawTextbox();
+        }
+        else if (nextDialogueID != null)
+        {
+            messageIdx = 0;
+            readDialogue(nextDialogueID);
+            drawTextbox();
+        }
+        else
+        {
+            WorldView.isTextBoxActive = false;
+            messageIdx = 0;
+        }
+        playerActor.lastInteraction = currentNanoTime;
     }
 
     private void drawTextbox()
