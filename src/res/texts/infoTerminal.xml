@@ -63,12 +63,12 @@ picture/mood
 
     <dialogue id="ship" type="normal" actorstatus="off">
         <line>This station was built in 2073 and was one the generation 3 stations of his kind. Currently we are on asteriod BA43-A and in earths orbits</line>
-        <nextDialogue>info</nextDialogue>
+        <nextDialogue>stationInfo</nextDialogue>
     </dialogue>
 
     <dialogue id="techInfo" type="normal" actorstatus="off">
         <line>The stations systems work at full function</line>
-        <nextDialogue>info</nextDialogue>
+        <nextDialogue>stationInfo</nextDialogue>
     </dialogue>
 </root>
 

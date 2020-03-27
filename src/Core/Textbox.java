@@ -264,7 +264,9 @@ public class Textbox
         Actor playerActor = WorldView.getPlayer().actor;
 
         if (loadedDialogue.type.equals(DECISION_KEYWORD))
+        {
             nextDialogueID = loadedDialogue.options.get(markedOption).nextDialogue;
+        }
 
         if (hasNextMessage())
         {

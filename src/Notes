@@ -6,6 +6,7 @@ Logic:
     Add StatusChanges
     Change status of player to not moving and refresh sprites
     change groupAnalysis
+    new dialogue starts with option 0
 - Console
 - Menu
 - level change
