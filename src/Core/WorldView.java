@@ -25,7 +25,7 @@ import static Core.Config.CAMERA_WIDTH;
 
 public class WorldView implements GUIController
 {
-    private static final String className = "WorldView";
+    private static final String classname = "WorldView";
 
     @FXML
     Pane root;
@@ -40,8 +40,9 @@ public class WorldView implements GUIController
 
     //Textbox
     static boolean isTextBoxActive = false;
-    static Point2D textboxPosition;
-    Textbox textbox = new Textbox();
+    static Textbox textbox = new Textbox();
+    //static Point2D textboxPosition;
+    static Point2D textboxPosition = new Point2D(CAMERA_WIDTH / 2f - textbox.getTEXTBOX_WIDTH() / 2, CAMERA_HEIGTH - textbox.getTEXTBOX_HEIGHT() - 32);
 
     //Sprites
     private static Rectangle2D borders;
@@ -103,31 +104,21 @@ public class WorldView implements GUIController
     {
         ArrayList<String> input = GameWindow.getInput();
 
-        if(isTextBoxActive)
+        if (isTextBoxActive)
         {
             //Todo interpret input as textbox input
-            if (input.contains("E"))
+            textbox.processKey(input, currentNanoTime);
+            /*if (input.contains("E"))
             {
                 textbox.nextMessage(currentNanoTime);
-            }
+            }*/
         }
         else
             processInputAsMovement(input);
 
-        /*
-        if (input.contains("E"))
-        {
-            if (isTextBoxActive)
-                textbox.nextMessage(currentNanoTime);
-            else
-                player.setInteract(true);
-        }
-
-         */
-
         player.update(currentNanoTime);
 
-        processClick();
+        processMouse();
 
         for (Sprite active : activeSpritesLayer)
             active.update(currentNanoTime);
@@ -202,30 +193,45 @@ public class WorldView implements GUIController
 
     }
 
-    private void processClick()
+    private void processMouse()
     {
-        //Check if was clicked by mouse
-        Point2D click = GameWindow.getSingleton().mouseClick;
-        if (click != null)
+        String methodname = "processMouse() ";
+        double screenWidth = GameWindow.getSingleton().getScreenWidth();
+        double screenHeight = GameWindow.getSingleton().getScreenHeight();
+        Point2D mousePosition = GameWindow.getSingleton().mousePosition;
+        Point2D mousePositionRelativeToCamera = new Point2D(mousePosition.getX() - (screenWidth - Config.CAMERA_WIDTH) / 2, mousePosition.getY() - (screenHeight - Config.CAMERA_HEIGTH) / 2);
+        boolean isMouseClicked = GameWindow.getSingleton().mouseClicked;
+
+        //check for marked Sprites
+        List<Sprite> mouseHoveredSprites = new ArrayList<>();
+        //TODO Send to Actor one time, not every Sprite
+        for (Sprite active : activeSpritesLayer)
+            if (active.intersectsRelativeToWorldView(mousePositionRelativeToCamera))
+                mouseHoveredSprites.add(active);
+
+
+        if (isTextBoxActive)
         {
-            double screenWidth = GameWindow.getSingleton().getScreenWidth();
-            double screenHeight = GameWindow.getSingleton().getScreenHeight();
-            Point2D clickRelativeToWorldView = new Point2D(click.getX() - (screenWidth - Config.CAMERA_WIDTH) / 2, click.getY() - (screenHeight - Config.CAMERA_HEIGTH) / 2);
-
-            if (isTextBoxActive)
+            textbox.processMouse(mousePositionRelativeToCamera, isMouseClicked);
+            /*if (isMouseClicked)
             {
-                textbox.processClick(clickRelativeToWorldView);
-            }
-            else
-            {
-                //TODO Send to Actor one time, not every Sprite
-                for (Sprite active : activeSpritesLayer)
-                    if (active.intersectsRelativeToWorldView(clickRelativeToWorldView))
-                        active.onClick();
-            }
-
-            GameWindow.getSingleton().mouseClick = null;
+                textbox.processClick(mousePositionRelativeToCamera);
+            }*/
         }
+        else
+        {
+            for (Sprite clicked : mouseHoveredSprites)
+                if (isMouseClicked)
+                    clicked.onClick();
+                else
+                {
+                    //System.out.println(classname + methodname + "Hovered over: " + clicked.getName());
+                }
+        }
+
+        GameWindow.getSingleton().mouseClicked = false;
+
+
     }
 
     @Override
@@ -307,7 +313,7 @@ public class WorldView implements GUIController
         if (isTextBoxActive)
         {
             WritableImage textBoxImg = textbox.showMessage();
-            textboxPosition = new Point2D(CAMERA_WIDTH / 2f - textBoxImg.getWidth() / 2, CAMERA_HEIGTH - textBoxImg.getHeight() - 32);
+            //textboxPosition = new Point2D(CAMERA_WIDTH / 2f - textBoxImg.getWidth() / 2, CAMERA_HEIGTH - textBoxImg.getHeight() - 32);
             gc.drawImage(textBoxImg, textboxPosition.getX(), textboxPosition.getY());
         }
     }

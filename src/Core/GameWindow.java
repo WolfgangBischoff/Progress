@@ -19,7 +19,9 @@ public class GameWindow extends Stage
     private Stage gameStage;
     private Scene gameScene;
     GUIController currentView;
-    Point2D mouseClick;
+    //Point2D mouseClick;
+    boolean mouseClicked = false;
+    Point2D mousePosition;
 
     private GameWindow()
     {
@@ -50,8 +52,14 @@ public class GameWindow extends Stage
                     input.remove(code);
                 });
         gameScene.setOnMouseClicked(event -> {
-            mouseClick = new Point2D(event.getX(), event.getY());
+            //mouseClick = new Point2D(event.getX(), event.getY());
+            mouseClicked = true;
         });
+        gameScene.setOnMouseMoved(event -> {
+            mousePosition = new Point2D(event.getX(), event.getY());
+        });
+
+
         gameStage.setScene(gameScene);
     }
 
