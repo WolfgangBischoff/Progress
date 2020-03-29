@@ -54,12 +54,13 @@ public class Textbox
         corner = new Image("res/img/txtbox/textboxCornerTL.png");
     }
 
-    public void readDialogue(String fileIdentifier, String dialogueIdentifier)
+    //public void readDialogue(String fileIdentifier, String dialogueIdentifier)
+    public void readDialogue(Actor actorParam)
     {
         String methodName = "readDialogue() ";
 
-        readFile(fileIdentifier);
-        readDialogue(dialogueIdentifier);
+        readFile(actorParam.dialogueFileName);
+        readDialogue(actorParam.dialogueStatusID);
         drawTextbox();
     }
 
@@ -241,11 +242,12 @@ public class Textbox
         return msgs;
     }
 
-    public void groupAnalysis(List<Actor> actorsList, String fileIdentifier, String dialogueIdentifier)
+    public void groupAnalysis(List<Actor> actorsList, Actor speakingActor)
     {
 
         String methodName = "groupAnalysis() ";
-        readDialogue(fileIdentifier, dialogueIdentifier);
+        //readDialogue(fileIdentifier, dialogueIdentifier);
+        readDialogue(speakingActor);
         for (Actor actor : actorsList)
         {
             List<String> msgs = readMessage(actor.dialogueFileName, "analysis-" + actor.dialogueStatusID);
@@ -266,6 +268,7 @@ public class Textbox
         if (loadedDialogue.type.equals(DECISION_KEYWORD))
         {
             nextDialogueID = loadedDialogue.options.get(markedOption).nextDialogue;
+            markedOption = 0;
         }
 
         if (hasNextMessage())

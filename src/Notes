@@ -1,15 +1,12 @@
 
 Logic:
-- schlafen, fade out, calender
-- Player run Anim dunning dianogal
+- level change
 - Message Box
     Add StatusChanges
-    Change status of player to not moving and refresh sprites
     change groupAnalysis
-    new dialogue starts with option 0
-- Console
 - Menu
-- level change
+- schlafen, fade out, calender
+- Console
 
 
 Sprites:

@@ -97,45 +97,28 @@ public class WorldView implements GUIController
         shadowColor = worldLoader.getShadowColor();
     }
 
-
     @Override
     public void update(Long currentNanoTime)
     {
         ArrayList<String> input = GameWindow.getInput();
 
+        //Process Input
         if (isTextBoxActive)
         {
+            if (player.actor.isMoving())
+                player.actor.setVelocity(0, 0);
             textbox.processKey(input, currentNanoTime);
         }
         else
             processInputAsMovement(input);
-
-        player.update(currentNanoTime);
-
         processMouse();
 
+        //Update Sprites
+        player.update(currentNanoTime);
         for (Sprite active : activeSpritesLayer)
             active.update(currentNanoTime);
 
-        //Camera at world border
-        camX = player.positionX - CAMERA_WIDTH / 2f;
-        camY = player.positionY - CAMERA_HEIGTH / 2f;
-        if (camX < offsetMinX)
-            camX = offsetMinX;
-        if (camY < offsetMinY)
-            camY = offsetMinY;
-        if (camX > offsetMaxX)
-            camX = offsetMaxX;
-        if (camY > offsetMaxY)
-            camY = offsetMaxY;
-
-        //If World smaller as Camera
-        if (CAMERA_WIDTH > borders.getWidth())
-            camX = borders.getWidth() / 2 - CAMERA_WIDTH / 2f;
-        if (Config.CAMERA_HEIGTH > borders.getHeight())
-            camY = borders.getHeight() / 2 - CAMERA_HEIGTH / 2f;
-
-
+        calcCameraPosition();
     }
 
     private void processInputAsMovement(ArrayList<String> input)
@@ -222,6 +205,27 @@ public class WorldView implements GUIController
         GameWindow.getSingleton().mouseClicked = false;
 
 
+    }
+
+    private void calcCameraPosition()
+    {
+        //Camera at world border
+        camX = player.positionX - CAMERA_WIDTH / 2f;
+        camY = player.positionY - CAMERA_HEIGTH / 2f;
+        if (camX < offsetMinX)
+            camX = offsetMinX;
+        if (camY < offsetMinY)
+            camY = offsetMinY;
+        if (camX > offsetMaxX)
+            camX = offsetMaxX;
+        if (camY > offsetMaxY)
+            camY = offsetMaxY;
+
+        //If World smaller as Camera
+        if (CAMERA_WIDTH > borders.getWidth())
+            camX = borders.getWidth() / 2 - CAMERA_WIDTH / 2f;
+        if (Config.CAMERA_HEIGTH > borders.getHeight())
+            camY = borders.getHeight() / 2 - CAMERA_HEIGTH / 2f;
     }
 
     @Override

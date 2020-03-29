@@ -309,15 +309,17 @@ public class Actor// implements PropertyChangeListener
 
         if (gameWindow instanceof WorldView)
         {
-            WorldView worldView = (WorldView) gameWindow;
+            //WorldView worldView = (WorldView) gameWindow;
             if (onInteraction.equals(TriggerType.TEXTBOX_ANALYSIS))
             {
                 String analizedGroupName = stageMonitor.groupsToTargetGroupsMap.get(memberActorGroups.get(0));
                 List<Actor> analizedGroup = stageMonitor.actorSystemMap.get(analizedGroupName).getSystemMembers();
-                worldView.textbox.groupAnalysis(analizedGroup, dialogueFileName, dialogueStatusID);
+                //WorldView.textbox.groupAnalysis(analizedGroup, dialogueFileName, dialogueStatusID);
+                WorldView.textbox.groupAnalysis(analizedGroup, this);
             }
             else
-                worldView.textbox.readDialogue(dialogueFileName, dialogueStatusID);
+                //WorldView.textbox.readDialogue(dialogueFileName, dialogueStatusID);
+                WorldView.textbox.readDialogue(this);
             WorldView.isTextBoxActive = true;
         }
         else
