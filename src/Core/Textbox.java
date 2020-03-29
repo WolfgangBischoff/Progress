@@ -46,6 +46,7 @@ public class Textbox
     String nextDialogueID = null;
     List<String> lineSplitMessage;
     Integer markedOption = 0;
+    Actor actorOfDialogue;
 
     Image corner;
 
@@ -54,13 +55,12 @@ public class Textbox
         corner = new Image("res/img/txtbox/textboxCornerTL.png");
     }
 
-    //public void readDialogue(String fileIdentifier, String dialogueIdentifier)
-    public void readDialogue(Actor actorParam)
+    public void startConversation(Actor actorParam)
     {
         String methodName = "readDialogue() ";
-
-        readFile(actorParam.dialogueFileName);
-        readDialogue(actorParam.dialogueStatusID);
+        actorOfDialogue = actorParam;
+        readFile(actorOfDialogue.dialogueFileName);
+        readDialogue(actorOfDialogue.dialogueStatusID);
         drawTextbox();
     }
 
@@ -98,18 +98,14 @@ public class Textbox
             if (((Element) dialogues.item(i)).getAttribute(ID_TAG).equals(dialogueIdentifier))
             {
                 Element currentDialogue = ((Element) dialogues.item(i));
-
-                //TODO check for status change
-
                 String dialogueType = currentDialogue.getAttribute(TYPE_TAG);
                 NodeList xmlLines = currentDialogue.getElementsByTagName(LINE_TAG);
+                loadedDialogue.actorStatus = currentDialogue.getAttribute("actorstatus");
 
                 //check for type normal and decision
                 loadedDialogue.type = dialogueType;
                 if (dialogueType.equals(DECISION_KEYWORD))
                 {
-
-                    //highlightedLine = 0;
                     NodeList nextDialogueData = currentDialogue.getElementsByTagName(NEXT_DIALOGUE_TAG);
                     for (int optionsIdx = 0; optionsIdx < xmlLines.getLength(); optionsIdx++)
                     {
@@ -123,8 +119,6 @@ public class Textbox
                 }
                 else
                 {
-
-                    //highlightedLine = null;
                     for (int messageIdx = 0; messageIdx < xmlLines.getLength(); messageIdx++) //add lines
                     {
                         String message = xmlLines.item(messageIdx).getTextContent();
@@ -153,7 +147,7 @@ public class Textbox
 
     public void processKey(ArrayList<String> input, Long currentNanoTime)
     {
-        String methodname = "processKey() ";
+        String methodName = "processKey() ";
         int maxMarkedOptionIdx = lineSplitMessage.size() - 1;
         int newMarkedOption = markedOption;
         double elapsedTimeSinceLastInteraction = (currentNanoTime - WorldView.getPlayer().actor.lastInteraction) / 1000000000.0;
@@ -161,7 +155,11 @@ public class Textbox
             return;
 
         if (input.contains("E") || input.contains("ENTER") || input.contains("SPACE"))
+        {
             nextMessage(currentNanoTime);
+            WorldView.getPlayer().actor.lastInteraction = currentNanoTime;
+            return;
+        }
         if (input.contains("W") || input.contains("UP"))
             newMarkedOption--;
         if (input.contains("S") || input.contains("DOWN"))
@@ -247,7 +245,7 @@ public class Textbox
 
         String methodName = "groupAnalysis() ";
         //readDialogue(fileIdentifier, dialogueIdentifier);
-        readDialogue(speakingActor);
+        startConversation(speakingActor);
         for (Actor actor : actorsList)
         {
             List<String> msgs = readMessage(actor.dialogueFileName, "analysis-" + actor.dialogueStatusID);
@@ -292,7 +290,7 @@ public class Textbox
 
     private void drawTextbox()
     {
-        String methodName = "nextMessage() ";
+        String methodName = "drawTextbox() ";
         textboxGc.clearRect(0, 0, TEXTBOX_WIDTH, TEXTBOX_HEIGHT);
 
         textboxGc.setFill(Color.DARKSLATEGREY);
@@ -307,7 +305,6 @@ public class Textbox
         if (markedOption != null && loadedDialogue.type.equals(DECISION_KEYWORD))
         {
             textboxGc.setFill(Color.BISQUE);
-            //textboxGc.fillRect(xOffsetTextLine, firstLineOffsetY + highlightedLine * textboxGc.getFont().getSize(), TEXTBOX_WIDTH - 20, textboxGc.getFont().getSize());
             textboxGc.fillRect(xOffsetTextLine, firstLineOffsetY + markedOption * textboxGc.getFont().getSize(), TEXTBOX_WIDTH - 20, textboxGc.getFont().getSize());
         }
 
@@ -346,6 +343,14 @@ public class Textbox
             System.out.println("IndexOutOfBoundsException " + e.getMessage());
         }
         textboxImage = textboxCanvas.snapshot(new SnapshotParameters(), null);
+
+        changeActorStatus();
+    }
+
+    private void changeActorStatus()
+    {
+        if(loadedDialogue.actorStatus != null)
+            actorOfDialogue.onTextboxSignal(loadedDialogue.actorStatus);
     }
 
     private List<String> wrapText(String longMessage)

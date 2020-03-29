@@ -1,8 +1,8 @@
 
 Logic:
 - level change
+- player diagonal walking no Animation bug
 - Message Box
-    Add StatusChanges
     change groupAnalysis
 - Menu
 - schlafen, fade out, calender

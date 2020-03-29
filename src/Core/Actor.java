@@ -35,6 +35,7 @@ public class Actor// implements PropertyChangeListener
     TriggerType onUpdate = TriggerType.NOTHING;
     TriggerType onIntersection = TriggerType.NOTHING;
     TriggerType onMonitorSignal = null;
+    TriggerType onTextBoxSignal = TriggerType.PERSISTENT;
     static final Set<String> actorDefinitionKeywords = new HashSet<>();
     String onInteractionToStatus = Config.KEYWORD_transition;
     String onUpdateToStatus = Config.KEYWORD_transition;
@@ -68,6 +69,7 @@ public class Actor// implements PropertyChangeListener
         actorDefinitionKeywords.add(KEYWORD_transition);
         actorDefinitionKeywords.add(KEYWORD_interactionArea);
         actorDefinitionKeywords.add(KEYWORD_dialogueFile);
+        actorDefinitionKeywords.add(KEYWORD_onTextBox);
 
         if (Files.exists(path))
         {
@@ -117,25 +119,29 @@ public class Actor// implements PropertyChangeListener
             case KEYWORD_onInteraction:
                 onInteraction = TriggerType.getStatus(linedata[triggerTypeIdx]);
                 onInteractionToStatus = linedata[targetStatusIdx];
-                return true;
+                break;//return true;
             case KEYWORD_onInRange:
                 onInRange = TriggerType.getStatus(linedata[triggerTypeIdx]);
                 onInRangeToStatus = linedata[targetStatusIdx];
-                return true;
+                break;//return true;
             case KEYWORD_onUpdate:
                 onUpdate = TriggerType.getStatus(linedata[triggerTypeIdx]);
                 onUpdateToStatus = linedata[targetStatusIdx];
-                return true;
+                break;//return true;
             case KEYWORD_onIntersection:
                 onIntersection = TriggerType.getStatus(linedata[triggerTypeIdx]);
                 onIntersectionToStatus = linedata[targetStatusIdx];
-                return true;
+                break;//return true;
             case KEYWORD_onMonitor:
                 onMonitorSignal = TriggerType.getStatus(linedata[triggerTypeIdx]);
                 //New status is set by StageMonitor
+                break;//return true;
+            case KEYWORD_onTextBox:
+                onTextBoxSignal = TriggerType.getStatus(linedata[triggerTypeIdx]); //Target status provided by textfile
+                break;
             case KEYWORD_transition:
                 statusTransitions.put(linedata[1], linedata[2]);// old/new status
-                return true;
+                break;//return true;
             case KEYWORD_interactionArea:
                 double areaDistance = Double.parseDouble(linedata[1]);
                 double areaWidth = Double.parseDouble(linedata[2]);
@@ -145,13 +151,15 @@ public class Actor// implements PropertyChangeListener
                 interactionAreaWidth = areaWidth;
                 interactionAreaOffsetX = offsetX;
                 interactionAreaOffsetY = offsetY;
-                return true;
+                break;//return true;
             case KEYWORD_dialogueFile:
                 dialogueFileName = linedata[1];
-                return true;
+                break;
+                //return true;
             default:
                 throw new RuntimeException("Keyword unknown: " + keyword);
         }
+        return true;
     }
 
     public void onUpdate(Long currentNanoTime)
@@ -181,6 +189,12 @@ public class Actor// implements PropertyChangeListener
     {
         String methodName = "onMonitorSignal(): ";
         evaluateTriggerType(onMonitorSignal, newCompoundStatus);
+    }
+
+    public void onTextboxSignal(String newCompoundStatus)
+    {
+        String methodName = "onMonitorSignal(): ";
+        evaluateTriggerType(onTextBoxSignal, newCompoundStatus);
     }
 
     public void onIntersection(Sprite otherSprite, Long currentNanoTime)
@@ -246,9 +260,11 @@ public class Actor// implements PropertyChangeListener
 
     private void evaluateTargetStatus(String targetStatusField)
     {
+        //Do lookup (status is toggled from definition of actorfile)
         if (targetStatusField.equals(Config.KEYWORD_transition))
             transitionGeneralStatus();
         else
+            //Status is set directly
             generalStatus = targetStatusField;
         updateCompoundStatus();
     }
@@ -309,17 +325,14 @@ public class Actor// implements PropertyChangeListener
 
         if (gameWindow instanceof WorldView)
         {
-            //WorldView worldView = (WorldView) gameWindow;
             if (onInteraction.equals(TriggerType.TEXTBOX_ANALYSIS))
             {
                 String analizedGroupName = stageMonitor.groupsToTargetGroupsMap.get(memberActorGroups.get(0));
                 List<Actor> analizedGroup = stageMonitor.actorSystemMap.get(analizedGroupName).getSystemMembers();
-                //WorldView.textbox.groupAnalysis(analizedGroup, dialogueFileName, dialogueStatusID);
                 WorldView.textbox.groupAnalysis(analizedGroup, this);
             }
             else
-                //WorldView.textbox.readDialogue(dialogueFileName, dialogueStatusID);
-                WorldView.textbox.readDialogue(this);
+                WorldView.textbox.startConversation(this);
             WorldView.isTextBoxActive = true;
         }
         else

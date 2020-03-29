@@ -8,6 +8,7 @@ public class Dialogue
     String classname = "Dialogue";
     String type;
     String nextDialogue;
+    String actorStatus;
     List<String> messages = new ArrayList<>();
     List<Option> options = new ArrayList<>();
 

@@ -1,9 +1,12 @@
 
-onInteraction; persistent_text; transition
+#onInteraction; persistent_text; transition
+onInteraction; textbox; nothing
+
+onTextBox; persistent; nothing
 
 #Status transition map
-transition; on; off
-transition; off; on
+#transition; on; off
+#transition; off; on
 
 dialogueFile; infoTerminal
 

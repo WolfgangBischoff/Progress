@@ -17,10 +17,10 @@ picture/mood
         <line>Welcome to Pancheia Station!</line>
         <line>Valuable experiences and extensions for you CV await you </line>
         <line>Board time is 19:00, your access level is Third Class</line>
-        <endStatus>Status after dialogue ends</endStatus>
+        <actorStatus>On</actorStatus>
         <nextDialogue>info</nextDialogue>
     </dialogue>
-    
+
     <dialogue id="info" type="decision" actorstatus="on">
         <option>
             <line>What are the news?</line>
@@ -34,10 +34,14 @@ picture/mood
 
         <option>
             <line>Go away</line>
+            <nextDialogue>info-goAway</nextDialogue>
         </option>
-
     </dialogue>
-    
+
+    <dialogue id="info-goAway" type="normal" actorstatus="off">
+        <line>Have a nice day!</line>
+    </dialogue>
+
     <dialogue id="general" type="normal" actorstatus="on">
         <line>We are currently on the sun side of the asteriod orbit, therefore we have a lot of energy from solar panels</line>
         <line>On Earth the elections of United Nations Intervention Forces are over. New Governor is Igelstan Kleidsten.</line>
@@ -61,12 +65,12 @@ picture/mood
         </option>
     </dialogue>
 
-    <dialogue id="ship" type="normal" actorstatus="off">
+    <dialogue id="ship" type="normal" actorstatus="on">
         <line>This station was built in 2073 and was one the generation 3 stations of his kind. Currently we are on asteriod BA43-A and in earths orbits</line>
         <nextDialogue>stationInfo</nextDialogue>
     </dialogue>
 
-    <dialogue id="techInfo" type="normal" actorstatus="off">
+    <dialogue id="techInfo" type="normal" actorstatus="on">
         <line>The stations systems work at full function</line>
         <nextDialogue>stationInfo</nextDialogue>
     </dialogue>
