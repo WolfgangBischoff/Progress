@@ -8,7 +8,7 @@ public class Dialogue
     String classname = "Dialogue";
     String type;
     String nextDialogue;
-    String actorStatus;
+    private String actorStatus;
     List<String> messages = new ArrayList<>();
     List<Option> options = new ArrayList<>();
 
@@ -20,7 +20,7 @@ public class Dialogue
     public List<String> getOptionMessages()
     {
         List<String> optionMessages = new ArrayList<>();
-        for(Option option : options)
+        for (Option option : options)
         {
             optionMessages.add(option.optionMessage);
         }
@@ -34,7 +34,21 @@ public class Dialogue
             this.optionMessage = optionMessage;
             this.nextDialogue = nextDialogue;
         }
+
         String nextDialogue;
         String optionMessage;
+    }
+
+    public String getActorStatus()
+    {
+        return actorStatus;
+    }
+
+    public void setActorStatus(String actorStatus)
+    {
+        if (actorStatus.trim().equals(""))
+            this.actorStatus = null;
+        else
+            this.actorStatus = actorStatus;
     }
 }

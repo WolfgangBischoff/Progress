@@ -100,7 +100,7 @@ public class Textbox
                 Element currentDialogue = ((Element) dialogues.item(i));
                 String dialogueType = currentDialogue.getAttribute(TYPE_TAG);
                 NodeList xmlLines = currentDialogue.getElementsByTagName(LINE_TAG);
-                loadedDialogue.actorStatus = currentDialogue.getAttribute("actorstatus");
+                loadedDialogue.setActorStatus(currentDialogue.getAttribute(ACTOR_STATUS_TAG));
 
                 //check for type normal and decision
                 loadedDialogue.type = dialogueType;
@@ -286,6 +286,9 @@ public class Textbox
             messageIdx = 0;
         }
         playerActor.lastInteraction = currentNanoTime;
+
+        if(loadedDialogue.getActorStatus() != null)
+            changeActorStatus(loadedDialogue.getActorStatus());
     }
 
     private void drawTextbox()
@@ -296,12 +299,11 @@ public class Textbox
         textboxGc.setFill(Color.DARKSLATEGREY);
         textboxGc.fillRect(0, 0, TEXTBOX_WIDTH, TEXTBOX_HEIGHT);
 
-        //TODO testpicture
+        //Decoration of textfield
         textboxGc.drawImage(corner, 0, 0);
 
         textboxGc.setFont(new Font("Verdana", 30));
-        //TODO highlight with chosen one by mouse hover or tastatur
-        //if (highlightedLine != null)
+
         if (markedOption != null && loadedDialogue.type.equals(DECISION_KEYWORD))
         {
             textboxGc.setFill(Color.BISQUE);
@@ -344,13 +346,14 @@ public class Textbox
         }
         textboxImage = textboxCanvas.snapshot(new SnapshotParameters(), null);
 
-        changeActorStatus();
+        //changeActorStatus();
     }
 
-    private void changeActorStatus()
+    private void changeActorStatus(String toGeneralStatus)
     {
-        if(loadedDialogue.actorStatus != null)
-            actorOfDialogue.onTextboxSignal(loadedDialogue.actorStatus);
+        String methodName = "changeActorStatus(String) ";
+        //System.out.println(classname + methodName + " triggered " + loadedDialogue.getActorStatus());
+        actorOfDialogue.onTextboxSignal(toGeneralStatus);
     }
 
     private List<String> wrapText(String longMessage)

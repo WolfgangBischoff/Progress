@@ -1,26 +1,36 @@
+
+<!--/>
+File Identified by Actor Definition
+First Dialogue Identified by actor status value; In future maybe also MonitorData, levelname
+
+id - identifier for lookup of textbox
+type - normal/decision
+actorstatus - changes actor to status defined in actor file, "transition" leads to changed defined in actor file
+<-->
+
 <root name="airControl">
     <dialogue id="none" type="normal">
         <line>No message defined</line>
     </dialogue>
 
-    <dialogue id="on" type="normal" actorstatus="on">
+    <dialogue id="on" type="normal">
         <line>You activated the air hub.</line>
         <endStatus>Status after dialogue ends</endStatus>
     </dialogue>
 
 
-    <dialogue id="off" type="normal" actorstatus="on">
+    <dialogue id="off" type="normal">
         <line>You de-activated the air hub.</line>
         <endStatus>Status after dialogue ends</endStatus>
     </dialogue>
 
 
-    <dialogue id="analysis-on" type="normal" actorstatus="on">
+    <dialogue id="analysis-on" type="normal">
         <line>Athmosphere junction operates at full power.</line>
         <endStatus>Status after dialogue ends</endStatus>
     </dialogue>
 
-    <dialogue id="analysis-off" type="normal" actorstatus="on">
+    <dialogue id="analysis-off" type="normal">
         <line>Athmosphere junction has failed.</line>
         <endStatus>Status after dialogue ends</endStatus>
     </dialogue>

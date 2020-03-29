@@ -25,6 +25,7 @@ public class Config
     public static final String DIALOGUE_TAG = "dialogue";
     public static final String ID_TAG = "id";
     public static final String TYPE_TAG = "type";
+    public static final String ACTOR_STATUS_TAG = "actorstatus";
     public static final String DECISION_KEYWORD = "decision";
     public static final String LINE_TAG = "line";
     public static final String NEXT_DIALOGUE_TAG = "nextDialogue";

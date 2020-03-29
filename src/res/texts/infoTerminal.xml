@@ -2,10 +2,11 @@
 
 <!--/>
 File Identified by Actor Definition
-First Dialogue Identified by Status, MonitorData, levelname
+First Dialogue Identified by actor status value; In future maybe also MonitorData, levelname
 
-External influence, Varchange
-picture/mood
+id - identifier for lookup of textbox
+type - normal/decision
+actorstatus - changes actor to status defined in actor file, "transition" leads to changed defined in actor file
 <-->
 
 <root name = "infoTerminal">
@@ -13,15 +14,14 @@ picture/mood
         <line>InfoTerminal Lorem Ipsum</line>
     </dialogue>
 
-    <dialogue id="welcome" type="normal" actorstatus="on">
+    <dialogue id="welcome" type="normal" actorstatus="transition">
         <line>Welcome to Pancheia Station!</line>
         <line>Valuable experiences and extensions for you CV await you </line>
         <line>Board time is 19:00, your access level is Third Class</line>
-        <actorStatus>On</actorStatus>
         <nextDialogue>info</nextDialogue>
     </dialogue>
 
-    <dialogue id="info" type="decision" actorstatus="on">
+    <dialogue id="info" type="decision" actorstatus="transition">
         <option>
             <line>What are the news?</line>
             <nextDialogue>general</nextDialogue>
@@ -42,13 +42,14 @@ picture/mood
         <line>Have a nice day!</line>
     </dialogue>
 
-    <dialogue id="general" type="normal" actorstatus="on">
+    <dialogue id="general" type="normal" actorstatus="transition">
         <line>We are currently on the sun side of the asteriod orbit, therefore we have a lot of energy from solar panels</line>
         <line>On Earth the elections of United Nations Intervention Forces are over. New Governor is Igelstan Kleidsten.</line>
+        <line>Yearly economical prognosis of good</line>
         <nextDialogue>info</nextDialogue>
     </dialogue>
 
-    <dialogue id="stationInfo" type="decision" actorstatus="on">
+    <dialogue id="stationInfo" type="decision" actorstatus="transition">
         <option>
             <line>General Information</line>
             <nextDialogue>ship</nextDialogue>
@@ -65,12 +66,12 @@ picture/mood
         </option>
     </dialogue>
 
-    <dialogue id="ship" type="normal" actorstatus="on">
+    <dialogue id="ship" type="normal" actorstatus="technical">
         <line>This station was built in 2073 and was one the generation 3 stations of his kind. Currently we are on asteriod BA43-A and in earths orbits</line>
         <nextDialogue>stationInfo</nextDialogue>
     </dialogue>
 
-    <dialogue id="techInfo" type="normal" actorstatus="on">
+    <dialogue id="techInfo" type="normal" actorstatus="technical">
         <line>The stations systems work at full function</line>
         <nextDialogue>stationInfo</nextDialogue>
     </dialogue>

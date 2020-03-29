@@ -35,7 +35,7 @@ public class Actor// implements PropertyChangeListener
     TriggerType onUpdate = TriggerType.NOTHING;
     TriggerType onIntersection = TriggerType.NOTHING;
     TriggerType onMonitorSignal = null;
-    TriggerType onTextBoxSignal = TriggerType.PERSISTENT;
+    TriggerType onTextBoxSignal = TriggerType.NOTHING;
     static final Set<String> actorDefinitionKeywords = new HashSet<>();
     String onInteractionToStatus = Config.KEYWORD_transition;
     String onUpdateToStatus = Config.KEYWORD_transition;
@@ -256,7 +256,6 @@ public class Actor// implements PropertyChangeListener
         }
 
     }
-
 
     private void evaluateTargetStatus(String targetStatusField)
     {
