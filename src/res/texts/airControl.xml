@@ -15,24 +15,20 @@ actorstatus - changes actor to status defined in actor file, "transition" leads 
 
     <dialogue id="on" type="normal">
         <line>You activated the air hub.</line>
-        <endStatus>Status after dialogue ends</endStatus>
     </dialogue>
 
 
     <dialogue id="off" type="normal">
         <line>You de-activated the air hub.</line>
-        <endStatus>Status after dialogue ends</endStatus>
     </dialogue>
 
 
     <dialogue id="analysis-on" type="normal">
         <line>Athmosphere junction operates at full power.</line>
-        <endStatus>Status after dialogue ends</endStatus>
     </dialogue>
 
     <dialogue id="analysis-off" type="normal">
         <line>Athmosphere junction has failed.</line>
-        <endStatus>Status after dialogue ends</endStatus>
     </dialogue>
 </root>
 

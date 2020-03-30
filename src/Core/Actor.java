@@ -327,8 +327,8 @@ public class Actor// implements PropertyChangeListener
             if (onInteraction.equals(TriggerType.TEXTBOX_ANALYSIS))
             {
                 String analizedGroupName = stageMonitor.groupsToTargetGroupsMap.get(memberActorGroups.get(0));
-                List<Actor> analizedGroup = stageMonitor.actorSystemMap.get(analizedGroupName).getSystemMembers();
-                WorldView.textbox.groupAnalysis(analizedGroup, this);
+                List<Actor> analyzedGroup = stageMonitor.actorSystemMap.get(analizedGroupName).getSystemMembers();
+                WorldView.textbox.groupAnalysis(analyzedGroup, this);
             }
             else
                 WorldView.textbox.startConversation(this);

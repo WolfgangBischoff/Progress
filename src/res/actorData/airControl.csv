@@ -7,7 +7,7 @@ onMonitor; persistent; none
 transition; on; off
 transition; off; on
 
-dialogueFile; airControl
+dialogueFile; texts/airControl
 
 #status to image
 #status			;name		 		;spritename																													;blocker		;heightLayer	;fps	;totalFrames	;cols	;rows;frameWidth	;frameHeight	;hitboxOffsetX; hitboxOffsetY;hitBoxWidth;hitBoxHeight;lightning	;duration		;velocity;dialogueID ;AnimationEnds

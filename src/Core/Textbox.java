@@ -20,6 +20,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -59,25 +60,45 @@ public class Textbox
     {
         String methodName = "readDialogue() ";
         actorOfDialogue = actorParam;
-        readFile(actorOfDialogue.dialogueFileName);
-        readDialogue(actorOfDialogue.dialogueStatusID);
-        drawTextbox();
+        try
+        {
+            xmlRoot = readFile(actorOfDialogue.dialogueFileName);
+            loadedDialogue = readDialogue(actorOfDialogue.dialogueStatusID);
+            drawTextbox();
+        }
+        catch (NullPointerException e)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append("\nDialogueFileName: " + actorOfDialogue.dialogueFileName);
+            if(loadedDialogue == null)
+                stringBuilder.append("\nLoadedDialogue = null");
+            else
+            {
+                stringBuilder.append("\nLoaded Dialogue type: " + loadedDialogue.type);
+                stringBuilder.append("\nLoaded Dialogue nextDialogue: " + loadedDialogue.nextDialogue);
+                stringBuilder.append("\nLoaded Dialogue messages: " + loadedDialogue.messages);
+                stringBuilder.append("\nLoaded Dialogue options: " + loadedDialogue.options);
+            }
+            throw new NullPointerException(stringBuilder.toString());
+        }
     }
 
-    private void readFile(String fileIdentifier)
+    private Element readFile(String fileIdentifier)
     {
+        Element rootElement;
         //https://www.tutorialspoint.com/java_xml/java_dom_parse_document.htm
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         //factory.setValidating(true);
         factory.setIgnoringElementContentWhitespace(true);
         DocumentBuilder builder = null;
-        String path = "src/res/texts/" + fileIdentifier + ".xml";
+        String path = DIALOGUE_FILE_PATH + fileIdentifier + ".xml";
         try
         {
             builder = factory.newDocumentBuilder();
             File file = new File(path);
             Document doc = builder.parse(file);
-            xmlRoot = doc.getDocumentElement();
+            return doc.getDocumentElement();
+            //xmlRoot = doc.getDocumentElement();
         } catch (ParserConfigurationException | SAXException e)
         {
             e.printStackTrace();
@@ -85,12 +106,14 @@ public class Textbox
         {
             System.out.println("Cannot find: " + path);
         }
+
+        throw new RuntimeException("Cannot find dialogue file: " + path);
     }
 
-    private void readDialogue(String dialogueIdentifier)
+    private Dialogue readDialogue(String dialogueIdentifier)
     {
         String methodName = "readDialogue() ";
-        loadedDialogue = new Dialogue();
+        Dialogue readDialogue = new Dialogue();
         NodeList dialogues = xmlRoot.getElementsByTagName(DIALOGUE_TAG);
         for (int i = 0; i < dialogues.getLength(); i++) //iterate dialogues of file
         {
@@ -100,10 +123,10 @@ public class Textbox
                 Element currentDialogue = ((Element) dialogues.item(i));
                 String dialogueType = currentDialogue.getAttribute(TYPE_TAG);
                 NodeList xmlLines = currentDialogue.getElementsByTagName(LINE_TAG);
-                loadedDialogue.setActorStatus(currentDialogue.getAttribute(ACTOR_STATUS_TAG));
+                readDialogue.setActorStatus(currentDialogue.getAttribute(ACTOR_STATUS_TAG));
 
                 //check for type normal and decision
-                loadedDialogue.type = dialogueType;
+                readDialogue.type = dialogueType;
                 if (dialogueType.equals(DECISION_KEYWORD))
                 {
                     NodeList nextDialogueData = currentDialogue.getElementsByTagName(NEXT_DIALOGUE_TAG);
@@ -114,7 +137,7 @@ public class Textbox
                         String nextDialogue = null;
                         if (nextDialogueData.item(optionsIdx) != null)
                             nextDialogue = nextDialogueData.item(optionsIdx).getTextContent();
-                        loadedDialogue.addOption(option, nextDialogue);
+                        readDialogue.addOption(option, nextDialogue);
                     }
                 }
                 else
@@ -122,7 +145,7 @@ public class Textbox
                     for (int messageIdx = 0; messageIdx < xmlLines.getLength(); messageIdx++) //add lines
                     {
                         String message = xmlLines.item(messageIdx).getTextContent();
-                        loadedDialogue.messages.add(message);//Without formatting the message
+                        readDialogue.messages.add(message);//Without formatting the message
                     }
                 }
 
@@ -132,17 +155,19 @@ public class Textbox
                 if (nextDialogueIdList.getLength() > 0)
                 {
                     nextDialogueID = nextDialogueIdList.item(0).getTextContent();
-                    loadedDialogue.nextDialogue = nextDialogueIdList.item(0).getTextContent();
+                    readDialogue.nextDialogue = nextDialogueIdList.item(0).getTextContent();
                 }
                 else
                 {
                     nextDialogueID = null;
-                    loadedDialogue.nextDialogue = null;
+                    readDialogue.nextDialogue = null;
                 }
 
-                break;
+                return readDialogue;
+                //break;
             }
         }
+        throw new RuntimeException("No dialogue found with ID: " + dialogueIdentifier);
     }
 
     public void processKey(ArrayList<String> input, Long currentNanoTime)
@@ -240,15 +265,16 @@ public class Textbox
         return msgs;
     }
 
+
     public void groupAnalysis(List<Actor> actorsList, Actor speakingActor)
     {
-
-        String methodName = "groupAnalysis() ";
-        //readDialogue(fileIdentifier, dialogueIdentifier);
+        String methodName = "groupAnalysis(List<Actor>, Actor) ";
+        //System.out.println(classname + methodName + "triggered");
         startConversation(speakingActor);
         for (Actor actor : actorsList)
         {
-            List<String> msgs = readMessage(actor.dialogueFileName, "analysis-" + actor.dialogueStatusID);
+            loadedDialogue.messages.add(actor.actorname);
+            //List<String> msgs = readMessage(actor.dialogueFileName, "analysis-" + actor.dialogueStatusID);
             //messages.addAll(msgs);
         }
     }
@@ -277,7 +303,7 @@ public class Textbox
         else if (nextDialogueID != null)
         {
             messageIdx = 0;
-            readDialogue(nextDialogueID);
+            loadedDialogue = readDialogue(nextDialogueID);
             drawTextbox();
         }
         else
@@ -291,7 +317,7 @@ public class Textbox
             changeActorStatus(loadedDialogue.getActorStatus());
     }
 
-    private void drawTextbox()
+    private void drawTextbox() throws NullPointerException
     {
         String methodName = "drawTextbox() ";
         textboxGc.clearRect(0, 0, TEXTBOX_WIDTH, TEXTBOX_HEIGHT);

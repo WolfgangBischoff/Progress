@@ -133,33 +133,25 @@ public class WorldView implements GUIController
         {
             addedVelocityX += -playerActor.getSpeed();
             moveButtonPressed = true;
-            //if (playerActor.getDirection() != Direction.WEST)
             newDirection = Direction.WEST;
-            //playerActor.setDirection(Direction.WEST);
         }
         if (input.contains("RIGHT") || input.contains("D"))
         {
             addedVelocityX += playerActor.getSpeed();
             moveButtonPressed = true;
-            //if (playerActor.getDirection() != Direction.EAST)
             newDirection = Direction.EAST;
-            //playerActor.setDirection(Direction.EAST);
         }
         if (input.contains("UP") || input.contains("W"))
         {
             addedVelocityY += -playerActor.getSpeed();
             moveButtonPressed = true;
-            //if (playerActor.getDirection() != Direction.NORTH)
                 newDirection = Direction.NORTH;
-                //playerActor.setDirection(Direction.NORTH);
         }
         if (input.contains("DOWN") || input.contains("S"))
         {
             addedVelocityY += playerActor.getSpeed();
             moveButtonPressed = true;
-            //if (playerActor.getDirection() != Direction.SOUTH)
                 newDirection = Direction.SOUTH;
-                //playerActor.setDirection(Direction.SOUTH);
         }
 
         if (moveButtonPressed)

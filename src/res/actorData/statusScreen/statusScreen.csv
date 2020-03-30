@@ -1,0 +1,23 @@
+#onInteraction
+#onIntersection
+#onInRange
+#onUpdate
+#onMonitor
+#onTextBox
+#interactionArea
+#dialogueFile; path
+#transition; fromStatus; toStatus
+onMonitor; persistent; none
+
+onInteraction; textbox_analysis; none
+
+#Status transition map
+transition; on; off
+transition; off; on
+
+dialogueFile; actorData/statusScreen/airTerminal
+
+#status to image
+#status 																;name   				;spritename  																						;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;duration ;velocity ;dialogueID ;AnimationEnds
+ON  			 																;screen 				;machines/statusScreenG												;true				;0												;0			;0												;0			;0			;0										;0											;0													;0													;0											;0												;whitelight;0								;0								;init-on				;false
+OFF 		  																;screen 				;machines/statusScreenR												;true				;0												;0			;0												;0			;0			;0										;0											;0													;0													;0											;0												;none						;0								;0								;init-off			;false

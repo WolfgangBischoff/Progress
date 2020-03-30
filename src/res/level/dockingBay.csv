@@ -38,7 +38,7 @@ bigPoS				;portholeBig;		walls/bulkheadRoundStars128			;true					;0												;
 #Machines
 #code     ;name        ;spritename                     								;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning
 walCab				;wallcable			;walls/wallcabel																								;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
-air_Ve				;ventilation	;machines/air_ventilation															;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
+#air_Ve				;ventilation	;machines/air_ventilation															;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
 vendor				;vendor     	;machines/adiaVM_128_128																;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
 addAdi				;add			     	;machines/adiaAd_128_128																;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
 #inCeil				;ceiling		  	;machines/infoCeilingT																		;false				;2												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
@@ -53,13 +53,24 @@ boge_4				;bogenhanf				;plants/plant_64_128_large	 											;true					;1 				
 
 #Furniture
 desk__				;desk								;furniture/tableSqare											;true					;0												;0			;0												;0				;0				;0										;0											;0             ;0             ;0           ;0							     ;none
-bench_				;bench;											furniture/bench;																			true;				1;								0;			0;											0;				0;				0;										0;										0;													50;												128;										50							;none
+bench_				;bench							;furniture/bench																;true;				1;								0;			0;											0;				0;				0;										0;										0;													50;												128;										50							;none
 
 actors:
-#code 					;actorname 		;status   ;direction
-player					;player						;default		;WEST
-infoWe					;infoTerminal;off						;undefined
-airCon					;airControl  ;on							;undefined
+#code 					;actorname 																		;status  ;direction
+player					;player																						;default	;WEST
+infoWe					;infoTerminal																;off					;undefined
+airCon					;airControl  																;on						;undefined
+auDoor					;automatedDoor															;on						;south
+air_Ve					;airVent/airVent													;off					;undefined
+screeA					;statusScreen/statusScreen			;on						;undefined
+
+Actorgroups:
+#Air System
+#GroupMemberCode	;GroupName	;logic	;DependentGroupName
+screeA											;airScreen	;none		;airSystem
+air_Ve											;airSystem	;none		;none
+#pc____		;arm							;setOnIfBaseActorAllOn			;armT
+#rob_An		;armT						;none																				;none
 
 #sets 64 bits tiles as raster; you can add multiple layers; later defined layers are higher prioritized in case of same defined heightLayer
 #passivlayer will not be checked for interaction or collision
@@ -111,7 +122,7 @@ wBL___; waB___; waB___; waB___; waB___; waB___; waB___; waB___; waB___;	waB___; 
 
 
 layer:
-______; walCab; ______; bigPoS; ______; ______; ______; inCeil; ______; bigPor; ______; inCeil; ______; ______; ______; bigPoS; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; walCab; ______; bigPoS; ______; ______; ______; inCeil; ______; bigPor; ______; inCeil; ______; ______; ______; bigPoS; ______; auDoor; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
 ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
 ______; ______; ______; ______; ______; ______; ______; pillar; ______; ______; ______; pillar; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
 ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
@@ -122,7 +133,7 @@ ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; 
 ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
 ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
 ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
-______; ______; ______; ______; vendor; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; vendor; ______; ______; ______; ______; ______; ______; ______; ______; ______; screeA; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
 ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
 ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
 ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______

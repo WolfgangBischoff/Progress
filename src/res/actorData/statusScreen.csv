@@ -1,7 +1,6 @@
 
 onMonitor; persistent; none
 
-#onInteraction; textbox; none
 onInteraction; textbox_analysis; none
 
 #Status transition map

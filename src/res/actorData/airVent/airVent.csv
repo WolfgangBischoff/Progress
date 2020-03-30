@@ -1,0 +1,27 @@
+
+#onInteraction
+#onIntersection
+#onInRange
+#onUpdate
+#onMonitor
+#onTextBox
+#interactionArea
+#dialogueFile; path
+#transition; fromStatus; toStatus
+
+
+#Sensor						;TriggerType	;targetStatus
+onInteraction;textbox					;transition
+
+onTextBox; persistent; none
+
+#Status transition map
+#transition; on; off
+#transition; off; on
+
+dialogueFile; /actorData/airVent/air_vent
+
+#status to image
+#status			;name		 		;spritename																														;blocker		;heightLayer	;fps	;totalFrames	;cols	;rows;frameWidth	;frameHeight	;hitboxOffsetX; hitboxOffsetY;hitBoxWidth;hitBoxHeight;lightning	;duration		;velocity;dialogueID ;AnimationEnds
+ON								;airVent		;../actorData/airVent/air_vent											;true					;0 										;0   ;0           ;0    ;0   ;000        ;000         ;0         	  ;0             ;0          ;0											;none						;0									;0							;init-on									;false
+OFF							;airVent		;../actorData/airVent/air_vent_dirty					;true					;0 										;0   ;0           ;0    ;0   ;000        ;000         ;0        	   ;0             ;0          ;0											;none						;0									;0							;init-off								;false

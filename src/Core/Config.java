@@ -30,4 +30,6 @@ public class Config
     public static final String LINE_TAG = "line";
     public static final String NEXT_DIALOGUE_TAG = "nextDialogue";
 
+    public static final String DIALOGUE_FILE_PATH = "src/res/";
+
 }

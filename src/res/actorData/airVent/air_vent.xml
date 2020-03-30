@@ -1,0 +1,66 @@
+
+
+
+<!--/>
+File Identified by Actor Definition
+First Dialogue Identified by actor status value; In future maybe also MonitorData, levelname
+
+id - identifier for lookup of textbox
+type - normal/decision
+actorstatus - changes actor to status defined in actor file, "transition" leads to changed defined in actor file
+
+    <dialogue id="welcome" type="normal" actorstatus="transition">
+        <line>Shown message</line>
+        <line>Shown message 2</line>
+        <nextDialogue>nextDialogueID</nextDialogue>
+    </dialogue>
+
+    <dialogue id="info" type="decision" actorstatus="transition">
+        <option>
+            <line>Optiontext1</line>
+            <nextDialogue>option1ID</nextDialogue>
+        </option>
+
+        <option>
+            <line>Optiontext1, Nothing happens</line>
+        </option>
+    </dialogue>
+<-->
+
+<root name="air_vent">
+    <dialogue id="none" type="normal">
+        <line>air_vent No message defined</line>
+    </dialogue>
+
+    <dialogue id="analysis-init-on" type="normal">
+        <line>Air Vent works</line>
+    </dialogue>
+
+    <dialogue id="analysis-init-off" type="normal">
+        <line>Air Vent doesnt work</line>
+    </dialogue>
+
+    <dialogue id="init-on" type="normal">
+        <line>Fresh air streams into your face</line>
+    </dialogue>
+
+    <dialogue id="init-off" type="normal">
+        <line>Looks dirty and congested</line>
+        <nextDialogue>off-cleanDec</nextDialogue>
+    </dialogue>
+
+    <dialogue id="off-cleanDec" type="decision">
+        <option>
+            <line>[Clean the ventilation]</line>
+            <nextDialogue>cleanDec-cleaned</nextDialogue>
+        </option>
+        <option>
+            <line>[Go away]</line>
+        </option>
+    </dialogue>
+
+    <dialogue id="cleanDec-cleaned" type="normal" actorstatus="on">
+        <line>The air can stream again.</line>
+    </dialogue>
+</root>
+
