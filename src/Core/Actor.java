@@ -355,6 +355,8 @@ public class Actor// implements PropertyChangeListener
         String oldCompoundStatus = compoundStatus;
         String newStatusString = generalStatus;
 
+
+        //GeneralStatus - [DIRECTION] - [MOVING]
         if (!(direction == Direction.UNDEFINED))
             newStatusString = newStatusString + "-" + direction.toString().toLowerCase();
         if (isMoving())
@@ -362,7 +364,10 @@ public class Actor// implements PropertyChangeListener
         compoundStatus = newStatusString;
 
         if (!(oldCompoundStatus.equals(compoundStatus)))
+        {
+            //System.out.println(classname + methodName + "status: " + compoundStatus);
             changeSprites();
+        }
 
         //If is part of a group
         if (stageMonitor != null)

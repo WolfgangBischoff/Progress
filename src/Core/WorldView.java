@@ -125,36 +125,41 @@ public class WorldView implements GUIController
     {
         boolean moveButtonPressed = false;
         int addedVelocityX = 0, addedVelocityY = 0;
+        Direction newDirection = null;
         Actor playerActor = player.actor;
 
         //Interpret Input from GameWindow
-        if (input.contains("UP") || input.contains("W"))
-        {
-            addedVelocityY += -playerActor.getSpeed();
-            moveButtonPressed = true;
-            if (playerActor.getDirection() != Direction.NORTH)
-                playerActor.setDirection(Direction.NORTH);
-        }
-        if (input.contains("DOWN") || input.contains("S"))
-        {
-            addedVelocityY += playerActor.getSpeed();
-            moveButtonPressed = true;
-            if (playerActor.getDirection() != Direction.SOUTH)
-                playerActor.setDirection(Direction.SOUTH);
-        }
         if (input.contains("LEFT") || input.contains("A"))
         {
             addedVelocityX += -playerActor.getSpeed();
             moveButtonPressed = true;
-            if (playerActor.getDirection() != Direction.WEST)
-                playerActor.setDirection(Direction.WEST);
+            //if (playerActor.getDirection() != Direction.WEST)
+            newDirection = Direction.WEST;
+            //playerActor.setDirection(Direction.WEST);
         }
         if (input.contains("RIGHT") || input.contains("D"))
         {
             addedVelocityX += playerActor.getSpeed();
             moveButtonPressed = true;
-            if (playerActor.getDirection() != Direction.EAST)
-                playerActor.setDirection(Direction.EAST);
+            //if (playerActor.getDirection() != Direction.EAST)
+            newDirection = Direction.EAST;
+            //playerActor.setDirection(Direction.EAST);
+        }
+        if (input.contains("UP") || input.contains("W"))
+        {
+            addedVelocityY += -playerActor.getSpeed();
+            moveButtonPressed = true;
+            //if (playerActor.getDirection() != Direction.NORTH)
+                newDirection = Direction.NORTH;
+                //playerActor.setDirection(Direction.NORTH);
+        }
+        if (input.contains("DOWN") || input.contains("S"))
+        {
+            addedVelocityY += playerActor.getSpeed();
+            moveButtonPressed = true;
+            //if (playerActor.getDirection() != Direction.SOUTH)
+                newDirection = Direction.SOUTH;
+                //playerActor.setDirection(Direction.SOUTH);
         }
 
         if (moveButtonPressed)
@@ -162,6 +167,8 @@ public class WorldView implements GUIController
         else if (player.actor.isMoving())
             player.actor.setVelocity(0, 0);
 
+        if(newDirection != null && playerActor.getDirection() != newDirection)
+            playerActor.setDirection(newDirection);
 
         if (input.contains("E"))
         {
