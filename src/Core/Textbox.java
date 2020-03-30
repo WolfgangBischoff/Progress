@@ -20,7 +20,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -39,7 +38,7 @@ public class Textbox
     GraphicsContext textboxGc = textboxCanvas.getGraphicsContext2D();
     WritableImage textboxImage;
     Dialogue loadedDialogue;
-    Element xmlRoot;
+    Element dialogueFileRoot;
     int messageIdx = 0;
     final int firstLineOffsetY = 20;
     final int xOffsetTextLine = 30;
@@ -62,15 +61,14 @@ public class Textbox
         actorOfDialogue = actorParam;
         try
         {
-            xmlRoot = readFile(actorOfDialogue.dialogueFileName);
-            loadedDialogue = readDialogue(actorOfDialogue.dialogueStatusID);
+            dialogueFileRoot = readFile(actorOfDialogue.dialogueFileName);
+            loadedDialogue = readDialogue(actorOfDialogue.dialogueStatusID, dialogueFileRoot);
             drawTextbox();
-        }
-        catch (NullPointerException e)
+        } catch (NullPointerException e)
         {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append("\nDialogueFileName: " + actorOfDialogue.dialogueFileName);
-            if(loadedDialogue == null)
+            if (loadedDialogue == null)
                 stringBuilder.append("\nLoadedDialogue = null");
             else
             {
@@ -110,7 +108,7 @@ public class Textbox
         throw new RuntimeException("Cannot find dialogue file: " + path);
     }
 
-    private Dialogue readDialogue(String dialogueIdentifier)
+    private Dialogue readDialogue(String dialogueIdentifier, Element xmlRoot)
     {
         String methodName = "readDialogue() ";
         Dialogue readDialogue = new Dialogue();
@@ -241,41 +239,16 @@ public class Textbox
         }
     }
 
-    private List<String> readMessage(String fileIdentifier, String dialogueIdentifier)
-    {
-        String methodName = "readMessage() ";
-        List<String> msgs = new ArrayList<>();
-        List<String[]> fileData;
-        Path path = Paths.get("src/res/texts/" + fileIdentifier + ".csv");
-
-        if (Files.exists(path))
-        {
-            fileData = Utilities.readAllLineFromTxt(path.toString());
-            for (String[] linedata : fileData)
-            {
-                {
-                    if (linedata[0].equals(dialogueIdentifier))
-                        msgs.add(linedata[1]);
-                }
-            }
-        }
-
-        if (msgs.isEmpty())
-            System.out.println(classname + methodName + "No messages found with ID: " + dialogueIdentifier + " in " + path.toString());
-        return msgs;
-    }
-
-
     public void groupAnalysis(List<Actor> actorsList, Actor speakingActor)
     {
         String methodName = "groupAnalysis(List<Actor>, Actor) ";
-        //System.out.println(classname + methodName + "triggered");
         startConversation(speakingActor);
         for (Actor actor : actorsList)
         {
-            loadedDialogue.messages.add(actor.actorname);
-            //List<String> msgs = readMessage(actor.dialogueFileName, "analysis-" + actor.dialogueStatusID);
-            //messages.addAll(msgs);
+            Element analysisDialogueFileObserved = readFile(actor.dialogueFileName);
+            Dialogue analysisMessageObserved = readDialogue("analysis-" + actor.dialogueStatusID, analysisDialogueFileObserved);
+            loadedDialogue.messages.add(actor.actorInGameName + analysisMessageObserved.messages.get(0));
+            //loadedDialogue.messages.addAll(analysisMessageObserved.messages);
         }
     }
 
@@ -303,7 +276,7 @@ public class Textbox
         else if (nextDialogueID != null)
         {
             messageIdx = 0;
-            loadedDialogue = readDialogue(nextDialogueID);
+            loadedDialogue = readDialogue(nextDialogueID, dialogueFileRoot);
             drawTextbox();
         }
         else
@@ -313,7 +286,7 @@ public class Textbox
         }
         playerActor.lastInteraction = currentNanoTime;
 
-        if(loadedDialogue.getActorStatus() != null)
+        if (loadedDialogue.getActorStatus() != null)
             changeActorStatus(loadedDialogue.getActorStatus());
     }
 

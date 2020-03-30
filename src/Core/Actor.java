@@ -13,12 +13,11 @@ import java.util.*;
 
 import static Core.Config.*;
 
-public class Actor// implements PropertyChangeListener
+public class Actor
 {
-    //final int TIME_BETWEEN_ACTION = 1;
-
-    final String classname = "Actor ";
-    String actorname;
+    final String classname = "Actor/";
+    String actorFileName;
+    String actorInGameName;
     private Direction direction;
     private double velocityX;
     private double velocityY;
@@ -54,13 +53,15 @@ public class Actor// implements PropertyChangeListener
     final List<String> memberActorGroups = new ArrayList<>();
 
 
-    public Actor(String actorname, String initGeneralStatus, Direction direction)
+    //public Actor(String actorFileName, String initGeneralStatus, Direction direction)
+    public Actor(String actorFileName, String actorInGameName, String initGeneralStatus, Direction direction)
     {
-        this.actorname = actorname;
+        this.actorFileName = actorFileName;
+        this.actorInGameName = actorInGameName;
         this.generalStatus = initGeneralStatus.toLowerCase();
         this.direction = direction;
         List<String[]> actordata;
-        Path path = Paths.get("src/res/actorData/" + actorname + ".csv");
+        Path path = Paths.get("src/res/actorData/" + actorFileName + ".csv");
         actorDefinitionKeywords.add(KEYWORD_onInteraction);
         actorDefinitionKeywords.add(KEYWORD_onInRange);
         actorDefinitionKeywords.add(KEYWORD_onUpdate);
@@ -73,7 +74,7 @@ public class Actor// implements PropertyChangeListener
 
         if (Files.exists(path))
         {
-            actordata = Utilities.readAllLineFromTxt("src/res/actorData/" + actorname + ".csv");
+            actordata = Utilities.readAllLineFromTxt("src/res/actorData/" + actorFileName + ".csv");
             for (String[] linedata : actordata)
             {
                 if (checkForKeywords(linedata))
@@ -94,11 +95,11 @@ public class Actor// implements PropertyChangeListener
                 }
                 catch (IndexOutOfBoundsException e)
                 {
-                    throw new IndexOutOfBoundsException(e.getMessage() + "\n in Actorfile: " + actorname);
+                    throw new IndexOutOfBoundsException(e.getMessage() + "\n in Actorfile: " + actorFileName);
                 }
             }
         }
-        else throw new RuntimeException("Actordata not found: " + actorname);
+        else throw new RuntimeException("Actordata not found: " + actorFileName);
     }
 
     private boolean checkForKeywords(String[] linedata)
@@ -326,9 +327,27 @@ public class Actor// implements PropertyChangeListener
         {
             if (onInteraction.equals(TriggerType.TEXTBOX_ANALYSIS))
             {
-                String analizedGroupName = stageMonitor.groupsToTargetGroupsMap.get(memberActorGroups.get(0));
-                List<Actor> analyzedGroup = stageMonitor.actorSystemMap.get(analizedGroupName).getSystemMembers();
-                WorldView.textbox.groupAnalysis(analyzedGroup, this);
+                String analyzedGroupName = null;
+                List<Actor> analyzedGroup = null;
+                try
+                {
+                    analyzedGroupName = stageMonitor.groupsToTargetGroupsMap.get(memberActorGroups.get(0));
+                    analyzedGroup = stageMonitor.actorSystemMap.get(analyzedGroupName).getSystemMembers();
+                    WorldView.textbox.groupAnalysis(analyzedGroup, this);
+                }
+                catch (NullPointerException e)
+                {
+                    StringBuilder stringBuilder = new StringBuilder();
+                    if(stageMonitor == null)
+                    stringBuilder.append("\nStageMonitor is null");
+                    if(analyzedGroupName == null)
+                        stringBuilder.append("\nAnalyzed group is null: " + memberActorGroups.get(0));
+                    if(analyzedGroup == null)
+                        stringBuilder.append("\nDependent group does not exist or is empty: " + analyzedGroupName);
+
+                    throw new NullPointerException(stringBuilder.toString());
+                }
+
             }
             else
                 WorldView.textbox.startConversation(this);
@@ -346,7 +365,7 @@ public class Actor// implements PropertyChangeListener
             generalStatus = statusTransitions.get(generalStatus);
         }
         else
-            System.out.println(classname + methodName + "No status transition found for " + actorname + " " + generalStatus);
+            System.out.println(classname + methodName + "No status transition found for " + actorFileName + " " + generalStatus);
     }
 
     void updateCompoundStatus()
@@ -380,7 +399,7 @@ public class Actor// implements PropertyChangeListener
     public String toString()
     {
         return "\nActor{" +
-                actorname +
+                actorFileName +
                 ", Generalstatus=" + generalStatus +
                 ", ActorGroup=" + memberActorGroups.toString() +
                 "}";

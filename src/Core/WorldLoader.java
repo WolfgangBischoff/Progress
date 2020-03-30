@@ -179,7 +179,8 @@ public class WorldLoader
                 ActorData actorData = actorDataMap.get(lineData[i]);
 
                 //foreach Sprite Data add Sprite to layer, Actor save sprite
-                Actor actor = new Actor(actorData.actorname, actorData.generalStatus, actorData.direction);
+                //Actor actor = new Actor(actorData.actorname, actorData.generalStatus, actorData.direction);
+                Actor actor = new Actor(actorData.actorFileName, actorData.actorInGameName, actorData.generalStatus, actorData.direction);
                 actor.updateCompoundStatus();
                 List<SpriteData> spriteDataList = actor.spriteDataMap.get(actor.compoundStatus);
 
@@ -229,23 +230,26 @@ public class WorldLoader
         String methodName = "readActors ";
         //Reads sprite data from given status and add to tile definition, later actor will be added
         int actorCodeIdx = 0;
-        int actorNameIdx = 1;
-        int statusIdx = 2;
-        int directionIdx = 3;
+        int actorFileNameIdx = 1;
+        int actorIngameNameIdx = 2;
+        int statusIdx = 3;
+        int directionIdx = 4;
         Direction direction = Direction.getDirectionFromValue(lineData[directionIdx]);
-        ActorData actorData = new ActorData(lineData[actorNameIdx], lineData[statusIdx], direction);
+        ActorData actorData = new ActorData(lineData[actorFileNameIdx], lineData[actorIngameNameIdx], lineData[statusIdx], direction);
         actorDataMap.put(lineData[actorCodeIdx], actorData);
     }
 
     class ActorData
     {
-        String actorname;
+        String actorFileName;
+        String actorInGameName;
         String generalStatus;
         Direction direction;
 
-        public ActorData(String actorname, String generalStatus, Direction direction)
+        public ActorData(String actorname, String actorInGameName, String generalStatus, Direction direction)
         {
-            this.actorname = actorname;
+            this.actorFileName = actorname;
+            this.actorInGameName = actorInGameName;
             this.generalStatus = generalStatus;
             this.direction = direction;
         }
@@ -254,7 +258,7 @@ public class WorldLoader
         public String toString()
         {
             return "ActorData{" +
-                    "actorname='" + actorname + '\'' +
+                    "actorname='" + actorFileName + '\'' +
                     '}';
         }
     }

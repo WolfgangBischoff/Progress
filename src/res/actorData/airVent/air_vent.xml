@@ -33,11 +33,11 @@ actorstatus - changes actor to status defined in actor file, "transition" leads 
     </dialogue>
 
     <dialogue id="analysis-init-on" type="normal">
-        <line>Air Vent works</line>
+        <line> at full capacity</line>
     </dialogue>
 
     <dialogue id="analysis-init-off" type="normal">
-        <line>Air Vent doesnt work</line>
+        <line> at low capacity</line>
     </dialogue>
 
     <dialogue id="init-on" type="normal">
