@@ -56,14 +56,15 @@ desk__				;desk								;furniture/tableSqare											;true					;0												;
 bench_				;bench							;furniture/bench																;true;				1;								0;			0;											0;				0;				0;										0;										0;													50;												128;										50							;none
 
 actors:
-#code 					;actorFileN																	;IngameName								;status  ;direction
-player					;player																					;PlayerIngameName		;default	;WEST
-infoWe					;infoTerminal															;IngameName								;off					;undefined
-airCon					;airControl  															;IngameName								;on						;undefined
-auDoor					;automatedDoor														;IngameName								;on						;south
-airVeR					;airVent/airVent												;Right ventilation	;off					;undefined
-airVeL					;airVent/airVent												;Left ventilation		;off					;undefined
-screeA					;statusScreen/statusScreen		;IngameName								;on						;undefined
+#code 					;actorFileN																														;IngameName															;status  ;direction
+player					;player																																		;PlayerIngameName									;default	;WEST
+infoWe					;infoTerminal																												;IngameName															;off					;undefined
+airCon					;airControl  																												;IngameName															;on						;undefined
+auDoor					;doors/horizontal/automatedDoor										;horizontal bulkhead						;on						;south
+doorVe					;doors/vertical/autoBulkheadVertical					;vertical bulkhead								;on						;west
+airVeR					;airVent/airVent																									;Right ventilation								;off					;undefined
+airVeL					;airVent/airVent																									;Left ventilation									;off					;undefined
+screeA					;statusScreen/statusScreen															;IngameName															;on						;undefined
 
 Actorgroups:
 #Air System
@@ -138,7 +139,7 @@ ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; 
 ______; ______; ______; ______; vendor; ______; ______; ______; ______; ______; ______; ______; ______; ______; screeA; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
 ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
 ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
-______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; doorVe; ______; ______; ______; ______; ______; ______; ______
 ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
 ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
 ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______

@@ -1,0 +1,25 @@
+
+#onInteraction
+#onIntersection
+#onInRange
+#onUpdate
+#onMonitor
+#onTextBox
+#interactionArea
+#dialogueFile; path
+#transition; fromStatus; toStatus
+
+#Status Changes
+#ActionType; TriggerType; GeneralStatus
+onInRange; persistent; off
+onUpdate; persistent; on
+onIntersection; persistent; off
+
+#InteractionArea; Distance; Width; OffsetX; OffsetY
+interactionArea; 						250;				40;							150;				030
+
+#status to image
+#status 											;name 					  				;spritename  																																													;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;duration ;velocity ;dialogueID ;AnimationEnds
+ON-west												;automatedDoorV		;../actorData/doors/vertical/autoDoorVertical_close					 	;true				;0												;0			;0												;0			;0			;0										;0											;0													;074													;64									;128											;none						;0								;0								;none							;false
+OFF-west											;automatedDoorV		;../actorData/doors/vertical/autoDoorVertical_open					 		;false			;0												;0			;0												;0			;0			;0										;0											;0													;074													;64									;128											;none						;0								;0								;none							;false
+

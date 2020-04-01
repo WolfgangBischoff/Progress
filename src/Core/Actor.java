@@ -209,7 +209,7 @@ public class Actor
         double elapsedTimeSinceLastInteraction = (currentNanoTime - lastInteraction) / 1000000000.0;
         if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS)
         {
-            System.out.println(classname + methodName + elapsedTimeSinceLastInteraction);
+            //System.out.println(classname + methodName + elapsedTimeSinceLastInteraction);
             evaluateTriggerType(onInRange, onInRangeToStatus);
             lastInteraction = currentNanoTime;
         }

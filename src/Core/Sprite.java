@@ -76,11 +76,11 @@ public class Sprite
             case NORTH:
                 return new Rectangle2D(positionX + hitBoxOffsetX + hitBoxWidth / 2 - interactionWidth / 2 + offsetX, positionY + hitBoxOffsetY - maxInteractionDistance + offsetY, interactionWidth, maxInteractionDistance);
             case EAST:
-                return new Rectangle2D(positionX + hitBoxOffsetX + hitBoxWidth, positionY + hitBoxOffsetY + hitBoxHeight / 2 - interactionWidth / 2, maxInteractionDistance, interactionWidth);
+                return new Rectangle2D(positionX + hitBoxOffsetX + hitBoxWidth + offsetX, positionY + hitBoxOffsetY + hitBoxHeight / 2 - interactionWidth / 2 + offsetY, maxInteractionDistance, interactionWidth);
             case SOUTH:
                 return new Rectangle2D(positionX + hitBoxOffsetX + hitBoxWidth / 2 - interactionWidth / 2 + offsetX, positionY + hitBoxOffsetY + hitBoxHeight + offsetY, interactionWidth, maxInteractionDistance);
             case WEST:
-                return new Rectangle2D(positionX + hitBoxOffsetX - maxInteractionDistance, positionY + hitBoxOffsetY + hitBoxHeight / 2 - interactionWidth / 2, maxInteractionDistance, interactionWidth);
+                return new Rectangle2D(positionX + hitBoxOffsetX - maxInteractionDistance + offsetX, positionY + hitBoxOffsetY + hitBoxHeight / 2 - interactionWidth / 2 + offsetY, maxInteractionDistance, interactionWidth);
             case UNDEFINED:
                 return null;
             default:
@@ -93,7 +93,7 @@ public class Sprite
         String methodName = "onUpdate() ";
         double time = (currentNanoTime - lastUpdated) / 1000000000.0;
         double elapsedTimeSinceLastInteraction = (currentNanoTime - actor.lastInteraction) / 1000000000.0;
-        interactionArea = calcInteractionRectangle();
+          //  interactionArea = calcInteractionRectangle();
         Rectangle2D worldBorders = WorldView.getBorders();
         List<Sprite> activeSprites = WorldView.getPassiveCollisionRelevantSpritesLayer();
         double velocityX = actor.getVelocityX();
@@ -137,8 +137,10 @@ public class Sprite
             }
 
             //In range
+            if(actor.onInRange != TriggerType.NOTHING || getName().toLowerCase().equals("player"))
+                interactionArea = calcInteractionRectangle();
             if (otherSprite.actor != null
-                    && actor.onInRange != TriggerType.NOTHING
+                  // && actor.onInRange != TriggerType.NOTHING
                     && otherSprite.getBoundary().intersects(interactionArea))
             {
                 actor.onInRange(otherSprite, currentNanoTime);
@@ -160,7 +162,7 @@ public class Sprite
     public void onClick()
     {
         String methodName = "onClick() ";
-        System.out.println(className + methodName + name + " clicked");
+        System.out.println(className + methodName + name + " clicked: " + actor.actorInGameName);
     }
 
     public boolean intersectsRelativeToWorldView(Point2D point)
