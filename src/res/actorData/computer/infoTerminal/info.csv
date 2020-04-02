@@ -1,0 +1,33 @@
+
+#onInteraction
+#Sensor							  ;TriggerType 					;targetStatus
+#onInteraction		;textbox										;transition
+#onMonitor 					;persistent 						;none
+#onTextBox 					;persistent_text		;none
+#onInRange						;persistent							;off
+#onUpdate							;persistent							;on
+#onIntersection	;persistent							;off
+#InteractionArea; Distance; Width; OffsetX; OffsetY
+#dialogueFile; actorData/dictionary/dialogueFile
+#transition; fromStatus; toStatus
+
+#Status Changes
+#ActionType; TriggerType; GeneralStatus
+onInteraction; textbox; nothing
+
+onTextBox; persistent; nothing
+
+#Status transition map
+transition; on; text
+transition; text; on
+transition; off; on
+transition; technical; on
+
+dialogueFile; /actorData/computer/infoTerminal/infoTerminal
+
+#status to image
+#status 		;name   						;spritename  																																														;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;duration ;velocity ;dialogueID ;AnimationEnds
+OFF							;infoTerminal	;../actorData/computer/infoTerminal/info_128_128_wel							;true    ;0												;0			;0												;0			;0			;0										;0											;0													;0													;0											;0												;none						;0								;0								;welcome				;false
+ON								;infoTerminal	;../actorData/computer/infoTerminal/info_128_128_dia							;true    ;0												;0			;0												;0			;0			;0										;0											;0													;0													;0											;0												;whitelight;0								;0								;welcome							;false
+text						;infoTerminal	;../actorData/computer/infoTerminal/info_128_128_text						;true    ;0												;0			;0												;0			;0			;0										;0											;0													;0													;0											;0												;none						;0								;0								;welcome				;false
+technical	;infoTerminal	;../actorData/computer/infoTerminal/info_technical_128_128	;true    ;0												;0			;0												;0			;0			;0										;0											;0													;0													;0											;0												;none						;0								;0								;welcome				;false

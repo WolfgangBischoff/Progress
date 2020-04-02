@@ -1,8 +1,7 @@
 
 Logic:
 - level change
-- Message Box
-    change groupAnalysis
+- Interact with mouse not just E
 - Menu
 - schlafen, fade out, calender
 - Console
@@ -10,7 +9,7 @@ Logic:
 
 Sprites:
 - Docking Bay:
-    Automatische Tür, runder UFO Roboter, Seats, Lautsprecher, Advertisment changes per 5 sec, crates
+    runder UFO Roboter, Seats, Lautsprecher, Advertisment changes per 5 sec, wastebin, Example Science/Ore/CultureSpacePoppers
 - Control Center: BrückenControls,
 - Machines: Ventilation/Movingpart with bridge
 - Person https://forums.rpgmakerweb.com/index.php?threads/spriting-pixel-art-tutorials.33/
@@ -24,27 +23,51 @@ Sprites:
 
 Level:
 
-Story:
+
+Lore:
     Third Class
         => Earth damaged, people want to live in space and station, asteriodCracker
         => Companies are paid for being crew
         => Loan/Family paid you ticket (maybe paid after some time)
-    Start aussteigen aus Raumschiff
-    Gehen durch empfangsbereich (Terminal)
-    Einführung Arbeits(Purpose) und Wohnbereich
-    Kennenlernen von Kollegen blöd - erste Quest overcome
-        => anfreunden (muss Pop culturwissen sammeln)
-        => Ignoriern (wait for work success to increase influence)
-        => Aggresiv & Revenge(Sprach Option, unsympatisch, destroy things)
-        => Investigative - Find secret information
 
+Central Plot Social Injustice:
+    1) Self Rescue
+        Start aussteigen aus Raumschiff
+        Gehen durch empfangsbereich (Terminal)
+        Einführung Arbeits(Purpose) und Wohnbereich
+        Kennenlernen von Kollegen blöd
+        Become Boss (SPOC to administration) to increase living conditions
+        => social (muss Pop culturwissen sammeln, gefallen erweisen, administration sees that I have influence, lässt alten fallen da nicht informiert)
+        => Ignoriern (wait for work success to increase influence, repair machines and get better knowledge as boss)
+        => Aggresiv & Revenge(Sprach Option, unsympatisch, destroy things, enemies have fear, recommend you)
+        => Investigative - Find secret information, boss recommends you
+    2) Get Access and more influence
+    3) Unite Workers
+    4) Blame Administration
+    5) First Company retrets, too expensive
+    6) Better, but Attack after scandal
+    7) War
+    8) Anarchy
+    9) War II
+    10) Central Comitee
+
+Enviroment Plot:
+    Flora on Asteriod
+
+Cultural Dominance Plot:
+    Style of Station, Music, Interests
+
+Science Plot:
+    Flora, Ancient things, Splicing
+
+Spiritual Mission:
+    Drugs
 
 Repair mechanic:
-You are technican, Hausmeister, brings money
+brings money
 1) Get message over incident => Analyze at Hub
 2) get hint, sometimes error hidden, check multiple places
 3) Found problem => Need more tools/ersatzteile/way blocked => repair
-Systemgroup state relies on parts state, if one is broken send message
 Each part gives other message, Hub give hint which part is broken (So hub message relies on Group status)
 => EndSystem spread over Map, MiddleSystem is behind Scenes, Root are other Maps => Erkundung
 

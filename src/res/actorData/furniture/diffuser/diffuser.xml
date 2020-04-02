@@ -1,0 +1,92 @@
+
+
+<!--/>
+File Identified by Actor Definition
+First Dialogue Identified by actor status value; In future maybe also MonitorData, levelname
+
+id - identifier for lookup of textbox
+type - normal/decision
+actorstatus - changes actor to status defined in actor file, "transition" leads to changed defined in actor file
+
+    <dialogue id="welcome" type="normal" actorstatus="transition">
+        <line>Shown message</line>
+        <line>Shown message 2</line>
+        <nextDialogue>nextDialogueID</nextDialogue>
+    </dialogue>
+
+    <dialogue id="info" type="decision" actorstatus="transition">
+        <option>
+            <line>Optiontext1</line>
+            <nextDialogue>option1ID</nextDialogue>
+        </option>
+
+        <option>
+            <line>Optiontext1, Nothing happens</line>
+        </option>
+    </dialogue>
+<-->
+
+<root name = "infoTerminal">
+    <dialogue id="none" type="normal">
+        <line>Diffuser Lorem Ipsum</line>
+    </dialogue>
+
+    <dialogue id="rose" type="normal">
+        <line>An astonishing smell streams in you nose..</line>
+        <line>.. its from pure roses with wonderful red blossoms ..</line>
+        <line>.. you remember this smell from earth ..</line>
+        <nextDialogue>choiceQuestion</nextDialogue>
+    </dialogue>
+
+    <dialogue id="ylang" type="normal">
+        <line>A pleasant smell streams in you nose..</line>
+        <line>.. its bloomy Ylang-Ylang, you feel like resting on a flower field ..</line>
+        <line>.. you feel happy ..</line>
+        <nextDialogue>choiceQuestion</nextDialogue>
+    </dialogue>
+
+    <dialogue id="thieves" type="normal">
+        <line>An aromatic smell streams in you nose..</line>
+        <line>.. this is clearly the famous Thieves mixture that helps body and spirit ..</line>
+        <line>.. your determination increases ..</line>
+        <nextDialogue>choiceQuestion</nextDialogue>
+    </dialogue>
+
+    <dialogue id="choiceQuestion" type="normal">
+        <line>You can choose another smell if you like..</line>
+        <nextDialogue>choiceDec</nextDialogue>
+    </dialogue>
+
+    <dialogue id="choiceDec" type="decision">
+        <option>
+            <line>Rose</line>
+            <nextDialogue>pushedButtonRose</nextDialogue>
+        </option>
+        <option>
+            <line>Ylang-Ylang</line>
+            <nextDialogue>pushedButtonYlang</nextDialogue>
+        </option>
+        <option>
+            <line>Thieves</line>
+            <nextDialogue>pushedButtonThieves</nextDialogue>
+        </option>
+        <option>
+            <line>[Go Away]</line>
+        </option>
+    </dialogue>
+
+    <dialogue id="pushedButtonRose" type="normal" actorstatus="rose">
+        <line>Rose aroma streams from the diffuser</line>
+    </dialogue>
+
+    <dialogue id="pushedButtonYlang" type="normal" actorstatus="Ylang">
+        <line>Ylang-Ylang aroma streams from the diffuser</line>
+    </dialogue>
+
+    <dialogue id="pushedButtonThieves" type="normal" actorstatus="thieves">
+        <line>Thieves aroma streams from the diffuser</line>
+    </dialogue>
+
+</root>
+
+

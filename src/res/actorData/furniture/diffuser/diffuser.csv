@@ -1,0 +1,23 @@
+#Sensor							  ;TriggerType 					;targetStatus
+#onInteraction		;textbox										;transition
+#onMonitor 					;persistent 						;none
+#onTextBox 					;persistent_text		;none
+#onInRange						;persistent							;off
+#onUpdate							;persistent							;on
+#onIntersection	;persistent							;off
+#InteractionArea; Distance; Width; OffsetX; OffsetY
+#dialogueFile; actorData/dictionary/dialogueFile
+#transition; fromStatus; toStatus
+
+#Status Changes
+#ActionType		;TriggerType	;GeneralStatus
+onInteraction;textbox					;default
+onTextBox				;persistent		;none
+
+dialogueFile; actorData/furniture/diffuser/diffuser
+
+#status to image
+#status 			;name   				;spritename  																																												;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;duration ;velocity ;dialogueID ;AnimationEnds
+rose							;diffuser			;../actorData/furniture/diffuser/diffuser_128_160_anim3		;true				;0												;4			;3												;3			;1			;128								;160									;0													;0													;000									;000										;whitelight;0								;0								;rose							;false
+thieves 			;diffuser			;../actorData/furniture/diffuser/diffuser_128_160_anim3		;true				;0												;4			;3												;3			;1			;128								;160									;0													;0													;000									;000										;whitelight;0								;0								;thieves				;false
+ylang						;diffuser			;../actorData/furniture/diffuser/diffuser_128_160_anim3		;true				;0												;4			;3												;3			;1			;128								;160									;0													;0													;000									;000										;whitelight;0								;0								;ylang						;false

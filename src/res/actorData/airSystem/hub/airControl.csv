@@ -1,0 +1,25 @@
+#Sensor							  ;TriggerType 					;targetStatus
+#onInteraction		;textbox										;transition
+#onMonitor 					;persistent 						;none
+#onTextBox 					;persistent_text		;none
+#onInRange						;persistent							;off
+#onUpdate							;persistent							;on
+#onIntersection	;persistent							;off
+#InteractionArea; Distance; Width; OffsetX; OffsetY
+#dialogueFile; actorData/dictionary/dialogueFile
+#transition; fromStatus; toStatus
+
+onInteraction; persistent_text; transition
+
+onMonitor; persistent; none
+
+#Status transition map
+transition; on; off
+transition; off; on
+
+dialogueFile; actorData/airSystem/hub/airControl
+
+#status to image
+#status			;name		 		;spritename																																										;blocker		;heightLayer	;fps	;totalFrames	;cols	;rows;frameWidth	;frameHeight	;hitboxOffsetX; hitboxOffsetY;hitBoxWidth;hitBoxHeight;lightning	;duration		;velocity;dialogueID ;AnimationEnds
+ON								;airHub			;../actorData/airSystem/hub/airSupport_256_256_Anim2 ;true					;0 										;6   ;2           ;2    ;0   ;256        ;256         ;0         	  ;0             ;0          ;0											;none						;0									;0							;on							;false
+OFF							;airHub			;../actorData/airSystem/hub/airSupport_256_256_off			;true					;0 										;0   ;0           ;0    ;0   ;000        ;000         ;0        	   ;0             ;0          ;0											;none						;0									;0							;off							;false
