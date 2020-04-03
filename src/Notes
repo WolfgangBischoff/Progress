@@ -1,11 +1,9 @@
 
 Logic:
 - level change
-- Interact with mouse not just E
 - Menu
 - schlafen, fade out, calender
 - Console
-
 
 Sprites:
 - Docking Bay:
@@ -23,8 +21,9 @@ Sprites:
 
 Level:
 
+Character (Who are they, dreams, personality, history)
 
-Lore:
+Lore (Info not related to PLot, History, descriptions):
     Third Class
         => Earth damaged, people want to live in space and station, asteriodCracker
         => Companies are paid for being crew
@@ -43,6 +42,7 @@ Central Plot Social Injustice:
         => Investigative - Find secret information, boss recommends you
     2) Get Access and more influence
     3) Unite Workers
+    4) Diplomatic attempt
     4) Blame Administration
     5) First Company retrets, too expensive
     6) Better, but Attack after scandal
@@ -63,13 +63,22 @@ Science Plot:
 Spiritual Mission:
     Drugs
 
-Repair mechanic:
+Science/Investigate Mechanic:
+Find missing information through learning Lore/Characters/Investiagte
+real information??
+Repair mechanic as part of S/I Mechanic:
 brings money
 1) Get message over incident => Analyze at Hub
 2) get hint, sometimes error hidden, check multiple places
 3) Found problem => Need more tools/ersatzteile/way blocked => repair
 Each part gives other message, Hub give hint which part is broken (So hub message relies on Group status)
 => EndSystem spread over Map, MiddleSystem is behind Scenes, Root are other Maps => Erkundung
+
+Social Mechanic:
+Know peoples history, traitors, Interests, Capabilities
+Does team fits together? NetworkMechanic?
+
+Decide on peronal advantage as Mechanic?
 
 Topics:
 - Erben

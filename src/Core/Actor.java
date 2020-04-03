@@ -22,7 +22,7 @@ public class Actor
     private double velocityX;
     private double velocityY;
     private double speed = 50;
-    Long lastInteraction = 0L;
+    private Long lastInteraction = 0L;
     private double interactionAreaWidth = 8;
     private double interactionAreaDistance = 30;
     private double interactionAreaOffsetX = 0;
@@ -182,7 +182,7 @@ public class Actor
         if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS)
         {
             evaluateTriggerType(onInteraction, onIntersectionToStatus);
-            lastInteraction = currentNanoTime;
+            setLastInteraction(currentNanoTime);
         }
     }
 
@@ -211,7 +211,7 @@ public class Actor
         {
             //System.out.println(classname + methodName + elapsedTimeSinceLastInteraction);
             evaluateTriggerType(onInRange, onInRangeToStatus);
-            lastInteraction = currentNanoTime;
+            setLastInteraction(currentNanoTime);
         }
     }
 
@@ -473,5 +473,28 @@ public class Actor
     public double getInteractionAreaOffsetY()
     {
         return interactionAreaOffsetY;
+    }
+
+    public void setLastInteraction(Long value)
+    {
+        String methodName = "setLastInteraktion(Long)";
+        boolean debugmode = false;
+        lastInteraction = value;
+
+        if(debugmode)
+        {
+            System.out.println(classname + methodName + actorInGameName + " set last interaction.");
+            for (StackTraceElement ste : Thread.currentThread().getStackTrace()) {
+                System.out.println(ste);
+            }
+        }
+
+
+
+    }
+
+    public Long getLastInteraction()
+    {
+        return lastInteraction;
     }
 }

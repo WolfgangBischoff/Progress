@@ -58,7 +58,7 @@ bench_				;bench							;furniture/bench																									;true					;1				
 
 actors:
 #code 					;actorFileN																														;IngameName															;status  ;direction
-player					;player																																		;PlayerIngameName									;default	;WEST
+player					;player																																		;Revolutionary											;default	;WEST
 infoWe					;computer/infoTerminal/info														;IngameName															;off					;undefined
 airCon					;airSystem/hub/airControl																;air hub																		;on						;undefined
 auDoor					;doors/horizontal/automatedDoor										;horizontal bulkhead						;on						;south

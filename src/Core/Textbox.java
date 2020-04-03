@@ -173,14 +173,15 @@ public class Textbox
         String methodName = "processKey() ";
         int maxMarkedOptionIdx = lineSplitMessage.size() - 1;
         int newMarkedOption = markedOption;
-        double elapsedTimeSinceLastInteraction = (currentNanoTime - WorldView.getPlayer().actor.lastInteraction) / 1000000000.0;
+        double elapsedTimeSinceLastInteraction = (currentNanoTime - WorldView.getPlayer().actor.getLastInteraction()) / 1000000000.0;
         if (!(elapsedTimeSinceLastInteraction > TIME_BETWEEN_DIALOGUE))
             return;
 
         if (input.contains("E") || input.contains("ENTER") || input.contains("SPACE"))
         {
             nextMessage(currentNanoTime);
-            WorldView.getPlayer().actor.lastInteraction = currentNanoTime;
+            //WorldView.getPlayer().actor.lastInteraction = currentNanoTime;
+            WorldView.getPlayer().actor.setLastInteraction(currentNanoTime);
             return;
         }
         if (input.contains("W") || input.contains("UP"))
@@ -196,7 +197,8 @@ public class Textbox
         if (markedOption != newMarkedOption)
         {
             markedOption = newMarkedOption;
-            WorldView.getPlayer().actor.lastInteraction = currentNanoTime;
+            //WorldView.getPlayer().actor.lastInteraction = currentNanoTime;
+            WorldView.getPlayer().actor.setLastInteraction(currentNanoTime);
             drawTextbox();
         }
     }
@@ -284,7 +286,7 @@ public class Textbox
             WorldView.isTextBoxActive = false;
             messageIdx = 0;
         }
-        playerActor.lastInteraction = currentNanoTime;
+        playerActor.setLastInteraction(currentNanoTime);// = currentNanoTime;
 
         if (loadedDialogue.getActorStatus() != null)
             changeActorStatus(loadedDialogue.getActorStatus());

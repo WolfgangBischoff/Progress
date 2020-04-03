@@ -25,10 +25,11 @@ import static Core.Config.CAMERA_WIDTH;
 
 public class WorldView implements GUIController
 {
-    private static final String classname = "WorldView";
+    private static final String CLASS_NAME = "WorldView";
 
     @FXML
     Pane root;
+
     FXMLLoader fxmlLoader;
 
     Canvas worldCanvas;
@@ -111,7 +112,7 @@ public class WorldView implements GUIController
         }
         else
             processInputAsMovement(input);
-        processMouse();
+        processMouse(currentNanoTime);
 
         //Update Sprites
         player.update(currentNanoTime);
@@ -123,6 +124,7 @@ public class WorldView implements GUIController
 
     private void processInputAsMovement(ArrayList<String> input)
     {
+        String methodName = "processInputAsMovement(ArrayList<String>()";
         boolean moveButtonPressed = false;
         int addedVelocityX = 0, addedVelocityY = 0;
         Direction newDirection = null;
@@ -163,15 +165,13 @@ public class WorldView implements GUIController
             playerActor.setDirection(newDirection);
 
         if (input.contains("E"))
-        {
             player.setInteract(true);
-        }
 
     }
 
-    private void processMouse()
+    private void processMouse(Long currentNanoTime)
     {
-        String methodname = "processMouse() ";
+        String methodName = "processMouse()";
         double screenWidth = GameWindow.getSingleton().getScreenWidth();
         double screenHeight = GameWindow.getSingleton().getScreenHeight();
         Point2D mousePosition = GameWindow.getSingleton().mousePosition;
@@ -194,7 +194,9 @@ public class WorldView implements GUIController
         {
             for (Sprite clicked : mouseHoveredSprites)
                 if (isMouseClicked)
-                    clicked.onClick();
+                {
+                    clicked.onClick(currentNanoTime);
+                }
                 else
                 {
                     //System.out.println(classname + methodname + "Hovered over: " + clicked.getName());

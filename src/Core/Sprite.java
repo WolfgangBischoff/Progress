@@ -11,16 +11,18 @@ import java.util.List;
 
 public class Sprite
 {
-    String className = "Sprite ";
+    public static final String CLASS_NAME = "Sprite ";
     Image baseimage;
-    private String name = "notSet";
     double basewidth; //width of whole sprite, in therms of animation multiple frames
     double baseheight;
     double positionX;//reference is upper left corner
     double positionY;
-    private float fps; //frames per second I.E. 24
     Long lastFrame = 0L;
     Long lastUpdated = 0L;
+    Rectangle2D interactionArea;
+    Actor actor; //Logic for sprite
+    private String name = "notSet";
+    private float fps; //frames per second I.E. 24
     private int totalFrames; //Total number of frames in the sequence
     private int cols; //Number of columns on the sprite sheet
     private int rows; //Number of rows on the sprite sheet
@@ -33,9 +35,7 @@ public class Sprite
     private Boolean animationEnds = false;
     private Boolean interact = false;
     private Boolean blockedByOtherSprite = false;
-    Rectangle2D interactionArea;
     private double hitBoxOffsetX = 0, hitBoxOffsetY = 0, hitBoxWidth, hitBoxHeight;
-    Actor actor; //Logic for sprite
     private String lightningSpriteName;
 
 
@@ -90,10 +90,12 @@ public class Sprite
 
     public void update(Long currentNanoTime)
     {
-        String methodName = "onUpdate() ";
+        String methodName = "update()";
+        boolean debugMode = true;
+
         double time = (currentNanoTime - lastUpdated) / 1000000000.0;
-        double elapsedTimeSinceLastInteraction = (currentNanoTime - actor.lastInteraction) / 1000000000.0;
-          //  interactionArea = calcInteractionRectangle();
+        double elapsedTimeSinceLastInteraction = (currentNanoTime - actor.getLastInteraction()) / 1000000000.0;
+        //  interactionArea = calcInteractionRectangle();
         Rectangle2D worldBorders = WorldView.getBorders();
         List<Sprite> activeSprites = WorldView.getPassiveCollisionRelevantSpritesLayer();
         double velocityX = actor.getVelocityX();
@@ -119,15 +121,29 @@ public class Sprite
                 blockedByOtherSprite = true;
             }
 
-            //Interact
+            //Interact within interaction area
+            if (interact || actor.onInRange != TriggerType.NOTHING || getName().toLowerCase().equals("player"))
+                interactionArea = calcInteractionRectangle();
+
             if (interact
                     && otherSprite.actor != null
                     && otherSprite.getBoundary().intersects(interactionArea)
                     && elapsedTimeSinceLastInteraction > Config.TIME_BETWEEN_INTERACTIONS)
             {
+                //System.out.println(CLASS_NAME + methodName + getName() + " interact with " + otherSprite.getName());
                 otherSprite.actor.onInteraction(otherSprite, currentNanoTime); //Passive reacts
-                actor.lastInteraction = currentNanoTime;
+                actor.setLastInteraction(currentNanoTime);
                 interact = false; //Interacts with first found sprite;
+            }
+            //else if (debugMode && interact && getName().equals("player") && otherSprite.getName().equals("diffuser"))
+             //   System.out.println(CLASS_NAME + methodName + getName() + " cannot interact " + otherSprite.getName() + " " + elapsedTimeSinceLastInteraction +" > "+ Config.TIME_BETWEEN_INTERACTIONS);
+
+            //In range
+            if (otherSprite.actor != null
+                     && actor.onInRange != TriggerType.NOTHING
+                    && otherSprite.getBoundary().intersects(interactionArea))
+            {
+                actor.onInRange(otherSprite, currentNanoTime);
             }
 
             //Intersect
@@ -136,15 +152,7 @@ public class Sprite
                 actor.onIntersection(otherSprite, currentNanoTime);
             }
 
-            //In range
-            if(actor.onInRange != TriggerType.NOTHING || getName().toLowerCase().equals("player"))
-                interactionArea = calcInteractionRectangle();
-            if (otherSprite.actor != null
-                  // && actor.onInRange != TriggerType.NOTHING
-                    && otherSprite.getBoundary().intersects(interactionArea))
-            {
-                actor.onInRange(otherSprite, currentNanoTime);
-            }
+
         }
 
         if (!blockedByOtherSprite)
@@ -159,10 +167,27 @@ public class Sprite
 
     }
 
-    public void onClick()
+    public void onClick(Long currentNanoTime)
     {
-        String methodName = "onClick() ";
-        System.out.println(className + methodName + name + " clicked: " + actor.actorInGameName);
+        String methodName = "onClick(Long)";
+        boolean debug = false;
+
+        if(debug)
+            System.out.println(CLASS_NAME + methodName + name + " clicked: " + actor.actorInGameName);
+
+        //Sprite is clicked by player and in Range
+        Sprite player = WorldView.getPlayer();
+        player.calcInteractionRectangle();
+        double elapsedTimeSinceLastInteraction = (currentNanoTime - player.actor.getLastInteraction()) / 1000000000.0;
+        if (getBoundary().intersects(player.interactionArea)
+                && elapsedTimeSinceLastInteraction > Config.TIME_BETWEEN_INTERACTIONS)
+        {
+            if(debug)
+                System.out.println(CLASS_NAME + methodName + player.getName() + " interact with " + getName() + " by mouseclick.");
+            actor.onInteraction(this, currentNanoTime); //Passive reacts
+            player.actor.setLastInteraction(currentNanoTime);
+        }
+
     }
 
     public boolean intersectsRelativeToWorldView(Point2D point)
@@ -270,11 +295,6 @@ public class Sprite
         isBlocker = blocker;
     }
 
-    public void setName(String name)
-    {
-        this.name = name;
-    }
-
     public void setImage(String filename) throws IllegalArgumentException
     {
         Image i = new Image("/res/img/" + filename + ".png");
@@ -313,15 +333,15 @@ public class Sprite
         positionY = y;
     }
 
+    public Boolean getAnimated()
+    {
+        return animated;
+    }
+
     public void setAnimated(Boolean animated)
     {
         lastFrame = GameWindow.getSingleton().getRenderTime(); //To set frameJump to first image, if Animation starts later with interaction
         this.animated = animated;
-    }
-
-    public Boolean getAnimated()
-    {
-        return animated;
     }
 
     public void setInteract(Boolean interact)
@@ -332,6 +352,11 @@ public class Sprite
     public String getName()
     {
         return name;
+    }
+
+    public void setName(String name)
+    {
+        this.name = name;
     }
 
     public double getHitBoxOffsetX()
@@ -354,14 +379,14 @@ public class Sprite
         return hitBoxHeight;
     }
 
-    public void setLightningSpriteName(String lightningSpriteName)
-    {
-        this.lightningSpriteName = lightningSpriteName;
-    }
-
     public String getLightningSpriteName()
     {
         return lightningSpriteName;
+    }
+
+    public void setLightningSpriteName(String lightningSpriteName)
+    {
+        this.lightningSpriteName = lightningSpriteName;
     }
 
     public void setAnimationEnds(Boolean animationEnds)
