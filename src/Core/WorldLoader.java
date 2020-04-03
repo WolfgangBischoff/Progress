@@ -28,13 +28,13 @@ public class WorldLoader
     StageMonitor stageMonitor = new StageMonitor();
     Map<String, ActorGroupData> actorGroupDataMap = new HashMap<>();
 
-    private final String className = "WorldLoader ";
-    private final String KEYWORD_NEW_LAYER = "layer:";
-    private final String KEYWORD_PASSIV_LAYER = "passivlayer:";
-    private final String KEYWORD_ACTORS = "actors:";
-    private final String KEYWORD_TILEDEF = "tiledefinition:";
-    private final String KEYWORD_WORLDSHADOW = "shadow:";
-    private final String KEYWORD_GROUPS = "actorgroups:";
+    private static final String className = "WorldLoader ";
+    private static final String KEYWORD_NEW_LAYER = "layer:";
+    private static final String KEYWORD_PASSIV_LAYER = "passivlayer:";
+    private static final String KEYWORD_ACTORS = "actors:";
+    private static final String KEYWORD_TILEDEF = "tiledefinition:";
+    private static final String KEYWORD_WORLDSHADOW = "shadow:";
+    private static final String KEYWORD_GROUPS = "actorgroups:";
 
     public WorldLoader(String stageName)
     {
@@ -128,11 +128,14 @@ public class WorldLoader
         switch (layer)
         {
             case 0:
-                bttmLayer.add(sprite); break;
+                bttmLayer.add(sprite);
+                break;
             case 1:
-                mediumLayer.add(sprite); break;
+                mediumLayer.add(sprite);
+                break;
             case 2:
-                upperLayer.add(sprite); break;
+                upperLayer.add(sprite);
+                break;
             default:
                 throw new RuntimeException("Layer not defined");
         }
@@ -142,9 +145,6 @@ public class WorldLoader
     {
         String methodName = "readTile ";
         //from left to right, reads tile codes
-
-
-
         for (int i = 0; i < lineData.length; i++)
         {
             //Is Tile
@@ -155,13 +155,12 @@ public class WorldLoader
                 try
                 {
                     ca = createSprite(tile, 64 * i, currentVerticalTile * 64);
-                }
-                catch (IllegalArgumentException e)
+                } catch (IllegalArgumentException e)
                 {
                     StringBuilder stringBuilder = new StringBuilder();
-                    for (String s: lineData)
+                    for (String s : lineData)
                     {
-                     stringBuilder.append(s).append(" ");
+                        stringBuilder.append(s).append(" ");
                     }
                     throw new IllegalArgumentException("\nLine: " + stringBuilder.toString() +
                             "\n " + lineData[i] + " ===> /res/img/" + tile.spriteName + ".png" + " not found");
@@ -179,14 +178,13 @@ public class WorldLoader
                 ActorData actorData = actorDataMap.get(lineData[i]);
 
                 //foreach Sprite Data add Sprite to layer, Actor save sprite
-                //Actor actor = new Actor(actorData.actorname, actorData.generalStatus, actorData.direction);
                 Actor actor = new Actor(actorData.actorFileName, actorData.actorInGameName, actorData.generalStatus, actorData.direction);
                 actor.updateCompoundStatus();
                 List<SpriteData> spriteDataList = actor.spriteDataMap.get(actor.compoundStatus);
 
                 //check for actorgroup Data
                 ActorGroupData actorGroupData = actorGroupDataMap.get(lineData[i]);
-                if(actorGroupData != null)
+                if (actorGroupData != null)
                 {
                     actor.stageMonitor = stageMonitor;
                     actor.memberActorGroups.add(actorGroupData.GroupName);
@@ -203,17 +201,16 @@ public class WorldLoader
                     actorSprite.setAnimationEnds(spriteData.animationEnds);
                     actor.setSpeed(spriteData.velocity);//Set as often as Sprites exist?
                     actor.dialogueStatusID = spriteData.dialogueID;
-
-
-                    //if (actor.getDirection() != Direction.UNDEFINED)//If a sprite has a direction it typically can move or detect something actively
-                        activeLayer.add(actorSprite);
-
+                    activeLayer.add(actorSprite);
                     actor.addSprite(actorSprite);
                     addToCollisionLayer(actorSprite, spriteDataList.get(j).heightLayer);
                 }
-
             }
             //Is Placeholder
+            else if(isPassiv && lineData[i].equals(Config.MAPDEFINITION_EMPTY))
+            {
+                passivLayer.add(createSprite(new SpriteData("black", "void_64_64", true, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0, "none"), i*64, currentVerticalTile*64));
+            }
             else if (!lineData[i].equals(Config.MAPDEFINITION_EMPTY))
                 System.out.println("WorldLoader readTile: tile definition not found: " + lineData[i]);
 
@@ -272,8 +269,7 @@ public class WorldLoader
                 ca = new Sprite(tile.spriteName, tile.fps, tile.totalFrames, tile.cols, tile.rows, tile.frameWidth, tile.frameHeight);
             else
                 ca = new Sprite(tile.spriteName);
-        }
-        catch (IllegalArgumentException e)
+        } catch (IllegalArgumentException e)
         {
             throw new IllegalArgumentException("===> /res/img/" + tile.spriteName + ".png" + " not found");
         }
