@@ -16,12 +16,12 @@ onUpdate; persistent; on
 onIntersection; persistent; off
 
 #InteractionArea; Distance; Width; OffsetX; OffsetY
-interactionArea; 						250;				15;							0;				-200
+interactionArea; 						250;				100;							0;				-160
 
 #status to image
 #status 											;name 					  				;spritename  																																							;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;duration ;velocity ;dialogueID ;AnimationEnds
-ON-south											;automatedDoor			;../actorData/doors/horizontal/door_128_128_closed		;true				;0												;0			;0												;0			;0			;0										;0											;0													;64												;128									;64											;none						;0								;0								;none							;false
-OFF-south										;automatedDoor			;../actorData/doors/horizontal/door_128_128_opened		;false			;0												;0			;0												;0			;0			;0										;0											;0													;0													;0											;0												;none						;3								;0								;none							;false
+ON-south											;automatedDoor			;../actorData/doors/horizontal/door_128_128_closed		;true				;2												;0			;0												;0			;0			;0										;0											;0													;64												;128									;64											;none						;0								;0								;none							;false
+OFF-south										;automatedDoor			;../actorData/doors/horizontal/door_128_128_opened		;false			;2												;0			;0												;0			;0			;0										;0											;0													;0													;0											;0												;none						;3								;0								;none							;false
 
 #Upper ON-south											;automatedDoor			;doors/door_128_128_closed			;false			;2												;0			;0												;0			;0			;0										;0											;0													;64												;128									;64											;none						;0								;0								;none							;false
 #Upper OFF-south										;automatedDoor			;doors/door_128_128_opened						;false			;0												;0			;0												;0			;0			;0										;0											;0													;0													;0											;0												;none						;3								;0								;none							;false
