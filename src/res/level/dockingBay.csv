@@ -15,21 +15,22 @@ plaiM2    ;metal							;floor/plainM2_64_64									;false				;0											;0			
 plaiM3    ;metal							;floor/plainM3_64_64									;false				;0											;0			;0												;0				;0				;0										;0											;0													;0														;0										;0												;none
 
 #Walls
-#code     ;name        ;spritename                     ;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning
-waT___				;bluewall				;walls/wallFront												;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
-wTL___				;bluewallTL		;walls/bluewallcornerTL									;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
-wTR___				;bluewallTR		;walls/bluewallcornerTR									;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
-waL___				;wall								;walls/wallLeft																	;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
-waR___				;wall								;walls/wallWest																	;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
-waB___				;wall								;walls/wallBackNorth												;true					;2												;0			;0												;0				;0				;0										;0											;0													;20												;64										;64											;none
-waBNW_				;wallcorner		;walls/wallCornerNW													;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
-wBL___				;wallcorner		;walls/wallCornerNE													;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
-wFBL__				;wallcorner		;walls/bluewallCornerFrontBL				;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
-wFBR__				;wallcorner		;walls/bluewallCornerFrontBR				;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
-wBTL__				;wallcorner		;walls/wallBackTL															;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
-wBTR__				;wallcorner		;walls/wallBackTR															;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
-w45FL_				;wallcorner		;walls/wall45FrontLeft						;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
-w45FR_				;wallcorner		;walls/wall45FrontRight						;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+#code     ;name        ;spritename                     							;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning
+waT___				;bluewall				;walls/wallFront																							;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+wTL___				;bluewallTL		;walls/bluewallcornerTL																;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+wTR___				;bluewallTR		;walls/bluewallcornerTR																;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+waL___				;wall								;walls/wallLeft																								;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+waR___				;wall								;walls/wallWest																								;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+waB___				;wall								;walls/wallBackNorth																			;true					;2												;0			;0												;0				;0				;0										;0											;0													;20												;64										;64											;none
+waBNW_				;wallcorner		;walls/wallCornerNW																				;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+wBL___				;wallcorner		;walls/wallCornerNE																				;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+wFBL__				;wallcorner		;walls/bluewallCornerFrontBL											;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+wFBR__				;wallcorner		;walls/bluewallCornerFrontBR											;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+wBTL__				;wallcorner		;walls/wallBackTL																						;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+wBTR__				;wallcorner		;walls/wallBackTR																						;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+w45FL_				;wallcorner		;walls/wall45FrontLeft																	;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+w45FR_				;wallcorner		;walls/wall45FrontRight																;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+dockBa				;dockingBay		;walls/signs/wall_sign_dockBay_194_64		;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
 
 bigPor				;portholeBig;		walls/bulkheadRound128								;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
 bigPoS				;portholeBig;		walls/bulkheadRoundStars128			;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
@@ -57,7 +58,7 @@ bench_				;bench							;furniture/bench																									;true					;1				
 
 actors:
 #code 					;actorFileN																														;IngameName															;status  ;direction
-player					;player																																		;Revolutionary											;default	;WEST
+player					;player																																		;Revolutionary												;default	;WEST
 infoWe					;computer/infoTerminal/info														;IngameName															;off					;undefined
 airCon					;airSystem/hub/airControl																;air hub																		;on						;undefined
 auDoor					;doors/horizontal/automatedDoor										;horizontal bulkhead						;on						;south
@@ -140,7 +141,7 @@ ______; ______; ______; ______; ______; ______; ______; wBL___; waB___;	waB___; 
 
 
 layer:
-______; walCab; ______; bigPoS; ______; ______; ______; inCeil; ______; bigPor; ______; inCeil; ______; ______; ______; bigPoS; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; walCab; ______; bigPoS; ______; ______; ______; inCeil; ______; bigPor; ______; inCeil; ______; ______; ______; bigPoS; ______; dockBa; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
 ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
 ______; ______; ______; ______; ______; ______; ______; pillar; ______; ______; ______; pillar; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
 ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______

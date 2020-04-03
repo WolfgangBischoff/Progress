@@ -1,6 +1,7 @@
 
 Logic:
 - level change
+- Add TriggerStatus class with all trigger, all trigger have to be defined in actorfile
 - Menu
 - schlafen, fade out, calender
 - Console

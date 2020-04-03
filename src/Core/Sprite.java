@@ -14,7 +14,7 @@ import static Core.Config.DEBUG_BLOCKER;
 
 public class Sprite
 {
-    public static final String CLASS_NAME = "Sprite ";
+    public static final String CLASS_NAME = "Sprite/";
     Image baseimage;
     double basewidth; //width of whole sprite, in therms of animation multiple frames
     double baseheight;
@@ -208,7 +208,7 @@ public class Sprite
 
     public void render(GraphicsContext gc, Long now)
     {
-        String methodName = "render() ";
+        String methodName = "render()";
 
 
         if (getAnimated())

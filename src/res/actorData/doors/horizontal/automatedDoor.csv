@@ -16,13 +16,10 @@ onIntersection; persistent; off
 onUpdate; persistent; on
 
 #InteractionArea; Distance; Width; OffsetX; OffsetY
-interactionArea; 						250;				10;							0;				-160
+interactionArea; 						250;				120;							0;				-160
 
 #status to image
 #status 											;name 					  				;spritename  																																							;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;duration ;velocity ;dialogueID ;AnimationEnds
-#ON-south											;automatedDoor			;../actorData/doors/horizontal/door_128_128_closed		;true				;2												;0			;0												;0			;0			;0										;0											;0													;64												;128									;64											;none						;0								;0								;none							;false
-#OFF-south										;automatedDoor			;../actorData/doors/horizontal/door_128_128_opened		;false			;2												;0			;0												;0			;0			;0										;0											;0													;0													;0											;0												;none						;3								;0								;none							;false
-
 ON-south											;automatedDoor			;../actorData/doors/horizontal/close_top_128_128					;false			;2												;0			;0												;0			;0			;0										;0											;0													;44												;128									;84										;none						;0								;0								;none							;false
 ON-south											;automatedDoor			;../actorData/doors/horizontal/close_btm_128_128					;true				;1												;0			;0												;0			;0			;0										;0											;0													;44												;128									;84										;none						;0								;0								;none							;false
 OFF-south										;automatedDoor			;../actorData/doors/horizontal/open_top_128_128						;false			;2												;0			;0												;0			;0			;0										;0											;0													;0													;0											;0												;none						;3								;0								;none							;false
