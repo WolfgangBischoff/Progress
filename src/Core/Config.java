@@ -2,7 +2,8 @@ package Core;
 
 public class Config
 {
-    public static final Boolean DEBUGMODE = true;
+    public static final Boolean DEBUG_BLOCKER = false;
+    public static final Boolean DEBUG_ACTORS = true;
     public static final String MAPDEFINITION_EMPTY = "______";
     public static final double GAMEWINDOWWIDTH = 1440;
     public static final double GAMEWINDOWHEIGTH = 900;

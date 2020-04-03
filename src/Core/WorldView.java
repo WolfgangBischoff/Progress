@@ -293,7 +293,7 @@ public class WorldView implements GUIController
         }
 
         //Debugdata
-        if (Config.DEBUGMODE)
+        if (Config.DEBUG_BLOCKER)
         {
             gc.setStroke(Color.RED);
             gc.strokeRect(borders.getMinX(), borders.getMinY(), borders.getWidth() + player.basewidth, borders.getHeight() + player.baseheight);

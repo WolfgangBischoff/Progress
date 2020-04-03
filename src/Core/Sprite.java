@@ -9,6 +9,9 @@ import javafx.scene.paint.Color;
 
 import java.util.List;
 
+import static Core.Config.DEBUG_ACTORS;
+import static Core.Config.DEBUG_BLOCKER;
+
 public class Sprite
 {
     public static final String CLASS_NAME = "Sprite ";
@@ -149,8 +152,8 @@ public class Sprite
             //Intersect
             if (intersects(otherSprite) && actor.onIntersection != TriggerType.NOTHING)
             {
-                if (getName().equals("automatedDoor"))
-                    System.out.println(CLASS_NAME + methodName + getName() + " intersects " + otherSprite.getName());
+                //if(getName().equals("automatedDoorV"))
+                 //   System.out.println(CLASS_NAME + methodName + getName() + " intersect with " + otherSprite.getName());
                 actor.onIntersection(otherSprite, currentNanoTime);
             }
 
@@ -217,14 +220,29 @@ public class Sprite
             renderSimple(gc);
         }
 
+        if(DEBUG_BLOCKER && isBlocker)
+            drawDebugFrame(gc);
+        else if(DEBUG_ACTORS && actor != null)
+            drawDebugFrame(gc);
 
-        if (Config.DEBUGMODE && isBlocker)
+        /*
+        if (DEBUG_BLOCKER && isBlocker)
         {
             gc.strokeRect(positionX + hitBoxOffsetX, positionY + hitBoxOffsetY, hitBoxWidth, hitBoxHeight);
             if (interactionArea != null)
                 gc.strokeRect(interactionArea.getMinX(), interactionArea.getMinY(), interactionArea.getWidth(), interactionArea.getHeight());
             gc.setStroke(Color.BLUE);
         }
+
+         */
+    }
+
+    private void drawDebugFrame(GraphicsContext gc)
+    {
+        gc.strokeRect(positionX + hitBoxOffsetX, positionY + hitBoxOffsetY, hitBoxWidth, hitBoxHeight);
+        if (interactionArea != null)
+            gc.strokeRect(interactionArea.getMinX(), interactionArea.getMinY(), interactionArea.getWidth(), interactionArea.getHeight());
+        gc.setStroke(Color.BLUE);
     }
 
     public void renderSimple(GraphicsContext gc)
