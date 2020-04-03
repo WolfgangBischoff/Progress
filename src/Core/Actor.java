@@ -181,7 +181,8 @@ public class Actor
 
         if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS)
         {
-            evaluateTriggerType(onInteraction, onIntersectionToStatus);
+            //evaluateTriggerType(onInteraction, onIntersectionToStatus);
+            evaluateTriggerType(onInteraction, onInteractionToStatus);
             setLastInteraction(currentNanoTime);
         }
     }
@@ -201,6 +202,12 @@ public class Actor
     public void onIntersection(Sprite otherSprite, Long currentNanoTime)
     {
         String methodName = "onIntersection() ";
+        double elapsedTimeSinceLastInteraction = (currentNanoTime - lastInteraction) / 1000000000.0;
+        if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS)
+        {
+            evaluateTriggerType(onIntersection, onIntersectionToStatus);
+            setLastInteraction(currentNanoTime);
+        }
     }
 
     public void onInRange(Sprite otherSprite, Long currentNanoTime)

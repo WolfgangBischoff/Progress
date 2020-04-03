@@ -136,11 +136,11 @@ public class Sprite
                 interact = false; //Interacts with first found sprite;
             }
             //else if (debugMode && interact && getName().equals("player") && otherSprite.getName().equals("diffuser"))
-             //   System.out.println(CLASS_NAME + methodName + getName() + " cannot interact " + otherSprite.getName() + " " + elapsedTimeSinceLastInteraction +" > "+ Config.TIME_BETWEEN_INTERACTIONS);
+            //   System.out.println(CLASS_NAME + methodName + getName() + " cannot interact " + otherSprite.getName() + " " + elapsedTimeSinceLastInteraction +" > "+ Config.TIME_BETWEEN_INTERACTIONS);
 
             //In range
             if (otherSprite.actor != null
-                     && actor.onInRange != TriggerType.NOTHING
+                    && actor.onInRange != TriggerType.NOTHING
                     && otherSprite.getBoundary().intersects(interactionArea))
             {
                 actor.onInRange(otherSprite, currentNanoTime);
@@ -149,6 +149,8 @@ public class Sprite
             //Intersect
             if (intersects(otherSprite) && actor.onIntersection != TriggerType.NOTHING)
             {
+                if (getName().equals("automatedDoor"))
+                    System.out.println(CLASS_NAME + methodName + getName() + " intersects " + otherSprite.getName());
                 actor.onIntersection(otherSprite, currentNanoTime);
             }
 
@@ -172,7 +174,7 @@ public class Sprite
         String methodName = "onClick(Long)";
         boolean debug = false;
 
-        if(debug)
+        if (debug)
             System.out.println(CLASS_NAME + methodName + name + " clicked: " + actor.actorInGameName);
 
         //Sprite is clicked by player and in Range
@@ -182,7 +184,7 @@ public class Sprite
         if (getBoundary().intersects(player.interactionArea)
                 && elapsedTimeSinceLastInteraction > Config.TIME_BETWEEN_INTERACTIONS)
         {
-            if(debug)
+            if (debug)
                 System.out.println(CLASS_NAME + methodName + player.getName() + " interact with " + getName() + " by mouseclick.");
             actor.onInteraction(this, currentNanoTime); //Passive reacts
             player.actor.setLastInteraction(currentNanoTime);
