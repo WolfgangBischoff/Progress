@@ -8,9 +8,9 @@ Logic:
 
 Sprites:
 - Docking Bay:
-    Monrail, schriftzug "Metro", runder UFO Roboter, Seats, Lautsprecher, Advertisment changes per 5 sec, wastebin, Example Science/Ore/CultureSpacePoppers, plants
+    Monrail, schriftzug "Metro", runder UFO Roboter, minimal table, Lautsprecher, Advertisment changes per 5 sec, wastebin, Example Science/Ore/CultureSpacePoppers, decontamination, freistehende leiter
 - Control Center: BrückenControls,
-- Machines: Ventilation/Movingpart with bridge
+- Machines: Ventilation/Movingpart with bridge, Lavalampen Maschine
 - Person https://forums.rpgmakerweb.com/index.php?threads/spriting-pixel-art-tutorials.33/
 - Couchtisch, Kleiderschrank, Diffuser, Chair
 - Bett, Bau
