@@ -48,8 +48,16 @@ public class StageMonitor
     private void setOnIfBaseActorAllOn(String actorgroup, String targetGroup)
     {
         String methodName = "setOnIfBaseActorAllOn(String, String) ";
+        boolean debug = true;
+
         ActorSystem checkedSystem = actorSystemMap.get(actorgroup);
         ActorSystem dependentSystem = actorSystemMap.get(targetGroup);
+
+        if(debug)
+        {
+            System.out.println(classname + methodName + "Checked: " + checkedSystem);
+            System.out.println(classname + methodName + "Dependent: " + dependentSystem);
+        }
 
         //Set target Actors
         if (checkedSystem.areAllMembersStatusOn())

@@ -2,7 +2,7 @@ package Core;
 
 public class Config
 {
-    public static final Boolean DEBUG_BLOCKER = false;
+    public static final Boolean DEBUG_BLOCKER = true;
     public static final Boolean DEBUG_ACTORS = false;
     public static final String MAPDEFINITION_EMPTY = "______";
     public static final double GAMEWINDOWWIDTH = 1440;
