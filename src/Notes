@@ -1,5 +1,6 @@
 
 Logic:
+- bug if actor is repaired but base system offline, before on we have to check if base system online; add depentent system before goto on
 - level change
 - Add TriggerStatus class with all trigger, all trigger have to be defined in actorfile
 - Menu
@@ -9,7 +10,7 @@ Logic:
 
 Sprites:
 - Docking Bay:
-    Monrail, schriftzug "Metro", runder UFO Roboter, minimal table, Lautsprecher, Advertisment changes per 5 sec, wastebin, Example Science/Ore/CultureSpacePoppers, decontamination, freistehende leiter
+    Monrail, schriftzug "Metro", runder UFO Roboter, minimal table, Lautsprecher, Advertisment changes per 5 sec, wastebin, Example Science/Ore/CultureSpacePoppers, decontaminationDevice, Glasswand
 - Control Center: BrückenControls,
 - Machines: Ventilation/Movingpart with bridge, Lavalampen Maschine
 - Person https://forums.rpgmakerweb.com/index.php?threads/spriting-pixel-art-tutorials.33/

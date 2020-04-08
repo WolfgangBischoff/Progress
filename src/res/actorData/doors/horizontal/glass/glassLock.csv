@@ -1,0 +1,26 @@
+#Sensor							  ;TriggerType 					;targetStatus
+#onInteraction		;textbox										;transition
+#onMonitor 					;persistent 						;none
+#onTextBox 					;persistent_text		;none
+#onInRange						;persistent							;off
+#onUpdate							;persistent							;on
+#onIntersection	;persistent							;off
+#InteractionArea; Distance; Width; OffsetX; OffsetY
+#dialogueFile; actorData/dictionary/dialogueFile
+#transition; fromStatus; toStatus
+
+#Status Changes
+#ActionType; TriggerType; GeneralStatus
+onInRange; persistent; off
+onIntersection; persistent; off
+onUpdate; persistent; on
+
+#InteractionArea; Distance; Width; OffsetX; OffsetY
+interactionArea; 						250;				30;							0;				-160
+
+#status to image
+#status 											;name 					  				;spritename  																																							;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;duration ;velocity ;dialogueID ;AnimationEnds
+ON-south											;automatedDoor			;../actorData/doors/horizontal/glass/closed_top_128_128					;false			;2												;0			;0												;0			;0			;0										;0											;0													;44												;128									;84										;none						;0								;0								;none							;false
+ON-south											;automatedDoor			;../actorData/doors/horizontal/glass/closed_btm_128_128					;true				;0												;0			;0												;0			;0			;0										;0											;0													;44												;128									;84										;none						;0								;0								;none							;false
+OFF-south										;automatedDoor			;../actorData/doors/horizontal/glass/open_top_128_128						;false			;2												;0			;0												;0			;0			;0										;0											;0													;0													;0											;0												;none						;3								;0								;none							;false
+OFF-south										;automatedDoor			;../actorData/doors/horizontal/glass/open_btm_128_128						;false			;0												;0			;0												;0			;0			;0										;0											;0													;0													;0											;0												;none						;3								;0								;none							;false

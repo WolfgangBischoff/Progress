@@ -2,38 +2,38 @@
 
 #Red Green Blue; the higher the brighter; >none< leads to no shadow
 shadow:
-30;30;30
-#none
+#30;30;30
+none
 
 tiledefinition:
 #layer: 0 => behind; 1 => middle; 2 => in front
 #Floor
 #code     ;name        ;spritename                  ;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning
-metal1    ;metal							;floor/xPat_64_64												;false				;0											;0			;0												;0				;0				;0										;0											;0													;0														;0										;0												;none
 plaiM1    ;metal							;floor/plainM1_64_64									;false				;0											;0			;0												;0				;0				;0										;0											;0													;0														;0										;0												;none
 plaiM2    ;metal							;floor/plainM2_64_64									;false				;0											;0			;0												;0				;0				;0										;0											;0													;0														;0										;0												;none
 plaiM3    ;metal							;floor/plainM3_64_64									;false				;0											;0			;0												;0				;0				;0										;0											;0													;0														;0										;0												;none
+slabs_    ;slabs							;floor/slab																		;false				;0											;0			;0												;0				;0				;0										;0											;0													;0														;0										;0												;none
 
 #Walls
 #code     ;name        ;spritename                     							;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning
-waT___				;bluewall				;walls/wallFront																							;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+frt__s				;bluewall				;walls/wallFront																							;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
 wTL___				;bluewallTL		;walls/bluewallcornerTL																;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
 wTR___				;bluewallTR		;walls/bluewallcornerTR																;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
-waL___				;wall								;walls/wallLeft																								;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
-waR___				;wall								;walls/wallWest																								;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
-waB___				;wall								;walls/wallBackNorth																			;true					;2												;0			;0												;0				;0				;0										;0											;0													;20												;64										;64											;none
+#back_w				;wall								;walls/wallLeft																								;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+#back_e				;wall								;walls/wallWest																								;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
 waBNW_				;wallcorner		;walls/wallCornerNW																				;true					;0												;0			;0												;0				;0				;0										;0											;0													;000											;000									;000										;none
 wBL___				;wallcorner		;walls/wallCornerNE																				;true					;0												;0			;0												;0				;0				;0										;0											;0													;000											;000									;000										;none
-wBTL__				;wallcorner		;walls/wallBackTL																						;true					;0												;0			;0												;0				;0				;0										;0											;0													;020											;064									;044										;none
-wBTR__				;wallcorner		;walls/wallBackTR																						;true					;0												;0			;0												;0				;0				;0										;0											;0													;020											;064									;044										;none
 w45FL_				;wallcorner		;walls/wall45FrontLeft																	;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
 w45FR_				;wallcorner		;walls/wall45FrontRight																;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
-wFBL__				;wallcorner		;walls/bluewall/bluewall_front_sw						;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
-wFBR__				;wallcorner		;walls/bluewall/bluewall_front_se						;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
-twallE				;thinwall				;walls/bluewall/thin_wall_E												;true					;0												;0			;0												;0				;0				;0										;0											;050											;000											;014									;064										;none
-twallW				;thinwall				;walls/bluewall/thin_wall_W												;true					;0												;0			;0												;0				;0				;0										;0											;000											;000											;014									;064										;none
-twaFsw				;thinwall				;walls/bluewall/thin_front_corner_sw			;true					;0												;0			;0												;0				;0				;0										;0											;050											;000											;014									;128										;none
-tw_Fse				;thinwall				;walls/bluewall/thin_corner_front_se			;true					;0												;0			;0												;0				;0				;0										;0											;000											;000											;014									;128										;none
+bck_nw				;wallcorner		;walls/bluewall/back_corner_nw_64_64			;true					;2												;0			;0												;0				;0				;0										;0											;0													;020											;064									;044										;none
+bck_ne				;wallcorner		;walls/bluewall/back_corner_ne_64_64			;true					;2												;0			;0												;0				;0				;0										;0											;0													;020											;064									;044										;none
+back_n				;wall								;walls/bluewall/back_n_64_64											;true					;2												;0			;0												;0				;0				;0										;0											;0													;20												;64										;64											;none
+fro_sw				;wallcorner		;walls/bluewall/bluewall_front_sw						;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+fro_se				;wallcorner		;walls/bluewall/bluewall_front_se						;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+back_e				;thinwall				;walls/bluewall/thin_wall_E												;true					;0												;0			;0												;0				;0				;0										;0											;050											;000											;014									;064										;none
+back_w				;thinwall				;walls/bluewall/thin_wall_W												;true					;0												;0			;0												;0				;0				;0										;0											;000											;000											;014									;064										;none
+frT_sw				;thinwall				;walls/bluewall/thin_front_corner_sw			;true					;0												;0			;0												;0				;0				;0										;0											;050											;000											;014									;128										;none
+frT_se				;thinwall				;walls/bluewall/thin_corner_front_se			;true					;0												;0			;0												;0				;0				;0										;0											;000											;000											;014									;128										;none
 
 #Wall Decoration
 dockBa				;dockingBay		;walls/signs/wall_sign																;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
@@ -42,6 +42,9 @@ bigPor				;portholeBig	;walls/bulkheadRound128															;true					;0							
 bigPoS				;portholeBig	;walls/bulkheadRoundStars128										;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
 walCab				;wallcable			;walls/wallcabel																						;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
 camera				;camera						;walls/signs/camera																			;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+ladder				;ladder						;walls/signs/ladder_64_128												;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+laddeF				;ladder						;walls/signs/ladder_frame_64_128						;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+laddeH				;ladder						;walls/signs/ladder_frame_hole_64_128						;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
 
 #Machines
 #code     ;name        ;spritename                     								;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning
@@ -73,6 +76,7 @@ actors:
 player					;player																																		;Revolutionary												;default												;WEST
 infoWe					;computer/infoTerminal/info														;IngameName															;off																;undefined
 auDoor					;doors/horizontal/automatedDoor										;horizontal bulkhead						;on																	;south
+glasDo					;doors/horizontal/glass/glassLock								;horizontal glasdoor						;on																	;south
 doorVe					;doors/vertical/autoBulkheadVertical					;vertical bulkhead								;on																	;west
 diff__					;furniture/diffuser/diffuser													;big diffuser													;rose															;undefined
 #AirSystem
@@ -83,7 +87,7 @@ airCon					;airSystem/hub/airControl																;Air hub																		;o
 
 Actorgroups:
 #Air System
-#System-Name					;Logic																	;Influenced-System	;members by actorId
+#System-Name					;Logic																	;Influenced-System	;members by actorId (logic-Options: isBaseSystem)
 airSystemMonitor	;none 																	;none 													;airCon ;airVeR; airVeL
 airSystemBase				;isBaseSystem 									;airSystemEnd 					;airCon
 airSystemEnd					;none 																	;none 													;airVeR ;airVeL
@@ -94,27 +98,27 @@ airSystemEnd					;none 																	;none 													;airVeR ;airVeL
 #passivlayer will not be checked for interaction or collision
 passivlayer:
 ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
-______; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; ______; ______; ______; ______; ______; ______; ______; ______
-______; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; ______; ______; ______; ______; ______; ______; ______; ______
-______; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; ______; ______; ______; ______; ______; ______; ______; ______
-______; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; ______; ______; ______; ______; ______; ______; ______; ______
-______; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; ______; ______; ______; ______; ______; ______; ______; ______
-______; ______; ______; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM1; plaiM1; plaiM2; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
-______; ______; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
-______; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; plaiM2; plaiM3; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; ______; slabs_; slabs_; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; slabs_; slabs_; slabs_; slabs_; plaiM3; plaiM1; plaiM2; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; slabs_; slabs_; slabs_; slabs_; plaiM2; plaiM3; plaiM1; plaiM1; plaiM1; ______; plaiM2; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; slabs_; slabs_; slabs_; slabs_; plaiM1; plaiM2; plaiM1; plaiM1; plaiM1; plaiM1; plaiM1; plaiM2; ______; ______; ______; ______; plaiM1; plaiM2; plaiM2; plaiM2; ______
+______; plaiM1; plaiM2; plaiM3; ______; ______; plaiM3; plaiM1; plaiM2; slabs_; slabs_; plaiM2; plaiM3; plaiM1; ______; ______; plaiM2; plaiM1; plaiM3; plaiM1; ______; ______; ______; ______; plaiM3; plaiM1; plaiM1; plaiM1; ______
+______; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; ______; ______; ______; ______; plaiM2; plaiM3; plaiM3; plaiM3; ______
 ______; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; ______; ______; ______; ______; plaiM1; plaiM2; plaiM2; plaiM2; ______
-______; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; ______; ______; ______; plaiM3; plaiM1; plaiM1; plaiM1; ______
-______; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; ______; ______; ______; plaiM2; plaiM3; plaiM3; plaiM3; ______
-______; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; ______; ______; ______; plaiM1; plaiM2; plaiM2; plaiM2; ______
-______; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; ______; ______; ______; plaiM3; plaiM1; plaiM1; plaiM1; ______
-______; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; ______; ______; ______; plaiM2; plaiM3; plaiM3; plaiM3; ______
-______; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM2; plaiM2; ______
-______; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM1; plaiM1; ______
-______; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; ______; ______; ______; plaiM2; plaiM3; plaiM3; plaiM3; ______
-______; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; ______; ______; ______; plaiM1; plaiM2; plaiM2; plaiM2; ______
+______; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; ______; ______; ______; ______; plaiM3; plaiM1; plaiM1; plaiM1; ______
+______; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; ______; ______; ______; ______; plaiM2; plaiM3; plaiM3; plaiM3; ______
+______; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM2; plaiM2; ______
+______; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM3; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM1; plaiM1; ______
+______; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; ______; ______; ______; ______; plaiM2; plaiM3; plaiM3; plaiM3; ______
+______; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; ______; ______; ______; ______; plaiM1; plaiM2; plaiM2; plaiM2; ______
 ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; plaiM1; plaiM2; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
-______; ______; ______; ______; ______; ______; ______; ______; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; ______; ______; ______; ______; ______
-______; ______; ______; ______; ______; ______; ______; ______; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; ______; plaiM1; plaiM2; plaiM3; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; ______; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; ______; plaiM1; plaiM2; plaiM3; ______; ______; ______; ______; ______
 ______; ______; ______; ______; ______; ______; ______; ______; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; ______; ______; ______; ______; ______
 ______; ______; ______; ______; ______; ______; ______; ______; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; ______; ______; ______; ______; ______
 ______; ______; ______; ______; ______; ______; ______; ______; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM1; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; plaiM1; plaiM2; plaiM3; ______; ______; ______; ______; ______
@@ -123,34 +127,34 @@ ______; ______; ______; ______; ______; ______; ______; ______; plaiM1; plaiM1; 
 ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
 
 layer:
-wTL___; waT___; waT___; waT___; waT___; waT___; waT___; waT___; waT___; waT___; waT___; waT___; waT___; waT___; waT___; waT___; waT___; waT___; waT___; waT___; wTR___; ______; ______; ______; ______; ______; ______; ______; ______
+wTL___; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; wTR___; ______; ______; ______; ______; ______; ______; ______; ______
 ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; infoWe; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
-twallE; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; player; ______; ______; waR___; ______; ______; ______; ______; ______; ______; ______; ______
-twallE; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___; ______; ______; ______; ______; ______; ______; ______; ______
-twallE; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___; ______; ______; ______; ______; ______; ______; ______; ______
-wBL___; waB___; waB___; waB___; waB___; waB___; waB___; wBTR__; waT___; auDoor; ______; waT___; wBTL__; waB___; waB___; waB___; waB___; waB___; waB___; waB___; waBNW_; ______; ______; ______; ______; ______; ______; ______; ______
-______; w45FL_; waT___; waT___; waT___; waT___; waT___; wFBR__; ______; ______; ______; ______; wFBL__; waT___; waT___; waT___; w45FR_; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
-twallE; ______; ______; ______; ______; ______; ______; twallE; ______; ______; ______; ______; twallW; ______; ______; ______; ______; w45FR_; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
-twallE; ______; ______; ______; ______; ______; ______; twallE; ______; ______; ______; ______; twallW; crate_; crate_; ______; ______; ______; w45FR_; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
-twallE; ______; ______; ______; ______; ______; ______; twaFsw; waT___; auDoor; ______; waT___; tw_Fse; ______; ______; ______; ______; ______; ______; w45FR_; ______; ______; ______; wTL___; waT___; waT___; waT___; waT___; wTR___
-twallE; ______; ______; ______; wBTL__; wBTR__; ______; ______; ______; ______; ______; ______; ______; ______; wBTL__; wBTR__; ______; ______; ______; ______; waR___; ______; ______; ______; airCon; ______; ______; ______; ______
-twallE; airPip; ______; ______; wFBL__; wFBR__; ______; ______; ______; ______; ______; ______; ______; ______; wFBL__; wFBR__; ______; ______; ______; ______; waR___; ______; ______; twallE; ______; ______; ______; ______; waR___
-twallE; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___; ______; ______; twallE; ______; ______; ______; ______; waR___
-twallE; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; diff__; ______; ______; waR___; ______; ______; twallE; ______; ______; ______; ______; waR___
-twallE; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; wFBL__; waT___; waT___; wFBR__; ______; ______; ______; ______; waR___
-twallE; bench_; ______; bench_; ______; ______; ______; ______; ______; potP_n; ______; ______; ______; ______; potP_n; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___
-twallE; ______; ______; ______; ______; ______; ______; ______; ______; potP_v; ______; ______; ______; ______; potP_v; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___
-twallE; desk__; ______; desk__; ______; ______; plannw; planne; ______; potP_v; ______; ______; ______; ______; potP_v; ______; ______; boge_3; boge_4; ______; wBTL__; waB___; waB___; wBTR__; ______; ______; ______; ______; waR___
-twallE; bench_; ______; bench_; ______; ______; plan_w; plan_e; ______; potP_s; ______; ______; ______; ______; potP_s; ______; ______; ______; ______; ______; waR___; ______; ______; twallE; ______; ______; ______; ______; waR___
-twallE; waB___; waB___; waB___; waB___; waB___; waB___; waB___; waB___;	waB___; wBTR__; auDoor; ______; wBTL__; waB___; waB___; waB___; waB___; waB___; waB___;	waBNW_; ______; ______; twallE; waB___; waB___; waB___; waB___; waBNW_
-______; ______; ______; ______; ______; ______; ______; wTL___; waT___; waT___; wFBR__; ______; ______; wFBL__; waT___; waT___; waT___; waT___; waT___; waT___; waT___; waT___; waT___; waT___; waR___; ______; ______; ______; ______
-______; ______; ______; ______; ______; ______; ______; waL___; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___; ______; ______; ______; ______
-______; ______; ______; ______; ______; ______; ______; waL___; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___; ______; ______; ______; ______
-______; ______; ______; ______; ______; ______; ______; waL___; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___; ______; ______; ______; ______
-______; ______; ______; ______; ______; ______; ______; waL___; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___; ______; ______; ______; ______
-______; ______; ______; ______; ______; ______; ______; waL___; ______; ______; addAdi; ______; addAdi; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___; ______; ______; ______; ______
-______; ______; ______; ______; ______; ______; ______; waL___; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; waR___; ______; ______; ______; ______
-______; ______; ______; ______; ______; ______; ______; wBL___; waB___;	waB___; waB___; waB___; waB___; waB___; waB___; waB___; waB___; waB___; waB___; waB___;	waB___; waB___; waB___; waB___; waBNW_; ______; ______; ______; ______
+back_e; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; player; ______; ______; back_w; ______; ______; ______; ______; ______; ______; ______; ______
+back_e; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; back_w; ______; ______; ______; ______; ______; ______; ______; ______
+back_e; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; back_w; ______; ______; ______; ______; ______; ______; ______; ______
+wBL___; back_n; back_n; back_n; back_n; back_n; back_n; bck_ne; frt__s; glasDo; ______; frt__s; bck_nw; back_n; back_n; back_n; back_n; back_n; back_n; back_n; waBNW_; ______; ______; ______; ______; ______; ______; ______; ______
+______; w45FL_; frt__s; frt__s; frt__s; frt__s; frt__s; fro_se; ______; ______; ______; ______; fro_sw; frt__s; frt__s; frt__s; w45FR_; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+back_e; ______; ______; ______; ______; ______; ______; back_e; ______; ______; ______; ______; back_w; ______; ______; ______; ______; w45FR_; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+back_e; ______; ______; ______; ______; ______; ______; back_e; ______; ______; ______; ______; back_w; crate_; crate_; ______; ______; ______; w45FR_; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+back_e; ______; ______; ______; ______; ______; ______; frT_sw; frt__s; glasDo; ______; frt__s; frT_se; ______; ______; ______; ______; ______; ______; w45FR_; ______; ______; ______; wTL___; frt__s; frt__s; frt__s; frt__s; wTR___
+back_e; ______; ______; ______; bck_nw; bck_ne; ______; ______; ______; ______; ______; ______; ______; ______; bck_nw; bck_ne; ______; ______; ______; ______; back_w; ______; ______; ______; airCon; ______; ______; ______; ______
+back_e; airPip; ______; ______; fro_sw; fro_se; ______; ______; ______; ______; ______; ______; ______; ______; fro_sw; fro_se; ______; ______; ______; ______; back_w; ______; ______; back_e; ______; ______; ______; ______; back_w
+back_e; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; back_w; ______; ______; back_e; ______; ______; ______; ______; back_w
+back_e; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; diff__; ______; ______; back_w; ______; ______; back_e; ______; ______; ______; ______; back_w
+back_e; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; fro_sw; frt__s; frt__s; fro_se; ______; ______; ______; ______; back_w
+back_e; bench_; ______; bench_; ______; ______; ______; ______; ______; potP_n; ______; ______; ______; ______; potP_n; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; back_w
+back_e; ______; ______; ______; ______; ______; ______; ______; ______; potP_v; ______; ______; ______; ______; potP_v; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; back_w
+back_e; desk__; ______; desk__; ______; ______; plannw; planne; ______; potP_v; ______; ______; ______; ______; potP_v; ______; ______; boge_3; boge_4; ______; bck_nw; back_n; back_n; bck_ne; ______; ______; ______; ______; back_w
+back_e; bench_; ______; bench_; ______; ______; plan_w; plan_e; ______; potP_s; ______; ______; ______; ______; potP_s; ______; ______; ______; ______; ______; back_w; ______; ______; back_e; ______; ______; ______; ______; back_w
+______; back_n; back_n; back_n; back_n; back_n; back_n; back_n; back_n;	back_n; bck_ne; auDoor; ______; bck_nw; back_n; back_n; back_n; back_n; back_n; back_n;	waBNW_; ______; ______; ______; back_n; back_n; back_n; back_n; waBNW_
+______; ______; ______; ______; ______; ______; ______; wTL___; frt__s; frt__s; fro_se; ______; ______; fro_sw; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; back_w; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; back_e; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; back_w; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; back_e; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; back_w; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; back_e; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; back_w; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; back_e; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; back_w; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; back_e; ______; ______; addAdi; ______; addAdi; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; back_w; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; back_e; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; back_w; ______; ______; ______; ______
+______; ______; ______; ______; ______; ______; ______; wBL___; back_n;	back_n; back_n; back_n; back_n; back_n; back_n; back_n; back_n; back_n; back_n; back_n;	back_n; back_n; back_n; back_n; waBNW_; ______; ______; ______; ______
 
 
 layer:
@@ -160,12 +164,12 @@ ______; ______; ______; ______; ______; ______; pillar; ______; ______; ______; 
 ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
 ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
 ______; ______; ______; ______; ______; ______; ______; ______; camera; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
-______; ______; ______; ______; ______; airVeL; airVeR; twallE; ______; ______; ______; ______; twallW; dockBa; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; ______; airVeL; airVeR; back_e; ______; ______; ______; ______; back_w; dockBa; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
 ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
 ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
 ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
 ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
-______; ______; ______; ______; vendor; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+______; ______; ______; ______; vendor; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ladder; ______; laddeF; laddeH; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
 ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
 ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
 ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; doorVe; screeA; ______; walCab; ______; ______; ______; ______; ______
