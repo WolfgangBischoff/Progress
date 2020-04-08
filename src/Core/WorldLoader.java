@@ -96,16 +96,6 @@ public class WorldLoader
     {
         String methodName = "readActorGroups(String[])";
         boolean debug = false;
-        /*int actorMapID_Idx = 0;
-        int actorGroupName_Idx = 1;
-        int actorGroupLogic_Idx = 2;
-        int dependentGroupName_Idx = 3;
-        ActorGroupData actorGroupData = new ActorGroupData();
-        actorGroupData.GroupName = lineData[1];
-        actorGroupDataMap.put(lineData[actorMapID_Idx], actorGroupData);
-        stageMonitor.groupsTologicCodeMap.put(lineData[actorGroupName_Idx], lineData[actorGroupLogic_Idx]);
-        stageMonitor.groupsToTargetGroupsMap.put(lineData[actorGroupName_Idx], lineData[dependentGroupName_Idx]);
-         */
 
         int groupName_Idx = 0;
         int groupLogic_Idx = 1;
@@ -115,7 +105,7 @@ public class WorldLoader
         stageMonitor.groupsToTargetGroupsMap.put(lineData[groupName_Idx], lineData[dependentGroupName_Idx]);
 
         //map for all contained group members in which groups they are: actor -> groups
-        ActorGroupData actorGroupData = null;
+        ActorGroupData actorGroupData;
         for (int membersIdx = start_idx_memberIds; membersIdx < lineData.length; membersIdx++)
         {
             String actorId = lineData[membersIdx];
@@ -138,8 +128,6 @@ public class WorldLoader
 
     class ActorGroupData
     {
-        String GroupName, logic, targetGroupName;
-        String actorId;
         List<String> memberOfGroups = new ArrayList();
     }
 
@@ -223,12 +211,6 @@ public class WorldLoader
                 ActorGroupData actorGroupData = actorGroupDataMap.get(lineData[i]);
                 if (actorGroupData != null)
                 {
-                    //actor.stageMonitor = stageMonitor;
-                    //System.out.println(className + methodName + actor.actorInGameName + " " + actorGroupData.memberOfGroups);
-
-                    //actor.memberActorGroups.add(actorGroupData.GroupName);
-                    //stageMonitor.addActor(actorGroupData.GroupName, actor);
-
                     actor.memberActorGroups.addAll(actorGroupData.memberOfGroups);
                     for (String groupName : actor.memberActorGroups)
                         stageMonitor.addActor(groupName, actor);

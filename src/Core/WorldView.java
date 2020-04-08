@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static Core.Config.CAMERA_HEIGTH;
+import static Core.Config.CAMERA_HEIGHT;
 import static Core.Config.CAMERA_WIDTH;
 
 public class WorldView implements GUIController
@@ -42,7 +42,7 @@ public class WorldView implements GUIController
     //Textbox
     static boolean isTextBoxActive = false;
     static Textbox textbox = new Textbox();
-    static Point2D textboxPosition = new Point2D(CAMERA_WIDTH / 2f - textbox.getTEXTBOX_WIDTH() / 2, CAMERA_HEIGTH - textbox.getTEXTBOX_HEIGHT() - 32);
+    static Point2D textboxPosition = new Point2D(CAMERA_WIDTH / 2f - textbox.getTEXTBOX_WIDTH() / 2, CAMERA_HEIGHT - textbox.getTEXTBOX_HEIGHT() - 32);
 
     //Sprites
     private static Rectangle2D borders;
@@ -68,15 +68,15 @@ public class WorldView implements GUIController
         fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/PlayerView.fxml"));
         fxmlLoader.setController(this);
 
-        worldCanvas = new Canvas(CAMERA_WIDTH, Config.CAMERA_HEIGTH);
-        shadowMask = new Canvas(CAMERA_WIDTH, Config.CAMERA_HEIGTH);
+        worldCanvas = new Canvas(CAMERA_WIDTH, Config.CAMERA_HEIGHT);
+        shadowMask = new Canvas(CAMERA_WIDTH, Config.CAMERA_HEIGHT);
         gc = worldCanvas.getGraphicsContext2D();
         ShadowMaskGc = shadowMask.getGraphicsContext2D();
         this.levelName = levelName;
 
         loadEnvironment();
         offsetMaxX = borders.getMaxX() - CAMERA_WIDTH;
-        offsetMaxY = borders.getMaxY() - Config.CAMERA_HEIGTH;
+        offsetMaxY = borders.getMaxY() - Config.CAMERA_HEIGHT;
     }
 
     private void loadEnvironment()
@@ -175,7 +175,7 @@ public class WorldView implements GUIController
         double screenWidth = GameWindow.getSingleton().getScreenWidth();
         double screenHeight = GameWindow.getSingleton().getScreenHeight();
         Point2D mousePosition = GameWindow.getSingleton().mousePosition;
-        Point2D mousePositionRelativeToCamera = new Point2D(mousePosition.getX() - (screenWidth - Config.CAMERA_WIDTH) / 2, mousePosition.getY() - (screenHeight - Config.CAMERA_HEIGTH) / 2);
+        Point2D mousePositionRelativeToCamera = new Point2D(mousePosition.getX() - (screenWidth - Config.CAMERA_WIDTH) / 2, mousePosition.getY() - (screenHeight - Config.CAMERA_HEIGHT) / 2);
         boolean isMouseClicked = GameWindow.getSingleton().mouseClicked;
 
         //check for marked Sprites
@@ -212,7 +212,7 @@ public class WorldView implements GUIController
     {
         //Camera at world border
         camX = player.positionX - CAMERA_WIDTH / 2f;
-        camY = player.positionY - CAMERA_HEIGTH / 2f;
+        camY = player.positionY - CAMERA_HEIGHT / 2f;
         if (camX < offsetMinX)
             camX = offsetMinX;
         if (camY < offsetMinY)
@@ -225,15 +225,15 @@ public class WorldView implements GUIController
         //If World smaller as Camera
         if (CAMERA_WIDTH > borders.getWidth())
             camX = borders.getWidth() / 2 - CAMERA_WIDTH / 2f;
-        if (Config.CAMERA_HEIGTH > borders.getHeight())
-            camY = borders.getHeight() / 2 - CAMERA_HEIGTH / 2f;
+        if (Config.CAMERA_HEIGHT > borders.getHeight())
+            camY = borders.getHeight() / 2 - CAMERA_HEIGHT / 2f;
     }
 
     @Override
     public void render(Long currentNanoTime)
     {
 
-        gc.clearRect(0, 0, CAMERA_WIDTH, Config.CAMERA_HEIGTH);
+        gc.clearRect(0, 0, CAMERA_WIDTH, Config.CAMERA_HEIGHT);
         gc.translate(-camX, -camY);
 
         //Passiv Layer
@@ -263,7 +263,7 @@ public class WorldView implements GUIController
         if (shadowColor != null)
         {
             ShadowMaskGc.setFill(shadowColor);
-            ShadowMaskGc.fillRect(0, 0, CAMERA_WIDTH, Config.CAMERA_HEIGTH);
+            ShadowMaskGc.fillRect(0, 0, CAMERA_WIDTH, Config.CAMERA_HEIGHT);
             for (Sprite sprite : passiveCollisionRelevantSpritesLayer)
             {
                 if (sprite.getLightningSpriteName().toLowerCase().equals("none"))

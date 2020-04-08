@@ -24,11 +24,11 @@ actorstatus - changes actor to status defined in actor file, "transition" leads 
 
 
     <dialogue id="analysis-on" type="normal">
-        <line>Athmosphere junction operates at full power.</line>
+        <line> Atmosphere junction operates at full power.</line>
     </dialogue>
 
     <dialogue id="analysis-off" type="normal">
-        <line>Athmosphere junction has failed.</line>
+        <line> Atmosphere junction has failed.</line>
     </dialogue>
 </root>
 

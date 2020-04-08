@@ -5,7 +5,7 @@ import java.util.List;
 
 public class ActorSystem
 {
-    String className = "ActorSystem ";
+    public static final String CLASS_NAME = "ActorSystem/";
     String id;
     private List<Actor> systemMembers = new ArrayList<>();
 
@@ -14,8 +14,6 @@ public class ActorSystem
     {
         String methodName = "addActor() ";
         systemMembers.add(actor);
-
-        //System.out.println(className + methodName + this);
     }
 
     public ActorSystem(String id)
@@ -23,12 +21,27 @@ public class ActorSystem
         this.id = id;
     }
 
-    public void setMemberToGeneralStatus(String status)
+    public void setMemberToGeneralStatus(String newStatus)
     {
-        String methodName = "setMemberToGeneralStatus) ";
+        String methodName = "setMemberToGeneralStatus(String) ";
         for (Actor target : systemMembers)
         {
-            target.onMonitorSignal(status);
+            target.onMonitorSignal(newStatus);
+        }
+    }
+
+    public void setMemberToGeneralStatus(String ifInStatus, String newStatus)
+    {
+        String methodName = "setMemberToGeneralStatus(String, String) ";
+        for (Actor target : systemMembers)
+        {
+            //System.out.println(className + methodName + target.actorInGameName + " had status: " + target.generalStatus);
+            if (target.generalStatus.equals(ifInStatus.toLowerCase()))
+            {
+                //System.out.println(className + methodName + " set to " + newStatus);
+                target.onMonitorSignal(newStatus);
+            }
+            //System.out.println(className + methodName + target.actorInGameName + " has status: " + target.generalStatus);
         }
     }
 
@@ -37,8 +50,8 @@ public class ActorSystem
         boolean allActorsStatusOn = true;
         for (Actor toCheck : systemMembers)
         {
-            //System.out.println(classname + methodName + toCheck.generalStatus);
-            if (!toCheck.generalStatus.equals("on")) {
+            if (!toCheck.generalStatus.equals("on"))
+            {
                 allActorsStatusOn = false;
                 break;
             }
@@ -52,13 +65,13 @@ public class ActorSystem
         for (Actor toCheck : systemMembers)
         {
             //System.out.println(classname + methodName + toCheck.generalStatus);
-            if (!toCheck.generalStatus.equals("on")) {
+            if (!toCheck.generalStatus.equals("on"))
+            {
                 numberOn++;
             }
         }
         return numberOn / systemMembers.size();
     }
-
 
 
     @Override

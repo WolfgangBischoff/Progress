@@ -70,7 +70,7 @@ public class Actor
         actorDefinitionKeywords.add(KEYWORD_interactionArea);
         actorDefinitionKeywords.add(KEYWORD_dialogueFile);
         actorDefinitionKeywords.add(KEYWORD_onTextBox);
-        actorDefinitionKeywords.add(KEYWORD_textbox_analysis_group);
+        actorDefinitionKeywords.add(KEYWORD_text_box_analysis_group);
 
         if (Files.exists(path))
         {
@@ -156,7 +156,7 @@ public class Actor
             case KEYWORD_dialogueFile:
                 dialogueFileName = linedata[1];
                 break;
-            case KEYWORD_textbox_analysis_group:
+            case KEYWORD_text_box_analysis_group:
                 textbox_analysis_group_name = linedata[1];
                 break;
             default:
@@ -276,7 +276,7 @@ public class Actor
             transitionGeneralStatus();
         else
             //Status is set directly
-            generalStatus = targetStatusField;
+            generalStatus = targetStatusField.toLowerCase();
         updateCompoundStatus();
     }
 
@@ -340,7 +340,6 @@ public class Actor
                 List<Actor> analyzedGroup = null;
                 try
                 {
-                    //analyzedGroupName = stageMonitor.groupsToTargetGroupsMap.get(memberActorGroups.get(0));
                     analyzedGroupName = textbox_analysis_group_name;//set in actor file
                     analyzedGroup = stageMonitor.actorSystemMap.get(analyzedGroupName).getSystemMembers();
                     WorldView.textbox.groupAnalysis(analyzedGroup, this);
@@ -394,7 +393,6 @@ public class Actor
 
         if (!(oldCompoundStatus.equals(compoundStatus)))
         {
-            //System.out.println(classname + methodName + "status: " + compoundStatus);
             changeSprites();
         }
 

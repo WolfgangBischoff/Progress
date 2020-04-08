@@ -7,7 +7,6 @@ import java.util.Map;
 public class StageMonitor
 {
     final static String CLASS_NAME = "StageMonitor/";
-    //Map<String, List<Actor>> actorGroups = new HashMap<>();
     Map<String, String> groupsTologicCodeMap = new HashMap<>(); //TODO Use ENUM
     Map<String, String> groupsToTargetGroupsMap = new HashMap<>();
 
@@ -23,7 +22,7 @@ public class StageMonitor
         actorSystem.addActor(actor);
 
         if (debug)
-            System.out.println(CLASS_NAME + methodName + "added " +actor.actorInGameName+ " to " + actorSystem);
+            System.out.println(CLASS_NAME + methodName + "added " + actor.actorInGameName + " to " + actorSystem);
     }
 
     public void notify(List<String> groupIDList)
@@ -41,6 +40,9 @@ public class StageMonitor
                     break;
                 case "setOnIfBaseActorAllOn":
                     setOnIfBaseActorAllOn(groupID, targetGroupID);
+                    break;
+                case "isBaseSystem":
+                    set_baseSystemOffline(groupID, targetGroupID);
                     break;
                 default:
                     throw new RuntimeException(CLASS_NAME + methodName + "logicCode not found: " + logicCode);
@@ -68,6 +70,20 @@ public class StageMonitor
         else
             dependentSystem.setMemberToGeneralStatus("off");
 
+    }
+
+    private void set_baseSystemOffline(String checkedGroup, String dependentGroup)
+    {
+        String methodName = "set_baseOff_IfBaseOffline() ";
+
+        ActorSystem checkedSystem = actorSystemMap.get(checkedGroup);
+        ActorSystem dependentSystem = actorSystemMap.get(dependentGroup);
+
+        //Set target Actors
+        if (checkedSystem.areAllMembersStatusOn())
+            dependentSystem.setMemberToGeneralStatus("baseSystemOffline", "on");
+        else
+            dependentSystem.setMemberToGeneralStatus("on", "baseSystemOffline");
     }
 
 }

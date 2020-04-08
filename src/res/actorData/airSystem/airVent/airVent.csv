@@ -18,6 +18,7 @@ onMonitor				;persistent		;nothing
 dialogueFile; /actorData/airSystem/airVent/air_vent
 
 #status to image
-#status			;name		 		;spritename																																								;blocker		;heightLayer	;fps	;totalFrames	;cols	;rows;frameWidth	;frameHeight	;hitboxOffsetX; hitboxOffsetY;hitBoxWidth;hitBoxHeight;lightning	;duration		;velocity;dialogueID ;AnimationEnds
-ON								;airVent		;../actorData/airSystem/airVent/air_vent											;true					;0 										;0   ;0           ;0    ;0   ;000        ;000         ;0         	  ;0             ;0          ;0											;none						;0									;0							;init-on									;false
-OFF							;airVent		;../actorData/airSystem/airVent/air_vent_dirty					;true					;0 										;0   ;0           ;0    ;0   ;000        ;000         ;0        	   ;0             ;0          ;0											;none						;0									;0							;init-off								;false
+#status											;name		 		;spritename																																								;blocker		;heightLayer	;fps	;totalFrames	;cols	;rows;frameWidth	;frameHeight	;hitboxOffsetX; hitboxOffsetY;hitBoxWidth;hitBoxHeight;lightning	;duration		;velocity;dialogueID 														;AnimationEnds
+ON																;airVent		;../actorData/airSystem/airVent/air_vent											;true					;0 										;0   ;0           ;0    ;0   ;000        ;000         ;0         	  ;0             ;0          ;0											;none						;0									;0							;init-on																		;false
+OFF															;airVent		;../actorData/airSystem/airVent/air_vent_dirty					;true					;0 										;0   ;0           ;0    ;0   ;000        ;000         ;0        	   ;0             ;0          ;0											;none						;0									;0							;init-off																	;false
+baseSystemOffline	;airVent		;../actorData/airSystem/airVent/air_vent											;true					;0 										;0   ;0           ;0    ;0   ;000        ;000         ;0        	   ;0             ;0          ;0											;none						;0									;0							;init-baseSystemOffline			;false

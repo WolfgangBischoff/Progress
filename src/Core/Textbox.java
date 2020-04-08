@@ -21,9 +21,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +30,7 @@ public class Textbox
 {
     String classname = "Textbox/";
     private double TEXTBOX_WIDTH = CAMERA_WIDTH / 1.5;
-    private double TEXTBOX_HEIGHT = CAMERA_HEIGTH / 3.0;
+    private double TEXTBOX_HEIGHT = CAMERA_HEIGHT / 3.0;
     Canvas textboxCanvas = new Canvas(TEXTBOX_WIDTH, TEXTBOX_HEIGHT);
     GraphicsContext textboxGc = textboxCanvas.getGraphicsContext2D();
     WritableImage textboxImage;

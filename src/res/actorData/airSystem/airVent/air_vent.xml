@@ -33,11 +33,15 @@ actorstatus - changes actor to status defined in actor file, "transition" leads 
     </dialogue>
 
     <dialogue id="analysis-init-on" type="normal">
-        <line> at full capacity</line>
+        <line> is at full capacity</line>
     </dialogue>
 
     <dialogue id="analysis-init-off" type="normal">
-        <line> at low capacity</line>
+        <line> detected an unknown malfunction</line>
+    </dialogue>
+
+    <dialogue id="analysis-init-baseSystemOffline" type="normal">
+        <line> has no air pressure</line>
     </dialogue>
 
     <dialogue id="init-on" type="normal">
@@ -47,6 +51,10 @@ actorstatus - changes actor to status defined in actor file, "transition" leads 
     <dialogue id="init-off" type="normal">
         <line>Looks dirty and congested</line>
         <nextDialogue>off-cleanDec</nextDialogue>
+    </dialogue>
+
+    <dialogue id="init-baseSystemOffline" type="normal">
+        <line>Looks good, but no air streams</line>
     </dialogue>
 
     <dialogue id="off-cleanDec" type="decision">

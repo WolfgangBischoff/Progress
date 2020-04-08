@@ -2,8 +2,8 @@
 
 #Red Green Blue; the higher the brighter; >none< leads to no shadow
 shadow:
-#30;30;30
-none
+30;30;30
+#none
 
 tiledefinition:
 #layer: 0 => behind; 1 => middle; 2 => in front
@@ -45,15 +45,15 @@ camera				;camera						;walls/signs/camera																			;true					;0							
 
 #Machines
 #code     ;name        ;spritename                     								;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning
-vendor				;vendor     	;machines/adiaVM_128_128																;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
-addAdi				;add			     	;machines/adiaAd_128_128																;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
-inCeil				;ceiling		  	;machines/infoCeilingDes																;false				;2												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
-pillar				;pillar			  	;machines/pillarFoot_128_128_Des								;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;10             ;0             ;118           ;100												;none
+vendor				;vendor     	;machines/adiaVM_128_128																;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;000           ;084           ;128         ;064										;whitelight
+addAdi				;add			     	;machines/adiaAd_128_128																;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;whitelight
+inCeil				;ceiling		  	;machines/infoCeilingDes																;false				;2												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;whitelight
+pillar				;pillar			  	;machines/pillarFoot_128_128_Des								;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;030           ;000           ;068         ;100										;none
 airPip				;airPipe		  	;machines/airPipe_64_192																;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
 
 #Plants
-boge_3				;bogenhanf				;plants/plant_64_128_medium												;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;0             ;020           ;064         ;44												;none
-boge_4				;bogenhanf				;plants/plant_64_128_large	 											;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;0             ;020           ;064         ;44												;none
+boge_3				;bogenhanf				;plants/plant_64_128_medium												;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;0             ;084           ;064         ;044										;none
+boge_4				;bogenhanf				;plants/plant_64_128_large	 											;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;0             ;084           ;064         ;044										;none
 potP_s				;hedghe							;plants/hedge_south_end								 							;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
 potP_n				;hedghe							;plants/hedge_north_end								 							;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
 potP_v				;hedghe							;plants/hedge_vertical								 								;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
@@ -69,23 +69,23 @@ crate_				;crate							;furniture/crates/uniCrate_64_64									;true					;0				
 bench_				;bench							;furniture/bench																									;true					;1												;0;			0;											0;				0;				0;										0;										0;													50;												128;										50							;none
 
 actors:
-#code 					;actorFileN																														;IngameName															;status  ;direction
-player					;player																																		;Revolutionary												;default	;WEST
-infoWe					;computer/infoTerminal/info														;IngameName															;off					;undefined
-auDoor					;doors/horizontal/automatedDoor										;horizontal bulkhead						;on						;south
-doorVe					;doors/vertical/autoBulkheadVertical					;vertical bulkhead								;on						;west
-diff__					;furniture/diffuser/diffuser													;big diffuser													;rose				;undefined
+#code 					;actorFileN																														;IngameName															;status  											;direction
+player					;player																																		;Revolutionary												;default												;WEST
+infoWe					;computer/infoTerminal/info														;IngameName															;off																;undefined
+auDoor					;doors/horizontal/automatedDoor										;horizontal bulkhead						;on																	;south
+doorVe					;doors/vertical/autoBulkheadVertical					;vertical bulkhead								;on																	;west
+diff__					;furniture/diffuser/diffuser													;big diffuser													;rose															;undefined
 #AirSystem
-screeA					;statusScreen/statusScreen															;Status Screen												;on						;undefined
-airVeR					;airSystem/airVent/airVent															;Right ventilation								;off					;undefined
-airVeL					;airSystem/airVent/airVent															;Left ventilation									;off					;undefined
-airCon					;airSystem/hub/airControl																;air hub																		;on						;undefined
+screeA					;statusScreen/statusScreen															;Status Screen												;on																	;undefined
+airVeR					;airSystem/airVent/airVent															;Right ventilation								;off																;undefined
+airVeL					;airSystem/airVent/airVent															;Left ventilation									;baseSystemOffline		;undefined
+airCon					;airSystem/hub/airControl																;Air hub																		;off																;undefined
 
 Actorgroups:
 #Air System
 #System-Name					;Logic																	;Influenced-System	;members by actorId
 airSystemMonitor	;none 																	;none 													;airCon ;airVeR; airVeL
-airSystemBase				;setOnIfBaseActorAllOn ;airSystemEnd 					;airCon
+airSystemBase				;isBaseSystem 									;airSystemEnd 					;airCon
 airSystemEnd					;none 																	;none 													;airVeR ;airVeL
 
 

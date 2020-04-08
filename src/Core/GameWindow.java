@@ -1,10 +1,7 @@
 package Core;
 
-import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -39,7 +36,7 @@ public class GameWindow extends Stage
     {
         String methodName = "createNextScene() ";
         this.currentView = controller;
-        gameScene = new Scene(controller.load(), Config.GAMEWINDOWWIDTH, Config.GAMEWINDOWHEIGTH);
+        gameScene = new Scene(controller.load(), Config.GAME_WINDOW_WIDTH, Config.GAME_WINDOW_HEIGHT);
         //input
         gameScene.setOnKeyPressed(
                 e -> {
