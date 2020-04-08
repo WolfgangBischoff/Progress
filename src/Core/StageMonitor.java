@@ -1,14 +1,13 @@
 package Core;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class StageMonitor
 {
-    String classname = "StageMonitor ";
-    Map<String, List<Actor>> actorGroups = new HashMap<>();
+    final static String CLASS_NAME = "StageMonitor/";
+    //Map<String, List<Actor>> actorGroups = new HashMap<>();
     Map<String, String> groupsTologicCodeMap = new HashMap<>(); //TODO Use ENUM
     Map<String, String> groupsToTargetGroupsMap = new HashMap<>();
 
@@ -16,11 +15,15 @@ public class StageMonitor
 
     public void addActor(String groupID, Actor actor)
     {
+        boolean debug = false;
         String methodName = "addActor() ";
         if (!actorSystemMap.containsKey(groupID))
             actorSystemMap.put(groupID, new ActorSystem(groupID));
         ActorSystem actorSystem = actorSystemMap.get(groupID);
         actorSystem.addActor(actor);
+
+        if (debug)
+            System.out.println(CLASS_NAME + methodName + "added " +actor.actorInGameName+ " to " + actorSystem);
     }
 
     public void notify(List<String> groupIDList)
@@ -40,7 +43,7 @@ public class StageMonitor
                     setOnIfBaseActorAllOn(groupID, targetGroupID);
                     break;
                 default:
-                    throw new RuntimeException(classname + methodName + "logicCode not found: " + logicCode);
+                    throw new RuntimeException(CLASS_NAME + methodName + "logicCode not found: " + logicCode);
             }
         }
     }
@@ -48,15 +51,15 @@ public class StageMonitor
     private void setOnIfBaseActorAllOn(String actorgroup, String targetGroup)
     {
         String methodName = "setOnIfBaseActorAllOn(String, String) ";
-        boolean debug = true;
+        boolean debug = false;
 
         ActorSystem checkedSystem = actorSystemMap.get(actorgroup);
         ActorSystem dependentSystem = actorSystemMap.get(targetGroup);
 
-        if(debug)
+        if (debug)
         {
-            System.out.println(classname + methodName + "Checked: " + checkedSystem);
-            System.out.println(classname + methodName + "Dependent: " + dependentSystem);
+            System.out.println(CLASS_NAME + methodName + "Checked: " + actorgroup + " " + checkedSystem);
+            System.out.println(CLASS_NAME + methodName + "Dependent: " + targetGroup + " " + dependentSystem);
         }
 
         //Set target Actors

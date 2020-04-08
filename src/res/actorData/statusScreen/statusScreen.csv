@@ -7,9 +7,10 @@
 #interactionArea
 #dialogueFile; path
 #transition; fromStatus; toStatus
-onMonitor; persistent; none
 
-onInteraction; textbox_analysis; none
+onMonitor; persistent; none
+onInteraction; textbox_analysis; nothing
+textbox_analysis_group; airSystemMonitor
 
 #Status transition map
 transition; on; off

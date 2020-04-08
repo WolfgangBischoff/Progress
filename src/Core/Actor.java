@@ -48,12 +48,11 @@ public class Actor
     String compoundStatus = "default";
     String dialogueFileName = "descriptions";
     String dialogueStatusID = "none";
+    String textbox_analysis_group_name = "none";
 
     StageMonitor stageMonitor;
     final List<String> memberActorGroups = new ArrayList<>();
 
-
-    //public Actor(String actorFileName, String initGeneralStatus, Direction direction)
     public Actor(String actorFileName, String actorInGameName, String initGeneralStatus, Direction direction)
     {
         this.actorFileName = actorFileName;
@@ -71,6 +70,7 @@ public class Actor
         actorDefinitionKeywords.add(KEYWORD_interactionArea);
         actorDefinitionKeywords.add(KEYWORD_dialogueFile);
         actorDefinitionKeywords.add(KEYWORD_onTextBox);
+        actorDefinitionKeywords.add(KEYWORD_textbox_analysis_group);
 
         if (Files.exists(path))
         {
@@ -156,7 +156,9 @@ public class Actor
             case KEYWORD_dialogueFile:
                 dialogueFileName = linedata[1];
                 break;
-                //return true;
+            case KEYWORD_textbox_analysis_group:
+                textbox_analysis_group_name = linedata[1];
+                break;
             default:
                 throw new RuntimeException("Keyword unknown: " + keyword);
         }
@@ -189,7 +191,9 @@ public class Actor
 
     public void onMonitorSignal(String newCompoundStatus)
     {
-        String methodName = "onMonitorSignal(): ";
+        String methodName = "onMonitorSignal() ";
+        if(onMonitorSignal == null)
+            System.out.println(classname + methodName + "OnMonitorSignal not set");
         evaluateTriggerType(onMonitorSignal, newCompoundStatus);
     }
 
@@ -302,8 +306,6 @@ public class Actor
             case TEXTBOX_ANALYSIS:
                 activateTextbox();
                 break;
-            default:
-                throw new RuntimeException("Trigger type not defined: " + onInteraction);
         }
     }
 
@@ -338,7 +340,8 @@ public class Actor
                 List<Actor> analyzedGroup = null;
                 try
                 {
-                    analyzedGroupName = stageMonitor.groupsToTargetGroupsMap.get(memberActorGroups.get(0));
+                    //analyzedGroupName = stageMonitor.groupsToTargetGroupsMap.get(memberActorGroups.get(0));
+                    analyzedGroupName = textbox_analysis_group_name;//set in actor file
                     analyzedGroup = stageMonitor.actorSystemMap.get(analyzedGroupName).getSystemMembers();
                     WorldView.textbox.groupAnalysis(analyzedGroup, this);
                 }
@@ -405,11 +408,7 @@ public class Actor
     @Override
     public String toString()
     {
-        return "\nActor{" +
-                actorFileName +
-                ", Generalstatus=" + generalStatus +
-                ", ActorGroup=" + memberActorGroups.toString() +
-                "}";
+        return actorInGameName;
     }
 
 

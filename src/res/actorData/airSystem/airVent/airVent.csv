@@ -11,8 +11,9 @@
 
 
 #Sensor						;TriggerType	;targetStatus
-onInteraction;textbox					;none
-onTextBox				;persistent		;none
+onInteraction;textbox					;nothing
+onTextBox				;persistent		;nothing
+onMonitor				;persistent		;nothing
 
 dialogueFile; /actorData/airSystem/airVent/air_vent
 

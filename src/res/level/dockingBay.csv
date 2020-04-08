@@ -76,22 +76,19 @@ auDoor					;doors/horizontal/automatedDoor										;horizontal bulkhead						;o
 doorVe					;doors/vertical/autoBulkheadVertical					;vertical bulkhead								;on						;west
 diff__					;furniture/diffuser/diffuser													;big diffuser													;rose				;undefined
 #AirSystem
-screeA					;statusScreen/statusScreen															;IngameName															;on						;undefined
+screeA					;statusScreen/statusScreen															;Status Screen												;on						;undefined
 airVeR					;airSystem/airVent/airVent															;Right ventilation								;off					;undefined
 airVeL					;airSystem/airVent/airVent															;Left ventilation									;off					;undefined
 airCon					;airSystem/hub/airControl																;air hub																		;on						;undefined
 
 Actorgroups:
 #Air System
-#GroupMemberCode	;GroupName									;logic																		;DependentGroupName
-screeA											;airScreen									;none																			;airSystemMonitor
-airCon											;airSystemMonitor		;none																			;none
-airVeR											;airSystemMonitor		;none																			;none
-airVeL											;airSystemMonitor		;none																			;none
+#System-Name					;Logic																	;Influenced-System	;members by actorId
+airSystemMonitor	;none 																	;none 													;airCon ;airVeR; airVeL
+airSystemBase				;setOnIfBaseActorAllOn ;airSystemEnd 					;airCon
+airSystemEnd					;none 																	;none 													;airVeR ;airVeL
 
-#airCon											;airSystemBase					;setOnIfBaseActorAllOn		;airSystemEnd
-#airVeR											;airSystemEnd						;none																			;none
-#airVeL											;airSystemEnd						;none																			;none
+
 
 #sets 64 bits tiles as raster; you can add multiple layers; later defined layers are higher prioritized in case of same defined heightLayer
 #passivlayer will not be checked for interaction or collision

@@ -78,7 +78,7 @@ public class WorldLoader
                     readTile(lineData, true);
                     continue;
                 case KEYWORD_ACTORS:
-                    readActors(lineData);
+                    readActorData(lineData);
                     continue;
                 case KEYWORD_WORLDSHADOW:
                     readWorldShadow(lineData);
@@ -94,17 +94,53 @@ public class WorldLoader
 
     private void readActorGroups(String[] lineData)
     {
-        String methodName = "readActorGroups() ";
+        String methodName = "readActorGroups(String[])";
+        boolean debug = false;
+        /*int actorMapID_Idx = 0;
+        int actorGroupName_Idx = 1;
+        int actorGroupLogic_Idx = 2;
+        int dependentGroupName_Idx = 3;
         ActorGroupData actorGroupData = new ActorGroupData();
         actorGroupData.GroupName = lineData[1];
-        actorGroupDataMap.put(lineData[0], actorGroupData);
-        stageMonitor.groupsTologicCodeMap.put(lineData[1], lineData[2]);
-        stageMonitor.groupsToTargetGroupsMap.put(lineData[1], lineData[3]);
+        actorGroupDataMap.put(lineData[actorMapID_Idx], actorGroupData);
+        stageMonitor.groupsTologicCodeMap.put(lineData[actorGroupName_Idx], lineData[actorGroupLogic_Idx]);
+        stageMonitor.groupsToTargetGroupsMap.put(lineData[actorGroupName_Idx], lineData[dependentGroupName_Idx]);
+         */
+
+        int groupName_Idx = 0;
+        int groupLogic_Idx = 1;
+        int dependentGroupName_Idx = 2;
+        int start_idx_memberIds = 3;
+        stageMonitor.groupsTologicCodeMap.put(lineData[groupName_Idx], lineData[groupLogic_Idx]);
+        stageMonitor.groupsToTargetGroupsMap.put(lineData[groupName_Idx], lineData[dependentGroupName_Idx]);
+
+        //map for all contained group members in which groups they are: actor -> groups
+        ActorGroupData actorGroupData = null;
+        for (int membersIdx = start_idx_memberIds; membersIdx < lineData.length; membersIdx++)
+        {
+            String actorId = lineData[membersIdx];
+            if (!actorGroupDataMap.containsKey(actorId))
+            {
+                actorGroupDataMap.put(actorId, new ActorGroupData());
+            }
+            actorGroupData = actorGroupDataMap.get(actorId);
+            actorGroupData.memberOfGroups.add(lineData[groupName_Idx]);
+        }
+
+        if (debug)
+        {
+            for (Map.Entry<String, ActorGroupData> actorData : actorGroupDataMap.entrySet())
+                System.out.println(className + methodName + actorData.getKey() + " " + actorData.getValue().memberOfGroups);
+        }
+
+
     }
 
     class ActorGroupData
     {
         String GroupName, logic, targetGroupName;
+        String actorId;
+        List<String> memberOfGroups = new ArrayList();
     }
 
     private void readWorldShadow(String[] lineData)
@@ -181,14 +217,21 @@ public class WorldLoader
                 Actor actor = new Actor(actorData.actorFileName, actorData.actorInGameName, actorData.generalStatus, actorData.direction);
                 actor.updateCompoundStatus();
                 List<SpriteData> spriteDataList = actor.spriteDataMap.get(actor.compoundStatus);
+                actor.stageMonitor = stageMonitor;
 
                 //check for actorgroup Data
                 ActorGroupData actorGroupData = actorGroupDataMap.get(lineData[i]);
                 if (actorGroupData != null)
                 {
-                    actor.stageMonitor = stageMonitor;
-                    actor.memberActorGroups.add(actorGroupData.GroupName);
-                    stageMonitor.addActor(actorGroupData.GroupName, actor);
+                    //actor.stageMonitor = stageMonitor;
+                    //System.out.println(className + methodName + actor.actorInGameName + " " + actorGroupData.memberOfGroups);
+
+                    //actor.memberActorGroups.add(actorGroupData.GroupName);
+                    //stageMonitor.addActor(actorGroupData.GroupName, actor);
+
+                    actor.memberActorGroups.addAll(actorGroupData.memberOfGroups);
+                    for (String groupName : actor.memberActorGroups)
+                        stageMonitor.addActor(groupName, actor);
                 }
 
                 //Create initial Sprites of Actor
@@ -207,9 +250,9 @@ public class WorldLoader
                 }
             }
             //Is Placeholder
-            else if(isPassiv && lineData[i].equals(Config.MAPDEFINITION_EMPTY))
+            else if (isPassiv && lineData[i].equals(Config.MAPDEFINITION_EMPTY))
             {
-                passivLayer.add(createSprite(new SpriteData("black", "void_64_64", true, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0, "none"), i*64, currentVerticalTile*64));
+                passivLayer.add(createSprite(new SpriteData("black", "void_64_64", true, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "none"), i * 64, currentVerticalTile * 64));
             }
             else if (!lineData[i].equals(Config.MAPDEFINITION_EMPTY))
                 System.out.println("WorldLoader readTile: tile definition not found: " + lineData[i]);
@@ -222,9 +265,9 @@ public class WorldLoader
             maxVerticalTile = currentVerticalTile;
     }
 
-    private void readActors(String[] lineData)
+    private void readActorData(String[] lineData)
     {
-        String methodName = "readActors ";
+        String methodName = "readActorData() ";
         //Reads sprite data from given status and add to tile definition, later actor will be added
         int actorCodeIdx = 0;
         int actorFileNameIdx = 1;

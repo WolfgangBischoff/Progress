@@ -22,6 +22,7 @@ public class Config
     public static final String KEYWORD_transition = "transition";
     public static final String KEYWORD_interactionArea = "interactionArea";
     public static final String KEYWORD_dialogueFile = "dialogueFile";
+    public static final String KEYWORD_textbox_analysis_group = "textbox_analysis_group";
 
     public static final String DIALOGUE_TAG = "dialogue";
     public static final String ID_TAG = "id";

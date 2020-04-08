@@ -64,10 +64,7 @@ public class ActorSystem
     @Override
     public String toString()
     {
-        return "ActorSystem{" +
-                "id='" + id + '\'' +
-                ", systemMembers=" + systemMembers.toString() +
-                '}';
+        return id + " member: " + systemMembers.toString();
     }
 
     public List<Actor> getSystemMembers()
