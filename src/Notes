@@ -11,7 +11,7 @@ Logic:
 
 Sprites:
 - Docking Bay:
-    Monrail, schriftzug "Metro", runder UFO Roboter, minimal table, Lautsprecher, Advertisment changes per 5 sec, wastebin, Example Science/Ore/CultureSpacePoppers, decontaminationDevice
+    Monrail, schriftzug "Metro", runder UFO Roboter, minimal table, Lautsprecher, wastebin, decontaminationDevice
 - Control Center: BrückenControls,
 - Machines: Ventilation/Movingpart with bridge, Lavalampen Maschine
 - Person https://forums.rpgmakerweb.com/index.php?threads/spriting-pixel-art-tutorials.33/
@@ -31,8 +31,12 @@ Lore (Info not related to PLot, History, descriptions):
     Third Class
         => Earth damaged, people want to live in space and station, asteriodCracker
         => Companies are paid for being crew
-        => Loan/Family paid you ticket (maybe paid after some time)
+        => No money, just subscriptions to benefits
+        => Dwarf planes Ceres, Water colony with science; can travel to asteriods
+        => Board time / Ceres Time (9h 4min per day) connection affects world (year 4,605 years)
 
+Plot (multiple small plots interconnected with main plot)
+- Main plot is slowed down by "Revoluionary Spirit" mechanic, you can do actions if moivated, increases by beeing poor or seeing poor, decreases if situations betters => cannot proceed if not explore
 Central Plot Social Injustice:
     1) Self Rescue
         Start aussteigen aus Raumschiff als "Freiwilliger Lohnarbeiter"
@@ -65,13 +69,10 @@ Science Plot:
     Flora, Ancient things, Splicing
 
 Spiritual Mission:
-    Drugs
+    Drugs, secret cult
 
 Science/Investigate Mechanic:
-Find missing information through learning Lore/Characters/Investiagte
-real information??
-Repair mechanic as part of S/I Mechanic:
-brings money
+Repair/Build/Money/Knowledge/Tamper/Destroy party of System to change station
 1) Get message over incident => Analyze at Hub
 2) get hint, sometimes error hidden, check multiple places
 3) Found problem => Need more tools/ersatzteile/way blocked => repair
@@ -80,9 +81,8 @@ Each part gives other message, Hub give hint which part is broken (So hub messag
 
 Social Mechanic:
 Know peoples history, traitors, Interests, Capabilities
+Discussion Minigame, collect facts/arguments/invent them
 Does team fits together? NetworkMechanic?
-
-Decide on peronal advantage as Mechanic?
 
 Topics:
 - Erben
@@ -96,12 +96,6 @@ Topics:
 - AppsDating if Love
 - company is privat auticraty
 - Robot Avatars, remote control
-
-Bildung neues Entdecken nicht Grlf, aber mehr Fähigkeiten.Synergie mit Hausmeister.
-
-Entdecken der Station auf Komet/Panet?. Minenoperation. Mine ist planet erkunden
-Mehr Einblick in Reichtumsstrucktur.
-Sabotage/Anpassung Kleine Ziele
 
 Sammlung
 SpaceStamps with Social
