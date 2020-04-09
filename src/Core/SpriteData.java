@@ -28,11 +28,11 @@ public class SpriteData
 
     public String name, spriteName, lightningSprite, dialogueID;
     public Boolean blocking, animationEnds;
-    public Integer fps, totalFrames, cols, rows, frameWidth, frameHeight, heightLayer, hitboxOffsetX, hitboxOffsetY, hitboxWidth, hitboxHeight, velocity;//, animationDuration;
-    public Double animationDuration;
+    public Integer totalFrames, cols, rows, frameWidth, frameHeight, heightLayer, hitboxOffsetX, hitboxOffsetY, hitboxWidth, hitboxHeight, velocity;//, animationDuration;
+    public Double animationDuration, fps;
 
 
-    public SpriteData(String name, String spriteName, Boolean blocking, Integer fps, Integer totalFrames, Integer cols, Integer rows, Integer frameWidth, Integer frameHeight, Integer heightLayer, Integer hitboxOffsetX, Integer hitboxOffsetY, Integer hitboxWidth, Integer hitboxHeight, String lightningSprite)
+    public SpriteData(String name, String spriteName, Boolean blocking, Double fps, Integer totalFrames, Integer cols, Integer rows, Integer frameWidth, Integer frameHeight, Integer heightLayer, Integer hitboxOffsetX, Integer hitboxOffsetY, Integer hitboxWidth, Integer hitboxHeight, String lightningSprite)
     {
         this.name = name;
         this.spriteName = spriteName;
@@ -57,7 +57,8 @@ public class SpriteData
         {
             Boolean blocking = Boolean.parseBoolean(lineData[blockingIdx]);
             Integer priority = Integer.parseInt(lineData[layerIdx]);
-            Integer fps = Integer.parseInt(lineData[fpsIdx]);
+            //Integer fps = Integer.parseInt(lineData[fpsIdx]);
+            Double fps = Double.parseDouble(lineData[fpsIdx]);
             Integer totalFrames = Integer.parseInt(lineData[totalFramesIdx]);
             Integer cols = Integer.parseInt(lineData[colsIdx]);
             Integer rows = Integer.parseInt(lineData[rowsIdx]);

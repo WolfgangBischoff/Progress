@@ -234,7 +234,7 @@ public class WorldLoader
             //Is Placeholder
             else if (isPassiv && lineData[i].equals(Config.MAPDEFINITION_EMPTY))
             {
-                passivLayer.add(createSprite(new SpriteData("black", "void_64_64", true, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "none"), i * 64, currentVerticalTile * 64));
+                passivLayer.add(createSprite(new SpriteData("black", "void_64_64", true, 0d, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "none"), i * 64, currentVerticalTile * 64));
             }
             else if (!lineData[i].equals(Config.MAPDEFINITION_EMPTY))
                 System.out.println("WorldLoader readTile: tile definition not found: " + lineData[i]);

@@ -7,10 +7,11 @@ Logic:
 - schlafen, fade out, calender
 - Console
 - render Sort for sprite on same layer, ggf order by y
+- add line number in map definition that are simply ignored by process
 
 Sprites:
 - Docking Bay:
-    Monrail, schriftzug "Metro", runder UFO Roboter, minimal table, Lautsprecher, Advertisment changes per 5 sec, wastebin, Example Science/Ore/CultureSpacePoppers, decontaminationDevice, Glasswand
+    Monrail, schriftzug "Metro", runder UFO Roboter, minimal table, Lautsprecher, Advertisment changes per 5 sec, wastebin, Example Science/Ore/CultureSpacePoppers, decontaminationDevice
 - Control Center: BrückenControls,
 - Machines: Ventilation/Movingpart with bridge, Lavalampen Maschine
 - Person https://forums.rpgmakerweb.com/index.php?threads/spriting-pixel-art-tutorials.33/

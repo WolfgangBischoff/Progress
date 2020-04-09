@@ -25,7 +25,7 @@ public class Sprite
     Rectangle2D interactionArea;
     Actor actor; //Logic for sprite
     private String name = "notSet";
-    private float fps; //frames per second I.E. 24
+    private double fps; //frames per second I.E. 24
     private int totalFrames; //Total number of frames in the sequence
     private int cols; //Number of columns on the sprite sheet
     private int rows; //Number of rows on the sprite sheet
@@ -52,7 +52,7 @@ public class Sprite
         hitBoxHeight = frameHeight;
     }
 
-    public Sprite(String imagename, float fps, int totalFrames, int cols, int rows, int frameWidth, int frameHeight)
+    public Sprite(String imagename, Double fps, int totalFrames, int cols, int rows, int frameWidth, int frameHeight)
     {
         animated = true;
         setImage(imagename);
@@ -324,7 +324,7 @@ public class Sprite
         currentCol = currentRow = 0;
     }
 
-    public void setImage(String filename, int fps, int totalFrames, int cols, int row, int frameWidth, int frameHeight)
+    public void setImage(String filename, double fps, int totalFrames, int cols, int row, int frameWidth, int frameHeight)
     {
         if (totalFrames > 1)
             setAnimated(true);
