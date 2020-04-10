@@ -7,7 +7,6 @@ Logic:
 - schlafen, fade out, calender
 - Console
 - render Sort for sprite on same layer, ggf order by y
-- add line number in map definition that are simply ignored by process
 
 Sprites:
 - Docking Bay:

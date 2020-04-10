@@ -6,35 +6,30 @@ import javafx.scene.paint.Color;
 
 import java.util.*;
 
+import static Core.Config.*;
+
 public class WorldLoader
 {
+    private static final String CLASS_NAME = "WorldLoader-";
+
+    String levelName;
+    Sprite player;
+    Color shadowColor;
     private Rectangle2D borders;
+    List<String[]> leveldata = new ArrayList<>();
     List<Sprite> passivLayer = new ArrayList<>();
     List<Sprite> activeLayer = new ArrayList<>();
     List<Sprite> bttmLayer = new ArrayList<>();
     List<Sprite> mediumLayer = new ArrayList<>();
     List<Sprite> upperLayer = new ArrayList<>();
-    String levelName;
-    List<String[]> leveldata = new ArrayList<>();
-    Sprite player;
     Map<String, SpriteData> tileDataMap = new HashMap<>();
     Map<String, ActorData> actorDataMap = new HashMap<>();
-    Color shadowColor;
+    StageMonitor stageMonitor = new StageMonitor();
+    Map<String, ActorGroupData> actorGroupDataMap = new HashMap<>();
+    String readMode;
     int maxVerticalTile = 0;
     int currentVerticalTile = 0;
     int maxHorizontalTile = 0;
-    String readMode;
-
-    StageMonitor stageMonitor = new StageMonitor();
-    Map<String, ActorGroupData> actorGroupDataMap = new HashMap<>();
-
-    private static final String className = "WorldLoader ";
-    private static final String KEYWORD_NEW_LAYER = "layer:";
-    private static final String KEYWORD_PASSIV_LAYER = "passivlayer:";
-    private static final String KEYWORD_ACTORS = "actors:";
-    private static final String KEYWORD_TILEDEF = "tiledefinition:";
-    private static final String KEYWORD_WORLDSHADOW = "shadow:";
-    private static final String KEYWORD_GROUPS = "actorgroups:";
 
     public WorldLoader(String stageName)
     {
@@ -43,7 +38,7 @@ public class WorldLoader
 
     public void load()
     {
-        leveldata = Utilities.readAllLineFromTxt("src/res/level/" + levelName + ".csv");
+        leveldata = Utilities.readAllLineFromTxt(STAGE_FILE_PATH + levelName + CSV_POSTFIX);
         readMode = null;
         //Check for keyword
         Set<String> keywords = new HashSet<>();
@@ -72,10 +67,10 @@ public class WorldLoader
                     tileDataMap.put(lineData[SpriteData.tileCodeIdx], SpriteData.tileDefinition(lineData));
                     continue;
                 case KEYWORD_NEW_LAYER:
-                    readTile(lineData, false);
+                    readLineOfTiles(lineData, false);
                     continue;
                 case KEYWORD_PASSIV_LAYER:
-                    readTile(lineData, true);
+                    readLineOfTiles(lineData, true);
                     continue;
                 case KEYWORD_ACTORS:
                     readActorData(lineData);
@@ -120,7 +115,7 @@ public class WorldLoader
         if (debug)
         {
             for (Map.Entry<String, ActorGroupData> actorData : actorGroupDataMap.entrySet())
-                System.out.println(className + methodName + actorData.getKey() + " " + actorData.getValue().memberOfGroups);
+                System.out.println(CLASS_NAME + methodName + actorData.getKey() + " " + actorData.getValue().memberOfGroups);
         }
 
 
@@ -133,7 +128,7 @@ public class WorldLoader
 
     private void readWorldShadow(String[] lineData)
     {
-        String methodName = className + " readWorldShadow ";
+        String methodName = CLASS_NAME + " readWorldShadow ";
         int red, green, blue;
         if (lineData[0].toLowerCase().equals("none"))
             shadowColor = null;
@@ -165,12 +160,24 @@ public class WorldLoader
         }
     }
 
-    private void readTile(String[] lineData, Boolean isPassiv) throws IllegalArgumentException
+    private void readLineOfTiles(String[] lineData, Boolean isPassiv) throws IllegalArgumentException
     {
         String methodName = "readTile ";
+        String lineNumber = "[not set]";
+
+
         //from left to right, reads tile codes
         for (int i = 0; i < lineData.length; i++)
         {
+            //if first column is line number
+            if(i==0 && lineData[i].chars().allMatch(x -> Character.isDigit(x)))
+            {
+                //System.out.println(CLASS_NAME + methodName + lineData[i]);
+                lineNumber = lineData[0];
+                lineData = Arrays.copyOfRange(lineData, 1, lineData.length);
+            }
+
+
             //Is Tile
             if (tileDataMap.containsKey(lineData[i]))
             {
@@ -237,7 +244,7 @@ public class WorldLoader
                 passivLayer.add(createSprite(new SpriteData("black", "void_64_64", true, 0d, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "none"), i * 64, currentVerticalTile * 64));
             }
             else if (!lineData[i].equals(Config.MAPDEFINITION_EMPTY))
-                System.out.println("WorldLoader readTile: tile definition not found: " + lineData[i]);
+                System.out.println("WorldLoader readTile: tile definition not found: " + lineData[i] + " in line " + lineNumber + " column " + i);
 
             maxHorizontalTile = Math.max(i, maxHorizontalTile);
         }
