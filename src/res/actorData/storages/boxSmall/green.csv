@@ -1,0 +1,21 @@
+#Sensor							  ;TriggerType 					;targetStatus
+#onInteraction		;textbox										;transition
+#onMonitor 					;persistent 						;none
+#onTextBox 					;persistent_text		;none
+#onInRange						;persistent							;off
+#onUpdate							;persistent							;on
+#onIntersection	;persistent							;off
+#InteractionArea; Distance; Width; OffsetX; OffsetY
+#dialogueFile; actorData/dictionary/dialogueFile
+#transition; fromStatus; toStatus
+
+#Status Changes
+#ActionType		;TriggerType	;GeneralStatus
+onInteraction;textbox					;default
+onTextBox				;persistent		;none
+
+dialogueFile; actorData/storages/boxSmall/box
+
+#status to image
+#status 			;name   				;spritename  																																												;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;duration ;velocity ;dialogueID ;AnimationEnds
+default				;greenBox			;../actorData/storages/boxSmall/greenBox_64_64										;true				;0												;000	;000										;000	;000	;000								;000									;000											;000	 									;000									;000										;none						;000						;000						;default				;false

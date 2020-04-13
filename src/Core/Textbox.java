@@ -159,7 +159,6 @@ public class Textbox
                 }
 
                 return readDialogue;
-                //break;
             }
         }
         throw new RuntimeException("No dialogue found with ID: " + dialogueIdentifier);
@@ -177,7 +176,6 @@ public class Textbox
         if (input.contains("E") || input.contains("ENTER") || input.contains("SPACE"))
         {
             nextMessage(currentNanoTime);
-            //WorldView.getPlayer().actor.lastInteraction = currentNanoTime;
             WorldView.getPlayer().actor.setLastInteraction(currentNanoTime);
             return;
         }
@@ -194,7 +192,6 @@ public class Textbox
         if (markedOption != newMarkedOption)
         {
             markedOption = newMarkedOption;
-            //WorldView.getPlayer().actor.lastInteraction = currentNanoTime;
             WorldView.getPlayer().actor.setLastInteraction(currentNanoTime);
             drawTextbox();
         }
@@ -308,8 +305,6 @@ public class Textbox
             textboxGc.fillRect(xOffsetTextLine, firstLineOffsetY + markedOption * textboxGc.getFont().getSize(), TEXTBOX_WIDTH - 20, textboxGc.getFont().getSize());
         }
 
-        //textboxGc.setFont(Font.font("Calibri", FontWeight.NORMAL, 30 ));
-        //System.out.println(classname + methodName + textboxGc.getFont().toString());
         textboxGc.setFill(Color.BLACK);
         textboxGc.setTextAlign(TextAlignment.LEFT);
         textboxGc.setTextBaseline(VPos.TOP);

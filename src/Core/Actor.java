@@ -15,7 +15,7 @@ import static Core.Config.*;
 
 public class Actor
 {
-    final String classname = "Actor/";
+    private static final String CLASSNAME = "Actor-";
     String actorFileName;
     String actorInGameName;
     private Direction direction;
@@ -71,6 +71,7 @@ public class Actor
         actorDefinitionKeywords.add(KEYWORD_dialogueFile);
         actorDefinitionKeywords.add(KEYWORD_onTextBox);
         actorDefinitionKeywords.add(KEYWORD_text_box_analysis_group);
+        //actorDefinitionKeywords.add(KEYWORD_collectable);
 
         if (Files.exists(path))
         {
@@ -92,8 +93,7 @@ public class Actor
                     if (!spriteDataMap.containsKey(statusName))
                         spriteDataMap.put(statusName, new ArrayList<>());
                     spriteDataMap.get(statusName).add(data);
-                }
-                catch (IndexOutOfBoundsException e)
+                } catch (IndexOutOfBoundsException e)
                 {
                     throw new IndexOutOfBoundsException(e.getMessage() + "\n in Actorfile: " + actorFileName);
                 }
@@ -192,8 +192,8 @@ public class Actor
     public void onMonitorSignal(String newCompoundStatus)
     {
         String methodName = "onMonitorSignal() ";
-        if(onMonitorSignal == null)
-            System.out.println(classname + methodName + "OnMonitorSignal not set");
+        if (onMonitorSignal == null)
+            System.out.println(CLASSNAME + methodName + "OnMonitorSignal not set");
         evaluateTriggerType(onMonitorSignal, newCompoundStatus);
     }
 
@@ -252,7 +252,7 @@ public class Actor
         List<SpriteData> targetSpriteData = spriteDataMap.get(compoundStatus.toLowerCase());
 
         if (targetSpriteData == null)
-            System.out.println(classname + methodName + compoundStatus + " not found in " + spriteDataMap);
+            System.out.println(CLASSNAME + methodName + compoundStatus + " not found in " + spriteDataMap);
 
         //For all Sprites of the actor onUpdate to new Status
         for (int i = 0; i < spriteList.size(); i++)
@@ -306,7 +306,31 @@ public class Actor
             case TEXTBOX_ANALYSIS:
                 activateTextbox();
                 break;
+            case COLLECTABLE:
+                collect(targetStatusField);
+                break;
         }
+    }
+
+    private void collect(String unused)
+    {
+        String methodName = "collect(String) ";
+        System.out.println(CLASSNAME + methodName + "Collected: " + generalStatus + " " + actorInGameName);
+        //TODO add to inventory
+
+        //remove sprites and actor
+
+        WorldView.toRemove.addAll(spriteList);
+        for (Sprite sprite : spriteList)
+        {
+           /* WorldView.bottomLayer.remove(sprite);
+            WorldView.middleLayer.remove(sprite);
+            WorldView.topLayer.remove(sprite);
+            WorldView.activeSpritesLayer.remove(sprite);
+            WorldView.passiveSpritesLayer.remove(sprite);
+            WorldView.passiveCollisionRelevantSpritesLayer.remove(sprite);*/
+        }
+
     }
 
     private void playTimedStatus()
@@ -315,11 +339,12 @@ public class Actor
         List<SpriteData> targetSpriteData = spriteDataMap.get(compoundStatus.toLowerCase());
 
         if (targetSpriteData == null)
-            System.out.println(classname + methodName + compoundStatus + " not found in " + spriteDataMap);
+            System.out.println(CLASSNAME + methodName + compoundStatus + " not found in " + spriteDataMap);
 
         double animationDuration = targetSpriteData.get(0).animationDuration;
         PauseTransition delay = new PauseTransition(Duration.millis(animationDuration * 1000));
-        delay.setOnFinished(t -> {
+        delay.setOnFinished(t ->
+        {
             transitionGeneralStatus();
             updateCompoundStatus();
         });
@@ -343,15 +368,14 @@ public class Actor
                     analyzedGroupName = textbox_analysis_group_name;//set in actor file
                     analyzedGroup = stageMonitor.actorSystemMap.get(analyzedGroupName).getSystemMembers();
                     WorldView.textbox.groupAnalysis(analyzedGroup, this);
-                }
-                catch (NullPointerException e)
+                } catch (NullPointerException e)
                 {
                     StringBuilder stringBuilder = new StringBuilder();
-                    if(stageMonitor == null)
-                    stringBuilder.append("\nStageMonitor is null");
-                    if(analyzedGroupName == null)
+                    if (stageMonitor == null)
+                        stringBuilder.append("\nStageMonitor is null");
+                    if (analyzedGroupName == null)
                         stringBuilder.append("\nAnalyzed group is null: " + memberActorGroups.get(0));
-                    if(analyzedGroup == null)
+                    if (analyzedGroup == null)
                         stringBuilder.append("\nDependent group does not exist or is empty: " + analyzedGroupName);
 
                     throw new NullPointerException(stringBuilder.toString());
@@ -363,7 +387,7 @@ public class Actor
             WorldView.isTextBoxActive = true;
         }
         else
-            System.out.println(classname + methodName + " Game Window not instance of WorldView, cannot show Dialogue");
+            System.out.println(CLASSNAME + methodName + " Game Window not instance of WorldView, cannot show Dialogue");
     }
 
     private void transitionGeneralStatus()
@@ -374,7 +398,7 @@ public class Actor
             generalStatus = statusTransitions.get(generalStatus);
         }
         else
-            System.out.println(classname + methodName + "No status transition found for " + actorFileName + " " + generalStatus);
+            System.out.println(CLASSNAME + methodName + "No status transition found for " + actorFileName + " " + generalStatus);
     }
 
     void updateCompoundStatus()
@@ -485,14 +509,14 @@ public class Actor
         boolean debugmode = false;
         lastInteraction = value;
 
-        if(debugmode)
+        if (debugmode)
         {
-            System.out.println(classname + methodName + actorInGameName + " set last interaction.");
-            for (StackTraceElement ste : Thread.currentThread().getStackTrace()) {
+            System.out.println(CLASSNAME + methodName + actorInGameName + " set last interaction.");
+            for (StackTraceElement ste : Thread.currentThread().getStackTrace())
+            {
                 System.out.println(ste);
             }
         }
-
 
 
     }

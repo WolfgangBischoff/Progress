@@ -25,7 +25,7 @@ import static Core.Config.CAMERA_WIDTH;
 
 public class WorldView implements GUIController
 {
-    private static final String CLASS_NAME = "WorldView";
+    private static final String CLASSNAME = "WorldView-";
 
     @FXML
     Pane root;
@@ -39,12 +39,19 @@ public class WorldView implements GUIController
     Map<String, Image> lightsImageMap = new HashMap<>();
     Color shadowColor;
 
+    //Menu overlay
+    static boolean isMenuActive = false;
+    static MenuOverlay menuOverlay = new MenuOverlay();
+    static Point2D menuOverlayPosition = new Point2D(CAMERA_WIDTH / 2f - menuOverlay.getMenuWidth() / 2, CAMERA_HEIGHT - menuOverlay.getMenuHeight());
+    static Long lastTimeMenuWasOpened = 0l;
+
     //Textbox
     static boolean isTextBoxActive = false;
     static Textbox textbox = new Textbox();
     static Point2D textboxPosition = new Point2D(CAMERA_WIDTH / 2f - textbox.getTEXTBOX_WIDTH() / 2, CAMERA_HEIGHT - textbox.getTEXTBOX_HEIGHT() - 32);
 
     //Sprites
+    String levelName;
     private static Rectangle2D borders;
     static List<Sprite> activeSpritesLayer = new ArrayList<>();
     static List<Sprite> passiveCollisionRelevantSpritesLayer = new ArrayList<>();
@@ -52,8 +59,8 @@ public class WorldView implements GUIController
     static List<Sprite> bottomLayer = new ArrayList<>();
     static List<Sprite> middleLayer = new ArrayList<>();
     static List<Sprite> topLayer = new ArrayList<>();
-    String levelName;
     static Sprite player;
+    static List<Sprite> toRemove = new ArrayList<>();
 
     //Camera
     double offsetMaxX;
@@ -101,7 +108,22 @@ public class WorldView implements GUIController
     @Override
     public void update(Long currentNanoTime)
     {
+        String methodName = "update(Long)";
         ArrayList<String> input = GameWindow.getInput();
+
+
+        double elapsedTimeSinceLastInteraction = (currentNanoTime - lastTimeMenuWasOpened) / 1000000000.0;
+        if (input.contains("ESCAPE") && elapsedTimeSinceLastInteraction > 1)
+        {
+            if (!isMenuActive)
+            {
+                isMenuActive = true;
+            }
+            else
+                isMenuActive = false;
+            lastTimeMenuWasOpened = currentNanoTime;
+            System.out.println(CLASSNAME + methodName + "registered Esc " + isMenuActive);
+        }
 
         //Process Input
         if (isTextBoxActive)
@@ -118,6 +140,18 @@ public class WorldView implements GUIController
         player.update(currentNanoTime);
         for (Sprite active : activeSpritesLayer)
             active.update(currentNanoTime);
+
+        //Remove Sprites
+        for (Sprite sprite : toRemove)
+        {
+            WorldView.bottomLayer.remove(sprite);
+            WorldView.middleLayer.remove(sprite);
+            WorldView.topLayer.remove(sprite);
+            WorldView.activeSpritesLayer.remove(sprite);
+            WorldView.passiveSpritesLayer.remove(sprite);
+            WorldView.passiveCollisionRelevantSpritesLayer.remove(sprite);
+        }
+        toRemove.clear();
 
         calcCameraPosition();
     }
@@ -147,13 +181,13 @@ public class WorldView implements GUIController
         {
             addedVelocityY += -playerActor.getSpeed();
             moveButtonPressed = true;
-                newDirection = Direction.NORTH;
+            newDirection = Direction.NORTH;
         }
         if (input.contains("DOWN") || input.contains("S"))
         {
             addedVelocityY += playerActor.getSpeed();
             moveButtonPressed = true;
-                newDirection = Direction.SOUTH;
+            newDirection = Direction.SOUTH;
         }
 
         if (moveButtonPressed)
@@ -161,7 +195,7 @@ public class WorldView implements GUIController
         else if (player.actor.isMoving())
             player.actor.setVelocity(0, 0);
 
-        if(newDirection != null && playerActor.getDirection() != newDirection)
+        if (newDirection != null && playerActor.getDirection() != newDirection)
             playerActor.setDirection(newDirection);
 
         if (input.contains("E"))
@@ -232,6 +266,7 @@ public class WorldView implements GUIController
     @Override
     public void render(Long currentNanoTime)
     {
+        String methodName = "render(Long)";
 
         gc.clearRect(0, 0, CAMERA_WIDTH, Config.CAMERA_HEIGHT);
         gc.translate(-camX, -camY);
@@ -308,9 +343,15 @@ public class WorldView implements GUIController
         if (isTextBoxActive)
         {
             WritableImage textBoxImg = textbox.showMessage();
-            //textboxPosition = new Point2D(CAMERA_WIDTH / 2f - textBoxImg.getWidth() / 2, CAMERA_HEIGTH - textBoxImg.getHeight() - 32);
             gc.drawImage(textBoxImg, textboxPosition.getX(), textboxPosition.getY());
         }
+
+        if(isMenuActive)
+        {
+            WritableImage menuImage = menuOverlay.getMenuImage();
+            gc.drawImage(menuImage, 250, 250);
+        }
+
     }
 
 

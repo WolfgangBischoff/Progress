@@ -34,6 +34,7 @@ public class Config
     public static final String KEYWORD_interactionArea = "interactionArea";
     public static final String KEYWORD_dialogueFile = "dialogueFile";
     public static final String KEYWORD_text_box_analysis_group = "textbox_analysis_group";
+    public static final String KEYWORD_collectable = "collectable";
 
     //DialogueFile Keywords
     public static final String DIALOGUE_TAG = "dialogue";

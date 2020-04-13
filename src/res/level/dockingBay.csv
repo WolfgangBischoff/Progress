@@ -69,7 +69,6 @@ plannw				;plant							;plants/green_plant_nw							 										;true					;1 				
 
 #Furniture
 desk__				;desk								;furniture/tableSqare																				;true					;0												;0			;0												;0				;0				;0										;0											;0             ;0             ;0           ;0							     ;none
-crate_				;crate							;furniture/crates/uniCrate_64_64									;true					;0												;0			;0												;0				;0				;0										;0											;0             ;0             ;0           ;0							     ;none
 bench_				;bench							;furniture/bench																									;true					;1												;0;			0;											0;				0;				0;										0;										0;													50;												128;										50							;none
 
 actors:
@@ -80,6 +79,9 @@ auDoor					;doors/horizontal/automatedDoor										;horizontal bulkhead						;o
 glasDo					;doors/horizontal/glass/glassLock								;horizontal glasdoor						;on																	;south
 doorVe					;doors/vertical/autoBulkheadVertical					;vertical bulkhead								;on																	;west
 diff__					;furniture/diffuser/diffuser													;big diffuser													;rose															;undefined
+crate_					;storages/boxSmall/green																	;green box																;default																;undefined
+key_rd					;collectables/keycard/keycard												;keycard				 													;red																;undefined
+gsc100					;collectables/keycard/keycard												;100 GSC				 													;gsc100													;undefined
 #AirSystem
 screeA					;statusScreen/statusScreen															;Status Screen												;on																	;undefined
 airVeR					;airSystem/airVent/airVent															;Right ventilation								;off																;undefined
@@ -130,9 +132,9 @@ passivlayer:
 layer:
 001 ; wTL___; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; wTR___; ______; ______; ______; ______; ______; ______; ______; ______
 002 ; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; infoWe; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
-003 ; back_e; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; player; ______; ______; back_w; ______; ______; ______; ______; ______; ______; ______; ______
+003 ; back_e; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; key_rd; ______; ______; player; ______; ______; back_w; ______; ______; ______; ______; ______; ______; ______; ______
 004 ; back_e; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; back_w; ______; ______; ______; ______; ______; ______; ______; ______
-005 ; back_e; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; back_w; ______; ______; ______; ______; ______; ______; ______; ______
+005 ; back_e; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; gsc100; ______; ______; ______; ______; ______; ______; ______; back_w; ______; ______; ______; ______; ______; ______; ______; ______
 006 ; wBL___; back_n; back_n; back_n; back_n; back_n; back_n; bck_ne; frt__s; glasDo; ______; frt__s; bck_nw; back_n; back_n; back_n; back_n; back_n; back_n; back_n; waBNW_; ______; ______; ______; ______; ______; ______; ______; ______
 007 ; ______; w45FL_; frt__s; frt__s; frt__s; frt__s; frt__s; fro_se; ______; ______; ______; ______; fro_sw; frt__s; frt__s; frt__s; w45FR_; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
 008 ; back_e; ______; ______; ______; ______; ______; ______; back_e; ______; ______; ______; ______; back_w; ______; ______; ______; ______; w45FR_; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
