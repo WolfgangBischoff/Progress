@@ -70,7 +70,7 @@ plannw				;plant							;plants/green_plant_nw							 										;true					;1 				
 #Furniture
 desk__				;desk								;furniture/tableSqare																				;true					;0												;0			;0												;0				;0				;0										;0											;0             ;0             ;0           ;0							     ;none
 bench_				;bench							;furniture/bench																									;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;050           ;128									;050          ;none
-wasteB				;wastebin				;furniture/wasteBin																						;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;050           ;128									;050          ;none
+wasteB				;wastebin				;furniture/wasteBin																						;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;000           ;000									;000          ;none
 
 actors:
 #code 					;actorFileN																														;IngameName															;status  											;direction
