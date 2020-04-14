@@ -28,13 +28,17 @@ public class MenuOverlay
         String methodName = "draw()";
         menuGc.clearRect(0, 0, MENU_WIDTH, MENU_HEIGHT);
 
+        menuGc.setGlobalAlpha(0.8);
         menuGc.setFill(Color.DARKSLATEGREY);
         menuGc.fillRect(0, 0, MENU_WIDTH, MENU_HEIGHT);
 
+        menuGc.setGlobalAlpha(1);
         menuGc.setFill(Color.BLANCHEDALMOND);
         menuGc.fillText("Game Menu", 30, 30);
 
-        menuImage = menuCanvas.snapshot(new SnapshotParameters(), null);
+        SnapshotParameters transparency = new SnapshotParameters();
+        transparency.setFill(Color.TRANSPARENT);
+        menuImage = menuCanvas.snapshot(transparency, null);
 
     }
 

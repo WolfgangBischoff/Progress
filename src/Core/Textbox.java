@@ -6,6 +6,7 @@ import javafx.geometry.VPos;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
@@ -37,19 +38,21 @@ public class Textbox
     Dialogue loadedDialogue;
     Element dialogueFileRoot;
     int messageIdx = 0;
-    final int firstLineOffsetY = 20;
-    final int xOffsetTextLine = 30;
-    final int maxDigitsInLine = 40;
+    final int firstLineOffsetY = 30;
+    final int xOffsetTextLine = 40;
+    final int maxDigitsInLine = 38;
     String nextDialogueID = null;
     List<String> lineSplitMessage;
     Integer markedOption = 0;
     Actor actorOfDialogue;
 
-    Image corner;
+    Image cornerTopLeft;
+    Image cornerBtmRight;
 
     public Textbox()
     {
-        corner = new Image("res/img/txtbox/textboxCornerTL.png");
+        cornerTopLeft = new Image("res/img/txtbox/textboxTL.png");
+        cornerBtmRight = new Image("res/img/txtbox/textboxBL.png");
     }
 
     public void startConversation(Actor actorParam)
@@ -61,7 +64,8 @@ public class Textbox
             dialogueFileRoot = readFile(actorOfDialogue.dialogueFileName);
             loadedDialogue = readDialogue(actorOfDialogue.dialogueStatusID, dialogueFileRoot);
             drawTextbox();
-        } catch (NullPointerException e)
+        }
+        catch (NullPointerException e)
         {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append("\nDialogueFileName: " + actorOfDialogue.dialogueFileName);
@@ -94,10 +98,12 @@ public class Textbox
             Document doc = builder.parse(file);
             return doc.getDocumentElement();
             //xmlRoot = doc.getDocumentElement();
-        } catch (ParserConfigurationException | SAXException e)
+        }
+        catch (ParserConfigurationException | SAXException e)
         {
             e.printStackTrace();
-        } catch (IOException e)
+        }
+        catch (IOException e)
         {
             System.out.println("Cannot find: " + path);
         }
@@ -289,23 +295,34 @@ public class Textbox
     private void drawTextbox() throws NullPointerException
     {
         String methodName = "drawTextbox() ";
+        int backgroundOffsetX = 16, backgroundOffsetY = 10;
+        Color background = Color.rgb(60,90,85);
+        double hue = background.getHue();
+        double sat = background.getSaturation();
+        double brig = background.getBrightness();
+        Color marking = Color.hsb(hue, sat-0.2, brig+0.2);
+        Color font = Color.hsb(hue, sat+0.15, brig+0.4);
+
         textboxGc.clearRect(0, 0, TEXTBOX_WIDTH, TEXTBOX_HEIGHT);
 
-        textboxGc.setFill(Color.DARKSLATEGREY);
-        textboxGc.fillRect(0, 0, TEXTBOX_WIDTH, TEXTBOX_HEIGHT);
-
-        //Decoration of textfield
-        textboxGc.drawImage(corner, 0, 0);
-
-        textboxGc.setFont(new Font("Verdana", 30));
+        //Background
+        textboxGc.setFill(background);
+        textboxGc.setGlobalAlpha(0.8);
+        textboxGc.fillRect(backgroundOffsetX, backgroundOffsetY, TEXTBOX_WIDTH-backgroundOffsetX *2, TEXTBOX_HEIGHT-backgroundOffsetY*2);
 
         if (markedOption != null && loadedDialogue.type.equals(DECISION_KEYWORD))
         {
-            textboxGc.setFill(Color.BISQUE);
-            textboxGc.fillRect(xOffsetTextLine, firstLineOffsetY + markedOption * textboxGc.getFont().getSize(), TEXTBOX_WIDTH - 20, textboxGc.getFont().getSize());
+            textboxGc.setFill(marking);
+            textboxGc.fillRect(xOffsetTextLine, firstLineOffsetY + markedOption * textboxGc.getFont().getSize()+5, TEXTBOX_WIDTH - 100, textboxGc.getFont().getSize());
         }
 
-        textboxGc.setFill(Color.BLACK);
+        //Decoration of textfield
+        textboxGc.setGlobalAlpha(1);
+        textboxGc.drawImage(cornerTopLeft, 0, 0);
+        textboxGc.drawImage(cornerBtmRight, TEXTBOX_WIDTH-cornerBtmRight.getWidth(), TEXTBOX_HEIGHT-cornerBtmRight.getHeight());
+
+        textboxGc.setFont(new Font("Verdana", 30));
+        textboxGc.setFill(font);
         textboxGc.setTextAlign(TextAlignment.LEFT);
         textboxGc.setTextBaseline(VPos.TOP);
 
@@ -331,15 +348,15 @@ public class Textbox
                 );
                 yOffsetTextLine += textboxGc.getFont().getSize();
             }
-
-
-        } catch (IndexOutOfBoundsException e)
+        }
+        catch (IndexOutOfBoundsException e)
         {
             System.out.println("IndexOutOfBoundsException " + e.getMessage());
         }
-        textboxImage = textboxCanvas.snapshot(new SnapshotParameters(), null);
 
-        //changeActorStatus();
+        SnapshotParameters transparency = new SnapshotParameters();
+        transparency.setFill(Color.TRANSPARENT);
+        textboxImage = textboxCanvas.snapshot(transparency, null);
     }
 
     private void changeActorStatus(String toGeneralStatus)
