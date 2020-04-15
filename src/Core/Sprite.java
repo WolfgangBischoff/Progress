@@ -7,6 +7,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
+import java.util.Comparator;
 import java.util.List;
 
 import static Core.Config.DEBUG_ACTORS;
@@ -98,7 +99,6 @@ public class Sprite
 
         double time = (currentNanoTime - lastUpdated) / 1000000000.0;
         double elapsedTimeSinceLastInteraction = (currentNanoTime - actor.getLastInteraction()) / 1000000000.0;
-        //  interactionArea = calcInteractionRectangle();
         Rectangle2D worldBorders = WorldView.getBorders();
         List<Sprite> activeSprites = WorldView.getPassiveCollisionRelevantSpritesLayer();
         double velocityX = actor.getVelocityX();
@@ -138,8 +138,8 @@ public class Sprite
                 actor.setLastInteraction(currentNanoTime);
                 interact = false; //Interacts with first found sprite;
             }
-            //else if (debugMode && interact && getName().equals("player") && otherSprite.getName().equals("diffuser"))
-            //   System.out.println(CLASS_NAME + methodName + getName() + " cannot interact " + otherSprite.getName() + " " + elapsedTimeSinceLastInteraction +" > "+ Config.TIME_BETWEEN_INTERACTIONS);
+            else if (debugMode && interact && getName().equals("player") && otherSprite.getName().equals("diffuser"))
+               System.out.println(CLASS_NAME + methodName + getName() + " cannot interact " + otherSprite.getName() + " " + elapsedTimeSinceLastInteraction +" > "+ Config.TIME_BETWEEN_INTERACTIONS);
 
             //In range
             if (otherSprite.actor != null
@@ -152,8 +152,6 @@ public class Sprite
             //Intersect
             if (intersects(otherSprite) && actor.onIntersection != TriggerType.NOTHING)
             {
-                //if(getName().equals("automatedDoorV"))
-                 //   System.out.println(CLASS_NAME + methodName + getName() + " intersect with " + otherSprite.getName());
                 actor.onIntersection(otherSprite, currentNanoTime);
             }
 

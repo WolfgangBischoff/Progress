@@ -15,10 +15,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static Core.Config.CAMERA_HEIGHT;
 import static Core.Config.CAMERA_WIDTH;
@@ -283,6 +280,7 @@ public class WorldView implements GUIController
             sprite.render(gc, currentNanoTime);
         }
         //Middle Layer
+        middleLayer.sort(new SpriteComparator());//To prevent wrong render sequence when sprites change layer or are added
         for (Sprite sprite : middleLayer)
         {
             sprite.render(gc, currentNanoTime);
@@ -297,34 +295,7 @@ public class WorldView implements GUIController
         //LightMap
         if (shadowColor != null)
         {
-            ShadowMaskGc.setFill(shadowColor);
-            ShadowMaskGc.fillRect(0, 0, CAMERA_WIDTH, Config.CAMERA_HEIGHT);
-            for (Sprite sprite : passiveCollisionRelevantSpritesLayer)
-            {
-                if (sprite.getLightningSpriteName().toLowerCase().equals("none"))
-                    continue;
-
-                String lightSpriteName = sprite.getLightningSpriteName();
-                if (!lightsImageMap.containsKey(sprite.getLightningSpriteName()))
-                {
-                    try
-                    {
-                        lightsImageMap.put(lightSpriteName, new Image("/res/img/lightglows/" + lightSpriteName + ".png"));
-                    } catch (IllegalArgumentException e)
-                    {
-                        throw new IllegalArgumentException("Invalid URL: " + "/res/img/lightglows/" + lightSpriteName + ".png" + " of sprite " + sprite.getName());
-                    }
-                }
-                Image lightimage = lightsImageMap.get(lightSpriteName);
-                ShadowMaskGc.drawImage(lightimage, sprite.positionX + sprite.getHitBoxOffsetX() + sprite.getHitBoxWidth() / 2 - lightimage.getWidth() / 2 - camX, sprite.positionY + sprite.getHitBoxOffsetY() + sprite.getHitBoxHeight() / 2 - lightimage.getHeight() / 2 - camY);
-            }
-
-            SnapshotParameters params = new SnapshotParameters();
-            params.setFill(Color.TRANSPARENT);
-            WritableImage image = shadowMask.snapshot(params, null);
-            gc.setGlobalBlendMode(BlendMode.MULTIPLY);
-            worldCanvas.getGraphicsContext2D().drawImage(image, camX, camY);
-            gc.setGlobalBlendMode(BlendMode.SRC_OVER);
+            renderLightEffect();
         }
 
         //Debugdata
@@ -354,6 +325,37 @@ public class WorldView implements GUIController
 
     }
 
+    private void renderLightEffect()
+    {
+        ShadowMaskGc.setFill(shadowColor);
+        ShadowMaskGc.fillRect(0, 0, CAMERA_WIDTH, Config.CAMERA_HEIGHT);
+        for (Sprite sprite : passiveCollisionRelevantSpritesLayer)
+        {
+            if (sprite.getLightningSpriteName().toLowerCase().equals("none"))
+                continue;
+
+            String lightSpriteName = sprite.getLightningSpriteName();
+            if (!lightsImageMap.containsKey(sprite.getLightningSpriteName()))
+            {
+                try
+                {
+                    lightsImageMap.put(lightSpriteName, new Image("/res/img/lightglows/" + lightSpriteName + ".png"));
+                } catch (IllegalArgumentException e)
+                {
+                    throw new IllegalArgumentException("Invalid URL: " + "/res/img/lightglows/" + lightSpriteName + ".png" + " of sprite " + sprite.getName());
+                }
+            }
+            Image lightimage = lightsImageMap.get(lightSpriteName);
+            ShadowMaskGc.drawImage(lightimage, sprite.positionX + sprite.getHitBoxOffsetX() + sprite.getHitBoxWidth() / 2 - lightimage.getWidth() / 2 - camX, sprite.positionY + sprite.getHitBoxOffsetY() + sprite.getHitBoxHeight() / 2 - lightimage.getHeight() / 2 - camY);
+        }
+
+        SnapshotParameters params = new SnapshotParameters();
+        params.setFill(Color.TRANSPARENT);
+        WritableImage image = shadowMask.snapshot(params, null);
+        gc.setGlobalBlendMode(BlendMode.MULTIPLY);
+        worldCanvas.getGraphicsContext2D().drawImage(image, camX, camY);
+        gc.setGlobalBlendMode(BlendMode.SRC_OVER);
+    }
 
     public Pane load()
     {

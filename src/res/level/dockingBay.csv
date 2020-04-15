@@ -2,7 +2,7 @@
 
 #Red Green Blue; the higher the brighter; >none< leads to no shadow
 shadow:
-#30;30;30
+#0;30;30
 none
 
 tiledefinition:
@@ -19,8 +19,6 @@ slabs_    ;slabs							;floor/slab																		;false				;0											;0			
 frt__s				;bluewall				;walls/wallFront																							;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
 wTL___				;bluewallTL		;walls/bluewallcornerTL																;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
 wTR___				;bluewallTR		;walls/bluewallcornerTR																;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
-#back_w				;wall								;walls/wallLeft																								;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
-#back_e				;wall								;walls/wallWest																								;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
 waBNW_				;wallcorner		;walls/wallCornerNW																				;true					;0												;0			;0												;0				;0				;0										;0											;0													;000											;000									;000										;none
 wBL___				;wallcorner		;walls/wallCornerNE																				;true					;0												;0			;0												;0				;0				;0										;0											;0													;000											;000									;000										;none
 w45FL_				;wallcorner		;walls/wall45FrontLeft																	;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
@@ -70,7 +68,7 @@ plannw				;plant							;plants/green_plant_nw							 										;true					;1 				
 #Furniture
 desk__				;desk								;furniture/tableSqare																				;true					;0												;0			;0												;0				;0				;0										;0											;0             ;0             ;0           ;0							     ;none
 bench_				;bench							;furniture/bench																									;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;050           ;128									;050          ;none
-wasteB				;wastebin				;furniture/wasteBin																						;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;000           ;000									;000          ;none
+wasteB				;wastebin				;furniture/wasteBin																						;true					;0												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;000           ;000									;000          ;none
 
 actors:
 #code 					;actorFileN																														;IngameName															;status  											;direction
@@ -145,8 +143,8 @@ layer:
 012 ; back_e; airPip; ______; ______; fro_sw; fro_se; ______; ______; ______; ______; ______; ______; ______; ______; fro_sw; fro_se; ______; ______; ______; ______; back_w; ______; ______; back_e; ______; ______; ______; ______; back_w
 013 ; back_e; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; back_w; ______; ______; back_e; ______; ______; ______; ______; back_w
 014 ; back_e; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; diff__; ______; ______; back_w; ______; ______; back_e; ______; ______; ______; ______; back_w
-015 ; back_e; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; fro_sw; frt__s; frt__s; fro_se; ______; ______; ______; ______; back_w
-016 ; back_e; bench_; ______; bench_; ______; ______; ______; ______; ______; potP_n; ______; ______; ______; ______; potP_n; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; back_w
+015 ; back_e; bench_; ______; bench_; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; fro_sw; frt__s; frt__s; fro_se; ______; ______; ______; ______; back_w
+016 ; back_e; ______; ______; ______; ______; ______; ______; ______; ______; potP_n; ______; ______; ______; ______; potP_n; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; back_w
 017 ; back_e; ______; ______; ______; ______; ______; ______; ______; ______; potP_v; ______; ______; ______; ______; potP_v; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; back_w
 018 ; back_e; desk__; ______; desk__; ______; ______; plannw; planne; ______; potP_v; ______; ______; ______; ______; potP_v; ______; ______; boge_3; boge_4; ______; bck_nw; back_n; back_n; bck_ne; ______; ______; ______; ______; back_w
 019 ; back_e; bench_; ______; bench_; ______; ______; plan_w; plan_e; ______; potP_s; ______; ______; ______; ______; potP_s; ______; ______; ______; ______; ______; back_w; ______; ______; back_e; ______; ______; ______; ______; back_w

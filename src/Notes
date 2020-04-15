@@ -6,7 +6,6 @@ Logic:
 - Menu, add inventory
 - schlafen, fade out, calender
 - Console
-- render Sort for sprite on same layer, ggf order by y
 
 Sprites:
 - Docking Bay:
