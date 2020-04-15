@@ -5,7 +5,7 @@ import java.util.List;
 
 public class ActorSystem
 {
-    public static final String CLASS_NAME = "ActorSystem/";
+    private static final String CLASSNAME = "ActorSystem/";
     String id;
     private List<Actor> systemMembers = new ArrayList<>();
 
@@ -32,20 +32,18 @@ public class ActorSystem
 
     public void setMemberToGeneralStatus(String ifInStatus, String newStatus)
     {
-        String methodName = "setMemberToGeneralStatus(String, String) ";
+        String methodName = "setMemberToGeneralStatus(String, String)";
         for (Actor target : systemMembers)
         {
-            //System.out.println(className + methodName + target.actorInGameName + " had status: " + target.generalStatus);
-            if (target.generalStatus.equals(ifInStatus.toLowerCase()))
+            if (target.generalStatus.toLowerCase().equals(ifInStatus.toLowerCase()))
             {
-                //System.out.println(className + methodName + " set to " + newStatus);
+                System.out.println(CLASSNAME + methodName + " " + ifInStatus + " set to " + newStatus);
                 target.onMonitorSignal(newStatus);
             }
-            //System.out.println(className + methodName + target.actorInGameName + " has status: " + target.generalStatus);
         }
     }
 
-    public boolean areAllMembersStatusOn()
+    public Boolean areAllMembersStatusOn()
     {
         boolean allActorsStatusOn = true;
         for (Actor toCheck : systemMembers)

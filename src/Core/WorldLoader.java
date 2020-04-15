@@ -96,8 +96,8 @@ public class WorldLoader
         int groupLogic_Idx = 1;
         int dependentGroupName_Idx = 2;
         int start_idx_memberIds = 3;
-        stageMonitor.groupsTologicCodeMap.put(lineData[groupName_Idx], lineData[groupLogic_Idx]);
-        stageMonitor.groupsToTargetGroupsMap.put(lineData[groupName_Idx], lineData[dependentGroupName_Idx]);
+        stageMonitor.groupToLogicMap.put(lineData[groupName_Idx], lineData[groupLogic_Idx]);
+        stageMonitor.groupIdToInfluencedGroupIdMap.put(lineData[groupName_Idx], lineData[dependentGroupName_Idx]);
 
         //map for all contained group members in which groups they are: actor -> groups
         ActorGroupData actorGroupData;
@@ -220,7 +220,7 @@ public class WorldLoader
                 {
                     actor.memberActorGroups.addAll(actorGroupData.memberOfGroups);
                     for (String groupName : actor.memberActorGroups)
-                        stageMonitor.addActor(groupName, actor);
+                        stageMonitor.addActorToActorSystem(groupName, actor);
                 }
 
                 //Create initial Sprites of Actor

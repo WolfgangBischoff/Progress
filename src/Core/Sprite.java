@@ -95,7 +95,7 @@ public class Sprite
     public void update(Long currentNanoTime)
     {
         String methodName = "update()";
-        boolean debugMode = true;
+        boolean debugMode = false;
 
         double time = (currentNanoTime - lastUpdated) / 1000000000.0;
         double elapsedTimeSinceLastInteraction = (currentNanoTime - actor.getLastInteraction()) / 1000000000.0;

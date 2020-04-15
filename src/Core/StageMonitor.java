@@ -6,47 +6,64 @@ import java.util.Map;
 
 public class StageMonitor
 {
-    final static String CLASS_NAME = "StageMonitor/";
-    Map<String, String> groupsTologicCodeMap = new HashMap<>(); //TODO Use ENUM
-    Map<String, String> groupsToTargetGroupsMap = new HashMap<>();
+    private final static String CLASSNAME = "StageMonitor/";
+    Map<String, String> groupToLogicMap = new HashMap<>(); //TODO Use ENUM
+    Map<String, String> groupIdToInfluencedGroupIdMap = new HashMap<>();
+    Map<String, ActorSystem> groupIdToActorGroupMap = new HashMap<>();
 
-    Map<String, ActorSystem> actorSystemMap = new HashMap<>();
-
-    public void addActor(String groupID, Actor actor)
+    public void addActorToActorSystem(String actorSystemId, Actor actor)
     {
         boolean debug = false;
-        String methodName = "addActor() ";
-        if (!actorSystemMap.containsKey(groupID))
-            actorSystemMap.put(groupID, new ActorSystem(groupID));
-        ActorSystem actorSystem = actorSystemMap.get(groupID);
+        String methodName = "addActorToActorSystem()";
+        if (!groupIdToActorGroupMap.containsKey(actorSystemId))
+            groupIdToActorGroupMap.put(actorSystemId, new ActorSystem(actorSystemId));
+        ActorSystem actorSystem = groupIdToActorGroupMap.get(actorSystemId);
         actorSystem.addActor(actor);
 
         if (debug)
-            System.out.println(CLASS_NAME + methodName + "added " + actor.actorInGameName + " to " + actorSystem);
+            System.out.println(CLASSNAME + methodName + " added " + actor.actorInGameName + " to " + actorSystem);
     }
 
-    public void notify(List<String> groupIDList)
+    public String isDependentOnGroup(List<String> checkedGroupId)
     {
-        String methodName = "notify() ";
+        for (Map.Entry<String, String> entry : groupIdToInfluencedGroupIdMap.entrySet())
+            if (checkedGroupId.contains(entry.getValue()))//actor can be in multiple groups but just be influenced by one
+                return entry.getKey();
+        return null;
+    }
+
+
+    public void sendSignalFrom(List<String> notifyingGroupsList)
+    {
+        String methodName = "sendSignalFrom(List<String>)";
         //Notify all groups of the notifying Actor
-        for (int i = 0; i < groupIDList.size(); i++)
+        for (int i = 0; i < notifyingGroupsList.size(); i++)
         {
-            String groupID = groupIDList.get(i);
-            String targetGroupID = groupsToTargetGroupsMap.get(groupID);
-            String logicCode = groupsTologicCodeMap.get(groupID);
-            switch (logicCode)
-            {
-                case "none":
-                    break;
-                case "setOnIfBaseActorAllOn":
-                    setOnIfBaseActorAllOn(groupID, targetGroupID);
-                    break;
-                case "isBaseSystem":
-                    set_baseSystemOffline(groupID, targetGroupID);
-                    break;
-                default:
-                    throw new RuntimeException(CLASS_NAME + methodName + "logicCode not found: " + logicCode);
-            }
+            sendSignalFrom(notifyingGroupsList.get(i));
+        }
+    }
+
+    public void sendSignalFrom(String notifyingGroup)
+    {
+        String methodName = "sendSignalFrom(String)";
+        boolean debug = false;
+        String targetGroupID = groupIdToInfluencedGroupIdMap.get(notifyingGroup);
+        String logicCode = groupToLogicMap.get(notifyingGroup);
+
+        if(debug)
+            System.out.println(CLASSNAME + methodName + " " + notifyingGroup + " used " + logicCode + " on " + targetGroupID);
+        switch (logicCode)
+        {
+            case "none":
+                break;
+            //case "setOnIfBaseActorAllOn":
+             //   setOnIfBaseActorAllOn(groupId, targetGroupID);
+                //break;
+            case "isBaseSystem":
+                apply_baseSystemLogic(notifyingGroup, targetGroupID);
+                break;
+            default:
+                throw new RuntimeException(CLASSNAME + methodName + "logicCode not found: " + logicCode);
         }
     }
 
@@ -55,13 +72,13 @@ public class StageMonitor
         String methodName = "setOnIfBaseActorAllOn(String, String) ";
         boolean debug = false;
 
-        ActorSystem checkedSystem = actorSystemMap.get(actorgroup);
-        ActorSystem dependentSystem = actorSystemMap.get(targetGroup);
+        ActorSystem checkedSystem = groupIdToActorGroupMap.get(actorgroup);
+        ActorSystem dependentSystem = groupIdToActorGroupMap.get(targetGroup);
 
         if (debug)
         {
-            System.out.println(CLASS_NAME + methodName + "Checked: " + actorgroup + " " + checkedSystem);
-            System.out.println(CLASS_NAME + methodName + "Dependent: " + targetGroup + " " + dependentSystem);
+            System.out.println(CLASSNAME + methodName + "Checked: " + actorgroup + " " + checkedSystem);
+            System.out.println(CLASSNAME + methodName + "Dependent: " + targetGroup + " " + dependentSystem);
         }
 
         //Set target Actors
@@ -72,18 +89,60 @@ public class StageMonitor
 
     }
 
-    private void set_baseSystemOffline(String checkedGroup, String dependentGroup)
+    private void apply_baseSystemLogic(String checkedGroup, String dependentGroup)
     {
         String methodName = "set_baseOff_IfBaseOffline() ";
 
-        ActorSystem checkedSystem = actorSystemMap.get(checkedGroup);
-        ActorSystem dependentSystem = actorSystemMap.get(dependentGroup);
+        ActorSystem checkedSystem = groupIdToActorGroupMap.get(checkedGroup);
+        ActorSystem dependentSystem = groupIdToActorGroupMap.get(dependentGroup);
+        String influencingSystemStatus = checkedSystem.areAllMembersStatusOn().toString();
 
-        //Set target Actors
-        if (checkedSystem.areAllMembersStatusOn())
-            dependentSystem.setMemberToGeneralStatus("baseSystemOffline", "on");
-        else
-            dependentSystem.setMemberToGeneralStatus("on", "baseSystemOffline");
+        for(Actor influenced : dependentSystem.getSystemMembers())
+        {
+            String status = influenced.generalStatus;
+            String statusConsideringLogic = statusTransition_baseSystemLogic(influencingSystemStatus, status);
+            influenced.onMonitorSignal(statusConsideringLogic);
+        }
+    }
+
+    private String statusTransition_baseSystemLogic(String influencingGroupStatus, String influencedActorStatus)
+    {
+        String baseSystemOfflineString = "basesystemoffline";
+        switch (influencingGroupStatus.toLowerCase())
+        {
+            case "true":
+                if(influencedActorStatus.equals(baseSystemOfflineString))
+                    return "on";
+                else
+                    return influencedActorStatus;
+
+            case "false":
+                if(influencedActorStatus.equals("on"))
+                    return baseSystemOfflineString;
+                else
+                    return influencedActorStatus;
+
+            default:
+                throw new RuntimeException("statusTransition not defined of status: " + influencingGroupStatus.toLowerCase());
+        }
+    }
+
+    //for Actors to double check their status changes
+    public String checkIfStatusIsValid(String influencedStatus, String influencingSystemId)
+    {
+        String methodName = "checkIfStatusIsValid(String, String)";
+        ActorSystem influencingSystem = groupIdToActorGroupMap.get(influencingSystemId);
+        String logic = groupToLogicMap.get(influencingSystemId);
+
+        if(logic.equals("isBaseSystem"))
+        {
+            String influencingSystemStatus = influencingSystem.areAllMembersStatusOn().toString();
+            //System.out.println(CLASSNAME + methodName + " changed from " + influencedStatus + " to " + statusTransition_baseSystemLogic(influencingSystemStatus, influencedStatus));
+            return statusTransition_baseSystemLogic(influencingSystemStatus, influencedStatus);
+        }
+
+        System.out.println(CLASSNAME + methodName + "Logic not found");
+        return influencedStatus;
     }
 
 }

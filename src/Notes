@@ -1,6 +1,5 @@
 
 Logic:
-- bug if actor is repaired but base system offline, before on we have to check if base system online; add depentent system before goto on
 - level change
 - Add TriggerStatus class with all triggers, all triggers have to be defined in actorfile (to close doors)
 - Menu, add inventory

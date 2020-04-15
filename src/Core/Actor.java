@@ -51,7 +51,7 @@ public class Actor
     String textbox_analysis_group_name = "none";
 
     StageMonitor stageMonitor;
-    final List<String> memberActorGroups = new ArrayList<>();
+    List<String> memberActorGroups = new ArrayList<>();
 
     public Actor(String actorFileName, String actorInGameName, String initGeneralStatus, Direction direction)
     {
@@ -199,13 +199,13 @@ public class Actor
 
     public void onTextboxSignal(String newCompoundStatus)
     {
-        String methodName = "onMonitorSignal(): ";
+        String methodName = "onMonitorSignal()";
         evaluateTriggerType(onTextBoxSignal, newCompoundStatus);
     }
 
     public void onIntersection(Sprite otherSprite, Long currentNanoTime)
     {
-        String methodName = "onIntersection() ";
+        String methodName = "onIntersection()";
         double elapsedTimeSinceLastInteraction = (currentNanoTime - lastInteraction) / 1000000000.0;
         if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS)
         {
@@ -271,12 +271,23 @@ public class Actor
 
     private void evaluateTargetStatus(String targetStatusField)
     {
+        String methodName = "evaluateTargetStatus(String)";
+
         //Do lookup (status is toggled from definition of actorfile)
         if (targetStatusField.equals(Config.KEYWORD_transition))
             transitionGeneralStatus();
         else
             //Status is set directly
             generalStatus = targetStatusField.toLowerCase();
+
+        String influencedOfGroup = stageMonitor.isDependentOnGroup(memberActorGroups);
+        if(influencedOfGroup != null)
+        {
+            //Check if status is valid dependent on influencing system
+            generalStatus = stageMonitor.checkIfStatusIsValid(generalStatus, influencedOfGroup);
+        }
+
+
         updateCompoundStatus();
     }
 
@@ -314,23 +325,13 @@ public class Actor
 
     private void collect(String unused)
     {
-        String methodName = "collect(String) ";
-        System.out.println(CLASSNAME + methodName + "Collected: " + generalStatus + " " + actorInGameName);
+        String methodName = "collect(String)";
+        System.out.println(CLASSNAME + methodName + " Collected: " + generalStatus + " " + actorInGameName);
         //TODO add to inventory
 
         //remove sprites and actor
 
         WorldView.toRemove.addAll(spriteList);
-        for (Sprite sprite : spriteList)
-        {
-           /* WorldView.bottomLayer.remove(sprite);
-            WorldView.middleLayer.remove(sprite);
-            WorldView.topLayer.remove(sprite);
-            WorldView.activeSpritesLayer.remove(sprite);
-            WorldView.passiveSpritesLayer.remove(sprite);
-            WorldView.passiveCollisionRelevantSpritesLayer.remove(sprite);*/
-        }
-
     }
 
     private void playTimedStatus()
@@ -366,7 +367,7 @@ public class Actor
                 try
                 {
                     analyzedGroupName = textbox_analysis_group_name;//set in actor file
-                    analyzedGroup = stageMonitor.actorSystemMap.get(analyzedGroupName).getSystemMembers();
+                    analyzedGroup = stageMonitor.groupIdToActorGroupMap.get(analyzedGroupName).getSystemMembers();
                     WorldView.textbox.groupAnalysis(analyzedGroup, this);
                 } catch (NullPointerException e)
                 {
@@ -423,7 +424,7 @@ public class Actor
         //If is part of a group
         if (stageMonitor != null)
         {
-            stageMonitor.notify(memberActorGroups);
+            stageMonitor.sendSignalFrom(memberActorGroups);
         }
     }
 

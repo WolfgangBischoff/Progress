@@ -279,17 +279,27 @@ public class Textbox
         {
             messageIdx = 0;
             loadedDialogue = readDialogue(nextDialogueID, dialogueFileRoot);
+            if (loadedDialogue.getActorStatus() != null)
+            {
+                changeActorStatus(loadedDialogue.getActorStatus());
+            }
             drawTextbox();
         }
-        else
+        else //End Textbox
         {
             WorldView.isTextBoxActive = false;
             messageIdx = 0;
         }
         playerActor.setLastInteraction(currentNanoTime);// = currentNanoTime;
 
+        /*
         if (loadedDialogue.getActorStatus() != null)
+        {
             changeActorStatus(loadedDialogue.getActorStatus());
+        }
+
+         */
+
     }
 
     private void drawTextbox() throws NullPointerException
