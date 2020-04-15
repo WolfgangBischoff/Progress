@@ -40,13 +40,18 @@ actorstatus - changes actor to status defined in actor file, "transition" leads 
 
     <dialogue id="info" type="decision" actorstatus="transition">
         <option>
-            <line>What are the news?</line>
-            <nextDialogue>general</nextDialogue>
+            <line>Earth News</line>
+            <nextDialogue>info-earthNews</nextDialogue>
         </option>
 
         <option>
-            <line>About the station</line>
-            <nextDialogue>stationInfo</nextDialogue>
+            <line>Station Information</line>
+            <nextDialogue>info-StationInfo</nextDialogue>
+        </option>
+
+        <option>
+            <line>About Ceres</line>
+            <nextDialogue>info-CeresInfo</nextDialogue>
         </option>
 
         <option>
@@ -55,26 +60,39 @@ actorstatus - changes actor to status defined in actor file, "transition" leads 
         </option>
     </dialogue>
 
+    <dialogue id="info-earthNews" type="normal" actorstatus="transition">
+        <line>On Earth the elections of the United Nations Economical Intervention Council (UNEIC) are over. New executive is Igelstan Kleidsten.</line>
+        <line>His agenda against the impacts of climate change and for the rapid resettlement of injured people to colonies convinced the council.</line>
+        <line>In his inaugural speech he underlined the importance of improving the logistical infrastructure needed for resettlements from urban centres to young colonies.</line>
+        <line>"Rapidly growing outposts of humanity will solve the challenges on Earth and also solve the initial difficulties of facilities in space," he declared at the end of his speech.</line>
+        <nextDialogue>info</nextDialogue>
+    </dialogue>
+
+    <dialogue id="info-CeresInfo" type="normal" actorstatus="transition">
+        <line>Ceres is the largest object in the main asteroid belt that lies between the orbits of Mars and Jupiter. With a diameter of 940 km, Ceres is the largest of the belts` asteroids.</line>
+        <line>The geology of Ceres is driven by ice and brines, with an overall salinity of around 5%.</line>
+        <line>One of the most spectacular pheonomena on Ceres are cryovolcanos that errupt ice and minerals to the surface.</line>
+        <nextDialogue>info</nextDialogue>
+    </dialogue>
+
     <dialogue id="info-goAway" type="normal" actorstatus="off">
         <line>Have a nice day!</line>
     </dialogue>
 
-    <dialogue id="general" type="normal" actorstatus="transition">
-        <line>We are currently on the sun side of the asteriod orbit, therefore we have a lot of energy from solar panels</line>
-        <line>On Earth the elections of United Nations Intervention Forces are over. New Governor is Igelstan Kleidsten.</line>
-        <line>Yearly economical prognosis of good</line>
-        <nextDialogue>info</nextDialogue>
-    </dialogue>
-
-    <dialogue id="stationInfo" type="decision" actorstatus="transition">
+    <dialogue id="info-StationInfo" type="decision" actorstatus="transition">
         <option>
-            <line>General Information</line>
-            <nextDialogue>ship</nextDialogue>
+            <line>Colony Ship "Sparc"</line>
+            <nextDialogue>stationInfo-SHIP</nextDialogue>
         </option>
 
         <option>
-            <line>Technical Information</line>
-            <nextDialogue>techInfo</nextDialogue>
+            <line>Pancheia station in a nutshell</line>
+            <nextDialogue>stationInfo-PANCHEIA_NUTSHELL</nextDialogue>
+        </option>
+
+        <option>
+            <line>Quarantine information</line>
+            <nextDialogue>STATIONINFO-QUARANTINE</nextDialogue>
         </option>
 
         <option>
@@ -83,14 +101,24 @@ actorstatus - changes actor to status defined in actor file, "transition" leads 
         </option>
     </dialogue>
 
-    <dialogue id="ship" type="normal" actorstatus="technical">
-        <line>This station was built in 2073 and was one the generation 3 stations of his kind. Currently we are on asteriod BA43-A and in earths orbits</line>
-        <nextDialogue>stationInfo</nextDialogue>
+    <dialogue id="stationInfo-SHIP" type="normal" actorstatus="technical">
+        <line>The main purpose of initial colonisation of Ceres was to create the first head quarter for operations in asteriod belt. Therefore the converted transport ship Spark was sent on a non-returning mission into the void.</line>
+        <line>After arrival in Ceres orbit the crew landed the vessel and restructured it to a fixed base. The first colony on an asteroid was founded as planned.</line>
+        <line>The mission is an example for human bravery and successful joint ventures of the United Nations with private space companies.</line>
+        <nextDialogue>info-StationInfo</nextDialogue>
     </dialogue>
 
-    <dialogue id="techInfo" type="normal" actorstatus="technical">
-        <line>The stations systems work at full function</line>
-        <nextDialogue>stationInfo</nextDialogue>
+    <dialogue id="stationInfo-PANCHEIA_NUTSHELL" type="normal" actorstatus="technical">
+        <line>Shortly after the planetary landing, work began on an underground tunnel system which offers maximum protection against the dangers of the void.</line>
+        <line>At first the crew quarters and scientific facilities were dug into the iced ground of "Miss Cerry", like the colonists called their new home.</line>
+        <line>The crew quarters of that time became storage room for precious minerals and today Cerians reside in comforable crew areas deeper in the mantle</line>
+        <nextDialogue>info-StationInfo</nextDialogue>
+    </dialogue>
+
+    <dialogue id="STATIONINFO-QUARANTINE" type="normal" actorstatus="technical">
+        <line>The sickness that some colonists had contracted recently was contained and does not pose a threat to ongoing operations.</line>
+        <line>The station management would like to point out again that all patients are well again and that there are no indications for an extraterrestrial origin of the disease.</line>
+        <nextDialogue>info-StationInfo</nextDialogue>
     </dialogue>
 </root>
 

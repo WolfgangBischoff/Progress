@@ -1,14 +1,17 @@
 
 Logic:
-- level change
+- Menu
+    add inventory
+    add item with textbox
+    add item in box
 - Add TriggerStatus class with all triggers, all triggers have to be defined in actorfile (to close doors)
-- Menu, add inventory
+- level change
 - schlafen, fade out, calender
 - Console
 
 Sprites:
 - Docking Bay:
-    Monrail, schriftzug "Metro", runder UFO Roboter, minimal table, Lautsprecher, wastebin, decontaminationDevice
+    Elevator, schriftzug "Elevator", runder UFO Roboter, minimal table, Lautsprecher, decontaminationDevice
 - Control Center: BrückenControls,
 - Machines: Ventilation/Movingpart with bridge, Lavalampen Maschine
 - Person https://forums.rpgmakerweb.com/index.php?threads/spriting-pixel-art-tutorials.33/

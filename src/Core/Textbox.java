@@ -29,7 +29,7 @@ import static Core.Config.*;
 
 public class Textbox
 {
-    String classname = "Textbox/";
+    private static final String CLASSNAME = "Textbox/";
     private double TEXTBOX_WIDTH = CAMERA_WIDTH / 1.5;
     private double TEXTBOX_HEIGHT = CAMERA_HEIGHT / 3.0;
     Canvas textboxCanvas = new Canvas(TEXTBOX_WIDTH, TEXTBOX_HEIGHT);
@@ -279,11 +279,12 @@ public class Textbox
         {
             messageIdx = 0;
             loadedDialogue = readDialogue(nextDialogueID, dialogueFileRoot);
-            if (loadedDialogue.getActorStatus() != null)
+            drawTextbox();
+            //In case of transition we change for every click not just if dialogue changed
+            if (loadedDialogue.getActorStatus() != null && !loadedDialogue.getActorStatus().equals(KEYWORD_transition))
             {
                 changeActorStatus(loadedDialogue.getActorStatus());
             }
-            drawTextbox();
         }
         else //End Textbox
         {
@@ -292,13 +293,12 @@ public class Textbox
         }
         playerActor.setLastInteraction(currentNanoTime);// = currentNanoTime;
 
-        /*
-        if (loadedDialogue.getActorStatus() != null)
+        //for PC screen we want change after each click
+        if (loadedDialogue.getActorStatus() != null && loadedDialogue.getActorStatus().equals(KEYWORD_transition))
         {
             changeActorStatus(loadedDialogue.getActorStatus());
         }
 
-         */
 
     }
 
@@ -317,7 +317,7 @@ public class Textbox
 
         //Background
         textboxGc.setFill(background);
-        textboxGc.setGlobalAlpha(0.8);
+        textboxGc.setGlobalAlpha(0.9);
         textboxGc.fillRect(backgroundOffsetX, backgroundOffsetY, TEXTBOX_WIDTH-backgroundOffsetX *2, TEXTBOX_HEIGHT-backgroundOffsetY*2);
 
         if (markedOption != null && loadedDialogue.type.equals(DECISION_KEYWORD))
