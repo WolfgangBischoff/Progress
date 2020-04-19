@@ -34,7 +34,7 @@ public class Config
     public static final String KEYWORD_interactionArea = "interactionArea";
     public static final String KEYWORD_dialogueFile = "dialogueFile";
     public static final String KEYWORD_text_box_analysis_group = "textbox_analysis_group";
-    public static final String KEYWORD_collectable = "collectable";
+    public static final String KEYWORD_collectable_type = "collectable_type";
 
     //DialogueFile Keywords
     public static final String DIALOGUE_TAG = "dialogue";
@@ -49,5 +49,6 @@ public class Config
     public static final String CSV_POSTFIX = ".csv";
     public static final String DIALOGUE_FILE_PATH = "src/res/";
     public static final String STAGE_FILE_PATH = "src/res/level/";
+    public static final String ACTOR_DIRECTORY_PATH = "src/res/actorData/";
 
 }

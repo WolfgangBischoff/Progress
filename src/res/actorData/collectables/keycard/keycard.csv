@@ -13,8 +13,10 @@
 #ActionType		;TriggerType	;GeneralStatus
 onInteraction;collectable	;none
 
+collectable_type; key
+
 #status to image
 #status 			;name   				;spritename  																																	;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;duration ;velocity ;dialogueID ;AnimationEnds
-default				;keycard				;../actorData/collectables/default												;false			;0												;000	;000										;000	;000	;000								;000									;000											;000	 									;000									;000										;none						;000						;000						;default				;false
-red								;keycard				;../actorData/collectables/keycard/k_red						;false			;0												;000	;000										;000	;000	;000								;000									;000											;000	 									;000									;000										;none						;000						;000						;default				;false
-gsc100					;100 GDS				;../actorData/collectables/gsc_small										;false			;0												;000	;000										;000	;000	;000								;000									;000											;000	 									;000									;000										;none						;000						;000						;default				;false
+default				;key								;../actorData/collectables/default												;false			;0												;000	;000										;000	;000	;000								;000									;000											;000	 									;000									;000										;none						;000						;000						;default				;false
+red								;key								;../actorData/collectables/keycard/k_red						;false			;0												;000	;000										;000	;000	;000								;000									;000											;000	 									;000									;000										;none						;000						;000						;default				;false
+gsc100					;money						;../actorData/collectables/gsc_small										;false			;0												;000	;000										;000	;000	;000								;000									;000											;000	 									;000									;000										;none						;000						;000						;default				;false

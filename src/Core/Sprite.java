@@ -134,25 +134,28 @@ public class Sprite
                     && elapsedTimeSinceLastInteraction > Config.TIME_BETWEEN_INTERACTIONS)
             {
                 //System.out.println(CLASS_NAME + methodName + getName() + " interact with " + otherSprite.getName());
-                otherSprite.actor.onInteraction(otherSprite, currentNanoTime); //Passive reacts
+                otherSprite.actor.onInteraction(this, currentNanoTime); //Passive reacts
+                //otherSprite.actor.onInteraction(otherSprite, currentNanoTime); //Passive reacts
                 actor.setLastInteraction(currentNanoTime);
                 interact = false; //Interacts with first found sprite;
             }
-            else if (debugMode && interact && getName().equals("player") && otherSprite.getName().equals("diffuser"))
-               System.out.println(CLASS_NAME + methodName + getName() + " cannot interact " + otherSprite.getName() + " " + elapsedTimeSinceLastInteraction +" > "+ Config.TIME_BETWEEN_INTERACTIONS);
+            //else if (debugMode && interact && getName().equals("player") && otherSprite.getName().equals("diffuser"))
+            //   System.out.println(CLASS_NAME + methodName + getName() + " cannot interact " + otherSprite.getName() + " " + elapsedTimeSinceLastInteraction +" > "+ Config.TIME_BETWEEN_INTERACTIONS);
 
             //In range
             if (otherSprite.actor != null
                     && actor.onInRange != TriggerType.NOTHING
                     && otherSprite.getBoundary().intersects(interactionArea))
             {
-                actor.onInRange(otherSprite, currentNanoTime);
+                actor.onInRange(this, currentNanoTime);
+                //actor.onInRange(otherSprite, currentNanoTime);
             }
 
             //Intersect
             if (intersects(otherSprite) && actor.onIntersection != TriggerType.NOTHING)
             {
-                actor.onIntersection(otherSprite, currentNanoTime);
+                //actor.onIntersection(otherSprite, currentNanoTime);
+                actor.onIntersection(this, currentNanoTime);
             }
 
 

@@ -48,34 +48,44 @@ public class Actor
     String compoundStatus = "default";
     String dialogueFileName = "descriptions";
     String dialogueStatusID = "none";
+    private String collectable_type;
     String textbox_analysis_group_name = "none";
 
     StageMonitor stageMonitor;
     List<String> memberActorGroups = new ArrayList<>();
 
+    Inventory inventory;
+
     public Actor(String actorFileName, String actorInGameName, String initGeneralStatus, Direction direction)
     {
+        inventory = new Inventory(this);
+
         this.actorFileName = actorFileName;
         this.actorInGameName = actorInGameName;
         this.generalStatus = initGeneralStatus.toLowerCase();
         this.direction = direction;
         List<String[]> actordata;
-        Path path = Paths.get("src/res/actorData/" + actorFileName + ".csv");
-        actorDefinitionKeywords.add(KEYWORD_onInteraction);
-        actorDefinitionKeywords.add(KEYWORD_onInRange);
-        actorDefinitionKeywords.add(KEYWORD_onUpdate);
-        actorDefinitionKeywords.add(KEYWORD_onIntersection);
-        actorDefinitionKeywords.add(KEYWORD_onMonitor);
-        actorDefinitionKeywords.add(KEYWORD_transition);
-        actorDefinitionKeywords.add(KEYWORD_interactionArea);
-        actorDefinitionKeywords.add(KEYWORD_dialogueFile);
-        actorDefinitionKeywords.add(KEYWORD_onTextBox);
-        actorDefinitionKeywords.add(KEYWORD_text_box_analysis_group);
-        //actorDefinitionKeywords.add(KEYWORD_collectable);
+        Path path = Paths.get(ACTOR_DIRECTORY_PATH + actorFileName + CSV_POSTFIX);
+
+        if(actorDefinitionKeywords.isEmpty()) //To avoid adding for each actor
+        {
+            actorDefinitionKeywords.add(KEYWORD_onInteraction);
+            actorDefinitionKeywords.add(KEYWORD_onInRange);
+            actorDefinitionKeywords.add(KEYWORD_onUpdate);
+            actorDefinitionKeywords.add(KEYWORD_onIntersection);
+            actorDefinitionKeywords.add(KEYWORD_onMonitor);
+            actorDefinitionKeywords.add(KEYWORD_transition);
+            actorDefinitionKeywords.add(KEYWORD_interactionArea);
+            actorDefinitionKeywords.add(KEYWORD_dialogueFile);
+            actorDefinitionKeywords.add(KEYWORD_onTextBox);
+            actorDefinitionKeywords.add(KEYWORD_text_box_analysis_group);
+            actorDefinitionKeywords.add(KEYWORD_collectable_type);
+        }
+
 
         if (Files.exists(path))
         {
-            actordata = Utilities.readAllLineFromTxt("src/res/actorData/" + actorFileName + ".csv");
+            actordata = Utilities.readAllLineFromTxt(ACTOR_DIRECTORY_PATH + actorFileName + CSV_POSTFIX);
             for (String[] linedata : actordata)
             {
                 if (checkForKeywords(linedata))
@@ -120,29 +130,29 @@ public class Actor
             case KEYWORD_onInteraction:
                 onInteraction = TriggerType.getStatus(linedata[triggerTypeIdx]);
                 onInteractionToStatus = linedata[targetStatusIdx];
-                break;//return true;
+                break;
             case KEYWORD_onInRange:
                 onInRange = TriggerType.getStatus(linedata[triggerTypeIdx]);
                 onInRangeToStatus = linedata[targetStatusIdx];
-                break;//return true;
+                break;
             case KEYWORD_onUpdate:
                 onUpdate = TriggerType.getStatus(linedata[triggerTypeIdx]);
                 onUpdateToStatus = linedata[targetStatusIdx];
-                break;//return true;
+                break;
             case KEYWORD_onIntersection:
                 onIntersection = TriggerType.getStatus(linedata[triggerTypeIdx]);
                 onIntersectionToStatus = linedata[targetStatusIdx];
-                break;//return true;
+                break;
             case KEYWORD_onMonitor:
                 onMonitorSignal = TriggerType.getStatus(linedata[triggerTypeIdx]);
                 //New status is set by StageMonitor
-                break;//return true;
+                break;
             case KEYWORD_onTextBox:
                 onTextBoxSignal = TriggerType.getStatus(linedata[triggerTypeIdx]); //Target status provided by textfile
                 break;
             case KEYWORD_transition:
                 statusTransitions.put(linedata[1], linedata[2]);// old/new status
-                break;//return true;
+                break;
             case KEYWORD_interactionArea:
                 double areaDistance = Double.parseDouble(linedata[1]);
                 double areaWidth = Double.parseDouble(linedata[2]);
@@ -152,12 +162,15 @@ public class Actor
                 interactionAreaWidth = areaWidth;
                 interactionAreaOffsetX = offsetX;
                 interactionAreaOffsetY = offsetY;
-                break;//return true;
+                break;
             case KEYWORD_dialogueFile:
                 dialogueFileName = linedata[1];
                 break;
             case KEYWORD_text_box_analysis_group:
                 textbox_analysis_group_name = linedata[1];
+                break;
+            case KEYWORD_collectable_type:
+                collectable_type = linedata[1];
                 break;
             default:
                 throw new RuntimeException("Keyword unknown: " + keyword);
@@ -172,19 +185,18 @@ public class Actor
         double elapsedTimeSinceLastInteraction = (currentNanoTime - lastInteraction) / 1000000000.0;
         if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS)
         {
-            evaluateTriggerType(onUpdate, onUpdateToStatus);
+            evaluateTriggerType(onUpdate, onUpdateToStatus, null);
         }
     }
 
-    public void onInteraction(Sprite otherSprite, Long currentNanoTime)
+    public void onInteraction(Sprite activeSprite, Long currentNanoTime)
     {
-        String methodName = "onInteraction(): ";
+        String methodName = "onInteraction() ";
         double elapsedTimeSinceLastInteraction = (currentNanoTime - lastInteraction) / 1000000000.0;
 
         if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS)
         {
-            //evaluateTriggerType(onInteraction, onIntersectionToStatus);
-            evaluateTriggerType(onInteraction, onInteractionToStatus);
+            evaluateTriggerType(onInteraction, onInteractionToStatus, activeSprite.actor);
             setLastInteraction(currentNanoTime);
         }
     }
@@ -194,34 +206,34 @@ public class Actor
         String methodName = "onMonitorSignal() ";
         if (onMonitorSignal == null)
             System.out.println(CLASSNAME + methodName + "OnMonitorSignal not set");
-        evaluateTriggerType(onMonitorSignal, newCompoundStatus);
+        evaluateTriggerType(onMonitorSignal, newCompoundStatus, null);
     }
 
     public void onTextboxSignal(String newCompoundStatus)
     {
-        String methodName = "onMonitorSignal()";
-        evaluateTriggerType(onTextBoxSignal, newCompoundStatus);
+        String methodName = "onMonitorSignal() ";
+        evaluateTriggerType(onTextBoxSignal, newCompoundStatus, null);
     }
 
-    public void onIntersection(Sprite otherSprite, Long currentNanoTime)
+    public void onIntersection(Sprite activeSprite, Long currentNanoTime)
     {
-        String methodName = "onIntersection()";
+        String methodName = "onIntersection() ";
         double elapsedTimeSinceLastInteraction = (currentNanoTime - lastInteraction) / 1000000000.0;
         if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS)
         {
-            evaluateTriggerType(onIntersection, onIntersectionToStatus);
+            evaluateTriggerType(onIntersection, onIntersectionToStatus, activeSprite.actor);
             setLastInteraction(currentNanoTime);
         }
     }
 
-    public void onInRange(Sprite otherSprite, Long currentNanoTime)
+    public void onInRange(Sprite activeSprite, Long currentNanoTime)
     {
         String methodName = "onInRange() ";
         double elapsedTimeSinceLastInteraction = (currentNanoTime - lastInteraction) / 1000000000.0;
         if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS)
         {
             //System.out.println(classname + methodName + elapsedTimeSinceLastInteraction);
-            evaluateTriggerType(onInRange, onInRangeToStatus);
+            evaluateTriggerType(onInRange, onInRangeToStatus, activeSprite.actor);
             setLastInteraction(currentNanoTime);
         }
     }
@@ -291,12 +303,14 @@ public class Actor
         updateCompoundStatus();
     }
 
-    private void evaluateTriggerType(TriggerType triggerType, String targetStatusField)
+    //React on outside sensor
+    private void evaluateTriggerType(TriggerType triggerType, String targetStatusField, Actor activeActor)
     {
         switch (triggerType)
         {
             case NOTHING:
                 return;
+                //Status Changes
             case PERSISTENT:
                 evaluateTargetStatus(targetStatusField);
                 break;
@@ -313,30 +327,28 @@ public class Actor
                 evaluateTargetStatus(targetStatusField);
                 playTimedStatus();
                 break;
+                //Activate Textbox
             case TEXTBOX:
             case TEXTBOX_ANALYSIS:
                 activateTextbox();
                 break;
+                //Get Removed from Game
             case COLLECTABLE:
-                collect(targetStatusField);
+                collect(activeActor);
                 break;
         }
     }
 
-    private void collect(String unused)
+    private void collect(Actor collectingActor)
     {
-        String methodName = "collect(String)";
-        System.out.println(CLASSNAME + methodName + " Collected: " + generalStatus + " " + actorInGameName);
-        //TODO add to inventory
-
-        //remove sprites and actor
-
+        String methodName = "collect(String) ";
+        collectingActor.inventory.addItem(generalStatus, collectable_type);
         WorldView.toRemove.addAll(spriteList);
     }
 
     private void playTimedStatus()
     {
-        String methodName = "playTimedStatus()";
+        String methodName = "playTimedStatus() ";
         List<SpriteData> targetSpriteData = spriteDataMap.get(compoundStatus.toLowerCase());
 
         if (targetSpriteData == null)

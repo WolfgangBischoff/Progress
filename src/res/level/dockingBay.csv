@@ -78,7 +78,8 @@ auDoor					;doors/horizontal/automatedDoor										;horizontal bulkhead						;o
 glasDo					;doors/horizontal/glass/glassLock								;horizontal glasdoor						;on																	;south
 doorVe					;doors/vertical/autoBulkheadVertical					;vertical bulkhead								;on																	;west
 diff__					;furniture/diffuser/diffuser													;big diffuser													;rose															;undefined
-crate_					;storages/boxSmall/green																	;green box																;default																;undefined
+crate_					;storages/boxSmall/green																	;green box																;default												;undefined
+#Collectibles
 key_rd					;collectables/keycard/keycard												;keycard				 													;red																;undefined
 gsc100					;collectables/keycard/keycard												;100 GSC				 													;gsc100													;undefined
 #AirSystem
