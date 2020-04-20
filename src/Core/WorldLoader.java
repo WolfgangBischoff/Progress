@@ -81,7 +81,6 @@ public class WorldLoader
                 case KEYWORD_GROUPS:
                     readActorGroups(lineData);
                     continue;
-
             }
         }
         borders = new Rectangle2D(0, 0, (maxHorizontalTile + 1) * 64, (maxVerticalTile) * 64);

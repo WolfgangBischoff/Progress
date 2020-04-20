@@ -1,6 +1,7 @@
 package Core;
 
 
+import Core.Enums.ActorTag;
 import Core.Enums.Direction;
 import Core.Enums.TriggerType;
 import javafx.animation.PauseTransition;
@@ -12,6 +13,8 @@ import java.nio.file.Paths;
 import java.util.*;
 
 import static Core.Config.*;
+import static Core.Enums.ActorTag.AUTOMATED_DOOR;
+import static Core.Enums.ActorTag.AUTOMATED_DOOR_DETECTABLE;
 
 public class Actor
 {
@@ -41,9 +44,10 @@ public class Actor
     StageMonitor stageMonitor;
     List<String> memberActorGroups = new ArrayList<>();
     Inventory inventory;
-
     Map<String, SensorStatus> sensorStatusMap = new HashMap<>();
     SensorStatus sensorStatus;
+
+    public Set<ActorTag> tags = new HashSet<>();
 
     public Actor(String actorFileName, String actorInGameName, String initGeneralStatus, String initSensorStatus, Direction direction)
     {
@@ -65,6 +69,7 @@ public class Actor
             actorDefinitionKeywords.add(KEYWORD_text_box_analysis_group);
             actorDefinitionKeywords.add(KEYWORD_collectable_type);
             actorDefinitionKeywords.add(KEYWORD_sensorStatus);
+            actorDefinitionKeywords.add(KEYWORD_actor_tags);
         }
 
 
@@ -141,10 +146,24 @@ public class Actor
             case KEYWORD_sensorStatus:
                 sensorStatusMap.put(linedata[1], readSensorData(linedata));
                 break;
+            case KEYWORD_actor_tags:
+                tags.addAll(readTagData(linedata));
+                break;
             default:
                 throw new RuntimeException("Keyword unknown: " + keyword);
         }
         return true;
+    }
+
+    private Set<ActorTag> readTagData(String[] linedata)
+    {
+        Set<ActorTag> tagDataSet = new HashSet<>();
+        int startIdxTags = 1;
+        for(int i = startIdxTags; i<linedata.length; i++)
+        {
+            tagDataSet.add(ActorTag.getType(linedata[i]));
+        }
+        return tagDataSet;
     }
 
     private SensorStatus readSensorData(String[] lineData)
@@ -230,13 +249,16 @@ public class Actor
         }
     }
 
-    public void onInRange(Sprite activeSprite, Long currentNanoTime)
+    public void onInRange(Sprite detectedSprite, Long currentNanoTime)
     {
-        String methodName = "onInRange() ";
+        String methodName = "onInRange(Sprite, Long) ";
         double elapsedTimeSinceLastInteraction = (currentNanoTime - lastInteraction) / 1000000000.0;
+
+        //TODO general lookup
+        if(tags.contains(AUTOMATED_DOOR) && detectedSprite.actor.tags.contains(AUTOMATED_DOOR_DETECTABLE))
         if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS)
         {
-            evaluateTriggerType(sensorStatus.onInRange, sensorStatus.onInRangeToStatus, activeSprite.actor);
+            evaluateTriggerType(sensorStatus.onInRange, sensorStatus.onInRangeToStatus, detectedSprite.actor);
             setLastInteraction(currentNanoTime);
         }
     }

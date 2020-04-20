@@ -1,6 +1,9 @@
 #InteractionArea; Distance; Width; OffsetX; OffsetY
 #dialogueFile; actorData/dictionary/dialogueFile
 #transition; fromStatus; toStatus
+#tags; ActorTag ...
+
+tags; automated_door
 
 #Status Changes
 #sensorStatus;sensorStatusName	;onInteractionTriggerType ;interactionTargetStatus	;onInRangeTT	;inRangeStatus	;onIntersectionTT	;interactionStatus;onUpdate			;UpdateToStatus	;onMonitor;onTextBox

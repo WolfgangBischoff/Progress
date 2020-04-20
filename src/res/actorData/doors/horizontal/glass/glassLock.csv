@@ -1,6 +1,7 @@
 #InteractionArea; Distance; Width; OffsetX; OffsetY
 #dialogueFile; actorData/dictionary/dialogueFile
 #transition; fromStatus; toStatus
+#tags; ActorTag ...
 
 #Status Changes
 #sensorStatus;sensorStatusName	;onInteractionTriggerType ;interactionTargetStatus	;onInRangeTT	;inRangeStatus	;onIntersectionTT	;interactionStatus;onUpdate			;UpdateToStatus	;onMonitor;onTextBox
@@ -9,6 +10,8 @@ sensorStatus	;locked											;none																					;none     													
 
 #InteractionArea; Distance; Width; OffsetX; OffsetY
 interactionArea; 						250;				30;							0;				-160
+
+tags; automated_door
 
 #status to image
 #status 											;name 					  				;spritename  																																														;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;duration ;velocity ;dialogueID ;AnimationEnds

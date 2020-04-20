@@ -1,19 +1,9 @@
-#Sensor							  ;TriggerType 					;targetStatus
-#onInteraction		;textbox										;transition
-#onMonitor 					;persistent 						;none
-#onTextBox 					;persistent_text		;none
-#onInRange						;persistent							;off
-#onUpdate							;persistent							;on
-#onIntersection	;persistent							;off
 #InteractionArea; Distance; Width; OffsetX; OffsetY
 #dialogueFile; actorData/dictionary/dialogueFile
 #transition; fromStatus; toStatus
+#tags; ActorTag ...
 
-#Status Changes
-#ActionType; TriggerType; GeneralStatus
-#onInRange; persistent; off
-#onIntersection; persistent; off
-#onUpdate; persistent; on
+tags; automated_door
 
 #sensorStatus;sensorStatusName	;onInteractionTriggerType ;interactionTargetStatus	;onInRangeTT	;inRangeStatus	;onIntersectionTT	;interactionStatus;onUpdate			;UpdateToStatus	;onMonitor;onTextBox
 sensorStatus	;default										;nothing																		;nothing																	;persistent		;off											;persistent							;off														;persistent	;on													;none					;none

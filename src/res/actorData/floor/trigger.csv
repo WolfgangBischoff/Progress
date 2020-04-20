@@ -1,0 +1,11 @@
+#dialogueFile; actorData/dictionary/dialogueFile
+#transition; fromStatus; toStatus
+
+#sensorStatus;sensorStatusName	;onInteractionTriggerType ;interactionTargetStatus	;onInRangeTT	;inRangeStatus	;onIntersectionTT	;intersectionStatus;onUpdate			;UpdateToStatus	;onMonitor;onTextBox
+sensorStatus	;default										;none																					;nothing																	;none								;none										;persistent							;on																;persistent	;off												;none					;none
+
+
+#status to image
+#status 		;name   						;spritename  																					;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;duration ;velocity ;dialogueID ;AnimationEnds
+off							;infoTerminal	;../actorData/floor/marking							;false   ;0												;0			;0												;0			;0			;0										;0											;0													;0													;0											;0												;whitelight;0								;0								;welcome				;false
+on	 						;infoTerminal	;../actorData/floor/markingr						;false   ;0												;0			;0												;0			;0			;0										;0											;0													;0													;0											;0												;whitelight;0								;0								;welcome				;false
