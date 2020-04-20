@@ -5,10 +5,11 @@ import java.util.List;
 
 public class Dialogue
 {
-    String classname = "Dialogue";
+    private static final String CLASSNAME = "Dialogue/";
     String type;
     String nextDialogue;
-    private String actorStatus;
+    private String spriteStatus;
+    private String sensorStatus;
     List<String> messages = new ArrayList<>();
     List<Option> options = new ArrayList<>();
 
@@ -39,16 +40,31 @@ public class Dialogue
         String optionMessage;
     }
 
-    public String getActorStatus()
+    public String getSpriteStatus()
     {
-        return actorStatus;
+        return spriteStatus;
     }
 
-    public void setActorStatus(String actorStatus)
+    public String getSensorStatus()
     {
-        if (actorStatus.trim().equals(""))
-            this.actorStatus = null;
+        return sensorStatus;
+    }
+
+    public void setSpriteStatus(String spriteStatus)
+    {
+        //if (spriteStatus.trim().equals(""))
+        if (spriteStatus.trim().isEmpty())
+            this.spriteStatus = null;
         else
-            this.actorStatus = actorStatus;
+            this.spriteStatus = spriteStatus;
+    }
+
+    public void setSensorStatus(String sensorStatus)
+    {
+        String methodName = "setSensorStatus() ";
+        if (sensorStatus.trim().isEmpty())
+            this.sensorStatus = null;
+        else
+            this.sensorStatus = sensorStatus;
     }
 }

@@ -354,6 +354,7 @@ public class Actor
 
     public void setSensorStatus(String sensorStatusString)
     {
+        String methodName = "setSensorStatus() ";
         this.sensorStatus = sensorStatusMap.get(sensorStatusString);
     }
 

@@ -80,7 +80,7 @@ doorVe					;doors/vertical/autoBulkheadVertical					;vertical bulkhead								;o
 diff__					;furniture/diffuser/diffuser													;big diffuser													;rose															;default							;undefined
 crate_					;storages/boxSmall/green																	;green box																;default												;default							;undefined
 lever_					;machine/lever																											;lever																				;off																;default							;undefined
-desinf					;machine/desinfection/desinfect										;Desinfection													;off																;default							;west
+desinf					;machine/desinfection/desinfect										;Desinfection													;on																;default							;west
 #Collectibles
 key_rd					;collectibles/key/keycard																;universal key				 							;red																;default							;undefined
 key_bl					;collectibles/key/keycard																;universal key				 							;blue															;default							;undefined

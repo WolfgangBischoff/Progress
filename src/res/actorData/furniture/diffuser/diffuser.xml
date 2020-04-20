@@ -6,15 +6,15 @@ First Dialogue Identified by actor status value; In future maybe also MonitorDat
 
 id - identifier for lookup of textbox
 type - normal/decision
-actorstatus - changes actor to status defined in actor file, "transition" leads to changed defined in actor file
+spritestatus - changes actor to status defined in actor file, "transition" leads to changed defined in actor file
 
-    <dialogue id="welcome" type="normal" actorstatus="transition">
+    <dialogue id="welcome" type="normal" spritestatus="transition">
         <line>Shown message</line>
         <line>Shown message 2</line>
         <nextDialogue>nextDialogueID</nextDialogue>
     </dialogue>
 
-    <dialogue id="info" type="decision" actorstatus="transition">
+    <dialogue id="info" type="decision" spritestatus="transition">
         <option>
             <line>Optiontext1</line>
             <nextDialogue>option1ID</nextDialogue>
@@ -75,15 +75,15 @@ actorstatus - changes actor to status defined in actor file, "transition" leads 
         </option>
     </dialogue>
 
-    <dialogue id="pushedButtonRose" type="normal" actorstatus="rose">
+    <dialogue id="pushedButtonRose" type="normal" spritestatus="rose">
         <line>Rose aroma streams from the diffuser</line>
     </dialogue>
 
-    <dialogue id="pushedButtonYlang" type="normal" actorstatus="Ylang">
+    <dialogue id="pushedButtonYlang" type="normal" spritestatus="Ylang">
         <line>Ylang-Ylang aroma streams from the diffuser</line>
     </dialogue>
 
-    <dialogue id="pushedButtonThieves" type="normal" actorstatus="thieves">
+    <dialogue id="pushedButtonThieves" type="normal" spritestatus="thieves">
         <line>Thieves aroma streams from the diffuser</line>
     </dialogue>
 

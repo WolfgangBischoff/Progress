@@ -5,7 +5,7 @@ First Dialogue Identified by actor status value; In future maybe also MonitorDat
 
 id - identifier for lookup of textbox
 type - normal/decision
-actorstatus - changes actor to status defined in actor file, "transition" leads to changed defined in actor file
+spritestatus - changes actor to status defined in actor file, "transition" leads to changed defined in actor file
 <-->
 
 <root name="airControl">

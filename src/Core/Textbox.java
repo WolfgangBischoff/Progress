@@ -6,7 +6,6 @@ import javafx.geometry.VPos;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
@@ -35,7 +34,7 @@ public class Textbox
     Canvas textboxCanvas = new Canvas(TEXTBOX_WIDTH, TEXTBOX_HEIGHT);
     GraphicsContext textboxGc = textboxCanvas.getGraphicsContext2D();
     WritableImage textboxImage;
-    Dialogue loadedDialogue;
+    Dialogue readDialogue;
     Element dialogueFileRoot;
     int messageIdx = 0;
     final int firstLineOffsetY = 30;
@@ -62,21 +61,21 @@ public class Textbox
         try
         {
             dialogueFileRoot = readFile(actorOfDialogue.dialogueFileName);
-            loadedDialogue = readDialogue(actorOfDialogue.dialogueStatusID, dialogueFileRoot);
+            readDialogue = readDialogue(actorOfDialogue.dialogueStatusID, dialogueFileRoot);
             drawTextbox();
         }
         catch (NullPointerException e)
         {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append("\nDialogueFileName: " + actorOfDialogue.dialogueFileName);
-            if (loadedDialogue == null)
+            if (readDialogue == null)
                 stringBuilder.append("\nLoadedDialogue = null");
             else
             {
-                stringBuilder.append("\nLoaded Dialogue type: " + loadedDialogue.type);
-                stringBuilder.append("\nLoaded Dialogue nextDialogue: " + loadedDialogue.nextDialogue);
-                stringBuilder.append("\nLoaded Dialogue messages: " + loadedDialogue.messages);
-                stringBuilder.append("\nLoaded Dialogue options: " + loadedDialogue.options);
+                stringBuilder.append("\nLoaded Dialogue type: " + readDialogue.type);
+                stringBuilder.append("\nLoaded Dialogue nextDialogue: " + readDialogue.nextDialogue);
+                stringBuilder.append("\nLoaded Dialogue messages: " + readDialogue.messages);
+                stringBuilder.append("\nLoaded Dialogue options: " + readDialogue.options);
             }
             throw new NullPointerException(stringBuilder.toString());
         }
@@ -114,6 +113,7 @@ public class Textbox
     private Dialogue readDialogue(String dialogueIdentifier, Element xmlRoot)
     {
         String methodName = "readDialogue() ";
+        boolean debug = true;
         Dialogue readDialogue = new Dialogue();
         NodeList dialogues = xmlRoot.getElementsByTagName(DIALOGUE_TAG);
         for (int i = 0; i < dialogues.getLength(); i++) //iterate dialogues of file
@@ -124,7 +124,8 @@ public class Textbox
                 Element currentDialogue = ((Element) dialogues.item(i));
                 String dialogueType = currentDialogue.getAttribute(TYPE_TAG);
                 NodeList xmlLines = currentDialogue.getElementsByTagName(LINE_TAG);
-                readDialogue.setActorStatus(currentDialogue.getAttribute(ACTOR_STATUS_TAG));
+                readDialogue.setSpriteStatus(currentDialogue.getAttribute(ACTOR_STATUS_TAG));
+                readDialogue.setSensorStatus(currentDialogue.getAttribute(SENSOR_STATUS_TAG));
 
                 //check for type normal and decision
                 readDialogue.type = dialogueType;
@@ -164,10 +165,18 @@ public class Textbox
                     readDialogue.nextDialogue = null;
                 }
 
-                return readDialogue;
+                //return readDialogue;
+                break;
             }
         }
-        throw new RuntimeException("No dialogue found with ID: " + dialogueIdentifier);
+        if (readDialogue == null)
+            throw new RuntimeException("No dialogue found with ID: " + dialogueIdentifier);
+
+        //Sensor Status Changes once per Dialogue
+        if (readDialogue.getSensorStatus() != null)
+            actorOfDialogue.setSensorStatus(readDialogue.getSensorStatus());
+
+        return readDialogue;
     }
 
     public void processKey(ArrayList<String> input, Long currentNanoTime)
@@ -215,7 +224,7 @@ public class Textbox
 
         //Check if hovered on Option
         int offsetYTmp = firstLineOffsetY;
-        if (loadedDialogue.type.equals(DECISION_KEYWORD) && GameWindow.getSingleton().mouseMoved)
+        if (readDialogue.type.equals(DECISION_KEYWORD) && GameWindow.getSingleton().mouseMoved)
         {
             for (int checkedLineIdx = 0; checkedLineIdx < lineSplitMessage.size(); checkedLineIdx++)
             {
@@ -249,14 +258,13 @@ public class Textbox
         {
             Element analysisDialogueFileObserved = readFile(actor.dialogueFileName);
             Dialogue analysisMessageObserved = readDialogue("analysis-" + actor.dialogueStatusID, analysisDialogueFileObserved);
-            loadedDialogue.messages.add(actor.actorInGameName + analysisMessageObserved.messages.get(0));
-            //loadedDialogue.messages.addAll(analysisMessageObserved.messages);
+            readDialogue.messages.add(actor.actorInGameName + analysisMessageObserved.messages.get(0));
         }
     }
 
     private boolean hasNextMessage()
     {
-        return loadedDialogue.messages.size() > messageIdx + 1;
+        return readDialogue.messages.size() > messageIdx + 1;
     }
 
     public void nextMessage(Long currentNanoTime)
@@ -264,39 +272,50 @@ public class Textbox
         String methodName = "nextMessage(Long) ";
         Actor playerActor = WorldView.getPlayer().actor;
 
-        if (loadedDialogue.type.equals(DECISION_KEYWORD))
+        if (readDialogue.type.equals(DECISION_KEYWORD))
         {
-            nextDialogueID = loadedDialogue.options.get(markedOption).nextDialogue;
+            nextDialogueID = readDialogue.options.get(markedOption).nextDialogue;
             markedOption = 0;
         }
 
-        if (hasNextMessage())
+        if (hasNextMessage())//More messages in this dialogue
         {
             messageIdx++;
             drawTextbox();
         }
-        else if (nextDialogueID != null)
+        else if (nextDialogueID != null)//No more messages but nextDialogue defined
         {
             messageIdx = 0;
-            loadedDialogue = readDialogue(nextDialogueID, dialogueFileRoot);
+            readDialogue = readDialogue(nextDialogueID, dialogueFileRoot);
             drawTextbox();
+            /*
             //In case of transition we change for every click not just if dialogue changed
-            if (loadedDialogue.getActorStatus() != null && !loadedDialogue.getActorStatus().equals(KEYWORD_transition))
+            if (loadedDialogue.getSpriteStatus() != null && !loadedDialogue.getSpriteStatus().equals(KEYWORD_transition))
             {
-                changeActorStatus(loadedDialogue.getActorStatus());
+                changeActorStatus(loadedDialogue.getSpriteStatus());
             }
+
+            System.out.println(CLASSNAME + methodName + loadedDialogue.getSensorStatus());
+            if (loadedDialogue.getSensorStatus() != null)
+            {
+                //change sensor Status
+                actorOfDialogue.setSensorStatus(loadedDialogue.getSensorStatus());
+            }
+
+             */
         }
         else //End Textbox
         {
             WorldView.isTextBoxActive = false;
             messageIdx = 0;
         }
-        playerActor.setLastInteraction(currentNanoTime);// = currentNanoTime;
+        playerActor.setLastInteraction(currentNanoTime);
 
         //for PC screen we want change after each click
-        if (loadedDialogue.getActorStatus() != null && loadedDialogue.getActorStatus().equals(KEYWORD_transition))
+        //if (readDialogue.getSpriteStatus() != null && readDialogue.getSpriteStatus().equals(KEYWORD_transition))
+        if (readDialogue.getSpriteStatus() != null)
         {
-            changeActorStatus(loadedDialogue.getActorStatus());
+            changeActorStatus(readDialogue.getSpriteStatus());
         }
 
 
@@ -306,30 +325,30 @@ public class Textbox
     {
         String methodName = "drawTextbox() ";
         int backgroundOffsetX = 16, backgroundOffsetY = 10;
-        Color background = Color.rgb(60,90,85);
+        Color background = Color.rgb(60, 90, 85);
         double hue = background.getHue();
         double sat = background.getSaturation();
         double brig = background.getBrightness();
-        Color marking = Color.hsb(hue, sat-0.2, brig+0.2);
-        Color font = Color.hsb(hue, sat+0.15, brig+0.4);
+        Color marking = Color.hsb(hue, sat - 0.2, brig + 0.2);
+        Color font = Color.hsb(hue, sat + 0.15, brig + 0.4);
 
         textboxGc.clearRect(0, 0, TEXTBOX_WIDTH, TEXTBOX_HEIGHT);
 
         //Background
         textboxGc.setFill(background);
         textboxGc.setGlobalAlpha(0.9);
-        textboxGc.fillRect(backgroundOffsetX, backgroundOffsetY, TEXTBOX_WIDTH-backgroundOffsetX *2, TEXTBOX_HEIGHT-backgroundOffsetY*2);
+        textboxGc.fillRect(backgroundOffsetX, backgroundOffsetY, TEXTBOX_WIDTH - backgroundOffsetX * 2, TEXTBOX_HEIGHT - backgroundOffsetY * 2);
 
-        if (markedOption != null && loadedDialogue.type.equals(DECISION_KEYWORD))
+        if (markedOption != null && readDialogue.type.equals(DECISION_KEYWORD))
         {
             textboxGc.setFill(marking);
-            textboxGc.fillRect(xOffsetTextLine, firstLineOffsetY + markedOption * textboxGc.getFont().getSize()+5, TEXTBOX_WIDTH - 100, textboxGc.getFont().getSize());
+            textboxGc.fillRect(xOffsetTextLine, firstLineOffsetY + markedOption * textboxGc.getFont().getSize() + 5, TEXTBOX_WIDTH - 100, textboxGc.getFont().getSize());
         }
 
         //Decoration of textfield
         textboxGc.setGlobalAlpha(1);
         textboxGc.drawImage(cornerTopLeft, 0, 0);
-        textboxGc.drawImage(cornerBtmRight, TEXTBOX_WIDTH-cornerBtmRight.getWidth(), TEXTBOX_HEIGHT-cornerBtmRight.getHeight());
+        textboxGc.drawImage(cornerBtmRight, TEXTBOX_WIDTH - cornerBtmRight.getWidth(), TEXTBOX_HEIGHT - cornerBtmRight.getHeight());
 
         textboxGc.setFont(new Font("Verdana", 30));
         textboxGc.setFill(font);
@@ -339,13 +358,13 @@ public class Textbox
         int yOffsetTextLine = firstLineOffsetY;
         try
         {
-            if (loadedDialogue.type.equals(DECISION_KEYWORD))
+            if (readDialogue.type.equals(DECISION_KEYWORD))
             {
-                lineSplitMessage = loadedDialogue.getOptionMessages();
+                lineSplitMessage = readDialogue.getOptionMessages();
             }
             else
             {
-                String nextMessage = loadedDialogue.messages.get(messageIdx);
+                String nextMessage = readDialogue.messages.get(messageIdx);
                 lineSplitMessage = wrapText(nextMessage);
             }
 
@@ -372,8 +391,8 @@ public class Textbox
     private void changeActorStatus(String toGeneralStatus)
     {
         String methodName = "changeActorStatus(String) ";
-        //System.out.println(classname + methodName + " triggered " + loadedDialogue.getActorStatus());
-        actorOfDialogue.onTextboxSignal(toGeneralStatus);
+        if (!actorOfDialogue.generalStatus.equals(toGeneralStatus))
+            actorOfDialogue.onTextboxSignal(toGeneralStatus);
     }
 
     private List<String> wrapText(String longMessage)
