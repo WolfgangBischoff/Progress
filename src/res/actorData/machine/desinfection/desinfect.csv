@@ -1,0 +1,15 @@
+#InteractionArea; Distance; Width; OffsetX; OffsetY
+#dialogueFile; actorData/directory/dialogueFile
+#transition; fromStatus; toStatus
+
+dialogueFile; actorData/machine/desinfection/desinfect
+interactionArea; 100; 10; 0; 0
+
+#Status Changes
+#sensorStatus;sensorStatusName	;onInteractionTT ;interactionS	;onInRangeTT	;onInRangeS	;onIntersectionTT	;intersectionS;onUpdate			;OnUpdateS	;onMonitor;onTextBox
+sensorStatus	;default										;none												;none									;textbox					;none   				;none									 			;none									;none							;none						;none					;persistent
+
+#status to image
+#status			;name								;spritename																																						;blocker		;heightLayer	;fps	;totalFrames	;cols	;rows;frameWidth	;frameHeight	;hitboxOffsetX				;hitboxOffsetY		;hitBoxWidth;hitBoxHeight;lightning;duration;velocity;dialogueID					;AnimationEnds
+ON-west			;desinfect			;../actorData/machine/desinfection/desinfection		;true					;0											;0			;0           ;0    ;0   ;0          ;000         ;128              ;128            ;064								;128									;none					;000     ;000					;on													;false
+OFF-west		;desinOff				;../actorData/machine/desinfection/desinfection		;true					;0											;0			;0           ;0    ;0   ;0          ;000         ;128              ;128            ;064								;128									;none					;000     ;000					;init_desfinct		;false

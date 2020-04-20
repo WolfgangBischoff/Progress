@@ -14,7 +14,7 @@ public class StageMonitor
     public void addActorToActorSystem(String actorSystemId, Actor actor)
     {
         boolean debug = false;
-        String methodName = "addActorToActorSystem()";
+        String methodName = "addActorToActorSystem() ";
         if (!groupIdToActorGroupMap.containsKey(actorSystemId))
             groupIdToActorGroupMap.put(actorSystemId, new ActorSystem(actorSystemId));
         ActorSystem actorSystem = groupIdToActorGroupMap.get(actorSystemId);
@@ -56,36 +56,29 @@ public class StageMonitor
         {
             case "none":
                 break;
-            //case "setOnIfBaseActorAllOn":
-             //   setOnIfBaseActorAllOn(groupId, targetGroupID);
-                //break;
             case "isBaseSystem":
                 apply_baseSystemLogic(notifyingGroup, targetGroupID);
+                break;
+            case "allOn_default/locked":
+                allOn_setSensorStatus(notifyingGroup, targetGroupID, "default", "locked");
                 break;
             default:
                 throw new RuntimeException(CLASSNAME + methodName + "logicCode not found: " + logicCode);
         }
     }
 
-    private void setOnIfBaseActorAllOn(String actorgroup, String targetGroup)
+    private void allOn_setSensorStatus(String notifyingGroup, String targetGroupID, String trueStatus, String falseStatus)
     {
-        String methodName = "setOnIfBaseActorAllOn(String, String) ";
+        String methodName = "allOn_setSensorStatus(String, String, String, String) ";
         boolean debug = false;
 
-        ActorSystem checkedSystem = groupIdToActorGroupMap.get(actorgroup);
-        ActorSystem dependentSystem = groupIdToActorGroupMap.get(targetGroup);
+        ActorSystem notifier = groupIdToActorGroupMap.get(notifyingGroup);
+        ActorSystem signaled = groupIdToActorGroupMap.get(targetGroupID);
 
-        if (debug)
-        {
-            System.out.println(CLASSNAME + methodName + "Checked: " + actorgroup + " " + checkedSystem);
-            System.out.println(CLASSNAME + methodName + "Dependent: " + targetGroup + " " + dependentSystem);
-        }
-
-        //Set target Actors
-        if (checkedSystem.areAllMembersStatusOn())
-            dependentSystem.setMemberToGeneralStatus("on");
+        if (notifier.areAllMembersStatusOn())
+            signaled.setMemberToSensorStatus(trueStatus);
         else
-            dependentSystem.setMemberToGeneralStatus("off");
+            signaled.setMemberToSensorStatus(falseStatus);
 
     }
 
@@ -137,11 +130,10 @@ public class StageMonitor
         if(logic.equals("isBaseSystem"))
         {
             String influencingSystemStatus = influencingSystem.areAllMembersStatusOn().toString();
-            //System.out.println(CLASSNAME + methodName + " changed from " + influencedStatus + " to " + statusTransition_baseSystemLogic(influencingSystemStatus, influencedStatus));
             return statusTransition_baseSystemLogic(influencingSystemStatus, influencedStatus);
         }
 
-        System.out.println(CLASSNAME + methodName + "Logic not found");
+        //System.out.println(CLASSNAME + methodName + " Logic not found for " + influencedStatus + " influenced of " + influencingSystemId);
         return influencedStatus;
     }
 

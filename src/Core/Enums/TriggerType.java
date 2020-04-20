@@ -8,6 +8,7 @@ public enum TriggerType
     {
         switch (status.toLowerCase())
         {
+            case "none":
             case "nothing": return NOTHING;
             case "persistent": return PERSISTENT;
             case "persistent_text": return PERSISTENT_TEXT;

@@ -11,8 +11,12 @@
 
 #Status Changes
 #ActionType		;TriggerType	;GeneralStatus
-onInteraction;textbox					;default
-onTextBox				;persistent		;none
+#onInteraction;textbox					;default
+#onTextBox				;persistent		;none
+
+#sensorStatus;sensorStatusName	;onInteractionTriggerType ;interactionTargetStatus	;onInRangeTT	;inRangeStatus	;onIntersectionTT	;intersectionStatus;onUpdate			;UpdateToStatus	;onMonitor;onTextBox
+sensorStatus	;default										;textbox																		;none  	 																;none								;none										;none													;none														;none							;none											;none					;persistent
+
 
 dialogueFile; actorData/storages/boxSmall/box
 

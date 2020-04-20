@@ -11,9 +11,12 @@
 
 #Status Changes
 #ActionType; TriggerType; GeneralStatus
-onInRange; persistent; off
-onIntersection; persistent; off
-onUpdate; persistent; on
+#onInRange; persistent; off
+#onIntersection; persistent; off
+#onUpdate; persistent; on
+
+#sensorStatus;sensorStatusName	;onInteractionTriggerType ;interactionTargetStatus	;onInRangeTT	;inRangeStatus	;onIntersectionTT	;interactionStatus;onUpdate			;UpdateToStatus	;onMonitor;onTextBox
+sensorStatus	;default										;nothing																		;nothing																	;persistent		;off											;persistent							;off														;persistent	;on													;none					;none
 
 #InteractionArea; Distance; Width; OffsetX; OffsetY
 interactionArea; 						250;				120;							0;				-160

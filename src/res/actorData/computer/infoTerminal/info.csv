@@ -13,9 +13,11 @@
 
 #Status Changes
 #ActionType; TriggerType; GeneralStatus
-onInteraction; textbox; nothing
+#onInteraction; textbox; nothing
+#onTextBox; persistent; nothing
 
-onTextBox; persistent; nothing
+#sensorStatus;sensorStatusName	;onInteractionTriggerType ;interactionTargetStatus	;onInRangeTT	;inRangeStatus	;onIntersectionTT	;intersectionStatus;onUpdate			;UpdateToStatus	;onMonitor;onTextBox
+sensorStatus	;default										;textbox																		;nothing																	;none								;none										;none													;none														;none							;none											;none					;persistent
 
 #Status transition map
 transition; on; text

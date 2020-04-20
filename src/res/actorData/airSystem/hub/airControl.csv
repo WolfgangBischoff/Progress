@@ -9,9 +9,12 @@
 #dialogueFile; actorData/dictionary/dialogueFile
 #transition; fromStatus; toStatus
 
-onInteraction; persistent_text; transition
+#onInteraction; persistent_text; transition
+#onMonitor; persistent; none
 
-onMonitor; persistent; none
+#sensorStatus;sensorStatusName	;onInteractionTriggerType ;interactionTargetStatus	;onInRangeTT	;inRangeStatus	;onIntersectionTT	;intersectionStatus;onUpdate			;UpdateToStatus	;onMonitor;onTextBox
+sensorStatus	;default										;persistent_text										;transition														;none								;none										;none													;none														;none							;none											;persistent					;none
+
 
 #Status transition map
 transition; on; off

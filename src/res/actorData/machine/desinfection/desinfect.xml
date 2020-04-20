@@ -1,0 +1,41 @@
+
+
+<!--/>
+File Identified by Actor Definition
+First Dialogue Identified by actor status value; In future maybe also MonitorData, levelname
+
+id - identifier for lookup of textbox
+type - normal/decision
+actorstatus - changes actor to status defined in actor file, "transition" leads to changed defined in actor file
+
+    <dialogue id="welcome" type="normal" actorstatus="transition">
+        <line>Shown message</line>
+        <line>Shown message 2</line>
+        <nextDialogue>nextDialogueID</nextDialogue>
+    </dialogue>
+
+    <dialogue id="info" type="decision" actorstatus="transition">
+        <option>
+            <line>Optiontext1</line>
+            <nextDialogue>option1ID</nextDialogue>
+        </option>
+
+        <option>
+            <line>Optiontext1, Nothing happens</line>
+        </option>
+    </dialogue>
+<-->
+
+<root name = "infoTerminal">
+    <dialogue id="none" type="normal">
+        <line>Diffuser Lorem Ipsum</line>
+    </dialogue>
+
+    <dialogue id="init_desfinct" type="normal">
+        <line>Automated desinfection starts</line>
+    </dialogue>
+
+
+</root>
+
+

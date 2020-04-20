@@ -9,10 +9,13 @@
 #dialogueFile; actorData/dictionary/dialogueFile
 #transition; fromStatus; toStatus
 
+#sensorStatus;sensorStatusName	;onInteractionTriggerType ;interactionTargetStatus	;onInRangeTT	;inRangeStatus	;onIntersectionTT	;interactionStatus;onUpdate			;UpdateToStatus	;onMonitor;onTextBox
+sensorStatus	;default										;textbox																		;nothing																	;none								;none										;none													;none													;none							;none											;none					;persistent
+
 #Status Changes
 #ActionType		;TriggerType	;GeneralStatus
-onInteraction;textbox					;default
-onTextBox				;persistent		;none
+#onInteraction;textbox					;default
+#onTextBox				;persistent		;none
 
 dialogueFile; actorData/furniture/diffuser/diffuser
 

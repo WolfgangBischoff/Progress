@@ -209,7 +209,7 @@ public class WorldLoader
                 ActorData actorData = actorDataMap.get(lineData[i]);
 
                 //foreach Sprite Data add Sprite to layer, Actor save sprite
-                Actor actor = new Actor(actorData.actorFileName, actorData.actorInGameName, actorData.generalStatus, actorData.direction);
+                Actor actor = new Actor(actorData.actorFileName, actorData.actorInGameName, actorData.generalStatus, actorData.sensor_status, actorData.direction);
                 actor.updateCompoundStatus();
                 List<SpriteData> spriteDataList = actor.spriteDataMap.get(actor.compoundStatus);
                 actor.stageMonitor = stageMonitor;
@@ -261,10 +261,11 @@ public class WorldLoader
         int actorCodeIdx = 0;
         int actorFileNameIdx = 1;
         int actorIngameNameIdx = 2;
-        int statusIdx = 3;
-        int directionIdx = 4;
+        int sprite_statusIdx = 3;
+        int sensor_statusIdx = 4;
+        int directionIdx = 5;
         Direction direction = Direction.getDirectionFromValue(lineData[directionIdx]);
-        ActorData actorData = new ActorData(lineData[actorFileNameIdx], lineData[actorIngameNameIdx], lineData[statusIdx], direction);
+        ActorData actorData = new ActorData(lineData[actorFileNameIdx], lineData[actorIngameNameIdx], lineData[sprite_statusIdx], lineData[sensor_statusIdx], direction);
         actorDataMap.put(lineData[actorCodeIdx], actorData);
     }
 
@@ -273,12 +274,14 @@ public class WorldLoader
         String actorFileName;
         String actorInGameName;
         String generalStatus;
+        String sensor_status;
         Direction direction;
 
-        public ActorData(String actorname, String actorInGameName, String generalStatus, Direction direction)
+        public ActorData(String actorname, String actorInGameName, String generalStatus, String sensor_status, Direction direction)
         {
             this.actorFileName = actorname;
             this.actorInGameName = actorInGameName;
+            this.sensor_status = sensor_status;
             this.generalStatus = generalStatus;
             this.direction = direction;
         }
@@ -303,7 +306,9 @@ public class WorldLoader
                 ca = new Sprite(tile.spriteName);
         } catch (IllegalArgumentException e)
         {
-            throw new IllegalArgumentException("===> /res/img/" + tile.spriteName + ".png" + " not found");
+            e.printStackTrace();
+            ca = new Sprite(IMAGE_DIRECTORY_PATH + "notfound_64_64" + CSV_POSTFIX);
+            //throw new IllegalArgumentException("===> /res/img/" + tile.spriteName + ".png" + " not found");
         }
 
 

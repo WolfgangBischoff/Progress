@@ -38,14 +38,14 @@ public class WorldView implements GUIController
 
     //Menu overlay
     static boolean isMenuActive = false;
-    static MenuOverlay menuOverlay = new MenuOverlay();
+    static MenuOverlay menuOverlay;
     static Point2D menuOverlayPosition = new Point2D(CAMERA_WIDTH / 2f - menuOverlay.getMenuWidth() / 2, CAMERA_HEIGHT - menuOverlay.getMenuHeight());
     static Long lastTimeMenuWasOpened = 0l;
 
     //Textbox
     static boolean isTextBoxActive = false;
-    static Textbox textbox = new Textbox();
-    static Point2D textboxPosition = new Point2D(CAMERA_WIDTH / 2f - textbox.getTEXTBOX_WIDTH() / 2, CAMERA_HEIGHT - textbox.getTEXTBOX_HEIGHT() - 32);
+    static Textbox textbox;
+    static Point2D textboxPosition;
 
     //Sprites
     String levelName;
@@ -81,6 +81,10 @@ public class WorldView implements GUIController
         loadEnvironment();
         offsetMaxX = borders.getMaxX() - CAMERA_WIDTH;
         offsetMaxY = borders.getMaxY() - Config.CAMERA_HEIGHT;
+
+        menuOverlay = new MenuOverlay();
+        textbox = new Textbox();
+        textboxPosition  = new Point2D(CAMERA_WIDTH / 2f - textbox.getTEXTBOX_WIDTH() / 2, CAMERA_HEIGHT - textbox.getTEXTBOX_HEIGHT() - 32);
     }
 
     private void loadEnvironment()
@@ -119,7 +123,6 @@ public class WorldView implements GUIController
             else
                 isMenuActive = false;
             lastTimeMenuWasOpened = currentNanoTime;
-            System.out.println(CLASSNAME + methodName + "registered Esc " + isMenuActive);
         }
 
         //Process Input
@@ -263,7 +266,7 @@ public class WorldView implements GUIController
     @Override
     public void render(Long currentNanoTime)
     {
-        String methodName = "render(Long)";
+        String methodName = "render(Long) ";
 
         gc.clearRect(0, 0, CAMERA_WIDTH, Config.CAMERA_HEIGHT);
         gc.translate(-camX, -camY);

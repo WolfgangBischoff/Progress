@@ -1,0 +1,12 @@
+#Status Changes
+#sensorStatus;sensorStatusName	;onInteractionTriggerType ;interactionTargetStatus	;onInRangeTT	;inRangeStatus	;onIntersectionTT	;interactionStatus;onUpdate			;UpdateToStatus	;onMonitor;onTextBox
+sensorStatus	;default										;persistent															;transition														;none								;none										;none							;none														;none	;none													;none					;none
+
+#Status transition map
+transition; on; off
+transition; off; on
+
+#status to image
+#status			;name				;spritename																										;blocker		;heightLayer	;fps	;totalFrames	;cols	;rows; frameWidth; frameHeight;   hitboxOffsetX; hitboxOffsetY; hitBoxWidth; hitBoxHeight;  lightning;	duration; velocity; dialogueID;AnimationEnds
+ON								;lever			;../actorData/machine/leverLeft						;true					;0											;0			;0											;0;				0;										0;		 								0;															0;													0;											0;												0;							none;				 			0; 							0; on;false
+OFF							;lever			;../actorData/machine/leverRight					;true					;0											;0			;0											;0;				0;										0;		 								0;												 		0;													0;											0;												0;							none;				 			0; 							0; off; false

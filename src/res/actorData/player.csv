@@ -10,7 +10,10 @@
 #transition; fromStatus; toStatus
 
 #Status Change
-onInteraction; nothing; nothing
+#onInteraction; nothing; nothing
+
+#sensorStatus;sensorStatusName	;onInteractionTriggerType ;interactionTargetStatus	;onInRangeTT	;inRangeStatus	;onIntersectionTT	;intersectionStatus;onUpdate			;UpdateToStatus	;onMonitor;onTextBox
+sensorStatus	;default										;none																					;none  	 																;none								;none										;none													;none														;none							;none											;none					;none
 
 #Status transition Map
 transition; default; default

@@ -7,11 +7,15 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Comparator;
 import java.util.List;
 
-import static Core.Config.DEBUG_ACTORS;
-import static Core.Config.DEBUG_BLOCKER;
+import static Core.Config.*;
+import static Core.Config.CSV_POSTFIX;
 
 public class Sprite
 {
@@ -105,7 +109,8 @@ public class Sprite
         double velocityY = actor.getVelocityY();
         Rectangle2D plannedPosition = new Rectangle2D(positionX + hitBoxOffsetX + velocityX * time, positionY + hitBoxOffsetY + velocityY * time, hitBoxWidth, hitBoxHeight);
 
-        if (actor != null && actor.onUpdate != TriggerType.NOTHING)
+        //if (actor != null && actor.sensorStatus.onUpdate != TriggerType.NOTHING)
+        if (actor != null && actor.sensorStatus.onUpdate != TriggerType.NOTHING && actor.sensorStatus.onUpdateToStatus != actor.generalStatus)
             actor.onUpdate(currentNanoTime);
 
         for (Sprite otherSprite : activeSprites)
@@ -125,7 +130,7 @@ public class Sprite
             }
 
             //Interact within interaction area
-            if (interact || actor.onInRange != TriggerType.NOTHING || getName().toLowerCase().equals("player"))
+            if (interact || actor.sensorStatus.onInRange != TriggerType.NOTHING || getName().toLowerCase().equals("player"))
                 interactionArea = calcInteractionRectangle();
 
             if (interact
@@ -133,29 +138,24 @@ public class Sprite
                     && otherSprite.getBoundary().intersects(interactionArea)
                     && elapsedTimeSinceLastInteraction > Config.TIME_BETWEEN_INTERACTIONS)
             {
-                //System.out.println(CLASS_NAME + methodName + getName() + " interact with " + otherSprite.getName());
+
                 otherSprite.actor.onInteraction(this, currentNanoTime); //Passive reacts
-                //otherSprite.actor.onInteraction(otherSprite, currentNanoTime); //Passive reacts
                 actor.setLastInteraction(currentNanoTime);
                 interact = false; //Interacts with first found sprite;
             }
-            //else if (debugMode && interact && getName().equals("player") && otherSprite.getName().equals("diffuser"))
-            //   System.out.println(CLASS_NAME + methodName + getName() + " cannot interact " + otherSprite.getName() + " " + elapsedTimeSinceLastInteraction +" > "+ Config.TIME_BETWEEN_INTERACTIONS);
 
             //In range
             if (otherSprite.actor != null
-                    && actor.onInRange != TriggerType.NOTHING
+                    && actor.sensorStatus.onInRange != TriggerType.NOTHING
                     && otherSprite.getBoundary().intersects(interactionArea))
             {
-                actor.onInRange(this, currentNanoTime);
-                //actor.onInRange(otherSprite, currentNanoTime);
+                actor.onInRange(otherSprite, currentNanoTime);
             }
 
             //Intersect
-            if (intersects(otherSprite) && actor.onIntersection != TriggerType.NOTHING)
+            if (intersects(otherSprite) && actor.sensorStatus.onIntersection != TriggerType.NOTHING)
             {
-                //actor.onIntersection(otherSprite, currentNanoTime);
-                actor.onIntersection(this, currentNanoTime);
+                actor.onIntersection(otherSprite, currentNanoTime);
             }
 
 
@@ -226,16 +226,6 @@ public class Sprite
         else if(DEBUG_ACTORS && actor != null)
             drawDebugFrame(gc);
 
-        /*
-        if (DEBUG_BLOCKER && isBlocker)
-        {
-            gc.strokeRect(positionX + hitBoxOffsetX, positionY + hitBoxOffsetY, hitBoxWidth, hitBoxHeight);
-            if (interactionArea != null)
-                gc.strokeRect(interactionArea.getMinX(), interactionArea.getMinY(), interactionArea.getWidth(), interactionArea.getHeight());
-            gc.setStroke(Color.BLUE);
-        }
-
-         */
     }
 
     private void drawDebugFrame(GraphicsContext gc)
@@ -316,9 +306,24 @@ public class Sprite
         isBlocker = blocker;
     }
 
-    public void setImage(String filename) throws IllegalArgumentException
+    public void setImage(String filename) //throws IllegalArgumentException
     {
-        Image i = new Image("/res/img/" + filename + ".png");
+        String methodName = "setImage(String) ";
+        Image i;
+        //i = new Image("/res/img/" + filename + ".png");
+
+        Path path = Paths.get(IMAGE_DIRECTORY_PATH + filename + PNG_POSTFIX);
+        try
+        {
+            i = new Image(path.toString());
+        }
+        catch (IllegalArgumentException e)
+        {
+            System.out.println(CLASS_NAME + methodName + path.toString() + " not found");
+            i = new Image("/res/img/" + "notfound_64_64" + ".png");
+        }
+
+
         baseimage = i;
         basewidth = i.getWidth();
         baseheight = i.getHeight();

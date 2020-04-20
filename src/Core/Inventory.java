@@ -21,9 +21,12 @@ public class Inventory
         String methodName = "addItem(String, String) ";
         boolean debug = false;
         CollectableType collectableType = CollectableType.getType(collectableTypeString);
-        Collectible collectable = new Collectible(itemName, collectableType);
-        itemsList.add(collectable);
+        Collectible collectible = new Collectible(itemName, collectableType);
+        itemsList.add(collectible);
         if (debug)
-            System.out.println(CLASSNAME + methodName + owner.actorInGameName + " collected " + collectable);
+        {
+            System.out.println(CLASSNAME + methodName + owner.actorInGameName + " collected " + collectible);
+            System.out.println(CLASSNAME + methodName + " " + itemsList.toString());
+        }
     }
 }

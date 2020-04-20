@@ -11,9 +11,13 @@
 
 
 #Sensor						;TriggerType	;targetStatus
-onInteraction;textbox					;nothing
-onTextBox				;persistent		;nothing
-onMonitor				;persistent		;nothing
+#onInteraction;textbox					;nothing
+#onTextBox				;persistent		;nothing
+#onMonitor				;persistent		;nothing
+
+#sensorStatus;sensorStatusName	;onInteractionTriggerType ;interactionTargetStatus	;onInRangeTT	;inRangeStatus	;onIntersectionTT	;intersectionStatus;onUpdate			;UpdateToStatus	;onMonitor;onTextBox
+sensorStatus	;default										;textbox																		;none  	 																;none								;none										;none													;none														;none							;none											;persistent					;persistent
+
 
 dialogueFile; /actorData/airSystem/airVent/air_vent
 

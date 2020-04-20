@@ -8,7 +8,7 @@ import javafx.scene.paint.Color;
 
 public class MenuOverlay
 {
-    private static final String CLASSNAME = "MenuOverlay-";
+    private static final String CLASSNAME = "MenuOverlay/";
     private static final int MENU_WIDTH = 500;
     private static final int MENU_HEIGHT = 300;
 
@@ -16,16 +16,19 @@ public class MenuOverlay
     private GraphicsContext menuGc;
     private WritableImage menuImage;
 
+    private Actor player;
+
     public MenuOverlay()
     {
         menuCanvas = new Canvas(MENU_WIDTH, MENU_HEIGHT);
         menuGc = menuCanvas.getGraphicsContext2D();
-        draw();
+        player = WorldView.getPlayer().actor;
+        //draw();
     }
 
     private void draw() throws NullPointerException
     {
-        String methodName = "draw()";
+        String methodName = "draw() ";
         menuGc.clearRect(0, 0, MENU_WIDTH, MENU_HEIGHT);
 
         menuGc.setGlobalAlpha(0.8);
@@ -34,7 +37,9 @@ public class MenuOverlay
 
         menuGc.setGlobalAlpha(1);
         menuGc.setFill(Color.BLANCHEDALMOND);
-        menuGc.fillText("Game Menu", 30, 30);
+        menuGc.fillText("Game Menu " + player.actorInGameName, 30, 30);
+
+        menuGc.fillText(player.inventory.itemsList.toString(), 30, 60);
 
         SnapshotParameters transparency = new SnapshotParameters();
         transparency.setFill(Color.TRANSPARENT);
@@ -44,6 +49,7 @@ public class MenuOverlay
 
     public WritableImage getMenuImage()
     {
+        draw();
         return menuImage;
     }
 

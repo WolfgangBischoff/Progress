@@ -30,6 +30,15 @@ public class ActorSystem
         }
     }
 
+    public void setMemberToSensorStatus(String sensorStatus)
+    {
+        String methodName = "setMemberToSensorStatus(String) ";
+        for (Actor target : systemMembers)
+        {
+            target.setSensorStatus(sensorStatus);
+        }
+    }
+
     public void setMemberToGeneralStatus(String ifInStatus, String newStatus)
     {
         String methodName = "setMemberToGeneralStatus(String, String)";

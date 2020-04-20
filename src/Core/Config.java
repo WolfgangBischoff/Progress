@@ -24,12 +24,7 @@ public class Config
     public static final String KEYWORD_GROUPS = "actorgroups:";
 
     //Actorfile Keywords
-    public static final String KEYWORD_onInteraction = "onInteraction";
-    public static final String KEYWORD_onIntersection = "onIntersection";
-    public static final String KEYWORD_onInRange = "onInRange";
-    public static final String KEYWORD_onUpdate = "onUpdate";
-    public static final String KEYWORD_onMonitor = "onMonitor";
-    public static final String KEYWORD_onTextBox = "onTextBox";
+    public static final String KEYWORD_sensorStatus = "sensorStatus";
     public static final String KEYWORD_transition = "transition";
     public static final String KEYWORD_interactionArea = "interactionArea";
     public static final String KEYWORD_dialogueFile = "dialogueFile";
@@ -47,8 +42,10 @@ public class Config
 
     //Paths
     public static final String CSV_POSTFIX = ".csv";
+    public static final String PNG_POSTFIX = ".png";
     public static final String DIALOGUE_FILE_PATH = "src/res/";
     public static final String STAGE_FILE_PATH = "src/res/level/";
     public static final String ACTOR_DIRECTORY_PATH = "src/res/actorData/";
+    public static final String IMAGE_DIRECTORY_PATH = "/res/img/";
 
 }

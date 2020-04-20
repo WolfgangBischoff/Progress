@@ -71,22 +71,25 @@ bench_				;bench							;furniture/bench																									;true					;1				
 wasteB				;wastebin				;furniture/wasteBin																						;true					;0												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;000           ;000									;000          ;none
 
 actors:
-#code 					;actorFileN																														;IngameName															;status  											;direction
-player					;player																																		;Revolutionary												;default												;WEST
-infoWe					;computer/infoTerminal/info														;IngameName															;off																;undefined
-auDoor					;doors/horizontal/automatedDoor										;horizontal bulkhead						;on																	;south
-glasDo					;doors/horizontal/glass/glassLock								;horizontal glasdoor						;on																	;south
-doorVe					;doors/vertical/autoBulkheadVertical					;vertical bulkhead								;on																	;west
-diff__					;furniture/diffuser/diffuser													;big diffuser													;rose															;undefined
-crate_					;storages/boxSmall/green																	;green box																;default												;undefined
+#code 					;actorFileN																														;IngameName															;sprite-status						;sensor-status	;direction
+player					;player																																		;Revolutionary												;default												;default							;WEST
+infoWe					;computer/infoTerminal/info														;info terminal												;off																;default							;undefined
+auDoor					;doors/horizontal/automatedDoor										;horizontal bulkhead						;on																	;default							;south
+glasDo					;doors/horizontal/glass/glassLock								;horizontal glasdoor						;on																	;default							;south
+doorVe					;doors/vertical/autoBulkheadVertical					;vertical bulkhead								;on																	;locked								;west
+diff__					;furniture/diffuser/diffuser													;big diffuser													;rose															;default							;undefined
+crate_					;storages/boxSmall/green																	;green box																;default												;default							;undefined
+lever_					;machine/lever																											;lever																				;off																;default							;undefined
+desinf					;machine/desinfection/desinfect										;Desinfection													;off																;default							;west
 #Collectibles
-key_rd					;collectables/keycard/keycard												;keycard				 													;red																;undefined
-gsc100					;collectables/keycard/keycard												;100 GSC				 													;gsc100													;undefined
+key_rd					;collectibles/key/keycard																;universal key				 							;red																;default							;undefined
+key_bl					;collectibles/key/keycard																;universal key				 							;blue															;default							;undefined
+gsc100					;collectibles/money/money																;money card				 										;gsc100													;default							;undefined
 #AirSystem
-screeA					;statusScreen/statusScreen															;Status Screen												;on																	;undefined
-airVeR					;airSystem/airVent/airVent															;Right ventilation								;off																;undefined
-airVeL					;airSystem/airVent/airVent															;Left ventilation									;baseSystemOffline		;undefined
-airCon					;airSystem/hub/airControl																;Air hub																		;off																;undefined
+screeA					;statusScreen/statusScreen															;Status Screen												;on																	;default							;undefined
+airVeR					;airSystem/airVent/airVent															;Right ventilation								;off																;default							;undefined
+airVeL					;airSystem/airVent/airVent															;Left ventilation									;baseSystemOffline		;default							;undefined
+airCon					;airSystem/hub/airControl																;Air hub																		;off																;default							;undefined
 
 Actorgroups:
 #Air System
@@ -94,6 +97,9 @@ Actorgroups:
 airSystemMonitor	;none 																	;none 													;airCon ;airVeR; airVeL
 airSystemBase				;isBaseSystem 									;airSystemEnd 					;airCon
 airSystemEnd					;none 																	;none 													;airVeR ;airVeL
+
+lever												;allOn_default/locked		;door														;lever_
+door													;none																		;none														;doorVe
 
 
 
@@ -132,7 +138,7 @@ passivlayer:
 layer:
 001 ; wTL___; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; wTR___; ______; ______; ______; ______; ______; ______; ______; ______
 002 ; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; infoWe; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
-003 ; back_e; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; key_rd; ______; ______; player; ______; ______; back_w; ______; ______; ______; ______; ______; ______; ______; ______
+003 ; back_e; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; key_rd; key_bl; ______; player; ______; ______; back_w; ______; ______; ______; ______; ______; ______; ______; ______
 004 ; back_e; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; back_w; ______; ______; ______; ______; ______; ______; ______; ______
 005 ; back_e; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; gsc100; ______; ______; ______; ______; ______; ______; ______; back_w; ______; ______; ______; ______; ______; ______; ______; ______
 006 ; wBL___; back_n; back_n; back_n; back_n; back_n; back_n; bck_ne; frt__s; glasDo; ______; frt__s; bck_nw; back_n; back_n; back_n; back_n; back_n; back_n; back_n; waBNW_; ______; ______; ______; ______; ______; ______; ______; ______
@@ -142,7 +148,7 @@ layer:
 010 ; back_e; ______; ______; ______; ______; ______; ______; frT_sw; frt__s; glasDo; ______; frt__s; frT_se; ______; ______; ______; ______; ______; ______; w45FR_; ______; ______; ______; wTL___; frt__s; frt__s; frt__s; frt__s; wTR___
 011 ; back_e; ______; ______; ______; bck_nw; bck_ne; ______; ______; ______; ______; ______; ______; ______; ______; bck_nw; bck_ne; ______; ______; ______; ______; back_w; ______; ______; ______; airCon; ______; ______; ______; ______
 012 ; back_e; airPip; ______; ______; fro_sw; fro_se; ______; ______; ______; ______; ______; ______; ______; ______; fro_sw; fro_se; ______; ______; ______; ______; back_w; ______; ______; back_e; ______; ______; ______; ______; back_w
-013 ; back_e; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; back_w; ______; ______; back_e; ______; ______; ______; ______; back_w
+013 ; back_e; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; lever_; back_w; ______; ______; back_e; ______; ______; ______; ______; back_w
 014 ; back_e; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; diff__; ______; ______; back_w; ______; ______; back_e; ______; ______; ______; ______; back_w
 015 ; back_e; bench_; ______; bench_; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; fro_sw; frt__s; frt__s; fro_se; ______; ______; ______; ______; back_w
 016 ; back_e; ______; ______; ______; ______; ______; ______; ______; ______; potP_n; ______; ______; ______; ______; potP_n; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; back_w
@@ -166,7 +172,7 @@ layer:
 003 ;______; ______; ______; ______; ______; ______; pillar; ______; ______; ______; ______; ______; pillar; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
 004 ;______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
 005 ;______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
-006 ;______; ______; ______; ______; ______; ______; ______; ______; camera; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+006 ;______; ______; ______; ______; ______; ______; ______; ______; camera; desinf; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
 007 ;______; ______; ______; ______; ______; airVeL; airVeR; back_e; ______; ______; ______; ______; back_w; dockBa; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
 008 ;______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
 009 ;______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
