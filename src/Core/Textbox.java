@@ -164,8 +164,6 @@ public class Textbox
                     nextDialogueID = null;
                     readDialogue.nextDialogue = null;
                 }
-
-                //return readDialogue;
                 break;
             }
         }
@@ -288,21 +286,7 @@ public class Textbox
             messageIdx = 0;
             readDialogue = readDialogue(nextDialogueID, dialogueFileRoot);
             drawTextbox();
-            /*
-            //In case of transition we change for every click not just if dialogue changed
-            if (loadedDialogue.getSpriteStatus() != null && !loadedDialogue.getSpriteStatus().equals(KEYWORD_transition))
-            {
-                changeActorStatus(loadedDialogue.getSpriteStatus());
-            }
 
-            System.out.println(CLASSNAME + methodName + loadedDialogue.getSensorStatus());
-            if (loadedDialogue.getSensorStatus() != null)
-            {
-                //change sensor Status
-                actorOfDialogue.setSensorStatus(loadedDialogue.getSensorStatus());
-            }
-
-             */
         }
         else //End Textbox
         {
@@ -312,7 +296,6 @@ public class Textbox
         playerActor.setLastInteraction(currentNanoTime);
 
         //for PC screen we want change after each click
-        //if (readDialogue.getSpriteStatus() != null && readDialogue.getSpriteStatus().equals(KEYWORD_transition))
         if (readDialogue.getSpriteStatus() != null)
         {
             changeActorStatus(readDialogue.getSpriteStatus());

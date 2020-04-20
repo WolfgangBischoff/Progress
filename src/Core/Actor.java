@@ -37,7 +37,7 @@ public class Actor
     final Map<String, List<SpriteData>> spriteDataMap = new HashMap<>();
     String generalStatus;
     String compoundStatus = "default";
-    String dialogueFileName = "descriptions";
+    String dialogueFileName = null;
     String dialogueStatusID = "none";
     private String collectable_type;
     String textbox_analysis_group_name = "none";
@@ -196,7 +196,6 @@ public class Actor
         sensorStatus.onMonitorSignal = TriggerType.getStatus(lineData[onMonitorIdx]);
         sensorStatus.onTextBoxSignal = TriggerType.getStatus(lineData[onTextBoxIdx]);
 
-        //System.out.println(CLASSNAME + methodName + sensorStatus);
         return sensorStatus;
     }
 
@@ -255,7 +254,9 @@ public class Actor
         double elapsedTimeSinceLastInteraction = (currentNanoTime - lastInteraction) / 1000000000.0;
 
         //TODO general lookup
-        if(tags.contains(AUTOMATED_DOOR) && detectedSprite.actor.tags.contains(AUTOMATED_DOOR_DETECTABLE))
+        if(tags.contains(AUTOMATED_DOOR) && !detectedSprite.actor.tags.contains(AUTOMATED_DOOR_DETECTABLE))
+            return;
+
         if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS)
         {
             evaluateTriggerType(sensorStatus.onInRange, sensorStatus.onInRangeToStatus, detectedSprite.actor);

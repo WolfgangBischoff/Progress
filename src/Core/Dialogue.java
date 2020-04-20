@@ -52,7 +52,6 @@ public class Dialogue
 
     public void setSpriteStatus(String spriteStatus)
     {
-        //if (spriteStatus.trim().equals(""))
         if (spriteStatus.trim().isEmpty())
             this.spriteStatus = null;
         else

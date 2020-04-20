@@ -71,7 +71,6 @@ public class ActorSystem
         float numberOn = 0f;
         for (Actor toCheck : systemMembers)
         {
-            //System.out.println(classname + methodName + toCheck.generalStatus);
             if (!toCheck.generalStatus.equals("on"))
             {
                 numberOn++;

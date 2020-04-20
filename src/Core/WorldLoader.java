@@ -10,7 +10,7 @@ import static Core.Config.*;
 
 public class WorldLoader
 {
-    private static final String CLASS_NAME = "WorldLoader-";
+    private static final String CLASSNAME = "WorldLoader/";
 
     String levelName;
     Sprite player;
@@ -114,7 +114,7 @@ public class WorldLoader
         if (debug)
         {
             for (Map.Entry<String, ActorGroupData> actorData : actorGroupDataMap.entrySet())
-                System.out.println(CLASS_NAME + methodName + actorData.getKey() + " " + actorData.getValue().memberOfGroups);
+                System.out.println(CLASSNAME + methodName + actorData.getKey() + " " + actorData.getValue().memberOfGroups);
         }
 
 
@@ -127,7 +127,7 @@ public class WorldLoader
 
     private void readWorldShadow(String[] lineData)
     {
-        String methodName = CLASS_NAME + " readWorldShadow ";
+        String methodName = CLASSNAME + " readWorldShadow ";
         int red, green, blue;
         if (lineData[0].toLowerCase().equals("none"))
             shadowColor = null;
@@ -171,7 +171,6 @@ public class WorldLoader
             //if first column is line number
             if(i==0 && lineData[i].chars().allMatch(x -> Character.isDigit(x)))
             {
-                //System.out.println(CLASS_NAME + methodName + lineData[i]);
                 lineNumber = lineData[0];
                 lineData = Arrays.copyOfRange(lineData, 1, lineData.length);
             }
@@ -307,7 +306,6 @@ public class WorldLoader
         {
             e.printStackTrace();
             ca = new Sprite(IMAGE_DIRECTORY_PATH + "notfound_64_64" + CSV_POSTFIX);
-            //throw new IllegalArgumentException("===> /res/img/" + tile.spriteName + ".png" + " not found");
         }
 
 

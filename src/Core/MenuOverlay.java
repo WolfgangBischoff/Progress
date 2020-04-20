@@ -23,7 +23,6 @@ public class MenuOverlay
         menuCanvas = new Canvas(MENU_WIDTH, MENU_HEIGHT);
         menuGc = menuCanvas.getGraphicsContext2D();
         player = WorldView.getPlayer().actor;
-        //draw();
     }
 
     private void draw() throws NullPointerException

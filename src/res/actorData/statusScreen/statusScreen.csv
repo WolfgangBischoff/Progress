@@ -1,15 +1,8 @@
-#onInteraction
-#onIntersection
-#onInRange
-#onUpdate
-#onMonitor
-#onTextBox
+
 #interactionArea
 #dialogueFile; path
 #transition; fromStatus; toStatus
 
-#onMonitor; persistent; none
-#onInteraction; textbox_analysis; nothing
 textbox_analysis_group; airSystemMonitor
 
 #Status transition map
@@ -18,7 +11,6 @@ transition; off; on
 
 #sensorStatus;sensorStatusName	;onInteractionTriggerType ;interactionTargetStatus	;onInRangeTT	;inRangeStatus	;onIntersectionTT	;intersectionStatus;onUpdate			;UpdateToStatus	;onMonitor;onTextBox
 sensorStatus	;default										;textbox_analysis									;none  	 																;none								;none										;none													;none														;none							;none											;none					;persistent
-
 
 dialogueFile; actorData/statusScreen/airTerminal
 

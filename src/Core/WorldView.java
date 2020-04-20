@@ -22,7 +22,7 @@ import static Core.Config.CAMERA_WIDTH;
 
 public class WorldView implements GUIController
 {
-    private static final String CLASSNAME = "WorldView-";
+    private static final String CLASSNAME = "WorldView/";
 
     @FXML
     Pane root;

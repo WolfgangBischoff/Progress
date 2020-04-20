@@ -109,8 +109,7 @@ public class Sprite
         double velocityY = actor.getVelocityY();
         Rectangle2D plannedPosition = new Rectangle2D(positionX + hitBoxOffsetX + velocityX * time, positionY + hitBoxOffsetY + velocityY * time, hitBoxWidth, hitBoxHeight);
 
-        //if (actor != null && actor.sensorStatus.onUpdate != TriggerType.NOTHING)
-        if (actor != null && actor.sensorStatus.onUpdate != TriggerType.NOTHING && actor.sensorStatus.onUpdateToStatus != actor.generalStatus)
+        if (actor != null && actor.sensorStatus.onUpdate != TriggerType.NOTHING && !actor.sensorStatus.onUpdateToStatus.equals(actor.generalStatus))
             actor.onUpdate(currentNanoTime);
 
         for (Sprite otherSprite : activeSprites)
@@ -310,8 +309,6 @@ public class Sprite
     {
         String methodName = "setImage(String) ";
         Image i;
-        //i = new Image("/res/img/" + filename + ".png");
-
         Path path = Paths.get(IMAGE_DIRECTORY_PATH + filename + PNG_POSTFIX);
         try
         {
@@ -322,7 +319,6 @@ public class Sprite
             System.out.println(CLASS_NAME + methodName + path.toString() + " not found");
             i = new Image("/res/img/" + "notfound_64_64" + ".png");
         }
-
 
         baseimage = i;
         basewidth = i.getWidth();

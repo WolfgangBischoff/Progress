@@ -57,7 +57,6 @@ public class SpriteData
         {
             Boolean blocking = Boolean.parseBoolean(lineData[blockingIdx]);
             Integer priority = Integer.parseInt(lineData[layerIdx]);
-            //Integer fps = Integer.parseInt(lineData[fpsIdx]);
             Double fps = Double.parseDouble(lineData[fpsIdx]);
             Integer totalFrames = Integer.parseInt(lineData[totalFramesIdx]);
             Integer cols = Integer.parseInt(lineData[colsIdx]);
