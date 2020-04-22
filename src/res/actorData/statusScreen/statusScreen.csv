@@ -9,8 +9,8 @@ textbox_analysis_group; airSystemMonitor
 transition; on; off
 transition; off; on
 
-#sensorStatus;sensorStatusName	;onInteractionTriggerType ;interactionTargetStatus	;onInRangeTT	;inRangeStatus	;onIntersectionTT	;intersectionStatus;onUpdate			;UpdateToStatus	;onMonitor;onTextBox
-sensorStatus	;default										;textbox_analysis									;none  	 																;none								;none										;none													;none														;none							;none											;none					;persistent
+#sensorStatus;sensorStatusName	;onInteractionTriggerType ;interactionTargetStatus	;on--SensorTT ;on--SensorTT ;onInRangeTT	;inRangeStatus	;on--SensorTT ;on--SensorTT ;onIntersectionTT	;intersectionStatus;on--SensorTT ;on--SensorTT ;onUpdate			;UpdateToStatus	;on--SensorTT ;on--SensorTT ;onMonitor;on--SensorTT ;onTextBox;on--SensorTT
+sensorStatus	;default										;textbox_analysis									;none  	 																;none								 ;none								 ;none								;none										;none								 ;none								 ;none													;none														;none								 ;none								 ;none							;none											;none								 ;none								 ;none					;none								 ;persistent;none
 
 dialogueFile; actorData/statusScreen/airTerminal
 

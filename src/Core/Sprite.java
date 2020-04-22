@@ -111,6 +111,8 @@ public class Sprite
 
         if (actor != null && actor.sensorStatus.onUpdate != TriggerType.NOTHING && !actor.sensorStatus.onUpdateToStatus.equals(actor.generalStatus))
             actor.onUpdate(currentNanoTime);
+        if (actor != null && actor.sensorStatus.onUpdate_TriggerSensor != TriggerType.NOTHING && !actor.sensorStatus.onUpdate_StatusSensor.equals(actor.sensorStatus.statusName))
+            actor.onUpdate(currentNanoTime);
 
         for (Sprite otherSprite : activeSprites)
         {
@@ -152,10 +154,10 @@ public class Sprite
             }
 
             //Intersect
-            if (intersects(otherSprite) && actor.sensorStatus.onIntersection != TriggerType.NOTHING)
-            {
+            //if (intersects(otherSprite) && actor.sensorStatus.onIntersection != TriggerType.NOTHING)
+            if (intersects(otherSprite) && (actor.sensorStatus.onIntersection != TriggerType.NOTHING || actor.sensorStatus.onIntersection_TriggerSensor != TriggerType.NOTHING))
                 actor.onIntersection(otherSprite, currentNanoTime);
-            }
+
 
 
         }

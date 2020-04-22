@@ -32,11 +32,17 @@ actorstatus - changes actor to status defined in actor file, "transition" leads 
     </dialogue>
 
     <dialogue id="init_desfinct" type="normal" sensorstatus = "off" spritestatus = "off" >
-        <line>Automated desinfection starts</line>
+        <line>Automated Bioscan starts</line>
+        <line>Biometrics scanned</line>
+        <line>Identity determined</line>
+        <line>Radiation level is average</line>
+        <line>No biological contamination detected</line>
+        <line>No forbidden matters detected</line>
+        <line>Thank you for patience and Welcome on Pancheia station</line>
     </dialogue>
 
     <dialogue id="init_leave" type="normal">
-        <line>You can leave now</line>
+        <line>You can leave the chamber now</line>
     </dialogue>
 
 </root>

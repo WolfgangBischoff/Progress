@@ -152,6 +152,7 @@ public class Actor
             default:
                 throw new RuntimeException("Keyword unknown: " + keyword);
         }
+
         return true;
     }
 
@@ -166,35 +167,71 @@ public class Actor
         return tagDataSet;
     }
 
-    private SensorStatus readSensorData(String[] lineData)
+    private SensorStatus readSensorData(String[] lineData) throws ArrayIndexOutOfBoundsException
     {
-        String methodName = "readSensorData(String) ";
+        String methodName = "readSensorData(String[]) ";
         int sensorDataNameIdx = 1;
+
         int onInteractionIdx = 2;
         int onInteractionToStatusIdx = 3;
-        int onInRangeIdx = 4;
-        int onInRangeToStatusIdx = 5;
-        int onIntersectionIdx = 6;
-        int onIntersectionToStatusIdx = 7;
-        int onUpdateIdx = 8;
-        int onUpdateToStatusIdx = 9;
-        int onMonitorIdx = 10;
-        int onTextBoxIdx = 11;
+        int onInteraction_TriggerSensorIdx = 4;
+        int onInteraction_StatusSensorIdx = 5;
+
+        int onInRangeIdx = 6;
+        int onInRangeToStatusIdx = 7;
+        int onInRange_TriggerSensorIdx = 8;
+        int onInRange_StatusSensorIdx = 9;
+
+        int onIntersectionIdx = 10;
+        int onIntersectionToStatusIdx = 11;
+        int onIntersection_TriggerSensorIdx = 12;
+        int onIntersection_StatusSensorIdx = 13;
+
+        int onUpdateIdx = 14;
+        int onUpdateToStatusIdx = 15;
+        int onUpdate_TriggerSensorIdx = 16;
+        int onUpdate_StatusSensorIdx = 17;
+
+        int onMonitorIdx = 18;
+        int onMonitor_TriggerSensorIdx = 19;
+
+        int onTextBoxIdx = 20;
+        int onTextBox_TriggerSensorIdx = 21;
+
         SensorStatus sensorStatus = new SensorStatus(lineData[sensorDataNameIdx]);
-        sensorStatus.onInteraction = TriggerType.getStatus(lineData[onInteractionIdx]);
-        sensorStatus.onInteractionToStatus = lineData[onInteractionToStatusIdx];
+        try
+        {
+            sensorStatus.onInteraction = TriggerType.getStatus(lineData[onInteractionIdx]);
+            sensorStatus.onInteractionToStatus = lineData[onInteractionToStatusIdx];
+            sensorStatus.onInteraction_TriggerSensor = TriggerType.getStatus(lineData[onInteraction_TriggerSensorIdx]);
+            sensorStatus.onInteraction_StatusSensor = lineData[onInteraction_StatusSensorIdx];
 
-        sensorStatus.onInRange = TriggerType.getStatus(lineData[onInRangeIdx]);
-        sensorStatus.onInRangeToStatus = lineData[onInRangeToStatusIdx];
+            sensorStatus.onInRange = TriggerType.getStatus(lineData[onInRangeIdx]);
+            sensorStatus.onInRangeToStatus = lineData[onInRangeToStatusIdx];
+            sensorStatus.onInRange_TriggerSensor = TriggerType.getStatus(lineData[onInRange_TriggerSensorIdx]);
+            sensorStatus.onInRangeToStatusSensorStatus = lineData[onInRange_StatusSensorIdx];
 
-        sensorStatus.onIntersection = TriggerType.getStatus(lineData[onIntersectionIdx]);
-        sensorStatus.onIntersectionToStatus = lineData[onIntersectionToStatusIdx];
+            sensorStatus.onIntersection = TriggerType.getStatus(lineData[onIntersectionIdx]);
+            sensorStatus.onIntersectionToStatus = lineData[onIntersectionToStatusIdx];
+            sensorStatus.onIntersection_TriggerSensor = TriggerType.getStatus(lineData[onIntersection_TriggerSensorIdx]);
+            sensorStatus.onIntersection_StatusSensor = lineData[onIntersection_StatusSensorIdx];
 
-        sensorStatus.onUpdate = TriggerType.getStatus(lineData[onUpdateIdx]);
-        sensorStatus.onUpdateToStatus = lineData[onUpdateToStatusIdx];
+            sensorStatus.onUpdate = TriggerType.getStatus(lineData[onUpdateIdx]);
+            sensorStatus.onUpdateToStatus = lineData[onUpdateToStatusIdx];
+            sensorStatus.onUpdate_TriggerSensor = TriggerType.getStatus(lineData[onUpdate_TriggerSensorIdx]);
+            sensorStatus.onUpdate_StatusSensor = lineData[onUpdate_StatusSensorIdx];
 
-        sensorStatus.onMonitorSignal = TriggerType.getStatus(lineData[onMonitorIdx]);
-        sensorStatus.onTextBoxSignal = TriggerType.getStatus(lineData[onTextBoxIdx]);
+            sensorStatus.onMonitorSignal = TriggerType.getStatus(lineData[onMonitorIdx]);
+            sensorStatus.onMonitor_TriggerSensor = TriggerType.getStatus(lineData[onMonitor_TriggerSensorIdx]);
+
+            sensorStatus.onTextBoxSignal = TriggerType.getStatus(lineData[onTextBoxIdx]);
+            sensorStatus.onTextBox_TriggerSensor = TriggerType.getStatus(lineData[onTextBox_TriggerSensorIdx]);
+        }
+        catch (ArrayIndexOutOfBoundsException e)
+        {
+            throw new ArrayIndexOutOfBoundsException(actorInGameName + "\n" + e.getMessage());
+        }
+
 
         return sensorStatus;
     }
@@ -206,7 +243,12 @@ public class Actor
         double elapsedTimeSinceLastInteraction = (currentNanoTime - lastInteraction) / 1000000000.0;
         if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS)
         {
+            //Sprite
             evaluateTriggerType(sensorStatus.onUpdate, sensorStatus.onUpdateToStatus, null);
+
+            //SensorStatus
+            //if(sensorStatus.onUpdate_TriggerSensor != TriggerType.NOTHING && !sensorStatus.onUpdate_StatusSensor.equals(sensorStatus.statusName))
+            //    setSensorStatus(sensorStatus.onUpdate_StatusSensor);
         }
     }
 
@@ -245,6 +287,10 @@ public class Actor
         {
             evaluateTriggerType(sensorStatus.onIntersection, sensorStatus.onIntersectionToStatus, intersecting.actor);
             setLastInteraction(currentNanoTime);
+
+            //SensorStatus
+            if(sensorStatus.onIntersection_TriggerSensor != TriggerType.NOTHING) // && !sensorStatus.onInteraction_StatusSensor.equals(sensorStatus.statusName)
+                setSensorStatus(sensorStatus.onIntersection_StatusSensor);
         }
     }
 
@@ -377,8 +423,11 @@ public class Actor
 
     public void setSensorStatus(String sensorStatusString)
     {
-        String methodName = "setSensorStatus() ";
-        this.sensorStatus = sensorStatusMap.get(sensorStatusString);
+        String methodName = "setSensorStatus(String) ";
+        if(sensorStatusMap.get(sensorStatusString) != sensorStatus && sensorStatusMap.get(sensorStatusString) != null)
+            this.sensorStatus = sensorStatusMap.get(sensorStatusString);
+        else
+            throw new RuntimeException("Sensor Status not defined: " + sensorStatusString + " at actor " + actorFileName);
     }
 
     private void playTimedStatus()

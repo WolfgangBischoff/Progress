@@ -52,6 +52,7 @@ addDet				;add			     	;machines/add_bigDet_2_128_128										;true					;2					
 inCeil				;ceiling		  	;machines/infoCeilingDes																;false				;2												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;whitelight
 pillar				;pillar			  	;machines/pillarFoot_128_128_Des								;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;030           ;000           ;068         ;100										;none
 airPip				;airPipe		  	;machines/airPipe_64_192																;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
+desInL				;desinfec	  	;../actorData/machine/desinfection/desLeft									;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
 
 #Plants
 boge_3				;bogenhanf				;plants/plant_64_128_medium												;true					;1 											;0   ;0            ;0    ;0    ;0          ;0           ;0             ;084           ;064         ;044										;none
@@ -81,7 +82,7 @@ diff__					;furniture/diffuser/diffuser													;big diffuser													;r
 crate_					;storages/boxSmall/green																	;green box																;default												;default							;undefined
 lever_					;machine/lever																											;lever																				;off																;default							;undefined
 desinf					;machine/desinfection/desinfect										;Desinfection													;on																;default							;west
-trigge				;floor/trigger																			;Trigger																		;off																;default							;undefined
+trigge					;floor/trigger																											;Trigger																		;off																;default							;undefined
 #Collectibles
 key_rd					;collectibles/key/keycard																;universal key				 							;red																;default							;undefined
 key_bl					;collectibles/key/keycard																;universal key				 							;blue															;default							;undefined
@@ -144,7 +145,7 @@ layer:
 005 ; back_e; ______; ______; ______; ______; ______; ______; ______; ______; trigge; ______; ______; gsc100; ______; ______; ______; ______; ______; ______; ______; back_w; ______; ______; ______; ______; ______; ______; ______; ______
 006 ; wBL___; back_n; back_n; back_n; back_n; back_n; back_n; bck_ne; frt__s; glasDo; ______; frt__s; bck_nw; back_n; back_n; back_n; back_n; back_n; back_n; back_n; waBNW_; ______; ______; ______; ______; ______; ______; ______; ______
 007 ; ______; w45FL_; frt__s; frt__s; frt__s; frt__s; frt__s; fro_se; ______; ______; ______; ______; fro_sw; frt__s; frt__s; frt__s; w45FR_; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
-008 ; back_e; ______; ______; ______; ______; ______; ______; back_e; ______; ______; ______; ______; back_w; ______; ______; ______; ______; w45FR_; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+008 ; back_e; ______; ______; ______; ______; ______; ______; back_e; desInL; ______; ______; ______; back_w; ______; ______; ______; ______; w45FR_; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
 009 ; back_e; ______; ______; ______; ______; ______; ______; back_e; ______; ______; ______; ______; back_w; crate_; crate_; ______; ______; ______; w45FR_; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
 010 ; back_e; ______; ______; ______; ______; ______; ______; frT_sw; frt__s; glasDo; ______; frt__s; frT_se; ______; ______; ______; ______; ______; ______; w45FR_; ______; ______; ______; wTL___; frt__s; frt__s; frt__s; frt__s; wTR___
 011 ; back_e; ______; ______; ______; bck_nw; bck_ne; ______; ______; ______; ______; ______; ______; ______; ______; bck_nw; bck_ne; ______; ______; ______; ______; back_w; ______; ______; ______; airCon; ______; ______; ______; ______

@@ -363,7 +363,7 @@ public class Textbox
         }
         catch (IndexOutOfBoundsException e)
         {
-            System.out.println("IndexOutOfBoundsException " + e.getMessage());
+            System.out.println(CLASSNAME + "IndexOutOfBoundsException " + e.getMessage());
         }
 
         SnapshotParameters transparency = new SnapshotParameters();

@@ -3,8 +3,8 @@
 #dialogueFile; actorData/dictionary/dialogueFile
 #transition; fromStatus; toStatus
 
-#sensorStatus;sensorStatusName	;onInteractionTriggerType ;interactionTargetStatus	;onInRangeTT	;inRangeStatus	;onIntersectionTT	;intersectionStatus;onUpdate			;UpdateToStatus	;onMonitor;onTextBox
-sensorStatus	;default										;textbox																		;nothing																	;none								;none										;none													;none														;none							;none											;none					;persistent
+#sensorStatus;sensorStatusName	;onInteractionSpriteTT ;interactionToSprite ;on---SensorTT ;interactionToSensor ;onInRangeSpriteTT	;inRangeToSprite	;on---SensorTT ;inRangeToSensor ;onIntersectionSpriteTT	;intersectionToSprite ;on---SensorTT ;intersectionToSensor ;onUpdateToSpriteTT			;updateToSprite	;onUpdateSensorTT ;updateToSensor ;onMonitorSpriteTT ;onMonitorSensorTT ;onTextBoxSpriteTT  ;onTextBoxSensorTT
+sensorStatus	;default										;textbox															;nothing													;none 									;none																;none														;none												;none 									;none												;none																			;none																	;none 									;none																	;none																	;none											;none													;none											;none														;none														;persistent									;none
 
 #Status transition map
 transition; on; text

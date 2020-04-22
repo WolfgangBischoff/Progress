@@ -2,15 +2,12 @@ package Core;
 
 import Core.Enums.TriggerType;
 
-import java.util.HashSet;
-import java.util.Set;
 
 public class SensorStatus
 {
     private static final String CLASSNAME = "SensorStatus";
     String statusName;
-
-    static final Set<String> actorDefinitionKeywords = new HashSet<>();
+    //For Sprite Changes
     TriggerType onInteraction = TriggerType.NOTHING;
     TriggerType onInRange = TriggerType.NOTHING;
     TriggerType onUpdate = TriggerType.NOTHING;
@@ -21,6 +18,17 @@ public class SensorStatus
     String onUpdateToStatus = Config.KEYWORD_transition;
     String onInRangeToStatus = Config.KEYWORD_transition;
     String onIntersectionToStatus = Config.KEYWORD_transition;
+    //For Sensor status changes
+    TriggerType onInteraction_TriggerSensor = TriggerType.NOTHING;
+    TriggerType onInRange_TriggerSensor = TriggerType.NOTHING;
+    TriggerType onUpdate_TriggerSensor = TriggerType.NOTHING;
+    TriggerType onIntersection_TriggerSensor = TriggerType.NOTHING;
+    TriggerType onMonitor_TriggerSensor = null;
+    TriggerType onTextBox_TriggerSensor = TriggerType.NOTHING;
+    String onInteraction_StatusSensor = Config.KEYWORD_transition;
+    String onUpdate_StatusSensor = Config.KEYWORD_transition;
+    String onInRangeToStatusSensorStatus = Config.KEYWORD_transition;
+    String onIntersection_StatusSensor = Config.KEYWORD_transition;
 
     public SensorStatus(String statusName)
     {

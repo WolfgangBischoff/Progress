@@ -5,7 +5,8 @@ Logic:
     add item in box
 - Add TriggerStatus change
     - owned item
-    - from textbox, desinfect locks door and opens after dialogue
+    - as trigger
+    - via Monitor
 - level change
 - schlafen, fade out, calender
 - Console

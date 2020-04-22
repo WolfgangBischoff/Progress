@@ -3,8 +3,8 @@
 #dialogueFile; path
 #transition; fromStatus; toStatus
 
-#sensorStatus;sensorStatusName	;onInteractionTriggerType ;interactionTargetStatus	;onInRangeTT	;inRangeStatus	;onIntersectionTT	;intersectionStatus;onUpdate			;UpdateToStatus	;onMonitor;onTextBox
-sensorStatus	;default										;textbox																		;none  	 																;none								;none										;none													;none														;none							;none											;persistent					;persistent
+#sensorStatus;sensorStatusName	;onInteractionSpriteTT ;interactionToSprite ;on--SensorTT ;interactionToSensor ;onInRangeSpriteTT	;inRangeToSprite	;inRangeToSensor ;on--SensorTT ;onIntersectionSpriteTT	;intersectionToSprite ;on--SensorTT ;intersectionToSensor ;onUpdateToSpriteTT			;updateToSprite	;onUpdateSensorTT ;updateToSensor ;onMonitorSpriteTT ;onMonitorSensorTT ;onTextBoxSpriteTT  ;onTextBoxSensorTT
+sensorStatus	;default										;textbox															;none  	 												;none								 ;none																;none														;none												;none												;none ;none																			;none																	;none								 ;none																	;none																	;none											;none													;none											;persistent								;none														;persistent									;none
 
 dialogueFile; /actorData/airSystem/airVent/air_vent
 

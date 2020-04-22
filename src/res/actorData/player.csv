@@ -4,8 +4,8 @@
 #transition; fromStatus; toStatus
 #tags; ActorTag ...
 
-#sensorStatus;sensorStatusName	;onInteractionTriggerType ;interactionTargetStatus	;onInRangeTT	;inRangeStatus	;onIntersectionTT	;intersectionStatus;onUpdate			;UpdateToStatus	;onMonitor;onTextBox
-sensorStatus	;default										;none																					;none  	 																;none								;none										;none													;none														;none							;none											;none					;none
+#sensorStatus;sensorStatusName	;onInteractionTriggerType ;interactionTargetStatus	;on---SensorTT;on---SensorTT;onInRangeTT	;inRangeStatus	;on---SensorTT;on---SensorTT;onIntersectionTT	;intersectionStatus;on---SensorTT;on---SensorTT;onUpdate			;UpdateToStatus;on---SensorTT;on---SensorTT	;onMonitor;on---SensorTT;onTextBox;on---SensorTT
+sensorStatus	;default										;none																					;none  	 																;none 								;none 								;none								;none										;none 								;none 								;none													;none														;none 								;none 								;none							;none										;none 								;none 									;none					;none 								;none;none
 
 tags; automated_door_relevant
 

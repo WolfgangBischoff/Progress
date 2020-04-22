@@ -7,9 +7,12 @@ tags; automated_door
 
 #Status Changes
 #sensorStatus;sensorStatusName	;onInteractionTriggerType ;interactionTargetStatus	;onInRangeTT	;inRangeStatus	;onIntersectionTT	;interactionStatus;onUpdate			;UpdateToStatus	;onMonitor;onTextBox
-sensorStatus	;default										;none     																;none    																;persistent		;off											;persistent							;off														;persistent	;on													;none					;none
-sensorStatus	;locked											;none																					;none     															;none								;none										;none													;none													;none							;none											;none					;none
+#sensorStatus	;default										;none     																;none    																;persistent		;off											;persistent							;off														;persistent	;on													;none					;none
+#sensorStatus	;locked											;none																					;none     															;none								;none										;none													;none													;none							;none											;none					;none
 
+#sensorStatus;sensorStatusName	;onInteractionSpriteTT ;interactionToSprite ;on---SensorTT ;interactionToSensor ;onInRangeSpriteTT	;inRangeToSprite	;on---SensorTT ;inRangeToSensor ;onIntersectionSpriteTT	;intersectionToSprite ;on---SensorTT ;intersectionToSensor ;onUpdateToSpriteTT			;updateToSprite	;onUpdateSensorTT ;updateToSensor ;onMonitorSpriteTT ;onMonitorSensorTT ;onTextBoxSpriteTT  ;onTextBoxSensorTT
+sensorStatus	;default										;none     													;none    												;none 									;none																;persistent								;off													;none 									;none												;persistent													;off																		;none 									;none																	;persistent											;on													;none													;none											;none														;none														;none															;none
+sensorStatus	;locked											;none																		;none     											;none										;none																;none														;none												;none										;none												;none																			;none																	;none										;none																	;none																	;none											;none													;none											;none														;none														;none															;none
 #InteractionArea; Distance; Width; OffsetX; OffsetY
 interactionArea; 						250;				60;							150;				000
 
