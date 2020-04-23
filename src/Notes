@@ -11,7 +11,7 @@ Logic:
 
 Sprites:
 - Docking Bay:
-    Elevator, schriftzug "Elevator", runder UFO Roboter, minimal table, Lautsprecher
+    Elevator, schriftzug "Elevator", minimal table, Lautsprecher
 - Control Center: BrückenControls,
 - Machines: Ventilation/Movingpart with bridge, Lavalampen Maschine
 - Person https://forums.rpgmakerweb.com/index.php?threads/spriting-pixel-art-tutorials.33/
@@ -78,6 +78,8 @@ Science Plot:
 
 Spiritual Mission:
     Drugs, secret cult
+
+Detective mysteris where you have to enter number or many combinations
 
 Science/Investigate Mechanic:
 Repair/Build/Money/Knowledge/Tamper/Destroy party of System to change station

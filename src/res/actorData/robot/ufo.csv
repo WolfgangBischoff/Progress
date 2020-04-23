@@ -1,0 +1,13 @@
+
+#InteractionArea; Distance; Width; OffsetX; OffsetY
+#dialogueFile; actorData/dictionary/dialogueFile
+#transition; fromStatus; toStatus
+
+#sensorStatus;sensorStatusName	;onInteractionTriggerType ;interactionTargetStatus	;on---SensorTT;on---SensorTT;onInRangeTT	;inRangeStatus	;on---SensorTT;on---SensorTT;onIntersectionTT	;intersectionStatus;on---SensorTT;on---SensorTT;onUpdate			;UpdateToStatus;on---SensorTT;on---SensorTT	;onMonitor;on---SensorTT;onTextBox;on---SensorTT
+sensorStatus	;default										;textbox																		;none  	 																;none 								;none 								;none								;none										;none 								;none 								;none													;none														;none 								;none 								;none							;none										;none 								;none 									;none					;none 								;none					;none
+
+dialogueFile; actorData/robot/ufo
+
+#status to image
+#status 			;name   				;spritename  																																												;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;duration ;velocity ;dialogueID ;AnimationEnds
+default				;ufo								;../actorData/robot/ufo_ani3_64_128																						;true				;1												;005	;003										;003	;001	;064								;128									;000											;064	 									;064									;064										;none						;000						;000						;init							;false
