@@ -8,10 +8,10 @@
 sensorStatus	;default										;none     													;none    												;none 									;none																;persistent								;off													;none 									;none												;persistent													;off																		;none 									;none																	;persistent											;on													;none													;none											;none														;none														;none															;none
 sensorStatus	;locked											;none																		;none     											;none										;none																;none														;none												;none										;none												;none																			;none																	;none										;none																	;none																	;none											;none													;none											;none														;none														;none															;none
 
-#Distance = Hitboxheight(84) + 2*Range(30)
-#OffsetY = -HitboxHeight(84) - Range(30)
+#Distance = Hitboxheight(84) + 2*Range(20)
+#OffsetY = -HitboxHeight(84) - Range(20)
 #InteractionArea; Distance; Width; OffsetX; OffsetY
-interactionArea; 						144;				30;							0;				-114
+interactionArea; 						124;				30;							0;				-104
 
 tags; automated_door
 

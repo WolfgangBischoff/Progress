@@ -4,7 +4,7 @@
 
 dialogueFile; actorData/machine/desinfection/desinfect
 #InteractionArea;Distance ;Width ;OffsetX ;OffsetY
-interactionArea	;100						;1					;0							;025
+interactionArea	;100						;1					;0							;030
 
 #Status Changes
 #sensorStatus;sensorStatusName	;onInteractionSpriteTT ;interactionToSprite ;onInteractionSensorTT;interactionToSensor ;onInRangeSpriteTT	;inRangeToSprite	;onInRangeSensorTT;inRangeToSensor ;onIntersectionSpriteTT	;intersectionToSprite ;onIntersectionSensorTT;intersectionToSensor ;onUpdateToSpriteTT			;updateToSprite	;onUpdateSensorTT ;updateToSensor ;onMonitorSpriteTT ;onMonitorSensorTT ;onTextBoxSpriteTT  ;onTextBoxSensorTT

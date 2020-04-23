@@ -11,7 +11,7 @@ Logic:
 
 Sprites:
 - Docking Bay:
-    Elevator, schriftzug "Elevator", runder UFO Roboter, minimal table, Lautsprecher, decontaminationDevice + invisible trigger
+    Elevator, schriftzug "Elevator", runder UFO Roboter, minimal table, Lautsprecher
 - Control Center: BrückenControls,
 - Machines: Ventilation/Movingpart with bridge, Lavalampen Maschine
 - Person https://forums.rpgmakerweb.com/index.php?threads/spriting-pixel-art-tutorials.33/
