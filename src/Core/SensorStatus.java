@@ -13,7 +13,7 @@ public class SensorStatus
     TriggerType onUpdate = TriggerType.NOTHING;
     TriggerType onIntersection = TriggerType.NOTHING;
     TriggerType onMonitorSignal = null;
-    TriggerType onTextBoxSignal = TriggerType.NOTHING;
+    TriggerType onTextBoxSignal_SpriteTrigger = TriggerType.NOTHING;
     String onInteractionToStatus = Config.KEYWORD_transition;
     String onUpdateToStatus = Config.KEYWORD_transition;
     String onInRangeToStatus = Config.KEYWORD_transition;
@@ -43,7 +43,7 @@ public class SensorStatus
                 + "\n\tonInRange: " + onInRange + " " + onInRangeToStatus
                 + "\n\tonIntersection: " + onIntersection + " " + onIntersectionToStatus
                 + "\n\tonUpdate: " + onUpdate + " " + onUpdateToStatus
-                + "\n\tonTextBoxSignal: " + onTextBoxSignal
+                + "\n\tonTextBoxSignal: " + onTextBoxSignal_SpriteTrigger
                 + "\n\tonMonitorSignal: " + onMonitorSignal
                 ;
     }

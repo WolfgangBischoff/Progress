@@ -5,8 +5,6 @@ Logic:
     add item in box
 - Add TriggerStatus change
     - owned item
-    - as trigger
-    - via Monitor
 - level change
 - schlafen, fade out, calender
 - Console

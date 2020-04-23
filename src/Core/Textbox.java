@@ -173,6 +173,10 @@ public class Textbox
         //Sensor Status Changes once per Dialogue
         if (readDialogue.getSensorStatus() != null)
             actorOfDialogue.setSensorStatus(readDialogue.getSensorStatus());
+        if (readDialogue.getSpriteStatus() != null)
+        {
+            changeActorStatus(readDialogue.getSpriteStatus());
+        }
 
         return readDialogue;
     }

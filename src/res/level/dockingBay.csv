@@ -81,7 +81,7 @@ doorVe					;doors/vertical/autoBulkheadVertical					;vertical bulkhead								;o
 diff__					;furniture/diffuser/diffuser													;big diffuser													;rose															;default							;undefined
 crate_					;storages/boxSmall/green																	;green box																;default												;default							;undefined
 lever_					;machine/lever																											;lever																				;off																;default							;undefined
-desinf					;machine/desinfection/desinfect										;Desinfection													;on																;default							;west
+desinf					;machine/desinfection/desinfect										;Desinfection													;on																	;default							;west
 trigge					;floor/trigger																											;Trigger																		;off																;default							;undefined
 #Collectibles
 key_rd					;collectibles/key/keycard																;universal key				 							;red																;default							;undefined
@@ -95,14 +95,16 @@ airCon					;airSystem/hub/airControl																;Air hub																		;o
 
 Actorgroups:
 #Air System
-#System-Name					;Logic																	;Influenced-System	;members by actorId (logic-Options: isBaseSystem)
-airSystemMonitor	;none 																	;none 													;airCon ;airVeR; airVeL
-airSystemBase				;isBaseSystem 									;airSystemEnd 					;airCon
-airSystemEnd					;none 																	;none 													;airVeR ;airVeL
-
-lever												;allOn_default/locked		;door														;lever_
-door													;none																		;none														;doorVe
-
+#System-Name					;Logic																										;Influenced-System	;members by actorId (logic-Options: isBaseSystem)
+airSystemMonitor	;none 																										;none 													;airCon ;airVeR; airVeL
+airSystemBase				;isBaseSystem 																		;airSystemEnd 					;airCon
+airSystemEnd					;none 																										;none 													;airVeR ;airVeL
+#Door Lock
+lever												;allOn_default/locked											;door														;lever_
+door													;none																											;none														;doorVe
+#definfection reset
+triggerDesinfect ;always_sensorDefault_spriteOn		;desinfect									;trigge
+desinfect								;none																											;none														;desinf
 
 
 #sets 64 bits tiles as raster; you can add multiple layers; later defined layers are higher prioritized in case of same defined heightLayer
@@ -156,7 +158,7 @@ layer:
 016 ; back_e; ______; ______; ______; ______; ______; ______; ______; ______; potP_n; ______; ______; ______; ______; potP_n; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; back_w
 017 ; back_e; ______; ______; ______; ______; ______; ______; ______; ______; potP_v; ______; ______; ______; ______; potP_v; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; back_w
 018 ; back_e; desk__; ______; desk__; ______; ______; plannw; planne; ______; potP_v; ______; ______; ______; ______; potP_v; ______; ______; boge_3; boge_4; ______; bck_nw; back_n; back_n; bck_ne; ______; ______; ______; ______; back_w
-019 ; back_e; bench_; ______; bench_; ______; ______; plan_w; plan_e; ______; potP_s; ______; trigge; ______; ______; potP_s; ______; ______; ______; ______; ______; back_w; ______; ______; back_e; ______; ______; ______; ______; back_w
+019 ; back_e; bench_; ______; bench_; ______; ______; plan_w; plan_e; ______; potP_s; ______; ______; ______; ______; potP_s; ______; ______; ______; ______; ______; back_w; ______; ______; back_e; ______; ______; ______; ______; back_w
 020 ; ______; back_n; back_n; back_n; back_n; back_n; back_n; back_n; back_n;	back_n; bck_ne; auDoor; ______; bck_nw; back_n; back_n; back_n; back_n; back_n; back_n;	waBNW_; ______; ______; ______; back_n; back_n; back_n; back_n; waBNW_
 021 ; ______; ______; ______; ______; ______; ______; ______; wTL___; frt__s; frt__s; fro_se; ______; ______; fro_sw; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; back_w; ______; ______; ______; ______
 022 ; ______; ______; ______; ______; ______; ______; ______; back_e; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; back_w; ______; ______; ______; ______

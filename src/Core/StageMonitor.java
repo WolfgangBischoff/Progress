@@ -62,9 +62,35 @@ public class StageMonitor
             case "allOn_default/locked":
                 allOn_setSensorStatus(notifyingGroup, targetGroupID, "default", "locked");
                 break;
+            case "always_sensorDefault_spriteOn":
+                always_sensorStatus(notifyingGroup, targetGroupID, "default");
+                always_spriteStatus(notifyingGroup, targetGroupID, "on");
+                break;
             default:
                 throw new RuntimeException(CLASSNAME + methodName + "logicCode not found: " + logicCode);
         }
+    }
+
+    private void always_sensorStatus(String notifyingGroup, String targetGroupID, String sensorStatus)
+    {
+        String methodName = "always_sensorStatus(String, String, String) ";
+        boolean debug = false;
+
+        ActorSystem notifier = groupIdToActorGroupMap.get(notifyingGroup);
+        ActorSystem signaled = groupIdToActorGroupMap.get(targetGroupID);
+
+        signaled.setMemberToSensorStatus(sensorStatus);
+    }
+
+    private void always_spriteStatus(String notifyingGroup, String targetGroupID, String spriteStatus)
+    {
+        String methodName = "always_sensorStatus(String, String, String) ";
+        boolean debug = false;
+
+        ActorSystem notifier = groupIdToActorGroupMap.get(notifyingGroup);
+        ActorSystem signaled = groupIdToActorGroupMap.get(targetGroupID);
+
+        signaled.setMemberToGeneralStatus(spriteStatus);
     }
 
     private void allOn_setSensorStatus(String notifyingGroup, String targetGroupID, String trueStatus, String falseStatus)

@@ -3,14 +3,16 @@
 #transition; fromStatus; toStatus
 
 dialogueFile; actorData/machine/desinfection/desinfect
-interactionArea; 100; 10; 0; 0
+#InteractionArea;Distance ;Width ;OffsetX ;OffsetY
+interactionArea	;100						;1					;0							;025
 
 #Status Changes
-#sensorStatus;sensorStatusName	;onInteractionSpriteTT ;interactionToSprite ;on---SensorTT;interactionToSensor ;onInRangeSpriteTT	;inRangeToSprite	;on---SensorTT;inRangeToSensor ;onIntersectionSpriteTT	;intersectionToSprite ;onIntersectionSensorTT;intersectionToSensor ;onUpdateToSpriteTT			;updateToSprite	;onUpdateSensorTT ;updateToSensor ;onMonitorSpriteTT ;onMonitorSensorTT ;onTextBoxSpriteTT  ;onTextBoxSensorTT
-sensorStatus	;default										;none																		;none								 							;none 								;none															 ;textbox											;none   									;none 								;none											 ;none									 									;none									 							;none 																	;none																 ;none																	;none											;none												 ;none										 ;none					 								;none													 ;persistent 								;none
-sensorStatus	;off														;textbox															;none								 							;none									;none															 ;none														;none   									;none									;none											 ;none									 									;none									 							;persistent												;off																	 ;none																	;none											;persistent						 ;default							 ;none					 								;none													 ;persistent 								;none
+#sensorStatus;sensorStatusName	;onInteractionSpriteTT ;interactionToSprite ;onInteractionSensorTT;interactionToSensor ;onInRangeSpriteTT	;inRangeToSprite	;onInRangeSensorTT;inRangeToSensor ;onIntersectionSpriteTT	;intersectionToSprite ;onIntersectionSensorTT;intersectionToSensor ;onUpdateToSpriteTT			;updateToSprite	;onUpdateSensorTT ;updateToSensor ;onMonitorSpriteTT ;onMonitorSensorTT ;onTextBoxSpriteTT  ;onTextBoxSensorTT
+sensorStatus	;default										;none																		;none								 							;none 																;none															 ;textbox											;none   									;none 												;none											 ;none									 									;none									 							;none 																	;none																 ;none																	;none											;none												 ;none										 ;persistent								;none													 ;persistent 								;none
+sensorStatus	;off														;textbox															;none								 							;none																	;none															 ;none														;none   									;none													;none											 ;none									 									;none									 							;none																		;none																	 ;none																;none													;none						 				;none									 	;persistent								;none													 ;persistent 								;none
 
 #status to image
-#status			;name								;spritename																																																				;blocker		;heightLayer	;fps	;totalFrames	;cols	;rows;frameWidth	;frameHeight	;hitboxOffsetX				;hitboxOffsetY		;hitBoxWidth;hitBoxHeight;lightning;duration;velocity;dialogueID					;AnimationEnds
-ON-west			;desinfect			;../actorData/machine/desinfection/desinfection																;true					;2											;0			;0           ;0    ;0   ;0          ;000         ;128              ;128            ;064								;128									;none					;000     ;000					;init_desfinct		;false
-OFF-west		;desinOff				;../actorData/machine/desinfection/desinfection_an2_128_384				;true					;2											;2			;2           ;2    ;1   ;192         ;384         ;128              ;128            ;064								;128									;none					;000     ;000					;init_leave					;false
+#status									;name								;spritename																																																				;blocker		;heightLayer	;fps	;totalFrames	;cols	;rows;frameWidth	;frameHeight	;hitboxOffsetX				;hitboxOffsetY		;hitBoxWidth;hitBoxHeight;lightning;duration;velocity;dialogueID					;AnimationEnds
+ON-west									;desinfect			;../actorData/machine/desinfection/desinfection																;true					;2											;0			;0           ;0    ;0   ;0          ;000         ;128              ;128            ;064								;128									;none					;000     ;000					;init_desfinct		;false
+finished-west			;desinfect			;../actorData/machine/desinfection/desinfection																;true					;2											;0			;0           ;0    ;0   ;0          ;000         ;128              ;128            ;064								;128									;none					;000     ;000					;init_leave					;false
+OFF-west								;desinOff				;../actorData/machine/desinfection/desinfection_an2_128_384				;true					;2											;2			;2           ;2    ;1   ;192         ;384         ;128              ;128            ;064								;128									;none					;000     ;000					;init_leave				;false

@@ -46,6 +46,7 @@ public class Actor
     Inventory inventory;
     Map<String, SensorStatus> sensorStatusMap = new HashMap<>();
     SensorStatus sensorStatus;
+    String sensorStatusFromUpdateTmp;
 
     public Set<ActorTag> tags = new HashSet<>();
 
@@ -160,7 +161,7 @@ public class Actor
     {
         Set<ActorTag> tagDataSet = new HashSet<>();
         int startIdxTags = 1;
-        for(int i = startIdxTags; i<linedata.length; i++)
+        for (int i = startIdxTags; i < linedata.length; i++)
         {
             tagDataSet.add(ActorTag.getType(linedata[i]));
         }
@@ -224,7 +225,7 @@ public class Actor
             sensorStatus.onMonitorSignal = TriggerType.getStatus(lineData[onMonitorIdx]);
             sensorStatus.onMonitor_TriggerSensor = TriggerType.getStatus(lineData[onMonitor_TriggerSensorIdx]);
 
-            sensorStatus.onTextBoxSignal = TriggerType.getStatus(lineData[onTextBoxIdx]);
+            sensorStatus.onTextBoxSignal_SpriteTrigger = TriggerType.getStatus(lineData[onTextBoxIdx]);
             sensorStatus.onTextBox_TriggerSensor = TriggerType.getStatus(lineData[onTextBox_TriggerSensorIdx]);
         }
         catch (ArrayIndexOutOfBoundsException e)
@@ -247,8 +248,8 @@ public class Actor
             evaluateTriggerType(sensorStatus.onUpdate, sensorStatus.onUpdateToStatus, null);
 
             //SensorStatus
-            //if(sensorStatus.onUpdate_TriggerSensor != TriggerType.NOTHING && !sensorStatus.onUpdate_StatusSensor.equals(sensorStatus.statusName))
-            //    setSensorStatus(sensorStatus.onUpdate_StatusSensor);
+            if(sensorStatus.onUpdate_TriggerSensor != TriggerType.NOTHING && !sensorStatus.onUpdate_StatusSensor.equals(sensorStatus.statusName))
+                setSensorStatus(sensorStatus.onUpdate_StatusSensor);
         }
     }
 
@@ -274,8 +275,9 @@ public class Actor
 
     public void onTextboxSignal(String newCompoundStatus)
     {
-        String methodName = "onMonitorSignal() ";
-        evaluateTriggerType(sensorStatus.onTextBoxSignal, newCompoundStatus, null);
+        String methodName = "onTextboxSignal() ";
+        //System.out.println(CLASSNAME + methodName + sensorStatus.statusName + " " + generalStatus + " " + newCompoundStatus + " " + sensorStatus.onTextBoxSignal_SpriteTrigger);
+        evaluateTriggerType(sensorStatus.onTextBoxSignal_SpriteTrigger, newCompoundStatus, null);
     }
 
     public void onIntersection(Sprite intersecting, Long currentNanoTime)
@@ -289,7 +291,7 @@ public class Actor
             setLastInteraction(currentNanoTime);
 
             //SensorStatus
-            if(sensorStatus.onIntersection_TriggerSensor != TriggerType.NOTHING) // && !sensorStatus.onInteraction_StatusSensor.equals(sensorStatus.statusName)
+            if (sensorStatus.onIntersection_TriggerSensor != TriggerType.NOTHING) // && !sensorStatus.onInteraction_StatusSensor.equals(sensorStatus.statusName)
                 setSensorStatus(sensorStatus.onIntersection_StatusSensor);
         }
     }
@@ -300,7 +302,7 @@ public class Actor
         double elapsedTimeSinceLastInteraction = (currentNanoTime - lastInteraction) / 1000000000.0;
 
         //TODO general lookup
-        if(tags.contains(AUTOMATED_DOOR) && !detectedSprite.actor.tags.contains(AUTOMATED_DOOR_DETECTABLE))
+        if (tags.contains(AUTOMATED_DOOR) && !detectedSprite.actor.tags.contains(AUTOMATED_DOOR_DETECTABLE))
             return;
 
         if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS)
@@ -309,6 +311,7 @@ public class Actor
             setLastInteraction(currentNanoTime);
         }
     }
+
 
     private void changeLayer(Sprite sprite, int targetLayer)
     {
@@ -424,10 +427,15 @@ public class Actor
     public void setSensorStatus(String sensorStatusString)
     {
         String methodName = "setSensorStatus(String) ";
-        if(sensorStatusMap.get(sensorStatusString) != sensorStatus && sensorStatusMap.get(sensorStatusString) != null)
-            this.sensorStatus = sensorStatusMap.get(sensorStatusString);
-        else
+        boolean debug = false;
+
+        if (sensorStatusMap.get(sensorStatusString) == null)
             throw new RuntimeException("Sensor Status not defined: " + sensorStatusString + " at actor " + actorFileName);
+
+        if (debug)
+            System.out.println(CLASSNAME + methodName + "set sensor from " + sensorStatus.statusName + " to " + sensorStatusString);
+        if (sensorStatusMap.get(sensorStatusString) != sensorStatus)
+            this.sensorStatus = sensorStatusMap.get(sensorStatusString);
     }
 
     private void playTimedStatus()
@@ -503,6 +511,7 @@ public class Actor
     void updateCompoundStatus()
     {
         String methodName = "updateCompoundStatus() ";
+        boolean debug = true;
         String oldCompoundStatus = compoundStatus;
         String newStatusString = generalStatus;
 
@@ -516,6 +525,8 @@ public class Actor
 
         if (!(oldCompoundStatus.equals(compoundStatus)))
         {
+            if(actorFileName.equals("desinfection"))
+                System.out.println(CLASSNAME + methodName + " set sprite status from " + oldCompoundStatus + " to " + compoundStatus);
             changeSprites();
         }
 

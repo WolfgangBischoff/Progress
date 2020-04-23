@@ -38,6 +38,10 @@ actorstatus - changes actor to status defined in actor file, "transition" leads 
         <line>Radiation level is average</line>
         <line>No biological contamination detected</line>
         <line>No forbidden matters detected</line>
+        <nextDialogue>desinfect-end</nextDialogue>
+    </dialogue>
+
+    <dialogue id="desinfect-end" type="normal" spritestatus = "finished">
         <line>Thank you for patience and Welcome on Pancheia station</line>
     </dialogue>
 
