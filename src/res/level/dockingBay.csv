@@ -16,6 +16,16 @@ slabs_    ;slabs							;floor/slab																		;false				;0											;0			
 
 #Walls
 #code     ;name        ;spritename                     							;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning
+mtxFS0				;mtxWall					;walls/mtx/mtx_0 																								;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+mtxFS1				;mtxWall					;walls/mtx/mtx_1 																								;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+mtpF_l				;mtxWall					;walls/mtx/mtx_pipe_left 																								;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+mtpF_r				;mtxWall					;walls/mtx/mtx_pipe_right 																								;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+mtpF__				;mtxWall					;walls/mtx/mtx_pipe																								;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+mtcFS0				;mtxWall					;walls/mtx/mtx_cut_0																					;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+mtcFS1				;mtxWall					;walls/mtx/mtx_cut_1																					;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+mtcFS2				;mtxWall					;walls/mtx/mtx_cut_2																					;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+mtxFSl				;mtxWall					;walls/mtx/mtxL																								;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+mtxFSr				;mtxWall					;walls/mtx/mtxR																								;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
 frt__s				;bluewall				;walls/wallFront																							;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
 wTL___				;bluewallTL		;walls/bluewallcornerTL																;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
 wTR___				;bluewallTR		;walls/bluewallcornerTR																;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
@@ -162,7 +172,7 @@ layer:
 018 ; back_e; desk__; ______; desk__; ______; ______; plannw; planne; ______; potP_v; ______; ______; ______; ______; potP_v; ______; ______; boge_3; boge_4; ______; bck_nw; back_n; back_n; bck_ne; ______; ______; ______; ______; back_w
 019 ; back_e; bench_; ______; bench_; ______; ______; plan_w; plan_e; ______; potP_s; ______; ______; ______; ______; potP_s; ______; ______; ______; ______; ______; back_w; ______; ______; back_e; ______; ______; ______; ______; back_w
 020 ; ______; back_n; back_n; back_n; back_n; back_n; back_n; back_n; back_n;	back_n; bck_ne; auDoor; ______; bck_nw; back_n; back_n; back_n; back_n; back_n; back_n;	waBNW_; ______; ______; ______; back_n; back_n; back_n; back_n; waBNW_
-021 ; ______; ______; ______; ______; ______; ______; ______; wTL___; frt__s; frt__s; fro_se; ______; ______; fro_sw; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; back_w; ______; ______; ______; ______
+021 ; ______; ______; ______; ______; ______; ______; ______; wTL___; frt__s; frt__s; fro_se; ______; ______; fro_sw; mtxFS0; mtxFSl; mtxFSr; mtcFS0; mtxFS1; mtcFS1; mtpF_l; mtpF__; mtpF_r; mtcFS2; back_w; ______; ______; ______; ______
 022 ; ______; ______; ______; ______; ______; ______; ______; back_e; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; back_w; ______; ______; ______; ______
 023 ; ______; ______; ______; ______; ______; ______; ______; back_e; ______; ______; ______; ______; ______; ______; ufo___; ______; ______; ______; ______; ______; ______; ______; ______; ______; back_w; ______; ______; ______; ______
 024 ; ______; ______; ______; ______; ______; ______; ______; back_e; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; back_w; ______; ______; ______; ______
