@@ -26,6 +26,7 @@ import static Core.Config.CAMERA_WIDTH;
 public class WorldView implements GUIController
 {
     private static final String CLASSNAME = "WorldView/";
+    private static WorldView singleton;
 
     @FXML
     Pane root;
@@ -70,7 +71,7 @@ public class WorldView implements GUIController
     static double camX;
     static double camY;
 
-    public WorldView(String levelName)
+    private WorldView(String levelName)
     {
         fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/PlayerView.fxml"));
         fxmlLoader.setController(this);
@@ -423,5 +424,12 @@ public class WorldView implements GUIController
     public static Sprite getPlayer()
     {
         return player;
+    }
+
+    public static WorldView getSingleton()
+    {
+        if (singleton == null)
+            singleton = new WorldView("dockingBay");
+        return singleton;
     }
 }

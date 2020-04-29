@@ -6,6 +6,7 @@ Logic:
 - Add TriggerStatus change
     - owned item
 - level change
+    level knows start points default and named, after origin level
 - schlafen, fade out, calender
 - character change
 - Console

@@ -50,7 +50,7 @@ public class StageMonitor
         String targetGroupID = groupIdToInfluencedGroupIdMap.get(notifyingGroup);
         String logicCode = groupToLogicMap.get(notifyingGroup);
 
-        if(debug)
+        if (debug)
             System.out.println(CLASSNAME + methodName + " " + notifyingGroup + " used " + logicCode + " on " + targetGroupID);
         switch (logicCode)
         {
@@ -66,14 +66,18 @@ public class StageMonitor
                 always_sensorStatus(notifyingGroup, targetGroupID, "default");
                 always_spriteStatus(notifyingGroup, targetGroupID, "on");
                 break;
+            case "levelchange":
+                changeLevel(notifyingGroup);
+                break;
             default:
                 throw new RuntimeException(CLASSNAME + methodName + "logicCode not found: " + logicCode);
         }
     }
 
-    private  void changeLevel(String filename_level)
-    {
-
+    private void changeLevel(String filename_level)
+    {String methodName = "changeLevel(String)";
+        System.out.println(CLASSNAME + methodName + "loaded: " + filename_level);
+        WorldView.getSingleton().loadEnvironment(filename_level);
     }
 
     private void always_sensorStatus(String notifyingGroup, String targetGroupID, String sensorStatus)
@@ -121,7 +125,7 @@ public class StageMonitor
         ActorSystem dependentSystem = groupIdToActorGroupMap.get(dependentGroup);
         String influencingSystemStatus = checkedSystem.areAllMembersStatusOn().toString();
 
-        for(Actor influenced : dependentSystem.getSystemMembers())
+        for (Actor influenced : dependentSystem.getSystemMembers())
         {
             String status = influenced.generalStatus;
             String statusConsideringLogic = statusTransition_baseSystemLogic(influencingSystemStatus, status);
@@ -135,13 +139,13 @@ public class StageMonitor
         switch (influencingGroupStatus.toLowerCase())
         {
             case "true":
-                if(influencedActorStatus.equals(baseSystemOfflineString))
+                if (influencedActorStatus.equals(baseSystemOfflineString))
                     return "on";
                 else
                     return influencedActorStatus;
 
             case "false":
-                if(influencedActorStatus.equals("on"))
+                if (influencedActorStatus.equals("on"))
                     return baseSystemOfflineString;
                 else
                     return influencedActorStatus;
@@ -158,7 +162,7 @@ public class StageMonitor
         ActorSystem influencingSystem = groupIdToActorGroupMap.get(influencingSystemId);
         String logic = groupToLogicMap.get(influencingSystemId);
 
-        if(logic.equals("isBaseSystem"))
+        if (logic.equals("isBaseSystem"))
         {
             String influencingSystemStatus = influencingSystem.areAllMembersStatusOn().toString();
             return statusTransition_baseSystemLogic(influencingSystemStatus, influencedStatus);

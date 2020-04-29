@@ -53,7 +53,8 @@ public class MainMenuController implements GUIController
     private void startAsCiv(ActionEvent event)
     {
         //WorldView worldView = new WorldView("test");
-        WorldView worldView = new WorldView("dockingBay");
+        //WorldView worldView = new WorldView("dockingBay");
+        WorldView worldView = WorldView.getSingleton();
         GameWindow.getSingleton().createNextScene(worldView);
     }
 

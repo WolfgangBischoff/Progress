@@ -83,22 +83,26 @@ wasteB				;wastebin				;furniture/wasteBin																						;true					;0				
 
 actors:
 #code 					;actorFileN																														;IngameName															;sprite-status						;sensor-status	;direction
-player					;player																																		;Revolutionary												;default												;default							;WEST
+player					;player																																		;Revolutionary												;default												;default							;south
 infoWe					;computer/infoTerminal/info														;info terminal												;off																;default							;undefined
 auDoor					;doors/horizontal/automatedDoor										;horizontal bulkhead						;on																	;default							;south
 glasDo					;doors/horizontal/glass/glassLock								;horizontal glasdoor						;on																	;default							;south
 doorVe					;doors/vertical/autoBulkheadVertical					;vertical bulkhead								;on																	;locked								;west
+doorLe					;doors/horizontal/automatedDoor										;level bulkhead											;on																	;levelchange								;south
 diff__					;furniture/diffuser/diffuser													;big diffuser													;rose															;default							;undefined
 crate_					;storages/boxSmall/green																	;green box																;default												;default							;undefined
 lever_					;machine/lever																											;lever																				;off																;default							;undefined
 ufo___					;robot/ufo																															;ufo																						;default												;default							;undefined
+
 #Desinfection
 desinf					;machine/desinfection/desinfect										;Desinfection													;on																	;default							;west
 trigge					;floor/trigger																											;Trigger																		;off																;default							;undefined
+
 #Collectibles
 key_rd					;collectibles/key/keycard																;universal key				 							;red																;default							;undefined
 key_bl					;collectibles/key/keycard																;universal key				 							;blue															;default							;undefined
 gsc100					;collectibles/money/money																;money card				 										;gsc100													;default							;undefined
+
 #AirSystem
 screeA					;statusScreen/statusScreen															;Status Screen												;on																	;default							;undefined
 airVeR					;airSystem/airVent/airVent															;Right ventilation								;off																;default							;undefined
@@ -106,18 +110,22 @@ airVeL					;airSystem/airVent/airVent															;Left ventilation									;b
 airCon					;airSystem/hub/airControl																;Air hub																		;off																;default							;undefined
 
 Actorgroups:
-#Air System
 #System-Name					;Logic																										;Influenced-System	;members by actorId (logic-Options: isBaseSystem)
+#Air System
 airSystemMonitor	;none 																										;none 													;airCon ;airVeR; airVeL
 airSystemBase				;isBaseSystem 																		;airSystemEnd 					;airCon
 airSystemEnd					;none 																										;none 													;airVeR ;airVeL
+
 #Door Lock
 lever												;allOn_default/locked											;door														;lever_
 door													;none																											;none														;doorVe
+
 #definfection reset
 triggerDesinfect ;always_sensorDefault_spriteOn		;desinfect									;trigge
 desinfect								;none																											;none														;desinf
 
+#level change
+test													;levelchange																				;none;doorLe
 
 #sets 64 bits tiles as raster; you can add multiple layers; later defined layers are higher prioritized in case of same defined heightLayer
 #passivlayer will not be checked for interaction or collision
@@ -152,9 +160,9 @@ passivlayer:
 028 ; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
 
 layer:
-001 ; wTL___; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; wTR___; ______; ______; ______; ______; ______; ______; ______; ______
+001 ; wTL___; frt__s; doorLe; ______; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; frt__s; wTR___; ______; ______; ______; ______; ______; ______; ______; ______
 002 ; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; infoWe; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
-003 ; back_e; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; key_rd; key_bl; ______; player; ______; ______; back_w; ______; ______; ______; ______; ______; ______; ______; ______
+003 ; back_e; ______; ______; player; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; key_rd; key_bl; ______; ______; ______; ______; back_w; ______; ______; ______; ______; ______; ______; ______; ______
 004 ; back_e; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; back_w; ______; ______; ______; ______; ______; ______; ______; ______
 005 ; back_e; ______; ______; ______; ______; ______; ______; ______; ______; trigge; ______; ______; gsc100; ______; ______; ______; ______; ______; ______; ______; back_w; ______; ______; ______; ______; ______; ______; ______; ______
 006 ; wBL___; back_n; back_n; back_n; back_n; back_n; back_n; bck_ne; frt__s; glasDo; ______; frt__s; bck_nw; back_n; back_n; back_n; back_n; back_n; back_n; back_n; waBNW_; ______; ______; ______; ______; ______; ______; ______; ______

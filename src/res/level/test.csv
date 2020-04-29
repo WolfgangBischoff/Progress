@@ -35,9 +35,11 @@ back_w				;thinwall				;walls/bluewall/thin_wall_W												;true					;0						
 back_n				;wall								;walls/bluewall/back_n_64_64											;true					;2												;0			;0												;0				;0				;0										;0											;0													;20												;64										;64											;none
 waBNW_				;wallcorner			;walls/wallCornerNW												;true						;0											;0			;0											;0;				0;				0;										0;											0;													0;													0;											0 ;								none
 wBL___				;wallcorner;						walls/wallCornerNE;																						true;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0 ;								none
-wFBL__				;wallcorner;						walls/bluewallCornerFrontBL;												true;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0 ;								none
+#wFBL__				;wallcorner;						walls/bluewallCornerFrontBL;												true;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0 ;								none
+fro_sw				;wallcorner		;walls/bluewall/bluewall_front_sw						;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
 wFBR__				;wallcorner;						walls/bluewallCornerFrontBR;												true;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0 ;								none
-wBTL__				;wallcorner;						walls/wallBackTL;																							true;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0 ;								none
+#wBTL__				;wallcorner;						walls/wallBackTL;																							true;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0 ;								none
+bck_nw				;wallcorner		;walls/bluewall/back_corner_nw_64_64			;true					;2												;0			;0												;0				;0				;0										;0											;0													;020											;064									;044										;none
 wBTR__				;wallcorner;						walls/wallBackTR;																							true;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0 ;								none
 walCab				;wallcable;						walls/wallcabel;																							true;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0 ;								none
 
@@ -90,6 +92,7 @@ crates;			crates;					crates;																													true;											0;			0
 actors:
 #code 					;actorFileN																														;IngameName															;sprite-status						;sensor-status	;direction
 player					;player																																		;Revolutionary												;default												;default							;WEST
+doorVe					;doors/vertical/autoBulkheadVertical					;vertical bulkhead								;on																	;levelchange			;west
 #code 					;actorname 		;status   ;direction
 #hedgeh					;hedgehog 			;DEFAULT		;undefined
 #player					;player						;default		;EAST
@@ -108,17 +111,11 @@ player					;player																																		;Revolutionary												;d
 #screeA					;statusScreen;ON							;undefined
 
 Actorgroups:
-#code			;groupname	;logic																			;targetGroup
-#screen		;energyA			;none																				;energy
-#lever_		;energy				;setOnIfBaseActorAllOn			;energyM
-#hydrau		;energy				;setOnIfBaseActorAllOn			;energyM
-#airCon		;energyM			;none																				;none
+#System-Name					;Logic																										;Influenced-System	;members by actorId (logic-Options: isBaseSystem)
+#level change
+dockingBay							;levelchange																				;none														;doorVe
 
-#Air System
-#screeA		;armA						;none																				;arm
-#leverA		;arm							;setOnIfBaseActorAllOn			;armT
-#pc____		;arm							;setOnIfBaseActorAllOn			;armT
-#rob_An		;armT						;none																				;none
+
 
 #sets 64 bits tiles as raster ;you can add multiple layers ;later defined layers are higher prioritized in case of same defined heightLayer
 #passivlayer will not be checked for interaction or collision
@@ -167,24 +164,24 @@ layer:
 001 ;wTL___ ;frt__s ;frt__s ;frt__s ;frt__s ;frt__s ;frt__s ;frt__s ;frt__s ;frt__s ;frt__s ;frt__s ;frt__s ;frt__s ;frt__s ;frt__s ;frt__s ;frt__s ;frt__s ;frt__s ;wTR___
 002 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;scubb_ ;______ ;______ ;______ ;sink__ ;______ ;______ ;______
 003 ;back_e ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;wc____ ;back_w
-004 ;back_e ;______ ;______ ;______ ;______ ;______ ;______ ;bee___ ;l_____ ;wBTL__;	wBTR__ ;shower ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;back_w
+004 ;back_e ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;l_____ ;bck_nw;	wBTR__ ;shower ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;back_w
 005 ;back_e ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;back_w ;back_e ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;ottomR ;ottomC ;back_w
 006 ;back_e ;______ ;tabBot ;______ ;______ ;______ ;______ ;______ ;couch_;	back_w ;back_e ;______;	______ ;______ ;______ ;______ ;______ ;ottomC ;desk__ ;______ ;back_w
 007 ;back_e ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;back_w ;wBL___ ;back_n ;wBTR__ ;______ ;______ ;______ ;______ ;______ ;ottomR ;ottomC ;back_w
 008 ;back_e ;______ ;couchB ;______ ;______ ;______ ;______ ;______ ;______ ;back_w ;wTL___ ;frt__s ;wFBR__ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;back_w
 009 ;wBL___ ;back_n ;back_n ;back_n ;wBTR__ ;______ ;back_n ;back_n ;back_n ;waBNW_ ;back_e ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;back_w
 010 ;wTL___ ;frt__s ;frt__s ;frt__s ;wFBR__ ;buC___ ;frt__s ;frt__s ;frt__s ;frt__s ;frt__s ;______ ;______ ;______ ;infoWe ;______ ;infoDi ;______ ;infoTe ;______ ;back_w
-011 ;back_e ;______ ;bench_ ;______ ;______ ;______ ;bench_ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;guy___ ;______ ;______ ;______ ;back_w
-012 ;back_e ;______ ;diff_s ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;back_w
-013 ;back_e ;______ ;diff_d ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;back_w
-014 ;back_e ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;back_w
-015 ;back_e ;______ ;______ ;______ ;______ ;______ ;boge_1;	boge_2 ;boge_3 ;boge_4 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;back_w
+011 ;back_e ;______ ;bench_ ;______ ;______ ;______ ;bench_ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;guy___ ;______ ;______ ;______ ;fro_sw
+012 ;back_e ;______ ;diff_s ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;doorVe
+013 ;back_e ;______ ;diff_d ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;bee___ ;______ ;player ;______ ;______
+014 ;back_e ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______
+015 ;back_e ;______ ;______ ;______ ;______ ;______ ;boge_1;	boge_2 ;boge_3 ;boge_4 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;bck_nw
 016 ;back_e ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;back_w
 017 ;back_e ;______ ;______ ;______ ;______ ;______ ;desk__ ;______ ;______ ;desk__ ;______ ;______ ;couch_ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;back_w
 018 ;back_e ;convHo ;convHo ;convTR ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;back_w
 019 ;back_e ;convHo ;convHo ;convBR ;______ ;______ ;couchB ;______ ;______ ;couchW ;______ ;______ ;couchR ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;back_w
-020 ;back_e ;______ ;______ ;______ ;______ ;______ ;wBTL__ ;back_n ;back_n ;back_n ;back_n ;back_n ;back_n ;wBTR__ ;______ ;______ ;______ ;______ ;______ ;______ ;back_w
-021 ;back_e ;pc____ ;______ ;leverA ;______ ;______ ;wFBL__ ;frt__s ;frt__s ;frt__s ;frt__s ;frt__s ;frt__s ;wFBR__ ;______ ;airCon ;______ ;______ ;______ ;______ ;back_w
+020 ;back_e ;______ ;______ ;______ ;______ ;______ ;bck_nw ;back_n ;back_n ;back_n ;back_n ;back_n ;back_n ;wBTR__ ;______ ;______ ;______ ;______ ;______ ;______ ;back_w
+021 ;back_e ;pc____ ;______ ;leverA ;______ ;______ ;fro_sw ;frt__s ;frt__s ;frt__s ;frt__s ;frt__s ;frt__s ;wFBR__ ;______ ;airCon ;______ ;______ ;______ ;______ ;back_w
 022 ;back_e ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;refine ;______ ;tank_A ;tank_A ;______ ;______ ;______ ;______ ;______ ;______ ;back_w
 023 ;back_e ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;back_w
 024 ;back_e ;screeA ;______ ;rob_An ;______ ;______ ;hydrau ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;back_w
@@ -222,7 +219,7 @@ layer:
 016 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______
 017 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______
 018 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______
-019 ;______ ;______ ;______ ;______ ;player ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______
+019 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______
 020 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______
 021 ;______ ;______ ;______ ;______ ;______ ;______ ;screen ;______ ;______ ;air_Ve ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______
 022 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______
