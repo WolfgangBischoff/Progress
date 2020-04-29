@@ -110,14 +110,14 @@ public class WorldView implements GUIController
 
     }
 
-    public void loadEnvironment(String levelName)
+    public void loadEnvironment(String levelName, String spawnId)
     {
         player = null;
-        passiveSpritesLayer = null;
-        activeSpritesLayer = null;
-        bottomLayer = null;
-        middleLayer = null;
-        topLayer = null;
+        passiveSpritesLayer = new ArrayList<>();
+        activeSpritesLayer = new ArrayList<>();
+        bottomLayer = new ArrayList<>();
+        middleLayer = new ArrayList<>();
+        topLayer = new ArrayList<>();
         passiveCollisionRelevantSpritesLayer = new ArrayList<>();
         borders = null;
         shadowColor = null;
@@ -137,7 +137,7 @@ public class WorldView implements GUIController
         {
             System.out.println(CLASSNAME + methodName + "Level change");
             //loadEnvironment("dockingBay");
-            loadEnvironment("test");
+            loadEnvironment("test", "default");
         }
 
         if (input.contains("ESCAPE") && elapsedTimeSinceLastInteraction > 1)

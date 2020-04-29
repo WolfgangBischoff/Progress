@@ -316,6 +316,9 @@ public class Actor
     private void changeLayer(Sprite sprite, int targetLayer)
     {
         String methodName = "changeLayer() ";
+        boolean debug = true;
+        if(debug)
+            System.out.println(CLASSNAME + methodName + WorldView.bottomLayer + sprite);
         WorldView.bottomLayer.remove(sprite);
         WorldView.middleLayer.remove(sprite);
         WorldView.topLayer.remove(sprite);

@@ -3,8 +3,8 @@ package Core;
 import Core.Enums.Direction;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.paint.Color;
+import javafx.util.Pair;
 
-import javax.print.DocFlavor;
 import java.util.*;
 
 import static Core.Config.*;
@@ -25,11 +25,13 @@ public class WorldLoader
     List<Sprite> upperLayer = new ArrayList<>();
     Map<String, SpriteData> tileDataMap = new HashMap<>();
     Map<String, ActorData> actorDataMap = new HashMap<>();
+    Map<String, SpawnData> spawnPointsMap = new HashMap<>();
     StageMonitor stageMonitor = new StageMonitor();
     Map<String, ActorGroupData> actorGroupDataMap = new HashMap<>();
     String readMode;
     int maxVerticalTile = 0;
     int currentVerticalTile = 0;
+    int currentHorizontalTile = 0;
     int maxHorizontalTile = 0;
 
     public WorldLoader(String stageName)
@@ -49,6 +51,7 @@ public class WorldLoader
         keywords.add(KEYWORD_PASSIV_LAYER);
         keywords.add(KEYWORD_WORLDSHADOW);
         keywords.add(KEYWORD_GROUPS);
+        keywords.add(KEYWORD_SPAWNPOINTS);
 
         for (int i = 0; i < leveldata.size(); i++)
         {
@@ -61,30 +64,56 @@ public class WorldLoader
                 continue;
             }
 
-            //process line according to keyword
-            switch (readMode)
+            try
             {
-                case KEYWORD_TILEDEF:
-                    tileDataMap.put(lineData[SpriteData.tileCodeIdx], SpriteData.tileDefinition(lineData));
-                    continue;
-                case KEYWORD_NEW_LAYER:
-                    readLineOfTiles(lineData, false);
-                    continue;
-                case KEYWORD_PASSIV_LAYER:
-                    readLineOfTiles(lineData, true);
-                    continue;
-                case KEYWORD_ACTORS:
-                    readActorData(lineData);
-                    continue;
-                case KEYWORD_WORLDSHADOW:
-                    readWorldShadow(lineData);
-                    continue;
-                case KEYWORD_GROUPS:
-                    readActorGroups(lineData);
-                    continue;
+                //process line according to keyword
+                switch (readMode)
+                {
+                    case KEYWORD_TILEDEF:
+                        tileDataMap.put(lineData[SpriteData.tileCodeIdx], SpriteData.tileDefinition(lineData));
+                        continue;
+                    case KEYWORD_NEW_LAYER:
+                        readLineOfTiles(lineData, false);
+                        continue;
+                    case KEYWORD_PASSIV_LAYER:
+                        readLineOfTiles(lineData, true);
+                        continue;
+                    case KEYWORD_ACTORS:
+                        readActorData(lineData);
+                        continue;
+                    case KEYWORD_WORLDSHADOW:
+                        readWorldShadow(lineData);
+                        continue;
+                    case KEYWORD_GROUPS:
+                        readActorGroups(lineData);
+                        continue;
+                    case KEYWORD_SPAWNPOINTS:
+                        readSpawnPoint(lineData);
+                }
             }
+            catch (IndexOutOfBoundsException e)
+            {
+                StringBuilder stringBuilder = new StringBuilder();
+                for (String s : lineData)
+                    stringBuilder.append(s).append("; ");
+                throw new IndexOutOfBoundsException(e.getMessage() + "\nRead Mode: " + readMode + "\nat\t" + stringBuilder.toString());
+            }
+
         }
         borders = new Rectangle2D(0, 0, (maxHorizontalTile + 1) * 64, (maxVerticalTile) * 64);
+    }
+
+    private void readSpawnPoint(String[] lineData)
+    {
+        int spawnIdIdx = 0;
+        int spawnXId = 1;
+        int spawnYId = 2;
+        int directionIdx =3;
+        Integer x = Integer.parseInt(lineData[spawnXId]);
+        Integer y = Integer.parseInt(lineData[spawnYId]);
+        Direction direction = Direction.getDirectionFromValue(lineData[directionIdx]);
+        SpawnData spawnData = new SpawnData(x,y,direction);
+        spawnPointsMap.put(lineData[spawnIdIdx], spawnData);
     }
 
     private void readActorGroups(String[] lineData)
@@ -167,10 +196,11 @@ public class WorldLoader
 
 
         //from left to right, reads tile codes
-        for (int i = 0; i < lineData.length; i++)
+        //for (int i = 0; i < lineData.length; i++)
+        for (currentHorizontalTile = 0; currentHorizontalTile < lineData.length; currentHorizontalTile++)
         {
             //if first column is line number
-            if(i==0 && lineData[i].chars().allMatch(x -> Character.isDigit(x)))
+            if (currentHorizontalTile == 0 && lineData[currentHorizontalTile].chars().allMatch(x -> Character.isDigit(x)))
             {
                 lineNumber = lineData[0];
                 lineData = Arrays.copyOfRange(lineData, 1, lineData.length);
@@ -178,14 +208,15 @@ public class WorldLoader
 
 
             //Is Tile
-            if (tileDataMap.containsKey(lineData[i]))
+            if (tileDataMap.containsKey(lineData[currentHorizontalTile]))
             {
-                SpriteData tile = tileDataMap.get(lineData[i]);
+                SpriteData tile = tileDataMap.get(lineData[currentHorizontalTile]);
                 Sprite ca;
                 try
                 {
-                    ca = createSprite(tile, 64 * i, currentVerticalTile * 64);
-                } catch (IllegalArgumentException e)
+                    ca = createSprite(tile, 64 * currentHorizontalTile, currentVerticalTile * 64);
+                }
+                catch (IllegalArgumentException e)
                 {
                     StringBuilder stringBuilder = new StringBuilder();
                     for (String s : lineData)
@@ -193,7 +224,7 @@ public class WorldLoader
                         stringBuilder.append(s).append(" ");
                     }
                     throw new IllegalArgumentException("\nLine: " + stringBuilder.toString() +
-                            "\n " + lineData[i] + " ===> /res/img/" + tile.spriteName + ".png" + " not found");
+                            "\n " + lineData[currentHorizontalTile] + " ===> /res/img/" + tile.spriteName + ".png" + " not found");
                 }
 
 
@@ -203,54 +234,70 @@ public class WorldLoader
                     addToCollisionLayer(ca, tile.heightLayer);
             }
             //Is Actor
-            else if (actorDataMap.containsKey(lineData[i]))
+            else if (actorDataMap.containsKey(lineData[currentHorizontalTile]))
             {
-                ActorData actorData = actorDataMap.get(lineData[i]);
-
-                //foreach Sprite Data add Sprite to layer, Actor save sprite
-                Actor actor = new Actor(actorData.actorFileName, actorData.actorInGameName, actorData.generalStatus, actorData.sensor_status, actorData.direction);
-                actor.updateCompoundStatus();
+                Actor actor = createActor(lineData[currentHorizontalTile]);
+                activeLayer.addAll(actor.spriteList);
                 List<SpriteData> spriteDataList = actor.spriteDataMap.get(actor.compoundStatus);
-                actor.stageMonitor = stageMonitor;
-
-                //check for actorgroup Data
-                ActorGroupData actorGroupData = actorGroupDataMap.get(lineData[i]);
-                if (actorGroupData != null)
-                {
-                    actor.memberActorGroups.addAll(actorGroupData.memberOfGroups);
-                    for (String groupName : actor.memberActorGroups)
-                        stageMonitor.addActorToActorSystem(groupName, actor);
-                }
-
-                //Create initial Sprites of Actor
                 for (int j = 0; j < spriteDataList.size(); j++)
-                {
-                    Sprite actorSprite;
-                    SpriteData spriteData = spriteDataList.get(j);
-                    actorSprite = createSprite(spriteData, i * 64, currentVerticalTile * 64);
-                    actorSprite.actor = actor;
-                    actorSprite.setAnimationEnds(spriteData.animationEnds);
-                    actor.setSpeed(spriteData.velocity);//Set as often as Sprites exist?
-                    actor.dialogueStatusID = spriteData.dialogueID;
-                    activeLayer.add(actorSprite);
-                    actor.addSprite(actorSprite);
-                    addToCollisionLayer(actorSprite, spriteDataList.get(j).heightLayer);
-                }
+                    addToCollisionLayer(actor.spriteList.get(j), spriteDataList.get(j).heightLayer);
             }
             //Is Placeholder
-            else if (isPassiv && lineData[i].equals(Config.MAPDEFINITION_EMPTY))
+            else if (isPassiv && lineData[currentHorizontalTile].equals(Config.MAPDEFINITION_EMPTY))
             {
-                passivLayer.add(createSprite(new SpriteData("black", "void_64_64", true, 0d, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "none"), i * 64, currentVerticalTile * 64));
+                passivLayer.add(createSprite(new SpriteData("black", "void_64_64", true, 0d, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "none"), currentHorizontalTile * 64, currentVerticalTile * 64));
             }
-            else if (!lineData[i].equals(Config.MAPDEFINITION_EMPTY))
-                System.out.println("WorldLoader readTile: tile definition not found: " + lineData[i] + " in line " + lineNumber + " column " + i);
+            else if (!lineData[currentHorizontalTile].equals(Config.MAPDEFINITION_EMPTY))
+                System.out.println("WorldLoader readTile: tile definition not found: " + lineData[currentHorizontalTile] + " in line " + lineNumber + " column " + currentHorizontalTile);
 
-            maxHorizontalTile = Math.max(i, maxHorizontalTile);
+            maxHorizontalTile = Math.max(currentHorizontalTile, maxHorizontalTile);
         }
 
         currentVerticalTile++;
         if (maxVerticalTile < currentVerticalTile)
             maxVerticalTile = currentVerticalTile;
+    }
+
+    private Actor createActor(String actorId)
+    {
+        return createActor(actorId, currentHorizontalTile, currentVerticalTile);
+    }
+
+    private Actor createActor(String actorId, Integer x, Integer y)
+    {
+        ActorData actorData = actorDataMap.get(actorId);
+
+        //foreach Sprite Data add Sprite to layer, Actor save sprite
+        Actor actor = new Actor(actorData.actorFileName, actorData.actorInGameName, actorData.generalStatus, actorData.sensor_status, actorData.direction);
+        actor.updateCompoundStatus();
+        List<SpriteData> spriteDataList = actor.spriteDataMap.get(actor.compoundStatus);
+        actor.stageMonitor = stageMonitor;
+
+        //check for actorgroup Data
+        ActorGroupData actorGroupData = actorGroupDataMap.get(actorId);
+        if (actorGroupData != null)
+        {
+            actor.memberActorGroups.addAll(actorGroupData.memberOfGroups);
+            for (String groupName : actor.memberActorGroups)
+                stageMonitor.addActorToActorSystem(groupName, actor);
+        }
+
+        //Create initial Sprites of Actor
+        for (int j = 0; j < spriteDataList.size(); j++)
+        {
+            Sprite actorSprite;
+            SpriteData spriteData = spriteDataList.get(j);
+            actorSprite = createSprite(spriteData, x * 64, y * 64);
+            actorSprite.actor = actor;
+            actorSprite.setAnimationEnds(spriteData.animationEnds);
+            actor.setSpeed(spriteData.velocity);//Set as often as Sprites exist?
+            actor.dialogueStatusID = spriteData.dialogueID;
+            actor.addSprite(actorSprite);
+
+            //activeLayer.add(actorSprite);
+            //addToCollisionLayer(actorSprite, spriteDataList.get(j).heightLayer);
+        }
+        return actor;
     }
 
     private void readActorData(String[] lineData)
@@ -263,20 +310,41 @@ public class WorldLoader
         int sprite_statusIdx = 3;
         int sensor_statusIdx = 4;
         int directionIdx = 5;
-        try
-        {
-            Direction direction = Direction.getDirectionFromValue(lineData[directionIdx]);
-            ActorData actorData = new ActorData(lineData[actorFileNameIdx], lineData[actorIngameNameIdx], lineData[sprite_statusIdx], lineData[sensor_statusIdx], direction);
-            actorDataMap.put(lineData[actorCodeIdx], actorData);
-        }
-        catch (IndexOutOfBoundsException e)
-        {
-            StringBuilder stringBuilder = new StringBuilder();
-            for(String s : lineData)
-                stringBuilder.append(s).append("; ");
-            throw new IndexOutOfBoundsException(e.getMessage() + "\nat\t" + stringBuilder.toString());
-        }
 
+        Direction direction = Direction.getDirectionFromValue(lineData[directionIdx]);
+        ActorData actorData = new ActorData(lineData[actorFileNameIdx], lineData[actorIngameNameIdx], lineData[sprite_statusIdx], lineData[sensor_statusIdx], direction);
+        actorDataMap.put(lineData[actorCodeIdx], actorData);
+
+        //Player start position is not based on tile schema
+        if (actorData.actorFileName.toLowerCase().equals("player"))
+            createPlayer(actorData);
+    }
+
+    private void createPlayer(ActorData actorData)
+    {
+        String methodName = "createPlayer(ActorData) ";
+        SpawnData playerSpawn = spawnPointsMap.get("default");
+        Actor actor = createActor("player", playerSpawn.x, playerSpawn.y);
+        actor.setDirection(playerSpawn.direction);
+        activeLayer.addAll(actor.spriteList);
+        List<SpriteData> spriteDataList = actor.spriteDataMap.get(actor.compoundStatus);
+        for (int j = 0; j < spriteDataList.size(); j++)
+            addToCollisionLayer(actor.spriteList.get(j), spriteDataList.get(j).heightLayer);
+
+        player = actor.spriteList.get(0);
+    }
+
+    class SpawnData
+    {
+        Integer x,y;
+        Direction direction;
+
+        public SpawnData(Integer x, Integer y, Direction direction)
+        {
+            this.x = x;
+            this.y = y;
+            this.direction = direction;
+        }
     }
 
     class ActorData
@@ -314,12 +382,12 @@ public class WorldLoader
                 ca = new Sprite(tile.spriteName, tile.fps, tile.totalFrames, tile.cols, tile.rows, tile.frameWidth, tile.frameHeight);
             else
                 ca = new Sprite(tile.spriteName);
-        } catch (IllegalArgumentException e)
+        }
+        catch (IllegalArgumentException e)
         {
             e.printStackTrace();
             ca = new Sprite(IMAGE_DIRECTORY_PATH + "notfound_64_64" + CSV_POSTFIX);
         }
-
 
         ca.setName(tile.name);
         ca.setPosition(x, y);

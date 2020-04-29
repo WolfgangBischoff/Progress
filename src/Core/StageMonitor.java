@@ -67,17 +67,17 @@ public class StageMonitor
                 always_spriteStatus(notifyingGroup, targetGroupID, "on");
                 break;
             case "levelchange":
-                changeLevel(notifyingGroup);
+                changeLevel(notifyingGroup, targetGroupID);
                 break;
             default:
                 throw new RuntimeException(CLASSNAME + methodName + "logicCode not found: " + logicCode);
         }
     }
 
-    private void changeLevel(String filename_level)
+    private void changeLevel(String filename_level, String spawnId)
     {String methodName = "changeLevel(String)";
-        System.out.println(CLASSNAME + methodName + "loaded: " + filename_level);
-        WorldView.getSingleton().loadEnvironment(filename_level);
+        System.out.println(CLASSNAME + methodName + "loaded: " + filename_level + " spawn at " + spawnId);
+        WorldView.getSingleton().loadEnvironment(filename_level, spawnId);
     }
 
     private void always_sensorStatus(String notifyingGroup, String targetGroupID, String sensorStatus)

@@ -22,6 +22,7 @@ public class Config
     public static final String KEYWORD_TILEDEF = "tiledefinition:";
     public static final String KEYWORD_WORLDSHADOW = "shadow:";
     public static final String KEYWORD_GROUPS = "actorgroups:";
+    public static final String KEYWORD_SPAWNPOINTS = "spawnpoints:";
 
     //Actorfile Keywords
     public static final String KEYWORD_sensorStatus = "sensorStatus";
