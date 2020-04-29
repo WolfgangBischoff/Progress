@@ -4,6 +4,7 @@ import Core.Enums.Direction;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.paint.Color;
 
+import javax.print.DocFlavor;
 import java.util.*;
 
 import static Core.Config.*;
@@ -262,9 +263,20 @@ public class WorldLoader
         int sprite_statusIdx = 3;
         int sensor_statusIdx = 4;
         int directionIdx = 5;
-        Direction direction = Direction.getDirectionFromValue(lineData[directionIdx]);
-        ActorData actorData = new ActorData(lineData[actorFileNameIdx], lineData[actorIngameNameIdx], lineData[sprite_statusIdx], lineData[sensor_statusIdx], direction);
-        actorDataMap.put(lineData[actorCodeIdx], actorData);
+        try
+        {
+            Direction direction = Direction.getDirectionFromValue(lineData[directionIdx]);
+            ActorData actorData = new ActorData(lineData[actorFileNameIdx], lineData[actorIngameNameIdx], lineData[sprite_statusIdx], lineData[sensor_statusIdx], direction);
+            actorDataMap.put(lineData[actorCodeIdx], actorData);
+        }
+        catch (IndexOutOfBoundsException e)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            for(String s : lineData)
+                stringBuilder.append(s).append("; ");
+            throw new IndexOutOfBoundsException(e.getMessage() + "\nat\t" + stringBuilder.toString());
+        }
+
     }
 
     class ActorData

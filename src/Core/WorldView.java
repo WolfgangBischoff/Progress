@@ -15,7 +15,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static Core.Config.CAMERA_HEIGHT;
 import static Core.Config.CAMERA_WIDTH;
@@ -79,12 +82,10 @@ public class WorldView implements GUIController
         this.levelName = levelName;
 
         loadEnvironment();
-        offsetMaxX = borders.getMaxX() - CAMERA_WIDTH;
-        offsetMaxY = borders.getMaxY() - Config.CAMERA_HEIGHT;
 
         menuOverlay = new MenuOverlay();
         textbox = new Textbox();
-        textboxPosition  = new Point2D(CAMERA_WIDTH / 2f - textbox.getTEXTBOX_WIDTH() / 2, CAMERA_HEIGHT - textbox.getTEXTBOX_HEIGHT() - 32);
+        textboxPosition = new Point2D(CAMERA_WIDTH / 2f - textbox.getTEXTBOX_WIDTH() / 2, CAMERA_HEIGHT - textbox.getTEXTBOX_HEIGHT() - 32);
     }
 
     private void loadEnvironment()
@@ -97,23 +98,47 @@ public class WorldView implements GUIController
         bottomLayer = worldLoader.getBttmLayer(); //Render height
         middleLayer = worldLoader.getMediumLayer();
         topLayer = worldLoader.getUpperLayer();
-
         passiveCollisionRelevantSpritesLayer.addAll(bottomLayer); //For passive collision check
         passiveCollisionRelevantSpritesLayer.addAll(middleLayer);
         passiveCollisionRelevantSpritesLayer.addAll(topLayer);
 
         borders = worldLoader.getBorders();
         shadowColor = worldLoader.getShadowColor();
+        offsetMaxX = borders.getMaxX() - CAMERA_WIDTH;
+        offsetMaxY = borders.getMaxY() - Config.CAMERA_HEIGHT;
+
+    }
+
+    public void loadEnvironment(String levelName)
+    {
+        player = null;
+        passiveSpritesLayer = null;
+        activeSpritesLayer = null;
+        bottomLayer = null;
+        middleLayer = null;
+        topLayer = null;
+        passiveCollisionRelevantSpritesLayer = new ArrayList<>();
+        borders = null;
+        shadowColor = null;
+
+        this.levelName = levelName;
+        loadEnvironment();
     }
 
     @Override
     public void update(Long currentNanoTime)
     {
-        String methodName = "update(Long)";
+        String methodName = "update(Long) ";
         ArrayList<String> input = GameWindow.getInput();
-
-
         double elapsedTimeSinceLastInteraction = (currentNanoTime - lastTimeMenuWasOpened) / 1000000000.0;
+
+        if (input.contains("L") && elapsedTimeSinceLastInteraction > 1)
+        {
+            System.out.println(CLASSNAME + methodName + "Level change");
+            //loadEnvironment("dockingBay");
+            loadEnvironment("test");
+        }
+
         if (input.contains("ESCAPE") && elapsedTimeSinceLastInteraction > 1)
         {
             if (!isMenuActive)
@@ -320,7 +345,7 @@ public class WorldView implements GUIController
             gc.drawImage(textBoxImg, textboxPosition.getX(), textboxPosition.getY());
         }
 
-        if(isMenuActive)
+        if (isMenuActive)
         {
             WritableImage menuImage = menuOverlay.getMenuImage();
             gc.drawImage(menuImage, 250, 250);
@@ -343,7 +368,8 @@ public class WorldView implements GUIController
                 try
                 {
                     lightsImageMap.put(lightSpriteName, new Image("/res/img/lightglows/" + lightSpriteName + ".png"));
-                } catch (IllegalArgumentException e)
+                }
+                catch (IllegalArgumentException e)
                 {
                     throw new IllegalArgumentException("Invalid URL: " + "/res/img/lightglows/" + lightSpriteName + ".png" + " of sprite " + sprite.getName());
                 }
@@ -366,7 +392,8 @@ public class WorldView implements GUIController
         try
         {
             return fxmlLoader.load();
-        } catch (IOException e)
+        }
+        catch (IOException e)
         {
             e.printStackTrace();
         }

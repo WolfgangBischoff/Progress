@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class GameWindow extends Stage
 {
     public static ArrayList<String> input = new ArrayList<>();
-    private static final String CLASSNAME = "GameWindow-";
+    private static final String CLASSNAME = "GameWindow/";
     private static GameWindow singleton;
     private static long currentNanoRenderTimeGameWindow = 0L;
     private Stage gameStage;
