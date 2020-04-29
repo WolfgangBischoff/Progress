@@ -7,8 +7,8 @@ none
 
 spawnpoints:
 #ID						;PosX;PosY	;Direction
-default		;19		;12				;west
-#eastDoor	;19		;3				;south
+default		;19		;3				;south
+eastDoor	;18		;12			;west
 
 tiledefinition:
 #layer: 0 => behind ;1 => middle ;2 => in front
@@ -20,7 +20,6 @@ metalL    ;darkMetal			;floor/darkMetalLower;						false;				0;								0;			0;		
 carpe0    ;carpet						;floor/carpet0;																						false;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0 ;								none
 carpe1    ;carpet						;floor/carpet1 ;																					false;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0 ;								none
 slab__    ;carpet						;floor/slab;																						false;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0 ;								none
-#slabDr    ;carpet						;floor/slabDrain;																						false;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0 ;								none
 metal1    ;metal							;floor/xPat_64_64												;false				;0											;0			;0												;0				;0				;0										;0											;0													;0														;0										;0												;none
 plaiM1    ;metal							;floor/plainM1_64_64									;false				;0											;0			;0												;0				;0				;0										;0											;0													;0														;0										;0												;none
 plaiM2    ;metal							;floor/plainM2_64_64									;false				;0											;0			;0												;0				;0				;0										;0											;0													;0														;0										;0												;none
@@ -43,7 +42,6 @@ wBL___				;wallcorner;						walls/wallCornerNE;																						true;				0;
 #wFBL__				;wallcorner;						walls/bluewallCornerFrontBL;												true;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0 ;								none
 fro_sw				;wallcorner		;walls/bluewall/bluewall_front_sw						;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
 wFBR__				;wallcorner;						walls/bluewallCornerFrontBR;												true;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0 ;								none
-#wBTL__				;wallcorner;						walls/wallBackTL;																							true;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0 ;								none
 bck_nw				;wallcorner		;walls/bluewall/back_corner_nw_64_64			;true					;2												;0			;0												;0				;0				;0										;0											;0													;020											;064									;044										;none
 wBTR__				;wallcorner;						walls/wallBackTR;																							true;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0 ;								none
 walCab				;wallcable;						walls/wallcabel;																							true;				0;								0;			0;											0;				0;				0;										0;											0;													0;													0;											0 ;								none
@@ -118,7 +116,7 @@ doorVe					;doors/vertical/autoBulkheadVertical					;vertical bulkhead								;o
 Actorgroups:
 #System-Name					;Logic																										;Influenced-System	;members by actorId (logic-Options: isBaseSystem)
 #level change
-dockingBay							;levelchange																				;none														;doorVe
+dockingBay							;levelchange																				;northDoor														;doorVe
 
 
 

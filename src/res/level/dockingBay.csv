@@ -8,7 +8,7 @@ none
 spawnpoints:
 #ID						;PosX;PosY	;Direction
 default		;18		;2				;west
-#northDoor;19		;3				;south
+northDoor;03		;01			;south
 
 tiledefinition:
 #layer: 0 => behind; 1 => middle; 2 => in front
@@ -88,12 +88,12 @@ wasteB				;wastebin				;furniture/wasteBin																						;true					;0				
 
 actors:
 #code 					;actorFileN																														;IngameName															;sprite-status						;sensor-status	;direction
-player					;player																																		;Revolutionary												;default												;default							;south
+player					;player																																		;Revolutionary												;default												;default							;north
 infoWe					;computer/infoTerminal/info														;info terminal												;off																;default							;undefined
 auDoor					;doors/horizontal/automatedDoor										;horizontal bulkhead						;on																	;default							;south
 glasDo					;doors/horizontal/glass/glassLock								;horizontal glasdoor						;on																	;default							;south
 doorVe					;doors/vertical/autoBulkheadVertical					;vertical bulkhead								;on																	;locked								;west
-doorLe					;doors/horizontal/automatedDoor										;level bulkhead											;on																	;levelchange								;south
+doorLe					;doors/horizontal/automatedDoor										;level bulkhead											;on																	;levelchange			;south
 diff__					;furniture/diffuser/diffuser													;big diffuser													;rose															;default							;undefined
 crate_					;storages/boxSmall/green																	;green box																;default												;default							;undefined
 lever_					;machine/lever																											;lever																				;off																;default							;undefined
@@ -130,7 +130,7 @@ triggerDesinfect ;always_sensorDefault_spriteOn		;desinfect									;trigge
 desinfect								;none																											;none														;desinf
 
 #level change
-test													;levelchange																				;northDoor									;doorLe
+test													;levelchange																				;eastDoor									;doorLe
 
 #sets 64 bits tiles as raster; you can add multiple layers; later defined layers are higher prioritized in case of same defined heightLayer
 #passivlayer will not be checked for interaction or collision

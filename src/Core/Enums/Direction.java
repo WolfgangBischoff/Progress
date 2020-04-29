@@ -18,7 +18,8 @@ public enum Direction
             case "east": return EAST;
             case "south": return SOUTH;
             case "west": return WEST;
-            case "undefined": return UNDEFINED;
+            case "undefined":
+            case "none": return UNDEFINED;
             default: throw new RuntimeException("Direction not defined: " + value);
         }
     }

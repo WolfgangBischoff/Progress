@@ -75,8 +75,9 @@ public class StageMonitor
     }
 
     private void changeLevel(String filename_level, String spawnId)
-    {String methodName = "changeLevel(String)";
-        System.out.println(CLASSNAME + methodName + "loaded: " + filename_level + " spawn at " + spawnId);
+    {
+        String methodName = "changeLevel(String)";
+        //System.out.println(CLASSNAME + methodName + "loaded: " + filename_level + " spawn at " + spawnId);
         WorldView.getSingleton().loadEnvironment(filename_level, spawnId);
     }
 

@@ -80,15 +80,15 @@ public class WorldView implements GUIController
         shadowMask = new Canvas(CAMERA_WIDTH, Config.CAMERA_HEIGHT);
         gc = worldCanvas.getGraphicsContext2D();
         ShadowMaskGc = shadowMask.getGraphicsContext2D();
-        this.levelName = levelName;
+        //this.levelName = levelName;
 
-        loadEnvironment();
+        loadEnvironment(levelName, "default");
 
         menuOverlay = new MenuOverlay();
         textbox = new Textbox();
         textboxPosition = new Point2D(CAMERA_WIDTH / 2f - textbox.getTEXTBOX_WIDTH() / 2, CAMERA_HEIGHT - textbox.getTEXTBOX_HEIGHT() - 32);
     }
-
+/*
     private void loadEnvironment()
     {
         WorldLoader worldLoader = new WorldLoader(levelName);
@@ -108,7 +108,7 @@ public class WorldView implements GUIController
         offsetMaxX = borders.getMaxX() - CAMERA_WIDTH;
         offsetMaxY = borders.getMaxY() - Config.CAMERA_HEIGHT;
 
-    }
+    }*/
 
     public void loadEnvironment(String levelName, String spawnId)
     {
@@ -123,7 +123,23 @@ public class WorldView implements GUIController
         shadowColor = null;
 
         this.levelName = levelName;
-        loadEnvironment();
+
+        WorldLoader worldLoader = new WorldLoader(levelName, spawnId);
+        worldLoader.load();
+        player = worldLoader.getPlayer();
+        passiveSpritesLayer = worldLoader.getPassivLayer(); //No collision just render
+        activeSpritesLayer = worldLoader.activeLayer;
+        bottomLayer = worldLoader.getBttmLayer(); //Render height
+        middleLayer = worldLoader.getMediumLayer();
+        topLayer = worldLoader.getUpperLayer();
+        passiveCollisionRelevantSpritesLayer.addAll(bottomLayer); //For passive collision check
+        passiveCollisionRelevantSpritesLayer.addAll(middleLayer);
+        passiveCollisionRelevantSpritesLayer.addAll(topLayer);
+
+        borders = worldLoader.getBorders();
+        shadowColor = worldLoader.getShadowColor();
+        offsetMaxX = borders.getMaxX() - CAMERA_WIDTH;
+        offsetMaxY = borders.getMaxY() - Config.CAMERA_HEIGHT;
     }
 
     @Override

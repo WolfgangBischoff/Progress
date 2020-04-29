@@ -14,6 +14,7 @@ public class WorldLoader
     private static final String CLASSNAME = "WorldLoader/";
 
     String levelName;
+    String spawnId;
     Sprite player;
     Color shadowColor;
     private Rectangle2D borders;
@@ -34,9 +35,10 @@ public class WorldLoader
     int currentHorizontalTile = 0;
     int maxHorizontalTile = 0;
 
-    public WorldLoader(String stageName)
+    public WorldLoader(String stageName, String spawnId)
     {
         levelName = stageName;
+        this.spawnId = spawnId;
     }
 
     public void load()
@@ -323,7 +325,11 @@ public class WorldLoader
     private void createPlayer(ActorData actorData)
     {
         String methodName = "createPlayer(ActorData) ";
-        SpawnData playerSpawn = spawnPointsMap.get("default");
+        SpawnData playerSpawn = null;
+        if(spawnPointsMap.containsKey(spawnId))
+            playerSpawn = spawnPointsMap.get(spawnId);
+        else
+            throw new RuntimeException("Spawn Point " + spawnId + " not set in " + levelName + "\nSpawn Points: " + spawnPointsMap);
         Actor actor = createActor("player", playerSpawn.x, playerSpawn.y);
         actor.setDirection(playerSpawn.direction);
         activeLayer.addAll(actor.spriteList);
@@ -394,8 +400,8 @@ public class WorldLoader
         ca.setBlocker(tile.blocking);
         ca.setLightningSpriteName(tile.lightningSprite);
 
-        if (ca.getName().toLowerCase().equals("player"))
-            player = ca;
+        //if (ca.getName().toLowerCase().equals("player"))
+         //   player = ca;
 
         //If Hitbox differs
         if (tile.hitboxOffsetX != 0 || tile.hitboxOffsetY != 0 || tile.hitboxWidth != 0 || tile.hitboxHeight != 0)
