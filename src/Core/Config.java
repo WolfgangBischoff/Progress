@@ -5,6 +5,8 @@ public class Config
     //General
     public static final Boolean DEBUG_BLOCKER = false;
     public static final Boolean DEBUG_ACTORS = false;
+    //public static final String FIRST_LEVEL = "dockingBay";
+    public static final String FIRST_LEVEL = "transporter";
     public static final double GAME_WINDOW_WIDTH = 1440;
     public static final double GAME_WINDOW_HEIGHT = 900;
     public static final int CAMERA_WIDTH = 1200;
@@ -16,6 +18,7 @@ public class Config
 
     //Map file keywords
     public static final String MAPDEFINITION_EMPTY = "______";
+    public static final String MAPDEFINITION_NO_TILE = "__xx__";
     public static final String KEYWORD_NEW_LAYER = "layer:";
     public static final String KEYWORD_PASSIV_LAYER = "passivlayer:";
     public static final String KEYWORD_ACTORS = "actors:";

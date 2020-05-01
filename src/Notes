@@ -1,17 +1,19 @@
 
 Logic:
+- shaking screen
+- person moving
 - Menu
     add item with textbox
     add item in box
 - Add TriggerStatus change
     - owned item
-- level change
-    level knows start points default and named, after origin level
 - schlafen, fade out, calender
 - character change
 - Console
 
 Sprites:
+- Ship:
+    Controls, plantBalloon, hullbreak, sleepCapsule, ShipOuterWall, FrontWindow, schleusePancheia, tieferes Geschoß aka Boden mit Antennen
 - Docking Bay:
     Elevator, schriftzug "Elevator", minimal table, Lautsprecher
 - Control Center: BrückenControls,
@@ -23,11 +25,8 @@ Sprites:
 - AirSystem: Aufbereiter, Broken Hull
 - General: Hüllen beschädigt, Non critical System damaged, Hammer and Sickle modern
 - HeatSystem
-
-
 - Storage: Lagerschrank, Säulen, Tank, Big Crate
 
-Level:
 
 Character (Who are they, dreams, personality, history)
 
@@ -112,6 +111,11 @@ Topics:
 - Robot Avatars, remote control
 - Tragik der Allmende
 - Trust through strategy/repetition
+- Die die seit sie geboren wurden niemals Mangel an etwas hatten, hasste ich immer
+- Traitors that interacts with multiple roles, but you dont know that they are the same
+- Use water pipe with space suit
+- Textbox die mit dem Spieler mitgeht als Lautsprecher
+- Input line secret
 
 Sammlung
 SpaceStamps with Social

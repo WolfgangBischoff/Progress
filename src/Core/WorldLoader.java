@@ -244,10 +244,14 @@ public class WorldLoader
                 for (int j = 0; j < spriteDataList.size(); j++)
                     addToCollisionLayer(actor.spriteList.get(j), spriteDataList.get(j).heightLayer);
             }
-            //Is Placeholder
+            //Is Placeholder for black background
             else if (isPassiv && lineData[currentHorizontalTile].equals(Config.MAPDEFINITION_EMPTY))
             {
                 passivLayer.add(createSprite(new SpriteData("black", "void_64_64", true, 0d, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "none"), currentHorizontalTile * 64, currentVerticalTile * 64));
+            }
+            else if (isPassiv && lineData[currentHorizontalTile].equals(MAPDEFINITION_NO_TILE))
+            {
+            //Do nothing
             }
             else if (!lineData[currentHorizontalTile].equals(Config.MAPDEFINITION_EMPTY))
                 System.out.println("WorldLoader readTile: tile definition not found: " + lineData[currentHorizontalTile] + " in line " + lineNumber + " column " + currentHorizontalTile);
@@ -329,7 +333,7 @@ public class WorldLoader
         if(spawnPointsMap.containsKey(spawnId))
             playerSpawn = spawnPointsMap.get(spawnId);
         else
-            throw new RuntimeException("Spawn Point " + spawnId + " not set in " + levelName + "\nSpawn Points: " + spawnPointsMap);
+            throw new RuntimeException("Spawn Point " + spawnId + " not set in " + levelName + "\nSpawn Points: " + spawnPointsMap.toString());
         Actor actor = createActor("player", playerSpawn.x, playerSpawn.y);
         actor.setDirection(playerSpawn.direction);
         activeLayer.addAll(actor.spriteList);
