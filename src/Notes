@@ -13,7 +13,7 @@ Logic:
 
 Sprites:
 - Ship:
-    Controls, plantBalloon, hullbreak, sleepCapsule, ShipOuterWall, FrontWindow, schleusePancheia, tieferes Geschoß aka Boden mit Antennen
+    Controls, plantBalloon, hullbreak, sleepCapsule, FrontWindow, schleusePancheia, tieferes Geschoß aka Boden mit Antennen
 - Docking Bay:
     Elevator, schriftzug "Elevator", minimal table, Lautsprecher
 - Control Center: BrückenControls,
