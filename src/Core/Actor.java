@@ -13,8 +13,7 @@ import java.nio.file.Paths;
 import java.util.*;
 
 import static Core.Config.*;
-import static Core.Enums.ActorTag.AUTOMATED_DOOR;
-import static Core.Enums.ActorTag.AUTOMATED_DOOR_DETECTABLE;
+import static Core.Enums.ActorTag.*;
 
 public class Actor
 {
@@ -106,7 +105,7 @@ public class Actor
         sensorStatus = sensorStatusMap.get(initSensorStatus);
 
         if (sensorStatus == null)
-            System.out.println(CLASSNAME + methodName + actorInGameName + "no sensor Status");
+            System.out.println(CLASSNAME + methodName + actorInGameName + " no sensor found: " + initSensorStatus);
     }
 
     private boolean checkForKeywords(String[] linedata)
@@ -280,14 +279,29 @@ public class Actor
         evaluateTriggerType(sensorStatus.onTextBoxSignal_SpriteTrigger, newCompoundStatus, null);
     }
 
-    public void onIntersection(Sprite intersecting, Long currentNanoTime)
+    public void onIntersection(Sprite detectedSprite, Long currentNanoTime)
     {
         String methodName = "onIntersection() ";
         boolean debug = false;
         double elapsedTimeSinceLastInteraction = (currentNanoTime - lastInteraction) / 1000000000.0;
-        if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS)
+
+        boolean actorRelevant = true;
+        if (detectedSprite.actor == null ||
+                (
+                        (tags.contains(AUTOMATED_DOOR) && !detectedSprite.actor.tags.contains(AUTOMATED_DOOR_DETECTABLE)) //is door and other detectable
+                        || tags.contains(BECOME_TRANSPARENT) && !detectedSprite.actor.tags.contains(AUTOMATED_DOOR_DETECTABLE) //for roof
+                )
+        )
+            actorRelevant = false;
+
+        //if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS)
+        //if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS && detectedSprite.actor != null)
+        if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS && actorRelevant)
         {
-            evaluateTriggerType(sensorStatus.onIntersection, sensorStatus.onIntersectionToStatus, intersecting.actor);
+            if(debug)
+                System.out.println(CLASSNAME + methodName + actorFileName + " onIntersection " + detectedSprite.getName());
+
+            evaluateTriggerType(sensorStatus.onIntersection, sensorStatus.onIntersectionToStatus, detectedSprite.actor);
             setLastInteraction(currentNanoTime);
 
             //SensorStatus
@@ -299,14 +313,20 @@ public class Actor
     public void onInRange(Sprite detectedSprite, Long currentNanoTime)
     {
         String methodName = "onInRange(Sprite, Long) ";
+        boolean debug = false;
         double elapsedTimeSinceLastInteraction = (currentNanoTime - lastInteraction) / 1000000000.0;
 
         //TODO general lookup
-        if (tags.contains(AUTOMATED_DOOR) && !detectedSprite.actor.tags.contains(AUTOMATED_DOOR_DETECTABLE))
+        if (
+                (tags.contains(AUTOMATED_DOOR) && !detectedSprite.actor.tags.contains(AUTOMATED_DOOR_DETECTABLE))
+        || tags.contains(BECOME_TRANSPARENT) && !detectedSprite.actor.tags.contains(AUTOMATED_DOOR_DETECTABLE)
+        )
             return;
 
         if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS)
         {
+            if(debug)
+                System.out.println(CLASSNAME + methodName + actorFileName + " onInRange " + detectedSprite.getName());
             evaluateTriggerType(sensorStatus.onInRange, sensorStatus.onInRangeToStatus, detectedSprite.actor);
             setLastInteraction(currentNanoTime);
         }

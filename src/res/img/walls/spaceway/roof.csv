@@ -1,0 +1,26 @@
+#InteractionArea; Distance; Width; OffsetX; OffsetY
+#dialogueFile; actorData/dictionary/dialogueFile
+#transition; fromStatus; toStatus
+#tags; ActorTag ...
+
+
+#sensorStatus;sensorStatusName	;onInteractionSpriteTT ;interactionToSprite ;on---SensorTT ;interactionToSensor ;onInRangeSpriteTT	;inRangeToSprite	;on---SensorTT ;inRangeToSensor ;onIntersectionSpriteTT	;intersectionToSprite ;on---SensorTT ;intersectionToSensor ;onUpdateToSpriteTT			;updateToSprite	;onUpdateSensorTT ;updateToSensor ;onMonitorSpriteTT ;onMonitorSensorTT ;onTextBoxSpriteTT  ;onTextBoxSensorTT
+sensorStatus	;default										;none     													;none    												;none 									;none																;persistent								;off													;none 									;none												;persistent													;off																		;none 									;none																	;persistent											;on													;none													;none											;none														;none														;none															;none
+sensorStatus	;alternative						;none     													;none    												;none 									;none																;persistent								;off2													;none 									;none												;persistent													;off2																		;none 									;none																	;persistent											;on2													;none													;none											;none														;none														;none															;none
+sensorStatus	;window											;none     													;none    												;none 									;none																;persistent								;trans_win							;none 									;none												;persistent													;trans_win																		;none 									;none																	;persistent											;full_win													;none													;none											;none														;none														;none															;none
+
+#InteractionArea; Distance; Width; OffsetX; OffsetY
+interactionArea; 						164;			128;				 114;			  064
+
+tags; BECOME_TRANSPARENT
+
+#status to image
+#status 											;name 					  				;spritename  																																							;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;duration ;velocity ;dialogueID ;AnimationEnds
+ON-west												;automatedDoor			;walls/spaceway/roof_uncut																													;false			;2												;0			;0												;0			;0			;0										;0											;0													;000											;000									;000										;none						;0								;0								;none							;false
+OFF-west											;automatedDoor			;walls/spaceway/roof_uncut_trans																										;false			;2												;0			;0												;0			;0			;0										;0											;0													;000											;000									;000										;none						;0								;0								;none							;false
+
+ON2-west												;automatedDoor			;walls/spaceway/roof_cut																															;false			;2												;0			;0												;0			;0			;0										;0											;0													;000											;000									;000										;none						;0								;0								;none							;false
+OFF2-west											;automatedDoor			;walls/spaceway/roof_cut_trans																										;false			;2												;0			;0												;0			;0			;0										;0											;0													;000											;000									;000										;none						;0								;0								;none							;false
+
+trans_win-west												;automatedDoor			;walls/spaceway/SW_roof_win_trans																														;false			;2												;0			;0												;0			;0			;0										;0											;0													;000											;000									;000										;none						;0								;0								;none							;false
+full_win-west											;automatedDoor			;walls/spaceway/SW_roof_win																										;false			;2												;0			;0												;0			;0			;0										;0											;0													;000											;000									;000										;none						;0								;0								;none							;false

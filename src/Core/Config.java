@@ -3,8 +3,8 @@ package Core;
 public class Config
 {
     //General
-    public static final Boolean DEBUG_BLOCKER = false;
     public static final Boolean DEBUG_ACTORS = false;
+    public static final Boolean DEBUG_BLOCKER = true;
     //public static final String FIRST_LEVEL = "dockingBay";
     public static final String FIRST_LEVEL = "transporter";
     public static final double GAME_WINDOW_WIDTH = 1440;

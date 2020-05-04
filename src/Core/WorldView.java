@@ -307,6 +307,7 @@ public class WorldView implements GUIController
         }
 
         //Top Layer
+        topLayer.sort(new SpriteComparator());//To prevent wrong render sequence when sprites change layer or are added
         for (Sprite sprite : topLayer)
         {
             sprite.render(gc, currentNanoTime);
