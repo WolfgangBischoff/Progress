@@ -1,0 +1,18 @@
+#InteractionArea; Distance; Width; OffsetX; OffsetY
+#dialogueFile; actorData/dictionary/dialogueFile
+#transition; fromStatus; toStatus
+#tags; ActorTag ...
+
+
+#sensorStatus;sensorStatusName	;onInteractionSpriteTT ;interactionToSprite ;onInteractionSensorTT ;interactionToSensor ;onInRangeSpriteTT	;inRangeToSprite	;onRangeSensorTT ;inRangeToSensor ;onIntersectionSpriteTT	;intersectionToSprite ;onIntersectionSensorTT ;intersectionToSensor ;onUpdateToSpriteTT			;updateToSprite	;onUpdateSensorTT ;updateToSensor ;onMonitorSpriteTT ;onMonitorSensorTT ;onTextBoxSpriteTT  ;onTextBoxSensorTT
+sensorStatus	;roof													;none     													;none    												;none 																	;none																;none														;none												;none 											;none												;persistent													;invisible												;none 																		;none																	;persistent											;visible								;none													;none											;none														;none														;none															;none
+
+#InteractionArea; Distance; Width; OffsetX; OffsetY
+#interactionArea; 						164;			128;				 114;			  064
+
+tags; BECOME_TRANSPARENT
+
+#status to image
+#status 											;name 					  				;spritename  																																							;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;duration ;velocity ;dialogueID ;AnimationEnds
+visible												;roof												;walls/freightcapsule/roof																										;false			;2												;0			;0												;0			;0			;0										;0											;0													;000											;000									;000										;none						;0								;0								;none							;false
+invisible										;roof												;walls/freightcapsule/roof_inv																						;false			;2												;0			;0												;0			;0			;0										;0											;0													;000											;000									;000										;none						;0								;0								;none							;false

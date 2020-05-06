@@ -100,8 +100,8 @@ lever_					;machine/lever																											;lever																				;o
 ufo___					;robot/ufo																															;ufo																						;default												;default							;undefined
 
 #Desinfection
-desinf					;machine/desinfection/desinfect										;Desinfection													;on																	;default							;west
-trigge					;floor/trigger																											;Trigger																		;off																;default							;undefined
+desinf					;machine/desinfection/desinfect										;Desinfection													;on																	;default															;west
+trigge					;floor/trigger																											;Trigger																		;off																;intersect_on_else_off	;undefined
 
 #Collectibles
 key_rd					;collectibles/key/keycard																;universal key				 							;red																;default							;undefined
@@ -125,7 +125,7 @@ airSystemEnd					;none 																										;none 													;airVeR ;air
 lever												;allOn_default/locked											;door														;lever_
 door													;none																											;none														;doorVe
 
-#definfection reset
+#desfinfection reset
 triggerDesinfect ;always_sensorDefault_spriteOn		;desinfect									;trigge
 desinfect								;none																											;none														;desinf
 

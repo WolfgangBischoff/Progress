@@ -1,11 +1,21 @@
 #dialogueFile; actorData/dictionary/dialogueFile
 #transition; fromStatus; toStatus
 
-#sensorStatus;sensorStatusName	;onInteractionTriggerType ;interactionTargetStatus	;on---SensorTT;on---SensorTT;onInRangeTT	;inRangeStatus	;on---SensorTT;on---SensorTT;onIntersectionTT	;intersectionStatus;on---SensorTT;on---SensorTT;onUpdate			;UpdateToStatus;on---SensorTT;on---SensorTT	;onMonitor;on---SensorTT;onTextBox;on---SensorTT
-sensorStatus	;default										;none																					;nothing																	;none 								;none 								;none								;none										;none 								;none 								;persistent							;on																;none 								;none 								;persistent	;off											;none 								;none 									;none					;none 								;none;none
+tags; detects_player
 
+#fires on always if intersected, resets to off on update
+sensorStatus	;intersect_on_else_off;none																					;none																				;none 																;none 																;none								;none										;none 												;none 												;persistent							;on																;none 																	;none 																	;persistent									;off											;none 											;none 												;none					;none 								;none					;none
 
-#status to image
+#fire one time on if intersection, then one time off when leaving
+sensorStatus	;readyToFire										;none																					;none																				;none 																;none 																;none								;none										;none 												;none 												;persistent							;on																;persistent		 									;waitForReset 									;persistent									;off 										;none 											;none 												;none					;none 								;none					;none
+sensorStatus	;waitForReset									;none																					;none																				;none 																;none 																;none								;none										;none 												;none 												;none													;none														;persistent												;waitForReset										;none															;none										;persistent							;readyToFire					;none					;none 								;none					;none
 #status 		;name   						;spritename  																					;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;duration ;velocity ;dialogueID ;AnimationEnds
 off							;infoTerminal	;../actorData/floor/marking							;false   ;0												;0			;0												;0			;0			;0										;0											;0													;0													;0											;0												;whitelight;0								;0								;welcome				;false
 on	 						;infoTerminal	;../actorData/floor/markingr						;false   ;0												;0			;0												;0			;0			;0										;0											;0													;0													;0											;0												;whitelight;0								;0								;welcome				;false
+
+#fire one time on if intersection, then one time off when leaving
+sensorStatus	;readyToFire_20										;none																					;none																				;none 																;none 																;none								;none										;none 												;none 												;persistent							;20x64red										;persistent		 									;waitForReset 									;persistent									;20x64yellow			;none 											;none 												;none					;none 								;none					;none
+sensorStatus	;waitForReset_20									;none																					;none																				;none 																;none 																;none								;none										;none 												;none 												;none													;none														;persistent												;waitForReset										;none															;none										;persistent							;readyToFire					;none					;none 								;none					;none
+#status 								;name   						;spritename  																																;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight		;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;duration ;velocity ;dialogueID ;AnimationEnds
+20x64red	 						;infoTerminal	;../actorData/floor/trigger_20x64_red								;false   ;0												;0			;0												;0			;0			;0										;000										;020											;000											;1240								;064										;none						;0								;0								;none							;false
+20x64yellow					;infoTerminal	;../actorData/floor/trigger_20x64_yellow					;false   ;0												;0			;0												;0			;0			;0										;000										;020											;000											;1240								;064										;none						;0								;0								;none							;false

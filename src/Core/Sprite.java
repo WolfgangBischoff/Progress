@@ -98,7 +98,7 @@ public class Sprite
 
     public void update(Long currentNanoTime)
     {
-        String methodName = "update()";
+        String methodName = "update() ";
         boolean debugMode = false;
 
         double time = (currentNanoTime - lastUpdated) / 1000000000.0;
@@ -109,10 +109,17 @@ public class Sprite
         double velocityY = actor.getVelocityY();
         Rectangle2D plannedPosition = new Rectangle2D(positionX + hitBoxOffsetX + velocityX * time, positionY + hitBoxOffsetY + velocityY * time, hitBoxWidth, hitBoxHeight);
 
+        String initGeneralStatusFrame = "";
+        if(actor != null)
+            initGeneralStatusFrame = actor.generalStatus;
+
+        /*
         if (actor != null && actor.sensorStatus.onUpdate != TriggerType.NOTHING && !actor.sensorStatus.onUpdateToStatus.equals(actor.generalStatus))
             actor.onUpdate(currentNanoTime);
         if (actor != null && actor.sensorStatus.onUpdate_TriggerSensor != TriggerType.NOTHING && !actor.sensorStatus.onUpdate_StatusSensor.equals(actor.sensorStatus.statusName))
             actor.onUpdate(currentNanoTime);
+
+         */
 
         for (Sprite otherSprite : activeSprites)
         {
@@ -154,12 +161,20 @@ public class Sprite
             }
 
             //Intersect
-            //if (intersects(otherSprite) && actor.sensorStatus.onIntersection != TriggerType.NOTHING)
             if (intersects(otherSprite) && (actor.sensorStatus.onIntersection != TriggerType.NOTHING || actor.sensorStatus.onIntersection_TriggerSensor != TriggerType.NOTHING))
+            {
                 actor.onIntersection(otherSprite, currentNanoTime);
+            }
+        }
 
 
-
+        //check if status was changed from other triggers, just if not do OnUpdate
+        if(actor != null && initGeneralStatusFrame.equals(actor.generalStatus))
+        {
+            if (actor != null && actor.sensorStatus.onUpdate != TriggerType.NOTHING && !actor.sensorStatus.onUpdateToStatus.equals(actor.generalStatus))
+                actor.onUpdate(currentNanoTime);
+            if (actor != null && actor.sensorStatus.onUpdate_TriggerSensor != TriggerType.NOTHING && !actor.sensorStatus.onUpdate_StatusSensor.equals(actor.sensorStatus.statusName))
+                actor.onUpdate(currentNanoTime);
         }
 
         if (!blockedByOtherSprite)

@@ -69,9 +69,21 @@ public class StageMonitor
             case "levelchange":
                 changeLevel(notifyingGroup, targetGroupID);
                 break;
+            case "transitionOnChange":
+                transitionOnChange(notifyingGroup, targetGroupID);
+                break;
             default:
                 throw new RuntimeException(CLASSNAME + methodName + "logicCode not found: " + logicCode);
         }
+    }
+
+    private void transitionOnChange(String notifyingGroup, String targetGroupID)
+    {
+        String methodName = "triggerOnChange()";
+        ActorSystem notifier = groupIdToActorGroupMap.get(notifyingGroup);
+        ActorSystem signaled = groupIdToActorGroupMap.get(targetGroupID);
+
+        signaled.setMemberToGeneralStatus("transition");
     }
 
     private void changeLevel(String filename_level, String spawnId)
@@ -89,6 +101,8 @@ public class StageMonitor
         ActorSystem notifier = groupIdToActorGroupMap.get(notifyingGroup);
         ActorSystem signaled = groupIdToActorGroupMap.get(targetGroupID);
 
+        if (debug)
+            System.out.println(CLASSNAME + methodName + notifier.areAllMembersStatusOn() + notifier);
         signaled.setMemberToSensorStatus(sensorStatus);
     }
 

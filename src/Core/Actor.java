@@ -244,10 +244,11 @@ public class Actor
         if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS)
         {
             //Sprite
+            if(sensorStatus.onUpdate != TriggerType.NOTHING && !sensorStatus.onUpdateToStatus.equals(generalStatus))
             evaluateTriggerType(sensorStatus.onUpdate, sensorStatus.onUpdateToStatus, null);
 
             //SensorStatus
-            if(sensorStatus.onUpdate_TriggerSensor != TriggerType.NOTHING && !sensorStatus.onUpdate_StatusSensor.equals(sensorStatus.statusName))
+            if (sensorStatus.onUpdate_TriggerSensor != TriggerType.NOTHING && !sensorStatus.onUpdate_StatusSensor.equals(sensorStatus.statusName))
                 setSensorStatus(sensorStatus.onUpdate_StatusSensor);
         }
     }
@@ -267,8 +268,12 @@ public class Actor
     public void onMonitorSignal(String newCompoundStatus)
     {
         String methodName = "onMonitorSignal() ";
+        boolean debug = false;
         if (sensorStatus.onMonitorSignal == null)
             System.out.println(CLASSNAME + methodName + "OnMonitorSignal not set");
+
+        if (debug)
+            System.out.println(CLASSNAME + methodName + actorInGameName + " set to " + newCompoundStatus);
         evaluateTriggerType(sensorStatus.onMonitorSignal, newCompoundStatus, null);
     }
 
@@ -285,28 +290,33 @@ public class Actor
         boolean debug = false;
         double elapsedTimeSinceLastInteraction = (currentNanoTime - lastInteraction) / 1000000000.0;
 
+        //Check if detection is relevant
         boolean actorRelevant = true;
         if (detectedSprite.actor == null ||
                 (
                         (tags.contains(AUTOMATED_DOOR) && !detectedSprite.actor.tags.contains(AUTOMATED_DOOR_DETECTABLE)) //is door and other detectable
-                        || tags.contains(BECOME_TRANSPARENT) && !detectedSprite.actor.tags.contains(AUTOMATED_DOOR_DETECTABLE) //for roof
+                                || tags.contains(BECOME_TRANSPARENT) && !detectedSprite.actor.tags.contains(AUTOMATED_DOOR_DETECTABLE) //for roof
+                                || tags.contains(DETECTS_PLAYER) && !detectedSprite.actor.tags.contains(PLAYER) //for trigger
                 )
         )
             actorRelevant = false;
 
-        //if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS)
-        //if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS && detectedSprite.actor != null)
+        //trigger
         if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS && actorRelevant)
         {
-            if(debug)
+            if (debug)
                 System.out.println(CLASSNAME + methodName + actorFileName + " onIntersection " + detectedSprite.getName());
 
-            evaluateTriggerType(sensorStatus.onIntersection, sensorStatus.onIntersectionToStatus, detectedSprite.actor);
-            setLastInteraction(currentNanoTime);
+            //Sprite Status
+            if(sensorStatus.onIntersection != TriggerType.NOTHING)
+            {
+                evaluateTriggerType(sensorStatus.onIntersection, sensorStatus.onIntersectionToStatus, detectedSprite.actor);
+            }
 
             //SensorStatus
             if (sensorStatus.onIntersection_TriggerSensor != TriggerType.NOTHING) // && !sensorStatus.onInteraction_StatusSensor.equals(sensorStatus.statusName)
                 setSensorStatus(sensorStatus.onIntersection_StatusSensor);
+            setLastInteraction(currentNanoTime);
         }
     }
 
@@ -319,19 +329,18 @@ public class Actor
         //TODO general lookup
         if (
                 (tags.contains(AUTOMATED_DOOR) && !detectedSprite.actor.tags.contains(AUTOMATED_DOOR_DETECTABLE))
-        || tags.contains(BECOME_TRANSPARENT) && !detectedSprite.actor.tags.contains(AUTOMATED_DOOR_DETECTABLE)
+                        || tags.contains(BECOME_TRANSPARENT) && !detectedSprite.actor.tags.contains(AUTOMATED_DOOR_DETECTABLE)
         )
             return;
 
         if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS)
         {
-            if(debug)
+            if (debug)
                 System.out.println(CLASSNAME + methodName + actorFileName + " onInRange " + detectedSprite.getName());
             evaluateTriggerType(sensorStatus.onInRange, sensorStatus.onInRangeToStatus, detectedSprite.actor);
             setLastInteraction(currentNanoTime);
         }
     }
-
 
     private void changeLayer(Sprite sprite, int targetLayer)
     {
@@ -404,9 +413,11 @@ public class Actor
     //React on outside sensor
     private void evaluateTriggerType(TriggerType triggerType, String targetStatusField, Actor activeSprite)
     {
+        String methodName = "evaluateTriggerType() ";
         switch (triggerType)
         {
             case NOTHING:
+                System.out.println(CLASSNAME + methodName + actorInGameName + " triggered without trigger type");
                 return;
             //Status Changes
             case PERSISTENT:
@@ -545,7 +556,7 @@ public class Actor
 
         if (!(oldCompoundStatus.equals(compoundStatus)))
         {
-            if(actorFileName.equals("desinfection"))
+            if (actorFileName.equals("desinfection"))
                 System.out.println(CLASSNAME + methodName + " set sprite status from " + oldCompoundStatus + " to " + compoundStatus);
             changeSprites();
         }
