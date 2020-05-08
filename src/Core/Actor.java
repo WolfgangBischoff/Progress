@@ -368,7 +368,13 @@ public class Actor
         List<SpriteData> targetSpriteData = spriteDataMap.get(compoundStatus.toLowerCase());
 
         if (targetSpriteData == null)
-            System.out.println(CLASSNAME + methodName + compoundStatus + " not found in " + spriteDataMap);
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            for(Map.Entry<String, List<SpriteData>> entry : spriteDataMap.entrySet())
+                stringBuilder.append("\t").append(entry.getKey()).append("\n");
+            throw new RuntimeException(compoundStatus + " not found in \n" + stringBuilder.toString());
+//            System.out.println(CLASSNAME + methodName +  + spriteDataMap);
+        }
 
         //For all Sprites of the actor onUpdate to new Status
         for (int i = 0; i < spriteList.size(); i++)

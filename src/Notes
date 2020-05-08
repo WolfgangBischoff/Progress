@@ -10,10 +10,11 @@ Logic:
 - schlafen, fade out, calender
 - character change
 - Console
+- ErrorHandling, detect unused Map Definitions
 
 Sprites:
 - Ship:
-    Controls, plantBalloon, hullbreak, sleepCapsule, FrontWindow, schleusePancheia, tieferes Geschoß aka Boden mit Antennen
+    Controls, plantBalloon, hullbreak, sleepCapsule-supply, FrontWindow, schleusePancheia, tieferes Geschoß aka Boden mit Antennen, moving asteroid
 - Docking Bay:
     Elevator, schriftzug "Elevator", minimal table, Lautsprecher
 - Control Center: BrückenControls,

@@ -171,13 +171,13 @@ public class Sprite
         //check if status was changed from other triggers, just if not do OnUpdate
         if(actor != null && initGeneralStatusFrame.equals(actor.generalStatus))
         {
-            if (actor != null && actor.sensorStatus.onUpdate != TriggerType.NOTHING && !actor.sensorStatus.onUpdateToStatus.equals(actor.generalStatus))
+            if (actor.sensorStatus.onUpdate != TriggerType.NOTHING && !actor.sensorStatus.onUpdateToStatus.equals(actor.generalStatus))
                 actor.onUpdate(currentNanoTime);
-            if (actor != null && actor.sensorStatus.onUpdate_TriggerSensor != TriggerType.NOTHING && !actor.sensorStatus.onUpdate_StatusSensor.equals(actor.sensorStatus.statusName))
+            if (actor.sensorStatus.onUpdate_TriggerSensor != TriggerType.NOTHING && !actor.sensorStatus.onUpdate_StatusSensor.equals(actor.sensorStatus.statusName))
                 actor.onUpdate(currentNanoTime);
         }
 
-        if (!blockedByOtherSprite)
+        if (!blockedByOtherSprite || DEBUG_NO_WALL)
         {
             positionX += velocityX * time;
             positionY += velocityY * time;
