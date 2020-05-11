@@ -11,10 +11,11 @@ Logic:
 - character change
 - Console
 - ErrorHandling, detect unused Map Definitions
+- Change trigger to based on hitbox definition instead of sprite
 
 Sprites:
 - Ship:
-    Controls, plantBalloon, hullbreak, sleepCapsule-supply, FrontWindow, schleusePancheia, tieferes Geschoß aka Boden mit Antennen, moving asteroid
+    Controls, FrontWindow, schleusePancheia, tieferes Geschoß aka Boden mit Antennen, lift, moving asteroid, scripted Cleaing Bot
 - Docking Bay:
     Elevator, schriftzug "Elevator", minimal table, Lautsprecher
 - Control Center: BrückenControls,
