@@ -28,10 +28,10 @@ import static Core.Config.*;
 
 public class Textbox
 {
-    private static final String CLASSNAME = "Textbox/";
-    private double TEXTBOX_WIDTH = CAMERA_WIDTH / 1.5;
-    private double TEXTBOX_HEIGHT = CAMERA_HEIGHT / 3.0;
-    Canvas textboxCanvas = new Canvas(TEXTBOX_WIDTH, TEXTBOX_HEIGHT);
+    private static final String CLASSNAME = "Textbox-";
+    private double TEXT_BOX_WIDTH = CAMERA_WIDTH / 1.5;
+    private double TEXT_BOX_HEIGHT = CAMERA_HEIGHT / 3.0;
+    Canvas textboxCanvas = new Canvas(TEXT_BOX_WIDTH, TEXT_BOX_HEIGHT);
     GraphicsContext textboxGc = textboxCanvas.getGraphicsContext2D();
     WritableImage textboxImage;
     Dialogue readDialogue;
@@ -50,8 +50,8 @@ public class Textbox
 
     public Textbox()
     {
-        cornerTopLeft = new Image("res/img/txtbox/textboxTL.png");
-        cornerBtmRight = new Image("res/img/txtbox/textboxBL.png");
+        cornerTopLeft = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
+        cornerBtmRight = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
     }
 
     public void startConversation(Actor actorParam)
@@ -217,8 +217,8 @@ public class Textbox
     public void processMouse(Point2D mousePosition, boolean isMouseClicked)
     {
         String methodName = "processMouse(Point2D, boolean) ";
-        Point2D textboxPosition = WorldView.textboxPosition;
-        Rectangle2D textboxPosRelativeToWorldview = new Rectangle2D(textboxPosition.getX(), textboxPosition.getY(), TEXTBOX_WIDTH, TEXTBOX_HEIGHT);
+        Point2D textboxPosition = WorldView.textBoxPosition;
+        Rectangle2D textboxPosRelativeToWorldview = new Rectangle2D(textboxPosition.getX(), textboxPosition.getY(), TEXT_BOX_WIDTH, TEXT_BOX_HEIGHT);
         if (textboxPosRelativeToWorldview.contains(mousePosition))
         {
             //System.out.println(classname + methodName + "Mouse: " + mousePosition.getX() + " " + mousePosition.getY());
@@ -230,7 +230,7 @@ public class Textbox
         {
             for (int checkedLineIdx = 0; checkedLineIdx < lineSplitMessage.size(); checkedLineIdx++)
             {
-                Rectangle2D positionOptionRelativeToWorldView = new Rectangle2D(textboxPosition.getX(), textboxPosition.getY() + offsetYTmp, TEXTBOX_WIDTH, textboxGc.getFont().getSize());
+                Rectangle2D positionOptionRelativeToWorldView = new Rectangle2D(textboxPosition.getX(), textboxPosition.getY() + offsetYTmp, TEXT_BOX_WIDTH, textboxGc.getFont().getSize());
                 offsetYTmp += textboxGc.getFont().getSize();
                 //Hovers over Option
                 if (positionOptionRelativeToWorldView.contains(mousePosition))
@@ -319,23 +319,23 @@ public class Textbox
         Color marking = Color.hsb(hue, sat - 0.2, brig + 0.2);
         Color font = Color.hsb(hue, sat + 0.15, brig + 0.4);
 
-        textboxGc.clearRect(0, 0, TEXTBOX_WIDTH, TEXTBOX_HEIGHT);
+        textboxGc.clearRect(0, 0, TEXT_BOX_WIDTH, TEXT_BOX_HEIGHT);
 
         //Background
         textboxGc.setFill(background);
         textboxGc.setGlobalAlpha(0.9);
-        textboxGc.fillRect(backgroundOffsetX, backgroundOffsetY, TEXTBOX_WIDTH - backgroundOffsetX * 2, TEXTBOX_HEIGHT - backgroundOffsetY * 2);
+        textboxGc.fillRect(backgroundOffsetX, backgroundOffsetY, TEXT_BOX_WIDTH - backgroundOffsetX * 2, TEXT_BOX_HEIGHT - backgroundOffsetY * 2);
 
         if (markedOption != null && readDialogue.type.equals(DECISION_KEYWORD))
         {
             textboxGc.setFill(marking);
-            textboxGc.fillRect(xOffsetTextLine, firstLineOffsetY + markedOption * textboxGc.getFont().getSize() + 5, TEXTBOX_WIDTH - 100, textboxGc.getFont().getSize());
+            textboxGc.fillRect(xOffsetTextLine, firstLineOffsetY + markedOption * textboxGc.getFont().getSize() + 5, TEXT_BOX_WIDTH - 100, textboxGc.getFont().getSize());
         }
 
         //Decoration of textfield
         textboxGc.setGlobalAlpha(1);
         textboxGc.drawImage(cornerTopLeft, 0, 0);
-        textboxGc.drawImage(cornerBtmRight, TEXTBOX_WIDTH - cornerBtmRight.getWidth(), TEXTBOX_HEIGHT - cornerBtmRight.getHeight());
+        textboxGc.drawImage(cornerBtmRight, TEXT_BOX_WIDTH - cornerBtmRight.getWidth(), TEXT_BOX_HEIGHT - cornerBtmRight.getHeight());
 
         textboxGc.setFont(new Font("Verdana", 30));
         textboxGc.setFill(font);
@@ -414,13 +414,13 @@ public class Textbox
         return textboxImage;
     }
 
-    public double getTEXTBOX_WIDTH()
+    public double getTEXT_BOX_WIDTH()
     {
-        return TEXTBOX_WIDTH;
+        return TEXT_BOX_WIDTH;
     }
 
-    public double getTEXTBOX_HEIGHT()
+    public double getTEXT_BOX_HEIGHT()
     {
-        return TEXTBOX_HEIGHT;
+        return TEXT_BOX_HEIGHT;
     }
 }

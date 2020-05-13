@@ -43,13 +43,13 @@ public class WorldView implements GUIController
     //Menu overlay
     static boolean isMenuActive = false;
     static MenuOverlay menuOverlay;
-    static Point2D menuOverlayPosition = new Point2D(CAMERA_WIDTH / 2f - menuOverlay.getMenuWidth() / 2, CAMERA_HEIGHT - menuOverlay.getMenuHeight());
-    static Long lastTimeMenuWasOpened = 0l;
+    static Point2D menuOverlayPosition = new Point2D(CAMERA_WIDTH / 2f - MenuOverlay.getMenuWidth() / 2.0, CAMERA_HEIGHT / 2.0 - MenuOverlay.getMenuHeight()/2.0);
+    static Long lastTimeMenuWasOpened = 0L;
 
     //Textbox
     static boolean isTextBoxActive = false;
     static Textbox textbox;
-    static Point2D textboxPosition;
+    static Point2D textBoxPosition;
 
     //Sprites
     String levelName;
@@ -83,7 +83,7 @@ public class WorldView implements GUIController
         loadEnvironment(levelName, "default");
         menuOverlay = new MenuOverlay();
         textbox = new Textbox();
-        textboxPosition = new Point2D(CAMERA_WIDTH / 2f - textbox.getTEXTBOX_WIDTH() / 2, CAMERA_HEIGHT - textbox.getTEXTBOX_HEIGHT() - 32);
+        textBoxPosition = new Point2D(CAMERA_WIDTH / 2f - textbox.getTEXT_BOX_WIDTH() / 2, CAMERA_HEIGHT - textbox.getTEXT_BOX_HEIGHT() - 32);
     }
 
     public void loadEnvironment(String levelName, String spawnId)
@@ -127,8 +127,6 @@ public class WorldView implements GUIController
 
         if (input.contains("L") && elapsedTimeSinceLastInteraction > 1)
         {
-            System.out.println(CLASSNAME + methodName + "Level change");
-            //loadEnvironment("dockingBay");
             loadEnvironment("test", "default");
         }
 
@@ -238,7 +236,6 @@ public class WorldView implements GUIController
                     && active.actor.sensorStatus.onInteraction != TriggerType.NOTHING)//Just add sprites of actors you can interact by onInteraction
                 mouseHoveredSprites.add(active);
 
-
         if (isTextBoxActive)
         {
             textbox.processMouse(mousePositionRelativeToCamera, isMouseClicked);
@@ -335,13 +332,13 @@ public class WorldView implements GUIController
         if (isTextBoxActive)
         {
             WritableImage textBoxImg = textbox.showMessage();
-            gc.drawImage(textBoxImg, textboxPosition.getX(), textboxPosition.getY());
+            gc.drawImage(textBoxImg, textBoxPosition.getX(), textBoxPosition.getY());
         }
 
         if (isMenuActive)
         {
             WritableImage menuImage = menuOverlay.getMenuImage();
-            gc.drawImage(menuImage, 250, 250);
+            gc.drawImage(menuImage, menuOverlayPosition.getX(), menuOverlayPosition.getY());
         }
 
     }

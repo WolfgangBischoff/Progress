@@ -1,11 +1,13 @@
 package Core;
 
 import Core.Enums.CollectableType;
+import javafx.scene.image.Image;
 
 public class Collectible
 {
     String nameGame;
     String name;
+    Image image;
     CollectableType type;
 
     public Collectible(String name, CollectableType type, String nameGame)

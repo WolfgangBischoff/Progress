@@ -3,26 +3,30 @@ package Core;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 
+import static Core.Config.*;
+
 public class MenuOverlay
 {
-    private static final String CLASSNAME = "MenuOverlay/";
-    private static final int MENU_WIDTH = 500;
-    private static final int MENU_HEIGHT = 300;
-
+    private static final String CLASSNAME = "MenuOverlay-";
     private Canvas menuCanvas;
     private GraphicsContext menuGc;
     private WritableImage menuImage;
-
     private Actor player;
+
+    Image cornerTopLeft;
+    Image cornerBtmRight;
 
     public MenuOverlay()
     {
         menuCanvas = new Canvas(MENU_WIDTH, MENU_HEIGHT);
         menuGc = menuCanvas.getGraphicsContext2D();
         player = WorldView.getPlayer().actor;
+        cornerTopLeft = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
+        cornerBtmRight = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
     }
 
     private void draw() throws NullPointerException
@@ -36,27 +40,50 @@ public class MenuOverlay
         Color marking = Color.hsb(hue, sat - 0.2, brig + 0.2);
         Color font = Color.hsb(hue, sat + 0.15, brig + 0.4);
 
+        //Background
         menuGc.setGlobalAlpha(0.8);
         menuGc.setFill(background);
-        menuGc.fillRect(0, 0, MENU_WIDTH, MENU_HEIGHT);
+        int backgroundOffsetX = 16, backgroundOffsetY = 10;
+        menuGc.fillRect(backgroundOffsetX, backgroundOffsetY, MENU_WIDTH - backgroundOffsetX * 2, MENU_HEIGHT - backgroundOffsetY * 2);
 
+        //Item Slots
         menuGc.setGlobalAlpha(1);
-        menuGc.setFill(marking);
-
-        for (int y = 0; y < 3; y++)
+        int itemTileWidth = 64;
+        int numberTilesRow = 10;
+        int numberRows = 3;
+        int spaceBetweenTiles = 10;
+        int initialOffsetX = (MENU_WIDTH - (numberTilesRow * itemTileWidth + (numberTilesRow - 1) * spaceBetweenTiles)) / 2; //Centered
+        int initialOffsetY = 75;
+        int itemSlotNumber = 0;
+        for (int y = 0; y < numberRows; y++)
         {
-            int offsetY = y * (64 + 10) + 40;
-            for (int i = 0; i < 6; i++)
+            int slotY = y * (itemTileWidth + spaceBetweenTiles) + initialOffsetY;
+            for (int i = 0; i < numberTilesRow; i++)
             {
-                int squareX = i * (64 + 10) + 10;
-                menuGc.fillRect(squareX, offsetY, 64, 64);
+                //Rectangle
+                int slotX = i * (itemTileWidth + spaceBetweenTiles) + initialOffsetX;
+                menuGc.setFill(font);
+                menuGc.fillRect(slotX, slotY, itemTileWidth, itemTileWidth);
+                menuGc.setFill(marking);
+                menuGc.fillRect(slotX + 2, slotY + 2, itemTileWidth - 4, itemTileWidth - 4);
+
+                //Item slot images
+                Collectible current = null;
+                if(itemSlotNumber <= player.inventory.itemsList.size())
+                    current = player.inventory.itemsList.get(itemSlotNumber);
+                if (current != null)
+                    menuGc.drawImage(current.image, slotX, slotY);
+                itemSlotNumber++;
             }
         }
 
         menuGc.setFill(font);
         menuGc.fillText("Game Menu " + player.actorInGameName, 30, 30);
-        //System.out.println(CLASSNAME + methodName + player.inventory.itemsList.toString());
         menuGc.fillText(player.inventory.itemsList.toString(), 30, 60);
+
+        //Decoration
+        menuGc.drawImage(cornerTopLeft, 0, 0);
+        menuGc.drawImage(cornerBtmRight, MENU_WIDTH - cornerBtmRight.getWidth(), MENU_HEIGHT - cornerBtmRight.getHeight());
 
         SnapshotParameters transparency = new SnapshotParameters();
         transparency.setFill(Color.TRANSPARENT);

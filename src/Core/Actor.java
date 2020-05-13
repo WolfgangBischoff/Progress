@@ -6,6 +6,7 @@ import Core.Enums.ActorTag;
 import Core.Enums.Direction;
 import Core.Enums.TriggerType;
 import javafx.animation.PauseTransition;
+import javafx.scene.image.Image;
 import javafx.util.Duration;
 
 import java.nio.file.Files;
@@ -538,7 +539,8 @@ public class Actor
     private void collect(Actor collectingActor)
     {
         String methodName = "collect(String) ";
-        collectingActor.inventory.addItem(generalStatus, collectable_type, actorInGameName);
+        Image usedImage = spriteList.get(0).baseimage;
+        collectingActor.inventory.addItem(generalStatus, collectable_type, actorInGameName, usedImage);
         WorldView.toRemove.addAll(spriteList);
     }
 
