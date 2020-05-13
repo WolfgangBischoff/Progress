@@ -55,6 +55,7 @@ public class MenuOverlay
 
         menuGc.setFill(font);
         menuGc.fillText("Game Menu " + player.actorInGameName, 30, 30);
+        //System.out.println(CLASSNAME + methodName + player.inventory.itemsList.toString());
         menuGc.fillText(player.inventory.itemsList.toString(), 30, 60);
 
         SnapshotParameters transparency = new SnapshotParameters();

@@ -1,6 +1,7 @@
 package Core;
 
 
+import Core.Enums.ActorConditionType;
 import Core.Enums.ActorTag;
 import Core.Enums.Direction;
 import Core.Enums.TriggerType;
@@ -18,6 +19,7 @@ import static Core.Enums.ActorTag.*;
 public class Actor
 {
     private static final String CLASSNAME = "Actor-";
+    private static final Set<String> actorDefinitionKeywords = new HashSet<>();
     String actorFileName;
     String actorInGameName;
     private Direction direction;
@@ -30,8 +32,8 @@ public class Actor
     private double interactionAreaOffsetX = 0;
     private double interactionAreaOffsetY = 0;
 
-    static final Set<String> actorDefinitionKeywords = new HashSet<>();
     final List<Sprite> spriteList = new ArrayList<>();
+    List<ActorCondition> conditions = new ArrayList<>();
     final Map<String, String> statusTransitions = new HashMap<>();
     final Map<String, List<SpriteData>> spriteDataMap = new HashMap<>();
     String generalStatus;
@@ -45,7 +47,6 @@ public class Actor
     Inventory inventory;
     Map<String, SensorStatus> sensorStatusMap = new HashMap<>();
     SensorStatus sensorStatus;
-    String sensorStatusFromUpdateTmp;
 
     public Set<ActorTag> tags = new HashSet<>();
 
@@ -70,6 +71,7 @@ public class Actor
             actorDefinitionKeywords.add(KEYWORD_collectable_type);
             actorDefinitionKeywords.add(KEYWORD_sensorStatus);
             actorDefinitionKeywords.add(KEYWORD_actor_tags);
+            actorDefinitionKeywords.add(KEYWORD_condition);
         }
 
 
@@ -149,11 +151,43 @@ public class Actor
             case KEYWORD_actor_tags:
                 tags.addAll(readTagData(linedata));
                 break;
+            case KEYWORD_condition:
+                conditions.add(readCondition(linedata));
+                break;
             default:
                 throw new RuntimeException("Keyword unknown: " + keyword);
         }
 
         return true;
+    }
+
+    private ActorCondition readCondition(String[] linedata)
+    {
+        String methodName = "readCondition() ";
+        boolean debug = false;
+        //#condition; if sprite-status ;if sensor-status ;type ;true-sprite-status ;true-sensor-status ;false-sprite-status ;false-sensor-status	;params
+        int spriteStatusConditionIdx = 1;
+        int sensorStatusConditionIdx = 2;
+        int actorConditionTypeIdx = 3;
+        int trueSpriteStatusIdx = 4;
+        int trueSensorStatusIdx = 5;
+        int falseSpriteStatusIdx = 6;
+        int falseSensorStatusIdx = 7;
+        int paramsIdx = 8;
+        ActorCondition actorCondition = new ActorCondition();
+        actorCondition.spriteStatusCondition = linedata[spriteStatusConditionIdx];
+        actorCondition.sensorStatusCondition = linedata[sensorStatusConditionIdx];
+        actorCondition.actorConditionType = ActorConditionType.getConditionFromValue(linedata[actorConditionTypeIdx]);
+        actorCondition.trueSpriteStatus = linedata[trueSpriteStatusIdx];
+        actorCondition.trueSensorStatus = linedata[trueSensorStatusIdx];
+        actorCondition.falseSpriteStatus = linedata[falseSpriteStatusIdx];
+        actorCondition.falseSensorStatus = linedata[falseSensorStatusIdx];
+        for (int i = paramsIdx; i < linedata.length; i++)
+            actorCondition.params.add(linedata[i]);
+
+        if(debug)
+            System.out.println(CLASSNAME + methodName + actorCondition);
+        return actorCondition;
     }
 
     private Set<ActorTag> readTagData(String[] linedata)
@@ -244,8 +278,8 @@ public class Actor
         if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS)
         {
             //Sprite
-            if(sensorStatus.onUpdate != TriggerType.NOTHING && !sensorStatus.onUpdateToStatus.equals(generalStatus))
-            evaluateTriggerType(sensorStatus.onUpdate, sensorStatus.onUpdateToStatus, null);
+            if (sensorStatus.onUpdate != TriggerType.NOTHING && !sensorStatus.onUpdateToStatus.equals(generalStatus))
+                evaluateTriggerType(sensorStatus.onUpdate, sensorStatus.onUpdateToStatus, null);
 
             //SensorStatus
             if (sensorStatus.onUpdate_TriggerSensor != TriggerType.NOTHING && !sensorStatus.onUpdate_StatusSensor.equals(sensorStatus.statusName))
@@ -253,13 +287,61 @@ public class Actor
         }
     }
 
+    private void updateStatusFromConditions(Sprite activeSprite)
+    {
+        String methodName = "updateStatusFromConditions()";
+        boolean debug = false;
+        for (ActorCondition condition : conditions)
+        {
+            if //check pre-condition
+            (
+                    (generalStatus.equals(condition.spriteStatusCondition) || condition.spriteStatusCondition.equals("*"))
+                            &&
+                            (sensorStatus.statusName.equals(condition.sensorStatusCondition) || condition.sensorStatusCondition.equals("*"))
+            )
+            {
+                if (condition.evaluate(activeSprite.actor, this))
+                //condition met
+                {
+                    if (!condition.trueSpriteStatus.equals("*"))
+                    {
+                        generalStatus = condition.trueSpriteStatus;
+                        updateCompoundStatus();
+                    }
+                    if (!condition.trueSensorStatus.equals("*"))
+                        setSensorStatus(condition.trueSensorStatus);
+
+                    if(debug)
+                        System.out.println(CLASSNAME + methodName + " condition met " + generalStatus + " " + sensorStatus.statusName);
+                }
+                else
+                //condition not met
+                {
+                    if (!condition.falseSensorStatus.equals("*"))
+                    {
+                        generalStatus = condition.falseSpriteStatus;
+                        updateCompoundStatus();
+                    }
+                    if (!condition.falseSensorStatus.equals("*"))
+                        setSensorStatus(condition.falseSensorStatus);
+
+                    if(debug)
+                        System.out.println(CLASSNAME + methodName + "Not met "  + generalStatus + " " + sensorStatus.statusName);
+                }
+            }
+        }
+    }
+
     public void onInteraction(Sprite activeSprite, Long currentNanoTime)
     {
-        String methodName = "onInteraction() ";
+        String methodName = "onInteraction(Sprite, Long) ";
         double elapsedTimeSinceLastInteraction = (currentNanoTime - lastInteraction) / 1000000000.0;
 
         if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS)
         {
+            updateStatusFromConditions(activeSprite);
+
+            //react
             evaluateTriggerType(sensorStatus.onInteraction, sensorStatus.onInteractionToStatus, activeSprite.actor);
             setLastInteraction(currentNanoTime);
         }
@@ -308,7 +390,7 @@ public class Actor
                 System.out.println(CLASSNAME + methodName + actorFileName + " onIntersection " + detectedSprite.getName());
 
             //Sprite Status
-            if(sensorStatus.onIntersection != TriggerType.NOTHING)
+            if (sensorStatus.onIntersection != TriggerType.NOTHING)
             {
                 evaluateTriggerType(sensorStatus.onIntersection, sensorStatus.onIntersectionToStatus, detectedSprite.actor);
             }
@@ -370,7 +452,7 @@ public class Actor
         if (targetSpriteData == null)
         {
             StringBuilder stringBuilder = new StringBuilder();
-            for(Map.Entry<String, List<SpriteData>> entry : spriteDataMap.entrySet())
+            for (Map.Entry<String, List<SpriteData>> entry : spriteDataMap.entrySet())
                 stringBuilder.append("\t").append(entry.getKey()).append("\n");
             throw new RuntimeException(compoundStatus + " not found in \n" + stringBuilder.toString());
         }
@@ -456,7 +538,7 @@ public class Actor
     private void collect(Actor collectingActor)
     {
         String methodName = "collect(String) ";
-        collectingActor.inventory.addItem(generalStatus, collectable_type);
+        collectingActor.inventory.addItem(generalStatus, collectable_type, actorInGameName);
         WorldView.toRemove.addAll(spriteList);
     }
 

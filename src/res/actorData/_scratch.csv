@@ -1,0 +1,13 @@
+
+#InteractionArea; Distance; Width; OffsetX; OffsetY
+#dialogueFile; actorData/dictionary/dialogueFile
+#transition; fromStatus; toStatus
+
+#sensorStatus;sensorStatusName										;interactionSpriteTrigger ;interactionSpriteStatus	;interactionSensorTrigger;interactionSensorStatus;inRangeSpriteTrigger;inRangeSpriteStatus	;inRangeSensorTrigger	;inRangeSensorStatus;intersectionSpriteTrigger;intersectionSpriteStatus		;intersectionSensorTrigger;intersectionSensorStatus;updateSpriteTrigger;updateSpriteStatus;updateSensorTrigger;updateSensorStatus;monitorSpriteTrigger;monitorSensorTrigger;textboxSpriteTrigger;textboxSensorTrigger
+sensorStatus	;default																			;none																					;none  	 																;none 																			;none 																		;none																;none																;none 																;none 														;none																					;none																						;none 																				;none 																			;none															;none														;none 														;none 													;none																;none 															;none																;none
+
+dialogueFile; actorData/dir/name
+
+#status to image
+#status 			;name   				;spritename  																																												;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;duration ;velocity ;dialogueID ;AnimationEnds
+default				;spriteName	;../actorData/storages/boxSmall/greenBox_64_64											;false			;0												;000	;000										;000	;000	;000								;000									;000											;000	 									;000									;000										;none						;000						;000						;default				;false

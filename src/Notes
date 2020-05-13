@@ -18,6 +18,7 @@ Logic:
 - ErrorHandling, detect unused Map Definitions
 - Change trigger to based on hitbox definition instead of sprite
 - change __xx__ to ______, latter should be overwritable
+- add Logger.log(debug, CLASSNAME, methodName, msg)
 
 Sprites:
 - Ship:

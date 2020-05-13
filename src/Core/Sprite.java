@@ -113,14 +113,6 @@ public class Sprite
         if(actor != null)
             initGeneralStatusFrame = actor.generalStatus;
 
-        /*
-        if (actor != null && actor.sensorStatus.onUpdate != TriggerType.NOTHING && !actor.sensorStatus.onUpdateToStatus.equals(actor.generalStatus))
-            actor.onUpdate(currentNanoTime);
-        if (actor != null && actor.sensorStatus.onUpdate_TriggerSensor != TriggerType.NOTHING && !actor.sensorStatus.onUpdate_StatusSensor.equals(actor.sensorStatus.statusName))
-            actor.onUpdate(currentNanoTime);
-
-         */
-
         for (Sprite otherSprite : activeSprites)
         {
             if (otherSprite == this ||
@@ -206,7 +198,7 @@ public class Sprite
         {
             if (debug)
                 System.out.println(CLASS_NAME + methodName + player.getName() + " interact with " + getName() + " by mouseclick.");
-            actor.onInteraction(this, currentNanoTime); //Passive reacts
+            actor.onInteraction(player, currentNanoTime); //Passive reacts
             player.actor.setLastInteraction(currentNanoTime);
         }
 
@@ -303,7 +295,6 @@ public class Sprite
     {
         return new Rectangle2D(positionX + hitBoxOffsetX, positionY + hitBoxOffsetY, hitBoxWidth, hitBoxHeight);
     }
-
 
     public String toString()
     {

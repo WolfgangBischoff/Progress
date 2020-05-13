@@ -24,6 +24,8 @@ public class WorldLoader
     List<Sprite> bttmLayer = new ArrayList<>();
     List<Sprite> mediumLayer = new ArrayList<>();
     List<Sprite> upperLayer = new ArrayList<>();
+
+
     Map<String, SpriteData> tileDataMap = new HashMap<>();
     Map<String, ActorData> actorDataMap = new HashMap<>();
     Map<String, SpawnData> spawnPointsMap = new HashMap<>();
@@ -198,7 +200,6 @@ public class WorldLoader
 
 
         //from left to right, reads tile codes
-        //for (int i = 0; i < lineData.length; i++)
         for (currentHorizontalTile = 0; currentHorizontalTile < lineData.length; currentHorizontalTile++)
         {
             //if first column is line number

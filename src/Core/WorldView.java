@@ -1,6 +1,7 @@
 package Core;
 
 import Core.Enums.Direction;
+import Core.Enums.TriggerType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
@@ -222,7 +223,7 @@ public class WorldView implements GUIController
 
     private void processMouse(Long currentNanoTime)
     {
-        String methodName = "processMouse()";
+        String methodName = "processMouse() ";
         double screenWidth = GameWindow.getSingleton().getScreenWidth();
         double screenHeight = GameWindow.getSingleton().getScreenHeight();
         Point2D mousePosition = GameWindow.getSingleton().mousePosition;
@@ -233,7 +234,8 @@ public class WorldView implements GUIController
         List<Sprite> mouseHoveredSprites = new ArrayList<>();
         //TODO Send to Actor one time, not every Sprite
         for (Sprite active : activeSpritesLayer)
-            if (active.intersectsRelativeToWorldView(mousePositionRelativeToCamera))
+            if (active.intersectsRelativeToWorldView(mousePositionRelativeToCamera)
+                    && active.actor.sensorStatus.onInteraction != TriggerType.NOTHING)//Just add sprites of actors you can interact by onInteraction
                 mouseHoveredSprites.add(active);
 
 
@@ -246,7 +248,7 @@ public class WorldView implements GUIController
             for (Sprite clicked : mouseHoveredSprites)
                 if (isMouseClicked)
                 {
-                    clicked.onClick(currentNanoTime);
+                    clicked.onClick(currentNanoTime);//Used onInteraction Trigger
                 }
                 else
                 {
@@ -255,8 +257,6 @@ public class WorldView implements GUIController
         }
 
         GameWindow.getSingleton().mouseClicked = false;
-
-
     }
 
     private void calcCameraPosition()

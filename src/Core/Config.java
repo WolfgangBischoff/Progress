@@ -36,6 +36,7 @@ public class Config
     public static final String KEYWORD_text_box_analysis_group = "textbox_analysis_group";
     public static final String KEYWORD_collectable_type = "collectable_type";
     public static final String KEYWORD_actor_tags = "tags";
+    public static final String KEYWORD_condition = "condition";
 
     //DialogueFile Keywords
     public static final String DIALOGUE_TAG = "dialogue";

@@ -26,13 +26,21 @@ actorstatus - changes actor to status defined in actor file, "transition" leads 
     </dialogue>
 <-->
 
-<root name = "infoTerminal">
+<root name = "box">
     <dialogue id="none" type="normal">
-        <line>Diffuser Lorem Ipsum</line>
+        <line>Lorem Ipsum</line>
     </dialogue>
 
     <dialogue id="default" type="normal">
         <line>Your found a green box.</line>
+    </dialogue>
+
+    <dialogue id="init-locked" type="normal">
+        <line>The box is locked.</line>
+    </dialogue>
+
+    <dialogue id="init-get" type="normal">
+        <line>You have the fitting key.</line>
     </dialogue>
 
 </root>
