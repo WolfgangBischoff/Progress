@@ -373,7 +373,6 @@ public class Actor
             for(Map.Entry<String, List<SpriteData>> entry : spriteDataMap.entrySet())
                 stringBuilder.append("\t").append(entry.getKey()).append("\n");
             throw new RuntimeException(compoundStatus + " not found in \n" + stringBuilder.toString());
-//            System.out.println(CLASSNAME + methodName +  + spriteDataMap);
         }
 
         //For all Sprites of the actor onUpdate to new Status

@@ -1,5 +1,10 @@
 
 Logic:
+- Build repair mechanic
+    - find knowledge
+    - find image
+    - repair
+- Social Assignment mechanic
 - shaking screen
 - person moving
 - Menu
@@ -12,6 +17,7 @@ Logic:
 - Console
 - ErrorHandling, detect unused Map Definitions
 - Change trigger to based on hitbox definition instead of sprite
+- change __xx__ to ______, latter should be overwritable
 
 Sprites:
 - Ship:
@@ -34,9 +40,9 @@ Character (Who are they, dreams, personality, history)
 
 Lore (Info not related to PLot, History, descriptions):
     Third Class
-        => Earth damaged, people want to live in space and station, asteriodCracker
+        => Earth damaged, people want to live in space and station, Ceres is base for asteriod belt mining
         => Companies are paid for being crew
-        => No money, just subscriptions to benefits
+        => Subscriptions to benefits
         => Dwarf planes Ceres, Water colony with science; can travel to asteriods
         => Board time / Ceres Time (9h 4min per day) connection affects world (year 4,605 years)
 
@@ -45,9 +51,14 @@ Plot (multiple small plots interconnected with main plot)
 Central Plot Social Injustice:
     Prolog:
         Station was infected by disease, people left/quarantined; ABC squad found something, cleaned
-        People come back to station, Chaos and mysterys of previous people.
-        Owner company just sealed underground area
-        Desease still exists but it contained
+            People come back to station, Chaos and mysterys of previous people.
+            Owner company just sealed underground area
+            Desease still exists but it contained
+        Plant-Meteor hits ship, your stase capsule is damaged, you are waked up.
+            Transporter Quests:
+                Repair hull because air goes away, not enough for travel; check options, collect knowledge, several kit-options or disconnect capsule
+                Contain Meteor; find person that can do that, social mechanic
+                Your Home; set up own capsule by build mechanic
     1) Self Rescue
         Start aussteigen aus Raumschiff als "Freiwilliger Lohnarbeiter"
         Gehen durch empfangsbereich Terminal zur Monrail
