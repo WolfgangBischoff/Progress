@@ -73,13 +73,13 @@ exit__					;doors/vertical/autoBulkheadVertical					;exit to docking bay						;o
 autoDo					;doors/vertical/autoBulkheadVertical					;bulkhead																	;on																	;default																;west
 
 #spaceway
-trigge					;floor/trigger																											;Trigger																		;20x64yellow								;readyToFire_20									;undefined
+trigge					;floor/trigger																											;Trigger																		;20x64														;readyToFire_20									;undefined
 roof__					;../img/walls/spaceway/roof														;roof																					;on																	;waitForMonitor									;west
 roof1_					;../img/walls/spaceway/roof														;roof																					;on2																;waitForMonitor									;west
 roofw_					;../img/walls/spaceway/roof														;roof																					;full_win 										;waitForMonitor									;west
 
 #freightcapsule
-FC_tri					;floor/trigger																											;Trigger																		;12x5_yellow									;readyToFire_12x5							;undefined
+FC_tri					;floor/trigger																											;Trigger																		;12x5																;readyToFire_12x5							;undefined
 FCr__0					;../img/walls/freightcapsule/roof								;roofFC																			;visible													;waitForMonitor									;none
 
 box___					;storages/boxSmall/green																	;green Box																;locked 													;default																;none

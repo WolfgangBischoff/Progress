@@ -10,13 +10,10 @@ Logic:
 - Menu
     add item with textbox
     add item in box
-- Add TriggerStatus change
-    - owned item
 - schlafen, fade out, calender
 - character change
 - Console
 - ErrorHandling, detect unused Map Definitions
-- Change trigger to based on hitbox definition instead of sprite
 - change __xx__ to ______, latter should be overwritable
 - add Logger.log(debug, CLASSNAME, methodName, msg)
 

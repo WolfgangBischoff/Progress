@@ -17,5 +17,3 @@ unlocked 		;greenBox			;../actorData/storages/boxSmall/greenBox_64_64											
 #condition;if sprite-status;if sensor-status;type				;true-sprite-status;true-sensor-status;false-sprite-status;false-sensor-status	;params
 condition	;locked										;*															;hasItem ;unlocked										;default 										;locked													;*						 												;green ;key ;red; key
 
-#add status locked => tells you that locked, later other sensor to inventory
-#condition fullfilled => tells you opened
