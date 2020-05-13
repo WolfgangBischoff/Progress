@@ -73,13 +73,13 @@ exit__					;doors/vertical/autoBulkheadVertical					;exit to docking bay						;o
 autoDo					;doors/vertical/autoBulkheadVertical					;bulkhead																	;on																	;default																;west
 
 #spaceway
-trigge					;floor/trigger																											;Trigger																		;20x64														;readyToFire_20									;undefined
+trigge					;floor/trigger																											;Trigger																		;20x64_off										;readyToFire_20									;undefined
 roof__					;../img/walls/spaceway/roof														;roof																					;on																	;waitForMonitor									;west
 roof1_					;../img/walls/spaceway/roof														;roof																					;on2																;waitForMonitor									;west
 roofw_					;../img/walls/spaceway/roof														;roof																					;full_win 										;waitForMonitor									;west
 
 #freightcapsule
-FC_tri					;floor/trigger																											;Trigger																		;12x5																;readyToFire_12x5							;undefined
+FC_tri					;floor/trigger																											;Trigger																		;12x5_yellow									;readyToFire_12x5							;undefined
 FCr__0					;../img/walls/freightcapsule/roof								;roofFC																			;visible													;waitForMonitor									;none
 
 box___					;storages/boxSmall/green																	;green Box																;locked 													;default																;none
@@ -128,7 +128,7 @@ passivlayer:
 024 ;______ ; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; TRf__0; TRf__0; TRr__0; TRr__0; TRr__0; TRr__0; TRr__0; TRr__0; TRr__0; TRr__0; TRr__0; TRr__0; TRr__0; TRf__0; TRf__0; ______;
 025 ;______ ; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; TRf__0; TRf__0; TRr__0; TRr__0; TRr__0; ______; ______; ______; TRr__0; TRr__0; TRr__0; TRr__0; TRr__0; TRf__0; TRf__0; ______;
 026 ;______ ; space2; __xx__; __xx__; __xx__; space3; __xx__; __xx__; __xx__; space0; __xx__; __xx__; __xx__; space1; __xx__; __xx__; __xx__; space2; __xx__; __xx__; __xx__; space3; __xx__; __xx__; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; elev__; __xx__; __xx__; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; ______;
-027 ;______ ; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; FCf__0; FCf__0; FCf__0; FCf__0; elev__; FCf__0; FCf__0; FCf__0; FCf__0; FCf__0; FCf__0; __xx__; __xx__; __xx__; __xx__; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; __xx__; __xx__; __xx__; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; ______;
+027 ;______ ; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; FCf__0; FCf__0; FCf__0; FCf__0; FCf__0; FCf__0; FCf__0; FCf__0; FCf__0; FCf__0; FCf__0; __xx__; __xx__; __xx__; __xx__; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; __xx__; __xx__; __xx__; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; ______;
 028 ;______ ; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; FCf__0; FCf__0; FCf__0; FCf__0; FCf__0; FCf__0; FCf__0; FCf__0; FCf__0; FCf__0; FCf__0; __xx__; __xx__; __xx__; __xx__; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; ______;
 029 ;______ ; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; __xx__; FCf__0; FCf__0; FCf__0; FCf__0; FCf__0; FCf__0; FCf__0; FCf__0; FCf__0; FCf__0; FCf__0; __xx__; __xx__; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; ______;
 030 ;______ ; space3; __xx__; __xx__; __xx__; space0; __xx__; __xx__; __xx__; FCf__0; FCf__0; FCf__0; FCf__0; FCf__0; FCf__0; FCf__0; FCf__0; FCf__0; FCf__0; FCf__0; __xx__; space0; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; TRf__0; ______;
