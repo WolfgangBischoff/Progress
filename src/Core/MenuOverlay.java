@@ -32,6 +32,7 @@ public class MenuOverlay
     private void draw() throws NullPointerException
     {
         String methodName = "draw() ";
+        player = WorldView.getPlayer().actor; //Just needed as long the player resets with stage load (so we have always new Player)
         menuGc.clearRect(0, 0, MENU_WIDTH, MENU_HEIGHT);
         Color background = Color.rgb(60, 90, 85);
         double hue = background.getHue();
@@ -69,7 +70,7 @@ public class MenuOverlay
 
                 //Item slot images
                 Collectible current = null;
-                if(itemSlotNumber <= player.inventory.itemsList.size())
+                if(itemSlotNumber < player.inventory.itemsList.size())
                     current = player.inventory.itemsList.get(itemSlotNumber);
                 if (current != null)
                     menuGc.drawImage(current.image, slotX, slotY);
