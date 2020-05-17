@@ -42,6 +42,14 @@ public class Discussion
     int optionsYGap = 15;
     Font optionsFont = new Font(25);
 
+    //Other Person Traits
+    private List<String> traitsList = new ArrayList<>();
+    int initTraitsOffsetX = 700;
+    int initTraitsOffsetY = 200;
+    int traitsYGap = 15;
+    Font traitsFont = new Font(25);
+
+
     public Discussion()
     {
         canvas = new Canvas(DISCUSSION_WIDTH, DISCUSSION_HEIGHT);
@@ -54,6 +62,9 @@ public class Discussion
         rhetoricOptions_list.add("ask for help"); //if helpfull
         rhetoricOptions_list.add("joke"); //witzig
         highlightedElement = 0;
+        traitsList.add("proud");
+        traitsList.add("naive");
+        traitsList.add("self confident");
     }
 
     private void draw() throws NullPointerException
@@ -105,6 +116,23 @@ public class Discussion
             );
             optionsOffsetY += fontsize + optionsYGap;
         }
+
+        //Other Person Known Traits
+        int traitsOffsetX = initTraitsOffsetX;
+        int traitsOffsetY = initTraitsOffsetY;
+        graphicsContext.setFont(traitsFont);
+        fontsize = graphicsContext.getFont().getSize();
+        for (int lineIdx = 0; lineIdx < traitsList.size(); lineIdx++)
+        {
+            graphicsContext.setFill(font);
+            graphicsContext.fillText(
+                    traitsList.get(lineIdx),
+                    Math.round(traitsOffsetX),
+                    Math.round(traitsOffsetY + fontsize)
+            );
+            traitsOffsetY += fontsize + traitsYGap;
+        }
+
 
         SnapshotParameters transparency = new SnapshotParameters();
         transparency.setFill(Color.TRANSPARENT);
@@ -158,31 +186,33 @@ public class Discussion
             mousePosRelativeToDiscussionOverlay = new Point2D(mousePosition.getX() - discussionOverlayPosition.getX(), mousePosition.getY() - discussionOverlayPosition.getY());
         else mousePosRelativeToDiscussionOverlay = null;
 
-        //Check Higlighted Button
-        if (GameWindow.getSingleton().isMouseMoved())
-        {
-            //Check if hovered over Rhetoric Button
-            if (rhetoric_Button.contains(mousePosRelativeToDiscussionOverlay))
-                setHighlightedElement(interfaceElements_list.indexOf("rhetoric"));
+        Integer hoveredElement = null;
+        //Check if hovered over Rhetoric Button
+        if (rhetoric_Button.contains(mousePosRelativeToDiscussionOverlay))
+            hoveredElement = interfaceElements_list.indexOf("rhetoric");
 
-            //Check if hovered Rhetoric Options
-            graphicsContext.setFont(optionsFont);
-            int optionsOffsetX = initOptionsOffsetX;
-            int optionsOffsetY = initOptionsOffsetY;
-            double fontSize = graphicsContext.getFont().getSize();
-            for (int lineIdx = 0; lineIdx < rhetoricOptions_list.size(); lineIdx++)
+        //Check if hovered Rhetoric Options
+        graphicsContext.setFont(optionsFont);
+        int optionsOffsetX = initOptionsOffsetX;
+        int optionsOffsetY = initOptionsOffsetY;
+        double fontSize = graphicsContext.getFont().getSize();
+        for (int lineIdx = 0; lineIdx < rhetoricOptions_list.size(); lineIdx++)
+        {
+            Rectangle2D optionArea = new Rectangle2D(optionsOffsetX - 10, optionsOffsetY, 300 + 10, fontSize + 10);
+            if (optionArea.contains(mousePosRelativeToDiscussionOverlay))
             {
-                Rectangle2D optionArea = new Rectangle2D(optionsOffsetX - 10, optionsOffsetY, 300 + 10, fontSize + 10);
-                if (optionArea.contains(mousePosRelativeToDiscussionOverlay))
-                {
-                    setHighlightedElement(interfaceElements_list.indexOf("" + lineIdx));
-                }
-                optionsOffsetY += fontSize + optionsYGap;
+                hoveredElement = interfaceElements_list.indexOf("" + lineIdx);
             }
+            optionsOffsetY += fontSize + optionsYGap;
+        }
+
+        if (GameWindow.getSingleton().isMouseMoved() && hoveredElement != null)//Set highlight if mouse moved
+        {
+            setHighlightedElement(hoveredElement);
             GameWindow.getSingleton().setMouseMoved(false);
         }
 
-        if (isMouseClicked)
+        if (isMouseClicked && hoveredElement != null)//To prevent click of not hovered
         {
             activateHighlightedOption(currentNanoTime);
         }
