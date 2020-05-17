@@ -17,7 +17,7 @@ public class GameWindow extends Stage
     private Scene gameScene;
     GUIController currentView;
     boolean mouseClicked = false;
-    Point2D mousePosition;
+    Point2D mousePosition = new Point2D(0,0); //To avoid NullPointerException of mouse was not moved at first
     boolean mouseMoved;
 
     private GameWindow()

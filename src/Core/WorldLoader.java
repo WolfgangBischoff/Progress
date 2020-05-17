@@ -25,7 +25,6 @@ public class WorldLoader
     List<Sprite> mediumLayer = new ArrayList<>();
     List<Sprite> upperLayer = new ArrayList<>();
 
-
     Map<String, SpriteData> tileDataMap = new HashMap<>();
     Map<String, ActorData> actorDataMap = new HashMap<>();
     Map<String, SpawnData> spawnPointsMap = new HashMap<>();

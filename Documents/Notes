@@ -1,7 +1,6 @@
 
 Logic:
 - Social Disscussion Mechanic
-    - Click
     - Output
 - Build repair mechanic
     - find knowledge
@@ -19,7 +18,7 @@ Logic:
 - ErrorHandling, detect unused Map Definitions
 - change __xx__ to ______, latter should be overwritable
 - add Logger.log(debug, CLASSNAME, methodName, msg)
-- Process mouse null pointer excep
+
 
 Sprites:
 - Ship:
