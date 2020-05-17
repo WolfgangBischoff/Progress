@@ -423,4 +423,9 @@ public class Sprite
     {
         this.animationEnds = animationEnds;
     }
+
+    public Actor getActor()
+    {
+        return actor;
+    }
 }

@@ -22,7 +22,7 @@ public class MenuOverlay
 
     public MenuOverlay()
     {
-        menuCanvas = new Canvas(MENU_WIDTH, MENU_HEIGHT);
+        menuCanvas = new Canvas(INVENTORY_WIDTH, INVENTORY_HEIGHT);
         menuGc = menuCanvas.getGraphicsContext2D();
         player = WorldView.getPlayer().actor;
         cornerTopLeft = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
@@ -33,7 +33,7 @@ public class MenuOverlay
     {
         String methodName = "draw() ";
         player = WorldView.getPlayer().actor; //Just needed as long the player resets with stage load (so we have always new Player)
-        menuGc.clearRect(0, 0, MENU_WIDTH, MENU_HEIGHT);
+        menuGc.clearRect(0, 0, INVENTORY_WIDTH, INVENTORY_HEIGHT);
         Color background = Color.rgb(60, 90, 85);
         double hue = background.getHue();
         double sat = background.getSaturation();
@@ -45,7 +45,7 @@ public class MenuOverlay
         menuGc.setGlobalAlpha(0.8);
         menuGc.setFill(background);
         int backgroundOffsetX = 16, backgroundOffsetY = 10;
-        menuGc.fillRect(backgroundOffsetX, backgroundOffsetY, MENU_WIDTH - backgroundOffsetX * 2, MENU_HEIGHT - backgroundOffsetY * 2);
+        menuGc.fillRect(backgroundOffsetX, backgroundOffsetY, INVENTORY_WIDTH - backgroundOffsetX * 2, INVENTORY_HEIGHT - backgroundOffsetY * 2);
 
         //Item Slots
         menuGc.setGlobalAlpha(1);
@@ -53,7 +53,7 @@ public class MenuOverlay
         int numberTilesRow = 10;
         int numberRows = 3;
         int spaceBetweenTiles = 10;
-        int initialOffsetX = (MENU_WIDTH - (numberTilesRow * itemTileWidth + (numberTilesRow - 1) * spaceBetweenTiles)) / 2; //Centered
+        int initialOffsetX = (INVENTORY_WIDTH - (numberTilesRow * itemTileWidth + (numberTilesRow - 1) * spaceBetweenTiles)) / 2; //Centered
         int initialOffsetY = 75;
         int itemSlotNumber = 0;
         for (int y = 0; y < numberRows; y++)
@@ -84,7 +84,7 @@ public class MenuOverlay
 
         //Decoration
         menuGc.drawImage(cornerTopLeft, 0, 0);
-        menuGc.drawImage(cornerBtmRight, MENU_WIDTH - cornerBtmRight.getWidth(), MENU_HEIGHT - cornerBtmRight.getHeight());
+        menuGc.drawImage(cornerBtmRight, INVENTORY_WIDTH - cornerBtmRight.getWidth(), INVENTORY_HEIGHT - cornerBtmRight.getHeight());
 
         SnapshotParameters transparency = new SnapshotParameters();
         transparency.setFill(Color.TRANSPARENT);
@@ -100,11 +100,11 @@ public class MenuOverlay
 
     public static int getMenuWidth()
     {
-        return MENU_WIDTH;
+        return INVENTORY_WIDTH;
     }
 
     public static int getMenuHeight()
     {
-        return MENU_HEIGHT;
+        return INVENTORY_HEIGHT;
     }
 }

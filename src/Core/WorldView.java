@@ -2,6 +2,7 @@ package Core;
 
 import Core.Enums.Direction;
 import Core.Enums.TriggerType;
+import Core.Menus.Discussion;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
@@ -40,16 +41,22 @@ public class WorldView implements GUIController
     Map<String, Image> lightsImageMap = new HashMap<>();
     Color shadowColor;
 
-    //Menu overlay
-    static boolean isMenuActive = false;
-    static MenuOverlay menuOverlay;
-    static Point2D menuOverlayPosition = new Point2D(CAMERA_WIDTH / 2f - MenuOverlay.getMenuWidth() / 2.0, CAMERA_HEIGHT / 2.0 - MenuOverlay.getMenuHeight()/2.0);
+    //Inventory Overlay
+    static boolean isInventoryActive = false;
+    static MenuOverlay inventoryOverlay;
+    static Point2D inventoryOverlayPosition = new Point2D(CAMERA_WIDTH / 2f - MenuOverlay.getMenuWidth() / 2.0, CAMERA_HEIGHT / 2.0 - MenuOverlay.getMenuHeight()/2.0);
     static Long lastTimeMenuWasOpened = 0L;
 
-    //Textbox
+    //TextBox Overlay
     static boolean isTextBoxActive = false;
     static Textbox textbox;
     static Point2D textBoxPosition;
+
+    //Discussion Overlay
+    static boolean isDiscussionActive = false;
+    static Discussion discussionOverlay;
+    static Point2D discussionOverlayPosition = new Point2D(CAMERA_WIDTH / 2f - Discussion.getMenuWidth() / 2.0, CAMERA_HEIGHT / 2.0 - Discussion.getMenuHeight()/2.0);
+    //static Long lastTimeMenuWasOpened = 0L; //uses the same for test
 
     //Sprites
     String levelName;
@@ -81,7 +88,8 @@ public class WorldView implements GUIController
         gc = worldCanvas.getGraphicsContext2D();
         ShadowMaskGc = shadowMask.getGraphicsContext2D();
         loadEnvironment(levelName, "default");
-        menuOverlay = new MenuOverlay();
+        inventoryOverlay = new MenuOverlay();
+        discussionOverlay = new Discussion();
         textbox = new Textbox();
         textBoxPosition = new Point2D(CAMERA_WIDTH / 2f - textbox.getTEXT_BOX_WIDTH() / 2, CAMERA_HEIGHT - textbox.getTEXT_BOX_HEIGHT() - 32);
     }
@@ -125,19 +133,19 @@ public class WorldView implements GUIController
         ArrayList<String> input = GameWindow.getInput();
         double elapsedTimeSinceLastInteraction = (currentNanoTime - lastTimeMenuWasOpened) / 1000000000.0;
 
-        if (input.contains("L") && elapsedTimeSinceLastInteraction > 1)
-        {
+        //Test Menu Hotkeys
+        if (input.contains("T") && elapsedTimeSinceLastInteraction > 1)
             loadEnvironment("test", "default");
+        if (input.contains("Z") && elapsedTimeSinceLastInteraction > 1)
+        {
+            isDiscussionActive = !isDiscussionActive;
+            lastTimeMenuWasOpened = currentNanoTime;
         }
+
 
         if (input.contains("ESCAPE") && elapsedTimeSinceLastInteraction > 1)
         {
-            if (!isMenuActive)
-            {
-                isMenuActive = true;
-            }
-            else
-                isMenuActive = false;
+            isInventoryActive = !isInventoryActive;//toggle
             lastTimeMenuWasOpened = currentNanoTime;
         }
 
@@ -240,6 +248,11 @@ public class WorldView implements GUIController
         {
             textbox.processMouse(mousePositionRelativeToCamera, isMouseClicked);
         }
+        else if(isDiscussionActive)
+        {
+            //System.out.println(CLASSNAME + methodName + "isDiscussionActive == true");
+            discussionOverlay.processMouse(mousePositionRelativeToCamera, isMouseClicked);
+        }
         else
         {
             for (Sprite clicked : mouseHoveredSprites)
@@ -335,10 +348,16 @@ public class WorldView implements GUIController
             gc.drawImage(textBoxImg, textBoxPosition.getX(), textBoxPosition.getY());
         }
 
-        if (isMenuActive)
+        if (isInventoryActive)
         {
-            WritableImage menuImage = menuOverlay.getMenuImage();
-            gc.drawImage(menuImage, menuOverlayPosition.getX(), menuOverlayPosition.getY());
+            WritableImage inventoryOverlayMenuImage = inventoryOverlay.getMenuImage();
+            gc.drawImage(inventoryOverlayMenuImage, inventoryOverlayPosition.getX(), inventoryOverlayPosition.getY());
+        }
+
+        if(isDiscussionActive)
+        {
+            WritableImage discussionOverlayImage = discussionOverlay.getWritableImage();
+            gc.drawImage(discussionOverlayImage, discussionOverlayPosition.getX(), discussionOverlayPosition.getY());
         }
 
     }
@@ -420,5 +439,20 @@ public class WorldView implements GUIController
         if (singleton == null)
             singleton = new WorldView(Config.FIRST_LEVEL);
         return singleton;
+    }
+
+    public static Point2D getInventoryOverlayPosition()
+    {
+        return inventoryOverlayPosition;
+    }
+
+    public static Point2D getTextBoxPosition()
+    {
+        return textBoxPosition;
+    }
+
+    public static Point2D getDiscussionOverlayPosition()
+    {
+        return discussionOverlayPosition;
     }
 }

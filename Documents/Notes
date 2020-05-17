@@ -1,5 +1,9 @@
 
 Logic:
+- Social Disscussion Mechanic
+    - Hovering
+    - Click
+    - Output
 - Build repair mechanic
     - find knowledge
     - find image
@@ -108,10 +112,11 @@ Does team fits together? NetworkMechanic?
 ------------------------------------------
 ----- Social Discussion Mechanic ---------
 ------------------------------------------
-Know peoples history, traitors, Interests, Capabilities to get entrance, support, join team, stop behavior get item
+Know peoples history, traitors, Interests, Capabilities to get entrance, support, join team, stop behavior get item; Maybe also with third party "public"
 Repeatable Minigame where you start knowing no/few traits of opponent, randomized through current feelings.
 Round based game, you have to find best arguments based on your repetoire and enemies traits.
 There rethorical figures that can be learned over time, facts found in world (maybe with google mech) and items like money or drugs
+Rhetoric has combinations
 1) Decide what rethorics you want to take with you (number grows over time); facts and money are always there
 2) Logic evaluates sucess of argument against traits
 3) Start argument and get hint whats the best argument next
