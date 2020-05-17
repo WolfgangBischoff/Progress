@@ -3,7 +3,6 @@ package Core;
 import Core.Enums.Direction;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.paint.Color;
-import javafx.util.Pair;
 
 import java.util.*;
 
@@ -25,6 +24,7 @@ public class WorldLoader
     List<Sprite> mediumLayer = new ArrayList<>();
     List<Sprite> upperLayer = new ArrayList<>();
 
+    Set<String> definedMapCodesSet = new HashSet<>();
     Map<String, SpriteData> tileDataMap = new HashMap<>();
     Map<String, ActorData> actorDataMap = new HashMap<>();
     Map<String, SpawnData> spawnPointsMap = new HashMap<>();
@@ -44,6 +44,7 @@ public class WorldLoader
 
     public void load()
     {
+        String methodName = "load()";
         leveldata = Utilities.readAllLineFromTxt(STAGE_FILE_PATH + levelName + CSV_POSTFIX);
         readMode = null;
         //Check for keyword
@@ -74,6 +75,7 @@ public class WorldLoader
                 {
                     case KEYWORD_TILEDEF:
                         tileDataMap.put(lineData[SpriteData.tileCodeIdx], SpriteData.tileDefinition(lineData));
+                        definedMapCodesSet.add(lineData[SpriteData.tileCodeIdx]);
                         continue;
                     case KEYWORD_NEW_LAYER:
                         readLineOfTiles(lineData, false);
@@ -103,6 +105,9 @@ public class WorldLoader
             }
 
         }
+
+        if(definedMapCodesSet.size() > 0)
+            System.out.println(CLASSNAME + methodName + " found unsued tile or actor definition: " + definedMapCodesSet);
         borders = new Rectangle2D(0, 0, (maxHorizontalTile + 1) * 64, (maxVerticalTile) * 64);
     }
 
@@ -111,11 +116,11 @@ public class WorldLoader
         int spawnIdIdx = 0;
         int spawnXId = 1;
         int spawnYId = 2;
-        int directionIdx =3;
+        int directionIdx = 3;
         Integer x = Integer.parseInt(lineData[spawnXId]);
         Integer y = Integer.parseInt(lineData[spawnYId]);
         Direction direction = Direction.getDirectionFromValue(lineData[directionIdx]);
-        SpawnData spawnData = new SpawnData(x,y,direction);
+        SpawnData spawnData = new SpawnData(x, y, direction);
         spawnPointsMap.put(lineData[spawnIdIdx], spawnData);
     }
 
@@ -251,11 +256,12 @@ public class WorldLoader
             }
             else if (isPassiv && lineData[currentHorizontalTile].equals(MAPDEFINITION_NO_TILE))
             {
-            //Do nothing
+                //Do nothing
             }
             else if (!lineData[currentHorizontalTile].equals(Config.MAPDEFINITION_EMPTY))
                 System.out.println("WorldLoader readTile: tile definition not found: " + lineData[currentHorizontalTile] + " in line " + lineNumber + " column " + currentHorizontalTile);
 
+            definedMapCodesSet.remove(lineData[currentHorizontalTile]); //For usage check of defined tiles and actors
             maxHorizontalTile = Math.max(currentHorizontalTile, maxHorizontalTile);
         }
 
@@ -299,9 +305,6 @@ public class WorldLoader
             actor.setSpeed(spriteData.velocity);//Set as often as Sprites exist?
             actor.dialogueStatusID = spriteData.dialogueID;
             actor.addSprite(actorSprite);
-
-            //activeLayer.add(actorSprite);
-            //addToCollisionLayer(actorSprite, spriteDataList.get(j).heightLayer);
         }
         return actor;
     }
@@ -324,13 +327,15 @@ public class WorldLoader
         //Player start position is not based on tile schema
         if (actorData.actorFileName.toLowerCase().equals("player"))
             createPlayer(actorData);
+        else
+            definedMapCodesSet.add(lineData[actorCodeIdx]);//Player is not defined by layers
     }
 
     private void createPlayer(ActorData actorData)
     {
         String methodName = "createPlayer(ActorData) ";
         SpawnData playerSpawn = null;
-        if(spawnPointsMap.containsKey(spawnId))
+        if (spawnPointsMap.containsKey(spawnId))
             playerSpawn = spawnPointsMap.get(spawnId);
         else
             throw new RuntimeException("Spawn Point " + spawnId + " not set in " + levelName + "\nSpawn Points: " + spawnPointsMap.toString());
@@ -346,7 +351,7 @@ public class WorldLoader
 
     class SpawnData
     {
-        Integer x,y;
+        Integer x, y;
         Direction direction;
 
         public SpawnData(Integer x, Integer y, Direction direction)
@@ -405,7 +410,7 @@ public class WorldLoader
         ca.setLightningSpriteName(tile.lightningSprite);
 
         //if (ca.getName().toLowerCase().equals("player"))
-         //   player = ca;
+        //   player = ca;
 
         //If Hitbox differs
         if (tile.hitboxOffsetX != 0 || tile.hitboxOffsetY != 0 || tile.hitboxWidth != 0 || tile.hitboxHeight != 0)
