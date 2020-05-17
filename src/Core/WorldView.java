@@ -89,7 +89,7 @@ public class WorldView implements GUIController
         ShadowMaskGc = shadowMask.getGraphicsContext2D();
         loadEnvironment(levelName, "default");
         inventoryOverlay = new MenuOverlay();
-        discussionOverlay = new Discussion();
+        //discussionOverlay = new Discussion();
         textbox = new Textbox();
         textBoxPosition = new Point2D(CAMERA_WIDTH / 2f - textbox.getTEXT_BOX_WIDTH() / 2, CAMERA_HEIGHT - textbox.getTEXT_BOX_HEIGHT() - 32);
     }
@@ -139,6 +139,8 @@ public class WorldView implements GUIController
         if (input.contains("Z") && elapsedTimeSinceLastInteraction > 1)
         {
             isDiscussionActive = !isDiscussionActive;
+            if(isDiscussionActive)
+                discussionOverlay = new Discussion();
             lastTimeMenuWasOpened = currentNanoTime;
         }
 
@@ -155,6 +157,12 @@ public class WorldView implements GUIController
             if (player.actor.isMoving())
                 player.actor.setVelocity(0, 0);
             textbox.processKey(input, currentNanoTime);
+        }
+        else if(isDiscussionActive)
+        {
+            if (player.actor.isMoving())
+                player.actor.setVelocity(0, 0);
+            discussionOverlay.processKey(input, currentNanoTime);
         }
         else
             processInputAsMovement(input);
@@ -251,7 +259,7 @@ public class WorldView implements GUIController
         else if(isDiscussionActive)
         {
             //System.out.println(CLASSNAME + methodName + "isDiscussionActive == true");
-            discussionOverlay.processMouse(mousePositionRelativeToCamera, isMouseClicked);
+            discussionOverlay.processMouse(mousePositionRelativeToCamera, isMouseClicked, currentNanoTime);
         }
         else
         {

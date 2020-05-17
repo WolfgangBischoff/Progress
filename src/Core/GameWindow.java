@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class GameWindow extends Stage
 {
     public static ArrayList<String> input = new ArrayList<>();
-    private static final String CLASSNAME = "GameWindow/";
+    private static final String CLASSNAME = "GameWindow-";
     private static GameWindow singleton;
     private static long currentNanoRenderTimeGameWindow = 0L;
     private Stage gameStage;
@@ -100,4 +100,28 @@ public class GameWindow extends Stage
         return input;
     }
 
+    public GUIController getCurrentView()
+    {
+        return currentView;
+    }
+
+    public boolean isMouseClicked()
+    {
+        return mouseClicked;
+    }
+
+    public Point2D getMousePosition()
+    {
+        return mousePosition;
+    }
+
+    public boolean isMouseMoved()
+    {
+        return mouseMoved;
+    }
+
+    public void setMouseMoved(boolean mouseMoved)
+    {
+        this.mouseMoved = mouseMoved;
+    }
 }

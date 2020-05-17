@@ -1,6 +1,7 @@
 package Core.Menus;
 
 import Core.Actor;
+import Core.GameWindow;
 import Core.WorldView;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
@@ -23,26 +24,36 @@ public class Discussion
     private GraphicsContext graphicsContext;
     private WritableImage writableImage;
     private Actor player;
+    Point2D mousePosRelativeToDiscussionOverlay;
+    private Integer highlightedElement;
+    private List<String> interfaceElements_list = new ArrayList<>();
 
-    private List<String> rhetoricSkills_list = new ArrayList<>();
-
+    //Rhetoric Button
     int rhetoric_x = 50;
     int rhetoric_y = 100;
     int rhetoric_width = 150;
     int rhetoric_height = 60;
     Rectangle2D rhetoric_Button = new Rectangle2D(rhetoric_x, rhetoric_y, rhetoric_width, rhetoric_height);
 
+    //Rhetoric Options List
+    private List<String> rhetoricOptions_list = new ArrayList<>();
+    int initOptionsOffsetX = 50;
+    int initOptionsOffsetY = 200;
+    int optionsYGap = 15;
+    Font optionsFont = new Font(25);
+
     public Discussion()
     {
         canvas = new Canvas(DISCUSSION_WIDTH, DISCUSSION_HEIGHT);
         graphicsContext = canvas.getGraphicsContext2D();
         player = WorldView.getPlayer().getActor();
-        rhetoricSkills_list.add("admire"); //bewundern if ego high or naiv
-        rhetoricSkills_list.add("boast"); //prahlen if ego low
-        rhetoricSkills_list.add("underline well mean");//naiv
-        rhetoricSkills_list.add("coerce"); //nötigen if ego weak
-        rhetoricSkills_list.add("ask for help"); //if helpfull
-        rhetoricSkills_list.add("joke"); //witzig
+        rhetoricOptions_list.add("admire"); //bewundern if ego high or naiv
+        rhetoricOptions_list.add("boast"); //prahlen if ego low
+        rhetoricOptions_list.add("underline well mean");//naiv
+        rhetoricOptions_list.add("coerce"); //nötigen if ego weak
+        rhetoricOptions_list.add("ask for help"); //if helpfull
+        rhetoricOptions_list.add("joke"); //witzig
+        highlightedElement = 0;
     }
 
     private void draw() throws NullPointerException
@@ -56,39 +67,43 @@ public class Discussion
         double brig = background.getBrightness();
         Color marking = Color.hsb(hue, sat - 0.2, brig + 0.2);
         Color font = Color.hsb(hue, sat + 0.15, brig + 0.4);
+        interfaceElements_list.clear(); //Filled with each draw() Maybe better if filled just if elements change
 
         //Background
         graphicsContext.setGlobalAlpha(0.8);
         graphicsContext.setFill(background);
         int backgroundOffsetX = 16, backgroundOffsetY = 10;
         graphicsContext.fillRect(backgroundOffsetX, backgroundOffsetY, INVENTORY_WIDTH - backgroundOffsetX * 2, INVENTORY_HEIGHT - backgroundOffsetY * 2);
-
         graphicsContext.setGlobalAlpha(1);
 
         //Rhetoric button
         graphicsContext.setFill(marking);
-        graphicsContext.fillRect(rhetoric_Button.getMinX(), rhetoric_Button.getMinY(), rhetoric_Button.getWidth(), rhetoric_Button.getHeight());
+        interfaceElements_list.add("rhetoric");
+        if (highlightedElement == interfaceElements_list.indexOf("rhetoric"))
+            graphicsContext.fillRect(rhetoric_Button.getMinX(), rhetoric_Button.getMinY(), rhetoric_Button.getWidth(), rhetoric_Button.getHeight());
         graphicsContext.setFill(font);
         graphicsContext.fillText("Rhetoric", rhetoric_Button.getMinX(), rhetoric_Button.getMinY() + graphicsContext.getFont().getSize());
 
-        //Rethoric Options
-        int xOffsetTextLine = 50;
-        int yOffsetTextLine = 200;
-        int yGap = 15;
-        Font retfong = new Font(25);
-        graphicsContext.setFont(retfong);
+        //Rhetoric Options
+        int optionsOffsetX = initOptionsOffsetX;
+        int optionsOffsetY = initOptionsOffsetY;
+        graphicsContext.setFont(optionsFont);
         double fontsize = graphicsContext.getFont().getSize();
-        for (int lineIdx = 0; lineIdx < rhetoricSkills_list.size(); lineIdx++)
+        for (int lineIdx = 0; lineIdx < rhetoricOptions_list.size(); lineIdx++)
         {
             graphicsContext.setFill(marking);
-            graphicsContext.fillRect(xOffsetTextLine -10, yOffsetTextLine, 300 +10, fontsize + 10);
+            interfaceElements_list.add("" + lineIdx);
+            if (highlightedElement == interfaceElements_list.indexOf("" + lineIdx))
+            {
+                graphicsContext.fillRect(optionsOffsetX - 10, optionsOffsetY, 300 + 10, fontsize + 10);
+            }
             graphicsContext.setFill(font);
             graphicsContext.fillText(
-                    rhetoricSkills_list.get(lineIdx),
-                    Math.round(xOffsetTextLine),
-                    Math.round(yOffsetTextLine + fontsize)
+                    rhetoricOptions_list.get(lineIdx),
+                    Math.round(optionsOffsetX),
+                    Math.round(optionsOffsetY + fontsize)
             );
-            yOffsetTextLine += fontsize + yGap;
+            optionsOffsetY += fontsize + optionsYGap;
         }
 
         SnapshotParameters transparency = new SnapshotParameters();
@@ -97,55 +112,99 @@ public class Discussion
 
     }
 
-    public void processMouse(Point2D mousePosition, boolean isMouseClicked)
+    public void processKey(ArrayList<String> input, Long currentNanoTime)
+    {
+        String methodName = "processKey() ";
+        int maxMarkedOptionIdx = interfaceElements_list.size() - 1;
+        int newMarkedOption = highlightedElement;
+        double elapsedTimeSinceLastInteraction = (currentNanoTime - WorldView.getPlayer().getActor().getLastInteraction()) / 1000000000.0;
+        if (!(elapsedTimeSinceLastInteraction > TIME_BETWEEN_DIALOGUE))
+            return;
+
+        if (input.contains("E") || input.contains("ENTER") || input.contains("SPACE"))
+        {
+            activateHighlightedOption(currentNanoTime);
+            return;
+        }
+        if (input.contains("W") || input.contains("UP"))
+        {
+            newMarkedOption--;
+        }
+        if (input.contains("S") || input.contains("DOWN"))
+            newMarkedOption++;
+
+        if (newMarkedOption < 0)
+            newMarkedOption = maxMarkedOptionIdx;
+        if (newMarkedOption > maxMarkedOptionIdx)
+            newMarkedOption = 0;
+
+        if (highlightedElement != newMarkedOption)
+        {
+            setHighlightedElement(newMarkedOption);
+            WorldView.getPlayer().getActor().setLastInteraction(currentNanoTime);
+            draw();
+        }
+
+    }
+
+    public void processMouse(Point2D mousePosition, boolean isMouseClicked, Long currentNanoTime)
     {
         String methodName = "processMouse(Point2D, boolean) ";
         Point2D discussionOverlayPosition = WorldView.getDiscussionOverlayPosition();
         Rectangle2D discussionPosRelativeToWorldview = new Rectangle2D(discussionOverlayPosition.getX(), discussionOverlayPosition.getY(), DISCUSSION_WIDTH, DISCUSSION_HEIGHT);
-        Rectangle2D rhetoric_buttonRelativeToWorldView = new Rectangle2D(discussionOverlayPosition.getX() + rhetoric_x, discussionOverlayPosition.getY() + rhetoric_y, rhetoric_width, rhetoric_height);
+
+        //Calculate Mouse Position relative to Discussion
         if (discussionPosRelativeToWorldview.contains(mousePosition))
-        {
-            //System.out.println(CLASSNAME + methodName + "Mouse: " + mousePosition.getX() + " " + mousePosition.getY());
-        }
+            mousePosRelativeToDiscussionOverlay = new Point2D(mousePosition.getX() - discussionOverlayPosition.getX(), mousePosition.getY() - discussionOverlayPosition.getY());
+        else mousePosRelativeToDiscussionOverlay = null;
 
-        //Check if hovered over Button
-        if (rhetoric_buttonRelativeToWorldView.contains(mousePosition))
+        //Check Higlighted Button
+        if (GameWindow.getSingleton().isMouseMoved())
         {
-            System.out.println(CLASSNAME + methodName + "Rethorics Button hovered");
-            if (isMouseClicked)
+            //Check if hovered over Rhetoric Button
+            if (rhetoric_Button.contains(mousePosRelativeToDiscussionOverlay))
+                setHighlightedElement(interfaceElements_list.indexOf("rhetoric"));
+
+            //Check if hovered Rhetoric Options
+            graphicsContext.setFont(optionsFont);
+            int optionsOffsetX = initOptionsOffsetX;
+            int optionsOffsetY = initOptionsOffsetY;
+            double fontSize = graphicsContext.getFont().getSize();
+            for (int lineIdx = 0; lineIdx < rhetoricOptions_list.size(); lineIdx++)
             {
-                System.out.println(CLASSNAME + methodName + "Rethorics Button clicked");
-            }
-        }
-
-
-        /*
-        int offsetYTmp = firstLineOffsetY;
-        if (readDialogue.type.equals(DECISION_KEYWORD) && GameWindow.getSingleton().mouseMoved)
-        {
-            for (int checkedLineIdx = 0; checkedLineIdx < lineSplitMessage.size(); checkedLineIdx++)
-            {
-                Rectangle2D positionOptionRelativeToWorldView = new Rectangle2D(discussionOverlayPosition.getX(), discussionOverlayPosition.getY() + offsetYTmp, TEXT_BOX_WIDTH, textboxGc.getFont().getSize());
-                offsetYTmp += textboxGc.getFont().getSize();
-                //Hovers over Option
-                if (positionOptionRelativeToWorldView.contains(mousePosition))
+                Rectangle2D optionArea = new Rectangle2D(optionsOffsetX - 10, optionsOffsetY, 300 + 10, fontSize + 10);
+                if (optionArea.contains(mousePosRelativeToDiscussionOverlay))
                 {
-                    if (markedOption != checkedLineIdx)
-                    {
-                        markedOption = checkedLineIdx;
-                        drawTextbox();
-                    }
-                    break;
+                    setHighlightedElement(interfaceElements_list.indexOf("" + lineIdx));
                 }
+                optionsOffsetY += fontSize + optionsYGap;
             }
-
-            GameWindow.getSingleton().mouseMoved = false;
+            GameWindow.getSingleton().setMouseMoved(false);
         }
- */
+
         if (isMouseClicked)
         {
-            //nextMessage(GameWindow.getSingleton().getRenderTime());
+            activateHighlightedOption(currentNanoTime);
         }
+    }
+
+    private void activateHighlightedOption(Long currentNanoTime)
+    {
+        String methodName = "activateHighlightedOption()";
+        if (highlightedElement != null)
+            System.out.println(CLASSNAME + methodName + interfaceElements_list.get(highlightedElement));
+        else
+            System.out.println(CLASSNAME + methodName + "nothing highlighted");
+        WorldView.getPlayer().getActor().setLastInteraction(currentNanoTime);
+    }
+
+    public void setHighlightedElement(Integer highlightedElement)
+    {
+        String methodName = "setHighlightedElement() ";
+        boolean debug = false;
+        if (debug && !this.highlightedElement.equals(highlightedElement))
+            System.out.println(CLASSNAME + methodName + highlightedElement + " " + interfaceElements_list.get(highlightedElement));
+        this.highlightedElement = highlightedElement;
     }
 
     public WritableImage getWritableImage()
