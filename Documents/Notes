@@ -1,7 +1,9 @@
 
 Logic:
 - Social Discussion Mechanic
-    - Output
+    - Personality GUI
+    - Total GUI
+    - limit arguments
 - Build repair mechanic
     - find knowledge
     - find image

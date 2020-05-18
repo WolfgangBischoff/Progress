@@ -2,7 +2,7 @@ package Core;
 
 import Core.Enums.Direction;
 import Core.Enums.TriggerType;
-import Core.Menus.Discussion;
+import Core.Menus.DiscussionController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
@@ -54,8 +54,8 @@ public class WorldView implements GUIController
 
     //Discussion Overlay
     static boolean isDiscussionActive = false;
-    static Discussion discussionOverlay;
-    static Point2D discussionOverlayPosition = new Point2D(CAMERA_WIDTH / 2f - Discussion.getMenuWidth() / 2.0, CAMERA_HEIGHT / 2.0 - Discussion.getMenuHeight()/2.0);
+    static DiscussionController discussionControllerOverlay;
+    static Point2D discussionOverlayPosition = new Point2D(CAMERA_WIDTH / 2f - DiscussionController.getMenuWidth() / 2.0, CAMERA_HEIGHT / 2.0 - DiscussionController.getMenuHeight()/2.0);
     //static Long lastTimeMenuWasOpened = 0L; //uses the same for test
 
     //Sprites
@@ -140,7 +140,7 @@ public class WorldView implements GUIController
         {
             isDiscussionActive = !isDiscussionActive;
             if(isDiscussionActive)
-                discussionOverlay = new Discussion();
+                discussionControllerOverlay = new DiscussionController();
             lastTimeMenuWasOpened = currentNanoTime;
         }
 
@@ -162,7 +162,7 @@ public class WorldView implements GUIController
         {
             if (player.actor.isMoving())
                 player.actor.setVelocity(0, 0);
-            discussionOverlay.processKey(input, currentNanoTime);
+            discussionControllerOverlay.processKey(input, currentNanoTime);
         }
         else
             processInputAsMovement(input);
@@ -259,7 +259,7 @@ public class WorldView implements GUIController
         else if(isDiscussionActive)
         {
             //System.out.println(CLASSNAME + methodName + "isDiscussionActive == true");
-            discussionOverlay.processMouse(mousePositionRelativeToCamera, isMouseClicked, currentNanoTime);
+            discussionControllerOverlay.processMouse(mousePositionRelativeToCamera, isMouseClicked, currentNanoTime);
         }
         else
         {
@@ -364,7 +364,7 @@ public class WorldView implements GUIController
 
         if(isDiscussionActive)
         {
-            WritableImage discussionOverlayImage = discussionOverlay.getWritableImage();
+            WritableImage discussionOverlayImage = discussionControllerOverlay.getWritableImage();
             gc.drawImage(discussionOverlayImage, discussionOverlayPosition.getX(), discussionOverlayPosition.getY());
         }
 

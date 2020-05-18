@@ -2,6 +2,7 @@ package Core.Menus;
 
 import Core.Actor;
 import Core.GameWindow;
+import Core.Utilities;
 import Core.WorldView;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
@@ -13,13 +14,15 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static Core.Config.*;
 
-public class Discussion
+public class DiscussionController
 {
-    private static final String CLASSNAME = "Discussion-";
+    private static final String CLASSNAME = "DiscussionController-";
     private Canvas canvas;
     private GraphicsContext graphicsContext;
     private WritableImage writableImage;
@@ -27,6 +30,8 @@ public class Discussion
     Point2D mousePosRelativeToDiscussionOverlay;
     private Integer highlightedElement;
     private List<String> interfaceElements_list = new ArrayList<>();
+    private ArgumentsSequence argumentsSequence;
+    static Map<String, Map<String, Integer>> argumentsTraitsMatrix; //Argument -> Values per Trait
 
     //Rhetoric Button
     int rhetoric_x = 50;
@@ -43,28 +48,38 @@ public class Discussion
     Font optionsFont = new Font(25);
 
     //Other Person Traits
-    private List<String> traitsList = new ArrayList<>();
+    private List<String> personalityList = new ArrayList<>();
     int initTraitsOffsetX = 700;
     int initTraitsOffsetY = 200;
     int traitsYGap = 15;
     Font traitsFont = new Font(25);
 
 
-    public Discussion()
+    public DiscussionController()
     {
         canvas = new Canvas(DISCUSSION_WIDTH, DISCUSSION_HEIGHT);
         graphicsContext = canvas.getGraphicsContext2D();
         player = WorldView.getPlayer().getActor();
-        rhetoricOptions_list.add("admire"); //bewundern if ego high or naiv
-        rhetoricOptions_list.add("boast"); //prahlen if ego low
-        rhetoricOptions_list.add("underline well mean");//naiv
+        highlightedElement = 0;
+
+
+        rhetoricOptions_list.add("encourage new idea"); //bewundern if ego high or naiv
+        rhetoricOptions_list.add("encourage vorsicht"); //prahlen if ego low
+        rhetoricOptions_list.add("boast");//naiv
         rhetoricOptions_list.add("coerce"); //nötigen if ego weak
+        rhetoricOptions_list.add("underline well mean"); //nötigen if ego weak
         rhetoricOptions_list.add("ask for help"); //if helpfull
         rhetoricOptions_list.add("joke"); //witzig
-        highlightedElement = 0;
-        traitsList.add("proud");
-        traitsList.add("naive");
-        traitsList.add("self confident");
+        rhetoricOptions_list.add("admire"); //witzig
+        personalityList.add("Conscientiousness");
+        personalityList.add("Openness");
+        personalityList.add("Agreeablness");
+        personalityList.add("Neuroticism");
+        personalityList.add("Extroversion");
+
+        argumentsSequence = new ArgumentsSequence();
+        if(argumentsTraitsMatrix == null)
+            readBigFiveMatrix();
     }
 
     private void draw() throws NullPointerException
@@ -122,11 +137,11 @@ public class Discussion
         int traitsOffsetY = initTraitsOffsetY;
         graphicsContext.setFont(traitsFont);
         fontsize = graphicsContext.getFont().getSize();
-        for (int lineIdx = 0; lineIdx < traitsList.size(); lineIdx++)
+        for (int lineIdx = 0; lineIdx < personalityList.size(); lineIdx++)
         {
             graphicsContext.setFill(font);
             graphicsContext.fillText(
-                    traitsList.get(lineIdx),
+                    personalityList.get(lineIdx),
                     Math.round(traitsOffsetX),
                     Math.round(traitsOffsetY + fontsize)
             );
@@ -220,11 +235,26 @@ public class Discussion
 
     private void activateHighlightedOption(Long currentNanoTime)
     {
-        String methodName = "activateHighlightedOption()";
-        if (highlightedElement != null)
-            System.out.println(CLASSNAME + methodName + interfaceElements_list.get(highlightedElement));
-        else
+        String methodName = "activateHighlightedOption(Long) ";
+        if (highlightedElement == null)
+        {
             System.out.println(CLASSNAME + methodName + "nothing highlighted");
+            return;
+        }
+
+        //Translate interface element highlight to argument name
+        Integer argumentIdx = null;
+        if(Utilities.tryParseInt(interfaceElements_list.get(highlightedElement)))//is list item
+            //argumentIdx = highlightedElement;
+            argumentIdx = Integer.parseInt(interfaceElements_list.get(highlightedElement));
+        if(argumentIdx != null)
+        {
+            String argument = rhetoricOptions_list.get(argumentIdx);
+            argumentsSequence.addArgument(argument);
+        }
+
+        //System.out.println(CLASSNAME + methodName + interfaceElements_list.get(highlightedElement));
+
         WorldView.getPlayer().getActor().setLastInteraction(currentNanoTime);
     }
 
@@ -251,5 +281,48 @@ public class Discussion
     public static int getMenuHeight()
     {
         return INVENTORY_HEIGHT;
+    }
+
+    private static void readBigFiveMatrix()
+    {
+        argumentsTraitsMatrix = new HashMap<>();
+        List<String[]> textfile = Utilities.readAllLineFromTxt("src/res/argumentBigfiveMatrix.csv");
+        for (int lineIdx = 0; lineIdx < textfile.size(); lineIdx++)
+        {
+            String[] line = textfile.get(lineIdx);
+            String argument = null;
+            for (int elementIdx = 0; elementIdx < line.length; elementIdx++)
+            {
+                //System.out.print(line[elementIdx] + "\t\t\t\t\t\t\t\t\t");
+
+                //First line
+                if (lineIdx == 0 && elementIdx > 0)
+                    argumentsTraitsMatrix.put(line[elementIdx], new HashMap<String, Integer>());
+
+                    //Content lines
+                else if (lineIdx > 0)
+                {
+                    //Argument name
+                    if (elementIdx == 0)
+                        argument = line[0];
+                    else
+                    {
+                        String belongsToTrait = textfile.get(0)[elementIdx];
+                        Integer value = Integer.parseInt(line[elementIdx]);
+                        Map<String, Integer> traitMap = argumentsTraitsMatrix.get(belongsToTrait);
+                        traitMap.put(argument, value);
+                    }
+                }
+            }
+            //System.out.println();
+        }
+
+        for(Map.Entry<String, Map<String, Integer>> trait : argumentsTraitsMatrix.entrySet())
+        {
+            String traitName = trait.getKey();
+            Map<String, Integer> values = trait.getValue();
+            //System.out.println(CLASSNAME + traitName + values.toString());
+        }
+
     }
 }
