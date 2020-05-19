@@ -10,8 +10,14 @@ import static Core.Menus.BigFiveCharacteristic.*;
 public class ArgumentsSequence
 {
     /*
-    1) Check against stable personality (Big Five)
-    2) Check against character specific traits
+    Different types of Discussion have other argument names, but same functionality
+        - Symphatic
+        - Überzeugen
+        - Motivieren
+
+    Je mehr man verlangt je mehr Punkte müssen erreicht werden
+    1) Check against stable personality, maybe random (Big Five)
+    2) Check against character specific traits, good to create enemy classes like reporter, manager, worker
     3) Check against random emotion
 
     Overall:
@@ -24,11 +30,13 @@ public class ArgumentsSequence
     Nach außen relevant, unwichtig was der andere denkt, aber die Öffentlichkeit
 
     Dimenional Traits:
-    Myers-Briggs-Typenindikator
     BigFive
 
     Emotions Random/Skriiptet
      Ärger, Furcht, Traurigkeit, Überraschung, Ekel und Freude Stolz
+
+     Maybe daily random enemies, could be impossible to solve?
+     Scripted that want a special sequence
      */
 
     private static final String CLASSNAME = "ArgumentsSequence-";

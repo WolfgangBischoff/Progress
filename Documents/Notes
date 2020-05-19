@@ -1,9 +1,8 @@
 
 Logic:
 - Social Discussion Mechanic
-    - Personality GUI
-    - Total GUI
-    - limit arguments (two for each personality)
+    - change to Myers briggs
+    - each argument is +1 -1
 - Build repair mechanic
     - find knowledge
     - find image
