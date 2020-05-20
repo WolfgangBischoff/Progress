@@ -2,7 +2,7 @@ package Core;
 
 import Core.Enums.Direction;
 import Core.Enums.TriggerType;
-import Core.Menus.DiscussionController;
+import Core.Menus.PersonalityScreenController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
@@ -54,8 +54,8 @@ public class WorldView implements GUIController
 
     //Discussion Overlay
     static boolean isDiscussionActive = false;
-    static DiscussionController discussionControllerOverlay;
-    static Point2D discussionOverlayPosition = new Point2D(CAMERA_WIDTH / 2f - DiscussionController.getMenuWidth() / 2.0, CAMERA_HEIGHT / 2.0 - DiscussionController.getMenuHeight()/2.0);
+    static PersonalityScreenController discussionControllerOverlay;
+    static Point2D discussionOverlayPosition = new Point2D(CAMERA_WIDTH / 2f - PersonalityScreenController.getMenuWidth() / 2.0, CAMERA_HEIGHT / 2.0 - PersonalityScreenController.getMenuHeight()/2.0);
     //static Long lastTimeMenuWasOpened = 0L; //uses the same for test
 
     //Sprites
@@ -140,7 +140,7 @@ public class WorldView implements GUIController
         {
             isDiscussionActive = !isDiscussionActive;
             if(isDiscussionActive)
-                discussionControllerOverlay = new DiscussionController();
+                discussionControllerOverlay = new PersonalityScreenController();
             lastTimeMenuWasOpened = currentNanoTime;
         }
 

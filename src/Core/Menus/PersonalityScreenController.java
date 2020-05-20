@@ -20,9 +20,9 @@ import java.util.Map;
 
 import static Core.Config.*;
 
-public class DiscussionController
+public class PersonalityScreenController
 {
-    private static final String CLASSNAME = "DiscussionController-";
+    private static final String CLASSNAME = "PersonalityScreenController-";
     private Canvas canvas;
     private GraphicsContext graphicsContext;
     private WritableImage writableImage;
@@ -30,7 +30,7 @@ public class DiscussionController
     Point2D mousePosRelativeToDiscussionOverlay;
     private Integer highlightedElement;
     private List<String> interfaceElements_list = new ArrayList<>();
-    private ArgumentsSequence argumentsSequence;
+    private PersonalityChange argumentsSequence;
     static Map<String, Map<String, Integer>> argumentsTraitsMatrix; //Argument -> Values per Trait
 
     //Rhetoric Button
@@ -55,7 +55,7 @@ public class DiscussionController
     Font traitsFont = new Font(25);
 
 
-    public DiscussionController()
+    public PersonalityScreenController()
     {
         canvas = new Canvas(DISCUSSION_WIDTH, DISCUSSION_HEIGHT);
         graphicsContext = canvas.getGraphicsContext2D();
@@ -79,7 +79,7 @@ public class DiscussionController
         personalityList.add("Neuroticism");
         personalityList.add("Extroversion");
 
-        argumentsSequence = new ArgumentsSequence();
+        argumentsSequence = new PersonalityChange();
         if(argumentsTraitsMatrix == null)
             readBigFiveMatrix();
     }

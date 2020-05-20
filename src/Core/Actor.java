@@ -584,7 +584,6 @@ public class Actor
 
         if (gameWindow instanceof WorldView)
         {
-            //if (onInteraction.equals(TriggerType.TEXTBOX_ANALYSIS))
             if (sensorStatus.onInteraction.equals(TriggerType.TEXTBOX_ANALYSIS))
             {
                 String analyzedGroupName = null;

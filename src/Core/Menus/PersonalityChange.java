@@ -9,7 +9,7 @@ import java.util.Map;
 
 import static Core.Menus.MyersBriggsCharacteristic.*;
 
-public class ArgumentsSequence
+public class PersonalityChange
 {
     /*
     Person has a cooperation value, that rises by small talk and other events.
@@ -20,7 +20,7 @@ public class ArgumentsSequence
 
      */
 
-    private static final String CLASSNAME = "ArgumentsSequence-";
+    private static final String CLASSNAME = "PersonalityChange-";
     List<String> topicList;
     List<String> opponentTraitsList;
     private MyersBriggsPersonality opponentPersonality;
@@ -28,7 +28,7 @@ public class ArgumentsSequence
     Actor opponent;
 
 
-    public ArgumentsSequence()
+    public PersonalityChange()
     {
         init();
         opponent = null; //TODO from controller
@@ -85,7 +85,7 @@ public class ArgumentsSequence
     private Map<MyersBriggsCharacteristic, Integer> getPersonalityValuesFromArgument(String argument)
     {
         Map<MyersBriggsCharacteristic, Integer> argumentToValues = new HashMap<>();
-        for (Map.Entry<String, Map<String, Integer>> dimensionToArgument : DiscussionController.argumentsTraitsMatrix.entrySet())
+        for (Map.Entry<String, Map<String, Integer>> dimensionToArgument : PersonalityScreenController.argumentsTraitsMatrix.entrySet())
         {
             MyersBriggsCharacteristic dimension = MyersBriggsCharacteristic.getType(dimensionToArgument.getKey());
             Map<String, Integer> dimensionValues = dimensionToArgument.getValue();
@@ -102,7 +102,7 @@ public class ArgumentsSequence
         boolean debug = true;
         int evaluationTotal = 0;
 
-        //Map<String, Integer> argumentsValues = DiscussionController.argumentsTraitsMatrix.get(argument);
+        //Map<String, Integer> argumentsValues = PersonalityScreenController.argumentsTraitsMatrix.get(argument);
         for (String trait : evaluationTraits)
         {
             //Integer value = argumentsValues.get(trait);
