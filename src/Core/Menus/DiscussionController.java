@@ -63,14 +63,16 @@ public class DiscussionController
         highlightedElement = 0;
 
 
-        rhetoricOptions_list.add("encourage new idea"); //bewundern if ego high or naiv
-        rhetoricOptions_list.add("encourage vorsicht"); //prahlen if ego low
-        rhetoricOptions_list.add("boast");//naiv
-        rhetoricOptions_list.add("coerce"); //nötigen if ego weak
-        rhetoricOptions_list.add("underline well mean"); //nötigen if ego weak
-        rhetoricOptions_list.add("ask for help"); //if helpfull
-        rhetoricOptions_list.add("joke"); //witzig
-        rhetoricOptions_list.add("admire"); //witzig
+        rhetoricOptions_list.add("personal daily life");
+        rhetoricOptions_list.add("society and gossip");
+        rhetoricOptions_list.add("obserervations");
+        rhetoricOptions_list.add("station news");
+        rhetoricOptions_list.add("scientific study");
+        rhetoricOptions_list.add("feelings of the people");
+        rhetoricOptions_list.add("new trends");
+        rhetoricOptions_list.add("good old earth");
+        rhetoricOptions_list.add("coerce");
+
         personalityList.add("Conscientiousness");
         personalityList.add("Openness");
         personalityList.add("Agreeablness");

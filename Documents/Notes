@@ -1,8 +1,10 @@
 
 Logic:
 - Social Discussion Mechanic
-    - change to Myers briggs
-    - each argument is +1 -1
+    - add Actor Character and trigger via Textbox
+    - add visible personality characteristics based on cooperation value, bonus for all four, color hint for known
+    - List<String> visibleTraitsList dependent on cooperation value;
+    - change Actors cooperation value after talk
 - Build repair mechanic
     - find knowledge
     - find image

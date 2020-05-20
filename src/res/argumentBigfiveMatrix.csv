@@ -1,10 +1,3 @@
-#https://de.wikipedia.org/wiki/Big_Five_(Psychologie)
-
-# Offenheit für Erfahrungen (Aufgeschlossenheit)																						;konservativ, vorsichtig																									;erfinderisch, neugierig
-# Gewissenhaftigkeit	(Perfektionismus)																																;unbekümmert, nachlässig																									;effektiv, organisiert
-# Extraversion	(Geselligkeit)																																									;zurückhaltend, reserviert																							;gesellig
-# Verträglichkeit	(Rücksichtnahme, Kooperationsbereitschaft, Empathie);wettbewerbsorientiert, antagonistisch											;kooperativ,freundlich, mitfühlend
-#	Neurotizismus	(emotionale Labilität und Verletzlichkeit)												;selbstsicher, ruhig																													;emotional, verletzlich
 
 #https://de.wikipedia.org/wiki/Myers-Briggs-Typenindikator
 #Motivation/Antrieb;Innen/Außenorientiert; Tiefe/Weite;Selbst/Gemeinschaft
@@ -12,29 +5,17 @@
 #Entscheidung						;Thinking/feeling	;logik/emotion
 #Lebensstil								;wahrnehmung/Beurteilung; Progresive/conservative
 
-XXXXXXXXXXX															;openness	;conscientiousness;extroversion ;Agreeableness ;neuroticism
-#base arguments point to just one personality
+#Myers Briggs; What topic do you want to bring up
+XXXXXXXXXXXXXXXXXX								;INTROVERSION;EXTROVERSION;SENSING;INTUITION;THINKING;FEELING;JUDGING;PERCEIVING;
+#basics
+personal daily life 						;001									;000									;000				;000						;000					;000				;000				;000
+society and gossip								;000									;001									;000				;000						;000					;000				;000				;000
+obserervations												;000									;000									;001				;000						;000					;000				;000				;000
+station news														;000									;000									;000				;001						;000					;000				;000				;000
+scientific study										;000									;000									;000				;000						;001					;000				;000				;000
+feelings of the people				;000									;000									;000				;000						;000					;001				;000				;000
+good old earth												;000									;000									;000				;000						;000					;000				;001				;000
+new trends																;000									;000									;000				;000						;000					;000				;000				;001
 
-#Big Five basis
-approach indirect 								;000						;000														;000										;000												;000
-approach direct											;000						;000														;000										;000												;000
-
-#Myers Briggs
-scratch private impact				;000						;000														;000										;000												;000
-scratch social impact					;000						;000														;000										;000												;000
-focus on detail											;000						;000														;000										;000												;000
-focus on big picture						;000						;000														;000										;000												;000
-underline logic											;000						;000														;000										;000												;000
-underline emotional							;000						;000														;000										;000												;000
-praise cautioness way					;000						;000														;000										;000												;000
-praise inventive way						;000						;000														;000										;000												;000
-
-#exclude
-encourage new idea								;+02						;-02														;000										;000												;000
-encourage vorsicht								;-02						;+02														;000										;000												;+01
-coerce																				;+01						;000														;000										;-03												;+01
-underline well mean							;+01						;+02														;000										;000												;000
-boast		 																		;000						;000														;-02										;000												;+02
-ask for help														;000						;000														;+03										;+03												;-03
-joke																						;000						;+02														;+01										;000												;000
-admire																				;000						;000														;000										;-01												;+02
+#advanced
+coerce																				;001						;000														;000										;001									;000			;001					;-05									;000
