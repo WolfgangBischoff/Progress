@@ -39,4 +39,28 @@ public enum MyersBriggsPersonality
         this.decision = decision;
         this.lifestyle = lifestyle;
     }
+
+    public static MyersBriggsPersonality getPersonality(String name)
+    {
+        switch (name.toLowerCase())
+        {
+            case "architect": return ARCHITECT;
+            case "logician": return LOGICIAN;
+            case "commander": return COMMANDER;
+            case "debater": return DEBATER;
+            case "advocate": return ADVOCATE;
+            case "mediator": return MEDIATOR;
+            case "protagonist": return PROTAGONIST;
+            case "campaigner": return CAMPAIGNER;
+            case "logistician": return LOGISTICIAN;
+            case "defender": return DEFENDER;
+            case "executive": return EXECUTIVE;
+            case "consul": return CONSUL;
+            case "virtuoso": return VIRTUOSO;
+            case "adventurer": return ADVENTURER;
+            case "entrepreneur": return ENTREPRENEUR;
+            case "entertainer": return ENTERTAINER;
+            default: throw new RuntimeException("Personality unknown: " + name);
+        }
+    }
 }

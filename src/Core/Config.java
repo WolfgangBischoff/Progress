@@ -12,6 +12,8 @@ public class Config
     public static final double GAME_WINDOW_HEIGHT = 900;
     public static final int CAMERA_WIDTH = 1200;
     public static final int CAMERA_HEIGHT = 800;
+    public static final int TEXTBOX_WIDTH = 800;
+    public static final int TEXTBOX_HEIGHT = 400;
     public static final int INVENTORY_WIDTH = 900;
     public static final int INVENTORY_HEIGHT = 600;
     public static final int DISCUSSION_WIDTH = 900;
@@ -41,6 +43,7 @@ public class Config
     public static final String KEYWORD_collectable_type = "collectable_type";
     public static final String KEYWORD_actor_tags = "tags";
     public static final String KEYWORD_condition = "condition";
+    public static final String KEYWORD_personality = "personality";
 
     //DialogueFile Keywords
     public static final String DIALOGUE_TAG = "dialogue";

@@ -1,7 +1,7 @@
 
 Logic:
 - Social Discussion Mechanic
-    - add Actor Character and trigger via Textbox
+    - open Talk Screen via Textbox
     - add visible personality characteristics based on cooperation value, bonus for all four, color hint for known
     - List<String> visibleTraitsList dependent on cooperation value;
     - change Actors cooperation value after talk

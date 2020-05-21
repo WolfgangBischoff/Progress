@@ -29,21 +29,37 @@ import static Core.Config.*;
 public class Textbox
 {
     private static final String CLASSNAME = "Textbox-";
-    private double TEXT_BOX_WIDTH = CAMERA_WIDTH / 1.5;
-    private double TEXT_BOX_HEIGHT = CAMERA_HEIGHT / 3.0;
+    //private double TEXT_BOX_WIDTH = CAMERA_WIDTH / 1.5;
+    private double TEXT_BOX_WIDTH = TEXTBOX_WIDTH;
+    //private double TEXT_BOX_HEIGHT = CAMERA_HEIGHT / 3.0;
+    private double TEXT_BOX_HEIGHT = TEXTBOX_HEIGHT;
     Canvas textboxCanvas = new Canvas(TEXT_BOX_WIDTH, TEXT_BOX_HEIGHT);
     GraphicsContext textboxGc = textboxCanvas.getGraphicsContext2D();
     WritableImage textboxImage;
     Dialogue readDialogue;
     Element dialogueFileRoot;
     int messageIdx = 0;
-    final int firstLineOffsetY = 30;
+    //final int firstLineOffsetY = 30;
+    //final int xOffsetTextLine = 40;
+    int backgroundOffsetX = 16;
+    int backgroundOffsetYDecorationTop = 10;
+    int backgroundOffsetYTalkIcon = 50;
+    int backgroundOffsetYDecorationBtm = 10;
+    Color background = Color.rgb(60, 90, 85);
+    final int firstLineOffsetY = backgroundOffsetYDecorationTop + backgroundOffsetYTalkIcon + 20;
     final int xOffsetTextLine = 40;
     final int maxDigitsInLine = 38;
     String nextDialogueID = null;
     List<String> lineSplitMessage;
     Integer markedOption = 0;
     Actor actorOfDialogue;
+    Point2D mousePosRelativeToTextboxOverlay = null;
+
+    //TalkIcon
+    int talkIconWidth = 280;
+    int talkIconHeight = 100;
+    Rectangle2D talkIcon = new Rectangle2D(TEXT_BOX_WIDTH - talkIconWidth, 0, talkIconWidth, talkIconHeight);
+    boolean isTalkIconHovered = false;
 
     Image cornerTopLeft;
     Image cornerBtmRight;
@@ -58,6 +74,7 @@ public class Textbox
     {
         String methodName = "readDialogue() ";
         actorOfDialogue = actorParam;
+
         try
         {
             dialogueFileRoot = readFile(actorOfDialogue.dialogueFileName);
@@ -96,7 +113,6 @@ public class Textbox
             File file = new File(path);
             Document doc = builder.parse(file);
             return doc.getDocumentElement();
-            //xmlRoot = doc.getDocumentElement();
         }
         catch (ParserConfigurationException | SAXException e)
         {
@@ -219,10 +235,22 @@ public class Textbox
         String methodName = "processMouse(Point2D, boolean) ";
         Point2D textboxPosition = WorldView.textBoxPosition;
         Rectangle2D textboxPosRelativeToWorldview = new Rectangle2D(textboxPosition.getX(), textboxPosition.getY(), TEXT_BOX_WIDTH, TEXT_BOX_HEIGHT);
+
         if (textboxPosRelativeToWorldview.contains(mousePosition))
         {
+            //Calculate Mouse Position relative to Discussion
+            mousePosRelativeToTextboxOverlay = new Point2D(mousePosition.getX() - textboxPosition.getX(), mousePosition.getY() - textboxPosition.getY());
             //System.out.println(classname + methodName + "Mouse: " + mousePosition.getX() + " " + mousePosition.getY());
         }
+        else mousePosRelativeToTextboxOverlay = null;
+
+        if (talkIcon.contains(mousePosRelativeToTextboxOverlay))
+        {
+            isTalkIconHovered = true;
+            //System.out.println(CLASSNAME + methodName + "talkIcon hovered");
+        }
+        else
+            isTalkIconHovered = false;
 
         //Check if hovered on Option
         int offsetYTmp = firstLineOffsetY;
@@ -248,7 +276,12 @@ public class Textbox
 
         if (isMouseClicked)
         {
-            nextMessage(GameWindow.getSingleton().getRenderTime());
+            if (isTalkIconHovered)
+            {
+                System.out.println(CLASSNAME + methodName + "openTalkMenu");
+            }
+            else
+                nextMessage(GameWindow.getSingleton().getRenderTime());
         }
     }
 
@@ -311,8 +344,13 @@ public class Textbox
     private void drawTextbox() throws NullPointerException
     {
         String methodName = "drawTextbox() ";
-        int backgroundOffsetX = 16, backgroundOffsetY = 10;
+        /*int backgroundOffsetX = 16;
+        int backgroundOffsetYDecorationTop = 10;
+        int backgroundOffsetYTalkIcon = 50;
+        int backgroundOffsetYDecorationBtm = 10;
         Color background = Color.rgb(60, 90, 85);
+
+         */
         double hue = background.getHue();
         double sat = background.getSaturation();
         double brig = background.getBrightness();
@@ -321,10 +359,15 @@ public class Textbox
 
         textboxGc.clearRect(0, 0, TEXT_BOX_WIDTH, TEXT_BOX_HEIGHT);
 
+        //testBackground
+        textboxGc.setFill(Color.RED);
+        textboxGc.fillRect(0, 0, TEXT_BOX_WIDTH, TEXT_BOX_HEIGHT);
+
         //Background
         textboxGc.setFill(background);
         textboxGc.setGlobalAlpha(0.9);
-        textboxGc.fillRect(backgroundOffsetX, backgroundOffsetY, TEXT_BOX_WIDTH - backgroundOffsetX * 2, TEXT_BOX_HEIGHT - backgroundOffsetY * 2);
+        //textboxGc.fillRect(backgroundOffsetX, backgroundOffsetYTop, TEXT_BOX_WIDTH - backgroundOffsetX * 2, TEXT_BOX_HEIGHT - backgroundOffsetYTop * 2);
+        textboxGc.fillRect(backgroundOffsetX, backgroundOffsetYDecorationTop + backgroundOffsetYTalkIcon, TEXT_BOX_WIDTH - backgroundOffsetX * 2, TEXT_BOX_HEIGHT - backgroundOffsetYDecorationTop - backgroundOffsetYTalkIcon - backgroundOffsetYDecorationBtm);
 
         if (markedOption != null && readDialogue.type.equals(DECISION_KEYWORD))
         {
@@ -334,7 +377,8 @@ public class Textbox
 
         //Decoration of textfield
         textboxGc.setGlobalAlpha(1);
-        textboxGc.drawImage(cornerTopLeft, 0, 0);
+        //textboxGc.drawImage(cornerTopLeft, 0, 0);
+        textboxGc.drawImage(cornerTopLeft, 0, backgroundOffsetYTalkIcon);
         textboxGc.drawImage(cornerBtmRight, TEXT_BOX_WIDTH - cornerBtmRight.getWidth(), TEXT_BOX_HEIGHT - cornerBtmRight.getHeight());
 
         textboxGc.setFont(new Font("Verdana", 30));
@@ -368,6 +412,12 @@ public class Textbox
         catch (IndexOutOfBoundsException e)
         {
             System.out.println(CLASSNAME + "IndexOutOfBoundsException " + e.getMessage());
+        }
+
+        //Dialogue Game Icon
+        if (actorOfDialogue.personalityContainer != null)
+        {
+            textboxGc.fillRect(talkIcon.getMinX(), talkIcon.getMinY(), talkIcon.getWidth(), talkIcon.getHeight());
         }
 
         SnapshotParameters transparency = new SnapshotParameters();

@@ -9,6 +9,9 @@ sensorStatus	;default																			;textbox																		;none  	 					
 
 dialogueFile; actorData/character/technician/technician
 
+#personality;myersBriggsPersonality;initCooperation;trait;traitsThresholds;...
+personality	;consul																;100												;FROM_EARTH;105	;POOR; 110
+
 #status to image
 #status 																;name   				;spritename  																								;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;duration ;velocity ;dialogueID ;AnimationEnds
 default-NORTH											;player					;../actorData/character/orange_north		;true				;1												;0			;0												;0			;0			;0										;0											;10												;84												;44										;44											;whitelight;0        ;300						;none							;false

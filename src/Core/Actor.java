@@ -5,6 +5,8 @@ import Core.Enums.ActorConditionType;
 import Core.Enums.ActorTag;
 import Core.Enums.Direction;
 import Core.Enums.TriggerType;
+import Core.Menus.MyersBriggsPersonality;
+import Core.Menus.PersonalityContainer;
 import javafx.animation.PauseTransition;
 import javafx.scene.image.Image;
 import javafx.util.Duration;
@@ -48,8 +50,9 @@ public class Actor
     Inventory inventory;
     Map<String, SensorStatus> sensorStatusMap = new HashMap<>();
     SensorStatus sensorStatus;
-
     public Set<ActorTag> tags = new HashSet<>();
+
+    PersonalityContainer personalityContainer;
 
     public Actor(String actorFileName, String actorInGameName, String initGeneralStatus, String initSensorStatus, Direction direction)
     {
@@ -73,6 +76,7 @@ public class Actor
             actorDefinitionKeywords.add(KEYWORD_sensorStatus);
             actorDefinitionKeywords.add(KEYWORD_actor_tags);
             actorDefinitionKeywords.add(KEYWORD_condition);
+            actorDefinitionKeywords.add(KEYWORD_personality);
         }
 
 
@@ -155,11 +159,41 @@ public class Actor
             case KEYWORD_condition:
                 conditions.add(readCondition(linedata));
                 break;
+            case KEYWORD_personality:
+                personalityContainer = readPersonality(linedata);
+                break;
             default:
                 throw new RuntimeException("Keyword unknown: " + keyword);
         }
 
         return true;
+    }
+
+    private PersonalityContainer readPersonality(String[] linedata)
+    {
+        String methodName = "readPersonality() ";
+        boolean debug = false;
+
+        if (debug)
+            System.out.println(CLASSNAME + methodName + Arrays.toString(linedata));
+
+        int personalityIdx = 1;
+        int initCooperationValueIdx = 2;
+        int trait_threshold_paramsIdx = 3;
+        PersonalityContainer readContainer = new PersonalityContainer();
+        MyersBriggsPersonality myersBriggsPersonality = MyersBriggsPersonality.getPersonality(linedata[personalityIdx]);
+        Integer initCooperationValue = Integer.parseInt(linedata[initCooperationValueIdx]);
+        readContainer.myersBriggsPersonality = myersBriggsPersonality;
+        readContainer.cooperation = initCooperationValue;
+        for (int i = trait_threshold_paramsIdx; i < linedata.length; i += 2)
+        {
+            Integer threshold = Integer.parseInt(linedata[i + 1]);
+            readContainer.traitsThresholds.put(linedata[i], threshold);
+        }
+
+        if (debug)
+            System.out.println(CLASSNAME + methodName + readContainer);
+        return readContainer;
     }
 
     private ActorCondition readCondition(String[] linedata)
@@ -186,7 +220,7 @@ public class Actor
         for (int i = paramsIdx; i < linedata.length; i++)
             actorCondition.params.add(linedata[i]);
 
-        if(debug)
+        if (debug)
             System.out.println(CLASSNAME + methodName + actorCondition);
         return actorCondition;
     }
@@ -312,7 +346,7 @@ public class Actor
                     if (!condition.trueSensorStatus.equals("*"))
                         setSensorStatus(condition.trueSensorStatus);
 
-                    if(debug)
+                    if (debug)
                         System.out.println(CLASSNAME + methodName + " condition met " + generalStatus + " " + sensorStatus.statusName);
                 }
                 else
@@ -326,8 +360,8 @@ public class Actor
                     if (!condition.falseSensorStatus.equals("*"))
                         setSensorStatus(condition.falseSensorStatus);
 
-                    if(debug)
-                        System.out.println(CLASSNAME + methodName + "Not met "  + generalStatus + " " + sensorStatus.statusName);
+                    if (debug)
+                        System.out.println(CLASSNAME + methodName + "Not met " + generalStatus + " " + sensorStatus.statusName);
                 }
             }
         }
