@@ -89,7 +89,7 @@ key_bl					;collectibles/key/keycard																;Red Keycard  				 							;b
 gsc100					;collectibles/money/money																;Crypts								 										;gsc100														;default																;undefined
 tyxo__					;collectibles/quest/quest																;Tyxo										 										;tyxo																;default																;undefined
 
-#techni					;character/technician/person_guy									;technician															;default													;default																;south
+techni					;character/technician/technician									;technician															;default													;default																;south
 
 ACTORGROUPS:
 #System-Name											;Logic																										;Influenced-System	;members by actorId (logic-Options: isBaseSystem)

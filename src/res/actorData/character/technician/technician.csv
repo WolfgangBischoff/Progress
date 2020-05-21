@@ -1,0 +1,22 @@
+
+#InteractionArea; Distance; Width; OffsetX; OffsetY
+#dialogueFile; actorData/dictionary/dialogueFile
+#transition; fromStatus; toStatus
+#tags; ActorTag ...
+
+#sensorStatus;sensorStatusName										;interactionSpriteTrigger ;interactionSpriteStatus	;interactionSensorTrigger;interactionSensorStatus;inRangeSpriteTrigger;inRangeSpriteStatus	;inRangeSensorTrigger	;inRangeSensorStatus;intersectionSpriteTrigger;intersectionSpriteStatus		;intersectionSensorTrigger;intersectionSensorStatus;updateSpriteTrigger;updateSpriteStatus;updateSensorTrigger;updateSensorStatus;monitorSpriteTrigger;monitorSensorTrigger;textboxSpriteTrigger;textboxSensorTrigger
+sensorStatus	;default																			;textbox																		;none  	 																;none 								;none 								;none								;none										;none 								;none 								;none													;none														;none 								;none 								;none							;none										;none 								;none 									;none					;none 								;none;none
+
+dialogueFile; actorData/character/technician/technician
+
+#status to image
+#status 																;name   				;spritename  																								;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;duration ;velocity ;dialogueID ;AnimationEnds
+default-NORTH											;player					;../actorData/character/orange_north		;true				;1												;0			;0												;0			;0			;0										;0											;10												;84												;44										;44											;whitelight;0        ;300						;none							;false
+default-NORTH-MOVING				;player					;person/concept128_Back_orange_Anim8	;true				;1												;10		;6												;6			;1			;64									;128									;10												;84												;44										;44											;whitelight;0        ;300						;none							;false
+default-SOUTH											;player					;person/orangeFront_64_128											;true				;1												;0			;0												;0			;0			;0										;0											;10												;84												;44										;44											;whitelight;0        ;300						;none							;false
+#default-SOUTH-MOVING				;player					;person/concept128_1.2															;true				;1												;10		;8												;8			;1			;64									;128									;10												;84												;44										;44											;whitelight;0        ;300						;none							;false
+default-SOUTH-MOVING				;player					;person/orangeFront_64_128_a8									;true				;1												;10		;8												;8			;1			;64									;128									;10												;84												;44										;44											;whitelight;0        ;300						;none							;false
+default-EAST												;player					;person/humanAlexEast																;true				;1												;0			;0												;0			;0			;0										;0											;10												;84												;44										;44											;whitelight;0        ;300						;none							;false
+default-EAST-MOVING					;player					;person/orangeEastAnim_8													;true				;1												;10		;8												;8			;1			;64									;128									;10												;84												;44										;44											;whitelight;0         ;300						;none							;false
+default-WEST												;player					;person/orangeWestStand_64_128							;true				;1												;0			;0												;0			;0			;0										;0											;10												;84												;44										;44											;whitelight;0        ;300						;none							;false
+default-WEST-MOVING					;player					;person/orangeWestAnim_8													;true				;1												;10		;8												;8			;1			;64									;128									;10												;84												;44										;44											;whitelight;0         ;300						;none							;false
