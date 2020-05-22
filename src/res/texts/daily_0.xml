@@ -1,0 +1,20 @@
+
+
+<!--/>
+
+<-->
+
+<root name = "daily_0">
+    <talk cooperation="0">
+        <node type="motivation">
+            <left>
+                <input>Person</input>
+                <positive></positive>
+            </left>
+            <right>Society</right>
+        </node>
+    </talk>
+
+</root>
+
+
