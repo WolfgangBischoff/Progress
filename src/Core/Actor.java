@@ -788,4 +788,14 @@ public class Actor
     {
         return lastInteraction;
     }
+
+    public PersonalityContainer getPersonalityContainer()
+    {
+        return personalityContainer;
+    }
+
+    public String getActorFileName()
+    {
+        return actorFileName;
+    }
 }

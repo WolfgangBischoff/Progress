@@ -126,6 +126,11 @@ public class WorldView implements GUIController
         offsetMaxY = borders.getMaxY() - Config.CAMERA_HEIGHT;
     }
 
+    public static void setIsDiscussionActive(boolean isDiscussionActive)
+    {
+        WorldView.isDiscussionActive = isDiscussionActive;
+    }
+
     @Override
     public void update(Long currentNanoTime)
     {
@@ -136,13 +141,13 @@ public class WorldView implements GUIController
         //Test Menu Hotkeys
         if (input.contains("T") && elapsedTimeSinceLastInteraction > 1)
             loadEnvironment("test", "default");
-        if (input.contains("Z") && elapsedTimeSinceLastInteraction > 1)
+       /* if (input.contains("Z") && elapsedTimeSinceLastInteraction > 1)
         {
             isDiscussionActive = !isDiscussionActive;
             if(isDiscussionActive)
-                discussionControllerOverlay = new PersonalityScreenController();
+                discussionControllerOverlay = new PersonalityScreenController(new );
             lastTimeMenuWasOpened = currentNanoTime;
-        }
+        }*/
 
 
         if (input.contains("ESCAPE") && elapsedTimeSinceLastInteraction > 1)
@@ -462,5 +467,15 @@ public class WorldView implements GUIController
     public static Point2D getDiscussionOverlayPosition()
     {
         return discussionOverlayPosition;
+    }
+
+    public static void setIsTextBoxActive(boolean isTextBoxActive)
+    {
+        WorldView.isTextBoxActive = isTextBoxActive;
+    }
+
+    public static void setDiscussionControllerOverlay(PersonalityScreenController discussionControllerOverlay)
+    {
+        WorldView.discussionControllerOverlay = discussionControllerOverlay;
     }
 }

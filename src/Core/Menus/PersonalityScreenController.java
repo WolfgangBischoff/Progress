@@ -6,12 +6,14 @@ import Core.Utilities;
 import Core.WorldView;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
+import javafx.geometry.VPos;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,6 +24,25 @@ import static Core.Config.*;
 
 public class PersonalityScreenController
 {
+    /*
+  Person has a cooperation value, that rises by small talk and other events.
+  At the beginning you get known by small talk with a generic action set evaluated by personality. (and maybe emotions)
+    1) Choose a topic (base is daily life, but more should be added); each topic one time a day
+    2) Lead the talk through four steps, options can increase over time to be more efficient; you just read his answer like: (with hints if he like the choosen)
+            Daily Life:
+                I am ok, life is going - I think the team is ok with the situation.
+                The peas were good today - Lunchtime was relaxing, had a good meal.
+                I guess they imported them from earth - I guess the cook likes is work
+                Hope they continue this way - Hope there come more good surprises
+    3) Dependent on cooperation value other information
+    4) At the end the player gets a resüme, and info if more topics are avaiable
+
+  With increasing cooperation value you find trais of the person, some traits are difficult to get, or just achievable by external world. Add Topics
+  The "Traits" menu show special actions like "Join party", Sabatoage, Give info, open way
+  Boost cooperation value with presents or actions
+   */
+
+
     private static final String CLASSNAME = "PersonalityScreenController-";
     private Canvas canvas;
     private GraphicsContext graphicsContext;
@@ -32,6 +53,8 @@ public class PersonalityScreenController
     private List<String> interfaceElements_list = new ArrayList<>();
     private PersonalityChange argumentsSequence;
     static Map<String, Map<String, Integer>> argumentsTraitsMatrix; //Argument -> Values per Trait
+    private Actor otherPersonActor;
+    private PersonalityContainer personalityContainer;
 
     //Rhetoric Button
     int rhetoric_x = 50;
@@ -47,6 +70,15 @@ public class PersonalityScreenController
     int optionsYGap = 15;
     Font optionsFont = new Font(25);
 
+    //Focus Option Buttons
+    private int optionWidth = 150;
+    private int optionsHeight = 60;
+    private int optionsYOffset = 450;
+    private Point2D optionLeftOffsett = new Point2D(DISCUSSION_WIDTH / 2f - optionWidth, optionsYOffset);
+    private Point2D optionRightOffsett = new Point2D(DISCUSSION_WIDTH / 2f, optionsYOffset);
+    private Rectangle2D optionLeft = new Rectangle2D(optionLeftOffsett.getX(), optionLeftOffsett.getY(), optionWidth, optionsHeight);
+    private Rectangle2D optionRight = new Rectangle2D(optionRightOffsett.getX(), optionRightOffsett.getY(), optionWidth, optionsHeight);
+
     //Other Person Traits
     private List<String> personalityList = new ArrayList<>();
     int initTraitsOffsetX = 700;
@@ -54,34 +86,64 @@ public class PersonalityScreenController
     int traitsYGap = 15;
     Font traitsFont = new Font(25);
 
-
-    public PersonalityScreenController()
+    public PersonalityScreenController(Actor otherPersonActor)
     {
         canvas = new Canvas(DISCUSSION_WIDTH, DISCUSSION_HEIGHT);
         graphicsContext = canvas.getGraphicsContext2D();
         player = WorldView.getPlayer().getActor();
         highlightedElement = 0;
-
+        this.otherPersonActor = otherPersonActor;
+        init();
 
         rhetoricOptions_list.add("personal daily life");
         rhetoricOptions_list.add("society and gossip");
         rhetoricOptions_list.add("obserervations");
-        rhetoricOptions_list.add("station news");
+        /*rhetoricOptions_list.add("station news");
         rhetoricOptions_list.add("scientific study");
         rhetoricOptions_list.add("feelings of the people");
         rhetoricOptions_list.add("new trends");
         rhetoricOptions_list.add("good old earth");
         rhetoricOptions_list.add("coerce");
+        */
 
-        personalityList.add("Conscientiousness");
-        personalityList.add("Openness");
-        personalityList.add("Agreeablness");
-        personalityList.add("Neuroticism");
-        personalityList.add("Extroversion");
-
-        argumentsSequence = new PersonalityChange();
-        if(argumentsTraitsMatrix == null)
+        if (argumentsTraitsMatrix == null)
             readBigFiveMatrix();
+    }
+
+    private void init()
+    {
+        if (otherPersonActor.getPersonalityContainer() == null)
+            throw new RuntimeException("Personaliy not defined in actorfile: " + otherPersonActor.getActorFileName());
+        personalityContainer = otherPersonActor.getPersonalityContainer();
+
+        updateVisiblePersonality();
+
+        argumentsSequence = new PersonalityChange(personalityContainer.myersBriggsPersonality);
+    }
+
+    private void updateVisiblePersonality()
+    {
+        personalityList.clear();
+        if (personalityContainer.numberOfInteractions >= THRESHOLD_PERSONALITY)
+            personalityList.add(personalityContainer.myersBriggsPersonality.toString());
+        else
+            personalityList.add("Unknown");
+        if (personalityContainer.numberOfInteractions >= THRESHOLD_MOTIVATION)
+            personalityList.add(personalityContainer.getMotivation());
+        else
+            personalityList.add("Unknown");
+        if (personalityContainer.numberOfInteractions >= THRESHOLD_DECISION)
+            personalityList.add(personalityContainer.getDecision());
+        else
+            personalityList.add("Unknown");
+        if (personalityContainer.numberOfInteractions >= THRESHOLD_FOCUS)
+            personalityList.add(personalityContainer.getFocus());
+        else
+            personalityList.add("Unknown");
+        if (personalityContainer.numberOfInteractions >= THRESHOLD_LIFESTYLE)
+            personalityList.add(personalityContainer.getLifestyle());
+        else
+            personalityList.add("Unknown");
     }
 
     private void draw() throws NullPointerException
@@ -97,6 +159,9 @@ public class PersonalityScreenController
         Color font = Color.hsb(hue, sat + 0.15, brig + 0.4);
         interfaceElements_list.clear(); //Filled with each draw() Maybe better if filled just if elements change
 
+        graphicsContext.setTextAlign(TextAlignment.LEFT);
+        graphicsContext.setTextBaseline(VPos.TOP);
+
         //Background
         graphicsContext.setGlobalAlpha(0.8);
         graphicsContext.setFill(background);
@@ -110,7 +175,8 @@ public class PersonalityScreenController
         if (highlightedElement == interfaceElements_list.indexOf("rhetoric"))
             graphicsContext.fillRect(rhetoric_Button.getMinX(), rhetoric_Button.getMinY(), rhetoric_Button.getWidth(), rhetoric_Button.getHeight());
         graphicsContext.setFill(font);
-        graphicsContext.fillText("Rhetoric", rhetoric_Button.getMinX(), rhetoric_Button.getMinY() + graphicsContext.getFont().getSize());
+        //graphicsContext.fillText("Rhetoric", rhetoric_Button.getMinX(), rhetoric_Button.getMinY() + graphicsContext.getFont().getSize());
+        graphicsContext.fillText("Rhetoric", rhetoric_Button.getMinX(), rhetoric_Button.getMinY());
 
         //Rhetoric Options
         int optionsOffsetX = initOptionsOffsetX;
@@ -129,10 +195,27 @@ public class PersonalityScreenController
             graphicsContext.fillText(
                     rhetoricOptions_list.get(lineIdx),
                     Math.round(optionsOffsetX),
-                    Math.round(optionsOffsetY + fontsize)
+                    //Math.round(optionsOffsetY + fontsize)
+                    Math.round(optionsOffsetY)
             );
             optionsOffsetY += fontsize + optionsYGap;
         }
+
+        //Options Button
+        graphicsContext.setFill(marking);
+        interfaceElements_list.add("leftOption");
+        if (highlightedElement == interfaceElements_list.indexOf("leftOption"))
+            graphicsContext.fillRect(optionLeft.getMinX(), optionLeft.getMinY(), optionLeft.getWidth(), optionLeft.getHeight());
+        graphicsContext.setFill(font);
+        graphicsContext.fillText("leftOption", optionLeft.getMinX(), optionLeft.getMinY());
+
+        graphicsContext.setFill(marking);
+        interfaceElements_list.add("rightOption");
+        if (highlightedElement == interfaceElements_list.indexOf("rightOption"))
+            graphicsContext.fillRect(optionRight.getMinX(), optionRight.getMinY(), optionRight.getWidth(), optionRight.getHeight());
+        graphicsContext.setFill(font);
+        graphicsContext.fillText("rightOption", optionRight.getMinX(), optionRight.getMinY());
+
 
         //Other Person Known Traits
         int traitsOffsetX = initTraitsOffsetX;
@@ -208,6 +291,11 @@ public class PersonalityScreenController
         if (rhetoric_Button.contains(mousePosRelativeToDiscussionOverlay))
             hoveredElement = interfaceElements_list.indexOf("rhetoric");
 
+        if (optionLeft.contains(mousePosRelativeToDiscussionOverlay))
+            hoveredElement = interfaceElements_list.indexOf("leftOption");
+        if (optionRight.contains(mousePosRelativeToDiscussionOverlay))
+            hoveredElement = interfaceElements_list.indexOf("rightOption");
+
         //Check if hovered Rhetoric Options
         graphicsContext.setFont(optionsFont);
         int optionsOffsetX = initOptionsOffsetX;
@@ -246,17 +334,16 @@ public class PersonalityScreenController
 
         //Translate interface element highlight to argument name
         Integer argumentIdx = null;
-        if(Utilities.tryParseInt(interfaceElements_list.get(highlightedElement)))//is list item
-            //argumentIdx = highlightedElement;
+        if (Utilities.tryParseInt(interfaceElements_list.get(highlightedElement)))//is list item
             argumentIdx = Integer.parseInt(interfaceElements_list.get(highlightedElement));
-        if(argumentIdx != null)
+        if (argumentIdx != null)
         {
             String argument = rhetoricOptions_list.get(argumentIdx);
             argumentsSequence.addArgument(argument);
+            personalityContainer.numberOfInteractions++;
         }
 
-        //System.out.println(CLASSNAME + methodName + interfaceElements_list.get(highlightedElement));
-
+        updateVisiblePersonality();
         WorldView.getPlayer().getActor().setLastInteraction(currentNanoTime);
     }
 
@@ -319,7 +406,7 @@ public class PersonalityScreenController
             //System.out.println();
         }
 
-        for(Map.Entry<String, Map<String, Integer>> trait : argumentsTraitsMatrix.entrySet())
+        for (Map.Entry<String, Map<String, Integer>> trait : argumentsTraitsMatrix.entrySet())
         {
             String traitName = trait.getKey();
             Map<String, Integer> values = trait.getValue();
