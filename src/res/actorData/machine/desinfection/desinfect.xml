@@ -2,11 +2,11 @@
 
 <!--/>
 File Identified by Actor Definition
-First Dialogue Identified by actor status value; In future maybe also MonitorData, levelname
+First Dialogue Identified by otherPersonActor status value; In future maybe also MonitorData, levelname
 
 id - identifier for lookup of textbox
 type - normal/decision
-actorstatus - changes actor to status defined in actor file, "transition" leads to changed defined in actor file
+actorstatus - changes otherPersonActor to status defined in otherPersonActor file, "transition" leads to changed defined in otherPersonActor file
 
     <dialogue id="welcome" type="normal" actorstatus="transition">
         <line>Shown message</line>

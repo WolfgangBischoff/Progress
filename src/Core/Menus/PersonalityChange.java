@@ -11,15 +11,6 @@ import static Core.Menus.MyersBriggsCharacteristic.*;
 
 public class PersonalityChange
 {
-    /*
-    Person has a cooperation value, that rises by small talk and other events.
-    At the beginning you get known by small talk with a generic action set evaluated by personality. (and maybe emotions)
-    The small talk set can be extended over time.
-    With increasing cooperation value you find trais of the person, some traits are difficult to get, or just achievable by external world.
-    The "Traits" menu show special actions like "Join party", Sabatoage, Give info
-
-     */
-
     private static final String CLASSNAME = "PersonalityChange-";
     List<String> topicList;
     List<String> opponentTraitsList;
@@ -28,11 +19,11 @@ public class PersonalityChange
     Actor opponent;
 
 
-    public PersonalityChange()
+    public PersonalityChange(MyersBriggsPersonality personality)
     {
         init();
-        opponent = null; //TODO from controller
-        this.opponentPersonality = MyersBriggsPersonality.ARCHITECT;
+        //opponent = null; //TODO from controller
+        this.opponentPersonality = personality;
         totalPoints = 0;
         opponentTraitsList = new ArrayList<>();
     }
@@ -55,7 +46,7 @@ public class PersonalityChange
         int evaluationTotal = 0;
 
         Map<MyersBriggsCharacteristic, Integer> values = getPersonalityValuesFromArgument(argument);
-        System.out.println(CLASSNAME + methodName + argument + " " + values);
+        //System.out.println(CLASSNAME + methodName + argument + " " + values);
 
         //INTROVERSION,EXTROVERSION,SENSING,INTUITION,THINKING,FEELING,JUDGING ,PERCEIVING;
         if(personalityValues.motivation == INTROVERSION)

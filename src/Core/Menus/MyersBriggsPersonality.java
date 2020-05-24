@@ -27,7 +27,7 @@ public enum MyersBriggsPersonality
     ,ENTREPRENEUR(EXTROVERSION, SENSING, THINKING, PERCEIVING)
     ,ENTERTAINER(EXTROVERSION, SENSING, FEELING, PERCEIVING);
 
-    MyersBriggsCharacteristic motivation; //INTROVERSION/social - Introversion/Extroversion
+    MyersBriggsCharacteristic motivation; //self/social - Introversion/Extroversion
     MyersBriggsCharacteristic focus; //  detail/holistic - Sensing/iNtuition
     MyersBriggsCharacteristic decision; //  logic/emotion - Thinking/Feeling
     MyersBriggsCharacteristic lifestyle; // conservative/progressive - Judging/Perceiving

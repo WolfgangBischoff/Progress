@@ -1,5 +1,6 @@
 package Core;
 
+import Core.Menus.PersonalityScreenController;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.geometry.VPos;
@@ -167,7 +168,6 @@ public class Textbox
                     }
                 }
 
-                //TODO ggf redundant
                 //Check for further dialogues
                 NodeList nextDialogueIdList = currentDialogue.getElementsByTagName(NEXT_DIALOGUE_TAG);
                 if (nextDialogueIdList.getLength() > 0)
@@ -180,6 +180,7 @@ public class Textbox
                     nextDialogueID = null;
                     readDialogue.nextDialogue = null;
                 }
+
                 break;
             }
         }
@@ -244,7 +245,7 @@ public class Textbox
         }
         else mousePosRelativeToTextboxOverlay = null;
 
-        if (talkIcon.contains(mousePosRelativeToTextboxOverlay))
+        if (actorOfDialogue.personalityContainer != null && talkIcon.contains(mousePosRelativeToTextboxOverlay))
         {
             isTalkIconHovered = true;
             //System.out.println(CLASSNAME + methodName + "talkIcon hovered");
@@ -279,6 +280,9 @@ public class Textbox
             if (isTalkIconHovered)
             {
                 System.out.println(CLASSNAME + methodName + "openTalkMenu");
+                WorldView.setIsDiscussionActive(isTalkIconHovered);
+                WorldView.setDiscussionControllerOverlay(new PersonalityScreenController(actorOfDialogue));
+                WorldView.setIsTextBoxActive(false);
             }
             else
                 nextMessage(GameWindow.getSingleton().getRenderTime());

@@ -63,4 +63,11 @@ public class Config
     public static final String ACTOR_DIRECTORY_PATH = "src/res/actorData/";
     public static final String IMAGE_DIRECTORY_PATH = "/res/img/";
 
+    //Talk-Game
+    public static final int THRESHOLD_MOTIVATION = 3;
+    public static final int THRESHOLD_DECISION = 6;
+    public static final int THRESHOLD_FOCUS = 9;
+    public static final int THRESHOLD_LIFESTYLE = 12;
+    public static final int THRESHOLD_PERSONALITY = 12;
+
 }
