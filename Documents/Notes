@@ -1,10 +1,8 @@
 
 Logic:
 - Social Discussion Mechanic
-    - open Talk Screen via Textbox
-    - add visible personality characteristics based on cooperation value, bonus for all four, color hint for known
-    - List<String> visibleTraitsList dependent on cooperation value;
-    - change Actors cooperation value after talk
+    - character detail screen shows info
+    - add zeiger mechanic from discussion
 - Build repair mechanic
     - find knowledge
     - find image
