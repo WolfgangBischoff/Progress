@@ -23,7 +23,7 @@ Logic:
 
 Sprites:
 - Ship:
-    Controls, FrontWindow, schleusePancheia, tieferes Geschoß aka Boden mit Antennen, moving asteroid, scripted Cleaing Bot
+    Controls, FrontWindow, schleusePancheia, tieferes Geschoß aka Boden mit Antennen, moving asteroid, scripted Cleaing Bot, rescue pods
 - Docking Bay:
     Elevator, schriftzug "Elevator", minimal table, Lautsprecher
 - Control Center: BrückenControls,
@@ -36,6 +36,14 @@ Sprites:
 - General: Hüllen beschädigt, Non critical System damaged, Hammer and Sickle modern
 - HeatSystem
 - Storage: Lagerschrank, Säulen, Tank, Big Crate
+
+QUEST:
+Technician please fix minor issue in freightcapusle Xy; on the way meteorit impact; Go back back to officer, he tells you that life function online but leaking in two sections
+Check capsules (people and furniture) and report; commander will check what to do with broken capsule; You should go to machine bay to get kit; just kit for one capsule there, report;
+second eingespart, we have to decide. People not insured but "life important supplies", so we have to cut the people capsule
+Try to help
+Find alternative somewhere else, finde life energy in life systems of ship for broken capsule
+Find minor defect from beginning
 
 
 Character (Who are they, dreams, personality, history)
