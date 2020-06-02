@@ -278,7 +278,7 @@ public class PersonalityScreenController
     public void processMouse(Point2D mousePosition, boolean isMouseClicked, Long currentNanoTime)
     {
         String methodName = "processMouse(Point2D, boolean) ";
-        Point2D discussionOverlayPosition = WorldView.getDiscussionOverlayPosition();
+        Point2D discussionOverlayPosition = WorldView.getPersonalityScreenPosition();
         Rectangle2D discussionPosRelativeToWorldview = new Rectangle2D(discussionOverlayPosition.getX(), discussionOverlayPosition.getY(), DISCUSSION_WIDTH, DISCUSSION_HEIGHT);
 
         //Calculate Mouse Position relative to Discussion

@@ -280,8 +280,8 @@ public class Textbox
             if (isTalkIconHovered)
             {
                 System.out.println(CLASSNAME + methodName + "openTalkMenu");
-                WorldView.setIsDiscussionActive(isTalkIconHovered);
-                WorldView.setDiscussionControllerOverlay(new PersonalityScreenController(actorOfDialogue));
+                WorldView.setIsPersonalityScreenActive(isTalkIconHovered);
+                WorldView.setPersonalityScreenController(new PersonalityScreenController(actorOfDialogue));
                 WorldView.setIsTextBoxActive(false);
             }
             else

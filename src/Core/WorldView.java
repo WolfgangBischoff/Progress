@@ -2,6 +2,7 @@ package Core;
 
 import Core.Enums.Direction;
 import Core.Enums.TriggerType;
+import Core.Menus.DiscussionGame.DiscussionGame;
 import Core.Menus.PersonalityScreenController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -52,11 +53,15 @@ public class WorldView implements GUIController
     static Textbox textbox;
     static Point2D textBoxPosition;
 
-    //Discussion Overlay
-    static boolean isDiscussionActive = false;
-    static PersonalityScreenController discussionControllerOverlay;
-    static Point2D discussionOverlayPosition = new Point2D(CAMERA_WIDTH / 2f - PersonalityScreenController.getMenuWidth() / 2.0, CAMERA_HEIGHT / 2.0 - PersonalityScreenController.getMenuHeight()/2.0);
-    //static Long lastTimeMenuWasOpened = 0L; //uses the same for test
+    //Personality Overlay
+    static boolean isPersonalityScreenActive = false;
+    static PersonalityScreenController personalityScreenController;
+    static Point2D personalityScreenPosition = new Point2D(CAMERA_WIDTH / 2f - PersonalityScreenController.getMenuWidth() / 2.0, CAMERA_HEIGHT / 2.0 - PersonalityScreenController.getMenuHeight()/2.0);
+
+    //Discussion Game
+    static boolean isDiscussionGameActive = false;
+    static DiscussionGame discussionGame;
+    static Point2D discussionGamePostion = new Point2D(CAMERA_WIDTH / 2f - DiscussionGame.getMenuWidth() / 2.0, CAMERA_HEIGHT / 2.0 - DiscussionGame.getMenuHeight()/2.0);
 
     //Sprites
     String levelName;
@@ -126,9 +131,9 @@ public class WorldView implements GUIController
         offsetMaxY = borders.getMaxY() - Config.CAMERA_HEIGHT;
     }
 
-    public static void setIsDiscussionActive(boolean isDiscussionActive)
+    public static void setIsPersonalityScreenActive(boolean isPersonalityScreenActive)
     {
-        WorldView.isDiscussionActive = isDiscussionActive;
+        WorldView.isPersonalityScreenActive = isPersonalityScreenActive;
     }
 
     @Override
@@ -141,13 +146,13 @@ public class WorldView implements GUIController
         //Test Menu Hotkeys
         if (input.contains("T") && elapsedTimeSinceLastInteraction > 1)
             loadEnvironment("test", "default");
-       /* if (input.contains("Z") && elapsedTimeSinceLastInteraction > 1)
+        if (input.contains("Z") && elapsedTimeSinceLastInteraction > 1)
         {
-            isDiscussionActive = !isDiscussionActive;
-            if(isDiscussionActive)
-                discussionControllerOverlay = new PersonalityScreenController(new );
+            isDiscussionGameActive = !isDiscussionGameActive;
+            if(isDiscussionGameActive)
+                discussionGame = new DiscussionGame();
             lastTimeMenuWasOpened = currentNanoTime;
-        }*/
+        }
 
 
         if (input.contains("ESCAPE") && elapsedTimeSinceLastInteraction > 1)
@@ -163,11 +168,11 @@ public class WorldView implements GUIController
                 player.actor.setVelocity(0, 0);
             textbox.processKey(input, currentNanoTime);
         }
-        else if(isDiscussionActive)
+        else if(isPersonalityScreenActive)
         {
             if (player.actor.isMoving())
                 player.actor.setVelocity(0, 0);
-            discussionControllerOverlay.processKey(input, currentNanoTime);
+            personalityScreenController.processKey(input, currentNanoTime);
         }
         else
             processInputAsMovement(input);
@@ -261,10 +266,14 @@ public class WorldView implements GUIController
         {
             textbox.processMouse(mousePositionRelativeToCamera, isMouseClicked);
         }
-        else if(isDiscussionActive)
+        else if(isPersonalityScreenActive)
         {
-            //System.out.println(CLASSNAME + methodName + "isDiscussionActive == true");
-            discussionControllerOverlay.processMouse(mousePositionRelativeToCamera, isMouseClicked, currentNanoTime);
+            //System.out.println(CLASSNAME + methodName + "isPersonalityScreenActive == true");
+            personalityScreenController.processMouse(mousePositionRelativeToCamera, isMouseClicked, currentNanoTime);
+        }
+        else if(isDiscussionGameActive)
+        {
+            discussionGame.processMouse(mousePositionRelativeToCamera, isMouseClicked, currentNanoTime);
         }
         else
         {
@@ -367,10 +376,16 @@ public class WorldView implements GUIController
             gc.drawImage(inventoryOverlayMenuImage, inventoryOverlayPosition.getX(), inventoryOverlayPosition.getY());
         }
 
-        if(isDiscussionActive)
+        if(isPersonalityScreenActive)
         {
-            WritableImage discussionOverlayImage = discussionControllerOverlay.getWritableImage();
-            gc.drawImage(discussionOverlayImage, discussionOverlayPosition.getX(), discussionOverlayPosition.getY());
+            WritableImage personalityScreenOverlay = personalityScreenController.getWritableImage();
+            gc.drawImage(personalityScreenOverlay, personalityScreenPosition.getX(), personalityScreenPosition.getY());
+        }
+
+        if(isDiscussionGameActive)
+        {
+            WritableImage discussionGameImage = discussionGame.getWritableImage();
+            gc.drawImage(discussionGameImage, discussionGamePostion.getX(), discussionGamePostion.getY());
         }
 
     }
@@ -464,9 +479,9 @@ public class WorldView implements GUIController
         return textBoxPosition;
     }
 
-    public static Point2D getDiscussionOverlayPosition()
+    public static Point2D getPersonalityScreenPosition()
     {
-        return discussionOverlayPosition;
+        return personalityScreenPosition;
     }
 
     public static void setIsTextBoxActive(boolean isTextBoxActive)
@@ -474,8 +489,8 @@ public class WorldView implements GUIController
         WorldView.isTextBoxActive = isTextBoxActive;
     }
 
-    public static void setDiscussionControllerOverlay(PersonalityScreenController discussionControllerOverlay)
+    public static void setPersonalityScreenController(PersonalityScreenController personalityScreenController)
     {
-        WorldView.discussionControllerOverlay = discussionControllerOverlay;
+        WorldView.personalityScreenController = personalityScreenController;
     }
 }
