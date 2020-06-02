@@ -1,6 +1,5 @@
 package Core.Menus.DiscussionGame;
 
-import Core.Actor;
 import Core.GameWindow;
 import Core.WorldView;
 import javafx.geometry.Point2D;
@@ -14,7 +13,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.TextAlignment;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +27,6 @@ public class DiscussionGame
     private GraphicsContext graphicsContext;
     private WritableImage writableImage;
     Point2D mousePosRelativeToDiscussionOverlay;
-    //private List<String> interfaceElements_list = new ArrayList<>();
     List<Shape> shapeList = new ArrayList<>();
 
 
