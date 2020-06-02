@@ -12,6 +12,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Shape;
 import javafx.scene.text.TextAlignment;
 
 import java.util.ArrayList;
@@ -27,13 +28,9 @@ public class DiscussionGame
     private Canvas canvas;
     private GraphicsContext graphicsContext;
     private WritableImage writableImage;
-    private Actor player;
     Point2D mousePosRelativeToDiscussionOverlay;
-    private Integer highlightedElement;
-    private List<String> interfaceElements_list = new ArrayList<>();
-
-    //test tile
-    Circle testCircle = new Circle(0, 300, 50);
+    //private List<String> interfaceElements_list = new ArrayList<>();
+    List<Shape> shapeList = new ArrayList<>();
 
 
     public DiscussionGame()
@@ -45,14 +42,44 @@ public class DiscussionGame
     {
         canvas = new Canvas(DISCUSSION_WIDTH, DISCUSSION_HEIGHT);
         graphicsContext = canvas.getGraphicsContext2D();
-        player = WorldView.getPlayer().getActor();
-        highlightedElement = 0;
+        loadDiscussion();
+    }
+
+    private void loadDiscussion()
+    {
+        //TODO read from file
+        shapeList.add(new Circle(100, 100, 50));
+        shapeList.add(new Circle(230, 150, 50));
+        shapeList.add(new Circle(360, 200, 50));
+        shapeList.add(new Circle(490, 150, 50));
+    }
+
+    public void update()
+    {
+        String methodName = "update() ";
+        for(Integer i=0; i<shapeList.size(); i++)
+        {
+            Shape shape = shapeList.get(i);
+            if(shape instanceof Circle)
+            {
+                Circle circle = (Circle)shape;
+
+                //Do movement
+                circle.setCenterY(circle.getCenterY() + 5);
+
+                //Check if is visible
+                if(!new Rectangle2D(0,0,canvas.getWidth(), canvas.getHeight()).
+                        intersects(circle.getCenterX()-circle.getRadius(), circle.getCenterY()-circle.getRadius(), circle.getCenterX()+circle.getRadius(), circle.getCenterY()+circle.getRadius()))
+                {
+                    circle.setCenterY(0);
+                }
+            }
+        }
     }
 
     private void draw() throws NullPointerException
     {
         String methodName = "draw() ";
-        player = WorldView.getPlayer().getActor(); //Just needed as long the player resets with stage load (so we have always new Player)
         graphicsContext.clearRect(0, 0, DISCUSSION_WIDTH, DISCUSSION_HEIGHT);
         Color background = Color.rgb(60, 90, 85);
         double hue = background.getHue();
@@ -60,7 +87,7 @@ public class DiscussionGame
         double brig = background.getBrightness();
         Color marking = Color.hsb(hue, sat - 0.2, brig + 0.2);
         Color font = Color.hsb(hue, sat + 0.15, brig + 0.4);
-        interfaceElements_list.clear(); //Filled with each draw() Maybe better if filled just if elements change
+        //interfaceElements_list.clear(); //Filled with each draw() Maybe better if filled just if elements change
 
         graphicsContext.setTextAlign(TextAlignment.LEFT);
         graphicsContext.setTextBaseline(VPos.TOP);
@@ -72,15 +99,18 @@ public class DiscussionGame
         graphicsContext.fillRect(backgroundOffsetX, backgroundOffsetY, INVENTORY_WIDTH - backgroundOffsetX * 2, INVENTORY_HEIGHT - backgroundOffsetY * 2);
         graphicsContext.setGlobalAlpha(1);
 
-        //Test Tile
-        //TODO update
-        testCircle.setCenterX(testCircle.getCenterX() + 5);
-        if (testCircle.getCenterX() > 1000)
-            testCircle.setCenterX(0);
-
-        interfaceElements_list.add("test");
+        update();
+        //Draw list of shapes
         graphicsContext.setFill(marking);
-        graphicsContext.fillOval(testCircle.getCenterX() - testCircle.getRadius(), testCircle.getCenterY() - testCircle.getRadius(), testCircle.getRadius() * 2, testCircle.getRadius() * 2);
+        for(Integer i=0; i<shapeList.size(); i++)
+        {
+            Shape shape = shapeList.get(i);
+            if(shape instanceof Circle)
+            {
+                Circle circle = (Circle)shape;
+                graphicsContext.fillOval(circle.getCenterX() - circle.getRadius(), circle.getCenterY() - circle.getRadius(), circle.getRadius() * 2, circle.getRadius() * 2);
+            }
+        }
 
         SnapshotParameters transparency = new SnapshotParameters();
         transparency.setFill(Color.TRANSPARENT);
@@ -93,6 +123,7 @@ public class DiscussionGame
         String methodName = "processMouse(Point2D, boolean) ";
         Point2D discussionOverlayPosition = WorldView.getPersonalityScreenPosition();
         Rectangle2D discussionPosRelativeToWorldview = new Rectangle2D(discussionOverlayPosition.getX(), discussionOverlayPosition.getY(), DISCUSSION_WIDTH, DISCUSSION_HEIGHT);
+        List<Shape> hoveredElements = new ArrayList<>();
 
         //Calculate Mouse Position relative to Discussion
         if (discussionPosRelativeToWorldview.contains(mousePosition))
@@ -103,33 +134,38 @@ public class DiscussionGame
             return;
         }
 
-        Integer hoveredElement = null;
-
-        if (testCircle.contains(mousePosRelativeToDiscussionOverlay))
-            hoveredElement = interfaceElements_list.indexOf("test");
-
-
-        if (GameWindow.getSingleton().isMouseMoved() && hoveredElement != null)//Set highlight if mouse moved
+        //Check for hovered elements
+        for(Integer i=0; i<shapeList.size(); i++)
         {
-            setHighlightedElement(hoveredElement);
+            Shape shape = shapeList.get(i);
+            if(shape instanceof Circle)
+            {
+                Circle circle = (Circle)shape;
+                if (circle.contains(mousePosRelativeToDiscussionOverlay))
+                    hoveredElements.add(circle);
+            }
+        }
+
+        if (GameWindow.getSingleton().isMouseMoved() && !hoveredElements.isEmpty())//Set highlight if mouse moved
+        {
             GameWindow.getSingleton().setMouseMoved(false);
         }
 
-        if (isMouseClicked && hoveredElement != null)//To prevent click of not hovered
+        //Process click
+        if (isMouseClicked && !hoveredElements.isEmpty())
         {
-            System.out.println(CLASSNAME + methodName + "clicked on: " + hoveredElement);
-            //activateHighlightedOption(currentNanoTime);
+            for(Integer i=0; i<hoveredElements.size(); i++)
+            {
+                Shape shape = hoveredElements.get(i);
+                if(shape instanceof Circle)
+                {
+                    Circle circle = (Circle)shape;
+                    System.out.println(CLASSNAME + methodName + "clicked on: " + circle);
+                    shapeList.remove(circle);
+                }
+            }
+
         }
-    }
-
-
-    public void setHighlightedElement(Integer highlightedElement)
-    {
-        String methodName = "setHighlightedElement() ";
-        boolean debug = true;
-        if (debug && !this.highlightedElement.equals(highlightedElement))
-            System.out.println(CLASSNAME + methodName + highlightedElement + " " + interfaceElements_list.get(highlightedElement));
-        this.highlightedElement = highlightedElement;
     }
 
     public WritableImage getWritableImage()

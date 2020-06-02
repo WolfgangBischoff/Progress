@@ -1,9 +1,8 @@
 
 Logic:
 - Social Discussion Mechanic
+    - Shapes from file; type, startPos, movement
     - character detail screen just shows info
-    - add dissapear of tile
-    - first movement by update
 - Build repair mechanic
     - find knowledge
     - find image
@@ -168,7 +167,7 @@ Rhetoric has combinations
 - Input line secrets, enter number or names
 - Schuldsklaven "Verbrecher" vom sYstem absichtlich produziert
 - Main plot is slowed down by "Revoluionary Spirit" mechanic, you can do actions if moivated, increases by beeing poor or seeing poor, decreases if situations betters => cannot proceed if not explore
-
+- Main menu with dark parts that get light abwechseln, reveal hammer/sickle, Money, such things
 
 ------------------------------------------
 ----- COLLECTIBLES -----------------------
