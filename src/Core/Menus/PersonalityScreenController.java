@@ -70,6 +70,7 @@ public class PersonalityScreenController
     int optionsYGap = 15;
     Font optionsFont = new Font(25);
 
+    /*
     //Focus Option Buttons
     private int optionWidth = 150;
     private int optionsHeight = 60;
@@ -78,10 +79,10 @@ public class PersonalityScreenController
     private Point2D optionRightOffsett = new Point2D(DISCUSSION_WIDTH / 2f, optionsYOffset);
     private Rectangle2D optionLeft = new Rectangle2D(optionLeftOffsett.getX(), optionLeftOffsett.getY(), optionWidth, optionsHeight);
     private Rectangle2D optionRight = new Rectangle2D(optionRightOffsett.getX(), optionRightOffsett.getY(), optionWidth, optionsHeight);
-
+*/
     //Other Person Traits
     private List<String> personalityList = new ArrayList<>();
-    int initTraitsOffsetX = 700;
+    int initTraitsOffsetX = 350;
     int initTraitsOffsetY = 200;
     int traitsYGap = 15;
     Font traitsFont = new Font(25);
@@ -201,6 +202,7 @@ public class PersonalityScreenController
             optionsOffsetY += fontsize + optionsYGap;
         }
 
+        /*
         //Options Button
         graphicsContext.setFill(marking);
         interfaceElements_list.add("leftOption");
@@ -215,7 +217,7 @@ public class PersonalityScreenController
             graphicsContext.fillRect(optionRight.getMinX(), optionRight.getMinY(), optionRight.getWidth(), optionRight.getHeight());
         graphicsContext.setFill(font);
         graphicsContext.fillText("rightOption", optionRight.getMinX(), optionRight.getMinY());
-
+*/
 
         //Other Person Known Traits
         int traitsOffsetX = initTraitsOffsetX;
@@ -291,10 +293,13 @@ public class PersonalityScreenController
         if (rhetoric_Button.contains(mousePosRelativeToDiscussionOverlay))
             hoveredElement = interfaceElements_list.indexOf("rhetoric");
 
+        /*
         if (optionLeft.contains(mousePosRelativeToDiscussionOverlay))
             hoveredElement = interfaceElements_list.indexOf("leftOption");
         if (optionRight.contains(mousePosRelativeToDiscussionOverlay))
             hoveredElement = interfaceElements_list.indexOf("rightOption");
+
+         */
 
         //Check if hovered Rhetoric Options
         graphicsContext.setFont(optionsFont);

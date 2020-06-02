@@ -160,7 +160,7 @@ public class DiscussionGame
                 if(shape instanceof Circle)
                 {
                     Circle circle = (Circle)shape;
-                    System.out.println(CLASSNAME + methodName + "clicked on: " + circle);
+                    //System.out.println(CLASSNAME + methodName + "clicked on: " + circle);
                     shapeList.remove(circle);
                 }
             }
