@@ -21,6 +21,7 @@ import static Core.Config.*;
 
 public class DiscussionGame
 {
+    //moving symbols like pokemon, you must know which to click before disappeared, traits more powerfull
 
     private static final String CLASSNAME = "DiscussionGame-";
     private Canvas canvas;
