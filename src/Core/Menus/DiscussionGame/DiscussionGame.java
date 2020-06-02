@@ -8,6 +8,7 @@ import javafx.geometry.VPos;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -29,6 +30,8 @@ public class DiscussionGame
     Point2D mousePosRelativeToDiscussionOverlay;
     List<Shape> shapeList = new ArrayList<>();
 
+    Image introvert;
+    Image extrovert;
 
     public DiscussionGame()
     {
@@ -45,10 +48,12 @@ public class DiscussionGame
     private void loadDiscussion()
     {
         //TODO read from file
-        shapeList.add(new Circle(100, 100, 50));
-        shapeList.add(new Circle(230, 150, 50));
-        shapeList.add(new Circle(360, 200, 50));
-        shapeList.add(new Circle(490, 150, 50));
+        shapeList.add(new Circle(100, 100, 32));
+        shapeList.add(new Circle(230, 150, 32));
+        shapeList.add(new Circle(360, 200, 32));
+        shapeList.add(new Circle(490, 150, 32));
+        introvert = new Image("Core/Menus/DiscussionGame/introvert.png");
+        extrovert = new Image("Core/Menus/DiscussionGame/exzentr.png");
     }
 
     public void update()
@@ -62,7 +67,7 @@ public class DiscussionGame
                 Circle circle = (Circle)shape;
 
                 //Do movement
-                circle.setCenterY(circle.getCenterY() + 5);
+                circle.setCenterY(circle.getCenterY() + 2);
 
                 //Check if is visible
                 if(!new Rectangle2D(0,0,canvas.getWidth(), canvas.getHeight()).
@@ -105,7 +110,11 @@ public class DiscussionGame
             if(shape instanceof Circle)
             {
                 Circle circle = (Circle)shape;
-                graphicsContext.fillOval(circle.getCenterX() - circle.getRadius(), circle.getCenterY() - circle.getRadius(), circle.getRadius() * 2, circle.getRadius() * 2);
+                //graphicsContext.fillOval(circle.getCenterX() - circle.getRadius(), circle.getCenterY() - circle.getRadius(), circle.getRadius() * 2, circle.getRadius() * 2);
+                if(i%2==0)
+                    graphicsContext.drawImage(introvert, circle.getCenterX() - circle.getRadius(), circle.getCenterY() - circle.getRadius());
+                else
+                    graphicsContext.drawImage(extrovert, circle.getCenterX() - circle.getRadius(), circle.getCenterY() - circle.getRadius());
             }
         }
 
