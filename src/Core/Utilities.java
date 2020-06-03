@@ -1,12 +1,22 @@
 package Core;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
+
+import static Core.Config.DIALOGUE_FILE_PATH;
 
 public class Utilities
 {
@@ -59,6 +69,33 @@ public class Utilities
             e.printStackTrace();
         }
         return data;
+    }
+
+
+    public static Element readXMLFile(String file_path)
+    {
+        //https://www.tutorialspoint.com/java_xml/java_dom_parse_document.htm
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        //factory.setValidating(true);
+        factory.setIgnoringElementContentWhitespace(true);
+        DocumentBuilder builder = null;
+        try
+        {
+            builder = factory.newDocumentBuilder();
+            File file = new File(file_path);
+            Document doc = builder.parse(file);
+            return doc.getDocumentElement();
+        }
+        catch (ParserConfigurationException | SAXException e)
+        {
+            e.printStackTrace();
+        }
+        catch (IOException e)
+        {
+            System.out.println("Cannot find XML file: " + file_path);
+        }
+
+        throw new RuntimeException("Uncatched Exception for path: " + file_path);
     }
 
 }

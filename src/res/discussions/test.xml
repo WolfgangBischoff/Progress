@@ -1,0 +1,37 @@
+<root>
+
+    <coin
+            characteristic="extroversion"
+            image="Core/Menus/DiscussionGame/introvert.png"
+            x="100"
+            y="100"
+            radius="32"
+            speed="10"
+            movementType="falling"
+    />
+
+    <coin
+            characteristic="introversion"
+            image="Core/Menus/DiscussionGame/exzentr.png"
+            x="200"
+            y="100"
+            radius="32"
+            speed="1"
+            movementType="falling"
+    />
+
+
+    <coin
+            characteristic="introversion"
+            image="Core/Menus/DiscussionGame/exzentr.png"
+            x="220"
+            y="100"
+            radius="32"
+            speed="1"
+            movementType="falling"
+    />
+
+
+
+
+</root>

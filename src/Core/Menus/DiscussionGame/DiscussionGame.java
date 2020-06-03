@@ -1,6 +1,8 @@
 package Core.Menus.DiscussionGame;
 
 import Core.GameWindow;
+import Core.Menus.MyersBriggsCharacteristic;
+import Core.Utilities;
 import Core.WorldView;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
@@ -14,6 +16,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.TextAlignment;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +34,9 @@ public class DiscussionGame
     private WritableImage writableImage;
     Point2D mousePosRelativeToDiscussionOverlay;
     List<Shape> shapeList = new ArrayList<>();
+    List<CharacterCoin> coinList = new ArrayList<>();
 
+    Element xmlRoot;
     Image introvert;
     Image extrovert;
 
@@ -47,36 +54,73 @@ public class DiscussionGame
 
     private void loadDiscussion()
     {
-        //TODO read from file
+        String methodName = "loadDiscussion() ";
+        //read from File
+        xmlRoot = Utilities.readXMLFile("src/res/discussions/test.xml");
+        NodeList coins = xmlRoot.getElementsByTagName("coin");
+        for (int i = 0; i < coins.getLength(); i++) //iterate coins of file
+        {
+            Element currentCoin = ((Element) coins.item(i));
+            String imagepath = currentCoin.getAttribute("image");
+            MyersBriggsCharacteristic myersBriggsCharacteristic = MyersBriggsCharacteristic.getType(currentCoin.getAttribute("characteristic"));
+            int startX = Integer.parseInt(currentCoin.getAttribute("x"));
+            int startY = Integer.parseInt(currentCoin.getAttribute("y"));
+            int speed = Integer.parseInt(currentCoin.getAttribute("speed"));
+            int radius = Integer.parseInt(currentCoin.getAttribute("radius"));
+            String movement = currentCoin.getAttribute("movementType");
+
+            CharacterCoin characterCoin = new CharacterCoin(imagepath, myersBriggsCharacteristic, new Point2D(startX, startY), radius, speed, movement);
+            coinList.add(characterCoin);
+        }
+
+/*
         shapeList.add(new Circle(100, 100, 32));
         shapeList.add(new Circle(230, 150, 32));
         shapeList.add(new Circle(360, 200, 32));
         shapeList.add(new Circle(490, 150, 32));
         introvert = new Image("Core/Menus/DiscussionGame/introvert.png");
-        extrovert = new Image("Core/Menus/DiscussionGame/exzentr.png");
+        extrovert = new Image("Core/Menus/DiscussionGame/exzentr.png");*/
     }
+
 
     public void update()
     {
         String methodName = "update() ";
-        for(Integer i=0; i<shapeList.size(); i++)
+        for (Integer i = 0; i < coinList.size(); i++)
+        {
+            CharacterCoin coin = coinList.get(i);
+            Circle circle = coin.collisionCircle;
+
+            //Do movement
+            circle.setCenterY(circle.getCenterY() + coin.speed);
+
+            //Check if is visible
+            if (!new Rectangle2D(0, 0, canvas.getWidth(), canvas.getHeight()).
+                    intersects(circle.getCenterX() - circle.getRadius(), circle.getCenterY() - circle.getRadius(), circle.getCenterX() + circle.getRadius(), circle.getCenterY() + circle.getRadius()))
+            {
+                circle.setCenterY(0);
+            }
+
+        }
+       /* for (Integer i = 0; i < shapeList.size(); i++)
         {
             Shape shape = shapeList.get(i);
-            if(shape instanceof Circle)
+            if (shape instanceof Circle)
             {
-                Circle circle = (Circle)shape;
+                Circle circle = (Circle) shape;
 
                 //Do movement
                 circle.setCenterY(circle.getCenterY() + 2);
 
                 //Check if is visible
-                if(!new Rectangle2D(0,0,canvas.getWidth(), canvas.getHeight()).
-                        intersects(circle.getCenterX()-circle.getRadius(), circle.getCenterY()-circle.getRadius(), circle.getCenterX()+circle.getRadius(), circle.getCenterY()+circle.getRadius()))
+                if (!new Rectangle2D(0, 0, canvas.getWidth(), canvas.getHeight()).
+                        intersects(circle.getCenterX() - circle.getRadius(), circle.getCenterY() - circle.getRadius(), circle.getCenterX() + circle.getRadius(), circle.getCenterY() + circle.getRadius()))
                 {
                     circle.setCenterY(0);
                 }
             }
         }
+        */
     }
 
     private void draw() throws NullPointerException
@@ -104,19 +148,28 @@ public class DiscussionGame
         update();
         //Draw list of shapes
         graphicsContext.setFill(marking);
-        for(Integer i=0; i<shapeList.size(); i++)
+        for (Integer i = 0; i < coinList.size(); i++)
+        {
+            CharacterCoin coin = coinList.get(i);
+            Circle circle = coin.collisionCircle;
+            shapeList.add(circle);
+            graphicsContext.drawImage(coin.image, circle.getCenterX() - circle.getRadius(), circle.getCenterY() - circle.getRadius());
+        }
+
+/*
+        for (Integer i = 0; i < shapeList.size(); i++)
         {
             Shape shape = shapeList.get(i);
-            if(shape instanceof Circle)
+            if (shape instanceof Circle)
             {
-                Circle circle = (Circle)shape;
+                Circle circle = (Circle) shape;
                 //graphicsContext.fillOval(circle.getCenterX() - circle.getRadius(), circle.getCenterY() - circle.getRadius(), circle.getRadius() * 2, circle.getRadius() * 2);
-                if(i%2==0)
+                if (i % 2 == 0)
                     graphicsContext.drawImage(introvert, circle.getCenterX() - circle.getRadius(), circle.getCenterY() - circle.getRadius());
                 else
                     graphicsContext.drawImage(extrovert, circle.getCenterX() - circle.getRadius(), circle.getCenterY() - circle.getRadius());
             }
-        }
+        }*/
 
         SnapshotParameters transparency = new SnapshotParameters();
         transparency.setFill(Color.TRANSPARENT);
@@ -129,7 +182,7 @@ public class DiscussionGame
         String methodName = "processMouse(Point2D, boolean) ";
         Point2D discussionOverlayPosition = WorldView.getPersonalityScreenPosition();
         Rectangle2D discussionPosRelativeToWorldview = new Rectangle2D(discussionOverlayPosition.getX(), discussionOverlayPosition.getY(), DISCUSSION_WIDTH, DISCUSSION_HEIGHT);
-        List<Shape> hoveredElements = new ArrayList<>();
+        List<CharacterCoin> hoveredElements = new ArrayList<>();
 
         //Calculate Mouse Position relative to Discussion
         if (discussionPosRelativeToWorldview.contains(mousePosition))
@@ -141,14 +194,14 @@ public class DiscussionGame
         }
 
         //Check for hovered elements
-        for(Integer i=0; i<shapeList.size(); i++)
+        for (Integer i = 0; i < coinList.size(); i++)
         {
-            Shape shape = shapeList.get(i);
-            if(shape instanceof Circle)
+            Shape shape = coinList.get(i).collisionCircle;
+            if (shape instanceof Circle)
             {
-                Circle circle = (Circle)shape;
+                Circle circle = (Circle) shape;
                 if (circle.contains(mousePosRelativeToDiscussionOverlay))
-                    hoveredElements.add(circle);
+                    hoveredElements.add(coinList.get(i));
             }
         }
 
@@ -160,14 +213,15 @@ public class DiscussionGame
         //Process click
         if (isMouseClicked && !hoveredElements.isEmpty())
         {
-            for(Integer i=0; i<hoveredElements.size(); i++)
+            for (Integer i = 0; i < hoveredElements.size(); i++)
             {
-                Shape shape = hoveredElements.get(i);
-                if(shape instanceof Circle)
+                Shape shape = hoveredElements.get(i).collisionCircle;
+                if (shape instanceof Circle)
                 {
-                    Circle circle = (Circle)shape;
+                    Circle circle = (Circle) shape;
                     //System.out.println(CLASSNAME + methodName + "clicked on: " + circle);
                     shapeList.remove(circle);
+                    coinList.remove(hoveredElements.get(i));
                 }
             }
 

@@ -30,9 +30,7 @@ import static Core.Config.*;
 public class Textbox
 {
     private static final String CLASSNAME = "Textbox-";
-    //private double TEXT_BOX_WIDTH = CAMERA_WIDTH / 1.5;
     private double TEXT_BOX_WIDTH = TEXTBOX_WIDTH;
-    //private double TEXT_BOX_HEIGHT = CAMERA_HEIGHT / 3.0;
     private double TEXT_BOX_HEIGHT = TEXTBOX_HEIGHT;
     Canvas textboxCanvas = new Canvas(TEXT_BOX_WIDTH, TEXT_BOX_HEIGHT);
     GraphicsContext textboxGc = textboxCanvas.getGraphicsContext2D();
@@ -40,8 +38,6 @@ public class Textbox
     Dialogue readDialogue;
     Element dialogueFileRoot;
     int messageIdx = 0;
-    //final int firstLineOffsetY = 30;
-    //final int xOffsetTextLine = 40;
     int backgroundOffsetX = 16;
     int backgroundOffsetYDecorationTop = 10;
     int backgroundOffsetYTalkIcon = 50;
@@ -113,6 +109,7 @@ public class Textbox
             builder = factory.newDocumentBuilder();
             File file = new File(path);
             Document doc = builder.parse(file);
+            //System.out.println(CLASSNAME + "Doc: " + doc.getDocumentElement());
             return doc.getDocumentElement();
         }
         catch (ParserConfigurationException | SAXException e)

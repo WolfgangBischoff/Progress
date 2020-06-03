@@ -1,7 +1,9 @@
 
 Logic:
 - Social Discussion Mechanic
-    - Shapes from file; type, startPos, movement
+    - remove arguemtnsBigFiveMatrix and change GUI to always count
+    - use Utilits function in Textbox to read XML
+    - Add time when coins appear to Discussiongam
 - Build repair mechanic
     - find knowledge
     - find image
