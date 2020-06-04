@@ -4,7 +4,6 @@ import Core.Menus.MyersBriggsCharacteristic;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Shape;
 
 
 public class CharacterCoin
@@ -17,8 +16,9 @@ public class CharacterCoin
     int collisionRadius;
     int speed;
     String movementType;
+    int time_ms;
 
-    public CharacterCoin(String imagepath, MyersBriggsCharacteristic characteristic, Point2D startPosition, int collisionRadius, int speed, String movementType)
+    public CharacterCoin(String imagepath, MyersBriggsCharacteristic characteristic, Point2D startPosition, int collisionRadius, int speed, String movementType, int time)
     {
         this.collisionRadius = collisionRadius;
         this.image = new Image(imagepath);
@@ -27,6 +27,7 @@ public class CharacterCoin
         this.speed = speed;
         this.movementType = movementType;
         collisionCircle = new Circle(startPosition.getX(),startPosition.getY(),collisionRadius);
+        this.time_ms = time;
     }
 
     @Override

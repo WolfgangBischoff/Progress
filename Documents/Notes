@@ -3,7 +3,7 @@ Logic:
 - Social Discussion Mechanic
     - remove arguemtnsBigFiveMatrix and change GUI to always count
     - use Utilits function in Textbox to read XML
-    - Add time when coins appear to Discussiongam
+    - Change time to wave for multiple coins
 - Build repair mechanic
     - find knowledge
     - find image

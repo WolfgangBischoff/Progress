@@ -6,8 +6,9 @@
             x="100"
             y="100"
             radius="32"
-            speed="10"
+            speed="3"
             movementType="falling"
+            time = "0000"
     />
 
     <coin
@@ -18,6 +19,7 @@
             radius="32"
             speed="1"
             movementType="falling"
+            time = "3"
     />
 
 
@@ -29,8 +31,41 @@
             radius="32"
             speed="1"
             movementType="falling"
+            time = "3"
     />
 
+    <coin
+            characteristic="introversion"
+            image="Core/Menus/DiscussionGame/exzentr.png"
+            x="300"
+            y="100"
+            radius="32"
+            speed="1"
+            movementType="falling"
+            time = "5"
+    />
+
+    <coin
+            characteristic="introversion"
+            image="Core/Menus/DiscussionGame/exzentr.png"
+            x="400"
+            y="130"
+            radius="32"
+            speed="1"
+            movementType="falling"
+            time = "5"
+    />
+
+    <coin
+            characteristic="introversion"
+            image="Core/Menus/DiscussionGame/exzentr.png"
+            x="500"
+            y="160"
+            radius="32"
+            speed="1"
+            movementType="falling"
+            time = "5"
+    />
 
 
 
