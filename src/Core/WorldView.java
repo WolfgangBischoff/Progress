@@ -384,7 +384,7 @@ public class WorldView implements GUIController
 
         if(isDiscussionGameActive)
         {
-            WritableImage discussionGameImage = discussionGame.getWritableImage();
+            WritableImage discussionGameImage = discussionGame.getWritableImage(currentNanoTime);
             gc.drawImage(discussionGameImage, discussionGamePostion.getX(), discussionGamePostion.getY());
         }
 

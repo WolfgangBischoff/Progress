@@ -1,5 +1,6 @@
 package Core;
 
+import javafx.scene.image.Image;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
@@ -15,8 +16,6 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
-
-import static Core.Config.DIALOGUE_FILE_PATH;
 
 public class Utilities
 {
@@ -52,7 +51,7 @@ public class Utilities
             while ((row = csvReader.readLine()) != null)
             {
                 //Check for comments and blank lines
-                if(row.isEmpty() || row.startsWith("#"))
+                if (row.isEmpty() || row.startsWith("#"))
                     continue;
 
                 //String[] rawdata = row.split(",");
@@ -85,17 +84,20 @@ public class Utilities
             File file = new File(file_path);
             Document doc = builder.parse(file);
             return doc.getDocumentElement();
-        }
-        catch (ParserConfigurationException | SAXException e)
+        } catch (ParserConfigurationException | SAXException e)
         {
             e.printStackTrace();
-        }
-        catch (IOException e)
+        } catch (IOException e)
         {
             System.out.println("Cannot find XML file: " + file_path);
         }
 
         throw new RuntimeException("Uncatched Exception for path: " + file_path);
+    }
+
+    public static Image readImage(String path)
+    {
+        return new Image(path);
     }
 
 }
