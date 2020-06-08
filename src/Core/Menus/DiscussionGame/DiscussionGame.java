@@ -1,5 +1,6 @@
 package Core.Menus.DiscussionGame;
 
+import Core.Actor;
 import Core.GameWindow;
 import Core.Utilities;
 import Core.WorldView;
@@ -42,10 +43,12 @@ public class DiscussionGame
     boolean isFinished = false;
     Map<String, Integer> clickedCoins = new HashMap<>();
     String gameFileName;
+Actor actorOfDiscussion;
 
-    public DiscussionGame(String gameIdentifier)
+    public DiscussionGame(String gameIdentifier, Actor actorOfDiscussion)
     {
         gameFileName = gameIdentifier;
+        this.actorOfDiscussion = actorOfDiscussion;
         init();
     }
 
@@ -55,6 +58,7 @@ public class DiscussionGame
         graphicsContext = canvas.getGraphicsContext2D();
         loadDiscussion();
         gameStartTime = GameWindow.getSingleton().getRenderTime();
+        actorOfDiscussion.getPersonalityContainer().increaseNumberOfInteractions(2);
     }
 
     private void loadDiscussion()
@@ -69,6 +73,7 @@ public class DiscussionGame
             CharacterCoin characterCoin = new CharacterCoin(currentCoin);
             coinsList.add(characterCoin);
         }
+
     }
 
 

@@ -37,6 +37,9 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
             <line>Can you open the door?</line>
             <nextDialogue>door-discussion</nextDialogue>
         </option>
+        <option>
+            <line>[Leave]</line>
+        </option>
     </dialogue>
 
     <dialogue id="door-info" type = "normal">
@@ -57,6 +60,7 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
         </option>
         <option>
             <line>[Go away]</line>
+            <nextDialogue>init-door</nextDialogue>
         </option>
     </dialogue>
 

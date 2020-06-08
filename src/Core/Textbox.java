@@ -61,11 +61,13 @@ public class Textbox
 
     Image cornerTopLeft;
     Image cornerBtmRight;
+    Image characterButton;
 
     public Textbox()
     {
         cornerTopLeft = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
         cornerBtmRight = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
+        characterButton = new Image("Core/Menus/Textbox/characterMenuButtonTR.png");
     }
 
     public void startConversation(Actor actorParam)
@@ -76,7 +78,6 @@ public class Textbox
         try
         {
             dialogueFileRoot = Utilities.readXMLFile(DIALOGUE_FILE_PATH + actorOfDialogue.dialogueFileName + ".xml");
-            //dialogueFileRoot = readFile(actorOfDialogue.dialogueFileName);
             readDialogue = readDialogue(actorOfDialogue.dialogueStatusID);
             drawTextbox();
         } catch (NullPointerException e)
@@ -94,35 +95,9 @@ public class Textbox
             }
             throw new NullPointerException(stringBuilder.toString());
         }
-    }
-/*
-    private Element readFile(String fileIdentifier)
-    {
-        Element rootElement;
-        //https://www.tutorialspoint.com/java_xml/java_dom_parse_document.htm
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        //factory.setValidating(true);
-        factory.setIgnoringElementContentWhitespace(true);
-        DocumentBuilder builder = null;
-        String path = DIALOGUE_FILE_PATH + fileIdentifier + ".xml";
-        try
-        {
-            builder = factory.newDocumentBuilder();
-            File file = new File(path);
-            Document doc = builder.parse(file);
-            //System.out.println(CLASSNAME + "Doc: " + doc.getDocumentElement());
-            return doc.getDocumentElement();
-        } catch (ParserConfigurationException | SAXException e)
-        {
-            e.printStackTrace();
-        } catch (IOException e)
-        {
-            System.out.println("Cannot find: " + path);
-        }
 
-        throw new RuntimeException("Cannot find dialogue file: " + path);
+        actorOfDialogue.personalityContainer.increaseNumberOfInteractions(1);
     }
-    */
 
     //For Discussion if File is already read, Discussions send next Dialogue
     public Dialogue readDialogue(String dialogueIdentifier)
@@ -173,9 +148,7 @@ public class Textbox
                     String defeatNextMsg = currentDialogue.getAttribute(defeat_ATTRIBUTE);
                     readDialogue.addOption(success_ATTRIBUTE, successNextMsg);
                     readDialogue.addOption(defeat_ATTRIBUTE, defeatNextMsg);
-                    WorldView.setDiscussionGame(new DiscussionGame(discussionGameName));
-                    //System.out.println(CLASSNAME + methodName + discussionGameName + " " + successNextMsg + " " + defeatNextMsg);
-                    //System.out.println(CLASSNAME + methodName + discussionGameName + " " + readDialogue.options);
+                    WorldView.setDiscussionGame(new DiscussionGame(discussionGameName, actorOfDialogue));
                 }
                 else
                 //Normal Textbox
@@ -294,8 +267,7 @@ public class Textbox
         {
             if (isTalkIconHovered)
             {
-                System.out.println(CLASSNAME + methodName + "openTalkMenu");
-                WorldView.setIsPersonalityScreenActive(isTalkIconHovered);
+                WorldView.setIsPersonalityScreenActive(true);
                 WorldView.setPersonalityScreenController(new PersonalityScreenController(actorOfDialogue));
                 WorldView.setIsTextBoxActive(false);
             }
@@ -364,6 +336,7 @@ public class Textbox
     private void drawTextbox() throws NullPointerException
     {
         String methodName = "drawTextbox() ";
+        boolean debug = false;
         double hue = background.getHue();
         double sat = background.getSaturation();
         double brig = background.getBrightness();
@@ -373,13 +346,15 @@ public class Textbox
         textboxGc.clearRect(0, 0, TEXT_BOX_WIDTH, TEXT_BOX_HEIGHT);
 
         //testBackground
-        textboxGc.setFill(Color.RED);
-        textboxGc.fillRect(0, 0, TEXT_BOX_WIDTH, TEXT_BOX_HEIGHT);
+        if(debug)
+        {
+            textboxGc.setFill(Color.RED);
+            textboxGc.fillRect(0, 0, TEXT_BOX_WIDTH, TEXT_BOX_HEIGHT);
+        }
 
         //Background
         textboxGc.setFill(background);
         textboxGc.setGlobalAlpha(0.9);
-        //textboxGc.fillRect(backgroundOffsetX, backgroundOffsetYTop, TEXT_BOX_WIDTH - backgroundOffsetX * 2, TEXT_BOX_HEIGHT - backgroundOffsetYTop * 2);
         textboxGc.fillRect(backgroundOffsetX, backgroundOffsetYDecorationTop + backgroundOffsetYTalkIcon, TEXT_BOX_WIDTH - backgroundOffsetX * 2, TEXT_BOX_HEIGHT - backgroundOffsetYDecorationTop - backgroundOffsetYTalkIcon - backgroundOffsetYDecorationBtm);
 
         if (markedOption != null && readDialogue.type.equals(DECISION_TYPE))
@@ -390,7 +365,6 @@ public class Textbox
 
         //Decoration of textfield
         textboxGc.setGlobalAlpha(1);
-        //textboxGc.drawImage(cornerTopLeft, 0, 0);
         textboxGc.drawImage(cornerTopLeft, 0, backgroundOffsetYTalkIcon);
         textboxGc.drawImage(cornerBtmRight, TEXT_BOX_WIDTH - cornerBtmRight.getWidth(), TEXT_BOX_HEIGHT - cornerBtmRight.getHeight());
 
@@ -432,7 +406,9 @@ public class Textbox
         //Character Info Button
         if (actorOfDialogue.personalityContainer != null)
         {
-            textboxGc.fillRect(talkIcon.getMinX(), talkIcon.getMinY(), talkIcon.getWidth(), talkIcon.getHeight());
+            //textboxGc.setGlobalAlpha(0.5);
+            //textboxGc.fillRect(talkIcon.getMinX(), talkIcon.getMinY(), talkIcon.getWidth(), talkIcon.getHeight());
+            textboxGc.drawImage(characterButton, talkIcon.getMinX(), talkIcon.getMinY());
         }
 
         SnapshotParameters transparency = new SnapshotParameters();

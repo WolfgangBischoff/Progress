@@ -148,10 +148,12 @@ public class WorldView implements GUIController
             loadEnvironment("test", "default");
         if (input.contains("Z") && elapsedTimeSinceLastInteraction > 1)
         {
-            isDiscussionGameActive = !isDiscussionGameActive;
+           /* isDiscussionGameActive = !isDiscussionGameActive;
             if (isDiscussionGameActive)
                 discussionGame = new DiscussionGame("test");
             lastTimeMenuWasOpened = currentNanoTime;
+
+            */
         }
 
 

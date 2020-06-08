@@ -32,10 +32,10 @@ With increasing cooperation value you find trais of the person, some traits are 
 
 
     private static final String CLASSNAME = "PersonalityScreenController-";
+    private static final String BACK_BUTTON_ID = "back";
     private Canvas canvas;
     private GraphicsContext graphicsContext;
     private WritableImage writableImage;
-    private Actor player;
     Point2D mousePosRelativeToDiscussionOverlay;
     private Integer highlightedElement;
     private List<String> interfaceElements_list = new ArrayList<>();
@@ -43,6 +43,7 @@ With increasing cooperation value you find trais of the person, some traits are 
     static Map<String, Map<String, Integer>> argumentsTraitsMatrix; //Argument -> Values per Trait
     private Actor otherPersonActor;
     private PersonalityContainer personalityContainer;
+    Actor player;
 
     //Rhetoric Button
     int rhetoric_x = 50;
@@ -69,50 +70,41 @@ With increasing cooperation value you find trais of the person, some traits are 
     {
         canvas = new Canvas(DISCUSSION_WIDTH, DISCUSSION_HEIGHT);
         graphicsContext = canvas.getGraphicsContext2D();
-        player = WorldView.getPlayer().getActor();
-        highlightedElement = 0;
         this.otherPersonActor = otherPersonActor;
+        highlightedElement = 0;
+        player = WorldView.getPlayer().getActor();
         init();
-
-        rhetoricOptions_list.add("personal daily life");
-        rhetoricOptions_list.add("society and gossip");
-        rhetoricOptions_list.add("obserervations");
-
-        if (argumentsTraitsMatrix == null)
-            readBigFiveMatrix();
     }
 
     private void init()
     {
         if (otherPersonActor.getPersonalityContainer() == null)
-            throw new RuntimeException("Personaliy not defined in actorfile: " + otherPersonActor.getActorFileName());
+            throw new RuntimeException("Personality not defined in actorfile: " + otherPersonActor.getActorFileName());
         personalityContainer = otherPersonActor.getPersonalityContainer();
-
         updateVisiblePersonality();
-
         argumentsSequence = new PersonalityChange(personalityContainer.myersBriggsPersonality);
     }
 
     private void updateVisiblePersonality()
     {
         personalityList.clear();
-        if (personalityContainer.numberOfInteractions >= THRESHOLD_PERSONALITY)
+        if (personalityContainer.getNumberOfInteractions() >= THRESHOLD_PERSONALITY)
             personalityList.add(personalityContainer.myersBriggsPersonality.toString());
         else
             personalityList.add("Unknown");
-        if (personalityContainer.numberOfInteractions >= THRESHOLD_MOTIVATION)
+        if (personalityContainer.getNumberOfInteractions() >= THRESHOLD_MOTIVATION)
             personalityList.add(personalityContainer.getMotivation());
         else
             personalityList.add("Unknown");
-        if (personalityContainer.numberOfInteractions >= THRESHOLD_DECISION)
+        if (personalityContainer.getNumberOfInteractions() >= THRESHOLD_DECISION)
             personalityList.add(personalityContainer.getDecision());
         else
             personalityList.add("Unknown");
-        if (personalityContainer.numberOfInteractions >= THRESHOLD_FOCUS)
+        if (personalityContainer.getNumberOfInteractions() >= THRESHOLD_FOCUS)
             personalityList.add(personalityContainer.getFocus());
         else
             personalityList.add("Unknown");
-        if (personalityContainer.numberOfInteractions >= THRESHOLD_LIFESTYLE)
+        if (personalityContainer.getNumberOfInteractions() >= THRESHOLD_LIFESTYLE)
             personalityList.add(personalityContainer.getLifestyle());
         else
             personalityList.add("Unknown");
@@ -143,17 +135,19 @@ With increasing cooperation value you find trais of the person, some traits are 
 
         //Rhetoric button
         graphicsContext.setFill(marking);
-        interfaceElements_list.add("rhetoric");
-        if (highlightedElement == interfaceElements_list.indexOf("rhetoric"))
+        interfaceElements_list.add(BACK_BUTTON_ID);
+        if (highlightedElement == interfaceElements_list.indexOf(BACK_BUTTON_ID))
             graphicsContext.fillRect(rhetoric_Button.getMinX(), rhetoric_Button.getMinY(), rhetoric_Button.getWidth(), rhetoric_Button.getHeight());
         graphicsContext.setFill(font);
-        graphicsContext.fillText("Rhetoric", rhetoric_Button.getMinX(), rhetoric_Button.getMinY());
+        graphicsContext.fillText("Back", rhetoric_Button.getMinX(), rhetoric_Button.getMinY());
 
+
+        /*
         //Rhetoric Options
         int optionsOffsetX = initOptionsOffsetX;
         int optionsOffsetY = initOptionsOffsetY;
         graphicsContext.setFont(optionsFont);
-        double fontsize = graphicsContext.getFont().getSize();
+
         for (int lineIdx = 0; lineIdx < rhetoricOptions_list.size(); lineIdx++)
         {
             graphicsContext.setFill(marking);
@@ -171,7 +165,10 @@ With increasing cooperation value you find trais of the person, some traits are 
             optionsOffsetY += fontsize + optionsYGap;
         }
 
+         */
+
         //Other Person Known Traits
+        double fontsize = graphicsContext.getFont().getSize();
         int traitsOffsetX = initTraitsOffsetX;
         int traitsOffsetY = initTraitsOffsetY;
         graphicsContext.setFont(traitsFont);
@@ -243,7 +240,7 @@ With increasing cooperation value you find trais of the person, some traits are 
         Integer hoveredElement = null;
         //Check if hovered over Rhetoric Button
         if (rhetoric_Button.contains(mousePosRelativeToDiscussionOverlay))
-            hoveredElement = interfaceElements_list.indexOf("rhetoric");
+            hoveredElement = interfaceElements_list.indexOf(BACK_BUTTON_ID);
 
         //Check if hovered Rhetoric Options
         graphicsContext.setFont(optionsFont);
@@ -281,6 +278,12 @@ With increasing cooperation value you find trais of the person, some traits are 
             return;
         }
 
+        if(interfaceElements_list.get(highlightedElement).equals(BACK_BUTTON_ID))
+        {
+            WorldView.setIsPersonalityScreenActive(false);
+        }
+
+        /*
         //Translate interface element highlight to argument name
         Integer argumentIdx = null;
         if (Utilities.tryParseInt(interfaceElements_list.get(highlightedElement)))//is list item
@@ -289,8 +292,10 @@ With increasing cooperation value you find trais of the person, some traits are 
         {
             String argument = rhetoricOptions_list.get(argumentIdx);
             argumentsSequence.addArgument(argument);
-            personalityContainer.numberOfInteractions++;
+            //personalityContainer.numberOfInteractions++;
         }
+
+         */
 
         updateVisiblePersonality();
         WorldView.getPlayer().getActor().setLastInteraction(currentNanoTime);
@@ -321,42 +326,4 @@ With increasing cooperation value you find trais of the person, some traits are 
         return INVENTORY_HEIGHT;
     }
 
-    private static void readBigFiveMatrix()
-    {
-        argumentsTraitsMatrix = new HashMap<>();
-        List<String[]> textfile = Utilities.readAllLineFromTxt("src/res/argumentBigfiveMatrix.csv");
-        for (int lineIdx = 0; lineIdx < textfile.size(); lineIdx++)
-        {
-            String[] line = textfile.get(lineIdx);
-            String argument = null;
-            for (int elementIdx = 0; elementIdx < line.length; elementIdx++)
-            {
-                //First line
-                if (lineIdx == 0 && elementIdx > 0)
-                    argumentsTraitsMatrix.put(line[elementIdx], new HashMap<String, Integer>());
-
-                    //Content lines
-                else if (lineIdx > 0)
-                {
-                    //Argument name
-                    if (elementIdx == 0)
-                        argument = line[0];
-                    else
-                    {
-                        String belongsToTrait = textfile.get(0)[elementIdx];
-                        Integer value = Integer.parseInt(line[elementIdx]);
-                        Map<String, Integer> traitMap = argumentsTraitsMatrix.get(belongsToTrait);
-                        traitMap.put(argument, value);
-                    }
-                }
-            }
-        }
-
-        for (Map.Entry<String, Map<String, Integer>> trait : argumentsTraitsMatrix.entrySet())
-        {
-            String traitName = trait.getKey();
-            Map<String, Integer> values = trait.getValue();
-        }
-
-    }
 }

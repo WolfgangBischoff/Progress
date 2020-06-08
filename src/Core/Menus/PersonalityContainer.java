@@ -6,9 +6,10 @@ import java.util.Map;
 
 public class PersonalityContainer
 {
+    private static final String CLASSNAME = "PersonalityContainer-";
     public MyersBriggsPersonality myersBriggsPersonality;
     public Integer cooperation;
-    public Integer numberOfInteractions = 0;
+    private Integer numberOfInteractions = 0;
     public Map<String, Integer> traitsThresholds = new HashMap<>();
 
     @Override
@@ -51,5 +52,17 @@ public class PersonalityContainer
             return "protecting";
         else
             return "changing";
+    }
+
+    public void increaseNumberOfInteractions(Integer addition)
+    {
+        String methodName = "increaseNumberOfInteractions() ";
+        //System.out.println(CLASSNAME + methodName + "added " + addition);
+        this.numberOfInteractions += addition;
+    }
+
+    public Integer getNumberOfInteractions()
+    {
+        return numberOfInteractions;
     }
 }
