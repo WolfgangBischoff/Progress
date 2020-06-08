@@ -28,8 +28,48 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
 <-->
 
 <root name="technician">
-    <dialogue id="none" type="normal">
-        <line>technician No message defined</line>
+    <dialogue id="init-door" type="decision">
+        <option>
+            <line>Whats behind this door?</line>
+            <nextDialogue>door-info</nextDialogue>
+        </option>
+        <option>
+            <line>Can you open the door?</line>
+            <nextDialogue>door-discussion</nextDialogue>
+        </option>
     </dialogue>
+
+    <dialogue id="door-info" type = "normal">
+        <line>Its the life support systems, but nobody has access without a good reason.</line>
+        <nextDialogue>init-door</nextDialogue>
+    </dialogue>
+
+
+    <dialogue id="door-discussion" type = "normal">
+        <line>If you don't have a good reason stop bothering me.</line>
+        <nextDialogue>discussion-game</nextDialogue>
+    </dialogue>
+
+    <dialogue id="discussion-game" type="decision">
+        <option>
+            <line>[Tell him, that you need access]</line>
+           <nextDialogue>game-test</nextDialogue>
+        </option>
+        <option>
+            <line>[Go away]</line>
+        </option>
+    </dialogue>
+
+    <dialogue id="game-test" type="discussion" game="test" success="game-success" defeat="game-defeat"/>
+
+    <dialogue id="game-success" type = "normal">
+        <line>Ok, ist ja gut. Geh einfach rein.</line>
+        <line>[Opens the door]</line>
+    </dialogue>
+    <dialogue id="game-defeat" type = "normal">
+        <line>Absolutely not, I am not convinced</line>
+        <line>[You could not convince him, maybe you should talk more to get more familiar]</line>
+    </dialogue>
+
 </root>
 

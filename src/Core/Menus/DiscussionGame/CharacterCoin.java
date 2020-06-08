@@ -43,7 +43,7 @@ public class CharacterCoin
         this.startPosition = new Point2D(startX,startY);
         collisionCircle = new Circle(startPosition.getX(),startPosition.getY(),collisionRadius);
         this.speed = Integer.parseInt(xmlNode.getAttribute("speed"));
-        this.movementType = xmlNode.getAttribute("movementType");
+        this.movementType = xmlNode.getAttribute("movementType").toLowerCase();
         this.time_ms = Integer.parseInt(xmlNode.getAttribute("time"));
         this.image = findImage(characteristic.toString());
 

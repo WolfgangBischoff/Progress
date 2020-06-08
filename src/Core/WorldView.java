@@ -45,7 +45,7 @@ public class WorldView implements GUIController
     //Inventory Overlay
     static boolean isInventoryActive = false;
     static MenuOverlay inventoryOverlay;
-    static Point2D inventoryOverlayPosition = new Point2D(CAMERA_WIDTH / 2f - MenuOverlay.getMenuWidth() / 2.0, CAMERA_HEIGHT / 2.0 - MenuOverlay.getMenuHeight()/2.0);
+    static Point2D inventoryOverlayPosition = new Point2D(CAMERA_WIDTH / 2f - MenuOverlay.getMenuWidth() / 2.0, CAMERA_HEIGHT / 2.0 - MenuOverlay.getMenuHeight() / 2.0);
     static Long lastTimeMenuWasOpened = 0L;
 
     //TextBox Overlay
@@ -56,12 +56,12 @@ public class WorldView implements GUIController
     //Personality Overlay
     static boolean isPersonalityScreenActive = false;
     static PersonalityScreenController personalityScreenController;
-    static Point2D personalityScreenPosition = new Point2D(CAMERA_WIDTH / 2f - PersonalityScreenController.getMenuWidth() / 2.0, CAMERA_HEIGHT / 2.0 - PersonalityScreenController.getMenuHeight()/2.0);
+    static Point2D personalityScreenPosition = new Point2D(CAMERA_WIDTH / 2f - PersonalityScreenController.getMenuWidth() / 2.0, CAMERA_HEIGHT / 2.0 - PersonalityScreenController.getMenuHeight() / 2.0);
 
     //Discussion Game
     static boolean isDiscussionGameActive = false;
     static DiscussionGame discussionGame;
-    static Point2D discussionGamePostion = new Point2D(CAMERA_WIDTH / 2f - DiscussionGame.getMenuWidth() / 2.0, CAMERA_HEIGHT / 2.0 - DiscussionGame.getMenuHeight()/2.0);
+    static Point2D discussionGamePostion = new Point2D(CAMERA_WIDTH / 2f - DiscussionGame.getMenuWidth() / 2.0, CAMERA_HEIGHT / 2.0 - DiscussionGame.getMenuHeight() / 2.0);
 
     //Sprites
     String levelName;
@@ -149,8 +149,8 @@ public class WorldView implements GUIController
         if (input.contains("Z") && elapsedTimeSinceLastInteraction > 1)
         {
             isDiscussionGameActive = !isDiscussionGameActive;
-            if(isDiscussionGameActive)
-                discussionGame = new DiscussionGame();
+            if (isDiscussionGameActive)
+                discussionGame = new DiscussionGame("test");
             lastTimeMenuWasOpened = currentNanoTime;
         }
 
@@ -168,7 +168,7 @@ public class WorldView implements GUIController
                 player.actor.setVelocity(0, 0);
             textbox.processKey(input, currentNanoTime);
         }
-        else if(isPersonalityScreenActive)
+        else if (isPersonalityScreenActive)
         {
             if (player.actor.isMoving())
                 player.actor.setVelocity(0, 0);
@@ -262,18 +262,20 @@ public class WorldView implements GUIController
                     && active.actor.sensorStatus.onInteraction != TriggerType.NOTHING)//Just add sprites of actors you can interact by onInteraction
                 mouseHoveredSprites.add(active);
 
-        if (isTextBoxActive)
+        if (isDiscussionGameActive)
         {
-            textbox.processMouse(mousePositionRelativeToCamera, isMouseClicked);
+            //System.out.println(CLASSNAME + methodName + "isDicussionGameActive");
+            discussionGame.processMouse(mousePositionRelativeToCamera, isMouseClicked, currentNanoTime);
         }
-        else if(isPersonalityScreenActive)
+        else if (isPersonalityScreenActive)
         {
             //System.out.println(CLASSNAME + methodName + "isPersonalityScreenActive == true");
             personalityScreenController.processMouse(mousePositionRelativeToCamera, isMouseClicked, currentNanoTime);
         }
-        else if(isDiscussionGameActive)
+        else if (isTextBoxActive)
         {
-            discussionGame.processMouse(mousePositionRelativeToCamera, isMouseClicked, currentNanoTime);
+            //System.out.println(CLASSNAME + methodName + "isTextboxActive");
+            textbox.processMouse(mousePositionRelativeToCamera, isMouseClicked);
         }
         else
         {
@@ -376,13 +378,13 @@ public class WorldView implements GUIController
             gc.drawImage(inventoryOverlayMenuImage, inventoryOverlayPosition.getX(), inventoryOverlayPosition.getY());
         }
 
-        if(isPersonalityScreenActive)
+        if (isPersonalityScreenActive)
         {
             WritableImage personalityScreenOverlay = personalityScreenController.getWritableImage();
             gc.drawImage(personalityScreenOverlay, personalityScreenPosition.getX(), personalityScreenPosition.getY());
         }
 
-        if(isDiscussionGameActive)
+        if (isDiscussionGameActive)
         {
             WritableImage discussionGameImage = discussionGame.getWritableImage(currentNanoTime);
             gc.drawImage(discussionGameImage, discussionGamePostion.getX(), discussionGamePostion.getY());
@@ -405,8 +407,7 @@ public class WorldView implements GUIController
                 try
                 {
                     lightsImageMap.put(lightSpriteName, new Image("/res/img/lightglows/" + lightSpriteName + ".png"));
-                }
-                catch (IllegalArgumentException e)
+                } catch (IllegalArgumentException e)
                 {
                     throw new IllegalArgumentException("Invalid URL: " + "/res/img/lightglows/" + lightSpriteName + ".png" + " of sprite " + sprite.getName());
                 }
@@ -429,8 +430,7 @@ public class WorldView implements GUIController
         try
         {
             return fxmlLoader.load();
-        }
-        catch (IOException e)
+        } catch (IOException e)
         {
             e.printStackTrace();
         }
@@ -492,5 +492,20 @@ public class WorldView implements GUIController
     public static void setPersonalityScreenController(PersonalityScreenController personalityScreenController)
     {
         WorldView.personalityScreenController = personalityScreenController;
+    }
+
+    public static void setIsDiscussionGameActive(boolean isDiscussionGameActive)
+    {
+        WorldView.isDiscussionGameActive = isDiscussionGameActive;
+    }
+
+    public static void setDiscussionGame(DiscussionGame discussionGame)
+    {
+        WorldView.discussionGame = discussionGame;
+    }
+
+    public static Textbox getTextbox()
+    {
+        return textbox;
     }
 }

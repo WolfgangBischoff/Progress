@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Dialogue
 {
-    private static final String CLASSNAME = "Dialogue/";
+    private static final String CLASSNAME = "Dialogue-";
     String type;
     String nextDialogue;
     private String spriteStatus;
@@ -16,6 +16,14 @@ public class Dialogue
     public void addOption(String optionMessage, String nextDialogue)
     {
         options.add(new Option(optionMessage, nextDialogue));
+    }
+
+    public Option getOption(String optionMsg)
+    {
+        for (Option option : options)
+            if (option.optionMessage.equals(optionMsg))
+                return option;
+        return null;
     }
 
     public List<String> getOptionMessages()

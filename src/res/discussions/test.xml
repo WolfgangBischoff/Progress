@@ -46,7 +46,7 @@
             y="100"
             radius="32"
             speed="1"
-            movementType="falling"
+            movementType="MOVING"
             time = "3"
     />
 
@@ -56,7 +56,7 @@
             y="100"
             radius="32"
             speed="1"
-            movementType="falling"
+            movementType="MOVING"
             time = "3"
     />
 
@@ -69,7 +69,7 @@
             y="100"
             radius="32"
             speed="1"
-            movementType="falling"
+            movementType="MOVING"
             time = "5"
     />
 
@@ -79,7 +79,7 @@
             y="130"
             radius="32"
             speed="1"
-            movementType="falling"
+            movementType="MOVING"
             time = "5"
     />
 
@@ -89,7 +89,7 @@
             y="160"
             radius="32"
             speed="1"
-            movementType="falling"
+            movementType="MOVING"
             time = "5"
     />
 
@@ -103,7 +103,7 @@
             y="160"
             radius="32"
             speed="1"
-            movementType="falling"
+            movementType="MOVING"
             time = "7"
     />
 
@@ -113,7 +113,7 @@
             y="130"
             radius="32"
             speed="1"
-            movementType="falling"
+            movementType="MOVING"
             time = "7"
     />
 
@@ -123,7 +123,7 @@
             y="100"
             radius="32"
             speed="1"
-            movementType="falling"
+            movementType="MOVING"
             time = "7"
     />
 </root>

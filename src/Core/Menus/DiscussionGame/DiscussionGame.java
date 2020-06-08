@@ -41,9 +41,11 @@ public class DiscussionGame
     Long gameStartTime;
     boolean isFinished = false;
     Map<String, Integer> clickedCoins = new HashMap<>();
+    String gameFileName;
 
-    public DiscussionGame()
+    public DiscussionGame(String gameIdentifier)
     {
+        gameFileName = gameIdentifier;
         init();
     }
 
@@ -59,7 +61,7 @@ public class DiscussionGame
     {
         String methodName = "loadDiscussion() ";
         //read from File
-        xmlRoot = Utilities.readXMLFile("src/res/discussions/test.xml");
+        xmlRoot = Utilities.readXMLFile("src/res/discussions/" + gameFileName + ".xml");
         NodeList coins = xmlRoot.getElementsByTagName("coin");
         for (int i = 0; i < coins.getLength(); i++) //iterate coins of file
         {
@@ -95,7 +97,8 @@ public class DiscussionGame
             {
                 //Nothing
             }
-            if (coin.movementType.equals("falling"))
+            //if (coin.movementType.equals("falling"))
+            if (coin.movementType.equals(MOVING_COIN_BEHAVIOR))
                 circle.setCenterY(circle.getCenterY() + coin.speed);
 
             if (coin.movementType.equals("jump"))
@@ -206,7 +209,13 @@ public class DiscussionGame
                 removedCoinsList.add(hoveredElements.get(i));
 
             }
-
+        }
+        else if(isMouseClicked && isFinished)
+        {
+            //TODO logic when won the game
+            WorldView.getTextbox().setNextDialogueFromDiscussion(false);
+            WorldView.getTextbox().nextMessage(currentNanoTime);
+            WorldView.setIsDiscussionGameActive(false);
         }
     }
 

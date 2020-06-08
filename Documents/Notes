@@ -1,9 +1,8 @@
 
 Logic:
 - Social Discussion Mechanic
-    - remove arguemtnsBigFiveMatrix and change GUI to always count
-    - use Utilits function in Textbox to read XML
-    - rename falling to moving; jump rename variables
+    - remove arguemtnsBigFiveMatrix and change GUI to always count or from discussion
+    - add logic when coin game is won
 - Build repair mechanic
     - find knowledge
     - find image

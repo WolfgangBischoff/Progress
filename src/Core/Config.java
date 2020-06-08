@@ -51,9 +51,14 @@ public class Config
     public static final String TYPE_TAG = "type";
     public static final String ACTOR_STATUS_TAG = "spritestatus";
     public static final String SENSOR_STATUS_TAG = "sensorstatus";
-    public static final String DECISION_KEYWORD = "decision";
+    public static final String DECISION_TYPE = "decision";
     public static final String LINE_TAG = "line";
     public static final String NEXT_DIALOGUE_TAG = "nextDialogue";
+
+    public static final String discussion_ATTRIBUTE = "discussion";
+    public static final String game_ATTRIBUTE = "game";
+    public static final String success_ATTRIBUTE = "success";
+    public static final String defeat_ATTRIBUTE = "defeat";
 
     //Paths
     public static final String CSV_POSTFIX = ".csv";
@@ -63,11 +68,12 @@ public class Config
     public static final String ACTOR_DIRECTORY_PATH = "src/res/actorData/";
     public static final String IMAGE_DIRECTORY_PATH = "/res/img/";
 
-    //Talk-Game
+    //Discussion-Game
     public static final int THRESHOLD_MOTIVATION = 3;
     public static final int THRESHOLD_DECISION = 6;
     public static final int THRESHOLD_FOCUS = 9;
     public static final int THRESHOLD_LIFESTYLE = 12;
     public static final int THRESHOLD_PERSONALITY = 12;
+    public static final String MOVING_COIN_BEHAVIOR = "moving";
 
 }
