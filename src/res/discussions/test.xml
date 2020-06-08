@@ -3,18 +3,9 @@
     <!--/>
     Wave 0
     <-->
-    <coin
-            characteristic="introversion"
-            x="500"
-            y="500"
-            radius="32"
-            speed="3"
-            movementType="stay"
-            time = "0000"
-    />
 
     <coin
-            characteristic="introversion"
+            characteristic="extroversion"
             x="250"
             y="500"
             radius="32"
@@ -24,11 +15,33 @@
             time = "0000"
     />
 
+    <coin
+            characteristic="judging"
+            x="350"
+            y="500"
+            radius="32"
+            speed="7"
+            movementType="jump"
+            relative_jumpheight = "350"
+            time = "0000"
+    />
+
+    <coin
+            characteristic="perceiving"
+            x="450"
+            y="500"
+            radius="32"
+            speed="8"
+            movementType="jump"
+            relative_jumpheight = "450"
+            time = "0000"
+    />
+
     <!--/>
    Wave 3
    <-->
     <coin
-            characteristic="extroversion"
+            characteristic="sensing"
             x="200"
             y="100"
             radius="32"
@@ -38,7 +51,7 @@
     />
 
     <coin
-            characteristic="extroversion"
+            characteristic="intuition"
             x="220"
             y="100"
             radius="32"
@@ -61,7 +74,7 @@
     />
 
     <coin
-            characteristic="introversion"
+            characteristic="feeling"
             x="400"
             y="130"
             radius="32"
@@ -71,7 +84,7 @@
     />
 
     <coin
-            characteristic="introversion"
+            characteristic="sensing"
             x="500"
             y="160"
             radius="32"
@@ -95,7 +108,7 @@
     />
 
     <coin
-            characteristic="introversion"
+            characteristic="thinking"
             x="550"
             y="130"
             radius="32"
@@ -105,7 +118,7 @@
     />
 
     <coin
-            characteristic="introversion"
+            characteristic="intuition"
             x="650"
             y="100"
             radius="32"

@@ -64,16 +64,6 @@ public class DiscussionGame
         for (int i = 0; i < coins.getLength(); i++) //iterate coins of file
         {
             Element currentCoin = ((Element) coins.item(i));
-            /*
-            MyersBriggsCharacteristic myersBriggsCharacteristic = MyersBriggsCharacteristic.getType(currentCoin.getAttribute("characteristic"));
-            int startX = Integer.parseInt(currentCoin.getAttribute("x"));
-            int startY = Integer.parseInt(currentCoin.getAttribute("y"));
-            int speed = Integer.parseInt(currentCoin.getAttribute("speed"));
-            int radius = Integer.parseInt(currentCoin.getAttribute("radius"));
-            String movement = currentCoin.getAttribute("movementType");
-            int time_ms = Integer.parseInt(currentCoin.getAttribute("time"));
-
-            CharacterCoin characterCoin = new CharacterCoin(myersBriggsCharacteristic, new Point2D(startX, startY), radius, speed, movement, time_ms);*/
             CharacterCoin characterCoin = new CharacterCoin(currentCoin);
             coinsList.add(characterCoin);
         }
@@ -107,12 +97,13 @@ public class DiscussionGame
             }
             if (coin.movementType.equals("falling"))
                 circle.setCenterY(circle.getCenterY() + coin.speed);
+
             if (coin.movementType.equals("jump"))
             {
                 double elapsedTimeSinceSpawn = (currentNanoTime - gameStartTime) / 1000000000.0;
                 coin.relativeJumpHeight = -4 * elapsedTimeSinceSpawn + coin.speed;
                 circle.setCenterY(circle.getCenterY() - coin.relativeJumpHeight);
-                System.out.println(CLASSNAME + methodName + "Movement " + coin.relativeJumpHeight);
+                //System.out.println(CLASSNAME + methodName + "Movement " + coin.relativeJumpHeight);
             }
 
             //Check if is visible

@@ -58,7 +58,13 @@ public class CharacterCoin
         switch (characteristicOrTrait.toLowerCase())
         {
             case "introversion":return Utilities.readImage("Core/Menus/DiscussionGame/introvert.png");
-            case "extroversion":return Utilities.readImage("Core/Menus/DiscussionGame/exzentr.png");
+            case "extroversion":return Utilities.readImage("Core/Menus/DiscussionGame/extrovert.png");
+            case "intuition":return Utilities.readImage("Core/Menus/DiscussionGame/intuition.png");
+            case "sensing":return Utilities.readImage("Core/Menus/DiscussionGame/sensing.png");
+            case "thinking":return Utilities.readImage("Core/Menus/DiscussionGame/thinking.png");
+            case "feeling":return Utilities.readImage("Core/Menus/DiscussionGame/feeling.png");
+            case "judging":return Utilities.readImage("Core/Menus/DiscussionGame/judging.png");
+            case "perceiving":return Utilities.readImage("Core/Menus/DiscussionGame/perceiving.png");
             default: throw new RuntimeException("No path kown");
         }
     }
