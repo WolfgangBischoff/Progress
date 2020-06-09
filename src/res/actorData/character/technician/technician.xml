@@ -64,7 +64,7 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
         </option>
     </dialogue>
 
-    <dialogue id="game-test" type="discussion" game="test" success="game-success" defeat="game-defeat"/>
+    <dialogue id="game-test" type="discussion" game="lifesupport" success="game-success" defeat="game-defeat"/>
 
     <dialogue id="game-success" type = "normal">
         <line>Ok, ist ja gut. Geh einfach rein.</line>

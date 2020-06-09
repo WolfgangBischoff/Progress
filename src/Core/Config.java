@@ -74,6 +74,12 @@ public class Config
     public static final int THRESHOLD_FOCUS = 9;
     public static final int THRESHOLD_LIFESTYLE = 12;
     public static final int THRESHOLD_PERSONALITY = 12;
-    public static final String MOVING_COIN_BEHAVIOR = "moving";
+    public static final String COIN_BEHAVIOR_MOVING = "moving";
+    public static final String COIN_BEHAVIOR_JUMP = "jump";
+    public static final String COIN_BEHAVIOR_SPIRAL = "spiral";
+    public static final String COIN_BEHAVIOR_CIRCLE = "circle";
+    public static final String COIN_TAG_ANGLE = "angle";
+    public static final String COIN_TAG_INITSPEED = "initspeed";
+
 
 }

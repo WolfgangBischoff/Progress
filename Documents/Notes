@@ -2,6 +2,8 @@
 Logic:
 - Social Discussion Mechanic
     - add logic when coin game is won
+    - refine spiral path with radius
+    - remove radius from file, add to constructor
 - Build repair mechanic
     - find knowledge
     - find image

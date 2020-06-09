@@ -1,0 +1,294 @@
+<!-->
+//self  	;social		;detail	  ;holistic	;logic	;emotion;conservative progressive ;
+INTROVERSION,EXTROVERSION,SENSING,INTUITION,THINKING,FEELING,JUDGING,    PERCEIVING;
+        <-->
+
+<root>
+
+    <!--/>
+    Wave 0
+    <-->
+    <coin
+            characteristic="sensing"
+            x="400"
+            y="300"
+            radius="32"
+            initspeed="2"
+            movementType="MOVING"
+            angle="30"
+            time="0"
+    />
+
+    <coin
+            characteristic="intuition"
+            x="400"
+            y="300"
+            radius="32"
+            initspeed="2"
+            movementType="MOVING"
+            angle="60"
+            time="0"
+    />
+
+    <coin
+            characteristic="extroversion"
+            x="400"
+            y="300"
+            radius="32"
+            initspeed="2"
+            movementType="MOVING"
+            angle="-30"
+            time="0"
+    />
+
+    <coin
+            characteristic="introversion"
+            x="400"
+            y="300"
+            radius="32"
+            initspeed="2"
+            movementType="MOVING"
+            angle="-60"
+            time="0"
+    />
+
+    <coin
+            characteristic="thinking"
+            x="400"
+            y="300"
+            radius="32"
+            initspeed="2"
+            movementType="MOVING"
+            angle="150"
+            time="0"
+    />
+
+    <coin
+            characteristic="feeling"
+            x="400"
+            y="300"
+            radius="32"
+            initspeed="2"
+            movementType="MOVING"
+            angle="120"
+            time="0"
+    />
+
+    <coin
+            characteristic="judging"
+            x="400"
+            y="300"
+            radius="32"
+            initspeed="2"
+            movementType="MOVING"
+            angle="-120"
+            time="0"
+    />
+
+    <coin
+            characteristic="perceiving"
+            x="400"
+            y="300"
+            radius="32"
+            initspeed="2"
+            movementType="MOVING"
+            angle="-150"
+            time="0"
+    />
+
+    <!--/>
+   Wave 3
+   cascade
+   <-->
+    <coin
+            characteristic="sensing"
+            x="100"
+            y="600"
+            radius="32"
+            initspeed="5"
+            movementType="JUMP"
+            time="3"
+    />
+
+    <coin
+            characteristic="intuition"
+            x="800"
+            y="600"
+            radius="32"
+            initspeed="5"
+            movementType="JUMP"
+            time="3"
+    />
+
+    <coin
+            characteristic="extroversion"
+            x="200"
+            y="600"
+            radius="32"
+            initspeed="6"
+            movementType="JUMP"
+            time="4"
+    />
+
+    <coin
+            characteristic="introversion"
+            x="700"
+            y="600"
+            radius="32"
+            initspeed="6"
+            movementType="JUMP"
+            time="4"
+    />
+
+    <coin
+            characteristic="thinking"
+            x="300"
+            y="600"
+            radius="32"
+            initspeed="7"
+            movementType="JUMP"
+            time="5"
+    />
+
+    <coin
+            characteristic="feeling"
+            x="600"
+            y="600"
+            radius="32"
+            initspeed="7"
+            movementType="JUMP"
+            time="5"
+    />
+
+    <coin
+            characteristic="judging"
+            x="400"
+            y="600"
+            radius="32"
+            initspeed="8"
+            movementType="JUMP"
+            time="6"
+    />
+
+    <coin
+            characteristic="perceiving"
+            x="500"
+            y="600"
+            radius="32"
+            initspeed="8"
+            movementType="JUMP"
+            time="6"
+    />
+
+
+
+
+    <!--/>
+   Wave 7
+   <-->
+    <coin
+            characteristic="sensing"
+            x="100"
+            y="600"
+            radius="32"
+            initspeed="8"
+            movementType="JUMP"
+            time="7"
+    />
+
+    <coin
+            characteristic="intuition"
+            x="200"
+            y="600"
+            radius="32"
+            initspeed="8"
+            movementType="JUMP"
+            time="8"
+    />
+
+    <coin
+            characteristic="extroversion"
+            x="300"
+            y="600"
+            radius="32"
+            initspeed="8"
+            movementType="JUMP"
+            time="9"
+    />
+
+    <coin
+            characteristic="introversion"
+            x="400"
+            y="600"
+            radius="32"
+            initspeed="8"
+            movementType="JUMP"
+            time="10"
+    />
+
+    <coin
+            characteristic="thinking"
+            x="500"
+            y="600"
+            radius="32"
+            initspeed="8"
+            movementType="JUMP"
+            time="11"
+    />
+
+    <coin
+            characteristic="feeling"
+            x="600"
+            y="600"
+            radius="32"
+            initspeed="8"
+            movementType="JUMP"
+            time="12"
+    />
+
+    <coin
+            characteristic="judging"
+            x="700"
+            y="600"
+            radius="32"
+            initspeed="8"
+            movementType="JUMP"
+            time="13"
+    />
+
+    <coin
+            characteristic="perceiving"
+            x="800"
+            y="600"
+            radius="32"
+            initspeed="8"
+            movementType="JUMP"
+            time="14"
+    />
+
+
+    <!--/>
+      Wave 17
+      Spiral
+      <-->
+    <coin
+            characteristic="sensing"
+            x="400"
+            y="300"
+            radius="32"
+            initspeed="2"
+            movementType="spiral"
+            time="17"
+    />
+
+    <coin
+            characteristic="judging"
+            x="400"
+            y="300"
+            radius="32"
+            initspeed="2"
+            movementType="circle"
+            time="17"
+    />
+
+</root>

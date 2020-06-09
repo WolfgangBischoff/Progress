@@ -7,6 +7,8 @@ import javafx.scene.image.Image;
 import javafx.scene.shape.Circle;
 import org.w3c.dom.Element;
 
+import static Core.Config.*;
+
 public class CharacterCoin
 {
     Circle collisionCircle;
@@ -15,12 +17,15 @@ public class CharacterCoin
     //Trait??
     Point2D startPosition;
     int collisionRadius;
-    double speed;
+    double initSpeed;
     String movementType;
-    int time_ms;
+    int time_s;
 
     //Jump
-    double relativeJumpHeight = 0;
+    double speed = 0;
+
+    //Move
+    double angle = 0;
 
     public CharacterCoin(MyersBriggsCharacteristic characteristic, Point2D startPosition, int collisionRadius, int speed, String movementType, int time)
     {
@@ -28,10 +33,10 @@ public class CharacterCoin
         this.image = findImage(characteristic.toString());
         this.characteristic = characteristic;
         this.startPosition = startPosition;
-        this.speed = speed;
+        this.initSpeed = speed;
         this.movementType = movementType;
         collisionCircle = new Circle(startPosition.getX(),startPosition.getY(),collisionRadius);
-        this.time_ms = time;
+        this.time_s = time;
     }
 
     public CharacterCoin(Element xmlNode)
@@ -42,14 +47,18 @@ public class CharacterCoin
         this.collisionRadius = Integer.parseInt(xmlNode.getAttribute("radius"));
         this.startPosition = new Point2D(startX,startY);
         collisionCircle = new Circle(startPosition.getX(),startPosition.getY(),collisionRadius);
-        this.speed = Integer.parseInt(xmlNode.getAttribute("speed"));
+        this.initSpeed = Integer.parseInt(xmlNode.getAttribute(COIN_TAG_INITSPEED));
         this.movementType = xmlNode.getAttribute("movementType").toLowerCase();
-        this.time_ms = Integer.parseInt(xmlNode.getAttribute("time"));
+        this.time_s = Integer.parseInt(xmlNode.getAttribute("time"));
         this.image = findImage(characteristic.toString());
 
-        if(movementType.equals("jump"))
+        if(movementType.equals(COIN_BEHAVIOR_JUMP))
         {
-            this.relativeJumpHeight = Integer.parseInt(xmlNode.getAttribute("relative_jumpheight"));
+            //this.speed = Integer.parseInt(xmlNode.getAttribute("relative_jumpheight"));
+        }
+        else if(movementType.equals(COIN_BEHAVIOR_MOVING))
+        {
+            this.angle = Integer.parseInt(xmlNode.getAttribute(COIN_TAG_ANGLE));
         }
     }
 
@@ -80,7 +89,7 @@ public class CharacterCoin
                 ", characteristic=" + characteristic +
                 ", startPosition=" + startPosition +
                 ", collisionRadius=" + collisionRadius +
-                ", speed=" + speed +
+                ", initSpeed=" + initSpeed +
                 ", movementType='" + movementType + '\'' +
                 '}';
     }

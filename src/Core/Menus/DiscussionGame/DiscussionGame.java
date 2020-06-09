@@ -84,7 +84,7 @@ public class DiscussionGame
         visibleCoinsList.clear();
         for (CharacterCoin coin : coinsList)
         {
-            if (coin.time_ms <= elapsedTime && !removedCoinsList.contains(coin))
+            if (coin.time_s <= elapsedTime && !removedCoinsList.contains(coin))
             {
                 visibleCoinsList.add(coin);
             }
@@ -95,19 +95,52 @@ public class DiscussionGame
         {
             CharacterCoin coin = visibleCoinsList.get(i);
             Circle circle = coin.collisionCircle;
+            double elapsedTimeSinceSpawn = ((currentNanoTime - gameStartTime) / 1000000000.0) - coin.time_s;
 
-            if (coin.movementType.equals("stay"))
+            if (coin.movementType.equals(COIN_BEHAVIOR_MOVING))
             {
-                //Nothing
+                //tan(a) = Gegenkathete / Ankathete
+                //sin(a) = Gegenkathete / Hypotenuse
+                //cos(a) = Ankathete    / Hypotenuse
+                //0     => right
+                //45    => btm right
+
+                double hypotenuse = coin.initSpeed;
+                double angle = coin.angle;
+                double angle_rad = Math.toRadians(angle);
+                double x = Math.cos(angle_rad) * hypotenuse;
+                double y = Math.sin(angle_rad) * hypotenuse;
+
+                circle.setCenterX(circle.getCenterX() + x);
+                circle.setCenterY(circle.getCenterY() + y);
             }
-            if (coin.movementType.equals(MOVING_COIN_BEHAVIOR))
-                circle.setCenterY(circle.getCenterY() + coin.speed);
-
-            if (coin.movementType.equals("jump"))
+            else if (coin.movementType.equals(COIN_BEHAVIOR_JUMP))
             {
-                double elapsedTimeSinceSpawn = (currentNanoTime - gameStartTime) / 1000000000.0;
-                coin.relativeJumpHeight = -4 * elapsedTimeSinceSpawn + coin.speed;
-                circle.setCenterY(circle.getCenterY() - coin.relativeJumpHeight);
+                double slowFactor = -5;
+                //double elapsedTimeSinceSpawn = ((currentNanoTime - gameStartTime) / 1000000000.0) - coin.time_s;
+                coin.speed = slowFactor * elapsedTimeSinceSpawn + coin.initSpeed;
+                circle.setCenterY(circle.getCenterY() - coin.speed);
+                //System.out.println(CLASSNAME + methodName + coin.speed);
+            }
+            else if (coin.movementType.equals(COIN_BEHAVIOR_SPIRAL))
+            {
+                coin.angle += 2;
+                double angle = coin.angle;
+                double angle_rad = Math.toRadians(angle);
+                double x = Math.cos(angle_rad) * elapsedTimeSinceSpawn;
+                double y = Math.sin(angle_rad) * elapsedTimeSinceSpawn;
+                circle.setCenterX(circle.getCenterX() + x);
+                circle.setCenterY(circle.getCenterY() + y);
+            }
+            else if (coin.movementType.equals(COIN_BEHAVIOR_CIRCLE))
+            {
+                coin.angle += 3;
+                double angle = coin.angle;
+                double angle_rad = Math.toRadians(angle);
+                double x = Math.cos(angle_rad) * 4;
+                double y = Math.sin(angle_rad) * 4;
+                circle.setCenterX(circle.getCenterX() + x);
+                circle.setCenterY(circle.getCenterY() + y);
             }
 
             //Check if is visible
