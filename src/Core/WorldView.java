@@ -4,6 +4,7 @@ import Core.Enums.Direction;
 import Core.Enums.TriggerType;
 import Core.Menus.DiscussionGame.DiscussionGame;
 import Core.Menus.PersonalityScreenController;
+import Core.Menus.Textbox.Textbox;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;

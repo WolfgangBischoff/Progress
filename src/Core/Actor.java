@@ -798,4 +798,99 @@ public class Actor
     {
         return actorFileName;
     }
+
+    public static String getCLASSNAME()
+    {
+        return CLASSNAME;
+    }
+
+    public static Set<String> getActorDefinitionKeywords()
+    {
+        return actorDefinitionKeywords;
+    }
+
+    public String getActorInGameName()
+    {
+        return actorInGameName;
+    }
+
+    public List<Sprite> getSpriteList()
+    {
+        return spriteList;
+    }
+
+    public List<ActorCondition> getConditions()
+    {
+        return conditions;
+    }
+
+    public Map<String, String> getStatusTransitions()
+    {
+        return statusTransitions;
+    }
+
+    public Map<String, List<SpriteData>> getSpriteDataMap()
+    {
+        return spriteDataMap;
+    }
+
+    public String getGeneralStatus()
+    {
+        return generalStatus;
+    }
+
+    public String getCompoundStatus()
+    {
+        return compoundStatus;
+    }
+
+    public String getDialogueFileName()
+    {
+        return dialogueFileName;
+    }
+
+    public String getDialogueStatusID()
+    {
+        return dialogueStatusID;
+    }
+
+    public String getCollectable_type()
+    {
+        return collectable_type;
+    }
+
+    public String getTextbox_analysis_group_name()
+    {
+        return textbox_analysis_group_name;
+    }
+
+    public StageMonitor getStageMonitor()
+    {
+        return stageMonitor;
+    }
+
+    public List<String> getMemberActorGroups()
+    {
+        return memberActorGroups;
+    }
+
+    public Inventory getInventory()
+    {
+        return inventory;
+    }
+
+    public Map<String, SensorStatus> getSensorStatusMap()
+    {
+        return sensorStatusMap;
+    }
+
+    public SensorStatus getSensorStatus()
+    {
+        return sensorStatus;
+    }
+
+    public Set<ActorTag> getTags()
+    {
+        return tags;
+    }
 }

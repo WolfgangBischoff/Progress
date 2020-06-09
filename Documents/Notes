@@ -1,7 +1,6 @@
 
 Logic:
 - Social Discussion Mechanic
-    - remove arguemtnsBigFiveMatrix and change GUI to always count or from discussion
     - add logic when coin game is won
 - Build repair mechanic
     - find knowledge
@@ -14,16 +13,14 @@ Logic:
     add item with textbox
     add item in box
 - schlafen, fade out, calender
-- character change
 - Console
-- ErrorHandling, detect unused Map Definitions
 - change __xx__ to ______, latter should be overwritable
 - add Logger.log(debug, CLASSNAME, methodName, msg)
 
 
 Sprites:
 - Ship:
-    FrontWindow, tieferes Geschoß aka Boden mit Antennen, moving asteroid, scripted Cleaing Bot, rescue pods, sphere star map
+    FrontWindow, tieferes Geschoß aka Boden mit Antennen, moving asteroid, scripted Cleaing Bot, rescue pods, sphere star map, captian sprite
 - Docking Bay:
     Elevator, schriftzug "Elevator", minimal table, Lautsprecher
 - Control Center: BrückenControls,

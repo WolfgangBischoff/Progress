@@ -1,5 +1,6 @@
-package Core;
+package Core.Menus.Textbox;
 
+import Core.*;
 import Core.Menus.DiscussionGame.DiscussionGame;
 import Core.Menus.PersonalityScreenController;
 import javafx.geometry.Point2D;
@@ -13,16 +14,9 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,13 +71,13 @@ public class Textbox
 
         try
         {
-            dialogueFileRoot = Utilities.readXMLFile(DIALOGUE_FILE_PATH + actorOfDialogue.dialogueFileName + ".xml");
-            readDialogue = readDialogue(actorOfDialogue.dialogueStatusID);
+            dialogueFileRoot = Utilities.readXMLFile(DIALOGUE_FILE_PATH + actorOfDialogue.getDialogueFileName() + ".xml");
+            readDialogue = readDialogue(actorOfDialogue.getDialogueStatusID());
             drawTextbox();
         } catch (NullPointerException e)
         {
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append("\nDialogueFileName: " + actorOfDialogue.dialogueFileName);
+            stringBuilder.append("\nDialogueFileName: " + actorOfDialogue.getDialogueFileName());
             if (readDialogue == null)
                 stringBuilder.append("\nLoadedDialogue = null");
             else
@@ -96,7 +90,8 @@ public class Textbox
             throw new NullPointerException(stringBuilder.toString());
         }
 
-        actorOfDialogue.personalityContainer.increaseNumberOfInteractions(1);
+        if(actorOfDialogue.getPersonalityContainer() != null)
+            actorOfDialogue.getPersonalityContainer().increaseNumberOfInteractions(1);
     }
 
     //For Discussion if File is already read, Discussions send next Dialogue
@@ -191,14 +186,14 @@ public class Textbox
         String methodName = "processKey() ";
         int maxMarkedOptionIdx = lineSplitMessage.size() - 1;
         int newMarkedOption = markedOption;
-        double elapsedTimeSinceLastInteraction = (currentNanoTime - WorldView.getPlayer().actor.getLastInteraction()) / 1000000000.0;
+        double elapsedTimeSinceLastInteraction = (currentNanoTime - WorldView.getPlayer().getActor().getLastInteraction()) / 1000000000.0;
         if (!(elapsedTimeSinceLastInteraction > TIME_BETWEEN_DIALOGUE))
             return;
 
         if (input.contains("E") || input.contains("ENTER") || input.contains("SPACE"))
         {
             nextMessage(currentNanoTime);
-            WorldView.getPlayer().actor.setLastInteraction(currentNanoTime);
+            WorldView.getPlayer().getActor().setLastInteraction(currentNanoTime);
             return;
         }
         if (input.contains("W") || input.contains("UP"))
@@ -214,7 +209,7 @@ public class Textbox
         if (markedOption != newMarkedOption)
         {
             markedOption = newMarkedOption;
-            WorldView.getPlayer().actor.setLastInteraction(currentNanoTime);
+            WorldView.getPlayer().getActor().setLastInteraction(currentNanoTime);
             drawTextbox();
         }
     }
@@ -222,7 +217,7 @@ public class Textbox
     public void processMouse(Point2D mousePosition, boolean isMouseClicked)
     {
         String methodName = "processMouse(Point2D, boolean) ";
-        Point2D textboxPosition = WorldView.textBoxPosition;
+        Point2D textboxPosition = WorldView.getTextBoxPosition();
         Rectangle2D textboxPosRelativeToWorldview = new Rectangle2D(textboxPosition.getX(), textboxPosition.getY(), TEXT_BOX_WIDTH, TEXT_BOX_HEIGHT);
 
         if (textboxPosRelativeToWorldview.contains(mousePosition))
@@ -233,7 +228,7 @@ public class Textbox
         }
         else mousePosRelativeToTextboxOverlay = null;
 
-        if (actorOfDialogue.personalityContainer != null && talkIcon.contains(mousePosRelativeToTextboxOverlay))
+        if (actorOfDialogue.getPersonalityContainer() != null && talkIcon.contains(mousePosRelativeToTextboxOverlay))
         {
             isTalkIconHovered = true;
             //System.out.println(CLASSNAME + methodName + "talkIcon hovered");
@@ -243,7 +238,7 @@ public class Textbox
 
         //Check if hovered on Option
         int offsetYTmp = firstLineOffsetY;
-        if (readDialogue.type.equals(DECISION_TYPE) && GameWindow.getSingleton().mouseMoved)
+        if (readDialogue.type.equals(DECISION_TYPE) && GameWindow.getSingleton().isMouseMoved())
         {
             for (int checkedLineIdx = 0; checkedLineIdx < lineSplitMessage.size(); checkedLineIdx++)
             {
@@ -260,7 +255,7 @@ public class Textbox
                     break;
                 }
             }
-            GameWindow.getSingleton().mouseMoved = false;
+            GameWindow.getSingleton().setMouseMoved(false);
         }
 
         if (isMouseClicked)
@@ -282,10 +277,10 @@ public class Textbox
         startConversation(speakingActor);
         for (Actor actor : actorsList)
         {
-            Element analysisDialogueFileObserved = Utilities.readXMLFile(DIALOGUE_FILE_PATH + actor.dialogueFileName + ".xml");
+            Element analysisDialogueFileObserved = Utilities.readXMLFile(DIALOGUE_FILE_PATH + actor.getDialogueFileName() + ".xml");
             //Element analysisDialogueFileObserved = readFile(actor.dialogueFileName);
-            Dialogue analysisMessageObserved = readDialogue("analysis-" + actor.dialogueStatusID, analysisDialogueFileObserved);
-            readDialogue.messages.add(actor.actorInGameName + analysisMessageObserved.messages.get(0));
+            Dialogue analysisMessageObserved = readDialogue("analysis-" + actor.getDialogueStatusID(), analysisDialogueFileObserved);
+            readDialogue.messages.add(actor.getActorInGameName() + analysisMessageObserved.messages.get(0));
         }
     }
 
@@ -297,7 +292,7 @@ public class Textbox
     public void nextMessage(Long currentNanoTime)
     {
         String methodName = "nextMessage(Long) ";
-        Actor playerActor = WorldView.getPlayer().actor;
+        Actor playerActor = WorldView.getPlayer().getActor();
 
         if (readDialogue.type.equals(DECISION_TYPE))
         {
@@ -319,7 +314,7 @@ public class Textbox
         }
         else //End Textbox
         {
-            WorldView.isTextBoxActive = false;
+            WorldView.setIsTextBoxActive(false);
             messageIdx = 0;
         }
         playerActor.setLastInteraction(currentNanoTime);
@@ -404,7 +399,7 @@ public class Textbox
 
 
         //Character Info Button
-        if (actorOfDialogue.personalityContainer != null)
+        if (actorOfDialogue.getPersonalityContainer() != null)
         {
             //textboxGc.setGlobalAlpha(0.5);
             //textboxGc.fillRect(talkIcon.getMinX(), talkIcon.getMinY(), talkIcon.getWidth(), talkIcon.getHeight());
@@ -427,7 +422,7 @@ public class Textbox
     private void changeActorStatus(String toGeneralStatus)
     {
         String methodName = "changeActorStatus(String) ";
-        if (!actorOfDialogue.generalStatus.equals(toGeneralStatus))
+        if (!actorOfDialogue.getGeneralStatus().equals(toGeneralStatus))
             actorOfDialogue.onTextboxSignal(toGeneralStatus);
     }
 

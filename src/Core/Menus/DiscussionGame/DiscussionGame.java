@@ -43,7 +43,7 @@ public class DiscussionGame
     boolean isFinished = false;
     Map<String, Integer> clickedCoins = new HashMap<>();
     String gameFileName;
-Actor actorOfDiscussion;
+    Actor actorOfDiscussion;
 
     public DiscussionGame(String gameIdentifier, Actor actorOfDiscussion)
     {
@@ -81,8 +81,6 @@ Actor actorOfDiscussion;
     {
         String methodName = "update() ";
         double elapsedTime = (currentNanoTime - gameStartTime) / 1000000000.0;
-        //System.out.println(CLASSNAME + methodName + "Elapsed time: " + elapsedTime + " removed: " + removedCoinsList.size());
-
         visibleCoinsList.clear();
         for (CharacterCoin coin : coinsList)
         {
@@ -102,7 +100,6 @@ Actor actorOfDiscussion;
             {
                 //Nothing
             }
-            //if (coin.movementType.equals("falling"))
             if (coin.movementType.equals(MOVING_COIN_BEHAVIOR))
                 circle.setCenterY(circle.getCenterY() + coin.speed);
 
@@ -111,7 +108,6 @@ Actor actorOfDiscussion;
                 double elapsedTimeSinceSpawn = (currentNanoTime - gameStartTime) / 1000000000.0;
                 coin.relativeJumpHeight = -4 * elapsedTimeSinceSpawn + coin.speed;
                 circle.setCenterY(circle.getCenterY() - coin.relativeJumpHeight);
-                //System.out.println(CLASSNAME + methodName + "Movement " + coin.relativeJumpHeight);
             }
 
             //Check if is visible
@@ -215,7 +211,7 @@ Actor actorOfDiscussion;
 
             }
         }
-        else if(isMouseClicked && isFinished)
+        else if (isMouseClicked && isFinished)
         {
             //TODO logic when won the game
             WorldView.getTextbox().setNextDialogueFromDiscussion(false);
