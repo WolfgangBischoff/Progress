@@ -7,6 +7,9 @@ import javafx.scene.image.Image;
 import javafx.scene.shape.Circle;
 import org.w3c.dom.Element;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static Core.Config.*;
 
 public class CharacterCoin
@@ -16,7 +19,7 @@ public class CharacterCoin
     MyersBriggsCharacteristic characteristic;
     //Trait??
     Point2D startPosition;
-    int collisionRadius;
+    double collisionRadius;
     double initSpeed;
     String movementType;
     int time_s;
@@ -27,6 +30,10 @@ public class CharacterCoin
     //Move
     double angle = 0;
 
+    Map<String, Double> genericVariables = new HashMap<>();
+
+
+    //Maybe for traits??
     public CharacterCoin(MyersBriggsCharacteristic characteristic, Point2D startPosition, int collisionRadius, int speed, String movementType, int time)
     {
         this.collisionRadius = collisionRadius;
@@ -42,15 +49,15 @@ public class CharacterCoin
     public CharacterCoin(Element xmlNode)
     {
         this.characteristic = MyersBriggsCharacteristic.getType(xmlNode.getAttribute("characteristic"));
-        int startX = Integer.parseInt(xmlNode.getAttribute("x"));
-        int startY = Integer.parseInt(xmlNode.getAttribute("y"));
-        this.collisionRadius = Integer.parseInt(xmlNode.getAttribute("radius"));
-        this.startPosition = new Point2D(startX,startY);
-        collisionCircle = new Circle(startPosition.getX(),startPosition.getY(),collisionRadius);
         this.initSpeed = Integer.parseInt(xmlNode.getAttribute(COIN_TAG_INITSPEED));
         this.movementType = xmlNode.getAttribute("movementType").toLowerCase();
         this.time_s = Integer.parseInt(xmlNode.getAttribute("time"));
         this.image = findImage(characteristic.toString());
+        int startX = Integer.parseInt(xmlNode.getAttribute("x"));
+        int startY = Integer.parseInt(xmlNode.getAttribute("y"));
+        this.collisionRadius = this.image.getWidth() / 2;
+        this.startPosition = new Point2D(startX,startY);
+        collisionCircle = new Circle(startPosition.getX(),startPosition.getY(),collisionRadius);
 
         if(movementType.equals(COIN_BEHAVIOR_JUMP))
         {
@@ -59,6 +66,19 @@ public class CharacterCoin
         else if(movementType.equals(COIN_BEHAVIOR_MOVING))
         {
             this.angle = Integer.parseInt(xmlNode.getAttribute(COIN_TAG_ANGLE));
+        }
+        else if(movementType.equals(COIN_BEHAVIOR_CIRCLE) || movementType.equals(COIN_BEHAVIOR_SPIRAL))
+        {
+            Double centrumX = Double.parseDouble(xmlNode.getAttribute("centrumx"));
+            Double centrumY = Double.parseDouble(xmlNode.getAttribute("centrumy"));
+            Double startangle = Double.parseDouble(xmlNode.getAttribute("startangle"));
+            Double radius = Double.parseDouble(xmlNode.getAttribute("radius"));
+            Double isclockwise = Double.parseDouble(xmlNode.getAttribute("isclockwise"));
+            genericVariables.put("centrumx", centrumX);
+            genericVariables.put("centrumy", centrumY);
+            genericVariables.put("startangle", startangle);
+            genericVariables.put("radius", radius);
+            genericVariables.put("isclockwise", isclockwise);
         }
     }
 

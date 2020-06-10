@@ -1,0 +1,172 @@
+<!-->
+//self  	;social		;detail	  ;holistic	;logic	;emotion;conservative progressive ;
+INTROVERSION,EXTROVERSION,SENSING,INTUITION,THINKING,FEELING,JUDGING,    PERCEIVING;
+        <-->
+
+<root>
+
+
+    <coin
+            characteristic="feeling"
+            x="400"
+            y="300"
+            initspeed="1"
+            movementType="spiral"
+            centrumx = "400"
+            centrumy = "300"
+            radius = "70"
+            startangle = "0"
+            time="0"
+            isclockwise = "1"
+    />
+
+    <coin
+            characteristic="thinking"
+            x="400"
+            y="300"
+            initspeed="1"
+            movementType="spiral"
+            centrumx = "400"
+            centrumy = "300"
+            radius = "70"
+            startangle = "90"
+            time="0"
+            isclockwise = "1"
+    />
+
+    <coin
+            characteristic="feeling"
+            x="400"
+            y="300"
+            initspeed="1"
+            movementType="spiral"
+            centrumx = "400"
+            centrumy = "300"
+            radius = "70"
+            startangle = "180"
+            time="0"
+            isclockwise = "1"
+    />
+
+    <coin
+            characteristic="thinking"
+            x="400"
+            y="300"
+            initspeed="1"
+            movementType="spiral"
+            centrumx = "400"
+            centrumy = "300"
+            radius = "70"
+            startangle = "270"
+            time="0"
+            isclockwise = "1"
+    />
+
+
+
+    <!--/>
+    Wave 5
+    <-->
+    <coin
+            characteristic="introversion"
+            x="400"
+            y="300"
+            initspeed="2"
+            movementType="circle"
+            centrumx = "400"
+            centrumy = "300"
+            radius = "70"
+            startangle = "0"
+            time="5"
+            isclockwise = "1"
+    />
+
+    <coin
+            characteristic="extroversion"
+            x="400"
+            y="300"
+            initspeed="2"
+            movementType="circle"
+            centrumx = "400"
+            centrumy = "300"
+            radius = "140"
+            startangle = "180"
+            time="5"
+            isclockwise = "0"
+    />
+
+    <coin
+            characteristic="introversion"
+            x="400"
+            y="300"
+            initspeed="2"
+            movementType="circle"
+            centrumx = "400"
+            centrumy = "300"
+            radius = "210"
+            startangle = "0"
+            time="5"
+            isclockwise = "1"
+    />
+
+    <coin
+            characteristic="introversion"
+            x="400"
+            y="300"
+            initspeed="2"
+            movementType="circle"
+            centrumx = "400"
+            centrumy = "300"
+            radius = "280"
+            startangle = "0"
+            time="5"
+            isclockwise = "1"
+    />
+
+    <coin
+            characteristic="extroversion"
+            x="400"
+            y="300"
+            initspeed="2"
+            movementType="circle"
+            centrumx = "400"
+            centrumy = "300"
+            radius = "280"
+            startangle = "15"
+            time="5"
+            isclockwise = "1"
+    />
+
+    <coin
+            characteristic="introversion"
+            x="400"
+            y="300"
+            initspeed="2"
+            movementType="circle"
+            centrumx = "400"
+            centrumy = "300"
+            radius = "280"
+            startangle = "30"
+            time="5"
+            isclockwise = "1"
+    />
+
+    <coin
+            characteristic="extroversion"
+            x="400"
+            y="300"
+            initspeed="2"
+            movementType="circle"
+            centrumx = "400"
+            centrumy = "300"
+            radius = "280"
+            startangle = "45"
+            time="5"
+            isclockwise = "1"
+    />
+
+
+
+
+
+</root>

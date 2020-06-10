@@ -73,7 +73,6 @@ public class DiscussionGame
             CharacterCoin characterCoin = new CharacterCoin(currentCoin);
             coinsList.add(characterCoin);
         }
-
     }
 
 
@@ -90,7 +89,7 @@ public class DiscussionGame
             }
         }
 
-        //Do movement
+        //For all Coins
         for (Integer i = 0; i < visibleCoinsList.size(); i++)
         {
             CharacterCoin coin = visibleCoinsList.get(i);
@@ -114,33 +113,60 @@ public class DiscussionGame
                 circle.setCenterX(circle.getCenterX() + x);
                 circle.setCenterY(circle.getCenterY() + y);
             }
+
             else if (coin.movementType.equals(COIN_BEHAVIOR_JUMP))
             {
                 double slowFactor = -5;
-                //double elapsedTimeSinceSpawn = ((currentNanoTime - gameStartTime) / 1000000000.0) - coin.time_s;
                 coin.speed = slowFactor * elapsedTimeSinceSpawn + coin.initSpeed;
                 circle.setCenterY(circle.getCenterY() - coin.speed);
                 //System.out.println(CLASSNAME + methodName + coin.speed);
             }
+
             else if (coin.movementType.equals(COIN_BEHAVIOR_SPIRAL))
             {
-                coin.angle += 2;
+                double angle = coin.genericVariables.get("startangle");
+                double radius = coin.genericVariables.get("radius");
+                double centrumX = coin.genericVariables.get("centrumx");
+                double centrumY = coin.genericVariables.get("centrumy");
+                double isclockwise = coin.genericVariables.get("isclockwise");
+
+                if (isclockwise == 1)
+                    angle += coin.initSpeed;
+                else
+                    angle -= coin.initSpeed;
+                coin.genericVariables.put("startangle", angle);
+                double angle_rad = Math.toRadians(angle);
+                double x = Math.cos(angle_rad) * radius * elapsedTimeSinceSpawn / 2;
+                double y = Math.sin(angle_rad) * radius * elapsedTimeSinceSpawn / 2;
+                circle.setCenterX(centrumX + x);
+                circle.setCenterY(centrumY + y);
+                /*coin.angle += 2;
                 double angle = coin.angle;
                 double angle_rad = Math.toRadians(angle);
                 double x = Math.cos(angle_rad) * elapsedTimeSinceSpawn;
                 double y = Math.sin(angle_rad) * elapsedTimeSinceSpawn;
                 circle.setCenterX(circle.getCenterX() + x);
-                circle.setCenterY(circle.getCenterY() + y);
+                circle.setCenterY(circle.getCenterY() + y);*/
             }
+
             else if (coin.movementType.equals(COIN_BEHAVIOR_CIRCLE))
             {
-                coin.angle += 3;
-                double angle = coin.angle;
+                double angle = coin.genericVariables.get("startangle");
+                double radius = coin.genericVariables.get("radius");
+                double centrumX = coin.genericVariables.get("centrumx");
+                double centrumY = coin.genericVariables.get("centrumy");
+                double isclockwise = coin.genericVariables.get("isclockwise");
+
+                if (isclockwise == 1)
+                    angle += coin.initSpeed;
+                else
+                    angle -= coin.initSpeed;
+                coin.genericVariables.put("startangle", angle);
                 double angle_rad = Math.toRadians(angle);
-                double x = Math.cos(angle_rad) * 4;
-                double y = Math.sin(angle_rad) * 4;
-                circle.setCenterX(circle.getCenterX() + x);
-                circle.setCenterY(circle.getCenterY() + y);
+                double x = Math.cos(angle_rad) * radius;
+                double y = Math.sin(angle_rad) * radius;
+                circle.setCenterX(centrumX + x);
+                circle.setCenterY(centrumY + y);
             }
 
             //Check if is visible

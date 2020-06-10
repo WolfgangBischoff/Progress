@@ -59,12 +59,17 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
            <nextDialogue>game-test</nextDialogue>
         </option>
         <option>
+            <line>[Test II]</line>
+            <nextDialogue>game-test2</nextDialogue>
+        </option>
+        <option>
             <line>[Go away]</line>
             <nextDialogue>init-door</nextDialogue>
         </option>
     </dialogue>
 
     <dialogue id="game-test" type="discussion" game="lifesupport" success="game-success" defeat="game-defeat"/>
+    <dialogue id="game-test2" type="discussion" game="circles" success="game-success" defeat="game-defeat"/>
 
     <dialogue id="game-success" type = "normal">
         <line>Ok, ist ja gut. Geh einfach rein.</line>
