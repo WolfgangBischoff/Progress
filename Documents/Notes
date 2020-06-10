@@ -18,7 +18,9 @@ Logic:
 - add Logger.log(debug, CLASSNAME, methodName, msg)
 
 
-Sprites:
+------------------------------------------
+----- Sprites ----------------------------
+------------------------------------------
 - Ship:
     FrontWindow, tieferes Geschoß aka Boden mit Antennen, moving asteroid, scripted Cleaing Bot, rescue pods, sphere star map, captian sprite
 - Docking Bay:
@@ -33,6 +35,36 @@ Sprites:
 - General: Hüllen beschädigt, Non critical System damaged, Hammer and Sickle modern
 - HeatSystem
 - Storage: Lagerschrank, Säulen, Tank, Big Crate
+
+------------------------------------------
+----- Ideas ------------------------------
+------------------------------------------
+- Social Game also technical
+    - influence on time/speed
+    - tricolon as copy visible coins
+    - areas that double reward
+- Character Flaws
+    - not confident if can make
+- Erben
+- Verbindung, Social layers
+    -> Drugs, Spirituality
+    -> Gay
+    -> Hobbies
+- Polizei concerns if doing right
+- Education critical
+- company is privat auticraty
+- Robot Avatars, remote control
+- Tragik der Allmende
+- Verteilungslogik: Egalitär, Utilitaristisch
+- Trust through strategy/repetition
+- Die die seit sie geboren wurden niemals Mangel an etwas hatten, hasste ich immer
+- Traitors that interacts with multiple roles, but you dont know that they are the same
+- Use water pipe with space suit
+- Textbox die mit dem Spieler mitgeht als Lautsprecher
+- Input line secrets, enter number or names
+- Schuldsklaven "Verbrecher" vom sYstem absichtlich produziert
+- Main plot is slowed down by "Revoluionary Spirit" mechanic, you can do actions if moivated, increases by beeing poor or seeing poor, decreases if situations betters => cannot proceed if not explore
+- Main menu with dark parts that get light abwechseln, reveal hammer/sickle, Money, such things
 
 QUEST:
 Start in own room, msg: come to bridge
@@ -115,59 +147,6 @@ Social Network Mechanic:
 Does team fits together? NetworkMechanic?
 
 ------------------------------------------
------ Social Discussion Mechanic ---------
-------------------------------------------
-Know peoples history, traitors, Interests, Capabilities to get entrance, support, join team, stop behavior get item; Maybe also with third party "public"
-Repeatable Minigame where you start knowing no/few traits of opponent, randomized through current feelings.
-Round based game, you have to find best arguments based on your repetoire and enemies traits.
-There rethorical figures that can be learned over time, facts found in world (maybe with google mech) and items like money or drugs
-Rhetoric has combinations
-1) Decide what rethorics you want to take with you (number grows over time); facts and money are always there
-2) Logic evaluates sucess of argument against traits
-3) Start argument and get hint whats the best argument next
-4) If you have many good matches you win
-    Traits:
-    Big/Small Ego/Body => Bedrohen gut/schlecht
-    misstrauisch/naiv => Anhimmeln
-    Ideologic/Pragmatic => appel to ideology or reality
-    logic/emotional => logic or emotional argument
-
-    Hints:
-    I dont know you; => Tell about own live, Smalltalk
-    I know best; => Strong Ego, anhimmeln
-    Marx said that; => Ideologiest, appeliere
-    I dont feel good about; => Emotions more important as facts
-    Are you crazy? Never works. => Facts more important
-    This is simply not true => needs more facts, evidence
-    What I get? => needs items
-
-
-------------------------------------------
------ Ideas ------------------------------
-------------------------------------------
-- Erben
-- Verbindung, Social layers
-    -> Drugs, Spirituality
-    -> Gay
-    -> Hobbies
-- Polizei concerns if doing right
-- Education critical
-- Selbstzweifel Education
-- company is privat auticraty
-- Robot Avatars, remote control
-- Tragik der Allmende
-- Verteilungslogik: Egalitär, Utilitaristisch
-- Trust through strategy/repetition
-- Die die seit sie geboren wurden niemals Mangel an etwas hatten, hasste ich immer
-- Traitors that interacts with multiple roles, but you dont know that they are the same
-- Use water pipe with space suit
-- Textbox die mit dem Spieler mitgeht als Lautsprecher
-- Input line secrets, enter number or names
-- Schuldsklaven "Verbrecher" vom sYstem absichtlich produziert
-- Main plot is slowed down by "Revoluionary Spirit" mechanic, you can do actions if moivated, increases by beeing poor or seeing poor, decreases if situations betters => cannot proceed if not explore
-- Main menu with dark parts that get light abwechseln, reveal hammer/sickle, Money, such things
-
-------------------------------------------
 ----- COLLECTIBLES -----------------------
 ------------------------------------------
 SpaceStamps with Social
@@ -188,5 +167,7 @@ Snowpiercer
 Passenger
     Protagonist wacht wegen technischem Defect auf, alleine auf Schiff, wird sterben bis ankommt. Weckt andere Person. Retten schiff leben glücklich. Klassen/Ticket unterschiede sichtbar. Fusionsreaktor
 
-
-    Recorder: Win + G
+------------------------------------------
+----- SHORTKEY ---------------------------
+------------------------------------------
+- Recorder: Win + G
