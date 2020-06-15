@@ -82,7 +82,6 @@ With increasing cooperation value you find trais of the person, some traits are 
             throw new RuntimeException("Personality not defined in actorfile: " + otherPersonActor.getActorFileName());
         personalityContainer = otherPersonActor.getPersonalityContainer();
         updateVisiblePersonality();
-        //argumentsSequence = new PersonalityChange(personalityContainer.myersBriggsPersonality);
     }
 
     private void updateVisiblePersonality()
@@ -93,19 +92,19 @@ With increasing cooperation value you find trais of the person, some traits are 
         else
             personalityList.add("Unknown");
         if (personalityContainer.getNumberOfInteractions() >= THRESHOLD_MOTIVATION)
-            personalityList.add(personalityContainer.getMotivation());
+            personalityList.add(personalityContainer.getMotivation().toString());
         else
             personalityList.add("Unknown");
         if (personalityContainer.getNumberOfInteractions() >= THRESHOLD_DECISION)
-            personalityList.add(personalityContainer.getDecision());
+            personalityList.add(personalityContainer.getDecision().toString());
         else
             personalityList.add("Unknown");
         if (personalityContainer.getNumberOfInteractions() >= THRESHOLD_FOCUS)
-            personalityList.add(personalityContainer.getFocus());
+            personalityList.add(personalityContainer.getFocus().toString());
         else
             personalityList.add("Unknown");
         if (personalityContainer.getNumberOfInteractions() >= THRESHOLD_LIFESTYLE)
-            personalityList.add(personalityContainer.getLifestyle());
+            personalityList.add(personalityContainer.getLifestyle().toString());
         else
             personalityList.add("Unknown");
     }

@@ -1,8 +1,9 @@
 package Core.Menus;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+
+import static Core.Menus.PersonalityTrait.*;
 
 public class PersonalityContainer
 {
@@ -22,36 +23,36 @@ public class PersonalityContainer
                 '}';
     }
 
-    public String getMotivation()
+    public PersonalityTrait getMotivation()
     {
-        if(myersBriggsPersonality.motivation == MyersBriggsCharacteristic.EXTROVERSION)
-            return "extroverted";
+        if(myersBriggsPersonality.motivation == EXTROVERSION)
+            return EXTROVERSION;
         else
-            return "introverted";
+            return INTROVERSION;
     }
 
-    public String getFocus()
+    public PersonalityTrait getFocus()
     {
-        if(myersBriggsPersonality.focus == MyersBriggsCharacteristic.SENSING)
-            return "Big Picture";
+        if(myersBriggsPersonality.focus == PersonalityTrait.SENSING)
+            return SENSING;
         else
-            return "Components";
+            return INTUITION;
     }
 
-    public String getDecision()
+    public PersonalityTrait getDecision()
     {
-        if(myersBriggsPersonality.decision == MyersBriggsCharacteristic.THINKING)
-            return "logic";
+        if(myersBriggsPersonality.decision == PersonalityTrait.THINKING)
+            return THINKING;
         else
-            return "feelings";
+            return FEELING;
     }
 
-    public String getLifestyle()
+    public PersonalityTrait getLifestyle()
     {
-        if(myersBriggsPersonality.lifestyle == MyersBriggsCharacteristic.JUDGING)
-            return "protecting";
+        if(myersBriggsPersonality.lifestyle == PersonalityTrait.JUDGING)
+            return JUDGING;
         else
-            return "changing";
+            return PERCEIVING;
     }
 
     public void increaseNumberOfInteractions(Integer addition)

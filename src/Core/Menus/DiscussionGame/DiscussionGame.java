@@ -2,6 +2,8 @@ package Core.Menus.DiscussionGame;
 
 import Core.Actor;
 import Core.GameWindow;
+import Core.Menus.PersonalityContainer;
+import Core.Menus.PersonalityTrait;
 import Core.Utilities;
 import Core.WorldView;
 import javafx.geometry.Point2D;
@@ -25,6 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 import static Core.Config.*;
+import static Core.Menus.PersonalityTrait.*;
 
 public class DiscussionGame
 {
@@ -41,9 +44,14 @@ public class DiscussionGame
     Element xmlRoot;
     Long gameStartTime;
     boolean isFinished = false;
-    Map<String, Integer> clickedCoins = new HashMap<>();
+    Map<PersonalityTrait, Integer> clickedCoins = new HashMap<>();
     String gameFileName;
     Actor actorOfDiscussion;
+    private int totalResult;
+    private int motivationResult;
+    private int focusResult;
+    private int decisionResult;
+    private int lifestyleResult;
 
     public DiscussionGame(String gameIdentifier, Actor actorOfDiscussion)
     {
@@ -173,7 +181,35 @@ public class DiscussionGame
         }
 
         if (removedCoinsList.size() == coinsList.size())
+        {
+            //Get number of clicked coins
+            PersonalityContainer personality = actorOfDiscussion.getPersonalityContainer();
+            Integer extroversion = clickedCoins.get(EXTROVERSION) == null ? 0 : clickedCoins.get(EXTROVERSION);
+            Integer introversion = clickedCoins.get(INTROVERSION) == null ? 0 : clickedCoins.get(INTROVERSION);
+            Integer sensing = clickedCoins.get(SENSING) == null ? 0 : clickedCoins.get(SENSING);
+            Integer intuition = clickedCoins.get(INTUITION) == null ? 0 : clickedCoins.get(INTUITION);
+            Integer thinking = clickedCoins.get(THINKING) == null ? 0 : clickedCoins.get(THINKING);
+            Integer feeling = clickedCoins.get(FEELING) == null ? 0 : clickedCoins.get(FEELING);
+            Integer judging = clickedCoins.get(JUDGING) == null ? 0 : clickedCoins.get(JUDGING);
+            Integer perceiving = clickedCoins.get(PERCEIVING) == null ? 0 : clickedCoins.get(PERCEIVING);
+
+            //Sum coins against traits
+            motivationResult = 0;
+            motivationResult += personality.getMotivation() == EXTROVERSION ? extroversion : -extroversion;
+            motivationResult += personality.getMotivation() == INTROVERSION ? introversion : -introversion;
+            focusResult = 0;
+            focusResult += personality.getFocus() == SENSING ? sensing : -sensing;
+            focusResult += personality.getFocus() == INTUITION ? intuition : -intuition;
+            decisionResult = 0;
+            decisionResult += personality.getDecision() == THINKING ? thinking : -thinking;
+            decisionResult += personality.getDecision() == FEELING ? feeling : -feeling;
+            lifestyleResult = 0;
+            lifestyleResult += personality.getLifestyle() == PERCEIVING ? perceiving : -perceiving;
+            lifestyleResult += personality.getLifestyle() == JUDGING ? judging : -judging;
+
+            totalResult = motivationResult + focusResult + decisionResult + lifestyleResult;
             isFinished = true;
+        }
     }
 
     private void draw(Long currentNanoTime) throws NullPointerException
@@ -207,13 +243,19 @@ public class DiscussionGame
 
         if (isFinished)
         {
-            String text = "You got " + clickedCoins.toString();
             graphicsContext.setFont(new Font(30));
             graphicsContext.setFill(font);
             graphicsContext.setTextAlign(TextAlignment.CENTER);
             graphicsContext.setTextBaseline(VPos.CENTER);
+
+
+            String text = "You got motivation" + motivationResult + " focus: " + focusResult + " decision: " + decisionResult + " lifestyle: " + lifestyleResult + " Total: " + totalResult;
             graphicsContext.fillText(text, DISCUSSION_WIDTH / 2.0, DISCUSSION_HEIGHT / 2.0);
-            graphicsContext.fillText("Finished!", DISCUSSION_WIDTH / 2.0, DISCUSSION_HEIGHT / 2.0 + graphicsContext.getFont().getSize() + 10);
+            //graphicsContext.fillText("Finished!", DISCUSSION_WIDTH / 2.0, DISCUSSION_HEIGHT / 2.0 + graphicsContext.getFont().getSize() + 10);
+            if (totalResult > DISCUSSION_THRESHOLD_WIN)
+                graphicsContext.fillText("Convinced!", DISCUSSION_WIDTH / 2.0, DISCUSSION_HEIGHT / 2.0 + graphicsContext.getFont().getSize() + 40);
+            else
+                graphicsContext.fillText("Try again!", DISCUSSION_WIDTH / 2.0, DISCUSSION_HEIGHT / 2.0 + graphicsContext.getFont().getSize() + 40);
         }
 
         SnapshotParameters transparency = new SnapshotParameters();
@@ -265,8 +307,12 @@ public class DiscussionGame
         }
         else if (isMouseClicked && isFinished)
         {
-            //TODO logic when won the game
-            WorldView.getTextbox().setNextDialogueFromDiscussion(false);
+            //If won discussion
+            if (totalResult > DISCUSSION_THRESHOLD_WIN)
+                WorldView.getTextbox().setNextDialogueFromDiscussionResult(true);
+            else
+                WorldView.getTextbox().setNextDialogueFromDiscussionResult(false);
+
             WorldView.getTextbox().nextMessage(currentNanoTime);
             WorldView.setIsDiscussionGameActive(false);
         }
@@ -274,9 +320,9 @@ public class DiscussionGame
 
     private void countClickedCoin(CharacterCoin coin)
     {
-        if (!clickedCoins.containsKey(coin.characteristic.toString()))
-            clickedCoins.put(coin.characteristic.toString(), 0);
-        clickedCoins.put(coin.characteristic.toString(), (clickedCoins.get(coin.characteristic.toString()) + 1));
+        if (!clickedCoins.containsKey(coin.characteristic))
+            clickedCoins.put(coin.characteristic, 0);
+        clickedCoins.put(coin.characteristic, (clickedCoins.get(coin.characteristic) + 1));
     }
 
     public WritableImage getWritableImage(Long currentNanoTime)

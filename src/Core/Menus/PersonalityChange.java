@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static Core.Menus.MyersBriggsCharacteristic.*;
+import static Core.Menus.PersonalityTrait.*;
 
 public class PersonalityChange
 {
@@ -45,7 +45,7 @@ public class PersonalityChange
         String methodName = "evaluatePersonalityFit() ";
         int evaluationTotal = 0;
 
-        Map<MyersBriggsCharacteristic, Integer> values = getPersonalityValuesFromArgument(argument);
+        Map<PersonalityTrait, Integer> values = getPersonalityValuesFromArgument(argument);
         //System.out.println(CLASSNAME + methodName + argument + " " + values);
 
         //INTROVERSION,EXTROVERSION,SENSING,INTUITION,THINKING,FEELING,JUDGING ,PERCEIVING;
@@ -73,12 +73,12 @@ public class PersonalityChange
         return evaluationTotal;
     }
 
-    private Map<MyersBriggsCharacteristic, Integer> getPersonalityValuesFromArgument(String argument)
+    private Map<PersonalityTrait, Integer> getPersonalityValuesFromArgument(String argument)
     {
-        Map<MyersBriggsCharacteristic, Integer> argumentToValues = new HashMap<>();
+        Map<PersonalityTrait, Integer> argumentToValues = new HashMap<>();
         for (Map.Entry<String, Map<String, Integer>> dimensionToArgument : PersonalityScreenController.argumentsTraitsMatrix.entrySet())
         {
-            MyersBriggsCharacteristic dimension = MyersBriggsCharacteristic.getType(dimensionToArgument.getKey());
+            PersonalityTrait dimension = PersonalityTrait.getType(dimensionToArgument.getKey());
             Map<String, Integer> dimensionValues = dimensionToArgument.getValue();
             if (!dimensionValues.containsKey(argument))
                 System.out.println(CLASSNAME + "Argument not known: " + argument);

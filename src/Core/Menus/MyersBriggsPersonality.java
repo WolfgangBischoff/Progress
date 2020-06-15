@@ -1,6 +1,6 @@
 package Core.Menus;
 
-import static Core.Menus.MyersBriggsCharacteristic.*;
+import static Core.Menus.PersonalityTrait.*;
 
 //https://www.16personalities.com/de/personlichkeitstypen
 public enum MyersBriggsPersonality
@@ -27,12 +27,12 @@ public enum MyersBriggsPersonality
     ,ENTREPRENEUR(EXTROVERSION, SENSING, THINKING, PERCEIVING)
     ,ENTERTAINER(EXTROVERSION, SENSING, FEELING, PERCEIVING);
 
-    MyersBriggsCharacteristic motivation; //self/social - Introversion/Extroversion
-    MyersBriggsCharacteristic focus; //  detail/holistic - Sensing/iNtuition
-    MyersBriggsCharacteristic decision; //  logic/emotion - Thinking/Feeling
-    MyersBriggsCharacteristic lifestyle; // conservative/progressive - Judging/Perceiving
+    PersonalityTrait motivation; //self/social - Introversion/Extroversion
+    PersonalityTrait focus; //  detail/holistic - Sensing/iNtuition
+    PersonalityTrait decision; //  logic/emotion - Thinking/Feeling
+    PersonalityTrait lifestyle; // conservative/progressive - Judging/Perceiving
 
-    MyersBriggsPersonality(MyersBriggsCharacteristic motivation, MyersBriggsCharacteristic focus, MyersBriggsCharacteristic decision, MyersBriggsCharacteristic lifestyle)
+    MyersBriggsPersonality(PersonalityTrait motivation, PersonalityTrait focus, PersonalityTrait decision, PersonalityTrait lifestyle)
     {
         this.motivation = motivation;
         this.focus = focus;

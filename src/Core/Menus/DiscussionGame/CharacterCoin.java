@@ -1,6 +1,6 @@
 package Core.Menus.DiscussionGame;
 
-import Core.Menus.MyersBriggsCharacteristic;
+import Core.Menus.PersonalityTrait;
 import Core.Utilities;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
@@ -16,7 +16,7 @@ public class CharacterCoin
 {
     Circle collisionCircle;
     Image image;
-    MyersBriggsCharacteristic characteristic;
+    PersonalityTrait characteristic;
     //Trait??
     Point2D startPosition;
     double collisionRadius;
@@ -34,7 +34,7 @@ public class CharacterCoin
 
 
     //Maybe for traits??
-    public CharacterCoin(MyersBriggsCharacteristic characteristic, Point2D startPosition, int collisionRadius, int speed, String movementType, int time)
+    public CharacterCoin(PersonalityTrait characteristic, Point2D startPosition, int collisionRadius, int speed, String movementType, int time)
     {
         this.collisionRadius = collisionRadius;
         this.image = findImage(characteristic.toString());
@@ -48,7 +48,7 @@ public class CharacterCoin
 
     public CharacterCoin(Element xmlNode)
     {
-        this.characteristic = MyersBriggsCharacteristic.getType(xmlNode.getAttribute("characteristic"));
+        this.characteristic = PersonalityTrait.getType(xmlNode.getAttribute("characteristic"));
         this.initSpeed = Integer.parseInt(xmlNode.getAttribute(COIN_TAG_INITSPEED));
         this.movementType = xmlNode.getAttribute("movementType").toLowerCase();
         this.time_s = Integer.parseInt(xmlNode.getAttribute("time"));

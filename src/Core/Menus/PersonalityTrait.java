@@ -1,11 +1,11 @@
 package Core.Menus;
 
-public enum MyersBriggsCharacteristic
+public enum PersonalityTrait
 {
     //self  	;social		;detail	  ;holistic	;logic	;emotion;conservative progressive ;
     INTROVERSION,EXTROVERSION,SENSING,INTUITION,THINKING,FEELING,JUDGING,    PERCEIVING;
 
-    public static MyersBriggsCharacteristic getType(String type)
+    public static PersonalityTrait getType(String type)
     {
         switch (type.toLowerCase())
         {

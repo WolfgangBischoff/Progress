@@ -401,8 +401,6 @@ public class Textbox
         //Character Info Button
         if (actorOfDialogue.getPersonalityContainer() != null)
         {
-            //textboxGc.setGlobalAlpha(0.5);
-            //textboxGc.fillRect(talkIcon.getMinX(), talkIcon.getMinY(), talkIcon.getWidth(), talkIcon.getHeight());
             textboxGc.drawImage(characterButton, talkIcon.getMinX(), talkIcon.getMinY());
         }
 
@@ -411,7 +409,7 @@ public class Textbox
         textboxImage = textboxCanvas.snapshot(transparency, null);
     }
 
-    public void setNextDialogueFromDiscussion(boolean hasWon)
+    public void setNextDialogueFromDiscussionResult(boolean hasWon)
     {
         if (hasWon)
             nextDialogueID = readDialogue.getOption(success_ATTRIBUTE).nextDialogue;
