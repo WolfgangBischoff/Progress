@@ -280,6 +280,7 @@ With increasing cooperation value you find trais of the person, some traits are 
         if(interfaceElements_list.get(highlightedElement).equals(BACK_BUTTON_ID))
         {
             WorldView.setIsPersonalityScreenActive(false);
+            WorldView.setIsTextBoxActive(true);
         }
 
         /*
