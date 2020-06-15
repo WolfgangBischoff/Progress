@@ -80,6 +80,8 @@ public class Config
     public static final String COIN_BEHAVIOR_CIRCLE = "circle";
     public static final String COIN_TAG_ANGLE = "angle";
     public static final String COIN_TAG_INITSPEED = "initspeed";
+    public static final int COIN_MAX_TIME = 15;
+
 
 
 }

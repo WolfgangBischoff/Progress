@@ -140,13 +140,6 @@ public class DiscussionGame
                 double y = Math.sin(angle_rad) * radius * elapsedTimeSinceSpawn / 2;
                 circle.setCenterX(centrumX + x);
                 circle.setCenterY(centrumY + y);
-                /*coin.angle += 2;
-                double angle = coin.angle;
-                double angle_rad = Math.toRadians(angle);
-                double x = Math.cos(angle_rad) * elapsedTimeSinceSpawn;
-                double y = Math.sin(angle_rad) * elapsedTimeSinceSpawn;
-                circle.setCenterX(circle.getCenterX() + x);
-                circle.setCenterY(circle.getCenterY() + y);*/
             }
 
             else if (coin.movementType.equals(COIN_BEHAVIOR_CIRCLE))
@@ -171,7 +164,9 @@ public class DiscussionGame
 
             //Check if is visible
             if (!new Rectangle2D(0, 0, canvas.getWidth(), canvas.getHeight()).
-                    intersects(circle.getCenterX() - circle.getRadius(), circle.getCenterY() - circle.getRadius(), circle.getCenterX() + circle.getRadius(), circle.getCenterY() + circle.getRadius()))
+                    intersects(circle.getCenterX() - circle.getRadius(), circle.getCenterY() - circle.getRadius(), circle.getCenterX() + circle.getRadius(), circle.getCenterY() + circle.getRadius())
+                    || elapsedTimeSinceSpawn > COIN_MAX_TIME
+            )
             {
                 removedCoinsList.add(coin);
             }
@@ -191,7 +186,6 @@ public class DiscussionGame
         double brig = background.getBrightness();
         Color marking = Color.hsb(hue, sat - 0.2, brig + 0.2);
         Color font = Color.hsb(hue, sat + 0.15, brig + 0.4);
-
 
         //Background
         graphicsContext.setGlobalAlpha(0.8);
@@ -218,14 +212,13 @@ public class DiscussionGame
             graphicsContext.setFill(font);
             graphicsContext.setTextAlign(TextAlignment.CENTER);
             graphicsContext.setTextBaseline(VPos.CENTER);
-            graphicsContext.fillText(text, DISCUSSION_WIDTH / 2, DISCUSSION_HEIGHT / 2);
-            graphicsContext.fillText("Finished!", DISCUSSION_WIDTH / 2, DISCUSSION_HEIGHT / 2 + graphicsContext.getFont().getSize() + 10);
+            graphicsContext.fillText(text, DISCUSSION_WIDTH / 2.0, DISCUSSION_HEIGHT / 2.0);
+            graphicsContext.fillText("Finished!", DISCUSSION_WIDTH / 2.0, DISCUSSION_HEIGHT / 2.0 + graphicsContext.getFont().getSize() + 10);
         }
 
         SnapshotParameters transparency = new SnapshotParameters();
         transparency.setFill(Color.TRANSPARENT);
         writableImage = canvas.snapshot(transparency, null);
-
     }
 
     public void processMouse(Point2D mousePosition, boolean isMouseClicked, Long currentNanoTime)

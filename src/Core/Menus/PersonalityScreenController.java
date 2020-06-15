@@ -39,7 +39,7 @@ With increasing cooperation value you find trais of the person, some traits are 
     Point2D mousePosRelativeToDiscussionOverlay;
     private Integer highlightedElement;
     private List<String> interfaceElements_list = new ArrayList<>();
-    private PersonalityChange argumentsSequence;
+    //private PersonalityChange argumentsSequence;
     static Map<String, Map<String, Integer>> argumentsTraitsMatrix; //Argument -> Values per Trait
     private Actor otherPersonActor;
     private PersonalityContainer personalityContainer;
@@ -82,7 +82,7 @@ With increasing cooperation value you find trais of the person, some traits are 
             throw new RuntimeException("Personality not defined in actorfile: " + otherPersonActor.getActorFileName());
         personalityContainer = otherPersonActor.getPersonalityContainer();
         updateVisiblePersonality();
-        argumentsSequence = new PersonalityChange(personalityContainer.myersBriggsPersonality);
+        //argumentsSequence = new PersonalityChange(personalityContainer.myersBriggsPersonality);
     }
 
     private void updateVisiblePersonality()
