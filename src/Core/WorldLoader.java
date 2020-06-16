@@ -96,14 +96,13 @@ public class WorldLoader
                         readSpawnPoint(lineData);
                 }
             }
-            catch (IndexOutOfBoundsException e)
+            catch (IndexOutOfBoundsException | NumberFormatException e)
             {
                 StringBuilder stringBuilder = new StringBuilder();
                 for (String s : lineData)
                     stringBuilder.append(s).append("; ");
                 throw new IndexOutOfBoundsException(e.getMessage() + "\nRead Mode: " + readMode + "\nat\t" + stringBuilder.toString());
             }
-
         }
 
         if(definedMapCodesSet.size() > 0)
@@ -113,6 +112,8 @@ public class WorldLoader
 
     private void readSpawnPoint(String[] lineData)
     {
+        String methodName = "readSpawnPoint()";
+        boolean debug = true;
         int spawnIdIdx = 0;
         int spawnXId = 1;
         int spawnYId = 2;

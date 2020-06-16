@@ -9,24 +9,40 @@ spawnpoints:
 #ID						;PosX;PosY	;Direction
 default		;20		;20			;south
 
-
 tiledefinition:
-#layer: 0 => behind; 1 => middle; 2 => in front
 #Floor
 #code     ;name        ;spritename                  ;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning
-plaiM1    ;metal							;floor/plainM1_64_64									;false				;0											;0			;0												;0				;0				;0										;0											;0													;0														;0										;0												;none
+space0    ;space							;floor/space/s0 													;false				;0											;0			;0												;0				;0				;0										;0											;0													;0														;0										;0												;none
+space1    ;space							;floor/space/s1 													;false				;0											;0			;0												;0				;0				;0										;0											;0													;0														;0										;0												;none
+space2    ;space							;floor/space/s2 													;false				;0											;0			;0												;0				;0				;0										;0											;0													;0														;0										;0												;none
+space3    ;space							;floor/space/s3 													;false				;0											;0			;0												;0				;0				;0										;0											;0													;0														;0										;0												;none
+spaceC    ;space							;floor/space/s_ceres									;false				;0											;0			;0												;0				;0				;0										;0											;0													;0														;0										;0												;none
+concr0    ;metal							;floor/plainM1_64_64									;false				;0											;0			;0												;0				;0				;0										;0											;0													;0														;0										;0												;none
+
 
 #Walls
-#code     ;name        ;spritename                     							;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning
-mtxFS0				;mtxWall					;walls/mtx/mtx_0 																								;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
+#code     ;name        					;spritename                     																																			;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning
+#transporter
+back_e				;transportHull				;walls/transporterhull/hull_e																																						;true					;1												;0			;0												;0				;0				;0										;0											;000											;000											;000									;000										;none
+back_w				;transportHull				;walls/transporterhull/hull_w																																						;true					;1												;0			;0												;0				;0				;0										;0											;000											;000											;000									;000										;none
+fr_n00				;transportHull				;walls/transporterhull/hull_s_0							  																											;true					;1												;0			;0												;0				;0				;0										;0											;000											;034											;064									;094										;none
+fr_ne0				;transportHull				;walls/transporterhull/hull_ne						    																											;true					;1												;0			;0												;0				;0				;0										;0											;000											;034											;064									;094										;none
+fr_nw0				;transportHull				;walls/transporterhull/hull_nw					     																											;true					;1												;0			;0												;0				;0				;0										;0											;000											;034											;064									;094										;none
+fr_sw0				;transportHull				;walls/transporterhull/front_sw_0						 																											;true					;1												;0			;0												;0				;0				;0										;0											;000											;000											;000									;000										;none
+TRf__0				;transportFloor			;walls/transporterhull/floor_0									 																											;false				;0												;0			;0												;0				;0				;0										;0											;000											;000											;000									;000										;none
+TRr__0				;transporterRoof		;walls/transporterhull/roof_0								   																											;false				;0												;0			;0												;0				;0				;0										;0											;000											;000											;000									;000										;none
+TRws_0				;transportwall				;walls/transporterhull/wall_0								   																											;true					;0												;0			;0												;0				;0				;0										;0											;000											;000											;000									;000										;none
+TRwse0				;transportwall				;walls/transporterhull/wall_se								  																											;true					;1												;0			;0												;0				;0				;0										;0											;000											;000											;000									;000										;none
+TRwsw0				;transportwall				;walls/transporterhull/wall_sw								  																											;true					;1												;0			;0												;0				;0				;0										;0											;000											;000											;000									;000										;none
+dockTp				;dock													;walls/transporterhull/dock_top						   																											;true					;2												;0			;0												;0				;0				;0										;0											;000											;000											;064									;128										;none
+dockBm				;dock													;walls/transporterhull/dock_btm						   																											;true					;2												;0			;0												;0				;0				;0										;0											;000											;098											;064									;094										;none
 
-#Wall Decoration
-dockBa				;dockingBay		;walls/signs/wall_sign																;true					;0												;0			;0												;0				;0				;0										;0											;0													;0													;0											;0												;none
 
 actors:
 #code 					;actorFileN																														;IngameName															;sprite-status						;sensor-status	;direction
-player					;player																																		;Revolutionary												;default												;default							;north
-infoWe					;computer/infoTerminal/info														;info terminal												;off																;default							;undefined
+player					;player																																		;Revolutionary												;default												;default																;north
+elevSc					;doors/updown/elevator/elevator										;main elevator												;toFreightDeck						;default																;undefined
+
 
 Actorgroups:
 #System-Name					;Logic																										;Influenced-System	;members by actorId (logic-Options: isBaseSystem)
@@ -91,7 +107,7 @@ layer:
 016 ;______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
 017 ;______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
 018 ;______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
-019 ;______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+019 ;______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; TRws_0; ______; ______; ______; ______; ______
 020 ;______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
 021 ;______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
 022 ;______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
@@ -123,7 +139,7 @@ layer:
 016 ;______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
 017 ;______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
 018 ;______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
-019 ;______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
+019 ;______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; elevSc; ______; ______; ______; ______; ______
 020 ;______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
 021 ;______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______
 022 ;______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______; ______

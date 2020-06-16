@@ -1,6 +1,8 @@
 
 Logic:
 - Textbox change Door status if discussion won
+    - add missing tiles
+    - build world
 - Build repair mechanic (Maybe the same mechanic as social?)
     - find knowledge
     - find image

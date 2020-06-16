@@ -51,15 +51,19 @@ public class Config
     public static final String TYPE_TAG = "type";
     public static final String ACTOR_STATUS_TAG = "spritestatus";
     public static final String SENSOR_STATUS_TAG = "sensorstatus";
-    public static final String DECISION_TYPE = "decision";
+    public static final String decision_TYPE_ATTRIBUTE = "decision";
     public static final String LINE_TAG = "line";
     public static final String NEXT_DIALOGUE_TAG = "nextDialogue";
     public static final String OPTION_TAG = "option";
 
-    public static final String discussion_ATTRIBUTE = "discussion";
+    public static final String discussion_TYPE_ATTRIBUTE = "discussion";
     public static final String game_ATTRIBUTE = "game";
     public static final String success_ATTRIBUTE = "success";
     public static final String defeat_ATTRIBUTE = "defeat";
+
+    public static final String levelchange_TYPE_ATTRIBUTE = "levelchange";
+    public static final String level_ATTRIBUTE = "level";
+    public static final String spawnID_ATTRIBUTE = "spawnID";
 
     //Paths
     public static final String CSV_POSTFIX = ".csv";

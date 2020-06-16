@@ -96,7 +96,7 @@ tyxo__					;collectibles/quest/quest																;Tyxo										 										;t
 
 techni					;character/technician/technician									;technician															;default													;default																;south
 
-elevSc					;doors/updown/elevator/elevator										;main elevator												;default													;default																;undefined
+elevSc					;doors/updown/elevator/elevator										;main elevator												;toCrewDeck													;default																;undefined
 
 
 ACTORGROUPS:

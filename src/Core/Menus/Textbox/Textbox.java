@@ -1,11 +1,8 @@
 package Core.Menus.Textbox;
 
-import Core.Actor;
-import Core.GameWindow;
+import Core.*;
 import Core.Menus.DiscussionGame.DiscussionGame;
 import Core.Menus.PersonalityScreenController;
-import Core.Utilities;
-import Core.WorldView;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.geometry.VPos;
@@ -109,7 +106,7 @@ public class Textbox
                 //check for type normal and decision
                 readDialogue.type = dialogueType;
                 //Decision
-                if (dialogueType.equals(DECISION_TYPE))
+                if (dialogueType.equals(decision_TYPE_ATTRIBUTE))
                 {
                     //For all options
                     NodeList optionData = currentDialogue.getElementsByTagName(OPTION_TAG);
@@ -130,25 +127,9 @@ public class Textbox
                         }
                         readDialogue.addOption(visibleLine, nextDialogue);
                     }
-
-                    /*
-                    //read all next dialogues from dialogue and connect them with the options line
-                    NodeList nextDialogueData = currentDialogue.getElementsByTagName(NEXT_DIALOGUE_TAG);
-                    for (int optionsIdx = 0; optionsIdx < xmlLines.getLength(); optionsIdx++)
-                    {
-                        //Add options to message
-                        String option = xmlLines.item(optionsIdx).getTextContent();
-                        String nextDialogue = null;
-                        if (nextDialogueData.item(optionsIdx) != null)
-                            nextDialogue = nextDialogueData.item(optionsIdx).getTextContent();
-                        //System.out.println(CLASSNAME + methodName + option + " " + nextDialogue);
-                        readDialogue.addOption(option, nextDialogue);
-                    }
-
-                     */
                 }
                 //Discussion Type
-                else if (dialogueType.equals(discussion_ATTRIBUTE))
+                else if (dialogueType.equals(discussion_TYPE_ATTRIBUTE))
                 {
                     String discussionGameName = currentDialogue.getAttribute(game_ATTRIBUTE);
                     String successNextMsg = currentDialogue.getAttribute(success_ATTRIBUTE);
@@ -156,6 +137,14 @@ public class Textbox
                     readDialogue.addOption(success_ATTRIBUTE, successNextMsg);
                     readDialogue.addOption(defeat_ATTRIBUTE, defeatNextMsg);
                     WorldView.setDiscussionGame(new DiscussionGame(discussionGameName, actorOfDialogue));
+                }
+                else if(dialogueType.equals(levelchange_TYPE_ATTRIBUTE))
+                {
+                    String levelname = currentDialogue.getAttribute(level_ATTRIBUTE);
+                    String spawnId = currentDialogue.getAttribute(spawnID_ATTRIBUTE);
+                    //nextDialogueID = null;
+                    //WorldView.setIsTextBoxActive(false);
+                    WorldView.getSingleton().loadEnvironment(levelname, spawnId);
                 }
                 else
                 //Normal Textbox
@@ -250,7 +239,7 @@ public class Textbox
 
         //Check if hovered on Option
         int offsetYTmp = firstLineOffsetY;
-        if (readDialogue.type.equals(DECISION_TYPE) && GameWindow.getSingleton().isMouseMoved())
+        if (readDialogue.type.equals(decision_TYPE_ATTRIBUTE) && GameWindow.getSingleton().isMouseMoved())
         {
             for (int checkedLineIdx = 0; checkedLineIdx < lineSplitMessage.size(); checkedLineIdx++)
             {
@@ -290,7 +279,6 @@ public class Textbox
         for (Actor actor : actorsList)
         {
             Element analysisDialogueFileObserved = Utilities.readXMLFile(DIALOGUE_FILE_PATH + actor.getDialogueFileName() + ".xml");
-            //Element analysisDialogueFileObserved = readFile(actor.dialogueFileName);
             Dialogue analysisMessageObserved = readDialogue("analysis-" + actor.getDialogueStatusID(), analysisDialogueFileObserved);
             readDialogue.messages.add(actor.getActorInGameName() + analysisMessageObserved.messages.get(0));
         }
@@ -306,7 +294,7 @@ public class Textbox
         String methodName = "nextMessage(Long) ";
         Actor playerActor = WorldView.getPlayer().getActor();
 
-        if (readDialogue.type.equals(DECISION_TYPE))
+        if (readDialogue.type.equals(decision_TYPE_ATTRIBUTE))
         {
             nextDialogueID = readDialogue.options.get(markedOption).nextDialogue;
             markedOption = 0;
@@ -322,7 +310,6 @@ public class Textbox
             messageIdx = 0;
             readDialogue = readDialogue(nextDialogueID, dialogueFileRoot);
             drawTextbox();
-
         }
         else //End Textbox
         {
@@ -364,7 +351,7 @@ public class Textbox
         textboxGc.setGlobalAlpha(0.9);
         textboxGc.fillRect(backgroundOffsetX, backgroundOffsetYDecorationTop + backgroundOffsetYTalkIcon, TEXT_BOX_WIDTH - backgroundOffsetX * 2, TEXT_BOX_HEIGHT - backgroundOffsetYDecorationTop - backgroundOffsetYTalkIcon - backgroundOffsetYDecorationBtm);
 
-        if (markedOption != null && readDialogue.type.equals(DECISION_TYPE))
+        if (markedOption != null && readDialogue.type.equals(decision_TYPE_ATTRIBUTE))
         {
             textboxGc.setFill(marking);
             textboxGc.fillRect(xOffsetTextLine, firstLineOffsetY + markedOption * textboxGc.getFont().getSize() + 5, TEXT_BOX_WIDTH - 100, textboxGc.getFont().getSize());
@@ -383,14 +370,19 @@ public class Textbox
         int yOffsetTextLine = firstLineOffsetY;
 
         //Format Text
-        if (readDialogue.type.equals(DECISION_TYPE))
+        if (readDialogue.type.equals(decision_TYPE_ATTRIBUTE))
         {
             lineSplitMessage = readDialogue.getOptionMessages();
         }
-        else if (readDialogue.type.equals(discussion_ATTRIBUTE))
+        else if (readDialogue.type.equals(discussion_TYPE_ATTRIBUTE))
         {
             WorldView.setIsDiscussionGameActive(true);
             lineSplitMessage = wrapText("Discussion ongoing");
+        }
+        else if(readDialogue.type.equals(levelchange_TYPE_ATTRIBUTE))
+        {
+            WorldView.setIsTextBoxActive(false);
+            lineSplitMessage = wrapText("Levelchange");
         }
         else
         {

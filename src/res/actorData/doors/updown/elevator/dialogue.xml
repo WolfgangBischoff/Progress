@@ -34,19 +34,30 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
         <line>Dolorem</line>
     </dialogue>
 
-    <dialogue id="INIT-DECISION" type="decision">
+
+    <dialogue id="INIT-toFreightDeck" type="decision">
         <option>
             <line>[Back]</line>
         </option>
         <option>
             <line>[Crew Deck]</line>
-            <nextDialogue>DECISION-CREWDECK</nextDialogue>
+            <nextDialogue>DECISION-toFreightDeck</nextDialogue>
         </option>
     </dialogue>
 
-    <dialogue id="DECISION-CREWDECK" type="normal">
-        <line>Welcome to the Crew Deck</line>
+    <dialogue id="INIT-toCrewDeck" type="decision">
+        <option>
+            <line>[Back]</line>
+        </option>
+        <option>
+            <line>[Crew Deck]</line>
+            <nextDialogue>DECISION-toCrewDeck</nextDialogue>
+        </option>
     </dialogue>
+
+    <dialogue id="DECISION-toCrewDeck" type="levelchange" level="crewdeck" spawnID="default"/>
+
+    <dialogue id="DECISION-toFreightDeck" type="levelchange" level="transporter" spawnID="default"/>
 </root>
 
 
