@@ -40,7 +40,7 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
             <line>[Back]</line>
         </option>
         <option>
-            <line>[Crew Deck]</line>
+            <line>[Freight Deck]</line>
             <nextDialogue>DECISION-toFreightDeck</nextDialogue>
         </option>
     </dialogue>
