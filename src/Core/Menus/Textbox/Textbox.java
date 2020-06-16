@@ -1,8 +1,11 @@
 package Core.Menus.Textbox;
 
-import Core.*;
+import Core.Actor;
+import Core.GameWindow;
 import Core.Menus.DiscussionGame.DiscussionGame;
 import Core.Menus.PersonalityScreenController;
+import Core.Utilities;
+import Core.WorldView;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.geometry.VPos;
@@ -15,6 +18,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.util.ArrayList;
@@ -68,29 +72,11 @@ public class Textbox
     {
         String methodName = "readDialogue() ";
         actorOfDialogue = actorParam;
+        dialogueFileRoot = Utilities.readXMLFile(DIALOGUE_FILE_PATH + actorOfDialogue.getDialogueFileName() + ".xml");
+        readDialogue = readDialogue(actorOfDialogue.getDialogueStatusID());
+        drawTextbox();
 
-        try
-        {
-            dialogueFileRoot = Utilities.readXMLFile(DIALOGUE_FILE_PATH + actorOfDialogue.getDialogueFileName() + ".xml");
-            readDialogue = readDialogue(actorOfDialogue.getDialogueStatusID());
-            drawTextbox();
-        } catch (NullPointerException e)
-        {
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append("\nDialogueFileName: " + actorOfDialogue.getDialogueFileName());
-            if (readDialogue == null)
-                stringBuilder.append("\nLoadedDialogue = null");
-            else
-            {
-                stringBuilder.append("\nLoaded Dialogue type: " + readDialogue.type);
-                stringBuilder.append("\nLoaded Dialogue nextDialogue: " + readDialogue.nextDialogue);
-                stringBuilder.append("\nLoaded Dialogue messages: " + readDialogue.messages);
-                stringBuilder.append("\nLoaded Dialogue options: " + readDialogue.options);
-            }
-            throw new NullPointerException(stringBuilder.toString());
-        }
-
-        if(actorOfDialogue.getPersonalityContainer() != null)
+        if (actorOfDialogue.getPersonalityContainer() != null)
             actorOfDialogue.getPersonalityContainer().increaseNumberOfInteractions(1);
     }
 
@@ -105,6 +91,7 @@ public class Textbox
     {
         String methodName = "readDialogue() ";
         boolean debug = true;
+        boolean dialogueFound = false;
         Dialogue readDialogue = new Dialogue();
         NodeList dialogues = xmlRoot.getElementsByTagName(DIALOGUE_TAG);
         for (int i = 0; i < dialogues.getLength(); i++) //iterate dialogues of file
@@ -112,6 +99,7 @@ public class Textbox
             //found dialogue with ID
             if (((Element) dialogues.item(i)).getAttribute(ID_TAG).equals(dialogueIdentifier))
             {
+                dialogueFound = true;
                 Element currentDialogue = ((Element) dialogues.item(i));
                 String dialogueType = currentDialogue.getAttribute(TYPE_TAG);
                 NodeList xmlLines = currentDialogue.getElementsByTagName(LINE_TAG);
@@ -123,6 +111,27 @@ public class Textbox
                 //Decision
                 if (dialogueType.equals(DECISION_TYPE))
                 {
+                    //For all options
+                    NodeList optionData = currentDialogue.getElementsByTagName(OPTION_TAG);
+                    for (int optionsIdx = 0; optionsIdx < optionData.getLength(); optionsIdx++)
+                    {
+                        Node optionNode = optionData.item(optionsIdx);
+                        NodeList optionChildNodes = optionNode.getChildNodes();
+                        String nextDialogue = null;
+                        String visibleLine = null;
+                        //Check all elements for relevant data
+                        for (int j = 0; j < optionChildNodes.getLength(); j++)
+                        {
+                            Node node = optionChildNodes.item(j);
+                            if (node.getNodeName().equals(NEXT_DIALOGUE_TAG))
+                                nextDialogue = node.getTextContent();
+                            else if (node.getNodeName().equals(LINE_TAG))
+                                visibleLine = node.getTextContent();
+                        }
+                        readDialogue.addOption(visibleLine, nextDialogue);
+                    }
+
+                    /*
                     //read all next dialogues from dialogue and connect them with the options line
                     NodeList nextDialogueData = currentDialogue.getElementsByTagName(NEXT_DIALOGUE_TAG);
                     for (int optionsIdx = 0; optionsIdx < xmlLines.getLength(); optionsIdx++)
@@ -132,8 +141,11 @@ public class Textbox
                         String nextDialogue = null;
                         if (nextDialogueData.item(optionsIdx) != null)
                             nextDialogue = nextDialogueData.item(optionsIdx).getTextContent();
+                        //System.out.println(CLASSNAME + methodName + option + " " + nextDialogue);
                         readDialogue.addOption(option, nextDialogue);
                     }
+
+                     */
                 }
                 //Discussion Type
                 else if (dialogueType.equals(discussion_ATTRIBUTE))
@@ -166,7 +178,6 @@ public class Textbox
                     nextDialogueID = null;
                     readDialogue.nextDialogue = null;
                 }
-
                 break;
             }
         }
@@ -177,6 +188,9 @@ public class Textbox
         {
             changeActorStatus(readDialogue.getSpriteStatus());
         }
+
+        if (!dialogueFound)
+            throw new NullPointerException("Dialogue not found: " + actorOfDialogue.getDialogueFileName() + ": " + dialogueIdentifier);
 
         return readDialogue;
     }
@@ -224,14 +238,12 @@ public class Textbox
         {
             //Calculate Mouse Position relative to Discussion
             mousePosRelativeToTextboxOverlay = new Point2D(mousePosition.getX() - textboxPosition.getX(), mousePosition.getY() - textboxPosition.getY());
-            //System.out.println(classname + methodName + "Mouse: " + mousePosition.getX() + " " + mousePosition.getY());
         }
         else mousePosRelativeToTextboxOverlay = null;
 
         if (actorOfDialogue.getPersonalityContainer() != null && talkIcon.contains(mousePosRelativeToTextboxOverlay))
         {
             isTalkIconHovered = true;
-            //System.out.println(CLASSNAME + methodName + "talkIcon hovered");
         }
         else
             isTalkIconHovered = false;
@@ -341,7 +353,7 @@ public class Textbox
         textboxGc.clearRect(0, 0, TEXT_BOX_WIDTH, TEXT_BOX_HEIGHT);
 
         //testBackground
-        if(debug)
+        if (debug)
         {
             textboxGc.setFill(Color.RED);
             textboxGc.fillRect(0, 0, TEXT_BOX_WIDTH, TEXT_BOX_HEIGHT);

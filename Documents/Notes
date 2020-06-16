@@ -1,8 +1,7 @@
 
 Logic:
-- Social Discussion Mechanic
-    - add logic when coin game is won
-- Build repair mechanic
+- Textbox change Door status if discussion won
+- Build repair mechanic (Maybe the same mechanic as social?)
     - find knowledge
     - find image
     - repair

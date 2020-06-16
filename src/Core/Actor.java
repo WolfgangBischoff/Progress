@@ -846,6 +846,8 @@ public class Actor
 
     public String getDialogueFileName()
     {
+        if(dialogueFileName == null)
+            throw new NullPointerException("No dialogue file defined for: " + actorFileName);
         return dialogueFileName;
     }
 

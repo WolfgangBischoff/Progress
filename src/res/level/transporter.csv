@@ -66,8 +66,8 @@ cross_				;pipe													;../actorData/machine/stasis_capsule/battery/crossin
 damage				;pipe													;../actorData/machine/stasis_capsule/battery/dmg_64_192_anim4						;false				;1												;4			;4												;4				;1				;064								;192									;000									 	;000									 	;000									;000										;none
 
 #Miscellangelious
-elev__				;elevator									;../actorData/doors/vertical/elevator/base_3x2																					;false				;0												;0			;0												;0				;0				;0										;0											;000									 	;000									 	;000									;000										;none
-elevSc				;elevator									;../actorData/doors/vertical/elevator/screen																							;false				;0												;0			;0												;0				;0				;0										;0											;000									 	;000									 	;000									;000										;none
+elev__				;elevator									;../actorData/doors/updown/elevator/base_3x2																					;false				;0												;0			;0												;0				;0				;0										;0											;000									 	;000									 	;000									;000										;none
+#elevSc				;elevator									;../actorData/doors/updown/elevator/screen																							;false				;0												;0			;0												;0				;0				;0										;0											;000									 	;000									 	;000									;000										;none
 contro				;elevator									;../actorData/computer/control/central																													;true					;1												;0			;0												;0				;0				;0										;0											;000									 	;000									 	;000									;000										;none
 
 
@@ -95,6 +95,9 @@ gsc100					;collectibles/money/money																;Crypts								 										;g
 tyxo__					;collectibles/quest/quest																;Tyxo										 										;tyxo																;default																;undefined
 
 techni					;character/technician/technician									;technician															;default													;default																;south
+
+elevSc					;doors/updown/elevator/elevator										;main elevator												;default													;default																;undefined
+
 
 ACTORGROUPS:
 #System-Name											;Logic																										;Influenced-System	;members by actorId (logic-Options: isBaseSystem)

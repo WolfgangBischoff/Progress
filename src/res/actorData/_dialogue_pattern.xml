@@ -1,0 +1,61 @@
+
+
+<!--/>
+File Identified by Actor Definition
+First Dialogue Identified by otherPersonActor status value; In future maybe also MonitorData, levelname
+
+id - identifier for lookup of textbox
+type - normal/decision/discussion
+spritestatus - changes otherPersonActor to status defined in otherPersonActor file, "transition" leads to changed defined in otherPersonActor file
+
+    <dialogue id="welcome" type="normal" spritestatus="transition">
+        <line>Shown message</line>
+        <line>Shown message 2</line>
+        <nextDialogue>nextDialogueID</nextDialogue>
+    </dialogue>
+
+    <dialogue id="info" type="decision" spritestatus="transition">
+        <option>
+            <line>Optiontext1</line>
+            <nextDialogue>option1ID</nextDialogue>
+        </option>
+
+        <option>
+            <line>Optiontext1, Nothing happens</line>
+        </option>
+    </dialogue>
+
+     <dialogue id="DECISION-DISCUSSION" type="discussion" game="lifesupport" success="GAME-SUCCESS" defeat="GAME-DEFEAT"/>
+<-->
+
+<root name = "actorName">
+    <dialogue id="none" type="normal">
+        <line>Lorem Ipsum</line>
+        <line>Dolorem</line>
+        <nextDialogue>INIT-DECISION</nextDialogue>
+    </dialogue>
+
+    <dialogue id="INIT-DECISION" type="decision" spritestatus="transition">
+        <option>
+            <line>Back</line>
+        </option>
+
+        <option>
+            <line>Discussion</line>
+            <nextDialogue>DECISION-DISCUSSION</nextDialogue>
+        </option>
+
+    </dialogue>
+
+    <dialogue id="DECISION-DISCUSSION" type="discussion" game="lifesupport" success="GAME-SUCCESS" defeat="GAME-DEFEAT"/>
+
+    <dialogue id="GAME-SUCCESS" type = "normal">
+        <line>[Success]</line>
+    </dialogue>
+    <dialogue id="GAME-DEFEAT" type = "normal">
+        <line>[Defeat]</line>
+    </dialogue>
+
+</root>
+
+

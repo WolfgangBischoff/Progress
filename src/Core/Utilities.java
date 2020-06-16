@@ -83,13 +83,14 @@ public class Utilities
             builder = factory.newDocumentBuilder();
             File file = new File(file_path);
             Document doc = builder.parse(file);
+            //System.out.println(doc.getDocumentElement());
             return doc.getDocumentElement();
         } catch (ParserConfigurationException | SAXException e)
         {
             e.printStackTrace();
         } catch (IOException e)
         {
-            System.out.println("Cannot find XML file: " + file_path);
+            throw new IllegalArgumentException("File does not exist: " + file_path);
         }
 
         throw new RuntimeException("Uncatched Exception for path: " + file_path);

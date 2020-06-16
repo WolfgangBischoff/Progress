@@ -54,6 +54,7 @@ public class Config
     public static final String DECISION_TYPE = "decision";
     public static final String LINE_TAG = "line";
     public static final String NEXT_DIALOGUE_TAG = "nextDialogue";
+    public static final String OPTION_TAG = "option";
 
     public static final String discussion_ATTRIBUTE = "discussion";
     public static final String game_ATTRIBUTE = "game";

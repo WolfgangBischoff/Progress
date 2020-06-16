@@ -46,6 +46,15 @@ public class Dialogue
 
         String nextDialogue;
         String optionMessage;
+
+        @Override
+        public String toString()
+        {
+            return "Option{" +
+                    "nextDialogue='" + nextDialogue + '\'' +
+                    ", optionMessage='" + optionMessage + '\'' +
+                    '}';
+        }
     }
 
     public String getSpriteStatus()
@@ -73,5 +82,18 @@ public class Dialogue
             this.sensorStatus = null;
         else
             this.sensorStatus = sensorStatus;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Dialogue{" +
+                "type='" + type + '\'' +
+                ", nextDialogue='" + nextDialogue + '\'' +
+                ", spriteStatus='" + spriteStatus + '\'' +
+                ", sensorStatus='" + sensorStatus + '\'' +
+                ", messages=" + messages +
+                ", options=" + options +
+                '}';
     }
 }
