@@ -96,22 +96,7 @@ actors:
 #code 					;actorFileN																														;IngameName															;sprite-status						;sensor-status	;direction
 player					;player																																		;Revolutionary												;default												;default							;WEST
 doorVe					;doors/vertical/autoBulkheadVertical					;vertical bulkhead								;on																	;levelchange			;west
-#code 					;actorname 		;status   ;direction
-#hedgeh					;hedgehog 			;DEFAULT		;undefined
-#player					;player						;default		;EAST
-#guy___					;person_guy		;default		;NORTH
-#buC___					;bulkhead				;ON							;south
-#hydrau					;hydraulic			;ON							;undefined
-#diff_d					;diffuser				;default		;undefined
-#lever_					;lever							;off						;undefined
-#screen					;statusScreen;off						;undefined
-#airCon					;airControl		;off						;undefined
 
-#Air System
-#pc____					;pc										;OFF						;undefined
-#rob_An					;robotArm				;off						;undefined
-#leverA					;lever							;off						;undefined
-#screeA					;statusScreen;ON							;undefined
 
 Actorgroups:
 #System-Name					;Logic																										;Influenced-System	;members by actorId (logic-Options: isBaseSystem)
