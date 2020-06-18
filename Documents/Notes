@@ -40,6 +40,8 @@ Logic:
 ------------------------------------------
 ----- Ideas ------------------------------
 ------------------------------------------
+- Gewerkschaft is corrupted
+- Inteligent Plan Hive mind
 - Social Game also technical
     - influence on time/speed
     - tricolon as copy visible coins
@@ -67,14 +69,25 @@ Logic:
 - Main plot is slowed down by "Revoluionary Spirit" mechanic, you can do actions if moivated, increases by beeing poor or seeing poor, decreases if situations betters => cannot proceed if not explore
 - Main menu with dark parts that get light abwechseln, reveal hammer/sickle, Money, such things
 
-QUEST:
-Start in own room, msg: come to bridge
-Technician please fix minor issue in freightcapusle Xy; on the way meteorit impact; Go back back to officer, he tells you that life function online but leaking in two sections
+QUEST 1:
+Start in own room with mate, talking about graduation
+Impact of meteorit
+Check bridge, talk to captain
+    1) Life system leaking throug person capsule and freight capsule
+    2) Some Schuldsklaven systems are out of fuel (Cheap transport system, have to check regularly if they are still alive)
 Check capsules (people and furniture) and report; commander will check what to do with broken capsule; You should go to machine bay to get kit; just kit for one capsule there, report;
 second eingespart, we have to decide. People not insured but "life important supplies", so we have to cut the people capsule
 Try to help
-Find alternative somewhere else, finde life energy in life systems of ship for broken capsule
-Find minor defect from beginning
+Find alternative somewhere else, finde life energy in life systems of ship for broken capsule.
+
+QUEST 2:
+Settle your cabin (you are ok rich, but education was difficult), see poverty of transported, freight capusle destination. Get in touch with Gewerkschaft
+
+QUEST 3:
+Help people by Regelmissachtung
+
+QUEST 4:
+steal, infiltrate gather data, demonstrate with when new info, destroy, overtake, attack
 
 
 Character (Who are they, dreams, personality, history)
@@ -82,44 +95,10 @@ Character (Who are they, dreams, personality, history)
 Lore (Info not related to PLot, History, descriptions):
     Third Class
         => Earth damaged, people want to live in space and station, Ceres is base for asteriod belt mining
-        => Companies are paid for being crew
+        => Dept-Slaves are used for work
         => Subscriptions to benefits
         => Dwarf planes Ceres, Water colony with science; can travel to asteriods
         => Board time / Ceres Time (9h 4min per day) connection affects world (year 4,605 years)
-
-Plot (multiple small plots interconnected with main plot)
-Central Plot Social Injustice:
-    Prolog:
-        Station was infected by disease, people left/quarantined; ABC squad found something, cleaned
-            People come back to station, Chaos and mysterys of previous people.
-            There are still some sealed areas (Viele sind Tarnung um Luxus zu verstecken)
-            Desease still exists there but is contained
-            After the disease cost to maintain station increased further, workers dont get much money, but costs are high.
-            Worker are heroes and get much Thank You as space pioneers
-            There are NGOs that help from public spending and support people (later we will know its financed from companies)
-        You are part of a NGO that openly critices company and act similar to Gewerkschaft and on you way to Ceres as Agent/Volunteering Worker for company.
-        Plant-Meteor hits ship, your stase capsule is damaged, you are waked up.
-            Transporter Quests:
-                Repair hull because air goes away, not enough for travel; check options, collect knowledge, several kit-options or disconnect capsule. Need discussion mech to enter all parts of ship
-                Contain Meteor; find person that can do that, social mechanic
-                Your Home; set up own capsule by build mechanic
-    1) Self Rescue
-        aussteigen aus Raumschiff
-        Gehen durch empfangsbereich Terminal zur Monrail
-        Einführung Arbeits(Purpose) und Wohnbereich
-        Kennenlernen von Kollegen blöd
-        Become Boss (SPOC to administration) to increase living conditions
-        => social (muss Pop culturwissen sammeln, gefallen erweisen, administration sees that I have influence, lässt alten fallen da nicht informiert)
-        => Ignoriern (wait for work success to increase influence, repair machines and get better knowledge as boss)
-        => Aggresiv & Revenge(Sprach Option, unsympatisch, destroy things, enemies have fear, recommend you)
-        => Investigative - Find secret information, boss recommends you
-    2) Get Access and more influence as agent of NGO
-    3) Unite Workers and forderungen, strike
-    4) In an important moment the NGO says to retreat, changes site
-    6) it becames clear that it supported you to control workers, they should be leaded to stop unite. NGO is basically company
-    7) Preparation for war
-    8) Anarchy, Shootings
-    10) Central Comitee
 
 Enviroment Plot:
     Flora on Ceres is intelliget, can communicate.
