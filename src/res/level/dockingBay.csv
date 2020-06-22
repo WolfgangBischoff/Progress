@@ -130,7 +130,7 @@ triggerDesinfect ;always_sensorDefault_spriteOn		;desinfect									;trigge
 desinfect								;none																											;none														;desinf
 
 #level change
-transporter													;levelchange																				;exit									;doorLe
+transporter						;levelchange																    ;exit														;doorLe
 
 #sets 64 bits tiles as raster; you can add multiple layers; later defined layers are higher prioritized in case of same defined heightLayer
 #passivlayer will not be checked for interaction or collision
