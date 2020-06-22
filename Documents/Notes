@@ -1,8 +1,8 @@
 
 Logic:
 - Textbox change Door status if discussion won
-    - add missing tiles
-    - build world
+    - build crew deck (life support below control, dormitory, toilet, leisure)
+    - build freight deck (machine room, control)
 - Build repair mechanic (Maybe the same mechanic as social?)
     - find knowledge
     - find image

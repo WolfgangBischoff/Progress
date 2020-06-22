@@ -24,21 +24,19 @@ spaceC    ;space							;floor/space/s_ceres									;false				;0											;0			
 #Walls
 #code     ;name        					;spritename                     																																			;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning
 #transporter
-back_e				;transportHull				;walls/transporterhull/hull_e																																						;true					;1												;0			;0												;0				;0				;0										;0											;000											;000											;000									;000										;none
-back_w				;transportHull				;walls/transporterhull/hull_w																																						;true					;1												;0			;0												;0				;0				;0										;0											;000											;000											;000									;000										;none
+#back_e				;transportHull				;walls/transporterhull/hull_e																																						;true					;1												;0			;0												;0				;0				;0										;0											;000											;000											;000									;000										;none
+#back_w				;transportHull				;walls/transporterhull/hull_w																																						;true					;1												;0			;0												;0				;0				;0										;0											;000											;000											;000									;000										;none
 fr_n00				;transportHull				;walls/transporterhull/hull_s_0							  																											;true					;1												;0			;0												;0				;0				;0										;0											;000											;034											;064									;094										;none
 fr_ne0				;transportHull				;walls/transporterhull/hull_ne						    																											;true					;1												;0			;0												;0				;0				;0										;0											;000											;034											;064									;094										;none
-fr_nw0				;transportHull				;walls/transporterhull/hull_nw					     																											;true					;1												;0			;0												;0				;0				;0										;0											;000											;034											;064									;094										;none
-fr_sw0				;transportHull				;walls/transporterhull/front_sw_0						 																											;true					;1												;0			;0												;0				;0				;0										;0											;000											;000											;000									;000										;none
+#fr_nw0				;transportHull				;walls/transporterhull/hull_nw					     																											;true					;1												;0			;0												;0				;0				;0										;0											;000											;034											;064									;094										;none
+#fr_sw0				;transportHull				;walls/transporterhull/front_sw_0						 																											;true					;1												;0			;0												;0				;0				;0										;0											;000											;000											;000									;000										;none
 TRf__0				;transportFloor			;walls/transporterhull/floor_0									 																											;false				;0												;0			;0												;0				;0				;0										;0											;000											;000											;000									;000										;none
 TRws_0				;transportwall				;walls/transporterhull/wall_0								   																											;true					;0												;0			;0												;0				;0				;0										;0											;000											;000											;000									;000										;none
 TRwse0				;transportwall				;walls/transporterhull/wall_se								  																											;true					;1												;0			;0												;0				;0				;0										;0											;000											;000											;000									;000										;none
-TRwsw0				;transportwall				;walls/transporterhull/wall_sw								  																											;true					;1												;0			;0												;0				;0				;0										;0											;000											;000											;000									;000										;none
+#TRwsw0				;transportwall				;walls/transporterhull/wall_sw								  																											;true					;1												;0			;0												;0				;0				;0										;0											;000											;000											;000									;000										;none
 
 elev__				;elevator									;../actorData/doors/updown/elevator/base_3x2																							;false				;0												;0			;0												;0				;0				;0										;0											;000									 	;000									 	;000									;000										;none
 tank_A				;tank													;machines/lifesupport/tank_192_128_a4																														;true					;1 											;2   ;4            ;4    ;1    ;192        ;128         ;0             ;0             ;0           ;0												;greenlight256
-tank_B				;tank													;machines/greenTank_Anim																																											;true					;1 											;4   ;4            ;4    ;1    ;64         ;128         ;0             ;0             ;0           ;0												;greenlight256
-
 
 actors:
 #code 					;actorFileN																														;IngameName															;sprite-status						;sensor-status	;direction
