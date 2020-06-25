@@ -229,19 +229,16 @@ public class Sprite
             renderSimple(gc);
         }
 
-        if(DEBUG_BLOCKER && isBlocker)
+        if((DEBUG_BLOCKER && isBlocker) || (DEBUG_ACTORS && actor != null))
             drawDebugFrame(gc);
-        else if(DEBUG_ACTORS && actor != null)
-            drawDebugFrame(gc);
-
     }
 
     private void drawDebugFrame(GraphicsContext gc)
     {
+        gc.setStroke(Color.BLUE);
         gc.strokeRect(positionX + hitBoxOffsetX, positionY + hitBoxOffsetY, hitBoxWidth, hitBoxHeight);
         if (interactionArea != null)
             gc.strokeRect(interactionArea.getMinX(), interactionArea.getMinY(), interactionArea.getWidth(), interactionArea.getHeight());
-        gc.setStroke(Color.BLUE);
     }
 
     public void renderSimple(GraphicsContext gc)
