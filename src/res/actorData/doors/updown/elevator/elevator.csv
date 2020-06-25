@@ -9,5 +9,5 @@ sensorStatus	;default																			;textbox																		;none  	 					
 
 #status to image
 #status 						;name   				;spritename  																																												;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;duration ;velocity ;dialogueID 							;AnimationEnds
-toCrewDeck				;wallscreen	;../actorData/doors/updown/elevator/screen															;false			;0												;000	;000										;000	;000	;000								;000									;000											;000	 									;000									;000										;none						;000						;000						;INIT-toCrewDeck			;false
-toFreightDeck	;wallscreen	;../actorData/doors/updown/elevator/screen															;false			;0												;000	;000										;000	;000	;000								;000									;000											;000	 									;000									;000										;none						;000						;000						;INIT-toFreightDeck;false
+toCrewDeck				;wallscreen	;../actorData/doors/updown/elevator/screen															;false			;1												;000	;000										;000	;000	;000								;000									;000											;000	 									;000									;000										;none						;000						;000						;INIT-toCrewDeck			;false
+toFreightDeck	;wallscreen	;../actorData/doors/updown/elevator/screen															;false			;1												;000	;000										;000	;000	;000								;000									;000											;000	 									;000									;000										;none						;000						;000						;INIT-toFreightDeck;false

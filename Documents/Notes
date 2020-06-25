@@ -1,8 +1,8 @@
 
 Logic:
 - Textbox change Door status if discussion won
-    - build crew deck (life support below control, dormitory, toilet, leisure)
-    - build freight deck (machine room, control)
+    - build freight deck (machine room ganz unten, control)
+    - build crew deck (life support below control, dormitory + bath, leisure, rescue pods, storage under machine room)
 - Build repair mechanic (Maybe the same mechanic as social?)
     - find knowledge
     - find image

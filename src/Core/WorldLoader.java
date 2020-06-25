@@ -253,7 +253,7 @@ public class WorldLoader
             //Is Placeholder for black background
             else if (isPassiv && lineData[currentHorizontalTile].equals(Config.MAPDEFINITION_EMPTY))
             {
-                passivLayer.add(createSprite(new SpriteData("black", "void_64_64", true, 0d, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "none"), currentHorizontalTile * 64, currentVerticalTile * 64));
+                passivLayer.add(createSprite(new SpriteData("black", "void_64_64", false, 0d, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "none"), currentHorizontalTile * 64, currentVerticalTile * 64));
             }
             else if (isPassiv && lineData[currentHorizontalTile].equals(MAPDEFINITION_NO_TILE))
             {
