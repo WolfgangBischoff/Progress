@@ -61,7 +61,7 @@ bee___				;bee___;													bee ;																										false;				2;						
 scubb_				;skubb;											/furniture/skubb;																		true;				0;								0;			0;											0;				0;				0;										0;										0;													64;												128;										64							;none
 l_____				;lights;										/lightsources/ligtherS;												true;				1;								0;			0;											0;				0;				0;										0;										0;													0;												0;										0							;whitelight
 nights				;nightstand;						/lightsources/nightStand;										true;				1;								0;			0;											0;				0;				0;										0;										0;													0;												0;										0							;redlight
-desk__				;desk								;furniture/tableSqare											;true					;0												;0			;0												;0				;0				;0										;0											;0             ;0             ;0           ;0							     ;none
+desk__				;desk									;furniture/tableSqare											;true					;0												;0			;0												;0				;0				;0										;0											;0             ;0             ;0           ;0							     ;none
 bench_				;bench;											furniture/bench;																			true;				1;								0;			0;											0;				0;				0;										0;										0;													50;												128;										50							;none
 
 #Bath
