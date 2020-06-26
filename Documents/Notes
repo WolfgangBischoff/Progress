@@ -2,7 +2,7 @@
 Logic:
 - Textbox change Door status if discussion won
     - build freight deck (machine room ganz unten, control)
-    - build crew deck (life support below control, dormitory + bath, leisure, rescue pods, storage under machine room)
+    - build crew deck (create mate to talk with, life support below control, bath, leisure, rescue pods, storage under machine room)
 - Build repair mechanic (Maybe the same mechanic as social?)
     - find knowledge
     - find image
@@ -23,7 +23,7 @@ Logic:
 ----- Sprites ----------------------------
 ------------------------------------------
 - Ship:
-    FrontWindow, tieferes Geschoß aka Boden mit Antennen, moving asteroid, scripted Cleaning Bot, rescue pods, sphere star map, captian sprite
+    FrontWindow, tieferes Geschoß aka Boden mit Antennen, moving asteroid, scripted Cleaning Bot, rescue pods, sphere star map, captian sprite, toilet storage, wc cabin
 - Docking Bay:
     Elevator, schriftzug "Elevator", minimal table, Lautsprecher
 - Control Center: BrückenControls,
@@ -147,6 +147,8 @@ Snowpiercer
 Passenger
     Protagonist wacht wegen technischem Defect auf, alleine auf Schiff, wird sterben bis ankommt. Weckt andere Person. Retten schiff leben glücklich. Klassen/Ticket unterschiede sichtbar. Fusionsreaktor
 
+Prey
+    You are the boss of the station and have to save the world from investation; the whole game is a test thereby
 ------------------------------------------
 ----- SHORTKEY ---------------------------
 ------------------------------------------
