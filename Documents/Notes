@@ -23,7 +23,7 @@ Logic:
 ----- Sprites ----------------------------
 ------------------------------------------
 - Ship:
-    FrontWindow, moving asteroid, scripted Cleaning Bot, rescue pods, sphere star map, captian sprite, toilet storage, wc cabin, steam shower
+    FrontWindow, moving asteroid, scripted Cleaning Bot, rescue pods, captian sprite, toilet storage, steam shower
 - Docking Bay:
     Elevator, schriftzug "Elevator", minimal table, Lautsprecher
 - Control Center: BrückenControls,
