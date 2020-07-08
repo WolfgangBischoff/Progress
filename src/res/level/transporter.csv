@@ -63,6 +63,7 @@ FChs_0				;hull													;walls/freightcapsule/hull_0										  												
 FCwn_0				;wall													;walls/freightcapsule/wall_0										  																											;true					;1												;0			;0												;0				;0				;0										;0											;000									 	;000									 	;000									;000										;none
 FCf__0				;floor												;walls/freightcapsule/floor_0									  																											;false				;0												;0			;0												;0				;0				;0										;0											;000									 	;000									 	;000									;000										;none
 
+#code     ;name        					;spritename                     																																			;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning
 staseC				;stase												;../actorData/machine/stasis_capsule/capsule																							;true					;1												;0			;0												;0				;0				;0										;0											;000									 	;000									 	;000									;000										;none
 batt__				;battery										;../actorData/machine/stasis_capsule/battery/battery_192_64_anim3		;true					;1												;2			;3												;3				;1				;064								;128									;000									 	;000									 	;000									;000										;none
 pipe_l				;pipe													;../actorData/machine/stasis_capsule/battery/corner_left											;false				;0												;0			;0												;0				;0				;0										;0											;000									 	;000									 	;000									;000										;none
@@ -73,7 +74,7 @@ damage				;pipe													;../actorData/machine/stasis_capsule/battery/dmg_64_
 #Miscellangelious
 elev__				;elevator									;../actorData/doors/updown/elevator/base_3x2																							;false				;0												;0			;0												;0				;0				;0										;0											;000									 	;000									 	;000									;000										;none
 contro				;elevator									;../actorData/computer/control/central																													;true					;1												;0			;0												;0				;0				;0										;0											;000									 	;000									 	;000									;000										;none
-projec				;projector								;../actorData/computer/projector/projector																									;true					;1												;0			;0												;0				;0				;0										;0											;000									 	;000									 	;000									;000										;none
+projec				;projector								;../actorData/computer/projector/projector_a4																						;true					;1												;4			;5												;4				;1				;128							 ;256									;032									 	;192									 	;064									;064										;none
 antena				;antenna										;machines/antenna																																																		;true					;1												;0			;0												;0				;0				;0										;0											;000									 	;000									 	;000									;000										;none
 anten0				;antenna										;machines/antenna_big_0																																												;true					;1												;0			;0												;0				;0				;0										;0											;000									 	;000									 	;000									;000										;none
 anten1				;antenna										;machines/antenna_big_1																																												;true					;1												;0			;0												;0				;0				;0										;0											;000									 	;000									 	;000									;000										;none
