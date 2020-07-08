@@ -300,7 +300,7 @@ public class Sprite
                 ;
     }
 
-    public Boolean getBlocker()
+    public Boolean getIsBlocker()
     {
         return isBlocker;
     }
