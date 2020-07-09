@@ -7,15 +7,11 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
-import java.io.File;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Comparator;
 import java.util.List;
 
 import static Core.Config.*;
-import static Core.Config.CSV_POSTFIX;
 
 public class Sprite
 {
@@ -130,7 +126,7 @@ public class Sprite
             }
 
             //Interact within interaction area
-            if (interact || actor.sensorStatus.onInRange != TriggerType.NOTHING || getName().toLowerCase().equals("player"))
+            if (interact || actor.sensorStatus.onInRange_TriggerSprite != TriggerType.NOTHING || getName().toLowerCase().equals("player"))
                 interactionArea = calcInteractionRectangle();
 
             if (interact
@@ -146,14 +142,14 @@ public class Sprite
 
             //In range
             if (otherSprite.actor != null
-                    && actor.sensorStatus.onInRange != TriggerType.NOTHING
+                    && actor.sensorStatus.onInRange_TriggerSprite != TriggerType.NOTHING
                     && otherSprite.getBoundary().intersects(interactionArea))
             {
                 actor.onInRange(otherSprite, currentNanoTime);
             }
 
             //Intersect
-            if (intersects(otherSprite) && (actor.sensorStatus.onIntersection != TriggerType.NOTHING || actor.sensorStatus.onIntersection_TriggerSensor != TriggerType.NOTHING))
+            if (intersects(otherSprite) && (actor.sensorStatus.onIntersection_TriggerSprite != TriggerType.NOTHING || actor.sensorStatus.onIntersection_TriggerSensor != TriggerType.NOTHING))
             {
                 actor.onIntersection(otherSprite, currentNanoTime);
             }
@@ -163,7 +159,7 @@ public class Sprite
         //check if status was changed from other triggers, just if not do OnUpdate
         if(actor != null && initGeneralStatusFrame.equals(actor.generalStatus))
         {
-            if (actor.sensorStatus.onUpdate != TriggerType.NOTHING && !actor.sensorStatus.onUpdateToStatus.equals(actor.generalStatus))
+            if (actor.sensorStatus.onUpdate_TriggerSprite != TriggerType.NOTHING && !actor.sensorStatus.onUpdateToStatusSprite.equals(actor.generalStatus))
                 actor.onUpdate(currentNanoTime);
             if (actor.sensorStatus.onUpdate_TriggerSensor != TriggerType.NOTHING && !actor.sensorStatus.onUpdate_StatusSensor.equals(actor.sensorStatus.statusName))
                 actor.onUpdate(currentNanoTime);

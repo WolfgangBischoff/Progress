@@ -3,13 +3,11 @@ Logic:
 - Textbox change Door status if discussion won
     - build freight deck (machine room ganz unten, control)
     - build crew deck (create mate to talk with, life support below control, bath, leisure, rescue pods, storage under machine room)
-- Build repair mechanic (Maybe the same mechanic as social?)
-    - find knowledge
-    - find image
-    - repair
-- Social Assignment mechanic
+- Add set item mechanic
+- Attention meter
 - shaking screen
-- person moving
+- Cleaing Bot Moving
+    - add definition in file
 - Menu
     add item with textbox
     add item in box
@@ -23,7 +21,7 @@ Logic:
 ----- Sprites ----------------------------
 ------------------------------------------
 - Ship:
-    FrontWindow, moving asteroid, scripted Cleaning Bot, rescue pods, captian sprite, steam shower
+    FrontWindow, moving asteroid, rescue pods, captian sprite, steam shower, speaker
 - Docking Bay:
     Elevator, schriftzug "Elevator", minimal table, Lautsprecher
 - Control Center: BrückenControls,
@@ -40,11 +38,22 @@ Logic:
 ------------------------------------------
 ----- Ideas ------------------------------
 ------------------------------------------
+- Grind mechanic
+    Go to work as freelancer (there are always quests, you decide if you are a good worker; attention meter shows when police comes)
+    - get money from Companies for doing Quest
+    - steal
+    - sabotage
+    - be lazy
+    - repair
+    Public Work (Revolutionary meter, needed for main questline or acsess to areas due to people that feel more safe with helping you)
+    - Spray, Flugzettel
+    - Gain trust through dailies like provide food/water/communication between people
+- Achievments (craft, steal, buy, tausche, find furniture)
+    Personal Room with placeable Sprites
+    Puplic room with services like community center (items, knowledge, repair)
 - Increasable Skills like Sabotage (Harm Machines), Craft (Tools/Weapons/Propaganda), Rethorik
-- Gain trust through dailies like provide food/water/communication between people
-- Suspious value that shows wieviele fehler es geben darf bist Game Over
 - Gewerkschaft is corrupted
-- Inteligent Plan Hive mind
+- Inteligent Plant Hive mind
 - Social Game also technical
     - influence on time/speed
     - tricolon as copy visible coins
@@ -67,9 +76,13 @@ Logic:
 - Schuldsklaven "Verbrecher" vom sYstem absichtlich produziert
 - Main plot is slowed down by "Revoluionary Spirit" mechanic, you can do actions if moivated, increases by beeing poor or seeing poor, decreases if situations betters => cannot proceed if not explore
 - Main menu with dark parts that get light abwechseln, reveal hammer/sickle, Money, such things
+- Social Assignment mechanic
 
 QUEST 1:
 Start in own room with mate, talking about graduation
+Get tasks from speaker from commander at command center: new task
+    => Repair something in machine bay
+    => Possibility to steal something (Attention meter)
 Impact of meteorit
 Check bridge, talk to captain
     1) Life system leaking throug person capsule and freight capsule

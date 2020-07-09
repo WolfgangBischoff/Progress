@@ -8,6 +8,7 @@ import Core.Enums.TriggerType;
 import Core.Menus.MyersBriggsPersonality;
 import Core.Menus.PersonalityContainer;
 import javafx.animation.PauseTransition;
+import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.util.Duration;
 
@@ -270,27 +271,27 @@ public class Actor
         SensorStatus sensorStatus = new SensorStatus(lineData[sensorDataNameIdx]);
         try
         {
-            sensorStatus.onInteraction = TriggerType.getStatus(lineData[onInteractionIdx]);
-            sensorStatus.onInteractionToStatus = lineData[onInteractionToStatusIdx];
+            sensorStatus.onInteraction_TriggerSprite = TriggerType.getStatus(lineData[onInteractionIdx]);
+            sensorStatus.onInteractionToStatusSprite = lineData[onInteractionToStatusIdx];
             sensorStatus.onInteraction_TriggerSensor = TriggerType.getStatus(lineData[onInteraction_TriggerSensorIdx]);
             sensorStatus.onInteraction_StatusSensor = lineData[onInteraction_StatusSensorIdx];
 
-            sensorStatus.onInRange = TriggerType.getStatus(lineData[onInRangeIdx]);
-            sensorStatus.onInRangeToStatus = lineData[onInRangeToStatusIdx];
+            sensorStatus.onInRange_TriggerSprite = TriggerType.getStatus(lineData[onInRangeIdx]);
+            sensorStatus.onInRangeToStatusSprite = lineData[onInRangeToStatusIdx];
             sensorStatus.onInRange_TriggerSensor = TriggerType.getStatus(lineData[onInRange_TriggerSensorIdx]);
             sensorStatus.onInRangeToStatusSensorStatus = lineData[onInRange_StatusSensorIdx];
 
-            sensorStatus.onIntersection = TriggerType.getStatus(lineData[onIntersectionIdx]);
-            sensorStatus.onIntersectionToStatus = lineData[onIntersectionToStatusIdx];
+            sensorStatus.onIntersection_TriggerSprite = TriggerType.getStatus(lineData[onIntersectionIdx]);
+            sensorStatus.onIntersectionToStatusSprite = lineData[onIntersectionToStatusIdx];
             sensorStatus.onIntersection_TriggerSensor = TriggerType.getStatus(lineData[onIntersection_TriggerSensorIdx]);
             sensorStatus.onIntersection_StatusSensor = lineData[onIntersection_StatusSensorIdx];
 
-            sensorStatus.onUpdate = TriggerType.getStatus(lineData[onUpdateIdx]);
-            sensorStatus.onUpdateToStatus = lineData[onUpdateToStatusIdx];
+            sensorStatus.onUpdate_TriggerSprite = TriggerType.getStatus(lineData[onUpdateIdx]);
+            sensorStatus.onUpdateToStatusSprite = lineData[onUpdateToStatusIdx];
             sensorStatus.onUpdate_TriggerSensor = TriggerType.getStatus(lineData[onUpdate_TriggerSensorIdx]);
             sensorStatus.onUpdate_StatusSensor = lineData[onUpdate_StatusSensorIdx];
 
-            sensorStatus.onMonitorSignal = TriggerType.getStatus(lineData[onMonitorIdx]);
+            sensorStatus.onMonitorSignal_TriggerSprite = TriggerType.getStatus(lineData[onMonitorIdx]);
             sensorStatus.onMonitor_TriggerSensor = TriggerType.getStatus(lineData[onMonitor_TriggerSensorIdx]);
 
             sensorStatus.onTextBoxSignal_SpriteTrigger = TriggerType.getStatus(lineData[onTextBoxIdx]);
@@ -313,8 +314,8 @@ public class Actor
         if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS)
         {
             //Sprite
-            if (sensorStatus.onUpdate != TriggerType.NOTHING && !sensorStatus.onUpdateToStatus.equals(generalStatus))
-                evaluateTriggerType(sensorStatus.onUpdate, sensorStatus.onUpdateToStatus, null);
+            if (sensorStatus.onUpdate_TriggerSprite != TriggerType.NOTHING && !sensorStatus.onUpdateToStatusSprite.equals(generalStatus))
+                evaluateTriggerType(sensorStatus.onUpdate_TriggerSprite, sensorStatus.onUpdateToStatusSprite, null);
 
             //SensorStatus
             if (sensorStatus.onUpdate_TriggerSensor != TriggerType.NOTHING && !sensorStatus.onUpdate_StatusSensor.equals(sensorStatus.statusName))
@@ -377,7 +378,7 @@ public class Actor
             updateStatusFromConditions(activeSprite);
 
             //react
-            evaluateTriggerType(sensorStatus.onInteraction, sensorStatus.onInteractionToStatus, activeSprite.actor);
+            evaluateTriggerType(sensorStatus.onInteraction_TriggerSprite, sensorStatus.onInteractionToStatusSprite, activeSprite.actor);
             setLastInteraction(currentNanoTime);
         }
     }
@@ -386,12 +387,12 @@ public class Actor
     {
         String methodName = "onMonitorSignal() ";
         boolean debug = false;
-        if (sensorStatus.onMonitorSignal == null)
+        if (sensorStatus.onMonitorSignal_TriggerSprite == null)
             System.out.println(CLASSNAME + methodName + "OnMonitorSignal not set");
 
         if (debug)
             System.out.println(CLASSNAME + methodName + actorInGameName + " set to " + newCompoundStatus);
-        evaluateTriggerType(sensorStatus.onMonitorSignal, newCompoundStatus, null);
+        evaluateTriggerType(sensorStatus.onMonitorSignal_TriggerSprite, newCompoundStatus, null);
     }
 
     public void onTextboxSignal(String newCompoundStatus)
@@ -425,9 +426,9 @@ public class Actor
                 System.out.println(CLASSNAME + methodName + actorFileName + " onIntersection " + detectedSprite.getName());
 
             //Sprite Status
-            if (sensorStatus.onIntersection != TriggerType.NOTHING)
+            if (sensorStatus.onIntersection_TriggerSprite != TriggerType.NOTHING)
             {
-                evaluateTriggerType(sensorStatus.onIntersection, sensorStatus.onIntersectionToStatus, detectedSprite.actor);
+                evaluateTriggerType(sensorStatus.onIntersection_TriggerSprite, sensorStatus.onIntersectionToStatusSprite, detectedSprite.actor);
             }
 
             //SensorStatus
@@ -454,7 +455,7 @@ public class Actor
         {
             if (debug)
                 System.out.println(CLASSNAME + methodName + actorFileName + " onInRange " + detectedSprite.getName());
-            evaluateTriggerType(sensorStatus.onInRange, sensorStatus.onInRangeToStatus, detectedSprite.actor);
+            evaluateTriggerType(sensorStatus.onInRange_TriggerSprite, sensorStatus.onInRangeToStatusSprite, detectedSprite.actor);
             setLastInteraction(currentNanoTime);
         }
     }
@@ -567,7 +568,67 @@ public class Actor
             case COLLECTABLE:
                 collect(activeSprite);
                 break;
+            case MOVE:
+                move();
+                break;
         }
+    }
+
+    //TODO from script or file
+    List<Point2D> movenmentPointsList = new ArrayList<>();
+    Point2D target = new Point2D(2112 - 64 * 7 -32, 2432);
+    Point2D target2 = new Point2D(2112 - 64 * 7, 2432-64*4);
+    {
+        movenmentPointsList.add(target);
+        movenmentPointsList.add(target2);
+        movenmentPointsList.add(target);
+        movenmentPointsList.add(new Point2D(2112, 2432 + 64));
+    }
+    private void move()
+    {
+
+        String methodName = "move()";
+
+        if(movenmentPointsList.isEmpty())
+            return;
+        Point2D target = movenmentPointsList.get(0);
+        Point2D currentPos = new Point2D(spriteList.get(0).positionX, spriteList.get(0).positionY);
+        Double deltaX = target.getX() - currentPos.getX();
+        Double deltaY = target.getY() - currentPos.getY();
+        Double velocity = 80d;
+        Double addedVelocityX = 0d;
+        Double addedVelocityY = 0d;
+        Double moveThreshold = 5d;
+        boolean xreached = false, yreached = false;
+
+        if (deltaX < -moveThreshold)
+        {
+            addedVelocityX = -velocity;
+            setDirection(Direction.WEST);
+        }
+        else if (deltaX > moveThreshold)
+        {
+            addedVelocityX = velocity;
+            setDirection(Direction.EAST);
+        }
+        else xreached = true;
+
+        if (deltaY < -moveThreshold)
+        {
+            addedVelocityY = -velocity;
+            setDirection(Direction.NORTH);
+        }
+        else if (deltaY > moveThreshold)
+        {
+            addedVelocityY = velocity;
+            setDirection(Direction.SOUTH);
+        }
+        else yreached = true;
+
+        setVelocity(addedVelocityX, addedVelocityY);
+        if(xreached && yreached)
+            movenmentPointsList.remove(target);
+        System.out.println(CLASSNAME + methodName + spriteList.get(0).positionX + " " + spriteList.get(0).positionY);
     }
 
     private void collect(Actor collectingActor)
@@ -618,7 +679,7 @@ public class Actor
 
         if (gameWindow instanceof WorldView)
         {
-            if (sensorStatus.onInteraction.equals(TriggerType.TEXTBOX_ANALYSIS))
+            if (sensorStatus.onInteraction_TriggerSprite.equals(TriggerType.TEXTBOX_ANALYSIS))
             {
                 String analyzedGroupName = null;
                 List<Actor> analyzedGroup = null;
@@ -846,7 +907,7 @@ public class Actor
 
     public String getDialogueFileName()
     {
-        if(dialogueFileName == null)
+        if (dialogueFileName == null)
             throw new NullPointerException("No dialogue file defined for: " + actorFileName);
         return dialogueFileName;
     }

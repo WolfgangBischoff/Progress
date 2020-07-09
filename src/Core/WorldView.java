@@ -262,7 +262,7 @@ public class WorldView implements GUIController
         //TODO Send to Actor one time, not every Sprite
         for (Sprite active : activeSpritesLayer)
             if (active.intersectsRelativeToWorldView(mousePositionRelativeToCamera)
-                    && active.actor.sensorStatus.onInteraction != TriggerType.NOTHING)//Just add sprites of actors you can interact by onInteraction
+                    && active.actor.sensorStatus.onInteraction_TriggerSprite != TriggerType.NOTHING)//Just add sprites of actors you can interact by onInteraction
                 mouseHoveredSprites.add(active);
 
         if (isDiscussionGameActive)
