@@ -79,11 +79,12 @@ Logic:
 - Social Assignment mechanic
 
 QUEST 1:
-Start in own room with mate, talking about graduation
-Get tasks from speaker from commander at command center: new task
+Start in own room with, after exiting, your roomate approaches you: Lets go to the commander, he has something to say.
+Commander at command center: new task
     => Repair something in machine bay
+Go to machine bay with mate: Complain about salary, explaing attention limit
     => Possibility to steal something (Attention meter)
-Impact of meteorit
+Leave room, Impact of meteorit
 Check bridge, talk to captain
     1) Life system leaking throug person capsule and freight capsule
     2) Some Schuldsklaven systems are out of fuel (Cheap transport system, have to check regularly if they are still alive)
