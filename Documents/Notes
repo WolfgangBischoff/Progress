@@ -2,7 +2,7 @@
 Logic:
 - Textbox change Door status if discussion won
     - build freight deck (machine room ganz unten, control)
-    - build crew deck (create mate to talk with, life support below control, bath, leisure, rescue pods, storage under machine room)
+    - build crew deck (create mate to talk with, life support below control, leisure, rescue pods, storage under machine room)
 - Add set item mechanic
 - Attention meter
 - shaking screen
@@ -21,7 +21,7 @@ Logic:
 ----- Sprites ----------------------------
 ------------------------------------------
 - Ship:
-    FrontWindow, moving asteroid, rescue pods, captian sprite, towel, speaker
+    FrontWindow, moving asteroid, rescue pods, captian sprite, speaker
 - Docking Bay:
     Elevator, schriftzug "Elevator", minimal table, Lautsprecher
 - Control Center: BrückenControls,

@@ -332,6 +332,7 @@ public class WorldView implements GUIController
         }
 
         //Bottom heightLayer
+        //bottomLayer.sort(new SpriteComparator());//To prevent wrong render sequence when sprites change layer or are added
         for (Sprite sprite : bottomLayer)
         {
             sprite.render(gc, currentNanoTime);

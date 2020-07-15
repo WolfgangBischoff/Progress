@@ -467,6 +467,7 @@ public class Actor
         WorldView.bottomLayer.remove(sprite);
         WorldView.middleLayer.remove(sprite);
         WorldView.topLayer.remove(sprite);
+
         switch (targetLayer)
         {
             case 0:
@@ -660,7 +661,7 @@ public class Actor
         setVelocity(addedVelocityX, addedVelocityY);
         if (xreached && yreached)
             movenmentPointsList.remove(target);
-        //System.out.println(CLASSNAME + methodName + spriteList.get(0).positionX + " " + spriteList.get(0).positionY);
+        System.out.println(CLASSNAME + methodName + spriteList.get(0).positionX / 64 + " " + spriteList.get(0).positionY / 64);
     }
 
     private void collect(Actor collectingActor)
