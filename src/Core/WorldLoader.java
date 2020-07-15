@@ -222,7 +222,7 @@ public class WorldLoader
                 Sprite ca;
                 try
                 {
-                    ca = createSprite(tile, 64 * currentHorizontalTile, currentVerticalTile * 64);
+                    ca = Sprite.createSprite(tile, 64 * currentHorizontalTile, currentVerticalTile * 64);
                 }
                 catch (IllegalArgumentException e)
                 {
@@ -253,7 +253,7 @@ public class WorldLoader
             //Is Placeholder for black background
             else if (isPassiv && lineData[currentHorizontalTile].equals(Config.MAPDEFINITION_EMPTY))
             {
-                passivLayer.add(createSprite(new SpriteData("black", "void_64_64", false, 0d, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "none"), currentHorizontalTile * 64, currentVerticalTile * 64));
+                passivLayer.add(Sprite.createSprite(new SpriteData("black", "void_64_64", false, 0d, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "none"), currentHorizontalTile * 64, currentVerticalTile * 64));
             }
             else if (isPassiv && lineData[currentHorizontalTile].equals(MAPDEFINITION_NO_TILE))
             {
@@ -300,7 +300,7 @@ public class WorldLoader
         {
             Sprite actorSprite;
             SpriteData spriteData = spriteDataList.get(j);
-            actorSprite = createSprite(spriteData, x * 64, y * 64);
+            actorSprite = Sprite.createSprite(spriteData, x * 64, y * 64);
             actorSprite.actor = actor;
             actorSprite.setAnimationEnds(spriteData.animationEnds);
             actor.setSpeed(spriteData.velocity);//Set as often as Sprites exist?
@@ -389,6 +389,7 @@ public class WorldLoader
         }
     }
 
+    /*
     private Sprite createSprite(SpriteData tile, Integer x, Integer y)
     {
         Sprite ca;
@@ -419,6 +420,8 @@ public class WorldLoader
 
         return ca;
     }
+
+     */
 
     public Rectangle2D getBorders()
     {

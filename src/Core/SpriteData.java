@@ -27,7 +27,7 @@ public class SpriteData
 
 
     public String name, spriteName, lightningSprite, dialogueID;
-    public Boolean blocking, animationEnds;
+    public Boolean blocking, animationEnds = false;
     public Integer totalFrames, cols, rows, frameWidth, frameHeight, heightLayer, hitboxOffsetX, hitboxOffsetY, hitboxWidth, hitboxHeight, velocity;//, animationDuration;
     public Double animationDuration, fps;
 

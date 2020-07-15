@@ -492,6 +492,35 @@ public class Actor
                 stringBuilder.append("\t").append(entry.getKey()).append("\n");
             throw new RuntimeException(compoundStatus + " not found in \n" + stringBuilder.toString());
         }
+        else
+        {
+            //System.out.println(CLASSNAME + methodName + targetSpriteData);
+        }
+        if (spriteList.isEmpty())//Before Actor is initiallized
+            return;
+
+        /*
+        double x = 0;
+        double y = 0;
+        x = spriteList.get(0).positionX;
+        y = spriteList.get(0).positionY;
+        System.out.println(CLASSNAME + methodName + actorInGameName + " " + x + " " + y);
+
+        WorldView.toRemove.addAll(spriteList);
+        spriteList.clear();
+
+        for (int i = 0; i < targetSpriteData.size(); i++)
+        {
+            SpriteData data = targetSpriteData.get(i);
+            Sprite newSprite = Sprite.createSprite(data,x,y);
+            addSprite(newSprite);
+            changeLayer(newSprite, data.heightLayer);
+        }
+        //WorldView.activeSpritesLayer.addAll(spriteList);
+
+        if (actorFileName.toLowerCase().equals("player"))
+            WorldView.player = spriteList.get(0);
+*/
 
         //For all Sprites of the actor onUpdate to new Status
         for (int i = 0; i < spriteList.size(); i++)
@@ -576,20 +605,22 @@ public class Actor
 
     //TODO from script or file
     List<Point2D> movenmentPointsList = new ArrayList<>();
-    Point2D target = new Point2D(2112 - 64 * 7 -32, 2432);
-    Point2D target2 = new Point2D(2112 - 64 * 7, 2432-64*4);
+    Point2D target = new Point2D(2112 - 64 * 7 - 32, 2432);
+    Point2D target2 = new Point2D(2112 - 64 * 7, 2432 - 64 * 4);
+
     {
         movenmentPointsList.add(target);
         movenmentPointsList.add(target2);
         movenmentPointsList.add(target);
         movenmentPointsList.add(new Point2D(2112, 2432 + 64));
     }
+
     private void move()
     {
 
         String methodName = "move()";
 
-        if(movenmentPointsList.isEmpty())
+        if (movenmentPointsList.isEmpty())
             return;
         Point2D target = movenmentPointsList.get(0);
         Point2D currentPos = new Point2D(spriteList.get(0).positionX, spriteList.get(0).positionY);
@@ -626,7 +657,7 @@ public class Actor
         else yreached = true;
 
         setVelocity(addedVelocityX, addedVelocityY);
-        if(xreached && yreached)
+        if (xreached && yreached)
             movenmentPointsList.remove(target);
         System.out.println(CLASSNAME + methodName + spriteList.get(0).positionX + " " + spriteList.get(0).positionY);
     }

@@ -92,6 +92,38 @@ public class Sprite
         }
     }
 
+    public static Sprite createSprite(SpriteData tile, double x, double y)
+    {
+        String methodName = "createSprite()";
+        Sprite ca;
+        try
+        {
+            if (tile.totalFrames > 1)
+                ca = new Sprite(tile.spriteName, tile.fps, tile.totalFrames, tile.cols, tile.rows, tile.frameWidth, tile.frameHeight);
+            else
+                ca = new Sprite(tile.spriteName);
+        }
+        catch (IllegalArgumentException e)
+        {
+            e.printStackTrace();
+            ca = new Sprite(IMAGE_DIRECTORY_PATH + "notfound_64_64" + CSV_POSTFIX);
+        }
+
+        ca.setName(tile.name);
+        ca.setPosition(x, y);
+        ca.setBlocker(tile.blocking);
+        ca.setLightningSpriteName(tile.lightningSprite);
+
+        ca.setLightningSpriteName(tile.lightningSprite);
+        ca.setAnimationEnds(tile.animationEnds);
+
+        //If Hitbox differs
+        if (tile.hitboxOffsetX != 0 || tile.hitboxOffsetY != 0 || tile.hitboxWidth != 0 || tile.hitboxHeight != 0)
+            ca.setHitBox(tile.hitboxOffsetX, tile.hitboxOffsetY, tile.hitboxWidth, tile.hitboxHeight);
+
+        return ca;
+    }
+
     public void update(Long currentNanoTime)
     {
         String methodName = "update() ";
@@ -248,7 +280,7 @@ public class Sprite
         int frameJump = (int) Math.floor((now - lastFrame) / (1000000000 / fps)); //Determine how many frames we need to advance to maintain frame rate independence
 
         //Do a bunch of math to determine where the viewport needs to be positioned on the sprite sheet
-        if (frameJump >= 1 && !(isAtLastFrame() && animationEnds))
+        if (frameJump >= 1 && !(isAtLastFrame()  && animationEnds))
         {
             lastFrame = now;
 
