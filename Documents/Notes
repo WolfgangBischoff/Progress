@@ -1,6 +1,5 @@
 
 Logic:
-- UNDO change Sprite list to Sprite, this seems to be not needed
 - Textbox change Door status if discussion won
     - build freight deck (machine room ganz unten, control)
     - build crew deck (create mate to talk with, life support below control, bath, leisure, rescue pods, storage under machine room)
@@ -22,7 +21,7 @@ Logic:
 ----- Sprites ----------------------------
 ------------------------------------------
 - Ship:
-    FrontWindow, moving asteroid, rescue pods, captian sprite, steam shower, speaker
+    FrontWindow, moving asteroid, rescue pods, captian sprite, towel, speaker
 - Docking Bay:
     Elevator, schriftzug "Elevator", minimal table, Lautsprecher
 - Control Center: BrückenControls,

@@ -660,7 +660,7 @@ public class Actor
         setVelocity(addedVelocityX, addedVelocityY);
         if (xreached && yreached)
             movenmentPointsList.remove(target);
-        System.out.println(CLASSNAME + methodName + spriteList.get(0).positionX + " " + spriteList.get(0).positionY);
+        //System.out.println(CLASSNAME + methodName + spriteList.get(0).positionX + " " + spriteList.get(0).positionY);
     }
 
     private void collect(Actor collectingActor)

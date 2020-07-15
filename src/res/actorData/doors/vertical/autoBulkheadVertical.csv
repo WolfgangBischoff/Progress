@@ -16,5 +16,7 @@ interactionArea; 						250;				60;							150;				000
 #status to image
 #status 											;name 					  				;spritename  																																													;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;duration ;velocity ;dialogueID ;AnimationEnds
 ON-west												;automatedDoorV		;../actorData/doors/vertical/autoDoorVertical_close					 	;true				;1												;0			;0												;0			;0			;0										;0											;0													;128													;64									;64											;none						;0								;0								;none							;false
+ON-west												;automatedDoorV		;../actorData/doors/vertical/autoDoorVertical_close					 	;true				;1												;0			;0												;0			;0			;0										;0											;0													;128													;64									;64											;none						;0								;0								;none							;false
 OFF-west											;automatedDoorV		;../actorData/doors/vertical/open					 																			;false			;1												;0			;0												;0			;0			;0										;0											;0													;128													;64									;64											;none						;0								;0								;none							;false
+OFF-west											;automatedDoorV		;../actorData/doors/vertical/bttm_open					 														;false			;2												;0			;0												;0			;0			;0										;0											;0													;128													;64									;64											;none						;0								;0								;none							;false
 
