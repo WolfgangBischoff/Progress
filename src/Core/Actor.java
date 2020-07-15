@@ -37,9 +37,10 @@ public class Actor
     private double interactionAreaOffsetY = 0;
 
     final List<Sprite> spriteList = new ArrayList<>();
+    final Map<String, List<SpriteData>> spriteDataMap = new HashMap<>();
+
     List<ActorCondition> conditions = new ArrayList<>();
     final Map<String, String> statusTransitions = new HashMap<>();
-    final Map<String, List<SpriteData>> spriteDataMap = new HashMap<>();
     String generalStatus;
     String compoundStatus = "default";
     String dialogueFileName = null;
