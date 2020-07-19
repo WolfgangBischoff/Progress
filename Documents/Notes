@@ -38,9 +38,11 @@ Logic:
 ------------------------------------------
 ----- Ideas ------------------------------
 ------------------------------------------
+- Attention meter shows when police comes if you sabotage companies, shows how suspicous you are. Increases for sabotage, decreases over time.
+- Revolutionary Spirit meter shows how strong people want change, increases with lower living standard, pamphlets against companies, or if they trust you.
 - Grind mechanic
-    Go to work as freelancer (there are always quests, you decide if you are a good worker; attention meter shows when police comes)
-    - get money from Companies for doing Quest
+    Go to work as freelancer (there are always quests, you decide if you are a good worker)
+    - get money from Companies for doing Quest (money changes if workers are unionized, work is more rentable if much union)
     - steal
     - sabotage
     - be lazy
@@ -52,8 +54,7 @@ Logic:
     Personal Room with placeable Sprites
     Puplic room with services like community center (items, knowledge, repair)
 - Increasable Skills like Sabotage (Harm Machines), Craft (Tools/Weapons/Propaganda), Rethorik
-- Gewerkschaft is corrupted
-- Inteligent Plant Hive mind
+- Gewerkschaft is corrupted, helps worker but ignores slaves; but unionization helps for more money from quest work
 - Social Game also technical
     - influence on time/speed
     - tricolon as copy visible coins
@@ -64,7 +65,10 @@ Logic:
     -> Drugs, Spirituality
     -> Gay
     -> Hobbies
-- company is privat auticraty
+- Company is private autocracy; factions within "government"
+    - Earth Defenders want to save earth, bad conditions are needed to fulfill production, no risk acceptable
+    - Red Faction wants better conditions, egoistic, risk is ok. Earth supply may jeopardized
+    - Indepence/Union movement wants Earth to pay, bit more equal but Feudal
 - Robot Avatars, remote control
 - Tragik der Allmende
 - Verteilungslogik: Egalitär, Utilitaristisch
@@ -74,9 +78,9 @@ Logic:
 - Textbox die mit dem Spieler mitgeht als Lautsprecher
 - Input line secrets, enter number or names
 - Schuldsklaven "Verbrecher" vom sYstem absichtlich produziert
-- Main plot is slowed down by "Revoluionary Spirit" mechanic, you can do actions if moivated, increases by beeing poor or seeing poor, decreases if situations betters => cannot proceed if not explore
 - Main menu with dark parts that get light abwechseln, reveal hammer/sickle, Money, such things
 - Social Assignment mechanic
+- espionage/desinformation via Alexa devices
 
 QUEST 1:
 Start in own room with, after exiting, your roomate approaches you: Lets go to the commander, he has something to say.
@@ -103,15 +107,11 @@ QUEST 4:
 steal, infiltrate gather data, demonstrate with when new info, destroy, overtake, attack
 
 
-Character (Who are they, dreams, personality, history)
 
-Lore (Info not related to PLot, History, descriptions):
-    Third Class
-        => Earth damaged, people want to live in space and station, Ceres is base for asteriod belt mining
-        => Dept-Slaves are used for work
-        => Subscriptions to benefits
-        => Dwarf planes Ceres, Water colony with science; can travel to asteriods
-        => Board time / Ceres Time (9h 4min per day) connection affects world (year 4,605 years)
+
+
+
+Character (Who are they, dreams, personality, history)
 
 Enviroment Plot:
     Flora on Ceres is intelliget, can communicate.
@@ -122,22 +122,35 @@ Enviroment Plot:
 Cultural Dominance Plot:
     Style of Station, Music, Interests
 
-Science Plot:
-    Flora, Ancient things, Splicing
-
 Spiritual Mission:
     Drugs, secret cult
 
-Science/Investigate Mechanic:
-Repair/Build/Money/Knowledge/Tamper/Destroy party of System to change station
-1) Get message over incident => Analyze at Hub
-2) get hint, sometimes error hidden, check multiple places
-3) Found problem => Need more tools/ersatzteile/way blocked => repair
-Each part gives other message, Hub give hint which part is broken (So hub message relies on Group status)
-=> EndSystem spread over Map, MiddleSystem is behind Scenes, Root are other Maps => Erkundung
 
-Social Network Mechanic:
-Does team fits together? NetworkMechanic?
+------------------------------------------
+----- Lore & World -----------------------
+------------------------------------------
+Lore (Info not related to PLot, History, descriptions)
+    Third Class
+        => Earth damaged, people want to live in space and station, Ceres is base for asteriod belt mining
+        - Private Company build Station, Earth law doesnt apply, Earth Gov am Gängelband
+        => Subscriptions to benefits
+        => Dwarf planet Ceres, Water colony with science; can travel to asteriods; Vanguard of Humankind in private ownership (CereX company)
+        => Board time / Ceres Time (9h 4min per day) connection affects world (year 4,605 years)
+        - Asteriod belt essential for earth, need resources
+
+    Ceres
+        - Ceres Base gets energy and water from old colony ship, which works automated; resource refinement is here and union
+        - The Colony Ship has no air life systems, but in secret workers life there under bad conditions, need air masks all day
+        - In secret dept slaves are but to Colony Ship
+        - The trade hub contains a space elevator and in secret luxury apartements
+        - There are water and mineral resource fields near cryo vulcanos
+        - Resources very limited, nearly autarc; cheap drones with oxygen fuel can sent back resources, but oxygen is rare;
+            goods from earth must be sent to space, expensive, from ceres weight is not a problem
+
+        - CereX owns base and maintains station with Colony Ship
+        - Adia is a small coffee company owned by Smile (Amazon)
+        - Watercompany
+        - Mineralcompany
 
 ------------------------------------------
 ----- COLLECTIBLES -----------------------
@@ -145,7 +158,7 @@ Does team fits together? NetworkMechanic?
 SpaceStamps with Social
 Old Earth artefacts by exploration
 Plants züchten
-Wohnkapsel ist erweiterbared Raumschimm
+Wohnkapsel ist erweiterbares Raumschiff
 
 ------------------------------------------
 ----- INSPIRATION ------------------------
@@ -157,6 +170,10 @@ Snowpiercer
     Zu indem alle Menschen sind, die Armen am Ende kämpfen sich nach Vorne. Sehen Reichtum. Am Ende wird klar dass Anführer zusammengearbeitet haben, viele grausame Maßnahman waren zum überleben.
     Drakonische strafen wie Gliedmasen trennen; Message übermitteln mit Stofffetzen und ablenkung
 
+Snowpiercer Series
+    Strenge Klassengesellschaft, Arbeitskräfte für Oberklasse, spezielles Talent wird gebraucht (Detektive).
+    Auch erste Klasse nicht homogen, einige Mitfühlend und helfen Revolution. Mehrere verfeindete Fraktion in der ersten die Rev ermöglichen
+
 Passenger
     Protagonist wacht wegen technischem Defect auf, alleine auf Schiff, wird sterben bis ankommt. Weckt andere Person. Retten schiff leben glücklich. Klassen/Ticket unterschiede sichtbar. Fusionsreaktor
 
@@ -165,4 +182,4 @@ Prey
 ------------------------------------------
 ----- SHORTKEY ---------------------------
 ------------------------------------------
-- Recorder: Win + G
+- Windows Recorder: Win + G
