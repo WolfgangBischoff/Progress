@@ -42,6 +42,8 @@ Logic:
 - Revolutionary Spirit meter shows how strong people want change, increases with lower living standard, pamphlets against companies, or if they trust you.
 - Grind mechanic
     Go to work as freelancer (there are always quests, you decide if you are a good worker)
+    Setting: Mineral Mining, Plant Growing, Alloy Melting, Cook Serve Delicious
+    With high attention meter place have surveilance
     - get money from Companies for doing Quest (money changes if workers are unionized, work is more rentable if much union)
     - steal
     - sabotage
@@ -83,7 +85,7 @@ Logic:
 - espionage/desinformation via Alexa devices
 
 QUEST 1:
-Start in own room with, after exiting, your roomate approaches you: Lets go to the commander, he has something to say.
+Start in WC, after exiting, your roomate approaches you: Lets go to the commander, he has something to say. This took long xD
 Commander at command center: new task
     => Repair something in machine bay
 Go to machine bay with mate: Complain about salary, explaing attention limit
