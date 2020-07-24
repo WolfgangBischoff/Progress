@@ -1,0 +1,15 @@
+
+#InteractionArea; Distance; Width; OffsetX; OffsetY
+#transition; fromStatus; toStatus
+#condition;if sprite-status;if sensor-status;type				;true-sprite-status;true-sensor-status;false-sprite-status;false-sensor-status	;params
+
+
+#sensorStatus;sensorStatusName										;interactionSpriteTrigger ;interactionSpriteStatus	;interactionSensorTrigger;interactionSensorStatus;inRangeSpriteTrigger;inRangeSpriteStatus	;inRangeSensorTrigger	;inRangeSensorStatus;intersectionSpriteTrigger;intersectionSpriteStatus		;intersectionSensorTrigger;intersectionSensorStatus;updateSpriteTrigger;updateSpriteStatus;updateSensorTrigger;updateSensorStatus;monitorSpriteTrigger;monitorSensorTrigger;textboxSpriteTrigger;textboxSensorTrigger
+sensorStatus	;default																			;none																					;none  	 																;none 																			;none 																		;none																;none																;none 																;none 														;none																					;none																						;none 																				;none 																			;none															;none														;none 														;none 													;none																;none 															;none																;none
+sensorStatus	;sleep																					;textbox																		;none  	 																;none 																			;none 																		;none																;none																;none 																;none 														;none																					;none																						;none 																				;none 																			;none															;none														;none 														;none 													;none																;none 															;none																;none
+
+dialogueFile; actorData/furniture/bed/bed
+
+#status to image
+#status 			;name   				;spritename  																																																						;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;duration ;velocity ;dialogueID ;AnimationEnds
+bischoff			;spriteName	;../actorData/furniture/bed/bedmodule_bischoff																					;true				;1 											;0   ;0            ;0    ;0    ;000        ;000         ;000           ;128           ;192         ;064										;none				;000						;000						;sleep						;false

@@ -1,17 +1,18 @@
 
 Logic:
+- Attention meter
+    - increases if machine broken
+    - decreases every day, change by bed (add day change trigger)
 - Textbox change Door status if discussion won
     - build freight deck (machine room ganz unten, control)
     - build crew deck (create mate to talk with, life support below control, leisure, rescue pods, storage under machine room)
 - Add set item mechanic
-- Attention meter
 - shaking screen
 - Cleaing Bot Moving
     - add definition in file
 - Menu
     add item with textbox
     add item in box
-- schlafen, fade out, calender
 - Console
 - change __xx__ to ______, latter should be overwritable
 - add Logger.log(debug, CLASSNAME, methodName, msg)
@@ -185,3 +186,4 @@ Prey
 ----- SHORTKEY ---------------------------
 ------------------------------------------
 - Windows Recorder: Win + G
+- Ctrl + Alt + </>: Jump to code parts

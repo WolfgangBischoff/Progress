@@ -1,0 +1,46 @@
+<!--/>
+File Identified by Actor Definition
+First Dialogue Identified by otherPersonActor status value; In future maybe also MonitorData, levelname
+
+id - identifier for lookup of textbox
+type - normal/decision/discussion
+spritestatus - changes otherPersonActor to status defined in otherPersonActor file, "transition" leads to changed defined in otherPersonActor file
+
+    <dialogue id="welcome" type="normal" spritestatus="transition">
+        <line>Shown message</line>
+        <line>Shown message 2</line>
+        <nextDialogue>nextDialogueID</nextDialogue>
+    </dialogue>
+
+    <dialogue id="info" type="decision" spritestatus="transition">
+        <option>
+            <line>Optiontext1</line>
+            <nextDialogue>option1ID</nextDialogue>
+        </option>
+
+        <option>
+            <line>Optiontext1, Nothing happens</line>
+        </option>
+    </dialogue>
+
+     <dialogue id="DECISION-DISCUSSION" type="discussion" game="lifesupport" success="GAME-SUCCESS" defeat="GAME-DEFEAT"/>
+<-->
+
+<root name="bed">
+    <dialogue id="sleep" type="normal">
+        <line>Do you want to spend the remaining day in your capsule?</line>
+        <nextDialogue>sleep-decision</nextDialogue>
+    </dialogue>
+
+    <dialogue id="sleep-decision" type="decision">
+        <option>
+            <line>Rest till next day</line>
+        </option>
+
+        <option>
+            <line>[back]</line>
+        </option>
+    </dialogue>
+</root>
+
+

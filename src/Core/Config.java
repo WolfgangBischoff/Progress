@@ -44,6 +44,7 @@ public class Config
     public static final String KEYWORD_actor_tags = "tags";
     public static final String KEYWORD_condition = "condition";
     public static final String KEYWORD_personality = "personality";
+    public static final String KEYWORD_suspicious_value = "suspicious_value";
 
     //DialogueFile Keywords
     public static final String DIALOGUE_TAG = "dialogue";

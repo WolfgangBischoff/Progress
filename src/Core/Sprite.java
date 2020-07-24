@@ -1,5 +1,6 @@
 package Core;
 
+import Core.Enums.ActorTag;
 import Core.Enums.TriggerType;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
@@ -170,6 +171,14 @@ public class Sprite
                 otherSprite.actor.onInteraction(this, currentNanoTime); //Passive reacts
                 actor.setLastInteraction(currentNanoTime);
                 interact = false; //Interacts with first found sprite;
+
+                //check if Suspicionness-Meter is affected
+                if(actor.tags.contains(ActorTag.PLAYER) && otherSprite.actor.numeric_generic_attributes.containsKey(KEYWORD_suspicious_value))
+                {
+                    int suspicious_value = otherSprite.actor.numeric_generic_attributes.get(KEYWORD_suspicious_value).intValue();
+                    int currentSuspiciousValue = GameVariables.getPlayerSuspectedness();
+                    GameVariables.setPlayerSuspectedness(suspicious_value + currentSuspiciousValue);
+                }
             }
 
             //In range

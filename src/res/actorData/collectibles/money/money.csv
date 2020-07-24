@@ -7,6 +7,8 @@ sensorStatus	;default										;collectable											;none  	 												;none
 
 collectable_type; money
 
+suspicious_value; 3
+
 #status to image
 #status 			;name   				;spritename  																																	;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;duration ;velocity ;dialogueID ;AnimationEnds
 gsc100					;money						;../actorData/collectibles/money/gsc_small				;false			;0												;000	;000										;000	;000	;000								;000									;000											;000	 									;000									;000										;none						;000						;000						;default				;false

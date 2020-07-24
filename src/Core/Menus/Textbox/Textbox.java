@@ -142,8 +142,6 @@ public class Textbox
                 {
                     String levelname = currentDialogue.getAttribute(level_ATTRIBUTE);
                     String spawnId = currentDialogue.getAttribute(spawnID_ATTRIBUTE);
-                    //nextDialogueID = null;
-                    //WorldView.setIsTextBoxActive(false);
                     WorldView.getSingleton().loadEnvironment(levelname, spawnId);
                 }
                 else

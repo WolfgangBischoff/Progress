@@ -24,25 +24,33 @@ public class Actor
 {
     private static final String CLASSNAME = "Actor-";
     private static final Set<String> actorDefinitionKeywords = new HashSet<>();
+
+    //General
     String actorFileName;
     String actorInGameName;
     private Direction direction;
     private double velocityX;
     private double velocityY;
     private double speed = 50;
-    private Long lastInteraction = 0L;
     private double interactionAreaWidth = 8;
     private double interactionAreaDistance = 30;
     private double interactionAreaOffsetX = 0;
     private double interactionAreaOffsetY = 0;
+    private Long lastInteraction = 0L;
 
-    final List<Sprite> spriteList = new ArrayList<>();
-    final Map<String, List<SpriteData>> spriteDataMap = new HashMap<>();
-
-    List<ActorCondition> conditions = new ArrayList<>();
-    final Map<String, String> statusTransitions = new HashMap<>();
+    //Sprite
     String generalStatus;
     String compoundStatus = "default";
+    final Map<String, String> statusTransitions = new HashMap<>();
+    final Map<String, List<SpriteData>> spriteDataMap = new HashMap<>();
+    final List<Sprite> spriteList = new ArrayList<>();
+
+    //Sensor
+    Map<String, SensorStatus> sensorStatusMap = new HashMap<>();
+    SensorStatus sensorStatus;
+
+
+    List<ActorCondition> conditions = new ArrayList<>();
     String dialogueFileName = null;
     String dialogueStatusID = "none";
     private String collectable_type;
@@ -50,11 +58,9 @@ public class Actor
     StageMonitor stageMonitor;
     List<String> memberActorGroups = new ArrayList<>();
     Inventory inventory;
-    Map<String, SensorStatus> sensorStatusMap = new HashMap<>();
-    SensorStatus sensorStatus;
     public Set<ActorTag> tags = new HashSet<>();
-
     PersonalityContainer personalityContainer;
+    Map<String, Double> numeric_generic_attributes = new HashMap<>();
 
     public Actor(String actorFileName, String actorInGameName, String initGeneralStatus, String initSensorStatus, Direction direction)
     {
@@ -79,6 +85,7 @@ public class Actor
             actorDefinitionKeywords.add(KEYWORD_actor_tags);
             actorDefinitionKeywords.add(KEYWORD_condition);
             actorDefinitionKeywords.add(KEYWORD_personality);
+            actorDefinitionKeywords.add(KEYWORD_suspicious_value);
         }
 
 
@@ -163,6 +170,9 @@ public class Actor
                 break;
             case KEYWORD_personality:
                 personalityContainer = readPersonality(linedata);
+                break;
+            case KEYWORD_suspicious_value:
+                numeric_generic_attributes.put(linedata[0], Double.parseDouble(linedata[1]));
                 break;
             default:
                 throw new RuntimeException("Keyword unknown: " + keyword);
@@ -501,29 +511,6 @@ public class Actor
         if (spriteList.isEmpty())//Before Actor is initiallized
             return;
 
-        /*
-        double x = 0;
-        double y = 0;
-        x = spriteList.get(0).positionX;
-        y = spriteList.get(0).positionY;
-        System.out.println(CLASSNAME + methodName + actorInGameName + " " + x + " " + y);
-
-        WorldView.toRemove.addAll(spriteList);
-        spriteList.clear();
-
-        for (int i = 0; i < targetSpriteData.size(); i++)
-        {
-            SpriteData data = targetSpriteData.get(i);
-            Sprite newSprite = Sprite.createSprite(data,x,y);
-            addSprite(newSprite);
-            changeLayer(newSprite, data.heightLayer);
-        }
-        //WorldView.activeSpritesLayer.addAll(spriteList);
-
-        if (actorFileName.toLowerCase().equals("player"))
-            WorldView.player = spriteList.get(0);
-*/
-
         //For all Sprites of the actor onUpdate to new Status
         for (int i = 0; i < spriteList.size(); i++)
         {
@@ -661,7 +648,7 @@ public class Actor
         setVelocity(addedVelocityX, addedVelocityY);
         if (xreached && yreached)
             movenmentPointsList.remove(target);
-        System.out.println(CLASSNAME + methodName + spriteList.get(0).positionX / 64 + " " + spriteList.get(0).positionY / 64);
+        //System.out.println(CLASSNAME + methodName + spriteList.get(0).positionX / 64 + " " + spriteList.get(0).positionY / 64);
     }
 
     private void collect(Actor collectingActor)

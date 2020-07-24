@@ -30,9 +30,8 @@ TRws_D				;transportwall				;walls/transporterhull/wall_0								   												
 TRhe_0				;transportHull				;walls/transporterhull/hull_e																																						;true					;1												;0			;0												;0				;0				;0										;0											;000											;000											;000									;000										;none
 TRhw_0				;transportHull				;walls/transporterhull/hull_w																																						;true					;1												;0			;0												;0				;0				;0										;0											;000											;000											;000									;000										;none
 TRwsw0				;transportwall				;walls/transporterhull/outer_sw							  																											;true					;1												;0			;0												;0				;0				;0										;0											;000											;028											;064									;100										;none
-#Wv____				;transportwall				;walls/thin_wall_w							  																																								;true					;1												;0			;0												;0				;0				;0										;0											;000											;014											;064									;040										;none
+Wv_noB				;transportwall				;walls/thin_wall_w							  																																								;false				;2												;0			;0												;0				;0				;0										;0											;000											;000											;020									;064										;none
 Wv____				;transportwall				;walls/thin_wall_w							  																																								;true					;2												;0			;0												;0				;0				;0										;0											;000											;000											;020									;064										;none
-Wv_noB				;transportwall				;walls/thin_wall_w							  																																								;false					;2												;0			;0												;0				;0				;0										;0											;000											;000											;020									;064										;none
 
 #Floor
 CR___0				;transportfloor			;transporter/floor/crew_0																																										;false					;0												;0			;0												;0				;0				;0										;0											;000											;000											;000									;000										;none
@@ -43,7 +42,7 @@ CR___3				;transportfloor			;transporter/floor/crew_3																											
 #code     ;name        					;spritename                     																																			;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning
 elev__				;elevator									;../actorData/doors/updown/elevator/base_3x2																							;false				;0												;0			;0												;0				;0				;0										;0											;000									 	;000									 	;000									;000										;none
 tank_A				;tank													;machines/lifesupport/tank_192_128_a4																														;true					;1 											;2   ;4            ;4    ;1    ;192        ;128         ;0             ;0             ;0           ;0												;greenlight256
-bed_Bi				;bed														;../actorData/furniture/bed/bedmodule_bischoff																					;true					;1 											;0   ;0            ;0    ;0    ;000        ;000         ;000           ;128           ;192         ;064										;none
+#bed_Bi				;bed														;../actorData/furniture/bed/bedmodule_bischoff																					;true					;1 											;0   ;0            ;0    ;0    ;000        ;000         ;000           ;128           ;192         ;064										;none
 bed_Ho				;bed														;../actorData/furniture/bed/bedmodule_hoffer																							;true					;1 											;0   ;0            ;0    ;0    ;000        ;000         ;000           ;128           ;192         ;064										;none
 bed_Hu				;bed														;../actorData/furniture/bed/bedmodule_husar																								;true					;1 											;0   ;0            ;0    ;0    ;000        ;000         ;000           ;128           ;192         ;064										;none
 bed_Wi				;bed														;../actorData/furniture/bed/bedmodule_winkler																						;true					;1 											;0   ;0            ;0    ;0    ;000        ;000         ;000           ;128           ;192         ;064										;none
@@ -64,6 +63,7 @@ elevSc					;doors/updown/elevator/elevator										;main elevator												;t
 autoDo					;doors/vertical/autoBulkheadVertical					;bulkhead																	;on																	;default																;west
 cleanB					;robot/cleaningBot/cleaningBot											;technician															;default												;default																;west
 steamS					;bath/steam_shower/steam_shower										;shower																			;off																;default																;undefined
+bed_Bi					;furniture/bed/bed																							;Your Bed																	;bischoff											;sleep																		;undefined
 
 Actorgroups:
 #System-Name					;Logic																										;Influenced-System	;members by actorId (logic-Options: isBaseSystem)
