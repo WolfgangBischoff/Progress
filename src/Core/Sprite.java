@@ -176,8 +176,7 @@ public class Sprite
                 if(actor.tags.contains(ActorTag.PLAYER) && otherSprite.actor.numeric_generic_attributes.containsKey(KEYWORD_suspicious_value))
                 {
                     int suspicious_value = otherSprite.actor.numeric_generic_attributes.get(KEYWORD_suspicious_value).intValue();
-                    int currentSuspiciousValue = GameVariables.getPlayerSuspectedness();
-                    GameVariables.setPlayerSuspectedness(suspicious_value + currentSuspiciousValue);
+                    GameVariables.addPlayerSuspectedness(suspicious_value);
                 }
             }
 

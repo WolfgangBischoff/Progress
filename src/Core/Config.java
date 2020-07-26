@@ -66,6 +66,8 @@ public class Config
     public static final String level_ATTRIBUTE = "level";
     public static final String spawnID_ATTRIBUTE = "spawnID";
 
+    public static final String dayChange_TYPE_ATTRIBUTE = "dayChange";
+
     //Paths
     public static final String CSV_POSTFIX = ".csv";
     public static final String PNG_POSTFIX = ".png";

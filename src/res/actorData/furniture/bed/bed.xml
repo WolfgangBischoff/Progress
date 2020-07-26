@@ -35,11 +35,16 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
     <dialogue id="sleep-decision" type="decision">
         <option>
             <line>Rest till next day</line>
+            <nextDialogue>decision-technical</nextDialogue>
         </option>
 
         <option>
             <line>[back]</line>
         </option>
+    </dialogue>
+
+    <dialogue id="decision-technical" type="dayChange">
+        <line>Technical</line>
     </dialogue>
 </root>
 

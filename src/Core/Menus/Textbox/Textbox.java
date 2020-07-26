@@ -144,6 +144,14 @@ public class Textbox
                     String spawnId = currentDialogue.getAttribute(spawnID_ATTRIBUTE);
                     WorldView.getSingleton().loadEnvironment(levelname, spawnId);
                 }
+                else if(dialogueType.equals(dayChange_TYPE_ATTRIBUTE))
+                {
+                    //TODO Day Summary Menu
+                    GameVariables.incrementDay();
+                    GameVariables.addPlayerSuspectedness(-1);
+
+                    System.out.println(CLASSNAME + methodName + " Day: " +  GameVariables.getDay() + " Suspiciousness:  " + GameVariables.getPlayerSuspectedness());
+                }
                 else
                 //Normal Textbox
                 {
@@ -153,6 +161,7 @@ public class Textbox
                         readDialogue.messages.add(message);//Without formatting the message
                     }
                 }
+
                 //Check for further dialogues
                 NodeList nextDialogueIdList = currentDialogue.getElementsByTagName(NEXT_DIALOGUE_TAG);
                 if (nextDialogueIdList.getLength() > 0)
@@ -377,10 +386,10 @@ public class Textbox
             WorldView.setIsDiscussionGameActive(true);
             lineSplitMessage = wrapText("Discussion ongoing");
         }
-        else if(readDialogue.type.equals(levelchange_TYPE_ATTRIBUTE))
+        else if(readDialogue.type.equals(levelchange_TYPE_ATTRIBUTE) || readDialogue.type.equals(dayChange_TYPE_ATTRIBUTE))
         {
             WorldView.setIsTextBoxActive(false);
-            lineSplitMessage = wrapText("Levelchange");
+            lineSplitMessage = wrapText("technical");
         }
         else
         {

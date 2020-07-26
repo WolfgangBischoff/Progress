@@ -2,7 +2,7 @@
 Logic:
 - Attention meter
     - increases if machine broken
-    - decreases every day, change by bed (add day change trigger)
+    - after daychange guard appears if AM is high, or more item lay around if low
 - Textbox change Door status if discussion won
     - build freight deck (machine room ganz unten, control)
     - build crew deck (create mate to talk with, life support below control, leisure, rescue pods, storage under machine room)

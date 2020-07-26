@@ -1,7 +1,5 @@
 package Core;
 
-import java.awt.*;
-
 public class GameVariables
 {
     private static String CLASS_NAME = "GameVariables/";
@@ -16,7 +14,7 @@ public class GameVariables
 
     static GameVariables getInstance()
     {
-        if(singleton == null)
+        if (singleton == null)
             singleton = new GameVariables();
         return singleton;
     }
@@ -26,12 +24,20 @@ public class GameVariables
         return playerSuspectedness;
     }
 
-    public static void setPlayerSuspectedness(int playerSuspectedness)
+    private static void setPlayerSuspectedness(int playerSuspectedness)
     {
         String methodName = "setPlayerSuspectedness(int) ";
-        GameVariables.playerSuspectedness = playerSuspectedness;
-        System.out.println(CLASS_NAME + methodName + playerSuspectedness);
+        if (playerSuspectedness > 0)
+            GameVariables.playerSuspectedness = playerSuspectedness;
+        //System.out.println(CLASS_NAME + methodName + playerSuspectedness);
     }
+
+    public static void addPlayerSuspectedness(int deltaSuspectioness)
+    {
+        String methodName = "addPlayerSuspectedness(int) ";
+        setPlayerSuspectedness(GameVariables.playerSuspectedness + deltaSuspectioness);
+    }
+
 
     public static int getDay()
     {
