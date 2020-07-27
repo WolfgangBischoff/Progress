@@ -164,7 +164,7 @@ public class WorldLoader
         {
             case INCLUDE_CONDITION_suspicion_lessequal:
                 int suspicionThreshold = Integer.parseInt(lineData[includeConditionParamsStartIdx]);
-                int currentSuspicion = GameVariables.getPlayerSuspicion();
+                int currentSuspicion = GameVariables.getPlayerMaM();
                 if (currentSuspicion <= suspicionThreshold)//condition met
                 {
                     if(debug)

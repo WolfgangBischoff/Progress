@@ -4,7 +4,7 @@ tank_A				;tank													;machines/lifesupport/tank_192_128_a4															
 
 actors:
 #code 					;actorFileN																														;IngameName															;sprite-status						;sensor-status										;direction
-gsc100					;collectibles/money/money																;Crypts								 										;gsc100													;default																;undefined
+#gsc100					;collectibles/money/money																;Crypts								 										;gsc100													;default																;undefined
 
 
 

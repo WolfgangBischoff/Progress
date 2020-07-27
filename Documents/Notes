@@ -1,14 +1,12 @@
 
 Logic:
-- Attention meter
-    - after daychange guard appears if AM is high, or more item lay around if low
-    - change with next day
+- Save day state by saving sprite list in GameVariables
 - Textbox change Door status if discussion won
     - build freight deck (machine room ganz unten, control)
-    - build crew deck (create friend, competitor, doctor, tenderer, security, life support below control, second dormitory, rescue pods, storage under machine room)
+    - build crew deck (create friend, competitor, doctor, security, life support below control, second dormitory, rescue pods, storage under machine room)
 - Add set item mechanic
 - shaking screen
-- Cleaing Bot Moving
+- Cleaning Bot Moving
     - add definition in file
 - Menu
     add item with textbox

@@ -2,10 +2,10 @@ package Core;
 
 public class GameVariables
 {
-    private static String CLASS_NAME = "GameVariables/";
+    private static String CLASSNAME = "GameVariables/";
     private static GameVariables singleton;
-    static private int playerSuspicion = 0;
-    static private int playerSuspicionNextDay = 0;
+    static private int playerMaM = 0;//ManagementAttentionMeter
+    static private int playerMaMNextDay = 0;
     static private int day = 0;
 
     private GameVariables()
@@ -20,23 +20,15 @@ public class GameVariables
         return singleton;
     }
 
-    public static int getPlayerSuspicion()
+    public static int getPlayerMaM()
     {
-        return playerSuspicion;
+        return playerMaM;
     }
 
-    private static void setPlayerSuspicion(int playerSuspicion)
+    public static void addPlayerManagementAttention(int deltaMAM)
     {
-        String methodName = "setPlayerSuspectedness(int) ";
-        if (playerSuspicion > 0)
-            GameVariables.playerSuspicion = playerSuspicion;
-        //System.out.println(CLASS_NAME + methodName + playerSuspectedness);
-    }
-
-    public static void addPlayerSuspectedness(int deltaSuspectioness)
-    {
-        String methodName = "addPlayerSuspectedness(int) ";
-        setPlayerSuspicion(GameVariables.playerSuspicion + deltaSuspectioness);
+        String methodName = "addPlayerManagementAttention(int) ";
+        playerMaMNextDay += deltaMAM;
     }
 
 
@@ -47,6 +39,11 @@ public class GameVariables
 
     public static void incrementDay()
     {
+        String methodName = "incrementDay()";
+        playerMaM = playerMaMNextDay;
+        if(playerMaM > 0)
+            playerMaM -= 2;
         day++;
+        playerMaMNextDay = playerMaM;
     }
 }

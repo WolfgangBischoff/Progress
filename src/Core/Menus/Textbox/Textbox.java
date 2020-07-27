@@ -147,7 +147,7 @@ public class Textbox
                 else if(dialogueType.equals(dayChange_TYPE_ATTRIBUTE))
                 {
                     GameVariables.incrementDay();
-                    GameVariables.addPlayerSuspectedness(-1);
+                    //GameVariables.addPlayerSuspectedness(-1);
 
                     //TODO Day Summary Menu
 
@@ -157,7 +157,7 @@ public class Textbox
                     String spawnId = "bed";
                     WorldView.getSingleton().loadEnvironment(levelname, spawnId);
 
-                    System.out.println(CLASSNAME + methodName + " Day: " +  GameVariables.getDay() + " Suspiciousness:  " + GameVariables.getPlayerSuspicion());
+                    System.out.println(CLASSNAME + methodName + " Day: " +  GameVariables.getDay() + " Suspiciousness:  " + GameVariables.getPlayerMaM());
                 }
                 else
                 //Normal Textbox
