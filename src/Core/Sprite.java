@@ -139,7 +139,7 @@ public class Sprite
         Rectangle2D plannedPosition = new Rectangle2D(positionX + hitBoxOffsetX + velocityX * time, positionY + hitBoxOffsetY + velocityY * time, hitBoxWidth, hitBoxHeight);
 
         String initGeneralStatusFrame = "";
-        if(actor != null)
+        if (actor != null)
             initGeneralStatusFrame = actor.generalStatus;
 
         for (Sprite otherSprite : activeSprites)
@@ -173,7 +173,7 @@ public class Sprite
                 interact = false; //Interacts with first found sprite;
 
                 //check if Suspicionness-Meter is affected
-                if(actor.tags.contains(ActorTag.PLAYER) && otherSprite.actor.numeric_generic_attributes.containsKey(KEYWORD_suspicious_value))
+                if (actor.tags.contains(ActorTag.PLAYER) && otherSprite.actor.numeric_generic_attributes.containsKey(KEYWORD_suspicious_value))
                 {
                     int suspicious_value = otherSprite.actor.numeric_generic_attributes.get(KEYWORD_suspicious_value).intValue();
                     GameVariables.addPlayerManagementAttention(suspicious_value);
@@ -197,7 +197,7 @@ public class Sprite
 
 
         //check if status was changed from other triggers, just if not do OnUpdate
-        if(actor != null && initGeneralStatusFrame.equals(actor.generalStatus))
+        if (actor != null && initGeneralStatusFrame.equals(actor.generalStatus))
         {
             if (actor.sensorStatus.onUpdate_TriggerSprite != TriggerType.NOTHING && !actor.sensorStatus.onUpdateToStatusSprite.equals(actor.generalStatus))
                 actor.onUpdate(currentNanoTime);
@@ -223,7 +223,7 @@ public class Sprite
         boolean debug = false;
 
         if (debug)
-            System.out.println(CLASS_NAME + methodName + name + " clicked: " + actor.actorInGameName);
+            System.out.println(CLASS_NAME + methodName + name + " clicked: " + actor.actorInGameName + " " + actor.sensorStatus);
 
         //Sprite is clicked by player and in Range
         Sprite player = WorldView.getPlayer();
@@ -264,7 +264,7 @@ public class Sprite
             renderSimple(gc);
         }
 
-        if((DEBUG_BLOCKER && isBlocker) || (DEBUG_ACTORS && actor != null))
+        if ((DEBUG_BLOCKER && isBlocker) || (DEBUG_ACTORS && actor != null))
             drawDebugFrame(gc);
     }
 
@@ -288,7 +288,7 @@ public class Sprite
         int frameJump = (int) Math.floor((now - lastFrame) / (1000000000 / fps)); //Determine how many frames we need to advance to maintain frame rate independence
 
         //Do a bunch of math to determine where the viewport needs to be positioned on the sprite sheet
-        if (frameJump >= 1 && !(isAtLastFrame()  && animationEnds))
+        if (frameJump >= 1 && !(isAtLastFrame() && animationEnds))
         {
             lastFrame = now;
 

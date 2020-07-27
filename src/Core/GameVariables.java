@@ -29,7 +29,7 @@ public class GameVariables
     public static void saveLevelState(LevelState levelState)
     {
         String methodName = "saveLevelState() ";
-        boolean debug = true;
+        boolean debug = false;
         levelData.put(levelState.levelName, levelState);
 
         if(debug)

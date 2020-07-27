@@ -108,7 +108,6 @@ largeB					;storages/greenBoxLarge/largeBox									;green Box																;d
 largeC					;storages/greenBoxLarge/largeBox									;green Box																;cut																	;default																;none
 redKey					;collectibles/key/keycard																;Red Keycard														;red																	;default																;none
 key_bl					;collectibles/key/keycard																;Red Keycard  				 							;blue																;default																;undefined
-#gsc100					;collectibles/money/money																;Crypts								 										;gsc100														;default																;undefined
 tyxo__					;collectibles/quest/quest																;Tyxo										 										;tyxo																;default																;undefined
 
 techni					;character/technician/technician									;technician															;default													;default																;south

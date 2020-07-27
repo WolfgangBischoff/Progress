@@ -24,8 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static Core.Config.CAMERA_HEIGHT;
-import static Core.Config.CAMERA_WIDTH;
+import static Core.Config.*;
 
 public class WorldView implements GUIController
 {
@@ -113,42 +112,15 @@ public class WorldView implements GUIController
             middleLayer.remove(player); //Player Layer
             GameVariables.setPlayer(player);
             GameVariables.saveLevelState(new LevelState(levelNameToSave, today, borders, activeSpritesLayer, passiveSpritesLayer, bottomLayer, middleLayer, topLayer, stageMonitor, shadowColor, spawnPointsMap));
-
         }
         clearLevel();
-//        player = null;
-//        passiveSpritesLayer.clear();// = new ArrayList<>();
-//        activeSpritesLayer.clear();// = new ArrayList<>();
-//        bottomLayer.clear();// = new ArrayList<>();
-//        middleLayer.clear();// = new ArrayList<>();
-//        topLayer.clear();// = new ArrayList<>();
-//        passiveCollisionRelevantSpritesLayer.clear();// = new ArrayList<>();
-//        borders = null;
-//        shadowColor = null;
-
         this.levelName = levelName;
-        //TODO chekc if level was already loaded today
+        //check if level was already loaded today
         LevelState levelState = GameVariables.levelData.get(this.levelName);
         if (levelState != null && levelState.day == today)
             loadFromLevelState(levelState, spawnId);
         else
             loadLevelFromFile(spawnId);
-
-
-//        WorldLoader worldLoader = new WorldLoader();
-//        worldLoader.load(levelName, spawnId);
-//        player = worldLoader.getPlayer();
-//        passiveSpritesLayer = worldLoader.getPassivLayer(); //No collision just render
-//        activeSpritesLayer = worldLoader.activeLayer;
-//        bottomLayer = worldLoader.getBttmLayer(); //Render height
-//        middleLayer = worldLoader.getMediumLayer();
-//        topLayer = worldLoader.getUpperLayer();
-//        passiveCollisionRelevantSpritesLayer.addAll(bottomLayer); //For passive collision check
-//        passiveCollisionRelevantSpritesLayer.addAll(middleLayer);
-//        passiveCollisionRelevantSpritesLayer.addAll(topLayer);
-//        borders = worldLoader.getBorders();
-//        shadowColor = worldLoader.getShadowColor();
-
 
         offsetMaxX = borders.getMaxX() - CAMERA_WIDTH;
         offsetMaxY = borders.getMaxY() - Config.CAMERA_HEIGHT;
@@ -157,7 +129,6 @@ public class WorldView implements GUIController
     private void clearLevel()
     {
         //Not clear(), lists are copied to LevelState
-        //player = null;
         passiveSpritesLayer = new ArrayList<>();
         activeSpritesLayer = new ArrayList<>();
         bottomLayer = new ArrayList<>();
@@ -202,7 +173,6 @@ public class WorldView implements GUIController
         //Player
         player = GameVariables.player;
         WorldLoader.SpawnData spawnData = levelState.getSpawnPointsMap().get(spawnId);
-        System.out.println(CLASSNAME + methodName + spawnData + " " + levelState.getSpawnPointsMap());
         player.actor.setDirection(spawnData.direction);
         player.setPosition(spawnData.x * 64, spawnData.y * 64);
         middleLayer.add(player); //assumption player on layer 1
@@ -374,6 +344,13 @@ public class WorldView implements GUIController
                     //System.out.println(classname + methodname + "Hovered over: " + clicked.getName());
                 }
         }
+
+        for (Sprite active : activeSpritesLayer)
+            if (active.intersectsRelativeToWorldView(mousePositionRelativeToCamera) && DEBUG_MOUSE_ANALYSIS && active.actor != null && isMouseClicked)
+            {
+                Actor actor = active.actor;
+                System.out.println(actor.actorInGameName + ": " + actor.sensorStatus.statusName + " Sprite: " + actor.generalStatus);
+            }
 
         GameWindow.getSingleton().mouseClicked = false;
     }
