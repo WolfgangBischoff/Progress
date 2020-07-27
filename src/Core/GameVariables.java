@@ -1,5 +1,9 @@
 package Core;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+
 public class GameVariables
 {
     private static String CLASSNAME = "GameVariables/";
@@ -8,16 +12,33 @@ public class GameVariables
     static private int playerMaMNextDay = 0;
     static private int day = 0;
 
+    //Game State
+    static Sprite player;
+    static Map<String, LevelState> levelData = new HashMap<>();
+
     private GameVariables()
     {
 
     }
 
-    static GameVariables getInstance()
+    public static void setPlayer(Sprite player)
     {
-        if (singleton == null)
-            singleton = new GameVariables();
-        return singleton;
+        GameVariables.player = player;
+    }
+
+    public static void saveLevelState(LevelState levelState)
+    {
+        String methodName = "saveLevelState() ";
+        boolean debug = true;
+        levelData.put(levelState.levelName, levelState);
+
+        if(debug)
+            System.out.println(CLASSNAME + methodName + "Saved: " + levelState);
+    }
+
+    public static LevelState loadLevelState(String levelName)
+    {
+        return levelData.get(levelName);
     }
 
     public static int getPlayerMaM()
@@ -41,7 +62,7 @@ public class GameVariables
     {
         String methodName = "incrementDay()";
         playerMaM = playerMaMNextDay;
-        if(playerMaM > 0)
+        if (playerMaM > 0)
             playerMaM -= 2;
         day++;
         playerMaMNextDay = playerMaM;

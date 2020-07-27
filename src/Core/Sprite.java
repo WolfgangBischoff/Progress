@@ -255,7 +255,6 @@ public class Sprite
     {
         String methodName = "render()";
 
-
         if (getAnimated())
         {
             renderAnimated(gc, now);
@@ -279,6 +278,7 @@ public class Sprite
 
     public void renderSimple(GraphicsContext gc)
     {
+        String methodName = "renderSimple() ";
         gc.drawImage(baseimage, positionX, positionY);
     }
 
@@ -332,7 +332,7 @@ public class Sprite
     public String toString()
     {
         return name + " Position: [" + positionX + "," + positionY + "]"
-                + " Animated: " + animated
+                + " Animated: " + animated + super.toString()
                 ;
     }
 

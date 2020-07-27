@@ -62,7 +62,7 @@ public class WorldView implements GUIController
     //Discussion Game
     static boolean isDiscussionGameActive = false;
     static DiscussionGame discussionGame;
-    static Point2D discussionGamePostion = new Point2D(CAMERA_WIDTH / 2f - DiscussionGame.getMenuWidth() / 2.0, CAMERA_HEIGHT / 2.0 - DiscussionGame.getMenuHeight() / 2.0);
+    static Point2D discussionGamePosition = new Point2D(CAMERA_WIDTH / 2f - DiscussionGame.getMenuWidth() / 2.0, CAMERA_HEIGHT / 2.0 - DiscussionGame.getMenuHeight() / 2.0);
 
     //Sprites
     String levelName;
@@ -74,6 +74,7 @@ public class WorldView implements GUIController
     static List<Sprite> middleLayer = new ArrayList<>();
     static List<Sprite> topLayer = new ArrayList<>();
     static Sprite player;
+    static Map<String, WorldLoader.SpawnData> spawnPointsMap = new HashMap<>();
     static List<Sprite> toRemove = new ArrayList<>();
 
     //Camera
@@ -95,14 +96,68 @@ public class WorldView implements GUIController
         ShadowMaskGc = shadowMask.getGraphicsContext2D();
         loadEnvironment(levelName, "default");
         inventoryOverlay = new MenuOverlay();
-        //discussionOverlay = new Discussion();
         textbox = new Textbox();
         textBoxPosition = new Point2D(CAMERA_WIDTH / 2f - textbox.getTEXT_BOX_WIDTH() / 2, CAMERA_HEIGHT - textbox.getTEXT_BOX_HEIGHT() - 32);
     }
 
     public void loadEnvironment(String levelName, String spawnId)
     {
-        player = null;
+        String methodName = "loadEnvironment() ";
+        int today = GameVariables.getDay();
+        //Save state if exists
+        if (!passiveSpritesLayer.isEmpty() || !activeSpritesLayer.isEmpty())
+        {
+            String levelNameToSave = this.levelName;
+            StageMonitor stageMonitor = player.actor.stageMonitor;
+            activeSpritesLayer.remove(player);
+            middleLayer.remove(player); //Player Layer
+            GameVariables.setPlayer(player);
+            GameVariables.saveLevelState(new LevelState(levelNameToSave, today, borders, activeSpritesLayer, passiveSpritesLayer, bottomLayer, middleLayer, topLayer, stageMonitor, shadowColor, spawnPointsMap));
+
+        }
+        clearLevel();
+//        player = null;
+//        passiveSpritesLayer.clear();// = new ArrayList<>();
+//        activeSpritesLayer.clear();// = new ArrayList<>();
+//        bottomLayer.clear();// = new ArrayList<>();
+//        middleLayer.clear();// = new ArrayList<>();
+//        topLayer.clear();// = new ArrayList<>();
+//        passiveCollisionRelevantSpritesLayer.clear();// = new ArrayList<>();
+//        borders = null;
+//        shadowColor = null;
+
+        this.levelName = levelName;
+        //TODO chekc if level was already loaded today
+        LevelState levelState = GameVariables.levelData.get(this.levelName);
+        if (levelState != null && levelState.day == today)
+            loadFromLevelState(levelState, spawnId);
+        else
+            loadLevelFromFile(spawnId);
+
+
+//        WorldLoader worldLoader = new WorldLoader();
+//        worldLoader.load(levelName, spawnId);
+//        player = worldLoader.getPlayer();
+//        passiveSpritesLayer = worldLoader.getPassivLayer(); //No collision just render
+//        activeSpritesLayer = worldLoader.activeLayer;
+//        bottomLayer = worldLoader.getBttmLayer(); //Render height
+//        middleLayer = worldLoader.getMediumLayer();
+//        topLayer = worldLoader.getUpperLayer();
+//        passiveCollisionRelevantSpritesLayer.addAll(bottomLayer); //For passive collision check
+//        passiveCollisionRelevantSpritesLayer.addAll(middleLayer);
+//        passiveCollisionRelevantSpritesLayer.addAll(topLayer);
+//        borders = worldLoader.getBorders();
+//        shadowColor = worldLoader.getShadowColor();
+
+
+        offsetMaxX = borders.getMaxX() - CAMERA_WIDTH;
+        offsetMaxY = borders.getMaxY() - Config.CAMERA_HEIGHT;
+    }
+
+    private void clearLevel()
+    {
+        //Not clear(), lists are copied to LevelState
+        //player = null;
         passiveSpritesLayer = new ArrayList<>();
         activeSpritesLayer = new ArrayList<>();
         bottomLayer = new ArrayList<>();
@@ -111,9 +166,10 @@ public class WorldView implements GUIController
         passiveCollisionRelevantSpritesLayer = new ArrayList<>();
         borders = null;
         shadowColor = null;
+    }
 
-        this.levelName = levelName;
-
+    private void loadLevelFromFile(String spawnId)
+    {
         WorldLoader worldLoader = new WorldLoader();
         worldLoader.load(levelName, spawnId);
         player = worldLoader.getPlayer();
@@ -125,11 +181,37 @@ public class WorldView implements GUIController
         passiveCollisionRelevantSpritesLayer.addAll(bottomLayer); //For passive collision check
         passiveCollisionRelevantSpritesLayer.addAll(middleLayer);
         passiveCollisionRelevantSpritesLayer.addAll(topLayer);
-
         borders = worldLoader.getBorders();
         shadowColor = worldLoader.getShadowColor();
-        offsetMaxX = borders.getMaxX() - CAMERA_WIDTH;
-        offsetMaxY = borders.getMaxY() - Config.CAMERA_HEIGHT;
+
+        spawnPointsMap = worldLoader.spawnPointsMap;
+    }
+
+    private void loadFromLevelState(LevelState levelState, String spawnId)
+    {
+        String methodName = "loadFromLevelState() ";
+        passiveSpritesLayer = levelState.getPassiveSpritesLayer(); //No collision just render
+        activeSpritesLayer = levelState.getActiveSpritesLayer();
+        bottomLayer = levelState.getBottomLayer(); //Render height
+        middleLayer = levelState.getMiddleLayer();
+        topLayer = levelState.getTopLayer();
+        borders = levelState.getBorders();
+        shadowColor = levelState.getShadowColor();
+        spawnPointsMap = levelState.getSpawnPointsMap();
+
+        //Player
+        player = GameVariables.player;
+        WorldLoader.SpawnData spawnData = levelState.getSpawnPointsMap().get(spawnId);
+        System.out.println(CLASSNAME + methodName + spawnData + " " + levelState.getSpawnPointsMap());
+        player.actor.setDirection(spawnData.direction);
+        player.setPosition(spawnData.x * 64, spawnData.y * 64);
+        middleLayer.add(player); //assumption player on layer 1
+        activeSpritesLayer.add(player);
+
+        passiveCollisionRelevantSpritesLayer.addAll(bottomLayer); //For passive collision check
+        passiveCollisionRelevantSpritesLayer.addAll(middleLayer);
+        passiveCollisionRelevantSpritesLayer.addAll(topLayer);
+
     }
 
     public static void setIsPersonalityScreenActive(boolean isPersonalityScreenActive)
@@ -391,7 +473,7 @@ public class WorldView implements GUIController
         if (isDiscussionGameActive)
         {
             WritableImage discussionGameImage = discussionGame.getWritableImage(currentNanoTime);
-            gc.drawImage(discussionGameImage, discussionGamePostion.getX(), discussionGamePostion.getY());
+            gc.drawImage(discussionGameImage, discussionGamePosition.getX(), discussionGamePosition.getY());
         }
 
     }
@@ -411,7 +493,8 @@ public class WorldView implements GUIController
                 try
                 {
                     lightsImageMap.put(lightSpriteName, new Image("/res/img/lightglows/" + lightSpriteName + ".png"));
-                } catch (IllegalArgumentException e)
+                }
+                catch (IllegalArgumentException e)
                 {
                     throw new IllegalArgumentException("Invalid URL: " + "/res/img/lightglows/" + lightSpriteName + ".png" + " of sprite " + sprite.getName());
                 }
@@ -434,7 +517,8 @@ public class WorldView implements GUIController
         try
         {
             return fxmlLoader.load();
-        } catch (IOException e)
+        }
+        catch (IOException e)
         {
             e.printStackTrace();
         }

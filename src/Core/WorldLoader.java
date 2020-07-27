@@ -84,7 +84,7 @@ public class WorldLoader
         }
 
         if (definedMapCodesSet.size() > 0)
-            System.out.println(CLASSNAME + methodName + " found unsued tile or actor definition in " + fileName + ": " +  definedMapCodesSet);
+            System.out.println(CLASSNAME + methodName + " found unsued tile or actor definition in " + fileName + ": " + definedMapCodesSet);
 
         if (debug)
             System.out.println(CLASSNAME + methodName + "finished read file: " + fileName);
@@ -167,7 +167,7 @@ public class WorldLoader
                 int currentSuspicion = GameVariables.getPlayerMaM();
                 if (currentSuspicion <= suspicionThreshold)//condition met
                 {
-                    if(debug)
+                    if (debug)
                         System.out.println(CLASSNAME + methodName + "" + Arrays.toString(lineData) + " " + currentSuspicion + " / " + suspicionThreshold);
                     break;
                 }
@@ -416,17 +416,30 @@ public class WorldLoader
     private void createPlayer(ActorData actorData)
     {
         String methodName = "createPlayer(ActorData) ";
-        SpawnData playerSpawn = null;
+        SpawnData playerSpawn;
         if (spawnPointsMap.containsKey(spawnId))
             playerSpawn = spawnPointsMap.get(spawnId);
         else
             throw new RuntimeException("Spawn Point " + spawnId + " not set in " + levelName + "\nSpawn Points: " + spawnPointsMap.toString());
-        Actor actor = createActor("player", playerSpawn.x, playerSpawn.y);
+        Actor actor;
+        //Reruse Player if already created
+        if (WorldView.player != null)
+        {
+            actor = WorldView.player.actor;
+            WorldView.player.setPosition(playerSpawn.x * 64, playerSpawn.y * 64);
+        }
+        else
+            actor = createActor("player", playerSpawn.x, playerSpawn.y);
+
+
         actor.setDirection(playerSpawn.direction);
         activeLayer.addAll(actor.spriteList);
         List<SpriteData> spriteDataList = actor.spriteDataMap.get(actor.compoundStatus);
         for (int j = 0; j < spriteDataList.size(); j++)
+        {
+            //System.out.println(CLASSNAME + methodName + actor.spriteList.get(j) +" layer: "+ spriteDataList.get(j).heightLayer + " size " + spriteDataList.size());
             addToCollisionLayer(actor.spriteList.get(j), spriteDataList.get(j).heightLayer);
+        }
 
         player = actor.spriteList.get(0);
     }
@@ -441,6 +454,15 @@ public class WorldLoader
             this.x = x;
             this.y = y;
             this.direction = direction;
+        }
+
+        @Override
+        public String toString()
+        {
+            return  "x=" + x +
+                    ", y=" + y +
+                    ", direction=" + direction +
+                    '}';
         }
     }
 

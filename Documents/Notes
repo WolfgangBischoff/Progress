@@ -1,6 +1,8 @@
 
 Logic:
 - Save day state by saving sprite list in GameVariables
+    - Level data
+    - Player data
 - Textbox change Door status if discussion won
     - build freight deck (machine room ganz unten, control)
     - build crew deck (create friend, competitor, doctor, security, life support below control, second dormitory, rescue pods, storage under machine room)
