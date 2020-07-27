@@ -96,5 +96,7 @@ public class Config
     public static final int COIN_MAX_TIME = 15;
     public static final int DISCUSSION_THRESHOLD_WIN = 6;
 
+    //Management-Attention-Meter MAM
+    public static final int DAILY_DECREASE_MAM = 2;
 
 }

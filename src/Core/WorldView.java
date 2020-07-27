@@ -93,13 +93,13 @@ public class WorldView implements GUIController
         shadowMask = new Canvas(CAMERA_WIDTH, Config.CAMERA_HEIGHT);
         gc = worldCanvas.getGraphicsContext2D();
         ShadowMaskGc = shadowMask.getGraphicsContext2D();
-        loadEnvironment(levelName, "default");
+        loadEnvironment(levelName, "default", false);
         inventoryOverlay = new MenuOverlay();
         textbox = new Textbox();
         textBoxPosition = new Point2D(CAMERA_WIDTH / 2f - textbox.getTEXT_BOX_WIDTH() / 2, CAMERA_HEIGHT - textbox.getTEXT_BOX_HEIGHT() - 32);
     }
 
-    public void loadEnvironment(String levelName, String spawnId)
+    public void loadEnvironment(String levelName, String spawnId, boolean dayIncrements)
     {
         String methodName = "loadEnvironment() ";
         int today = GameVariables.getDay();
@@ -107,12 +107,18 @@ public class WorldView implements GUIController
         if (!passiveSpritesLayer.isEmpty() || !activeSpritesLayer.isEmpty())
         {
             String levelNameToSave = this.levelName;
-            StageMonitor stageMonitor = player.actor.stageMonitor;
             activeSpritesLayer.remove(player);
             middleLayer.remove(player); //Player Layer
             GameVariables.setPlayer(player);
-            GameVariables.saveLevelState(new LevelState(levelNameToSave, today, borders, activeSpritesLayer, passiveSpritesLayer, bottomLayer, middleLayer, topLayer, stageMonitor, shadowColor, spawnPointsMap));
+            GameVariables.saveLevelState(new LevelState(levelNameToSave, today, borders, activeSpritesLayer, passiveSpritesLayer, bottomLayer, middleLayer, topLayer, shadowColor, spawnPointsMap));
         }
+
+        if(dayIncrements)//All states are invalid and reset
+        {
+            GameVariables.levelData.clear();
+            GameVariables.incrementDay();
+        }
+
         clearLevel();
         this.levelName = levelName;
         //check if level was already loaded today
@@ -154,7 +160,6 @@ public class WorldView implements GUIController
         passiveCollisionRelevantSpritesLayer.addAll(topLayer);
         borders = worldLoader.getBorders();
         shadowColor = worldLoader.getShadowColor();
-
         spawnPointsMap = worldLoader.spawnPointsMap;
     }
 
@@ -198,7 +203,7 @@ public class WorldView implements GUIController
 
         //Test Menu Hotkeys
         if (input.contains("T") && elapsedTimeSinceLastInteraction > 1)
-            loadEnvironment("test", "default");
+            loadEnvironment("test", "default", false);
         if (input.contains("Z") && elapsedTimeSinceLastInteraction > 1)
         {
            /* isDiscussionGameActive = !isDiscussionGameActive;
@@ -311,25 +316,21 @@ public class WorldView implements GUIController
 
         //check for marked Sprites
         List<Sprite> mouseHoveredSprites = new ArrayList<>();
-        //TODO Send to Actor one time, not every Sprite
-        for (Sprite active : activeSpritesLayer)
+        for (Sprite active : activeSpritesLayer)//NOTE Send to Actor one time, not every Sprite, maybe with map that check already triggered actors
             if (active.intersectsRelativeToWorldView(mousePositionRelativeToCamera)
                     && active.actor.sensorStatus.onInteraction_TriggerSprite != TriggerType.NOTHING)//Just add sprites of actors you can interact by onInteraction
                 mouseHoveredSprites.add(active);
 
         if (isDiscussionGameActive)
         {
-            //System.out.println(CLASSNAME + methodName + "isDicussionGameActive");
             discussionGame.processMouse(mousePositionRelativeToCamera, isMouseClicked, currentNanoTime);
         }
         else if (isPersonalityScreenActive)
         {
-            //System.out.println(CLASSNAME + methodName + "isPersonalityScreenActive == true");
             personalityScreenController.processMouse(mousePositionRelativeToCamera, isMouseClicked, currentNanoTime);
         }
         else if (isTextBoxActive)
         {
-            //System.out.println(CLASSNAME + methodName + "isTextboxActive");
             textbox.processMouse(mousePositionRelativeToCamera, isMouseClicked);
         }
         else

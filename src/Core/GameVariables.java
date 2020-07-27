@@ -62,8 +62,11 @@ public class GameVariables
     {
         String methodName = "incrementDay()";
         playerMaM = playerMaMNextDay;
-        if (playerMaM > 0)
-            playerMaM -= 2;
+        //Time decreases MaM, but not below zero
+        if (playerMaM > Config.DAILY_DECREASE_MAM)
+            playerMaM -= Config.DAILY_DECREASE_MAM;
+        else if(playerMaM > 0)//to get to 0 if Nam between 0 and daily decrease
+            playerMaM = 0;
         day++;
         playerMaMNextDay = playerMaM;
     }

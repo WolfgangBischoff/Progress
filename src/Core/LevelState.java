@@ -15,16 +15,14 @@ public class LevelState
     int day;
     private Rectangle2D borders;
     private List<Sprite> activeSpritesLayer;
-    //private List<Sprite> passiveCollisionRelevantSpritesLayer;
     private List<Sprite> passiveSpritesLayer;
     private List<Sprite> bottomLayer;
     private List<Sprite> middleLayer;
     private List<Sprite> topLayer;
-    private StageMonitor stageMonitor;
     private Color shadowColor;
     private Map<String, WorldLoader.SpawnData> spawnPointsMap;
 
-    public LevelState(String levelName, int day, Rectangle2D borders, List<Sprite> activeSpritesLayer, List<Sprite> passiveSpritesLayer, List<Sprite> bottomLayer, List<Sprite> middleLayer, List<Sprite> topLayer, StageMonitor stageMonitor, Color shadowColor, Map<String, WorldLoader.SpawnData> spawnPointsMap)
+    public LevelState(String levelName, int day, Rectangle2D borders, List<Sprite> activeSpritesLayer, List<Sprite> passiveSpritesLayer, List<Sprite> bottomLayer, List<Sprite> middleLayer, List<Sprite> topLayer, Color shadowColor, Map<String, WorldLoader.SpawnData> spawnPointsMap)
     {
         this.levelName = levelName;
         this.day = day;
@@ -34,7 +32,6 @@ public class LevelState
         this.bottomLayer = bottomLayer;
         this.middleLayer = middleLayer;
         this.topLayer = topLayer;
-        this.stageMonitor = stageMonitor;
         this.shadowColor = shadowColor;
         this.spawnPointsMap = new HashMap<>(spawnPointsMap);
     }
@@ -89,11 +86,6 @@ public class LevelState
     public List<Sprite> getTopLayer()
     {
         return topLayer;
-    }
-
-    public StageMonitor getStageMonitor()
-    {
-        return stageMonitor;
     }
 
     public Color getShadowColor()

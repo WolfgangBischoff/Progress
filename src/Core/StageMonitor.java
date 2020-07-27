@@ -90,7 +90,7 @@ public class StageMonitor
     {
         String methodName = "changeLevel(String)";
         System.out.println(CLASSNAME + methodName + "loaded: " + filename_level + " spawn at " + spawnId);
-        WorldView.getSingleton().loadEnvironment(filename_level, spawnId);
+        WorldView.getSingleton().loadEnvironment(filename_level, spawnId, false);
     }
 
     private void always_sensorStatus(String notifyingGroup, String targetGroupID, String sensorStatus)
