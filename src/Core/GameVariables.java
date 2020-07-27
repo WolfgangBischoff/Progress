@@ -4,7 +4,8 @@ public class GameVariables
 {
     private static String CLASS_NAME = "GameVariables/";
     private static GameVariables singleton;
-    static private int playerSuspectedness = 0;
+    static private int playerSuspicion = 0;
+    static private int playerSuspicionNextDay = 0;
     static private int day = 0;
 
     private GameVariables()
@@ -19,23 +20,23 @@ public class GameVariables
         return singleton;
     }
 
-    public static int getPlayerSuspectedness()
+    public static int getPlayerSuspicion()
     {
-        return playerSuspectedness;
+        return playerSuspicion;
     }
 
-    private static void setPlayerSuspectedness(int playerSuspectedness)
+    private static void setPlayerSuspicion(int playerSuspicion)
     {
         String methodName = "setPlayerSuspectedness(int) ";
-        if (playerSuspectedness > 0)
-            GameVariables.playerSuspectedness = playerSuspectedness;
+        if (playerSuspicion > 0)
+            GameVariables.playerSuspicion = playerSuspicion;
         //System.out.println(CLASS_NAME + methodName + playerSuspectedness);
     }
 
     public static void addPlayerSuspectedness(int deltaSuspectioness)
     {
         String methodName = "addPlayerSuspectedness(int) ";
-        setPlayerSuspectedness(GameVariables.playerSuspectedness + deltaSuspectioness);
+        setPlayerSuspicion(GameVariables.playerSuspicion + deltaSuspectioness);
     }
 
 

@@ -1,8 +1,8 @@
 
 Logic:
 - Attention meter
-    - increases if machine broken
     - after daychange guard appears if AM is high, or more item lay around if low
+    - change with next day
 - Textbox change Door status if discussion won
     - build freight deck (machine room ganz unten, control)
     - build crew deck (create mate to talk with, life support below control, leisure, rescue pods, storage under machine room)
@@ -39,7 +39,10 @@ Logic:
 ------------------------------------------
 ----- Ideas ------------------------------
 ------------------------------------------
-- Attention meter shows when police comes if you sabotage companies, shows how suspicous you are. Increases for sabotage, decreases over time.
+- Management Attention meter shows how strong security is. (if security is high you are also suspicious)
+    - increases if machine broken, item stolen, propaganda
+    - decreases over time and spuren verwischen
+    - high lead to closed doors, guards, durchsuchung
 - Revolutionary Spirit meter shows how strong people want change, increases with lower living standard, pamphlets against companies, or if they trust you.
 - Grind mechanic
     Go to work as freelancer (there are always quests, you decide if you are a good worker)
@@ -86,28 +89,36 @@ Logic:
 - espionage/desinformation via Alexa devices
 
 QUEST 1:
-Start in WC, after exiting, your roomate approaches you: Lets go to the commander, he has something to say. This took long xD
-Commander at command center: new task
-    => Repair something in machine bay
-Go to machine bay with mate: Complain about salary, explaing attention limit
-    => Possibility to steal something (Attention meter)
-Leave room, Impact of meteorit
-Check bridge, talk to captain
-    1) Life system leaking throug person capsule and freight capsule
-    2) Some Schuldsklaven systems are out of fuel (Cheap transport system, have to check regularly if they are still alive)
-Check capsules (people and furniture) and report; commander will check what to do with broken capsule; You should go to machine bay to get kit; just kit for one capsule there, report;
-second eingespart, we have to decide. People not insured but "life important supplies", so we have to cut the people capsule
-Try to help
-Find alternative somewhere else, finde life energy in life systems of ship for broken capsule.
+Start in WC, after exiting, your roomate approaches you:
+    This took long xD
+    Mate takes day of, due to enough money.
+    Go to the tenderer, if just you come to the auction you can get a better price
+Commander at command center: (few work)
+    1 Maintenance Job today, average workday actually 20; Who wants it?
+    [You bet]
+    Third Collegue: I will do it for 15. - Is there a better offer?
+    [You bet 13]
+    Thirds Collegue: I will do it for 10. - Are you crazy? - 1-2-3 given to Third Collegue, no work for you today. Go back to Crewdeck
+Second collegue at crew deck:
+    Hmmph, Third guy wants money at all cost, but we can get some food elsewhere => Do to Doctor, he has access to Freight where also capsules are stored
+Doc explaines MAM, you can get food
+Next day go to tenderer, on way you see Security at Doctor capsule
+    Interagate, depentend to MAM, but nothing happens
+Impact of meteorit
+    => Check bridge, talk to tenderer, 20 for all three, Life system leaking throug person capsule and freight capsule (much work)
+    1) You should check furniture capsule
+        Leaking, need material, report back
+    2) Third Guy check People capsule
+        Leaking, need material
+    3) Second Friend check machine room
+    => Decision to furniture, go to machine room and talk to Second Friend, People not insured but "life important supplies"
+Get Material from friend, tell you to fill your pockets because of chaos, then MAM doesnt fill quickly
+On the way Doc tells you that there are humans and you have to decide.
+    => Humans, no money and fired
+    => Furniture, money, you get fired for fixing "the wrong one"
 
 QUEST 2:
-Settle your cabin (you are ok rich, but education was difficult), see poverty of transported, freight capusle destination. Get in touch with Gewerkschaft
-
-QUEST 3:
-Help people by Regelmissachtung
-
-QUEST 4:
-steal, infiltrate gather data, demonstrate with when new info, destroy, overtake, attack
+You sleep in a container, you have nothing
 
 
 

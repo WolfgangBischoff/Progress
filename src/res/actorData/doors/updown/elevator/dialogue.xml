@@ -55,7 +55,7 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
         </option>
     </dialogue>
 
-    <dialogue id="DECISION-toCrewDeck" type="levelchange" level="crewdeck" spawnID="elevator"/>
+    <dialogue id="DECISION-toCrewDeck" type="levelchange" level="crewdeck/crewdeck" spawnID="elevator"/>
 
     <dialogue id="DECISION-toFreightDeck" type="levelchange" level="transporter" spawnID="elevator"/>
 </root>

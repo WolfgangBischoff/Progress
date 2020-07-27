@@ -146,11 +146,18 @@ public class Textbox
                 }
                 else if(dialogueType.equals(dayChange_TYPE_ATTRIBUTE))
                 {
-                    //TODO Day Summary Menu
                     GameVariables.incrementDay();
                     GameVariables.addPlayerSuspectedness(-1);
 
-                    System.out.println(CLASSNAME + methodName + " Day: " +  GameVariables.getDay() + " Suspiciousness:  " + GameVariables.getPlayerSuspectedness());
+                    //TODO Day Summary Menu
+
+                    //Same level loads
+
+                    String levelname = WorldView.getSingleton().getLevelName();
+                    String spawnId = "bed";
+                    WorldView.getSingleton().loadEnvironment(levelname, spawnId);
+
+                    System.out.println(CLASSNAME + methodName + " Day: " +  GameVariables.getDay() + " Suspiciousness:  " + GameVariables.getPlayerSuspicion());
                 }
                 else
                 //Normal Textbox

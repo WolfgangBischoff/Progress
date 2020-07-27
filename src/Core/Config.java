@@ -33,6 +33,10 @@ public class Config
     public static final String KEYWORD_WORLDSHADOW = "shadow:";
     public static final String KEYWORD_GROUPS = "actorgroups:";
     public static final String KEYWORD_SPAWNPOINTS = "spawnpoints:";
+    public static final String KEYWORD_INCLUDE = "include:";
+
+    public static final String INCLUDE_CONDITION_suspicion_lessequal = "suspicion_lessequal";
+    public static final String INCLUDE_CONDITION_day_greaterequal = "day_greaterequal";
 
     //Actorfile Keywords
     public static final String KEYWORD_sensorStatus = "sensorStatus";

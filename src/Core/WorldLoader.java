@@ -11,13 +11,13 @@ import static Core.Config.*;
 public class WorldLoader
 {
     private static final String CLASSNAME = "WorldLoader/";
+    private static final Set<String> keywords = new HashSet<>();
 
     String levelName;
     String spawnId;
     Sprite player;
     Color shadowColor;
     private Rectangle2D borders;
-    List<String[]> leveldata = new ArrayList<>();
     List<Sprite> passivLayer = new ArrayList<>();
     List<Sprite> activeLayer = new ArrayList<>();
     List<Sprite> bttmLayer = new ArrayList<>();
@@ -36,79 +36,159 @@ public class WorldLoader
     int currentHorizontalTile = 0;
     int maxHorizontalTile = 0;
 
-    public WorldLoader(String stageName, String spawnId)
+    public WorldLoader()
     {
-        levelName = stageName;
-        this.spawnId = spawnId;
+        maxVerticalTile = 0;
+        currentVerticalTile = 0;
+        currentHorizontalTile = 0;
+        maxHorizontalTile = 0;
+        if (keywords.isEmpty())
+        {
+            keywords.add(KEYWORD_NEW_LAYER);
+            keywords.add(KEYWORD_ACTORS);
+            keywords.add(KEYWORD_TILEDEF);
+            keywords.add(KEYWORD_PASSIV_LAYER);
+            keywords.add(KEYWORD_WORLDSHADOW);
+            keywords.add(KEYWORD_GROUPS);
+            keywords.add(KEYWORD_SPAWNPOINTS);
+            keywords.add(KEYWORD_INCLUDE);
+        }
+
     }
 
-    public void load()
+    private void readFile(String fileName)
     {
-        String methodName = "load()";
-        leveldata = Utilities.readAllLineFromTxt(STAGE_FILE_PATH + levelName + CSV_POSTFIX);
-        readMode = null;
-        //Check for keyword
-        Set<String> keywords = new HashSet<>();
-        keywords.add(KEYWORD_NEW_LAYER);
-        keywords.add(KEYWORD_ACTORS);
-        keywords.add(KEYWORD_TILEDEF);
-        keywords.add(KEYWORD_PASSIV_LAYER);
-        keywords.add(KEYWORD_WORLDSHADOW);
-        keywords.add(KEYWORD_GROUPS);
-        keywords.add(KEYWORD_SPAWNPOINTS);
+        String methodName = "readFile() ";
+        boolean debug = false;
+        List<String[]> leveldata = Utilities.readAllLineFromTxt(STAGE_FILE_PATH + fileName + CSV_POSTFIX);
+        definedMapCodesSet.clear();
 
+        readMode = null;
+        if (debug)
+            System.out.println(CLASSNAME + methodName + "begin read file: " + fileName);
         for (int i = 0; i < leveldata.size(); i++)
         {
             String[] lineData = leveldata.get(i);
 
-            if (keywords.contains(lineData[0].toLowerCase()))
-            {
-                readMode = lineData[0].toLowerCase();
-                currentVerticalTile = 0;
-                continue;
-            }
-
             try
             {
-                //process line according to keyword
-                switch (readMode)
-                {
-                    case KEYWORD_TILEDEF:
-                        tileDataMap.put(lineData[SpriteData.tileCodeIdx], SpriteData.tileDefinition(lineData));
-                        definedMapCodesSet.add(lineData[SpriteData.tileCodeIdx]);
-                        continue;
-                    case KEYWORD_NEW_LAYER:
-                        readLineOfTiles(lineData, false);
-                        continue;
-                    case KEYWORD_PASSIV_LAYER:
-                        readLineOfTiles(lineData, true);
-                        continue;
-                    case KEYWORD_ACTORS:
-                        readActorData(lineData);
-                        continue;
-                    case KEYWORD_WORLDSHADOW:
-                        readWorldShadow(lineData);
-                        continue;
-                    case KEYWORD_GROUPS:
-                        readActorGroups(lineData);
-                        continue;
-                    case KEYWORD_SPAWNPOINTS:
-                        readSpawnPoint(lineData);
-                }
+                readLine(lineData);
             }
             catch (IndexOutOfBoundsException | NumberFormatException e)
             {
                 StringBuilder stringBuilder = new StringBuilder();
                 for (String s : lineData)
                     stringBuilder.append(s).append("; ");
-                throw new IndexOutOfBoundsException(e.getMessage() + "\nRead Mode: " + readMode + "\nat\t" + stringBuilder.toString());
+                throw new RuntimeException(e.getMessage() + "\nRead Mode: " + readMode + "\nat\t" + stringBuilder.toString());
             }
         }
 
-        if(definedMapCodesSet.size() > 0)
-            System.out.println(CLASSNAME + methodName + " found unsued tile or actor definition: " + definedMapCodesSet);
+        if (definedMapCodesSet.size() > 0)
+            System.out.println(CLASSNAME + methodName + " found unsued tile or actor definition in " + fileName + ": " +  definedMapCodesSet);
+
+        if (debug)
+            System.out.println(CLASSNAME + methodName + "finished read file: " + fileName);
+
+    }
+
+    public void load(String levelName, String spawnId)
+    {
+        String methodName = "load() ";
+        this.levelName = levelName;
+        this.spawnId = spawnId;
+        readFile(this.levelName);
         borders = new Rectangle2D(0, 0, (maxHorizontalTile + 1) * 64, (maxVerticalTile) * 64);
     }
+
+    private void readLine(String[] lineData)
+    {
+        String methodName = "readLine() ";
+
+        if (keywords.contains(lineData[0].toLowerCase()))
+        {
+            readMode = lineData[0].toLowerCase();
+            currentVerticalTile = 0;
+            return;
+        }
+
+        {
+            //process line according to keyword
+            switch (readMode)
+            {
+                case KEYWORD_TILEDEF:
+                    tileDataMap.put(lineData[SpriteData.tileCodeIdx], SpriteData.tileDefinition(lineData));
+                    definedMapCodesSet.add(lineData[SpriteData.tileCodeIdx]);
+                    break;
+                case KEYWORD_NEW_LAYER:
+                    readLineOfTiles(lineData, false);
+                    break;
+                case KEYWORD_PASSIV_LAYER:
+                    readLineOfTiles(lineData, true);
+                    break;
+                case KEYWORD_ACTORS:
+                    readActorData(lineData);
+                    break;
+                case KEYWORD_WORLDSHADOW:
+                    readWorldShadow(lineData);
+                    break;
+                case KEYWORD_GROUPS:
+                    readActorGroups(lineData);
+                    break;
+                case KEYWORD_SPAWNPOINTS:
+                    readSpawnPoint(lineData);
+                    break;
+                case KEYWORD_INCLUDE:
+                    String readModeTmp = readMode;
+                    readInclude(lineData);
+                    readMode = readModeTmp;
+                    break;
+                default:
+                    throw new RuntimeException(CLASSNAME + methodName + "readMode unknown: " + readMode);
+            }
+        }
+
+    }
+
+    private void readInclude(String[] lineData)
+    {
+        String methodName = "readInclude()";
+        boolean debug = false;
+        int includeFilePathIdx = 0;
+        int includeConditionTypeIdx = 1;
+        int includeConditionParamsStartIdx = 2;
+
+
+        //Check include condition
+        String condition = lineData[includeConditionTypeIdx];
+        switch (condition)
+        {
+            case INCLUDE_CONDITION_suspicion_lessequal:
+                int suspicionThreshold = Integer.parseInt(lineData[includeConditionParamsStartIdx]);
+                int currentSuspicion = GameVariables.getPlayerSuspicion();
+                if (currentSuspicion <= suspicionThreshold)//condition met
+                {
+                    if(debug)
+                        System.out.println(CLASSNAME + methodName + "" + Arrays.toString(lineData) + " " + currentSuspicion + " / " + suspicionThreshold);
+                    break;
+                }
+                else
+                    return;
+            case INCLUDE_CONDITION_day_greaterequal:
+                int dayThreshold = Integer.parseInt(lineData[includeConditionParamsStartIdx]);
+                int currentDay = GameVariables.getDay();
+                if (currentDay >= dayThreshold)
+                    break;
+                else
+                    return;
+            default:
+                throw new RuntimeException(CLASSNAME + methodName + " Include Condition unknown: " + condition);
+
+        }
+
+        readFile(lineData[includeFilePathIdx]);
+
+    }
+
 
     private void readSpawnPoint(String[] lineData)
     {
@@ -134,6 +214,7 @@ public class WorldLoader
         int groupLogic_Idx = 1;
         int dependentGroupName_Idx = 2;
         int start_idx_memberIds = 3;
+        //System.out.println(CLASS_NAME + methodName + Arrays.toString(lineData));
         stageMonitor.groupToLogicMap.put(lineData[groupName_Idx], lineData[groupLogic_Idx]);
         stageMonitor.groupIdToInfluencedGroupIdMap.put(lineData[groupName_Idx], lineData[dependentGroupName_Idx]);
 

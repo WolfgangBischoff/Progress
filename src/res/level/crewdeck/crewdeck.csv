@@ -9,11 +9,12 @@ spawnpoints:
 #ID						;PosX;PosY	;Direction
 default		;20		;20			;south
 elevator	;31		;34			;south
+bed						;29		;31			;west
 
 
 tiledefinition:
 #Floor
-#code     ;name        ;spritename                  ;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning
+#code     ;name        ;spritename                  ;blocker		;heightLayer	;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning
 space0    ;space							;floor/space/s0 													;false				;0											;0			;0												;0				;0				;0										;0											;0													;0														;0										;0												;none
 space1    ;space							;floor/space/s1 													;false				;0											;0			;0												;0				;0				;0										;0											;0													;0														;0										;0												;none
 space2    ;space							;floor/space/s2 													;false				;0											;0			;0												;0				;0				;0										;0											;0													;0														;0										;0												;none
@@ -42,7 +43,6 @@ CR___3				;transportfloor			;transporter/floor/crew_3																											
 #code     ;name        					;spritename                     																																			;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning
 elev__				;elevator									;../actorData/doors/updown/elevator/base_3x2																							;false				;0												;0			;0												;0				;0				;0										;0											;000									 	;000									 	;000									;000										;none
 tank_A				;tank													;machines/lifesupport/tank_192_128_a4																														;true					;1 											;2   ;4            ;4    ;1    ;192        ;128         ;0             ;0             ;0           ;0												;greenlight256
-#bed_Bi				;bed														;../actorData/furniture/bed/bedmodule_bischoff																					;true					;1 											;0   ;0            ;0    ;0    ;000        ;000         ;000           ;128           ;192         ;064										;none
 bed_Ho				;bed														;../actorData/furniture/bed/bedmodule_hoffer																							;true					;1 											;0   ;0            ;0    ;0    ;000        ;000         ;000           ;128           ;192         ;064										;none
 bed_Hu				;bed														;../actorData/furniture/bed/bedmodule_husar																								;true					;1 											;0   ;0            ;0    ;0    ;000        ;000         ;000           ;128           ;192         ;064										;none
 bed_Wi				;bed														;../actorData/furniture/bed/bedmodule_winkler																						;true					;1 											;0   ;0            ;0    ;0    ;000        ;000         ;000           ;128           ;192         ;064										;none
@@ -65,15 +65,6 @@ cleanB					;robot/cleaningBot/cleaningBot											;technician															;d
 steamS					;bath/steam_shower/steam_shower										;shower																			;off																;default																;undefined
 bed_Bi					;furniture/bed/bed																							;Your Bed																	;bischoff											;sleep																		;undefined
 
-Actorgroups:
-#System-Name					;Logic																										;Influenced-System	;members by actorId (logic-Options: isBaseSystem)
-#Air System
-#airSystemMonitor	;none 																										;none 													;airCon ;airVeR ;airVeL
-#airSystemBase				;isBaseSystem 																		;airSystemEnd 					;airCon
-#airSystemEnd					;none 																										;none 													;airVeR ;airVeL
-
-#level change
-#dockingBay													;levelchange																				;northDoor									;doorLe
 
 #sets 64 bits tiles as raster ;you can add multiple layers ;later defined layers are higher prioritized in case of same defined heightLayer
 #passivlayer will not be checked for interaction or collision
@@ -185,7 +176,7 @@ layer:
 
 
 layer:
-#			;001			;002				;003				;004				;005				;006				;007				;008				;009				;010				;011				;012				;013				;014				;015				;016				;017				;018				;019				;020				;021				;022				;023				;024				;025				;026				;027				;028				;029				;030				;031				;032    ;033    ;034    ;035    ;036    ;037    ;038    ;039    ;040				;
+#			;001			 ;002				;003				;004				;005				;006				;007				;008				;009				;010				;011				;012				;013				;014				;015				;016				;017				;018				;019				;020				;021				;022				;023				;024				;025				;026				;027				;028				;029				;030				;031				;032    ;033    ;034    ;035    ;036    ;037    ;038    ;039    ;040				;
 001 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______;
 002 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______;
 003 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______;
@@ -238,3 +229,8 @@ layer:
 050 ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______ ;______;
 
 
+#include	;path													;condition 												;params
+include:
+crewdeck/suspicion_low					;suspicion_lessequal 		;2
+crewdeck/suspicion_medium		;suspicion_lessequal 		;6
+crewdeck/day2														;day_greaterequal						;2

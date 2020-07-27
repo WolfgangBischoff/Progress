@@ -114,8 +114,8 @@ public class WorldView implements GUIController
 
         this.levelName = levelName;
 
-        WorldLoader worldLoader = new WorldLoader(levelName, spawnId);
-        worldLoader.load();
+        WorldLoader worldLoader = new WorldLoader();
+        worldLoader.load(levelName, spawnId);
         player = worldLoader.getPlayer();
         passiveSpritesLayer = worldLoader.getPassivLayer(); //No collision just render
         activeSpritesLayer = worldLoader.activeLayer;
@@ -511,5 +511,10 @@ public class WorldView implements GUIController
     public static Textbox getTextbox()
     {
         return textbox;
+    }
+
+    public String getLevelName()
+    {
+        return levelName;
     }
 }
