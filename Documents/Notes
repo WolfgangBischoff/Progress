@@ -1,8 +1,12 @@
 
 Logic:
-- Save day state by saving sprite list in GameVariables
-    - Level data
-    - Player data
+- Attention Meter
+    - get caught if too high, just loose item on transporter,
+        menue where you consume, food, air, medicine, entertainment, bed
+        reaction depentend on MaM => loose items
+        scavege as variant of social game
+    - door opens after talk, textbox triggers monitor?
+    - chaos mode, doors open, Mam not rising
 - Textbox change Door status if discussion won
     - build freight deck (machine room ganz unten, control)
     - build crew deck (create friend, competitor, doctor, security, life support below control, second dormitory, rescue pods, storage under machine room)
@@ -39,26 +43,34 @@ Logic:
 ------------------------------------------
 ----- Ideas ------------------------------
 ------------------------------------------
-- Management Attention meter shows how strong security is. (if security is high you are also suspicious)
-    - increases if machine broken, item stolen, propaganda
-    - decreases over time and spuren verwischen
-    - high lead to closed doors, guards, durchsuchung
-- Revolutionary Spirit meter shows how strong people want change, increases with lower living standard, pamphlets against companies, or if they trust you.
 - Grind mechanic
+    Daily needs: Sleep, Food, Air, Medicine, Entertainment
+    Achievements like personal capsule/room with own furniture help, can also be public like community center with benefits
+        => Tutorial just food, then live in container, then lend capsule, then room. (maybe also secret hideouts)
     Go to work as freelancer (there are always quests, you decide if you are a good worker)
     Setting: Mineral Mining, Plant Growing, Alloy Melting, Cook Serve Delicious
     With high attention meter place have surveilance
     - get money from Companies for doing Quest (money changes if workers are unionized, work is more rentable if much union)
     - steal
-    - sabotage
-    - be lazy
+    - sabotage to increase chaos, create work or change behavior
+    - be lazy to get job over multiple days
     - repair
+    - scavenge/search with game
     Public Work (Revolutionary meter, needed for main questline or acsess to areas due to people that feel more safe with helping you)
     - Spray, Flugzettel
     - Gain trust through dailies like provide food/water/communication between people
-- Achievments (craft, steal, buy, tausche, find furniture)
-    Personal Room with placeable Sprites
-    Puplic room with services like community center (items, knowledge, repair)
+- Management Attention meter shows how strong security is. (if security is high you are also suspicious)
+    - increases if machine broken, item stolen, propaganda
+        if high: closed doors, guards, interogation and punishment, game end, less items
+    - decreases
+        over time
+        by actions like deleting logs or bestechen
+        higher decrease/lower increase if station under stress, chaos
+        quest of company succeeded (you can be slow to get paid every day)
+    - neutral
+        scavenging dump, unknown items
+
+- Revolutionary Spirit meter shows how strong people want change, increases with lower living standard, pamphlets against companies, or if they trust you.
 - Increasable Skills like Sabotage (Harm Machines), Craft (Tools/Weapons/Propaganda), Rethorik
 - Gewerkschaft is corrupted, helps worker but ignores slaves; but unionization helps for more money from quest work
 - Social Game also technical
@@ -80,45 +92,61 @@ Logic:
 - Verteilungslogik: Egalitär, Utilitaristisch
 - Die die seit sie geboren wurden niemals Mangel an etwas hatten, hasste ich immer
 - Traitors that interacts with multiple roles, but you dont know that they are the same
-- Use water pipe with space suit
+- Different suites
+    space suit for outer world and water pipe
+    other uniforms to get access to areas
 - Textbox die mit dem Spieler mitgeht als Lautsprecher
 - Input line secrets, enter number or names
 - Schuldsklaven "Verbrecher" vom sYstem absichtlich produziert
 - Main menu with dark parts that get light abwechseln, reveal hammer/sickle, Money, such things
 - Social Assignment mechanic
 - espionage/desinformation via Alexa devices
+- Why are people poor? Donations from rich are stupid. System is not fair, we had never a change
 
 QUEST 1:
+Staff: 2 technicians, doctor, housekeeper, tenderer, 2 guards
 Start in WC, after exiting, your roomate approaches you:
-    This took long xD
-    Mate takes day of, due to enough money.
-    Go to the tenderer, if just you come to the auction you can get a better price
+    This took long haha, at least the toilet is free for now.
+    Do you have some food, I didnt get a job today (medincinist)? => no, unfortunately not
+    Go to the tenderer, maybe there is something for technicians, You need something
 Commander at command center: (few work)
     1 Maintenance Job today, average workday actually 20; Who wants it?
     [You bet]
-    Third Collegue: I will do it for 15. - Is there a better offer?
+    Other Tec Collegue: I will do it for 15. - Is there a better offer?
     [You bet 13]
-    Thirds Collegue: I will do it for 10. - Are you crazy? - 1-2-3 given to Third Collegue, no work for you today. Go back to Crewdeck
+    Other Tec Collegue: I will do it for 10. - Are you crazy? - 1-2-3 given to other Tec Collegue, no work for you today. Go back to Crewdeck
+    Other Tec I need the money today, yesterday you got the job.
 Second collegue at crew deck:
-    Hmmph, Third guy wants money at all cost, but we can get some food elsewhere => Do to Doctor, he has access to Freight where also capsules are stored
-Doc explaines MAM, you can get food
+    Hmmph, those criminals always tell us this is a fair, there is simply not enough work to do!
+    But we can get some food elsewhere => The Housekeeper schuldet mir ein Favor, talk to him, he will let you in.
+    I will have an argument about my contract with the tenderer!
+Housekeeper explains MAM, lets you in, you can get food.
+    => If you take few nobody will care very much, but if you take to much they will react
+    Bring food to medicine guy, lets sleep with characterisation history
 Next day go to tenderer, on way you see Security at Doctor capsule
     Interagate, depentend to MAM, but nothing happens
 Impact of meteorit
-    => Check bridge, talk to tenderer, 20 for all three, Life system leaking throug person capsule and freight capsule (much work)
+    => Check bridge, talk to tenderer, 20 for all three, Life system leaking throug person capsule and freight capsule (much work), company desperate
+    => Additional capsule big impact, need space suit to enter
     1) You should check furniture capsule
         Leaking, need material, report back
-    2) Third Guy check People capsule
+    2) Other Tec check People capsule
         Leaking, need material
-    3) Second Friend check machine room
-    => Decision to furniture, go to machine room and talk to Second Friend, People not insured but "life important supplies"
-Get Material from friend, tell you to fill your pockets because of chaos, then MAM doesnt fill quickly
-On the way Doc tells you that there are humans and you have to decide.
+    3) Medicine, also check people capsule
+    => Check machine room for supplies, not enough
+    => Decision to furniture, People not insured but "life important supplies"
+    (Other tec is at the life systems to check)
+Medic approaches you, tells you that there are humans and you have to decide if you really want to complete the quest.
+Its enough chaos, MaM doesnt fill that much if there is chaos, door emergency unlocked, get access to life support and storage
+Optionally: Ask sec Tec for Space suit and harvest broken capsule, give him part
     => Humans, no money and fired
     => Furniture, money, you get fired for fixing "the wrong one"
 
 QUEST 2:
-You sleep in a container, you have nothing
+You sleep in a container, you have nothing, start an existance by quests and steal, you are a immigrant
+    => you need a capsule subscription, food
+    => Steal every day but learn how station works, then better position
+    => Find secret place to store goods
 
 
 
@@ -198,3 +226,4 @@ Prey
 ------------------------------------------
 - Windows Recorder: Win + G
 - Ctrl + Alt + </>: Jump to code parts
+- Ctrl + (numblock)/: Comment line
