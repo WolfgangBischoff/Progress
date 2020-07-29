@@ -1,6 +1,8 @@
 package Core;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static Core.Config.MAM_DAILY_DECREASE;
@@ -13,9 +15,12 @@ public class GameVariables
     static private int playerMaM_duringDay = 0;
     static private int day = 0;
 
-    //Game State
+    //Game State persistent over days
     static Sprite player;
-    static Map<String, LevelState> levelData = new HashMap<>();
+
+    //Game State persistent on same day
+    private static Map<String, LevelState> levelData = new HashMap<>();
+    private static List<Collectible> stolenCollectibles = new ArrayList<>();
 
     private GameVariables()
     {
@@ -38,13 +43,18 @@ public class GameVariables
     }
 
 
-    public static void addPlayerManagementAttention(int deltaMAM)
+    public static void addPlayerMAM_duringDay(int deltaMAM)
     {
         String methodName = "addPlayerManagementAttention(int) ";
         boolean debug = true;
         if (debug)
             System.out.println(CLASSNAME + methodName + "MAM: " + playerMaM_duringDay + " + " + deltaMAM + " = " + (playerMaM_duringDay + deltaMAM));
         playerMaM_duringDay += deltaMAM;
+    }
+
+    public static void addStolenCollectible(Collectible collectible)
+    {
+        stolenCollectibles.add(collectible);
     }
 
 
@@ -55,15 +65,12 @@ public class GameVariables
 
     public static void incrementDay()
     {
-        String methodName = "incrementDay()";
+        String methodName = "incrementDay() ";
         playerMaM_dayStart = playerMaM_duringDay;
-        //Time decreases MaM, but not below zero
-        if (playerMaM_dayStart > MAM_DAILY_DECREASE)
-            playerMaM_dayStart -= Config.MAM_DAILY_DECREASE;
-        else if (playerMaM_dayStart > 0)//to get to 0 if Nam between 0 and daily decrease
-            playerMaM_dayStart = 0;
         day++;
-        playerMaM_duringDay = playerMaM_dayStart;
+        getLevelData().clear();//Invalidate data from previous day to reload from file
+        System.out.println(CLASSNAME + methodName + "Day: " + day + " MaM Start: " + playerMaM_dayStart);
+
     }
 
     public static int getPlayerMaM_dayStart()
@@ -74,5 +81,31 @@ public class GameVariables
     public static int getPlayerMaM_duringDay()
     {
         return playerMaM_duringDay;
+    }
+
+    public static Map<String, LevelState> getLevelData()
+    {
+        return levelData;
+    }
+
+    public static void setLevelData(Map<String, LevelState> levelData)
+    {
+        GameVariables.levelData = levelData;
+    }
+
+    public static List<Collectible> getStolenCollectibles()
+    {
+        return stolenCollectibles;
+    }
+
+
+    public static void setPlayerMaM_dayStart(int playerMaM_dayStart)
+    {
+        GameVariables.playerMaM_dayStart = playerMaM_dayStart;
+    }
+
+    public static void setPlayerMaM_duringDay(int playerMaM_duringDay)
+    {
+        GameVariables.playerMaM_duringDay = playerMaM_duringDay;
     }
 }

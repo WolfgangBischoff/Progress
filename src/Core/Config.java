@@ -100,6 +100,6 @@ public class Config
 
     //Management-Attention-Meter MAM
     public static final int MAM_DAILY_DECREASE = 2;
-    public static final int MAM_THRESHOLD_INTERROGATION = 5;
+    public static final int MAM_THRESHOLD_INTERROGATION = 6;
 
 }

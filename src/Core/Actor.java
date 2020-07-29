@@ -1,15 +1,11 @@
 package Core;
 
 
-import Core.Enums.ActorConditionType;
-import Core.Enums.ActorTag;
-import Core.Enums.Direction;
-import Core.Enums.TriggerType;
+import Core.Enums.*;
 import Core.Menus.MyersBriggsPersonality;
 import Core.Menus.PersonalityContainer;
 import javafx.animation.PauseTransition;
 import javafx.geometry.Point2D;
-import javafx.scene.image.Image;
 import javafx.util.Duration;
 
 import java.nio.file.Files;
@@ -386,12 +382,12 @@ public class Actor
 
         if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS)
         {
-            //check if Management-Attention-Meter is affected for Player
-            if (activeSprite.getActor().tags.contains(ActorTag.PLAYER) && numeric_generic_attributes.containsKey(KEYWORD_suspicious_value))
-            {
-                int suspicious_value = numeric_generic_attributes.get(KEYWORD_suspicious_value).intValue();
-                GameVariables.addPlayerManagementAttention(suspicious_value);
-            }
+//            //check if Management-Attention-Meter is affected for Player
+//            if (activeSprite.getActor().tags.contains(ActorTag.PLAYER) && numeric_generic_attributes.containsKey(KEYWORD_suspicious_value))
+//            {
+//                int suspicious_value = numeric_generic_attributes.get(KEYWORD_suspicious_value).intValue();
+//                GameVariables.addPlayerManagementAttention(suspicious_value);
+//            }
 
             updateStatusFromConditions(activeSprite);
 
@@ -661,8 +657,21 @@ public class Actor
     private void collect(Actor collectingActor)
     {
         String methodName = "collect(String) ";
-        Image usedImage = spriteList.get(0).baseimage;
-        collectingActor.inventory.addItem(generalStatus, collectable_type, actorInGameName, usedImage);
+        //Image usedImage = spriteList.get(0).baseimage;
+        CollectableType collectableType = CollectableType.getType(collectable_type);
+        Collectible collected = new Collectible(generalStatus, collectableType, actorInGameName);
+        collected.image = spriteList.get(0).baseimage;
+        collectingActor.inventory.addItem(collected);
+        //collectingActor.inventory.addItem(generalStatus, collectable_type, actorInGameName, usedImage);
+
+        //check if Management-Attention-Meter is affected for Player
+        if (collectingActor.tags.contains(ActorTag.PLAYER) && numeric_generic_attributes.containsKey(KEYWORD_suspicious_value))
+        {
+            int suspicious_value = numeric_generic_attributes.get(KEYWORD_suspicious_value).intValue();
+            GameVariables.addPlayerMAM_duringDay(suspicious_value);
+            GameVariables.addStolenCollectible(collected);
+        }
+
         WorldView.toRemove.addAll(spriteList);
     }
 

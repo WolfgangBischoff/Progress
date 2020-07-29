@@ -1,5 +1,6 @@
 package Core.Menus.DaySummary;
 
+import Core.GameVariables;
 import Core.GameWindow;
 import Core.WorldView;
 import javafx.geometry.Point2D;
@@ -81,6 +82,9 @@ public class DaySummaryScreenController
         else
             graphicsContext.setFill(Color.GREEN);
         graphicsContext.fillRect(mamInformationArea.getMinX(), mamInformationArea.getMinY(), mamInformationArea.getWidth(), mamInformationArea.getHeight());
+        String stolenItemsString = GameVariables.getStolenCollectibles().toString();
+        graphicsContext.setFill(font);
+        graphicsContext.fillText(stolenItemsString, mamInformationArea.getMinX(), mamInformationArea.getMinY());
 
         //Close button
         graphicsContext.setFill(marking);
@@ -171,6 +175,11 @@ public class DaySummaryScreenController
 
         if (interfaceElements_list.get(highlightedElement).equals(CLOSE_BUTTON_ID))
         {
+            daySummary.endDay();
+            //Same level loads but next day
+            String levelname = WorldView.getSingleton().getLevelName();
+            String spawnId = "bed";
+            WorldView.getSingleton().loadStage(levelname, spawnId);
             WorldView.setIsDaySummaryActive(false);
         }
 

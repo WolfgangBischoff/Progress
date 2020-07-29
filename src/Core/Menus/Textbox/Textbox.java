@@ -142,18 +142,12 @@ public class Textbox
                 {
                     String levelname = currentDialogue.getAttribute(level_ATTRIBUTE);
                     String spawnId = currentDialogue.getAttribute(spawnID_ATTRIBUTE);
-                    WorldView.getSingleton().loadEnvironment(levelname, spawnId, false);
+                    WorldView.getSingleton().saveStage();
+                    WorldView.getSingleton().loadStage(levelname, spawnId);
                 }
                 else if(dialogueType.equals(dayChange_TYPE_ATTRIBUTE))
                 {
                     WorldView.setIsDaySummaryActive(true);
-
-                    //Same level loads but next day
-                    String levelname = WorldView.getSingleton().getLevelName();
-                    String spawnId = "bed";
-                    WorldView.getSingleton().loadEnvironment(levelname, spawnId, true);
-
-                    System.out.println(CLASSNAME + methodName + " Day: " +  GameVariables.getDay() + " Suspiciousness:  " + GameVariables.getPlayerMaM_dayStart());
                 }
                 else
                 //Normal Textbox

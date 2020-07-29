@@ -53,7 +53,8 @@ public class WorldView implements GUIController
     //TextBox Overlay
     static boolean isTextBoxActive = false;
     static Textbox textbox;
-    static Point2D textBoxPosition = new Point2D(CAMERA_WIDTH / 2f - Textbox.getTEXT_BOX_WIDTH() / 2, CAMERA_HEIGHT - Textbox.getTEXT_BOX_HEIGHT() - 32);;
+    static Point2D textBoxPosition = new Point2D(CAMERA_WIDTH / 2f - Textbox.getTEXT_BOX_WIDTH() / 2, CAMERA_HEIGHT - Textbox.getTEXT_BOX_HEIGHT() - 32);
+    ;
 
     //Personality Overlay
     static boolean isPersonalityScreenActive = false;
@@ -100,40 +101,41 @@ public class WorldView implements GUIController
         shadowMask = new Canvas(CAMERA_WIDTH, Config.CAMERA_HEIGHT);
         gc = worldCanvas.getGraphicsContext2D();
         ShadowMaskGc = shadowMask.getGraphicsContext2D();
-        loadEnvironment(levelName, "default", false);
+        loadStage(levelName, "default");
         inventoryOverlay = new MenuOverlay();
         textbox = new Textbox();
-        //daySummaryScreenController = new DaySummaryScreenController();
     }
 
-    public void loadEnvironment(String levelName, String spawnId, boolean dayIncrements)
+    public void saveStage()
     {
-        String methodName = "loadEnvironment() ";
-        int today = GameVariables.getDay();
-        //Save state if exists
-        if (!passiveSpritesLayer.isEmpty() || !activeSpritesLayer.isEmpty())
-        {
-            String levelNameToSave = this.levelName;
-            activeSpritesLayer.remove(player);
-            middleLayer.remove(player); //Player Layer
-            GameVariables.setPlayer(player);
-            GameVariables.saveLevelState(new LevelState(levelNameToSave, today, borders, activeSpritesLayer, passiveSpritesLayer, bottomLayer, middleLayer, topLayer, shadowColor, spawnPointsMap));
-        }
+        String levelNameToSave = this.levelName;
+        activeSpritesLayer.remove(player);
+        middleLayer.remove(player); //Player Layer
+        GameVariables.setPlayer(player);
+        GameVariables.saveLevelState(new LevelState(levelNameToSave, GameVariables.getDay(), borders, activeSpritesLayer, passiveSpritesLayer, bottomLayer, middleLayer, topLayer, shadowColor, spawnPointsMap));
+    }
 
-        if(dayIncrements)//All states are invalid and reset
-        {
-            GameVariables.levelData.clear();
-            GameVariables.incrementDay();
-        }
+    public void loadStage(String levelName, String spawnId)
+    {
+        String methodName = "loadStage() ";
+        boolean debug = false;
 
         clearLevel();
         this.levelName = levelName;
         //check if level was already loaded today
-        LevelState levelState = GameVariables.levelData.get(this.levelName);
-        if (levelState != null && levelState.day == today)
+        LevelState levelState = GameVariables.getLevelData().get(this.levelName);
+        if (levelState != null && levelState.day == GameVariables.getDay())
+        {
+            if (debug)
+                System.out.println(CLASSNAME + methodName + "loaded from state");
             loadFromLevelState(levelState, spawnId);
+        }
         else
+        {
+            if (debug)
+                System.out.println(CLASSNAME + methodName + "loaded from file");
             loadLevelFromFile(spawnId);
+        }
 
         offsetMaxX = borders.getMaxX() - CAMERA_WIDTH;
         offsetMaxY = borders.getMaxY() - Config.CAMERA_HEIGHT;
@@ -210,7 +212,7 @@ public class WorldView implements GUIController
 
         //Test Menu Hotkeys
         if (input.contains("T") && elapsedTimeSinceLastInteraction > 1)
-            loadEnvironment("test", "default", false);
+            loadStage("test", "default");
         if (input.contains("Z") && elapsedTimeSinceLastInteraction > 1)
         {
            /* isDiscussionGameActive = !isDiscussionGameActive;
@@ -466,7 +468,7 @@ public class WorldView implements GUIController
             WritableImage discussionGameImage = discussionGame.getWritableImage(currentNanoTime);
             gc.drawImage(discussionGameImage, discussionGamePosition.getX(), discussionGamePosition.getY());
         }
-        if(isDaySummaryActive)
+        if (isDaySummaryActive)
         {
             WritableImage daySummaryImage = daySummaryScreenController.getWritableImage();
             gc.drawImage(daySummaryImage, daySummaryScreenPosition.getX(), daySummaryScreenPosition.getY());
