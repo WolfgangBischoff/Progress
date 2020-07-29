@@ -1,5 +1,6 @@
 package Core;
 
+import Core.Enums.CollectableType;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.SnapshotParameters;
@@ -83,16 +84,16 @@ public class InventoryOverlay
                 interfaceElements_list.add(Integer.valueOf(slotNumber).toString());
 
                 //Highlighting
-                if(highlightedElement == slotNumber)
+                if (highlightedElement == slotNumber)
                     menuGc.setFill(font);
                 else
                     menuGc.setFill(marking);
-                menuGc.fillRect(rectangle2D.getMinX(), rectangle2D.getMinY(),rectangle2D.getWidth(),rectangle2D.getHeight());
+                menuGc.fillRect(rectangle2D.getMinX(), rectangle2D.getMinY(), rectangle2D.getWidth(), rectangle2D.getHeight());
                 slotNumber++;
 
                 //Item slot images
                 Collectible current = null;
-                if(itemSlotNumber < player.inventory.itemsList.size())
+                if (itemSlotNumber < player.inventory.itemsList.size())
                     current = player.inventory.itemsList.get(itemSlotNumber);
                 if (current != null)
                     menuGc.drawImage(current.image, slotX, slotY);
@@ -132,9 +133,9 @@ public class InventoryOverlay
         else relativeMousePosition = null;
 
         Integer hoveredElement = null;
-        for(Integer i=0; i < interfaceElements_Rectangles.size(); i++)
+        for (Integer i = 0; i < interfaceElements_Rectangles.size(); i++)
         {
-            if(interfaceElements_Rectangles.get(i).contains(relativeMousePosition))
+            if (interfaceElements_Rectangles.get(i).contains(relativeMousePosition))
             {
                 hoveredElement = interfaceElements_list.indexOf(i.toString());
             }
@@ -156,9 +157,18 @@ public class InventoryOverlay
     {
         String methodName = "activateHighlightedOption() ";
         Collectible collectible = null;
-        if(player.inventory.itemsList.size()>highlightedElement && highlightedElement >= 0)
+        if (player.inventory.itemsList.size() > highlightedElement && highlightedElement >= 0)
             collectible = player.inventory.itemsList.get(highlightedElement);
         System.out.println(CLASSNAME + methodName + "clicked " + collectible);
+
+        if (collectible != null && collectible.type == CollectableType.FOOD)
+        {
+            System.out.println(CLASSNAME + methodName + "You ate " + collectible.nameGame);
+            //Item vanishes competely if consumed.
+            player.inventory.itemsList.remove(collectible);
+            GameVariables.getStolenCollectibles().remove(collectible);
+        }
+
     }
 
     public void setHighlightedElement(Integer highlightedElement)

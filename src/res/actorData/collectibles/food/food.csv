@@ -11,4 +11,4 @@ suspicious_value; 5
 
 #status to image
 #status 						;name   									;spritename  																																	;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;duration ;velocity ;dialogueID ;AnimationEnds
-algaeStew					;algae stew						;../actorData/collectibles/food/gsc_small					;false			;0												;000	;000										;000	;000	;000								;000									;000											;000	 									;000									;000										;none						;000						;000						;default				;false
+algaeStew					;algae stew						;../actorData/collectibles/food/algae_stew				;false			;0												;000	;000										;000	;000	;000								;000									;000											;000	 									;000									;000										;none						;000						;000						;default				;false
