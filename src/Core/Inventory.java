@@ -51,4 +51,9 @@ public class Inventory
                 " inv: " + itemsList.toString()
                 ;
     }
+
+    public List<Collectible> getItemsList()
+    {
+        return itemsList;
+    }
 }

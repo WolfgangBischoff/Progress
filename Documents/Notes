@@ -1,8 +1,6 @@
 
 Logic:
 - Attention Meter
-    - interrogation just lowers MAM if nothing is found
-    - item remain stolen
     - Box/ItemHideOut
 - Textbox change Door status if discussion won
     - build freight deck (machine room ganz unten, control)
@@ -11,7 +9,7 @@ Logic:
 - shaking screen
 - Cleaning Bot Moving
     - add definition in file
-- Menu
+- Inventory
     add item with textbox
     add item in box
 - Console
