@@ -6,7 +6,6 @@ Logic:
     - build freight deck (machine room ganz unten, control)
     - build crew deck (create friend, competitor, doctor, security, life support below control, second dormitory, rescue pods, storage under machine room)
 - Add set item mechanic
-- shaking screen
 - Cleaning Bot Moving
     - add definition in file
 - Inventory

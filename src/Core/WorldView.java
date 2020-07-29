@@ -92,6 +92,11 @@ public class WorldView implements GUIController
     static double camX;
     static double camY;
 
+    double bumpX = 0, bumpY = 0, rumbleGrade = RUMBLE_GRADE;
+    Long timeStartBump = null;
+    float durationBump = RUMBLE_MAX_DURATION;
+    boolean bumpActive = false;
+
     private WorldView(String levelName)
     {
         fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/PlayerView.fxml"));
@@ -215,11 +220,9 @@ public class WorldView implements GUIController
             loadStage("test", "default");
         if (input.contains("Z") && elapsedTimeSinceLastInteraction > 1)
         {
-           /* isDiscussionGameActive = !isDiscussionGameActive;
-            if (isDiscussionGameActive)
-                discussionGame = new DiscussionGame("test");
-            lastTimeMenuWasOpened = currentNanoTime;
-            */
+            if (timeStartBump == null)//To set just once
+                timeStartBump = currentNanoTime;
+            bumpActive = true;
         }
 
 
@@ -380,6 +383,7 @@ public class WorldView implements GUIController
 
     private void calcCameraPosition()
     {
+        String methodName = "calcCameraPosition() ";
         //Camera at world border
         camX = player.positionX - CAMERA_WIDTH / 2f;
         camY = player.positionY - CAMERA_HEIGHT / 2f;
@@ -397,6 +401,33 @@ public class WorldView implements GUIController
             camX = borders.getWidth() / 2 - CAMERA_WIDTH / 2f;
         if (Config.CAMERA_HEIGHT > borders.getHeight())
             camY = borders.getHeight() / 2 - CAMERA_HEIGHT / 2f;
+
+
+        //Bump
+        if (bumpActive)
+        {
+            double elapsedTimeSinceBump = (GameWindow.getSingleton().getRenderTime() - timeStartBump) / 1000000000.0;
+            double offsetCamX = 0, offsetCamY = 0;
+            if (durationBump < elapsedTimeSinceBump)
+            {
+                bumpActive = false;
+                rumbleGrade = RUMBLE_GRADE;//Reset
+                timeStartBump = null;//To manual retrigger
+            }
+            else
+            {
+                offsetCamX += Math.sin(bumpX) * rumbleGrade;
+                offsetCamY += Math.cos(bumpY) * (rumbleGrade + 3);
+                bumpX++;
+                bumpY++;
+                rumbleGrade = rumbleGrade - RUMBLE_GRADE_DECREASE;//Decreasing rumble
+                rumbleGrade = Math.max(rumbleGrade, 0);
+            }
+            camX += offsetCamX;
+            camY += offsetCamY;
+
+        }
+
     }
 
     @Override

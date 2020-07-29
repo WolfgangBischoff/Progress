@@ -25,6 +25,9 @@ public class Config
     //Gameplay
     public static final float TIME_BETWEEN_INTERACTIONS = 0.5f;
     public static final float TIME_BETWEEN_DIALOGUE = 0.2f;
+    public static final float RUMBLE_GRADE = 8;
+    public static final float RUMBLE_GRADE_DECREASE = 0.1f;
+    public static final float RUMBLE_MAX_DURATION = 1.3f;
 
     //Map file keywords
     public static final String MAPDEFINITION_EMPTY = "______";
