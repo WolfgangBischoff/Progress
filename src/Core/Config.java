@@ -6,7 +6,7 @@ public class Config
     public static final Boolean DEBUG_ACTORS = false;
     public static final Boolean DEBUG_BLOCKER = false;
     public static final Boolean DEBUG_NO_WALL = false;
-    public static final Boolean DEBUG_MOUSE_ANALYSIS = true;
+    public static final Boolean DEBUG_MOUSE_ANALYSIS = false;
     //public static final String FIRST_LEVEL = "dockingBay";
     public static final String FIRST_LEVEL = "transporter";
     public static final double GAME_WINDOW_WIDTH = 1440;
@@ -19,6 +19,8 @@ public class Config
     public static final int INVENTORY_HEIGHT = 600;
     public static final int DISCUSSION_WIDTH = 900;
     public static final int DISCUSSION_HEIGHT = 600;
+    public static final int DAY_SUMMARY_WIDTH = 900;
+    public static final int DAY_SUMMARY_HEIGHT = 600;
 
     //Gameplay
     public static final float TIME_BETWEEN_INTERACTIONS = 0.5f;
@@ -97,6 +99,7 @@ public class Config
     public static final int DISCUSSION_THRESHOLD_WIN = 6;
 
     //Management-Attention-Meter MAM
-    public static final int DAILY_DECREASE_MAM = 2;
+    public static final int MAM_DAILY_DECREASE = 2;
+    public static final int MAM_THRESHOLD_INTERROGATION = 5;
 
 }

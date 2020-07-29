@@ -158,10 +158,11 @@ public class Sprite
                 blockedByOtherSprite = true;
             }
 
-            //Interact within interaction area
+            //Calculate Interaction Area
             if (interact || actor.sensorStatus.onInRange_TriggerSprite != TriggerType.NOTHING || getName().toLowerCase().equals("player"))
                 interactionArea = calcInteractionRectangle();
 
+            //Interact within interaction area
             if (interact
                     && otherSprite.actor != null
                     && otherSprite.getBoundary().intersects(interactionArea)
@@ -172,12 +173,12 @@ public class Sprite
                 actor.setLastInteraction(currentNanoTime);
                 interact = false; //Interacts with first found sprite;
 
-                //check if Suspicionness-Meter is affected
-                if (actor.tags.contains(ActorTag.PLAYER) && otherSprite.actor.numeric_generic_attributes.containsKey(KEYWORD_suspicious_value))
-                {
-                    int suspicious_value = otherSprite.actor.numeric_generic_attributes.get(KEYWORD_suspicious_value).intValue();
-                    GameVariables.addPlayerManagementAttention(suspicious_value);
-                }
+//                //check if Suspicionness-Meter is affected
+//                if (actor.tags.contains(ActorTag.PLAYER) && otherSprite.actor.numeric_generic_attributes.containsKey(KEYWORD_suspicious_value))
+//                {
+//                    int suspicious_value = otherSprite.actor.numeric_generic_attributes.get(KEYWORD_suspicious_value).intValue();
+//                    GameVariables.addPlayerManagementAttention(suspicious_value);
+//                }
             }
 
             //In range

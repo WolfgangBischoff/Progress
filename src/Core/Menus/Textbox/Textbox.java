@@ -26,8 +26,8 @@ import static Core.Config.*;
 public class Textbox
 {
     private static final String CLASSNAME = "Textbox-";
-    private double TEXT_BOX_WIDTH = TEXTBOX_WIDTH;
-    private double TEXT_BOX_HEIGHT = TEXTBOX_HEIGHT;
+    private static double TEXT_BOX_WIDTH = TEXTBOX_WIDTH;
+    private static double TEXT_BOX_HEIGHT = TEXTBOX_HEIGHT;
     Canvas textboxCanvas = new Canvas(TEXT_BOX_WIDTH, TEXT_BOX_HEIGHT);
     GraphicsContext textboxGc = textboxCanvas.getGraphicsContext2D();
     WritableImage textboxImage;
@@ -146,15 +146,14 @@ public class Textbox
                 }
                 else if(dialogueType.equals(dayChange_TYPE_ATTRIBUTE))
                 {
-
-                    //TODO Day Summary Menu
+                    WorldView.setIsDaySummaryActive(true);
 
                     //Same level loads but next day
                     String levelname = WorldView.getSingleton().getLevelName();
                     String spawnId = "bed";
                     WorldView.getSingleton().loadEnvironment(levelname, spawnId, true);
 
-                    System.out.println(CLASSNAME + methodName + " Day: " +  GameVariables.getDay() + " Suspiciousness:  " + GameVariables.getPlayerMaM());
+                    System.out.println(CLASSNAME + methodName + " Day: " +  GameVariables.getDay() + " Suspiciousness:  " + GameVariables.getPlayerMaM_dayStart());
                 }
                 else
                 //Normal Textbox
@@ -471,12 +470,12 @@ public class Textbox
         return textboxImage;
     }
 
-    public double getTEXT_BOX_WIDTH()
+    public static double getTEXT_BOX_WIDTH()
     {
         return TEXT_BOX_WIDTH;
     }
 
-    public double getTEXT_BOX_HEIGHT()
+    public static double getTEXT_BOX_HEIGHT()
     {
         return TEXT_BOX_HEIGHT;
     }

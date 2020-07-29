@@ -2,8 +2,7 @@
 Logic:
 - Attention Meter
     - get caught if too high, just loose item on transporter,
-        menue where you consume, food, air, medicine, entertainment, bed
-        reaction depentend on MaM => loose items
+        shows what you gathered today and if police came (item loose)
         scavege as variant of social game
     - door opens after talk, textbox triggers monitor?
     - chaos mode, doors open, Mam not rising
@@ -44,7 +43,12 @@ Logic:
 ----- Ideas ------------------------------
 ------------------------------------------
 - Grind mechanic
-    Daily needs: Sleep, Food, Air, Medicine, Entertainment
+    Daily needs:
+        Sleep -> based on time like in StardewVallay, but choosable start time
+        Food -> Eat during game (if not eaten for days, dies)
+        Air -> needed for space suit
+        Medicine -> needed if ill
+        Entertainment -> maybe useless but nice value
     Achievements like personal capsule/room with own furniture help, can also be public like community center with benefits
         => Tutorial just food, then live in container, then lend capsule, then room. (maybe also secret hideouts)
     Go to work as freelancer (there are always quests, you decide if you are a good worker)

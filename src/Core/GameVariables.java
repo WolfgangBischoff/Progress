@@ -2,14 +2,15 @@ package Core;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
+
+import static Core.Config.MAM_DAILY_DECREASE;
 
 public class GameVariables
 {
     private static String CLASSNAME = "GameVariables/";
     private static GameVariables singleton;
-    static private int playerMaM = 0;//ManagementAttentionMeter
-    static private int playerMaMNextDay = 0;
+    static private int playerMaM_dayStart = 0;//ManagementAttentionMeter
+    static private int playerMaM_duringDay = 0;
     static private int day = 0;
 
     //Game State
@@ -32,24 +33,18 @@ public class GameVariables
         boolean debug = false;
         levelData.put(levelState.levelName, levelState);
 
-        if(debug)
+        if (debug)
             System.out.println(CLASSNAME + methodName + "Saved: " + levelState);
     }
 
-    public static LevelState loadLevelState(String levelName)
-    {
-        return levelData.get(levelName);
-    }
-
-    public static int getPlayerMaM()
-    {
-        return playerMaM;
-    }
 
     public static void addPlayerManagementAttention(int deltaMAM)
     {
         String methodName = "addPlayerManagementAttention(int) ";
-        playerMaMNextDay += deltaMAM;
+        boolean debug = true;
+        if (debug)
+            System.out.println(CLASSNAME + methodName + "MAM: " + playerMaM_duringDay + " + " + deltaMAM + " = " + (playerMaM_duringDay + deltaMAM));
+        playerMaM_duringDay += deltaMAM;
     }
 
 
@@ -61,13 +56,23 @@ public class GameVariables
     public static void incrementDay()
     {
         String methodName = "incrementDay()";
-        playerMaM = playerMaMNextDay;
+        playerMaM_dayStart = playerMaM_duringDay;
         //Time decreases MaM, but not below zero
-        if (playerMaM > Config.DAILY_DECREASE_MAM)
-            playerMaM -= Config.DAILY_DECREASE_MAM;
-        else if(playerMaM > 0)//to get to 0 if Nam between 0 and daily decrease
-            playerMaM = 0;
+        if (playerMaM_dayStart > MAM_DAILY_DECREASE)
+            playerMaM_dayStart -= Config.MAM_DAILY_DECREASE;
+        else if (playerMaM_dayStart > 0)//to get to 0 if Nam between 0 and daily decrease
+            playerMaM_dayStart = 0;
         day++;
-        playerMaMNextDay = playerMaM;
+        playerMaM_duringDay = playerMaM_dayStart;
+    }
+
+    public static int getPlayerMaM_dayStart()
+    {
+        return playerMaM_dayStart;
+    }
+
+    public static int getPlayerMaM_duringDay()
+    {
+        return playerMaM_duringDay;
     }
 }

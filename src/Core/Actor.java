@@ -386,6 +386,13 @@ public class Actor
 
         if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS)
         {
+            //check if Management-Attention-Meter is affected for Player
+            if (activeSprite.getActor().tags.contains(ActorTag.PLAYER) && numeric_generic_attributes.containsKey(KEYWORD_suspicious_value))
+            {
+                int suspicious_value = numeric_generic_attributes.get(KEYWORD_suspicious_value).intValue();
+                GameVariables.addPlayerManagementAttention(suspicious_value);
+            }
+
             updateStatusFromConditions(activeSprite);
 
             //react

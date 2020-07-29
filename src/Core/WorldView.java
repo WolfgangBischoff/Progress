@@ -2,6 +2,8 @@ package Core;
 
 import Core.Enums.Direction;
 import Core.Enums.TriggerType;
+import Core.Menus.DaySummary.DaySummary;
+import Core.Menus.DaySummary.DaySummaryScreenController;
 import Core.Menus.DiscussionGame.DiscussionGame;
 import Core.Menus.PersonalityScreenController;
 import Core.Menus.Textbox.Textbox;
@@ -51,17 +53,22 @@ public class WorldView implements GUIController
     //TextBox Overlay
     static boolean isTextBoxActive = false;
     static Textbox textbox;
-    static Point2D textBoxPosition;
+    static Point2D textBoxPosition = new Point2D(CAMERA_WIDTH / 2f - Textbox.getTEXT_BOX_WIDTH() / 2, CAMERA_HEIGHT - Textbox.getTEXT_BOX_HEIGHT() - 32);;
 
     //Personality Overlay
     static boolean isPersonalityScreenActive = false;
     static PersonalityScreenController personalityScreenController;
     static Point2D personalityScreenPosition = new Point2D(CAMERA_WIDTH / 2f - PersonalityScreenController.getMenuWidth() / 2.0, CAMERA_HEIGHT / 2.0 - PersonalityScreenController.getMenuHeight() / 2.0);
 
-    //Discussion Game
+    //Discussion Game Overlay
     static boolean isDiscussionGameActive = false;
     static DiscussionGame discussionGame;
     static Point2D discussionGamePosition = new Point2D(CAMERA_WIDTH / 2f - DiscussionGame.getMenuWidth() / 2.0, CAMERA_HEIGHT / 2.0 - DiscussionGame.getMenuHeight() / 2.0);
+
+    //DaySummary Overlay
+    private static boolean isDaySummaryActive = false;
+    static DaySummaryScreenController daySummaryScreenController;
+    static Point2D daySummaryScreenPosition = new Point2D(CAMERA_WIDTH / 2f - DaySummaryScreenController.getMenuWidth() / 2.0, CAMERA_HEIGHT / 2.0 - DaySummaryScreenController.getMenuHeight() / 2.0);
 
     //Sprites
     String levelName;
@@ -96,7 +103,7 @@ public class WorldView implements GUIController
         loadEnvironment(levelName, "default", false);
         inventoryOverlay = new MenuOverlay();
         textbox = new Textbox();
-        textBoxPosition = new Point2D(CAMERA_WIDTH / 2f - textbox.getTEXT_BOX_WIDTH() / 2, CAMERA_HEIGHT - textbox.getTEXT_BOX_HEIGHT() - 32);
+        //daySummaryScreenController = new DaySummaryScreenController();
     }
 
     public void loadEnvironment(String levelName, String spawnId, boolean dayIncrements)
@@ -210,7 +217,6 @@ public class WorldView implements GUIController
             if (isDiscussionGameActive)
                 discussionGame = new DiscussionGame("test");
             lastTimeMenuWasOpened = currentNanoTime;
-
             */
         }
 
@@ -233,6 +239,12 @@ public class WorldView implements GUIController
             if (player.actor.isMoving())
                 player.actor.setVelocity(0, 0);
             personalityScreenController.processKey(input, currentNanoTime);
+        }
+        else if (isDaySummaryActive)
+        {
+            if (player.actor.isMoving())
+                player.actor.setVelocity(0, 0);
+            daySummaryScreenController.processKey(input, currentNanoTime);
         }
         else
             processInputAsMovement(input);
@@ -332,6 +344,10 @@ public class WorldView implements GUIController
         else if (isTextBoxActive)
         {
             textbox.processMouse(mousePositionRelativeToCamera, isMouseClicked);
+        }
+        else if (isDaySummaryActive)
+        {
+            daySummaryScreenController.processMouse(mousePositionRelativeToCamera, isMouseClicked, currentNanoTime);
         }
         else
         {
@@ -435,23 +451,25 @@ public class WorldView implements GUIController
             WritableImage textBoxImg = textbox.showMessage();
             gc.drawImage(textBoxImg, textBoxPosition.getX(), textBoxPosition.getY());
         }
-
         if (isInventoryActive)
         {
             WritableImage inventoryOverlayMenuImage = inventoryOverlay.getMenuImage();
             gc.drawImage(inventoryOverlayMenuImage, inventoryOverlayPosition.getX(), inventoryOverlayPosition.getY());
         }
-
         if (isPersonalityScreenActive)
         {
             WritableImage personalityScreenOverlay = personalityScreenController.getWritableImage();
             gc.drawImage(personalityScreenOverlay, personalityScreenPosition.getX(), personalityScreenPosition.getY());
         }
-
         if (isDiscussionGameActive)
         {
             WritableImage discussionGameImage = discussionGame.getWritableImage(currentNanoTime);
             gc.drawImage(discussionGameImage, discussionGamePosition.getX(), discussionGamePosition.getY());
+        }
+        if(isDaySummaryActive)
+        {
+            WritableImage daySummaryImage = daySummaryScreenController.getWritableImage();
+            gc.drawImage(daySummaryImage, daySummaryScreenPosition.getX(), daySummaryScreenPosition.getY());
         }
 
     }
@@ -578,5 +596,12 @@ public class WorldView implements GUIController
     public String getLevelName()
     {
         return levelName;
+    }
+
+    public static void setIsDaySummaryActive(boolean isDaySummaryActive)
+    {
+        DaySummary daySummary = new DaySummary();
+        daySummaryScreenController = new DaySummaryScreenController(daySummary);
+        WorldView.isDaySummaryActive = isDaySummaryActive;
     }
 }
