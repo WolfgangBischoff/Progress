@@ -20,14 +20,10 @@ public class Inventory
         this.owner = owner;
     }
 
-    //public void addItem(String itemName, String collectableTypeString, String itemIngameName, Image image)
     public void addItem(Collectible collectible)
     {
         String methodName = "addItem(String, String) ";
         boolean debug = false;
-//        CollectableType collectableType = CollectableType.getType(collectableTypeString);
-//        Collectible collectible = new Collectible(itemName, collectableType, itemIngameName);
-//        collectible.image = image;
         itemsList.add(collectible);
         if (debug)
         {
@@ -36,12 +32,7 @@ public class Inventory
         }
     }
 
-//    public void addItem(String itemName, String collectableTypeString, String itemIngameName)
-//    {
-//        Image defaultImage = new Image(IMAGE_DIRECTORY_PATH + "notfound_64_64");
-//        addItem(itemName, collectableTypeString, itemIngameName, defaultImage);
-//
-//    }
+
 
     public boolean contains(Collectible toCheck)
     {

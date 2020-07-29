@@ -46,8 +46,8 @@ public class WorldView implements GUIController
 
     //Inventory Overlay
     static boolean isInventoryActive = false;
-    static MenuOverlay inventoryOverlay;
-    static Point2D inventoryOverlayPosition = new Point2D(CAMERA_WIDTH / 2f - MenuOverlay.getMenuWidth() / 2.0, CAMERA_HEIGHT / 2.0 - MenuOverlay.getMenuHeight() / 2.0);
+    static InventoryOverlay inventoryOverlay;
+    static Point2D inventoryOverlayPosition = new Point2D(CAMERA_WIDTH / 2f - InventoryOverlay.getMenuWidth() / 2.0, CAMERA_HEIGHT / 2.0 - InventoryOverlay.getMenuHeight() / 2.0);
     static Long lastTimeMenuWasOpened = 0L;
 
     //TextBox Overlay
@@ -102,7 +102,7 @@ public class WorldView implements GUIController
         gc = worldCanvas.getGraphicsContext2D();
         ShadowMaskGc = shadowMask.getGraphicsContext2D();
         loadStage(levelName, "default");
-        inventoryOverlay = new MenuOverlay();
+        inventoryOverlay = new InventoryOverlay();
         textbox = new Textbox();
     }
 
@@ -346,6 +346,10 @@ public class WorldView implements GUIController
         else if (isTextBoxActive)
         {
             textbox.processMouse(mousePositionRelativeToCamera, isMouseClicked);
+        }
+        else if (isInventoryActive)
+        {
+            inventoryOverlay.processMouse(mousePositionRelativeToCamera, isMouseClicked, currentNanoTime);
         }
         else if (isDaySummaryActive)
         {

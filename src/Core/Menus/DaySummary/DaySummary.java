@@ -31,20 +31,27 @@ public class DaySummary
 
         if (hasInterrogation)
         {
+            //take away found stolen items in the inventory, after that all items are "not stolen"
+            WorldView.getPlayer().getActor().getInventory().removeAll(GameVariables.getStolenCollectibles());
+            GameVariables.getStolenCollectibles().clear();
+
+
             //decrease MAM by Interrogation threshold
             if(debug)
                 System.out.println(CLASSNAME + methodName + "Interrogation");
             GameVariables.addPlayerMAM_duringDay(- MAM_THRESHOLD_INTERROGATION);
-            if(GameVariables.getPlayerMaM_duringDay() >= MAM_THRESHOLD_INTERROGATION)
-            {
-                if(debug)
-                    System.out.println(CLASSNAME + methodName + "removed additional: " + (GameVariables.getPlayerMaM_duringDay() - MAM_THRESHOLD_INTERROGATION));
-                GameVariables.addPlayerMAM_duringDay(- (GameVariables.getPlayerMaM_duringDay() - MAM_THRESHOLD_INTERROGATION));
-            }
 
-            //take away found stolen items
-            WorldView.getPlayer().getActor().getInventory().removeAll(GameVariables.getStolenCollectibles());
-            GameVariables.getStolenCollectibles().clear();
+
+
+
+//            if(GameVariables.getPlayerMaM_duringDay() >= MAM_THRESHOLD_INTERROGATION)
+//            {
+//                if(debug)
+//                    System.out.println(CLASSNAME + methodName + "removed additional: " + (GameVariables.getPlayerMaM_duringDay() - MAM_THRESHOLD_INTERROGATION));
+//                GameVariables.addPlayerMAM_duringDay(- (GameVariables.getPlayerMaM_duringDay() - MAM_THRESHOLD_INTERROGATION));
+//            }
+
+
         }
 
         //Time decreases MaM, but not below zero

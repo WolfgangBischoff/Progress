@@ -1,11 +1,9 @@
 
 Logic:
 - Attention Meter
-    - get caught if too high, just loose item on transporter,
-        shows what you gathered today and if police came (item loose)
-        scavege as variant of social game
-    - door opens after talk, textbox triggers monitor?
-    - chaos mode, doors open, Mam not rising
+    - interrogation just lowers MAM if nothing is found
+    - item remain stolen
+    - Box/ItemHideOut
 - Textbox change Door status if discussion won
     - build freight deck (machine room ganz unten, control)
     - build crew deck (create friend, competitor, doctor, security, life support below control, second dormitory, rescue pods, storage under machine room)
@@ -59,7 +57,7 @@ Logic:
     - sabotage to increase chaos, create work or change behavior
     - be lazy to get job over multiple days
     - repair
-    - scavenge/search with game
+    - scavenge/search with game as coin game variant
     Public Work (Revolutionary meter, needed for main questline or acsess to areas due to people that feel more safe with helping you)
     - Spray, Flugzettel
     - Gain trust through dailies like provide food/water/communication between people
@@ -69,7 +67,7 @@ Logic:
     - decreases
         over time
         by actions like deleting logs or bestechen
-        higher decrease/lower increase if station under stress, chaos
+        higher decrease/lower increase if station under stress, chaos mode
         quest of company succeeded (you can be slow to get paid every day)
     - neutral
         scavenging dump, unknown items
