@@ -7,7 +7,6 @@ none
 
 spawnpoints:
 #ID						;PosX;PosY	;Direction
-#exit					;05		;18			;east
 exit					;07		;28			;east
 default		;25		;23			;north
 elevator	;31		;34			;south
@@ -76,7 +75,7 @@ damage				;pipe													;../actorData/machine/stasis_capsule/battery/dmg_64_
 #Miscellangelious
 elev__				;elevator									;../actorData/doors/updown/elevator/base_3x2																							;false				;0												;0			;0												;0				;0				;0										;0											;000									 	;000									 	;000									;000										;none
 contro				;elevator									;../actorData/computer/control/central																													;true					;1												;0			;0												;0				;0				;0										;0											;032									 	;128									 	;320									;096										;none
-projec				;projector								;../actorData/computer/projector/projector_a4																						;true					;1												;4			;5												;4				;1				;128							 ;256									;032									 	;192									 	;064									;064										;none
+projec				;projector								;../actorData/computer/projector/projector_a4																						;true					;1												;4			;5												;4				;1				;128							 ;256									;032									 	;192									 	;064									;064										;bluelight_256
 reacto				;reactor										;../actorData/machine/reactor/reactor																														;true					;1												;0			;0												;0				;0				;000							 ;000									;000									 	;000									 	;000									;000										;none
 antena				;antenna										;machines/antenna																																																		;true					;1												;0			;0												;0				;0				;000								;000									;000									 	;000									 	;000									;000										;none
 anten0				;antenna										;machines/antenna_big_0																																												;true					;1												;0			;0												;0				;0				;000								;000									;000									 	;000									 	;000									;000										;none

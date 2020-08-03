@@ -529,11 +529,12 @@ public class WorldView implements GUIController
                 }
                 catch (IllegalArgumentException e)
                 {
-                    throw new IllegalArgumentException("Invalid URL: " + "/res/img/lightglows/" + lightSpriteName + ".png" + " of sprite " + sprite.getName());
+                    System.out.println("Invalid URL: " + "/res/img/lightglows/" + lightSpriteName + ".png" + " of sprite " + sprite.getName());
+                    continue;
                 }
             }
-            Image lightimage = lightsImageMap.get(lightSpriteName);
-            ShadowMaskGc.drawImage(lightimage, sprite.positionX + sprite.getHitBoxOffsetX() + sprite.getHitBoxWidth() / 2 - lightimage.getWidth() / 2 - camX, sprite.positionY + sprite.getHitBoxOffsetY() + sprite.getHitBoxHeight() / 2 - lightimage.getHeight() / 2 - camY);
+            Image lightImage = lightsImageMap.get(lightSpriteName);
+            ShadowMaskGc.drawImage(lightImage, sprite.positionX + sprite.getHitBoxOffsetX() + sprite.getHitBoxWidth() / 2 - lightImage.getWidth() / 2 - camX, sprite.positionY + sprite.getHitBoxOffsetY() + sprite.getHitBoxHeight() / 2 - lightImage.getHeight() / 2 - camY);
         }
 
         SnapshotParameters params = new SnapshotParameters();

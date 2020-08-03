@@ -8,8 +8,8 @@ sensorStatus	;intersect_on_else_off;none																					;none														
 
 #fire one time on if intersection, then one time off when leaving
 #status 		;name   						;spritename  																					;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;duration ;velocity ;dialogueID ;AnimationEnds
-off							;trigger	;../actorData/floor/marking							;false   ;0												;0			;0												;0			;0			;0										;0											;0													;0													;0											;0												;whitelight;0								;0								;welcome				;false
-on	 						;trigger	;../actorData/floor/markingr						;false   ;0												;0			;0												;0			;0			;0										;0											;0													;0													;0											;0												;whitelight;0								;0								;welcome				;false
+off							;trigger	;../actorData/floor/marking							;false   ;0												;0			;0												;0			;0			;0										;0											;0													;0													;0											;0												;none;0								;0								;welcome				;false
+on	 						;trigger	;../actorData/floor/markingr						;false   ;0												;0			;0												;0			;0			;0										;0											;0													;0													;0											;0												;none;0								;0								;welcome				;false
 
 #fire one time on if intersection, then one time off when leaving
 sensorStatus	;readyToFire_20										;none																					;none																				;none 																;none 																;none								;none										;none 												;none 												;persistent							;20x64										;persistent		 									;waitForReset_20 									;persistent									;20x64_off			;none 											;none 												;none					;none 								;none					;none

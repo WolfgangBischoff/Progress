@@ -2,9 +2,15 @@
 Logic:
 - Attention Meter
     - Box/ItemHideOut
+- Add Food Value
+    - Clock
+    - Changing over time
+    - Refuel by eating
+    - Shown in DaySummary
 - Textbox change Door status if discussion won
-    - build freight deck (machine room ganz unten, control)
-    - build crew deck (create friend, competitor, doctor, security, life support below control, second dormitory, rescue pods, storage under machine room)
+- Level build
+    - freight deck (machine room ganz unten, control)
+    - crew deck (create friend, competitor, doctor, security, life support below control, second dormitory, rescue pods, storage under machine room)
 - Add set item mechanic
 - Cleaning Bot Moving
     - add definition in file
@@ -39,7 +45,7 @@ Logic:
 ------------------------------------------
 - Grind mechanic
     Daily needs:
-        Sleep -> based on time like in StardewVallay, but choosable start time
+        Sleep -> based on time like in StardewVallay, but with night encounter. Better bed increases skills, also Kuschis
         Food -> Eat during game (if not eaten for days, dies)
         Air -> needed for space suit
         Medicine -> needed if ill

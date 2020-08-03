@@ -2,8 +2,8 @@
 
 #Red Green Blue; the higher the brighter; >none< leads to no shadow
 shadow:
-#0;30;30
-none
+0;30;30
+#none
 
 spawnpoints:
 #ID						;PosX;PosY	;Direction
@@ -60,10 +60,10 @@ laddeF				;ladder						;walls/signs/ladder_frame_64_128						;true					;0							
 
 #Machines
 #code     ;name        ;spritename                     								;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning
-vendor				;vendor     	;machines/adiaVM_128_128																;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;000           ;084           ;128         ;064										;whitelight
-addAdi				;add			     	;machines/add_adia_128_128														;true					;2												;0   ;0            ;0    ;0    ;0          ;0           ;020           ;064           ;088        	;064										;whitelight
-addDet				;add			     	;machines/add_bigDet_2_128_128										;true					;2												;0.3 ;2            ;2    ;1    ;128        ;128         ;020           ;064           ;088        	;064										;whitelight
-inCeil				;ceiling		  	;machines/infoCeilingDes																;false				;2												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;whitelight
+vendor				;vendor     	;machines/adiaVM_128_128																;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;000           ;084           ;128         ;064										;whitelight_256
+addAdi				;add			     	;machines/add_adia_128_128														;true					;2												;0   ;0            ;0    ;0    ;0          ;0           ;020           ;064           ;088        	;064										;whitelight_256
+addDet				;add			     	;machines/add_bigDet_2_128_128										;true					;2												;0.3 ;2            ;2    ;1    ;128        ;128         ;020           ;064           ;088        	;064										;whitelight_256
+inCeil				;ceiling		  	;machines/infoCeilingDes																;false				;2												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;whitelight_256
 pillar				;pillar			  	;machines/pillarFoot_128_128_Des								;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;030           ;000           ;068         ;100										;none
 airPip				;airPipe		  	;machines/airPipe_64_192																;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
 desInL				;desinfec	  	;../actorData/machine/desinfection/desLeft									;true					;1												;0   ;0            ;0    ;0    ;0          ;0           ;0             ;0             ;0           ;0												;none
