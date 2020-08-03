@@ -50,6 +50,9 @@ public class InventoryOverlay
         double brig = background.getBrightness();
         Color marking = Color.hsb(hue, sat - 0.2, brig + 0.2);
         Color font = Color.hsb(hue, sat + 0.15, brig + 0.4);
+        Color red = Color.hsb(0, 0.33, 0.90);
+        Color darkred = Color.hsb(0, 0.23, 0.70);
+        Color green = Color.hsb(140, 0.33, 0.90);
         interfaceElements_Rectangles.clear();
         interfaceElements_list.clear();
 
@@ -96,7 +99,17 @@ public class InventoryOverlay
                 if (itemSlotNumber < player.inventory.itemsList.size())
                     current = player.inventory.itemsList.get(itemSlotNumber);
                 if (current != null)
+                {
                     menuGc.drawImage(current.image, slotX, slotY);
+                    //Stolen sign
+                    if(GameVariables.getStolenCollectibles().contains(current))
+                    {
+                        menuGc.setFill(darkred);
+                        menuGc.fillOval(slotX + 44, slotY + 44, 16,16);
+                        menuGc.setFill(red);
+                        menuGc.fillOval(slotX + 46, slotY + 46, 12 ,12);
+                    }
+                }
                 itemSlotNumber++;
             }
         }
