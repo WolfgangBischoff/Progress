@@ -37,4 +37,19 @@ public class Collectible
     {
         return ingameName;
     }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public Image getImage()
+    {
+        return image;
+    }
+
+    public CollectableType getType()
+    {
+        return type;
+    }
 }

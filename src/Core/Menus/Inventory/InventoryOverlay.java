@@ -1,5 +1,6 @@
-package Core;
+package Core.Menus.Inventory;
 
+import Core.*;
 import Core.Enums.CollectableType;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
@@ -34,7 +35,7 @@ public class InventoryOverlay
     {
         menuCanvas = new Canvas(INVENTORY_WIDTH, INVENTORY_HEIGHT);
         menuGc = menuCanvas.getGraphicsContext2D();
-        player = WorldView.getPlayer().actor;
+        player = WorldView.getPlayer().getActor();
         cornerTopLeft = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
         cornerBtmRight = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
     }
@@ -42,7 +43,7 @@ public class InventoryOverlay
     private void draw() throws NullPointerException
     {
         String methodName = "draw() ";
-        player = WorldView.getPlayer().actor; //Just needed as long the player resets with stage load (so we have always new Player)
+        player = WorldView.getPlayer().getActor(); //Just needed as long the player resets with stage load (so we have always new Player)
         menuGc.clearRect(0, 0, INVENTORY_WIDTH, INVENTORY_HEIGHT);
         Color background = Color.rgb(60, 90, 85);
         double hue = background.getHue();
@@ -96,11 +97,11 @@ public class InventoryOverlay
 
                 //Item slot images
                 Collectible current = null;
-                if (itemSlotNumber < player.inventory.itemsList.size())
-                    current = player.inventory.itemsList.get(itemSlotNumber);
+                if (itemSlotNumber < player.getInventory().itemsList.size())
+                    current = player.getInventory().itemsList.get(itemSlotNumber);
                 if (current != null)
                 {
-                    menuGc.drawImage(current.image, slotX, slotY);
+                    menuGc.drawImage(current.getImage(), slotX, slotY);
                     //Stolen sign
                     if(GameVariables.getStolenCollectibles().contains(current))
                     {
@@ -115,8 +116,7 @@ public class InventoryOverlay
         }
 
         menuGc.setFill(font);
-        menuGc.fillText("Game Menu " + player.actorInGameName, 30, 30);
-        menuGc.fillText(player.inventory.itemsList.toString(), 30, 60);
+        menuGc.fillText("Inventory of " + player.getActorInGameName(), initialOffsetX, 60);
 
         //Decoration
         menuGc.drawImage(cornerTopLeft, 0, 0);
@@ -146,11 +146,11 @@ public class InventoryOverlay
         else relativeMousePosition = null;
 
         Integer hoveredElement = null;
-        for (Integer i = 0; i < interfaceElements_Rectangles.size(); i++)
+        for (int i = 0; i < interfaceElements_Rectangles.size(); i++)
         {
             if (interfaceElements_Rectangles.get(i).contains(relativeMousePosition))
             {
-                hoveredElement = interfaceElements_list.indexOf(i.toString());
+                hoveredElement = interfaceElements_list.indexOf(Integer.toString(i));
             }
         }
 
@@ -170,15 +170,15 @@ public class InventoryOverlay
     {
         String methodName = "activateHighlightedOption() ";
         Collectible collectible = null;
-        if (player.inventory.itemsList.size() > highlightedElement && highlightedElement >= 0)
-            collectible = player.inventory.itemsList.get(highlightedElement);
+        if (player.getInventory().itemsList.size() > highlightedElement && highlightedElement >= 0)
+            collectible = player.getInventory().itemsList.get(highlightedElement);
         System.out.println(CLASSNAME + methodName + "clicked " + collectible);
 
-        if (collectible != null && collectible.type == CollectableType.FOOD)
+        if (collectible != null && collectible.getType() == CollectableType.FOOD)
         {
-            System.out.println(CLASSNAME + methodName + "You ate " + collectible.ingameName);
+            System.out.println(CLASSNAME + methodName + "You ate " + collectible.getIngameName());
             //Item vanishes competely if consumed.
-            player.inventory.itemsList.remove(collectible);
+            player.getInventory().itemsList.remove(collectible);
             GameVariables.getStolenCollectibles().remove(collectible);
         }
 

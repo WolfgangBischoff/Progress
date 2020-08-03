@@ -1,5 +1,7 @@
-package Core;
+package Core.Menus.Inventory;
 
+import Core.Actor;
+import Core.Collectible;
 import Core.Enums.CollectableType;
 import javafx.scene.image.Image;
 
@@ -27,7 +29,7 @@ public class Inventory
         itemsList.add(collectible);
         if (debug)
         {
-            System.out.println(CLASSNAME + methodName + owner.actorInGameName + " collected " + collectible);
+            System.out.println(CLASSNAME + methodName + owner.getActorInGameName() + " collected " + collectible);
             System.out.println(CLASSNAME + methodName + " " + itemsList.toString());
         }
     }
@@ -47,7 +49,7 @@ public class Inventory
     @Override
     public String toString()
     {
-        return  owner.actorInGameName +
+        return  owner.getActorInGameName() +
                 " inv: " + itemsList.toString()
                 ;
     }

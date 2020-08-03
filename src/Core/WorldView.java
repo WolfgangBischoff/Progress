@@ -5,6 +5,7 @@ import Core.Enums.TriggerType;
 import Core.Menus.DaySummary.DaySummary;
 import Core.Menus.DaySummary.DaySummaryScreenController;
 import Core.Menus.DiscussionGame.DiscussionGame;
+import Core.Menus.Inventory.InventoryOverlay;
 import Core.Menus.PersonalityScreenController;
 import Core.Menus.Textbox.Textbox;
 import javafx.fxml.FXML;
@@ -54,7 +55,6 @@ public class WorldView implements GUIController
     static boolean isTextBoxActive = false;
     static Textbox textbox;
     static Point2D textBoxPosition = new Point2D(CAMERA_WIDTH / 2f - Textbox.getTEXT_BOX_WIDTH() / 2, CAMERA_HEIGHT - Textbox.getTEXT_BOX_HEIGHT() - 32);
-    ;
 
     //Personality Overlay
     static boolean isPersonalityScreenActive = false;

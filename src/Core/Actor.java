@@ -2,6 +2,7 @@ package Core;
 
 
 import Core.Enums.*;
+import Core.Menus.Inventory.Inventory;
 import Core.Menus.MyersBriggsPersonality;
 import Core.Menus.PersonalityContainer;
 import javafx.animation.PauseTransition;
@@ -190,7 +191,7 @@ public class Actor
         int trait_threshold_paramsIdx = 3;
         PersonalityContainer readContainer = new PersonalityContainer();
         MyersBriggsPersonality myersBriggsPersonality = MyersBriggsPersonality.getPersonality(linedata[personalityIdx]);
-        Integer initCooperationValue = Integer.parseInt(linedata[initCooperationValueIdx]);
+        int initCooperationValue = Integer.parseInt(linedata[initCooperationValueIdx]);
         readContainer.myersBriggsPersonality = myersBriggsPersonality;
         readContainer.cooperation = initCooperationValue;
         for (int i = trait_threshold_paramsIdx; i < linedata.length; i += 2)
@@ -225,8 +226,7 @@ public class Actor
         actorCondition.trueSensorStatus = linedata[trueSensorStatusIdx];
         actorCondition.falseSpriteStatus = linedata[falseSpriteStatusIdx];
         actorCondition.falseSensorStatus = linedata[falseSensorStatusIdx];
-        for (int i = paramsIdx; i < linedata.length; i++)
-            actorCondition.params.add(linedata[i]);
+        actorCondition.params.addAll(Arrays.asList(linedata).subList(paramsIdx, linedata.length));
 
         if (debug)
             System.out.println(CLASSNAME + methodName + actorCondition);
@@ -616,12 +616,12 @@ public class Actor
             return;
         Point2D target = movenmentPointsList.get(0);
         Point2D currentPos = new Point2D(spriteList.get(0).positionX, spriteList.get(0).positionY);
-        Double deltaX = target.getX() - currentPos.getX();
-        Double deltaY = target.getY() - currentPos.getY();
-        Double velocity = 80d;
-        Double addedVelocityX = 0d;
-        Double addedVelocityY = 0d;
-        Double moveThreshold = 5d;
+        double deltaX = target.getX() - currentPos.getX();
+        double deltaY = target.getY() - currentPos.getY();
+        double velocity = 80d;
+        double addedVelocityX = 0d;
+        double addedVelocityY = 0d;
+        double moveThreshold = 5d;
         boolean xreached = false, yreached = false;
 
         if (deltaX < -moveThreshold)
