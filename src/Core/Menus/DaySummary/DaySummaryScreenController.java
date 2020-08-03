@@ -9,6 +9,7 @@ import javafx.geometry.VPos;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
@@ -32,11 +33,14 @@ public class DaySummaryScreenController
     private Point2D mousePosRelativeToDiscussionOverlay;
     private DaySummary daySummary;
 
+    Image cornerTopLeft;
+    Image cornerBtmRight;
+
     //MAM Information
     private int mamInfoWidth = 300;
     private int mamInfoHeight = 300;
     private int mamInfo_x = WIDTH - mamInfoWidth - 100;
-    private int mamInfo_y = 50;
+    private int mamInfo_y = 80;
     Rectangle2D mamInformationArea = new Rectangle2D(mamInfo_x, mamInfo_y, mamInfoWidth, mamInfoHeight);
 
     //Close Button
@@ -53,6 +57,8 @@ public class DaySummaryScreenController
         graphicsContext = canvas.getGraphicsContext2D();
         highlightedElement = 0;
         this.daySummary = daySummary;
+        cornerTopLeft = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
+        cornerBtmRight = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
     }
 
     private void draw() throws NullPointerException
@@ -122,6 +128,10 @@ public class DaySummaryScreenController
             graphicsContext.fillRect(closeButton.getMinX(), closeButton.getMinY(), closeButton.getWidth(), closeButton.getHeight());
         graphicsContext.setFill(font);
         graphicsContext.fillText(CLOSE_BUTTON_ID, closeButton.getMinX() + closeButton.getWidth() / 2, closeButton.getMinY() + closeButton.getHeight() / 2);
+
+        //Decoration
+        graphicsContext.drawImage(cornerTopLeft, 0, 0);
+        graphicsContext.drawImage(cornerBtmRight, WIDTH - cornerBtmRight.getWidth(), HEIGHT - cornerBtmRight.getHeight());
 
         SnapshotParameters transparency = new SnapshotParameters();
         transparency.setFill(Color.TRANSPARENT);
