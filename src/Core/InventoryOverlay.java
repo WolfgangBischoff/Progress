@@ -163,7 +163,7 @@ public class InventoryOverlay
 
         if (collectible != null && collectible.type == CollectableType.FOOD)
         {
-            System.out.println(CLASSNAME + methodName + "You ate " + collectible.nameGame);
+            System.out.println(CLASSNAME + methodName + "You ate " + collectible.ingameName);
             //Item vanishes competely if consumed.
             player.inventory.itemsList.remove(collectible);
             GameVariables.getStolenCollectibles().remove(collectible);

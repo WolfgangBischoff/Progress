@@ -14,6 +14,7 @@ public class DaySummary
 {
     static private final String CLASSNAME = "DaySummary ";
     private boolean hasInterrogation = false;
+    List<Collectible> foundStolenCollectibles = new ArrayList<>();
 
     public DaySummary()
     {
@@ -25,19 +26,9 @@ public class DaySummary
         if (GameVariables.getPlayerMaM_duringDay() >= MAM_THRESHOLD_INTERROGATION)
         {
             hasInterrogation = true;
-        }
-    }
-
-    public void endDay()
-    {
-        String methodName = "endDay() ";
-        boolean debug = false;
-
-        if (hasInterrogation)
-        {
             boolean stolenItemWasFound = false;
             List<Collectible> playerInventory = WorldView.getPlayer().getActor().getInventory().getItemsList();
-            List<Collectible> foundStolenCollectibles = new ArrayList<>();
+            foundStolenCollectibles.clear();// = new ArrayList<>();
             for(int i=0; i<playerInventory.size(); i++)
             {
                 Collectible checked = playerInventory.get(i);
@@ -52,6 +43,33 @@ public class DaySummary
             //decrease MAM by Interrogation threshold if nothing was found
             if(!stolenItemWasFound)
                 GameVariables.addPlayerMAM_duringDay(- MAM_THRESHOLD_INTERROGATION);
+        }
+    }
+
+    public void endDay()
+    {
+        String methodName = "endDay() ";
+        boolean debug = false;
+
+        if (hasInterrogation)
+        {
+//            boolean stolenItemWasFound = false;
+//            List<Collectible> playerInventory = WorldView.getPlayer().getActor().getInventory().getItemsList();
+//            foundStolenCollectibles.clear();// = new ArrayList<>();
+//            for(int i=0; i<playerInventory.size(); i++)
+//            {
+//                Collectible checked = playerInventory.get(i);
+//                if(GameVariables.getStolenCollectibles().contains(checked))
+//                {
+//                    stolenItemWasFound = true;
+//                    foundStolenCollectibles.add(checked);
+//                }
+//            }
+//            WorldView.getPlayer().getActor().getInventory().removeAll(foundStolenCollectibles);//take away found stolen items in the inventory
+//
+//            //decrease MAM by Interrogation threshold if nothing was found
+//            if(!stolenItemWasFound)
+//                GameVariables.addPlayerMAM_duringDay(- MAM_THRESHOLD_INTERROGATION);
 
         }
 

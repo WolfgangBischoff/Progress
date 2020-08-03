@@ -1,6 +1,6 @@
 package Core.Menus.DaySummary;
 
-import Core.GameVariables;
+import Core.Collectible;
 import Core.GameWindow;
 import Core.WorldView;
 import javafx.geometry.Point2D;
@@ -35,7 +35,7 @@ public class DaySummaryScreenController
     //MAM Information
     private int mamInfoWidth = 300;
     private int mamInfoHeight = 300;
-    private int mamInfo_x = WIDTH - mamInfoWidth - 50;
+    private int mamInfo_x = WIDTH - mamInfoWidth - 100;
     private int mamInfo_y = 50;
     Rectangle2D mamInformationArea = new Rectangle2D(mamInfo_x, mamInfo_y, mamInfoWidth, mamInfoHeight);
 
@@ -65,28 +65,57 @@ public class DaySummaryScreenController
         double brig = background.getBrightness();
         Color marking = Color.hsb(hue, sat - 0.2, brig + 0.2);
         Color font = Color.hsb(hue, sat + 0.15, brig + 0.4);
+        Color red = Color.hsb(0, 0.33, 0.90);
+        Color green = Color.hsb(140, 0.33, 0.90);
         interfaceElements_list.clear();
-        graphicsContext.setTextBaseline(VPos.CENTER);
-        graphicsContext.setTextAlign(TextAlignment.CENTER);
 
         //Background
         graphicsContext.setGlobalAlpha(0.8);
         graphicsContext.setFill(background);
         int backgroundOffsetX = 16, backgroundOffsetY = 10;
         graphicsContext.fillRect(backgroundOffsetX, backgroundOffsetY, WIDTH - backgroundOffsetX * 2, HEIGHT - backgroundOffsetY * 2);
-        graphicsContext.setGlobalAlpha(1);
 
-        //MaM message
+
+        //MaM message field
+        int strokeThickness = 6;
+        int round = 15;
         if (daySummary.isHasInterrogation())
-            graphicsContext.setFill(Color.RED);
+            graphicsContext.setFill(red);
         else
-            graphicsContext.setFill(Color.GREEN);
-        graphicsContext.fillRect(mamInformationArea.getMinX(), mamInformationArea.getMinY(), mamInformationArea.getWidth(), mamInformationArea.getHeight());
-        String stolenItemsString = GameVariables.getStolenCollectibles().toString();
+            graphicsContext.setFill(green);
+        graphicsContext.fillRoundRect(mamInformationArea.getMinX() - strokeThickness, mamInformationArea.getMinY() - strokeThickness, mamInformationArea.getWidth() + strokeThickness * 2, mamInformationArea.getHeight() + strokeThickness * 2, round, round);
+        graphicsContext.setFill(marking);
+        graphicsContext.fillRoundRect(mamInformationArea.getMinX(), mamInformationArea.getMinY(), mamInformationArea.getWidth(), mamInformationArea.getHeight(), round, round);
+
+        //Text
+        int spaceY = 5;
+        int offsetY = 20;
+        graphicsContext.setTextBaseline(VPos.BOTTOM);
+        graphicsContext.setTextAlign(TextAlignment.LEFT);
+        graphicsContext.setGlobalAlpha(1);
         graphicsContext.setFill(font);
-        graphicsContext.fillText(stolenItemsString, mamInformationArea.getMinX(), mamInformationArea.getMinY());
+        StringBuilder stringBuilder = new StringBuilder();
+        if (daySummary.isHasInterrogation())
+        {
+            stringBuilder.append("You were interrogated.");
+            if(!daySummary.foundStolenCollectibles.isEmpty())
+                stringBuilder.append(" Some items were confiscated.");
+            else
+                stringBuilder.append(" They found no stolen items.");
+        }
+        else
+            stringBuilder.append("You had a silent night.");
+        graphicsContext.fillText(stringBuilder.toString(), mamInformationArea.getMinX() + 5, mamInformationArea.getMinY() + offsetY);
+        for (int i = 0; i < daySummary.foundStolenCollectibles.size(); i++)
+        {
+            Collectible collectible = daySummary.foundStolenCollectibles.get(i);
+            graphicsContext.fillText(collectible.getIngameName(), mamInformationArea.getMinX() + 5,
+                    mamInformationArea.getMinY() + offsetY + 20 + i * (graphicsContext.getFont().getSize() + spaceY));
+        }
 
         //Close button
+        graphicsContext.setTextBaseline(VPos.CENTER);
+        graphicsContext.setTextAlign(TextAlignment.CENTER);
         graphicsContext.setFill(marking);
         interfaceElements_list.add(CLOSE_BUTTON_ID);
         if (highlightedElement == interfaceElements_list.indexOf(CLOSE_BUTTON_ID))

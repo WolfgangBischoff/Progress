@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 
 public class Collectible
 {
-    String nameGame;
+    String ingameName;
     String name;
     Image image;
     CollectableType type;
@@ -14,7 +14,7 @@ public class Collectible
     {
         this.name = name;
         this.type = type;
-        this.nameGame = nameGame;
+        this.ingameName = nameGame;
     }
 
     @Override
@@ -33,5 +33,8 @@ public class Collectible
         return "{" + name + " " + type + "}";
     }
 
-
+    public String getIngameName()
+    {
+        return ingameName;
+    }
 }
