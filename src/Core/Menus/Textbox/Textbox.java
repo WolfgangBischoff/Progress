@@ -355,6 +355,10 @@ public class Textbox
         textboxGc.setGlobalAlpha(0.9);
         textboxGc.fillRect(backgroundOffsetX, backgroundOffsetYDecorationTop + backgroundOffsetYTalkIcon, TEXT_BOX_WIDTH - backgroundOffsetX * 2, TEXT_BOX_HEIGHT - backgroundOffsetYDecorationTop - backgroundOffsetYTalkIcon - backgroundOffsetYDecorationBtm);
 
+        textboxGc.setFont(new Font("Verdana", 30));
+        textboxGc.setTextAlign(TextAlignment.LEFT);
+        textboxGc.setTextBaseline(VPos.TOP);
+
         if (markedOption != null && readDialogue.type.equals(decision_TYPE_ATTRIBUTE))
         {
             textboxGc.setFill(marking);
@@ -366,13 +370,8 @@ public class Textbox
         textboxGc.drawImage(cornerTopLeft, 0, backgroundOffsetYTalkIcon);
         textboxGc.drawImage(cornerBtmRight, TEXT_BOX_WIDTH - cornerBtmRight.getWidth(), TEXT_BOX_HEIGHT - cornerBtmRight.getHeight());
 
-        textboxGc.setFont(new Font("Verdana", 30));
-        textboxGc.setFill(font);
-        textboxGc.setTextAlign(TextAlignment.LEFT);
-        textboxGc.setTextBaseline(VPos.TOP);
-
         int yOffsetTextLine = firstLineOffsetY;
-
+        textboxGc.setFill(font);
         //Format Text
         if (readDialogue.type.equals(decision_TYPE_ATTRIBUTE))
         {
@@ -437,9 +436,6 @@ public class Textbox
         String methodName = "wrapText() ";
         List<String> wrapped = new ArrayList<>();
         String[] words = longMessage.split(" ");
-
-        //for(String s : words)
-        //System.out.println(classname + methodName + s);
 
         int numberDigits = 0;
         StringBuilder lineBuilder = new StringBuilder();
