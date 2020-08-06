@@ -1,6 +1,6 @@
-package Core.Menus;
+package Core.Menus.Personality;
 
-import static Core.Menus.PersonalityTrait.*;
+import static Core.Menus.Personality.PersonalityTrait.*;
 
 //https://www.16personalities.com/de/personlichkeitstypen
 public enum MyersBriggsPersonality

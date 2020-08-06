@@ -6,7 +6,7 @@ import Core.Menus.DaySummary.DaySummary;
 import Core.Menus.DaySummary.DaySummaryScreenController;
 import Core.Menus.DiscussionGame.DiscussionGame;
 import Core.Menus.Inventory.InventoryOverlay;
-import Core.Menus.PersonalityScreenController;
+import Core.Menus.Personality.PersonalityScreenController;
 import Core.Menus.Textbox.Textbox;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

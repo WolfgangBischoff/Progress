@@ -2,8 +2,8 @@ package Core.Menus.DiscussionGame;
 
 import Core.Actor;
 import Core.GameWindow;
-import Core.Menus.PersonalityContainer;
-import Core.Menus.PersonalityTrait;
+import Core.Menus.Personality.PersonalityContainer;
+import Core.Menus.Personality.PersonalityTrait;
 import Core.Utilities;
 import Core.WorldView;
 import javafx.geometry.Point2D;
@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 import static Core.Config.*;
-import static Core.Menus.PersonalityTrait.*;
+import static Core.Menus.Personality.PersonalityTrait.*;
 
 public class DiscussionGame
 {

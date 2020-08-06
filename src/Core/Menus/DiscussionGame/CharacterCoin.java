@@ -1,6 +1,6 @@
 package Core.Menus.DiscussionGame;
 
-import Core.Menus.PersonalityTrait;
+import Core.Menus.Personality.PersonalityTrait;
 import Core.Utilities;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;

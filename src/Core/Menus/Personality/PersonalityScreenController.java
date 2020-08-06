@@ -1,8 +1,7 @@
-package Core.Menus;
+package Core.Menus.Personality;
 
 import Core.Actor;
 import Core.GameWindow;
-import Core.Utilities;
 import Core.WorldView;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
@@ -16,9 +15,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static Core.Config.*;
 

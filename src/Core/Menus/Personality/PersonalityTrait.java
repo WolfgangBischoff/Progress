@@ -1,4 +1,4 @@
-package Core.Menus;
+package Core.Menus.Personality;
 
 public enum PersonalityTrait
 {

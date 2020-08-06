@@ -3,8 +3,8 @@ package Core;
 
 import Core.Enums.*;
 import Core.Menus.Inventory.Inventory;
-import Core.Menus.MyersBriggsPersonality;
-import Core.Menus.PersonalityContainer;
+import Core.Menus.Personality.MyersBriggsPersonality;
+import Core.Menus.Personality.PersonalityContainer;
 import javafx.animation.PauseTransition;
 import javafx.geometry.Point2D;
 import javafx.util.Duration;

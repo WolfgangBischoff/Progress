@@ -1,9 +1,5 @@
 package Core;
 
-import Core.Menus.DaySummary.DaySummaryScreenController;
-import Core.Menus.DiscussionGame.DiscussionGame;
-import Core.Menus.Inventory.InventoryOverlay;
-import Core.Menus.PersonalityScreenController;
 import javafx.geometry.Point2D;
 
 public class Config

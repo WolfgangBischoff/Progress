@@ -1,9 +1,9 @@
-package Core.Menus;
+package Core.Menus.Personality;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static Core.Menus.PersonalityTrait.*;
+import static Core.Menus.Personality.PersonalityTrait.*;
 
 public class PersonalityContainer
 {
