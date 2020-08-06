@@ -30,17 +30,18 @@ With increasing cooperation value you find trais of the person, some traits are 
   Boost cooperation value with presents or actions
    */
 
-
-    private static final String CLASSNAME = "PersonalityScreenController-";
+    private static final String CLASSNAME = "PersonalityScreenController ";
     private static final String BACK_BUTTON_ID = "back";
+    private static final int WIDTH = PERSONALITY_WIDTH;
+    private static final int HEIGHT = PERSONALITY_HEIGHT;
+    private static final Point2D SCREEN_POSITION = PERSONALITY_POSITION;
     private Canvas canvas;
     private GraphicsContext graphicsContext;
     private WritableImage writableImage;
     Point2D mousePosRelativeToDiscussionOverlay;
     private Integer highlightedElement;
     private List<String> interfaceElements_list = new ArrayList<>();
-    //private PersonalityChange argumentsSequence;
-    static Map<String, Map<String, Integer>> argumentsTraitsMatrix; //Argument -> Values per Trait
+
     private Actor otherPersonActor;
     private PersonalityContainer personalityContainer;
     Actor player;
@@ -51,13 +52,6 @@ With increasing cooperation value you find trais of the person, some traits are 
     int rhetoric_width = 150;
     int rhetoric_height = 60;
     Rectangle2D rhetoric_Button = new Rectangle2D(rhetoric_x, rhetoric_y, rhetoric_width, rhetoric_height);
-
-    //Rhetoric Options List
-    private List<String> rhetoricOptions_list = new ArrayList<>();
-    int initOptionsOffsetX = 50;
-    int initOptionsOffsetY = 200;
-    int optionsYGap = 15;
-    Font optionsFont = new Font(25);
 
     //Other Person Traits
     private List<String> personalityList = new ArrayList<>();
@@ -113,7 +107,7 @@ With increasing cooperation value you find trais of the person, some traits are 
     {
         String methodName = "draw() ";
         player = WorldView.getPlayer().getActor(); //Just needed as long the player resets with stage load (so we have always new Player)
-        graphicsContext.clearRect(0, 0, DISCUSSION_WIDTH, DISCUSSION_HEIGHT);
+        graphicsContext.clearRect(0, 0, WIDTH, HEIGHT);
         Color background = Color.rgb(60, 90, 85);
         double hue = background.getHue();
         double sat = background.getSaturation();
@@ -129,7 +123,7 @@ With increasing cooperation value you find trais of the person, some traits are 
         graphicsContext.setGlobalAlpha(0.8);
         graphicsContext.setFill(background);
         int backgroundOffsetX = 16, backgroundOffsetY = 10;
-        graphicsContext.fillRect(backgroundOffsetX, backgroundOffsetY, INVENTORY_WIDTH - backgroundOffsetX * 2, INVENTORY_HEIGHT - backgroundOffsetY * 2);
+        graphicsContext.fillRect(backgroundOffsetX, backgroundOffsetY, WIDTH - backgroundOffsetX * 2, HEIGHT - backgroundOffsetY * 2);
         graphicsContext.setGlobalAlpha(1);
 
         //Rhetoric button
@@ -140,38 +134,11 @@ With increasing cooperation value you find trais of the person, some traits are 
         graphicsContext.setFill(font);
         graphicsContext.fillText("Back", rhetoric_Button.getMinX(), rhetoric_Button.getMinY());
 
-
-        /*
-        //Rhetoric Options
-        int optionsOffsetX = initOptionsOffsetX;
-        int optionsOffsetY = initOptionsOffsetY;
-        graphicsContext.setFont(optionsFont);
-
-        for (int lineIdx = 0; lineIdx < rhetoricOptions_list.size(); lineIdx++)
-        {
-            graphicsContext.setFill(marking);
-            interfaceElements_list.add("" + lineIdx);
-            if (highlightedElement == interfaceElements_list.indexOf("" + lineIdx))
-            {
-                graphicsContext.fillRect(optionsOffsetX - 10, optionsOffsetY, 300 + 10, fontsize + 10);
-            }
-            graphicsContext.setFill(font);
-            graphicsContext.fillText(
-                    rhetoricOptions_list.get(lineIdx),
-                    Math.round(optionsOffsetX),
-                    Math.round(optionsOffsetY)
-            );
-            optionsOffsetY += fontsize + optionsYGap;
-        }
-
-         */
-
         //Other Person Known Traits
         double fontsize = graphicsContext.getFont().getSize();
         int traitsOffsetX = initTraitsOffsetX;
         int traitsOffsetY = initTraitsOffsetY;
         graphicsContext.setFont(traitsFont);
-        fontsize = graphicsContext.getFont().getSize();
         for (int lineIdx = 0; lineIdx < personalityList.size(); lineIdx++)
         {
             graphicsContext.setFill(font);
@@ -228,33 +195,18 @@ With increasing cooperation value you find trais of the person, some traits are 
     public void processMouse(Point2D mousePosition, boolean isMouseClicked, Long currentNanoTime)
     {
         String methodName = "processMouse(Point2D, boolean) ";
-        Point2D discussionOverlayPosition = WorldView.getPersonalityScreenPosition();
-        Rectangle2D discussionPosRelativeToWorldview = new Rectangle2D(discussionOverlayPosition.getX(), discussionOverlayPosition.getY(), DISCUSSION_WIDTH, DISCUSSION_HEIGHT);
+        Point2D overlayPosition = SCREEN_POSITION;
+        Rectangle2D posRelativeToWorldview = new Rectangle2D(overlayPosition.getX(), overlayPosition.getY(), WIDTH, HEIGHT);
 
-        //Calculate Mouse Position relative to Discussion
-        if (discussionPosRelativeToWorldview.contains(mousePosition))
-            mousePosRelativeToDiscussionOverlay = new Point2D(mousePosition.getX() - discussionOverlayPosition.getX(), mousePosition.getY() - discussionOverlayPosition.getY());
+        //Calculate Mouse Position relative to Overlay
+        if (posRelativeToWorldview.contains(mousePosition))
+            mousePosRelativeToDiscussionOverlay = new Point2D(mousePosition.getX() - overlayPosition.getX(), mousePosition.getY() - overlayPosition.getY());
         else mousePosRelativeToDiscussionOverlay = null;
 
         Integer hoveredElement = null;
         //Check if hovered over Rhetoric Button
         if (rhetoric_Button.contains(mousePosRelativeToDiscussionOverlay))
             hoveredElement = interfaceElements_list.indexOf(BACK_BUTTON_ID);
-
-        //Check if hovered Rhetoric Options
-        graphicsContext.setFont(optionsFont);
-        int optionsOffsetX = initOptionsOffsetX;
-        int optionsOffsetY = initOptionsOffsetY;
-        double fontSize = graphicsContext.getFont().getSize();
-        for (int lineIdx = 0; lineIdx < rhetoricOptions_list.size(); lineIdx++)
-        {
-            Rectangle2D optionArea = new Rectangle2D(optionsOffsetX - 10, optionsOffsetY, 300 + 10, fontSize + 10);
-            if (optionArea.contains(mousePosRelativeToDiscussionOverlay))
-            {
-                hoveredElement = interfaceElements_list.indexOf("" + lineIdx);
-            }
-            optionsOffsetY += fontSize + optionsYGap;
-        }
 
         if (GameWindow.getSingleton().isMouseMoved() && hoveredElement != null)//Set highlight if mouse moved
         {
@@ -283,20 +235,6 @@ With increasing cooperation value you find trais of the person, some traits are 
             WorldView.setIsTextBoxActive(true);
         }
 
-        /*
-        //Translate interface element highlight to argument name
-        Integer argumentIdx = null;
-        if (Utilities.tryParseInt(interfaceElements_list.get(highlightedElement)))//is list item
-            argumentIdx = Integer.parseInt(interfaceElements_list.get(highlightedElement));
-        if (argumentIdx != null)
-        {
-            String argument = rhetoricOptions_list.get(argumentIdx);
-            argumentsSequence.addArgument(argument);
-            //personalityContainer.numberOfInteractions++;
-        }
-
-         */
-
         updateVisiblePersonality();
         WorldView.getPlayer().getActor().setLastInteraction(currentNanoTime);
     }
@@ -314,16 +252,6 @@ With increasing cooperation value you find trais of the person, some traits are 
     {
         draw();
         return writableImage;
-    }
-
-    public static int getMenuWidth()
-    {
-        return INVENTORY_WIDTH;
-    }
-
-    public static int getMenuHeight()
-    {
-        return INVENTORY_HEIGHT;
     }
 
 }

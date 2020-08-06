@@ -1,5 +1,11 @@
 package Core;
 
+import Core.Menus.DaySummary.DaySummaryScreenController;
+import Core.Menus.DiscussionGame.DiscussionGame;
+import Core.Menus.Inventory.InventoryOverlay;
+import Core.Menus.PersonalityScreenController;
+import javafx.geometry.Point2D;
+
 public class Config
 {
     //General
@@ -15,12 +21,22 @@ public class Config
     public static final int CAMERA_HEIGHT = 800;
     public static final int TEXTBOX_WIDTH = 800;
     public static final int TEXTBOX_HEIGHT = 400;
-    public static final int INVENTORY_WIDTH = 900;
+
+    public static final int PERSONALITY_WIDTH = 900;
+    public static final int PERSONALITY_HEIGHT = 600;
+    public static final Point2D PERSONALITY_POSITION = new Point2D(CAMERA_WIDTH / 2f - PERSONALITY_WIDTH / 2.0, CAMERA_HEIGHT / 2.0 - PERSONALITY_HEIGHT / 2.0); //Centered
+
+    public static final int INVENTORY_WIDTH = 550;
     public static final int INVENTORY_HEIGHT = 600;
+    public static Point2D INVENTORY_POSITION = new Point2D(64, CAMERA_HEIGHT / 2.0 - INVENTORY_HEIGHT / 2.0);
+
     public static final int DISCUSSION_WIDTH = 900;
     public static final int DISCUSSION_HEIGHT = 600;
+    public static Point2D DISCUSSION_POSITION = new Point2D(CAMERA_WIDTH / 2f - DISCUSSION_WIDTH / 2.0, CAMERA_HEIGHT / 2.0 - DISCUSSION_HEIGHT / 2.0);
+
     public static final int DAY_SUMMARY_WIDTH = 900;
     public static final int DAY_SUMMARY_HEIGHT = 600;
+    public static Point2D DAY_SUMMARY_POSITION = new Point2D(CAMERA_WIDTH / 2f - DAY_SUMMARY_WIDTH / 2.0, CAMERA_HEIGHT / 2.0 - DAY_SUMMARY_HEIGHT / 2.0); //Centereda
 
     //Gameplay
     public static final float TIME_BETWEEN_INTERACTIONS = 0.5f;

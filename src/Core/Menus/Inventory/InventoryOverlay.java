@@ -18,22 +18,24 @@ import static Core.Config.*;
 
 public class InventoryOverlay
 {
-    private static final String CLASSNAME = "MenuOverlay-";
+    private static final String CLASSNAME = "InventoryOverlay ";
     private Canvas menuCanvas;
     private GraphicsContext menuGc;
     private WritableImage menuImage;
     private Actor player;
-    private Point2D relativeMousePosition;
     private List<String> interfaceElements_list = new ArrayList<>();
     private List<Rectangle2D> interfaceElements_Rectangles = new ArrayList<>();
     private Integer highlightedElement = 0;
+    private static int WIDTH = INVENTORY_WIDTH;
+    private static int HEIGHT = INVENTORY_HEIGHT;
+    private static Point2D SCREEN_POSITION = INVENTORY_POSITION;
 
     Image cornerTopLeft;
     Image cornerBtmRight;
 
     public InventoryOverlay()
     {
-        menuCanvas = new Canvas(INVENTORY_WIDTH, INVENTORY_HEIGHT);
+        menuCanvas = new Canvas(WIDTH, HEIGHT);
         menuGc = menuCanvas.getGraphicsContext2D();
         player = WorldView.getPlayer().getActor();
         cornerTopLeft = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
@@ -44,7 +46,7 @@ public class InventoryOverlay
     {
         String methodName = "draw() ";
         player = WorldView.getPlayer().getActor(); //Just needed as long the player resets with stage load (so we have always new Player)
-        menuGc.clearRect(0, 0, INVENTORY_WIDTH, INVENTORY_HEIGHT);
+        menuGc.clearRect(0, 0, WIDTH, HEIGHT);
         Color background = Color.rgb(60, 90, 85);
         double hue = background.getHue();
         double sat = background.getSaturation();
@@ -52,7 +54,7 @@ public class InventoryOverlay
         Color marking = Color.hsb(hue, sat - 0.2, brig + 0.2);
         Color font = Color.hsb(hue, sat + 0.15, brig + 0.4);
         Color red = Color.hsb(0, 0.33, 0.90);
-        Color darkred = Color.hsb(0, 0.23, 0.70);
+        Color darkRed = Color.hsb(0, 0.23, 0.70);
         Color green = Color.hsb(140, 0.33, 0.90);
         interfaceElements_Rectangles.clear();
         interfaceElements_list.clear();
@@ -61,22 +63,22 @@ public class InventoryOverlay
         menuGc.setGlobalAlpha(0.8);
         menuGc.setFill(background);
         int backgroundOffsetX = 16, backgroundOffsetY = 10;
-        menuGc.fillRect(backgroundOffsetX, backgroundOffsetY, INVENTORY_WIDTH - backgroundOffsetX * 2, INVENTORY_HEIGHT - backgroundOffsetY * 2);
+        menuGc.fillRect(backgroundOffsetX, backgroundOffsetY, WIDTH - backgroundOffsetX * 2, HEIGHT - backgroundOffsetY * 2);
 
         //Item Slots
         menuGc.setGlobalAlpha(1);
         int itemTileWidth = 64;
-        int numberTilesRow = 10;
-        int numberRows = 3;
+        int numberColumns = 5;
+        int numberRows = 6;
         int spaceBetweenTiles = 10;
-        int initialOffsetX = (INVENTORY_WIDTH - (numberTilesRow * itemTileWidth + (numberTilesRow - 1) * spaceBetweenTiles)) / 2; //Centered
+        int initialOffsetX = (WIDTH - (numberColumns * itemTileWidth + (numberColumns - 1) * spaceBetweenTiles)) / 2; //Centered
         int initialOffsetY = 75;
         int itemSlotNumber = 0;
         int slotNumber = 0;
         for (int y = 0; y < numberRows; y++)
         {
             int slotY = y * (itemTileWidth + spaceBetweenTiles) + initialOffsetY;
-            for (int i = 0; i < numberTilesRow; i++)
+            for (int i = 0; i < numberColumns; i++)
             {
                 //Rectangle
                 int slotX = i * (itemTileWidth + spaceBetweenTiles) + initialOffsetX;
@@ -103,24 +105,28 @@ public class InventoryOverlay
                 {
                     menuGc.drawImage(current.getImage(), slotX, slotY);
                     //Stolen sign
-                    if(GameVariables.getStolenCollectibles().contains(current))
+                    if (GameVariables.getStolenCollectibles().contains(current))
                     {
-                        menuGc.setFill(darkred);
-                        menuGc.fillOval(slotX + 44, slotY + 44, 16,16);
+                        menuGc.setFill(darkRed);
+                        menuGc.fillOval(slotX + 44, slotY + 44, 16, 16);
                         menuGc.setFill(red);
-                        menuGc.fillOval(slotX + 46, slotY + 46, 12 ,12);
+                        menuGc.fillOval(slotX + 46, slotY + 46, 12, 12);
                     }
                 }
                 itemSlotNumber++;
             }
         }
 
+        //Text
+        int offsetYFirstLine = 60;
+        int dateLength = 200;
         menuGc.setFill(font);
-        menuGc.fillText("Inventory of " + player.getActorInGameName(), initialOffsetX, 60);
+        menuGc.fillText("Inventory of " + player.getActorInGameName(), initialOffsetX, offsetYFirstLine);
+        menuGc.fillText("Day: " + GameVariables.getDay(), WIDTH - dateLength, offsetYFirstLine);
 
         //Decoration
         menuGc.drawImage(cornerTopLeft, 0, 0);
-        menuGc.drawImage(cornerBtmRight, INVENTORY_WIDTH - cornerBtmRight.getWidth(), INVENTORY_HEIGHT - cornerBtmRight.getHeight());
+        menuGc.drawImage(cornerBtmRight, WIDTH - cornerBtmRight.getWidth(), HEIGHT - cornerBtmRight.getHeight());
 
         SnapshotParameters transparency = new SnapshotParameters();
         transparency.setFill(Color.TRANSPARENT);
@@ -137,12 +143,12 @@ public class InventoryOverlay
     public void processMouse(Point2D mousePosition, boolean isMouseClicked, Long currentNanoTime)
     {
         String methodName = "processMouse(Point2D, boolean) ";
-        Point2D discussionOverlayPosition = WorldView.getPersonalityScreenPosition();
-        Rectangle2D discussionPosRelativeToWorldview = new Rectangle2D(discussionOverlayPosition.getX(), discussionOverlayPosition.getY(), DISCUSSION_WIDTH, DISCUSSION_HEIGHT);
+        Rectangle2D posRelativeToWorldview = new Rectangle2D(SCREEN_POSITION.getX(), SCREEN_POSITION.getY(), WIDTH, HEIGHT);
 
         //Calculate Mouse Position relative to Discussion
-        if (discussionPosRelativeToWorldview.contains(mousePosition))
-            relativeMousePosition = new Point2D(mousePosition.getX() - discussionOverlayPosition.getX(), mousePosition.getY() - discussionOverlayPosition.getY());
+        Point2D relativeMousePosition;
+        if (posRelativeToWorldview.contains(mousePosition))
+            relativeMousePosition = new Point2D(mousePosition.getX() - SCREEN_POSITION.getX(), mousePosition.getY() - SCREEN_POSITION.getY());
         else relativeMousePosition = null;
 
         Integer hoveredElement = null;
@@ -195,11 +201,11 @@ public class InventoryOverlay
 
     public static int getMenuWidth()
     {
-        return INVENTORY_WIDTH;
+        return WIDTH;
     }
 
     public static int getMenuHeight()
     {
-        return INVENTORY_HEIGHT;
+        return HEIGHT;
     }
 }

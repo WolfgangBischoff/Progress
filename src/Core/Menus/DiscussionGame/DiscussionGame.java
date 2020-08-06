@@ -32,7 +32,10 @@ import static Core.Menus.PersonalityTrait.*;
 public class DiscussionGame
 {
     //moving symbols like pokemon, you must know which to click before disappeared, traits more powerfull
-    private static final String CLASSNAME = "DiscussionGame-";
+    private static final String CLASSNAME = "DiscussionGame ";
+    private static final int HEIGHT = DISCUSSION_HEIGHT;
+    private static final int WIDTH = DISCUSSION_WIDTH;
+    private static final Point2D SCREEN_POSITION = DISCUSSION_POSITION;
     private Canvas canvas;
     private GraphicsContext graphicsContext;
     private WritableImage writableImage;
@@ -62,7 +65,7 @@ public class DiscussionGame
 
     private void init()
     {
-        canvas = new Canvas(DISCUSSION_WIDTH, DISCUSSION_HEIGHT);
+        canvas = new Canvas(WIDTH, HEIGHT);
         graphicsContext = canvas.getGraphicsContext2D();
         loadDiscussion();
         gameStartTime = GameWindow.getSingleton().getRenderTime();
@@ -98,7 +101,7 @@ public class DiscussionGame
         }
 
         //For all Coins
-        for (Integer i = 0; i < visibleCoinsList.size(); i++)
+        for (int i = 0; i < visibleCoinsList.size(); i++)
         {
             CharacterCoin coin = visibleCoinsList.get(i);
             Circle circle = coin.collisionCircle;
@@ -215,7 +218,7 @@ public class DiscussionGame
     private void draw(Long currentNanoTime) throws NullPointerException
     {
         String methodName = "draw() ";
-        graphicsContext.clearRect(0, 0, DISCUSSION_WIDTH, DISCUSSION_HEIGHT);
+        graphicsContext.clearRect(0, 0, WIDTH, HEIGHT);
         Color background = Color.rgb(60, 90, 85);
         double hue = background.getHue();
         double sat = background.getSaturation();
@@ -227,7 +230,7 @@ public class DiscussionGame
         graphicsContext.setGlobalAlpha(0.8);
         graphicsContext.setFill(background);
         int backgroundOffsetX = 0, backgroundOffsetY = 0;
-        graphicsContext.fillRect(backgroundOffsetX, backgroundOffsetY, INVENTORY_WIDTH - backgroundOffsetX * 2, INVENTORY_HEIGHT - backgroundOffsetY * 2);
+        graphicsContext.fillRect(backgroundOffsetX, backgroundOffsetY, WIDTH - backgroundOffsetX * 2, HEIGHT - backgroundOffsetY * 2);
         graphicsContext.setGlobalAlpha(1);
 
         update(currentNanoTime);
@@ -250,12 +253,12 @@ public class DiscussionGame
 
 
             String text = "You got motivation" + motivationResult + " focus: " + focusResult + " decision: " + decisionResult + " lifestyle: " + lifestyleResult + " Total: " + totalResult;
-            graphicsContext.fillText(text, DISCUSSION_WIDTH / 2.0, DISCUSSION_HEIGHT / 2.0);
+            graphicsContext.fillText(text, WIDTH / 2.0, HEIGHT / 2.0);
             //graphicsContext.fillText("Finished!", DISCUSSION_WIDTH / 2.0, DISCUSSION_HEIGHT / 2.0 + graphicsContext.getFont().getSize() + 10);
             if (totalResult > DISCUSSION_THRESHOLD_WIN)
-                graphicsContext.fillText("Convinced!", DISCUSSION_WIDTH / 2.0, DISCUSSION_HEIGHT / 2.0 + graphicsContext.getFont().getSize() + 40);
+                graphicsContext.fillText("Convinced!", WIDTH / 2.0, HEIGHT / 2.0 + graphicsContext.getFont().getSize() + 40);
             else
-                graphicsContext.fillText("Try again!", DISCUSSION_WIDTH / 2.0, DISCUSSION_HEIGHT / 2.0 + graphicsContext.getFont().getSize() + 40);
+                graphicsContext.fillText("Try again!", WIDTH / 2.0, HEIGHT / 2.0 + graphicsContext.getFont().getSize() + 40);
         }
 
         SnapshotParameters transparency = new SnapshotParameters();
@@ -266,13 +269,13 @@ public class DiscussionGame
     public void processMouse(Point2D mousePosition, boolean isMouseClicked, Long currentNanoTime)
     {
         String methodName = "processMouse(Point2D, boolean) ";
-        Point2D discussionOverlayPosition = WorldView.getPersonalityScreenPosition();
-        Rectangle2D discussionPosRelativeToWorldview = new Rectangle2D(discussionOverlayPosition.getX(), discussionOverlayPosition.getY(), DISCUSSION_WIDTH, DISCUSSION_HEIGHT);
+        Point2D overlayPosition = SCREEN_POSITION;//= WorldView.getPersonalityScreenPosition();
+        Rectangle2D posRelativeToWorldview = new Rectangle2D(overlayPosition.getX(), overlayPosition.getY(), WIDTH, HEIGHT);
         List<CharacterCoin> hoveredElements = new ArrayList<>();
 
         //Calculate Mouse Position relative to Discussion
-        if (discussionPosRelativeToWorldview.contains(mousePosition))
-            mousePosRelativeToDiscussionOverlay = new Point2D(mousePosition.getX() - discussionOverlayPosition.getX(), mousePosition.getY() - discussionOverlayPosition.getY());
+        if (posRelativeToWorldview.contains(mousePosition))
+            mousePosRelativeToDiscussionOverlay = new Point2D(mousePosition.getX() - overlayPosition.getX(), mousePosition.getY() - overlayPosition.getY());
         else
         {
             mousePosRelativeToDiscussionOverlay = null;
@@ -295,7 +298,7 @@ public class DiscussionGame
         //Process click
         if (isMouseClicked && !hoveredElements.isEmpty())
         {
-            for (Integer i = 0; i < hoveredElements.size(); i++)
+            for (int i = 0; i < hoveredElements.size(); i++)
             {
                 Circle circle = hoveredElements.get(i).collisionCircle;
                 //System.out.println(CLASSNAME + methodName + "clicked on: " + circle);
@@ -330,16 +333,5 @@ public class DiscussionGame
         draw(currentNanoTime);
         return writableImage;
     }
-
-    public static int getMenuWidth()
-    {
-        return INVENTORY_WIDTH;
-    }
-
-    public static int getMenuHeight()
-    {
-        return INVENTORY_HEIGHT;
-    }
-
 
 }

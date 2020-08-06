@@ -48,7 +48,7 @@ public class WorldView implements GUIController
     //Inventory Overlay
     static boolean isInventoryActive = false;
     static InventoryOverlay inventoryOverlay;
-    static Point2D inventoryOverlayPosition = new Point2D(CAMERA_WIDTH / 2f - InventoryOverlay.getMenuWidth() / 2.0, CAMERA_HEIGHT / 2.0 - InventoryOverlay.getMenuHeight() / 2.0);
+    static Point2D inventoryOverlayPosition = INVENTORY_POSITION;//new Point2D(64, CAMERA_HEIGHT / 2.0 - InventoryOverlay.getMenuHeight() / 2.0);
     static Long lastTimeMenuWasOpened = 0L;
 
     //TextBox Overlay
@@ -59,17 +59,17 @@ public class WorldView implements GUIController
     //Personality Overlay
     static boolean isPersonalityScreenActive = false;
     static PersonalityScreenController personalityScreenController;
-    static Point2D personalityScreenPosition = new Point2D(CAMERA_WIDTH / 2f - PersonalityScreenController.getMenuWidth() / 2.0, CAMERA_HEIGHT / 2.0 - PersonalityScreenController.getMenuHeight() / 2.0);
+    static Point2D personalityScreenPosition = PERSONALITY_POSITION;
 
     //Discussion Game Overlay
     static boolean isDiscussionGameActive = false;
     static DiscussionGame discussionGame;
-    static Point2D discussionGamePosition = new Point2D(CAMERA_WIDTH / 2f - DiscussionGame.getMenuWidth() / 2.0, CAMERA_HEIGHT / 2.0 - DiscussionGame.getMenuHeight() / 2.0);
+    static Point2D discussionGamePosition = DISCUSSION_POSITION;//new Point2D(CAMERA_WIDTH / 2f - DiscussionGame.getMenuWidth() / 2.0, CAMERA_HEIGHT / 2.0 - DiscussionGame.getMenuHeight() / 2.0);
 
     //DaySummary Overlay
     private static boolean isDaySummaryActive = false;
     static DaySummaryScreenController daySummaryScreenController;
-    static Point2D daySummaryScreenPosition = new Point2D(CAMERA_WIDTH / 2f - DaySummaryScreenController.getMenuWidth() / 2.0, CAMERA_HEIGHT / 2.0 - DaySummaryScreenController.getMenuHeight() / 2.0);
+    static Point2D daySummaryScreenPosition = DAY_SUMMARY_POSITION;
 
     //Sprites
     String levelName;
@@ -605,6 +605,8 @@ public class WorldView implements GUIController
     {
         return personalityScreenPosition;
     }
+
+
 
     public static void setIsTextBoxActive(boolean isTextBoxActive)
     {

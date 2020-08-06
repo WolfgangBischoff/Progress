@@ -1,6 +1,7 @@
 package Core.Menus.DaySummary;
 
 import Core.Collectible;
+import Core.Config;
 import Core.GameWindow;
 import Core.WorldView;
 import javafx.geometry.Point2D;
@@ -24,13 +25,13 @@ public class DaySummaryScreenController
     private static final String CLASSNAME = "DaySummaryScreenController ";
     private static final int WIDTH = DAY_SUMMARY_WIDTH;
     private static final int HEIGHT = DAY_SUMMARY_HEIGHT;
+    private static final Point2D SCREEN_POSITION = DAY_SUMMARY_POSITION;
 
     private Canvas canvas;
     private GraphicsContext graphicsContext;
     private WritableImage writableImage;
     private Integer highlightedElement;
     private List<String> interfaceElements_list = new ArrayList<>();
-    private Point2D mousePosRelativeToDiscussionOverlay;
     private DaySummary daySummary;
 
     Image cornerTopLeft;
@@ -178,18 +179,22 @@ public class DaySummaryScreenController
     public void processMouse(Point2D mousePosition, boolean isMouseClicked, Long currentNanoTime)
     {
         String methodName = "processMouse(Point2D, boolean) ";
-        Point2D discussionOverlayPosition = WorldView.getPersonalityScreenPosition();
-        Rectangle2D discussionPosRelativeToWorldview = new Rectangle2D(discussionOverlayPosition.getX(), discussionOverlayPosition.getY(), DISCUSSION_WIDTH, DISCUSSION_HEIGHT);
+        boolean debug = false;
+        Point2D screenPosition = SCREEN_POSITION;
+        Rectangle2D posRelativeToWorldview = new Rectangle2D(screenPosition.getX(), screenPosition.getY(), WIDTH, HEIGHT);
 
         //Calculate Mouse Position relative to Discussion
-        if (discussionPosRelativeToWorldview.contains(mousePosition))
-            mousePosRelativeToDiscussionOverlay = new Point2D(mousePosition.getX() - discussionOverlayPosition.getX(), mousePosition.getY() - discussionOverlayPosition.getY());
+        Point2D mousePosRelativeToDiscussionOverlay;
+        if (posRelativeToWorldview.contains(mousePosition))
+            mousePosRelativeToDiscussionOverlay = new Point2D(mousePosition.getX() - screenPosition.getX(), mousePosition.getY() - screenPosition.getY());
         else mousePosRelativeToDiscussionOverlay = null;
 
         Integer hoveredElement = null;
-        //Check if hovered over Rhetoric Button
         if (closeButton.contains(mousePosRelativeToDiscussionOverlay))
             hoveredElement = interfaceElements_list.indexOf(CLOSE_BUTTON_ID);
+
+        if(debug)
+            System.out.println(CLASSNAME + methodName + hoveredElement);
 
         if (GameWindow.getSingleton().isMouseMoved() && hoveredElement != null)//Set highlight if mouse moved
         {
