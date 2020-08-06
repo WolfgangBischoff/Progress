@@ -65,7 +65,7 @@ FCwn_0				;wall													;walls/freightcapsule/wall_0										  												
 FCf__0				;floor												;walls/freightcapsule/floor_0									  																											;false				;0												;0			;0												;0				;0				;0										;0											;000									 	;000									 	;000									;000										;none
 
 #code     ;name        					;spritename                     																																			;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning
-staseC				;stase												;../actorData/machine/stasis_capsule/capsule																							;true					;1												;0			;0												;0				;0				;0										;0											;000									 	;000									 	;000									;000										;none
+staseC				;stase												;../actorData/machine/stasis_capsule/capsule																							;true					;1												;0			;0												;0				;0				;0										;0											;000									 	;000									 	;000									;000										;bluelight_256
 batt__				;battery										;../actorData/machine/stasis_capsule/battery/battery_192_64_anim3		;true					;1												;2			;3												;3				;1				;064								;128									;000									 	;000									 	;000									;000										;none
 pipe_l				;pipe													;../actorData/machine/stasis_capsule/battery/corner_left											;false				;0												;0			;0												;0				;0				;0										;0											;000									 	;000									 	;000									;000										;none
 pipe_r				;pipe													;../actorData/machine/stasis_capsule/battery/corner_right										;false				;0												;0			;0												;0				;0				;0										;0											;000									 	;000									 	;000									;000										;none

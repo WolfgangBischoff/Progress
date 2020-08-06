@@ -1,6 +1,9 @@
 
 Logic:
-- Attention Meter
+- Economy
+    - Add Money, get it from tenderer
+    - Debit Cards can be stolen, work one day before blocked, max limit. Can be found by interrogation
+    - Vendor to buy items by debit card
     - Box/ItemHideOut
 - Add Food Value
     - Clock
@@ -15,6 +18,9 @@ Logic:
 - Cleaning Bot Moving
     - add definition in file
 - Inventory
+    - left sided, item desrcp, money card
+    - other inventory right side, DragDrop
+    - buy menue similar to other iventory: desc, chosen money card, buy bttn
     add item with textbox
     add item in box
 - Console
@@ -226,6 +232,11 @@ Passenger
 
 Prey
     You are the boss of the station and have to save the world from investation; the whole game is a test thereby
+
+How to Revolution
+    Angst vor dem Gefängnis schlimmer als Gefängnis selbst, Information macht Mut. Organize people outside to call police and ask questions, celebrate once freed.
+    Use social media to show police bruality, let oppression backfire.
+    Invite all groups, patriotic and liberal under one motto, not too much topics.
 ------------------------------------------
 ----- SHORTKEY ---------------------------
 ------------------------------------------
