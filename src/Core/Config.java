@@ -34,6 +34,10 @@ public class Config
     public static final int DAY_SUMMARY_HEIGHT = 600;
     public static Point2D DAY_SUMMARY_POSITION = new Point2D(CAMERA_WIDTH / 2f - DAY_SUMMARY_WIDTH / 2.0, CAMERA_HEIGHT / 2.0 - DAY_SUMMARY_HEIGHT / 2.0); //Centereda
 
+    public static final int MAM_BAR_WIDTH = 300;
+    public static final int MAM_BAR_HEIGHT = 50;
+    public static Point2D MAM_BAR_POSITION = new Point2D(CAMERA_WIDTH - MAM_BAR_WIDTH - 50, MAM_BAR_HEIGHT + 30); //Right Upper Edge
+
     //Gameplay
     public static final float TIME_BETWEEN_INTERACTIONS = 0.5f;
     public static final float TIME_BETWEEN_DIALOGUE = 0.2f;

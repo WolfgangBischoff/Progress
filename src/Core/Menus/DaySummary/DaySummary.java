@@ -18,17 +18,18 @@ public class DaySummary
 
     public DaySummary()
     {
-        init();
     }
 
-    private void init()
+    void init()
     {
         if (GameVariables.getPlayerMaM_duringDay() >= MAM_THRESHOLD_INTERROGATION)
         {
             hasInterrogation = true;
+
+            //Check if stolen items are in the players inventory
             boolean stolenItemWasFound = false;
             List<Collectible> playerInventory = WorldView.getPlayer().getActor().getInventory().getItemsList();
-            foundStolenCollectibles.clear();// = new ArrayList<>();
+            foundStolenCollectibles.clear();
             for(int i=0; i<playerInventory.size(); i++)
             {
                 Collectible checked = playerInventory.get(i);
@@ -50,28 +51,6 @@ public class DaySummary
     {
         String methodName = "endDay() ";
         boolean debug = false;
-
-        if (hasInterrogation)
-        {
-//            boolean stolenItemWasFound = false;
-//            List<Collectible> playerInventory = WorldView.getPlayer().getActor().getInventory().getItemsList();
-//            foundStolenCollectibles.clear();// = new ArrayList<>();
-//            for(int i=0; i<playerInventory.size(); i++)
-//            {
-//                Collectible checked = playerInventory.get(i);
-//                if(GameVariables.getStolenCollectibles().contains(checked))
-//                {
-//                    stolenItemWasFound = true;
-//                    foundStolenCollectibles.add(checked);
-//                }
-//            }
-//            WorldView.getPlayer().getActor().getInventory().removeAll(foundStolenCollectibles);//take away found stolen items in the inventory
-//
-//            //decrease MAM by Interrogation threshold if nothing was found
-//            if(!stolenItemWasFound)
-//                GameVariables.addPlayerMAM_duringDay(- MAM_THRESHOLD_INTERROGATION);
-
-        }
 
         //Time decreases MaM, but not below zero
         if (GameVariables.getPlayerMaM_duringDay() > MAM_DAILY_DECREASE)

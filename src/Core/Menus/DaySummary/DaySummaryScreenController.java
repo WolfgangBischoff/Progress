@@ -52,14 +52,20 @@ public class DaySummaryScreenController
     private int closeButton_height = 50;
     Rectangle2D closeButton = new Rectangle2D(closeButton_x, closeButton_y, closeButton_width, closeButton_height);
 
-    public DaySummaryScreenController(DaySummary daySummary)
+    //public DaySummaryScreenController(DaySummary daySummary)
+    public DaySummaryScreenController()
     {
         canvas = new Canvas(WIDTH, HEIGHT);
         graphicsContext = canvas.getGraphicsContext2D();
         highlightedElement = 0;
-        this.daySummary = daySummary;
+        this.daySummary = new DaySummary();//daySummary;
         cornerTopLeft = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
         cornerBtmRight = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
+    }
+
+    public void newDay()
+    {
+        daySummary.init();
     }
 
     private void draw() throws NullPointerException

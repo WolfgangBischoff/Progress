@@ -2,11 +2,11 @@ package Core;
 
 import Core.Enums.Direction;
 import Core.Enums.TriggerType;
-import Core.Menus.DaySummary.DaySummary;
 import Core.Menus.DaySummary.DaySummaryScreenController;
 import Core.Menus.DiscussionGame.DiscussionGame;
 import Core.Menus.Inventory.InventoryOverlay;
 import Core.Menus.Personality.PersonalityScreenController;
+import Core.Menus.StatusBarOverlay;
 import Core.Menus.Textbox.Textbox;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -48,7 +48,7 @@ public class WorldView implements GUIController
     //Inventory Overlay
     static boolean isInventoryActive = false;
     static InventoryOverlay inventoryOverlay;
-    static Point2D inventoryOverlayPosition = INVENTORY_POSITION;//new Point2D(64, CAMERA_HEIGHT / 2.0 - InventoryOverlay.getMenuHeight() / 2.0);
+    static Point2D inventoryOverlayPosition = INVENTORY_POSITION;
     static Long lastTimeMenuWasOpened = 0L;
 
     //TextBox Overlay
@@ -64,12 +64,17 @@ public class WorldView implements GUIController
     //Discussion Game Overlay
     static boolean isDiscussionGameActive = false;
     static DiscussionGame discussionGame;
-    static Point2D discussionGamePosition = DISCUSSION_POSITION;//new Point2D(CAMERA_WIDTH / 2f - DiscussionGame.getMenuWidth() / 2.0, CAMERA_HEIGHT / 2.0 - DiscussionGame.getMenuHeight() / 2.0);
+    static Point2D discussionGamePosition = DISCUSSION_POSITION;
 
     //DaySummary Overlay
     private static boolean isDaySummaryActive = false;
-    static DaySummaryScreenController daySummaryScreenController;
+    static DaySummaryScreenController daySummaryScreenController = new DaySummaryScreenController();
     static Point2D daySummaryScreenPosition = DAY_SUMMARY_POSITION;
+
+    //Management Attention Meter Overlay
+    private static boolean isManagementAttentionMeterActive = true;
+    static StatusBarOverlay mamOverlay = new StatusBarOverlay(MAM_BAR_WIDTH, MAM_BAR_HEIGHT, GameVariables.playerMaM_duringDay);
+    static Point2D mamOverlayPosition = MAM_BAR_POSITION;
 
     //Sprites
     String levelName;
@@ -479,10 +484,14 @@ public class WorldView implements GUIController
 
         root.getChildren().clear();
         root.getChildren().add(worldCanvas);
-
         gc.translate(camX, camY);
 
         //Overlays
+        if (isManagementAttentionMeterActive)
+        {
+            WritableImage writableImage = mamOverlay.getWritableImage();
+            gc.drawImage(writableImage, mamOverlayPosition.getX(), mamOverlayPosition.getY());
+        }
         if (isTextBoxActive)
         {
             WritableImage textBoxImg = textbox.showMessage();
@@ -607,7 +616,6 @@ public class WorldView implements GUIController
     }
 
 
-
     public static void setIsTextBoxActive(boolean isTextBoxActive)
     {
         WorldView.isTextBoxActive = isTextBoxActive;
@@ -640,8 +648,9 @@ public class WorldView implements GUIController
 
     public static void setIsDaySummaryActive(boolean isDaySummaryActive)
     {
-        DaySummary daySummary = new DaySummary();
-        daySummaryScreenController = new DaySummaryScreenController(daySummary);
+        //daySummaryScreenController = new DaySummaryScreenController();
+        if(isDaySummaryActive)
+            daySummaryScreenController.newDay();
         WorldView.isDaySummaryActive = isDaySummaryActive;
     }
 }

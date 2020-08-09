@@ -1,18 +1,19 @@
 package Core;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static Core.Config.MAM_DAILY_DECREASE;
-
 public class GameVariables
 {
     private static String CLASSNAME = "GameVariables/";
     private static GameVariables singleton;
+    static IntegerProperty playerMaM_duringDay = new SimpleIntegerProperty();
     static private int playerMaM_dayStart = 0;//ManagementAttentionMeter
-    static private int playerMaM_duringDay = 0;
     static private int day = 0;
 
     //Game State persistent over days
@@ -48,8 +49,9 @@ public class GameVariables
         String methodName = "addPlayerManagementAttention(int) ";
         boolean debug = true;
         if (debug)
-            System.out.println(CLASSNAME + methodName + "MAM: " + playerMaM_duringDay + " + " + deltaMAM + " = " + (playerMaM_duringDay + deltaMAM));
-        playerMaM_duringDay += deltaMAM;
+            System.out.println(CLASSNAME + methodName + "MAM: " + playerMaM_duringDay + " + " + deltaMAM + " = " + (playerMaM_duringDay.getValue() + deltaMAM));
+
+        setPlayerMaM_duringDay(playerMaM_duringDay.getValue() + deltaMAM);;
     }
 
     public static void addStolenCollectible(Collectible collectible)
@@ -66,7 +68,7 @@ public class GameVariables
     public static void incrementDay()
     {
         String methodName = "incrementDay() ";
-        playerMaM_dayStart = playerMaM_duringDay;
+        playerMaM_dayStart = playerMaM_duringDay.getValue();
         day++;
         getLevelData().clear();//Invalidate data from previous day to reload from file
         System.out.println(CLASSNAME + methodName + "Day: " + day + " MaM Start: " + playerMaM_dayStart);
@@ -80,7 +82,7 @@ public class GameVariables
 
     public static int getPlayerMaM_duringDay()
     {
-        return playerMaM_duringDay;
+        return playerMaM_duringDay.getValue();
     }
 
     public static Map<String, LevelState> getLevelData()
@@ -106,6 +108,7 @@ public class GameVariables
 
     public static void setPlayerMaM_duringDay(int playerMaM_duringDay)
     {
-        GameVariables.playerMaM_duringDay = playerMaM_duringDay;
+        String methodName = "setPlayerMaM_duringDay() ";
+        GameVariables.playerMaM_duringDay.setValue(playerMaM_duringDay);
     }
 }
