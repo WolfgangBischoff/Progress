@@ -31,7 +31,7 @@ import static Core.Config.*;
 
 public class WorldView implements GUIController
 {
-    private static final String CLASSNAME = "WorldView/";
+    private static final String CLASSNAME = "WorldView ";
     private static WorldView singleton;
 
     @FXML
