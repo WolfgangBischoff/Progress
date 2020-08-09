@@ -73,7 +73,7 @@ public class WorldView implements GUIController
 
     //Management Attention Meter Overlay
     private static boolean isManagementAttentionMeterActive = true;
-    static StatusBarOverlay mamOverlay = new StatusBarOverlay(MAM_BAR_WIDTH, MAM_BAR_HEIGHT, GameVariables.playerMaM_duringDay);
+    static StatusBarOverlay mamOverlay = new StatusBarOverlay(MAM_BAR_WIDTH, MAM_BAR_HEIGHT, GameVariables.playerMaM_duringDay, 100);
     static Point2D mamOverlayPosition = MAM_BAR_POSITION;
 
     //Sprites

@@ -18,11 +18,11 @@ public class StatusBarOverlay
     GraphicsContext graphicsContext;
     WritableImage writableImage;
 
-    int max = 100;
+    int maxValue;
     int current;
     IntegerProperty baseValue;
 
-    public StatusBarOverlay(int WIDTH, int HEIGHT, IntegerProperty integerProperty)
+    public StatusBarOverlay(int WIDTH, int HEIGHT, IntegerProperty integerProperty, int maxValue)
     {
         this.baseValue = integerProperty;
         baseValue.addListener(new ChangeListener<Number>()
@@ -31,11 +31,11 @@ public class StatusBarOverlay
             public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue)
             {
                 current = (int)newValue;
-                //System.out.println(CLASSNAME + oldValue + " " + newValue);
             }
         });
         this.WIDTH = WIDTH;
         this.HEIGHT = HEIGHT;
+        this.maxValue = maxValue;
         canvas = new Canvas(WIDTH, HEIGHT);
         graphicsContext = canvas.getGraphicsContext2D();
     }
@@ -60,10 +60,10 @@ public class StatusBarOverlay
         graphicsContext.fillRect(backgroundOffsetX, backgroundOffsetY, WIDTH - backgroundOffsetX * 2, HEIGHT - backgroundOffsetY * 2);
 
         //Fill bar
-        float fillPercentage= current / (float)max * WIDTH;
+        float fillPercentage= current / (float) maxValue * WIDTH;
         graphicsContext.setFill(marking);
         graphicsContext.fillRect(backgroundOffsetX, backgroundOffsetY, fillPercentage, HEIGHT - backgroundOffsetY * 2);
-        String msg = "Current: " + current + " max: " + max +  " Percent: " + current / (float)max;
+        String msg = "Current: " + current + " max: " + maxValue +  " Percent: " + current / (float) maxValue;
         graphicsContext.setFill(font);
         graphicsContext.fillText(msg,  backgroundOffsetX, backgroundOffsetY + graphicsContext.getFont().getSize());
 
