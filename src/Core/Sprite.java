@@ -1,7 +1,7 @@
 package Core;
 
-import Core.Enums.ActorTag;
 import Core.Enums.TriggerType;
+import Core.WorldView.WorldView;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
@@ -243,7 +243,7 @@ public class Sprite
 
     public boolean intersectsRelativeToWorldView(Point2D point)
     {
-        Rectangle2D positionRelativeToWorldView = new Rectangle2D(positionX + hitBoxOffsetX - WorldView.camX, positionY + hitBoxOffsetY - WorldView.camY, hitBoxWidth, hitBoxHeight);
+        Rectangle2D positionRelativeToWorldView = new Rectangle2D(positionX + hitBoxOffsetX - WorldView.getCamX(), positionY + hitBoxOffsetY - WorldView.getCamY(), hitBoxWidth, hitBoxHeight);
         return positionRelativeToWorldView.contains(point);
     }
 
@@ -461,5 +461,110 @@ public class Sprite
     public Actor getActor()
     {
         return actor;
+    }
+
+    public static String getClassName()
+    {
+        return CLASS_NAME;
+    }
+
+    public Image getBaseimage()
+    {
+        return baseimage;
+    }
+
+    public double getBasewidth()
+    {
+        return basewidth;
+    }
+
+    public double getBaseheight()
+    {
+        return baseheight;
+    }
+
+    public double getPositionX()
+    {
+        return positionX;
+    }
+
+    public double getPositionY()
+    {
+        return positionY;
+    }
+
+    public Long getLastFrame()
+    {
+        return lastFrame;
+    }
+
+    public Long getLastUpdated()
+    {
+        return lastUpdated;
+    }
+
+    public Rectangle2D getInteractionArea()
+    {
+        return interactionArea;
+    }
+
+    public double getFps()
+    {
+        return fps;
+    }
+
+    public int getTotalFrames()
+    {
+        return totalFrames;
+    }
+
+    public int getCols()
+    {
+        return cols;
+    }
+
+    public int getRows()
+    {
+        return rows;
+    }
+
+    public double getFrameWidth()
+    {
+        return frameWidth;
+    }
+
+    public double getFrameHeight()
+    {
+        return frameHeight;
+    }
+
+    public int getCurrentCol()
+    {
+        return currentCol;
+    }
+
+    public int getCurrentRow()
+    {
+        return currentRow;
+    }
+
+    public Boolean getBlocker()
+    {
+        return isBlocker;
+    }
+
+    public Boolean getAnimationEnds()
+    {
+        return animationEnds;
+    }
+
+    public Boolean getInteract()
+    {
+        return interact;
+    }
+
+    public Boolean getBlockedByOtherSprite()
+    {
+        return blockedByOtherSprite;
     }
 }

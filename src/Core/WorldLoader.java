@@ -1,6 +1,7 @@
 package Core;
 
 import Core.Enums.Direction;
+import Core.WorldView.WorldView;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.paint.Color;
 
@@ -423,10 +424,10 @@ public class WorldLoader
             throw new RuntimeException("Spawn Point " + spawnId + " not set in " + levelName + "\nSpawn Points: " + spawnPointsMap.toString());
         Actor actor;
         //Reruse Player if already created
-        if (WorldView.player != null)
+        if (WorldView.getPlayer() != null)
         {
-            actor = WorldView.player.actor;
-            WorldView.player.setPosition(playerSpawn.x * 64, playerSpawn.y * 64);
+            actor = WorldView.getPlayer().actor;
+            WorldView.getPlayer().setPosition(playerSpawn.x * 64, playerSpawn.y * 64);
         }
         else
             actor = createActor("player", playerSpawn.x, playerSpawn.y);
@@ -444,7 +445,7 @@ public class WorldLoader
         player = actor.spriteList.get(0);
     }
 
-    class SpawnData
+    public class SpawnData
     {
         Integer x, y;
         Direction direction;
@@ -463,6 +464,21 @@ public class WorldLoader
                     ", y=" + y +
                     ", direction=" + direction +
                     '}';
+        }
+
+        public Integer getX()
+        {
+            return x;
+        }
+
+        public Integer getY()
+        {
+            return y;
+        }
+
+        public Direction getDirection()
+        {
+            return direction;
         }
     }
 
@@ -492,39 +508,6 @@ public class WorldLoader
         }
     }
 
-    /*
-    private Sprite createSprite(SpriteData tile, Integer x, Integer y)
-    {
-        Sprite ca;
-        try
-        {
-            if (tile.totalFrames > 1)
-                ca = new Sprite(tile.spriteName, tile.fps, tile.totalFrames, tile.cols, tile.rows, tile.frameWidth, tile.frameHeight);
-            else
-                ca = new Sprite(tile.spriteName);
-        }
-        catch (IllegalArgumentException e)
-        {
-            e.printStackTrace();
-            ca = new Sprite(IMAGE_DIRECTORY_PATH + "notfound_64_64" + CSV_POSTFIX);
-        }
-
-        ca.setName(tile.name);
-        ca.setPosition(x, y);
-        ca.setBlocker(tile.blocking);
-        ca.setLightningSpriteName(tile.lightningSprite);
-
-        //if (ca.getName().toLowerCase().equals("player"))
-        //   player = ca;
-
-        //If Hitbox differs
-        if (tile.hitboxOffsetX != 0 || tile.hitboxOffsetY != 0 || tile.hitboxWidth != 0 || tile.hitboxHeight != 0)
-            ca.setHitBox(tile.hitboxOffsetX, tile.hitboxOffsetY, tile.hitboxWidth, tile.hitboxHeight);
-
-        return ca;
-    }
-
-     */
 
     public Rectangle2D getBorders()
     {
@@ -559,5 +542,85 @@ public class WorldLoader
     public Color getShadowColor()
     {
         return shadowColor;
+    }
+
+    public static String getCLASSNAME()
+    {
+        return CLASSNAME;
+    }
+
+    public static Set<String> getKeywords()
+    {
+        return keywords;
+    }
+
+    public String getLevelName()
+    {
+        return levelName;
+    }
+
+    public String getSpawnId()
+    {
+        return spawnId;
+    }
+
+    public List<Sprite> getActiveLayer()
+    {
+        return activeLayer;
+    }
+
+    public Set<String> getDefinedMapCodesSet()
+    {
+        return definedMapCodesSet;
+    }
+
+    public Map<String, SpriteData> getTileDataMap()
+    {
+        return tileDataMap;
+    }
+
+    public Map<String, ActorData> getActorDataMap()
+    {
+        return actorDataMap;
+    }
+
+    public Map<String, SpawnData> getSpawnPointsMap()
+    {
+        return spawnPointsMap;
+    }
+
+    public StageMonitor getStageMonitor()
+    {
+        return stageMonitor;
+    }
+
+    public Map<String, ActorGroupData> getActorGroupDataMap()
+    {
+        return actorGroupDataMap;
+    }
+
+    public String getReadMode()
+    {
+        return readMode;
+    }
+
+    public int getMaxVerticalTile()
+    {
+        return maxVerticalTile;
+    }
+
+    public int getCurrentVerticalTile()
+    {
+        return currentVerticalTile;
+    }
+
+    public int getCurrentHorizontalTile()
+    {
+        return currentHorizontalTile;
+    }
+
+    public int getMaxHorizontalTile()
+    {
+        return maxHorizontalTile;
     }
 }

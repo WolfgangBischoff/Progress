@@ -124,4 +124,64 @@ public class GameWindow extends Stage
     {
         this.mouseMoved = mouseMoved;
     }
+
+    public static String getCLASSNAME()
+    {
+        return CLASSNAME;
+    }
+
+    public static long getCurrentNanoRenderTimeGameWindow()
+    {
+        return currentNanoRenderTimeGameWindow;
+    }
+
+    public Stage getGameStage()
+    {
+        return gameStage;
+    }
+
+    public Scene getGameScene()
+    {
+        return gameScene;
+    }
+
+    public static void setInput(ArrayList<String> input)
+    {
+        GameWindow.input = input;
+    }
+
+    public static void setSingleton(GameWindow singleton)
+    {
+        GameWindow.singleton = singleton;
+    }
+
+    public static void setCurrentNanoRenderTimeGameWindow(long currentNanoRenderTimeGameWindow)
+    {
+        GameWindow.currentNanoRenderTimeGameWindow = currentNanoRenderTimeGameWindow;
+    }
+
+    public void setGameStage(Stage gameStage)
+    {
+        this.gameStage = gameStage;
+    }
+
+    public void setGameScene(Scene gameScene)
+    {
+        this.gameScene = gameScene;
+    }
+
+    public void setCurrentView(GUIController currentView)
+    {
+        this.currentView = currentView;
+    }
+
+    public void setMouseClicked(boolean mouseClicked)
+    {
+        this.mouseClicked = mouseClicked;
+    }
+
+    public void setMousePosition(Point2D mousePosition)
+    {
+        this.mousePosition = mousePosition;
+    }
 }

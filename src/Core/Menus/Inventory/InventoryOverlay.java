@@ -2,6 +2,7 @@ package Core.Menus.Inventory;
 
 import Core.*;
 import Core.Enums.CollectableType;
+import Core.WorldView.WorldView;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.SnapshotParameters;
@@ -29,6 +30,7 @@ public class InventoryOverlay
     private static int WIDTH = INVENTORY_WIDTH;
     private static int HEIGHT = INVENTORY_HEIGHT;
     private static Point2D SCREEN_POSITION = INVENTORY_POSITION;
+    //private static InventoryStatus inventoryStatus;
 
     Image cornerTopLeft;
     Image cornerBtmRight;
@@ -40,6 +42,7 @@ public class InventoryOverlay
         player = WorldView.getPlayer().getActor();
         cornerTopLeft = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
         cornerBtmRight = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
+        //inventoryStatus = ActorCondition.WorldViewStatus.CLOSED;
     }
 
     private void draw() throws NullPointerException

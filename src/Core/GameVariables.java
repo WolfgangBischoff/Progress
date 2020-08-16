@@ -84,6 +84,11 @@ public class GameVariables
     {
         return playerMaM_duringDay.getValue();
     }
+    public static IntegerProperty getPlayerMaM_duringDayProperty()
+    {
+        return playerMaM_duringDay;
+    }
+
 
     public static Map<String, LevelState> getLevelData()
     {
@@ -110,5 +115,25 @@ public class GameVariables
     {
         String methodName = "setPlayerMaM_duringDay() ";
         GameVariables.playerMaM_duringDay.setValue(playerMaM_duringDay);
+    }
+
+    public static String getCLASSNAME()
+    {
+        return CLASSNAME;
+    }
+
+    public static GameVariables getSingleton()
+    {
+        return singleton;
+    }
+
+    public static IntegerProperty playerMaM_duringDayProperty()
+    {
+        return playerMaM_duringDay;
+    }
+
+    public static Sprite getPlayer()
+    {
+        return player;
     }
 }

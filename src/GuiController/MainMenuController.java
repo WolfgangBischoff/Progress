@@ -1,6 +1,7 @@
 package GuiController;
 
 import Core.*;
+import Core.WorldView.WorldView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

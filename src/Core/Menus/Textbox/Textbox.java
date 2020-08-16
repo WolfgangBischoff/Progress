@@ -3,6 +3,7 @@ package Core.Menus.Textbox;
 import Core.*;
 import Core.Menus.DiscussionGame.DiscussionGame;
 import Core.Menus.Personality.PersonalityScreenController;
+import Core.WorldView.WorldView;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.geometry.VPos;

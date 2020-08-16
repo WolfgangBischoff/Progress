@@ -5,6 +5,7 @@ import Core.Enums.*;
 import Core.Menus.Inventory.Inventory;
 import Core.Menus.Personality.MyersBriggsPersonality;
 import Core.Menus.Personality.PersonalityContainer;
+import Core.WorldView.WorldView;
 import javafx.animation.PauseTransition;
 import javafx.geometry.Point2D;
 import javafx.util.Duration;
@@ -477,20 +478,20 @@ public class Actor
     private void changeLayer(Sprite sprite, int targetLayer)
     {
         String methodName = "changeLayer() ";
-        WorldView.bottomLayer.remove(sprite);
-        WorldView.middleLayer.remove(sprite);
-        WorldView.topLayer.remove(sprite);
+        WorldView.getBottomLayer().remove(sprite);
+        WorldView.getMiddleLayer().remove(sprite);
+        WorldView.getTopLayer().remove(sprite);
 
         switch (targetLayer)
         {
             case 0:
-                WorldView.bottomLayer.add(sprite);
+                WorldView.getBottomLayer().add(sprite);
                 break;
             case 1:
-                WorldView.middleLayer.add(sprite);
+                WorldView.getMiddleLayer().add(sprite);
                 break;
             case 2:
-                WorldView.topLayer.add(sprite);
+                WorldView.getTopLayer().add(sprite);
                 break;
         }
     }
@@ -672,7 +673,7 @@ public class Actor
             GameVariables.addStolenCollectible(collected);
         }
 
-        WorldView.toRemove.addAll(spriteList);
+        WorldView.getToRemove().addAll(spriteList);
     }
 
     public void setSensorStatus(String sensorStatusString)
@@ -723,7 +724,7 @@ public class Actor
                 {
                     analyzedGroupName = textbox_analysis_group_name;//set in actor file
                     analyzedGroup = stageMonitor.groupIdToActorGroupMap.get(analyzedGroupName).getSystemMembers();
-                    WorldView.textbox.groupAnalysis(analyzedGroup, this);
+                    WorldView.getTextbox().groupAnalysis(analyzedGroup, this);
                 }
                 catch (NullPointerException e)
                 {
@@ -740,8 +741,8 @@ public class Actor
 
             }
             else
-                WorldView.textbox.startConversation(this);
-            WorldView.isTextBoxActive = true;
+                WorldView.getTextbox().startConversation(this);
+            WorldView.setIsTextBoxActive(true);
         }
         else
             System.out.println(CLASSNAME + methodName + " Game Window not instance of WorldView, cannot show Dialogue");
@@ -991,5 +992,25 @@ public class Actor
     public Set<ActorTag> getTags()
     {
         return tags;
+    }
+
+    public Map<String, Double> getNumeric_generic_attributes()
+    {
+        return numeric_generic_attributes;
+    }
+
+    public List<Point2D> getMovenmentPointsList()
+    {
+        return movenmentPointsList;
+    }
+
+    public Point2D getTarget()
+    {
+        return target;
+    }
+
+    public Point2D getTarget2()
+    {
+        return target2;
     }
 }

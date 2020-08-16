@@ -1,5 +1,6 @@
-package Core;
+package Core.WorldView;
 
+import Core.*;
 import Core.Enums.Direction;
 import Core.Enums.TriggerType;
 import Core.Menus.DaySummary.DaySummaryScreenController;
@@ -73,7 +74,7 @@ public class WorldView implements GUIController
 
     //Management Attention Meter Overlay
     private static boolean isManagementAttentionMeterActive = true;
-    static StatusBarOverlay mamOverlay = new StatusBarOverlay(MAM_BAR_WIDTH, MAM_BAR_HEIGHT, GameVariables.playerMaM_duringDay, 100);
+    static StatusBarOverlay mamOverlay = new StatusBarOverlay(MAM_BAR_WIDTH, MAM_BAR_HEIGHT, GameVariables.getPlayerMaM_duringDayProperty(), 100);
     static Point2D mamOverlayPosition = MAM_BAR_POSITION;
 
     //Sprites
@@ -134,7 +135,7 @@ public class WorldView implements GUIController
         this.levelName = levelName;
         //check if level was already loaded today
         LevelState levelState = GameVariables.getLevelData().get(this.levelName);
-        if (levelState != null && levelState.day == GameVariables.getDay())
+        if (levelState != null && levelState.getDay() == GameVariables.getDay())
         {
             if (debug)
                 System.out.println(CLASSNAME + methodName + "loaded from state");
@@ -170,7 +171,7 @@ public class WorldView implements GUIController
         worldLoader.load(levelName, spawnId);
         player = worldLoader.getPlayer();
         passiveSpritesLayer = worldLoader.getPassivLayer(); //No collision just render
-        activeSpritesLayer = worldLoader.activeLayer;
+        activeSpritesLayer = worldLoader.getActiveLayer();
         bottomLayer = worldLoader.getBttmLayer(); //Render height
         middleLayer = worldLoader.getMediumLayer();
         topLayer = worldLoader.getUpperLayer();
@@ -179,7 +180,7 @@ public class WorldView implements GUIController
         passiveCollisionRelevantSpritesLayer.addAll(topLayer);
         borders = worldLoader.getBorders();
         shadowColor = worldLoader.getShadowColor();
-        spawnPointsMap = worldLoader.spawnPointsMap;
+        spawnPointsMap = worldLoader.getSpawnPointsMap();
     }
 
     private void loadFromLevelState(LevelState levelState, String spawnId)
@@ -195,10 +196,10 @@ public class WorldView implements GUIController
         spawnPointsMap = levelState.getSpawnPointsMap();
 
         //Player
-        player = GameVariables.player;
+        player = GameVariables.getPlayer();
         WorldLoader.SpawnData spawnData = levelState.getSpawnPointsMap().get(spawnId);
-        player.actor.setDirection(spawnData.direction);
-        player.setPosition(spawnData.x * 64, spawnData.y * 64);
+        player.getActor().setDirection(spawnData.getDirection());
+        player.setPosition(spawnData.getX() * 64, spawnData.getY() * 64);
         middleLayer.add(player); //assumption player on layer 1
         activeSpritesLayer.add(player);
 
@@ -240,20 +241,20 @@ public class WorldView implements GUIController
         //Process Input
         if (isTextBoxActive)
         {
-            if (player.actor.isMoving())
-                player.actor.setVelocity(0, 0);
+            if (player.getActor().isMoving())
+                player.getActor().setVelocity(0, 0);
             textbox.processKey(input, currentNanoTime);
         }
         else if (isPersonalityScreenActive)
         {
-            if (player.actor.isMoving())
-                player.actor.setVelocity(0, 0);
+            if (player.getActor().isMoving())
+                player.getActor().setVelocity(0, 0);
             personalityScreenController.processKey(input, currentNanoTime);
         }
         else if (isDaySummaryActive)
         {
-            if (player.actor.isMoving())
-                player.actor.setVelocity(0, 0);
+            if (player.getActor().isMoving())
+                player.getActor().setVelocity(0, 0);
             daySummaryScreenController.processKey(input, currentNanoTime);
         }
         else
@@ -286,7 +287,7 @@ public class WorldView implements GUIController
         boolean moveButtonPressed = false;
         int addedVelocityX = 0, addedVelocityY = 0;
         Direction newDirection = null;
-        Actor playerActor = player.actor;
+        Actor playerActor = player.getActor();
 
         //Interpret Input from GameWindow
         if (input.contains("LEFT") || input.contains("A"))
@@ -315,9 +316,9 @@ public class WorldView implements GUIController
         }
 
         if (moveButtonPressed)
-            player.actor.setVelocity(addedVelocityX, addedVelocityY);
-        else if (player.actor.isMoving())
-            player.actor.setVelocity(0, 0);
+            player.getActor().setVelocity(addedVelocityX, addedVelocityY);
+        else if (player.getActor().isMoving())
+            player.getActor().setVelocity(0, 0);
 
         if (newDirection != null && playerActor.getDirection() != newDirection)
             playerActor.setDirection(newDirection);
@@ -332,15 +333,15 @@ public class WorldView implements GUIController
         String methodName = "processMouse() ";
         double screenWidth = GameWindow.getSingleton().getScreenWidth();
         double screenHeight = GameWindow.getSingleton().getScreenHeight();
-        Point2D mousePosition = GameWindow.getSingleton().mousePosition;
+        Point2D mousePosition = GameWindow.getSingleton().getMousePosition();
         Point2D mousePositionRelativeToCamera = new Point2D(mousePosition.getX() - (screenWidth - Config.CAMERA_WIDTH) / 2, mousePosition.getY() - (screenHeight - Config.CAMERA_HEIGHT) / 2);
-        boolean isMouseClicked = GameWindow.getSingleton().mouseClicked;
+        boolean isMouseClicked = GameWindow.getSingleton().isMouseClicked();
 
         //check for marked Sprites
         List<Sprite> mouseHoveredSprites = new ArrayList<>();
         for (Sprite active : activeSpritesLayer)//NOTE Send to Actor one time, not every Sprite, maybe with map that check already triggered actors
             if (active.intersectsRelativeToWorldView(mousePositionRelativeToCamera)
-                    && active.actor.sensorStatus.onInteraction_TriggerSprite != TriggerType.NOTHING)//Just add sprites of actors you can interact by onInteraction
+                    && active.getActor().getSensorStatus().getOnInteraction_TriggerSprite() != TriggerType.NOTHING)//Just add sprites of actors you can interact by onInteraction
                 mouseHoveredSprites.add(active);
 
         if (isDiscussionGameActive)
@@ -377,21 +378,21 @@ public class WorldView implements GUIController
         }
 
         for (Sprite active : activeSpritesLayer)
-            if (active.intersectsRelativeToWorldView(mousePositionRelativeToCamera) && DEBUG_MOUSE_ANALYSIS && active.actor != null && isMouseClicked)
+            if (active.intersectsRelativeToWorldView(mousePositionRelativeToCamera) && DEBUG_MOUSE_ANALYSIS && active.getActor() != null && isMouseClicked)
             {
-                Actor actor = active.actor;
-                System.out.println(actor.actorInGameName + ": " + actor.sensorStatus.statusName + " Sprite: " + actor.generalStatus);
+                Actor actor = active.getActor();
+                System.out.println(actor.getActorInGameName() + ": " + actor.getSensorStatus().getStatusName() + " Sprite: " + actor.getGeneralStatus());
             }
 
-        GameWindow.getSingleton().mouseClicked = false;
+        GameWindow.getSingleton().setMouseClicked(false);
     }
 
     private void calcCameraPosition()
     {
         String methodName = "calcCameraPosition() ";
         //Camera at world border
-        camX = player.positionX - CAMERA_WIDTH / 2f;
-        camY = player.positionY - CAMERA_HEIGHT / 2f;
+        camX = player.getPositionX() - CAMERA_WIDTH / 2f;
+        camY = player.getPositionY() - CAMERA_HEIGHT / 2f;
         if (camX < offsetMinX)
             camX = offsetMinX;
         if (camY < offsetMinY)
@@ -404,7 +405,7 @@ public class WorldView implements GUIController
         //If World smaller as Camera
         if (CAMERA_WIDTH > borders.getWidth())
             camX = borders.getWidth() / 2 - CAMERA_WIDTH / 2f;
-        if (Config.CAMERA_HEIGHT > borders.getHeight())
+        if (CAMERA_HEIGHT > borders.getHeight())
             camY = borders.getHeight() / 2 - CAMERA_HEIGHT / 2f;
 
 
@@ -479,7 +480,7 @@ public class WorldView implements GUIController
         if (Config.DEBUG_BLOCKER)
         {
             gc.setStroke(Color.RED);
-            gc.strokeRect(borders.getMinX(), borders.getMinY(), borders.getWidth() + player.basewidth, borders.getHeight() + player.baseheight);
+            gc.strokeRect(borders.getMinX(), borders.getMinY(), borders.getWidth() + player.getBasewidth(), borders.getHeight() + player.getBaseheight());
         }
 
         root.getChildren().clear();
@@ -543,7 +544,7 @@ public class WorldView implements GUIController
                 }
             }
             Image lightImage = lightsImageMap.get(lightSpriteName);
-            ShadowMaskGc.drawImage(lightImage, sprite.positionX + sprite.getHitBoxOffsetX() + sprite.getHitBoxWidth() / 2 - lightImage.getWidth() / 2 - camX, sprite.positionY + sprite.getHitBoxOffsetY() + sprite.getHitBoxHeight() / 2 - lightImage.getHeight() / 2 - camY);
+            ShadowMaskGc.drawImage(lightImage, sprite.getPositionX() + sprite.getHitBoxOffsetX() + sprite.getHitBoxWidth() / 2 - lightImage.getWidth() / 2 - camX, sprite.getPositionY() + sprite.getHitBoxOffsetY() + sprite.getHitBoxHeight() / 2 - lightImage.getHeight() / 2 - camY);
         }
 
         SnapshotParameters params = new SnapshotParameters();
@@ -652,5 +653,210 @@ public class WorldView implements GUIController
         if(isDaySummaryActive)
             daySummaryScreenController.newDay();
         WorldView.isDaySummaryActive = isDaySummaryActive;
+    }
+
+    public static String getCLASSNAME()
+    {
+        return CLASSNAME;
+    }
+
+    public Pane getRoot()
+    {
+        return root;
+    }
+
+    public FXMLLoader getFxmlLoader()
+    {
+        return fxmlLoader;
+    }
+
+    public Canvas getWorldCanvas()
+    {
+        return worldCanvas;
+    }
+
+    public GraphicsContext getGc()
+    {
+        return gc;
+    }
+
+    public Canvas getShadowMask()
+    {
+        return shadowMask;
+    }
+
+    public GraphicsContext getShadowMaskGc()
+    {
+        return ShadowMaskGc;
+    }
+
+    public Map<String, Image> getLightsImageMap()
+    {
+        return lightsImageMap;
+    }
+
+    public Color getShadowColor()
+    {
+        return shadowColor;
+    }
+
+    public static boolean isIsInventoryActive()
+    {
+        return isInventoryActive;
+    }
+
+    public static InventoryOverlay getInventoryOverlay()
+    {
+        return inventoryOverlay;
+    }
+
+    public static Long getLastTimeMenuWasOpened()
+    {
+        return lastTimeMenuWasOpened;
+    }
+
+    public static boolean isIsTextBoxActive()
+    {
+        return isTextBoxActive;
+    }
+
+    public static boolean isIsPersonalityScreenActive()
+    {
+        return isPersonalityScreenActive;
+    }
+
+    public static PersonalityScreenController getPersonalityScreenController()
+    {
+        return personalityScreenController;
+    }
+
+    public static boolean isIsDiscussionGameActive()
+    {
+        return isDiscussionGameActive;
+    }
+
+    public static DiscussionGame getDiscussionGame()
+    {
+        return discussionGame;
+    }
+
+    public static Point2D getDiscussionGamePosition()
+    {
+        return discussionGamePosition;
+    }
+
+    public static boolean isIsDaySummaryActive()
+    {
+        return isDaySummaryActive;
+    }
+
+    public static DaySummaryScreenController getDaySummaryScreenController()
+    {
+        return daySummaryScreenController;
+    }
+
+    public static Point2D getDaySummaryScreenPosition()
+    {
+        return daySummaryScreenPosition;
+    }
+
+    public static boolean isIsManagementAttentionMeterActive()
+    {
+        return isManagementAttentionMeterActive;
+    }
+
+    public static StatusBarOverlay getMamOverlay()
+    {
+        return mamOverlay;
+    }
+
+    public static Point2D getMamOverlayPosition()
+    {
+        return mamOverlayPosition;
+    }
+
+    public static List<Sprite> getActiveSpritesLayer()
+    {
+        return activeSpritesLayer;
+    }
+
+    public static List<Sprite> getPassiveSpritesLayer()
+    {
+        return passiveSpritesLayer;
+    }
+
+    public static List<Sprite> getBottomLayer()
+    {
+        return bottomLayer;
+    }
+
+    public static Map<String, WorldLoader.SpawnData> getSpawnPointsMap()
+    {
+        return spawnPointsMap;
+    }
+
+    public static List<Sprite> getToRemove()
+    {
+        return toRemove;
+    }
+
+    public double getOffsetMaxX()
+    {
+        return offsetMaxX;
+    }
+
+    public double getOffsetMaxY()
+    {
+        return offsetMaxY;
+    }
+
+    public int getOffsetMinX()
+    {
+        return offsetMinX;
+    }
+
+    public int getOffsetMinY()
+    {
+        return offsetMinY;
+    }
+
+    public static double getCamX()
+    {
+        return camX;
+    }
+
+    public static double getCamY()
+    {
+        return camY;
+    }
+
+    public double getBumpX()
+    {
+        return bumpX;
+    }
+
+    public double getBumpY()
+    {
+        return bumpY;
+    }
+
+    public double getRumbleGrade()
+    {
+        return rumbleGrade;
+    }
+
+    public Long getTimeStartBump()
+    {
+        return timeStartBump;
+    }
+
+    public float getDurationBump()
+    {
+        return durationBump;
+    }
+
+    public boolean isBumpActive()
+    {
+        return bumpActive;
     }
 }

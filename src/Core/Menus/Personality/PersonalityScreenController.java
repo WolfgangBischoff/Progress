@@ -2,7 +2,7 @@ package Core.Menus.Personality;
 
 import Core.Actor;
 import Core.GameWindow;
-import Core.WorldView;
+import Core.WorldView.WorldView;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.geometry.VPos;

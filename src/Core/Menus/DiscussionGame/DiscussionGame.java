@@ -5,7 +5,7 @@ import Core.GameWindow;
 import Core.Menus.Personality.PersonalityContainer;
 import Core.Menus.Personality.PersonalityTrait;
 import Core.Utilities;
-import Core.WorldView;
+import Core.WorldView.WorldView;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.geometry.VPos;

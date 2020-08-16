@@ -2,7 +2,7 @@ package Core.Menus.DaySummary;
 
 import Core.Collectible;
 import Core.GameVariables;
-import Core.WorldView;
+import Core.WorldView.WorldView;
 
 import java.util.ArrayList;
 import java.util.List;

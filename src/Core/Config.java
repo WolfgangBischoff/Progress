@@ -36,7 +36,7 @@ public class Config
 
     public static final int MAM_BAR_WIDTH = 300;
     public static final int MAM_BAR_HEIGHT = 50;
-    public static Point2D MAM_BAR_POSITION = new Point2D(CAMERA_WIDTH - MAM_BAR_WIDTH - 50, MAM_BAR_HEIGHT + 30); //Right Upper Edge
+    public static Point2D MAM_BAR_POSITION = new Point2D(CAMERA_WIDTH - MAM_BAR_WIDTH - 50, 30); //Right Upper Edge
 
     //Gameplay
     public static final float TIME_BETWEEN_INTERACTIONS = 0.5f;

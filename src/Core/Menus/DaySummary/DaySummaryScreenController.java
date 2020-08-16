@@ -1,9 +1,8 @@
 package Core.Menus.DaySummary;
 
 import Core.Collectible;
-import Core.Config;
 import Core.GameWindow;
-import Core.WorldView;
+import Core.WorldView.WorldView;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.geometry.VPos;
