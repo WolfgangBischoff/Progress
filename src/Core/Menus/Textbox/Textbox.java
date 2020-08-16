@@ -4,6 +4,8 @@ import Core.*;
 import Core.Menus.DiscussionGame.DiscussionGame;
 import Core.Menus.Personality.PersonalityScreenController;
 import Core.WorldView.WorldView;
+import Core.WorldView.WorldViewController;
+import Core.WorldView.WorldViewStatus;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.geometry.VPos;
@@ -148,6 +150,7 @@ public class Textbox
                 }
                 else if(dialogueType.equals(dayChange_TYPE_ATTRIBUTE))
                 {
+                    WorldViewController.setWorldViewStatus(WorldViewStatus.DAY_SUMMARY);
                     WorldView.setIsDaySummaryActive(true);
                 }
                 else
@@ -271,6 +274,7 @@ public class Textbox
                 WorldView.setIsPersonalityScreenActive(true);
                 WorldView.setPersonalityScreenController(new PersonalityScreenController(actorOfDialogue));
                 WorldView.setIsTextBoxActive(false);
+                WorldViewController.setWorldViewStatus(WorldViewStatus.PERSONALITY);
             }
             else
                 nextMessage(GameWindow.getSingleton().getRenderTime());
@@ -319,6 +323,7 @@ public class Textbox
         else //End Textbox
         {
             WorldView.setIsTextBoxActive(false);
+            WorldViewController.setWorldViewStatus(WorldViewStatus.WORLD);
             messageIdx = 0;
         }
         playerActor.setLastInteraction(currentNanoTime);
@@ -381,12 +386,19 @@ public class Textbox
         else if (readDialogue.type.equals(discussion_TYPE_ATTRIBUTE))
         {
             WorldView.setIsDiscussionGameActive(true);
+            WorldViewController.setWorldViewStatus(WorldViewStatus.DISCUSSION_GAME);
             lineSplitMessage = wrapText("Discussion ongoing");
         }
-        else if(readDialogue.type.equals(levelchange_TYPE_ATTRIBUTE) || readDialogue.type.equals(dayChange_TYPE_ATTRIBUTE))
+        else if(readDialogue.type.equals(levelchange_TYPE_ATTRIBUTE))// || readDialogue.type.equals(dayChange_TYPE_ATTRIBUTE))
         {
             WorldView.setIsTextBoxActive(false);
+            WorldViewController.setWorldViewStatus(WorldViewStatus.WORLD);
             lineSplitMessage = wrapText("technical");
+        }
+        else if (readDialogue.type.equals(dayChange_TYPE_ATTRIBUTE))
+        {
+            WorldView.setIsTextBoxActive(false);
+            //lineSplitMessage = wrapText("technical");
         }
         else
         {

@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 import static Core.Config.*;
+import static Core.WorldView.WorldViewStatus.*;
 
 public class WorldView implements GUIController
 {
@@ -45,6 +46,7 @@ public class WorldView implements GUIController
     GraphicsContext ShadowMaskGc;
     Map<String, Image> lightsImageMap = new HashMap<>();
     Color shadowColor;
+    WorldViewController worldViewController = new WorldViewController();
 
     //Inventory Overlay
     static boolean isInventoryActive = false;
@@ -115,6 +117,7 @@ public class WorldView implements GUIController
         loadStage(levelName, "default");
         inventoryOverlay = new InventoryOverlay();
         textbox = new Textbox();
+        worldViewController.setWorldViewStatus(WORLD);
     }
 
     public void saveStage()
@@ -232,8 +235,9 @@ public class WorldView implements GUIController
         }
 
 
-        if (input.contains("ESCAPE") && elapsedTimeSinceLastInteraction > 1)
+        if (input.contains(KEYBOARD_INVENTORY) && elapsedTimeSinceLastInteraction > 1)
         {
+            worldViewController.command(KEYBOARD_INVENTORY);
             isInventoryActive = !isInventoryActive;//toggle
             lastTimeMenuWasOpened = currentNanoTime;
         }
@@ -649,7 +653,6 @@ public class WorldView implements GUIController
 
     public static void setIsDaySummaryActive(boolean isDaySummaryActive)
     {
-        //daySummaryScreenController = new DaySummaryScreenController();
         if(isDaySummaryActive)
             daySummaryScreenController.newDay();
         WorldView.isDaySummaryActive = isDaySummaryActive;

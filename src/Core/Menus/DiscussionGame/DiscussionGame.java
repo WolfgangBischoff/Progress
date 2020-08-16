@@ -6,6 +6,8 @@ import Core.Menus.Personality.PersonalityContainer;
 import Core.Menus.Personality.PersonalityTrait;
 import Core.Utilities;
 import Core.WorldView.WorldView;
+import Core.WorldView.WorldViewController;
+import Core.WorldView.WorldViewStatus;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.geometry.VPos;
@@ -318,6 +320,7 @@ public class DiscussionGame
 
             WorldView.getTextbox().nextMessage(currentNanoTime);
             WorldView.setIsDiscussionGameActive(false);
+            WorldViewController.setWorldViewStatus(WorldViewStatus.WORLD);
         }
     }
 

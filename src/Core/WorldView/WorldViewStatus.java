@@ -1,5 +1,6 @@
 package Core.WorldView;
 
-public class WorldViewStatus
+public enum WorldViewStatus
 {
+    WORLD, INVENTORY, INVENTORY_EXCHANGE, INVENTORY_SHOP, TEXTBOX, DISCUSSION_GAME, PERSONALITY, DAY_SUMMARY
 }

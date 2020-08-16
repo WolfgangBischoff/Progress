@@ -6,6 +6,8 @@ import Core.Menus.Inventory.Inventory;
 import Core.Menus.Personality.MyersBriggsPersonality;
 import Core.Menus.Personality.PersonalityContainer;
 import Core.WorldView.WorldView;
+import Core.WorldView.WorldViewController;
+import Core.WorldView.WorldViewStatus;
 import javafx.animation.PauseTransition;
 import javafx.geometry.Point2D;
 import javafx.util.Duration;
@@ -742,6 +744,7 @@ public class Actor
             }
             else
                 WorldView.getTextbox().startConversation(this);
+            WorldViewController.setWorldViewStatus(WorldViewStatus.TEXTBOX);
             WorldView.setIsTextBoxActive(true);
         }
         else

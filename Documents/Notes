@@ -1,5 +1,8 @@
 
 Logic:
+- WorldViewController
+    - change render depents on Status
+    - change input depents on status
 - Economy
     - Add Money, get it from tenderer
     - Debit Cards can be stolen, work one day before blocked, max limit. Can be found by interrogation

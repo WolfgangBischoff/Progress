@@ -3,6 +3,8 @@ package Core.Menus.DaySummary;
 import Core.Collectible;
 import Core.GameWindow;
 import Core.WorldView.WorldView;
+import Core.WorldView.WorldViewController;
+import Core.WorldView.WorldViewStatus;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.geometry.VPos;
@@ -229,7 +231,9 @@ public class DaySummaryScreenController
             String levelname = WorldView.getSingleton().getLevelName();
             String spawnId = "bed";
             WorldView.getSingleton().loadStage(levelname, spawnId);
+            WorldViewController.setWorldViewStatus(WorldViewStatus.WORLD);
             WorldView.setIsDaySummaryActive(false);
+            //newDay();
         }
 
         WorldView.getPlayer().getActor().setLastInteraction(currentNanoTime);

@@ -3,6 +3,8 @@ package Core.Menus.Personality;
 import Core.Actor;
 import Core.GameWindow;
 import Core.WorldView.WorldView;
+import Core.WorldView.WorldViewController;
+import Core.WorldView.WorldViewStatus;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.geometry.VPos;
@@ -230,6 +232,7 @@ With increasing cooperation value you find trais of the person, some traits are 
         {
             WorldView.setIsPersonalityScreenActive(false);
             WorldView.setIsTextBoxActive(true);
+            WorldViewController.setWorldViewStatus(WorldViewStatus.TEXTBOX);
         }
 
         updateVisiblePersonality();

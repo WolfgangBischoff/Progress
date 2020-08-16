@@ -45,6 +45,7 @@ public class DaySummary
             if(!stolenItemWasFound)
                 GameVariables.addPlayerMAM_duringDay(- MAM_THRESHOLD_INTERROGATION);
         }
+        else hasInterrogation = false;
     }
 
     public void endDay()

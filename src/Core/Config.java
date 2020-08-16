@@ -9,7 +9,6 @@ public class Config
     public static final Boolean DEBUG_BLOCKER = false;
     public static final Boolean DEBUG_NO_WALL = false;
     public static final Boolean DEBUG_MOUSE_ANALYSIS = false;
-    //public static final String FIRST_LEVEL = "dockingBay";
     public static final String FIRST_LEVEL = "transporter";
     public static final double GAME_WINDOW_WIDTH = 1440;
     public static final double GAME_WINDOW_HEIGHT = 900;
@@ -37,6 +36,9 @@ public class Config
     public static final int MAM_BAR_WIDTH = 300;
     public static final int MAM_BAR_HEIGHT = 50;
     public static Point2D MAM_BAR_POSITION = new Point2D(CAMERA_WIDTH - MAM_BAR_WIDTH - 50, 30); //Right Upper Edge
+
+    //Keyboard
+    public static final String KEYBOARD_INVENTORY = "TAB";
 
     //Gameplay
     public static final float TIME_BETWEEN_INTERACTIONS = 0.5f;
