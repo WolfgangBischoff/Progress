@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 import static Core.Config.*;
-import static Core.WorldView.WorldViewStatus.*;
+import static Core.WorldView.WorldViewStatus.WORLD;
 
 public class WorldView implements GUIController
 {
@@ -49,33 +49,33 @@ public class WorldView implements GUIController
     WorldViewController worldViewController = new WorldViewController();
 
     //Inventory Overlay
-    static boolean isInventoryActive = false;
+    //static boolean isInventoryActive = false;
     static InventoryOverlay inventoryOverlay;
     static Point2D inventoryOverlayPosition = INVENTORY_POSITION;
     static Long lastTimeMenuWasOpened = 0L;
 
     //TextBox Overlay
-    static boolean isTextBoxActive = false;
+    //static boolean isTextBoxActive = false;
     static Textbox textbox;
     static Point2D textBoxPosition = new Point2D(CAMERA_WIDTH / 2f - Textbox.getTEXT_BOX_WIDTH() / 2, CAMERA_HEIGHT - Textbox.getTEXT_BOX_HEIGHT() - 32);
 
     //Personality Overlay
-    static boolean isPersonalityScreenActive = false;
+    //static boolean isPersonalityScreenActive = false;
     static PersonalityScreenController personalityScreenController;
     static Point2D personalityScreenPosition = PERSONALITY_POSITION;
 
     //Discussion Game Overlay
-    static boolean isDiscussionGameActive = false;
+    //static boolean isDiscussionGameActive = false;
     static DiscussionGame discussionGame;
     static Point2D discussionGamePosition = DISCUSSION_POSITION;
 
     //DaySummary Overlay
-    private static boolean isDaySummaryActive = false;
+    //private static boolean isDaySummaryActive = false;
     static DaySummaryScreenController daySummaryScreenController = new DaySummaryScreenController();
     static Point2D daySummaryScreenPosition = DAY_SUMMARY_POSITION;
 
     //Management Attention Meter Overlay
-    private static boolean isManagementAttentionMeterActive = true;
+    //private static boolean isManagementAttentionMeterActive = true;
     static StatusBarOverlay mamOverlay = new StatusBarOverlay(MAM_BAR_WIDTH, MAM_BAR_HEIGHT, GameVariables.getPlayerMaM_duringDayProperty(), 100);
     static Point2D mamOverlayPosition = MAM_BAR_POSITION;
 
@@ -212,10 +212,10 @@ public class WorldView implements GUIController
 
     }
 
-    public static void setIsPersonalityScreenActive(boolean isPersonalityScreenActive)
-    {
-        WorldView.isPersonalityScreenActive = isPersonalityScreenActive;
-    }
+//    public static void setIsPersonalityScreenActive(boolean isPersonalityScreenActive)
+//    {
+//        WorldView.isPersonalityScreenActive = isPersonalityScreenActive;
+//    }
 
     @Override
     public void update(Long currentNanoTime)
@@ -235,14 +235,41 @@ public class WorldView implements GUIController
         }
 
 
-        if (input.contains(KEYBOARD_INVENTORY) && elapsedTimeSinceLastInteraction > 1)
-        {
-            worldViewController.command(KEYBOARD_INVENTORY);
-            isInventoryActive = !isInventoryActive;//toggle
-            lastTimeMenuWasOpened = currentNanoTime;
-        }
+//        if (input.contains(KEYBOARD_INVENTORY) && elapsedTimeSinceLastInteraction > 1)
+//        {
+//            worldViewController.command(KEYBOARD_INVENTORY);
+//            isInventoryActive = !isInventoryActive;//toggle
+//            lastTimeMenuWasOpened = currentNanoTime;
+//        }
 
         //Process Input
+        if (worldViewController.getWorldViewStatus() != WORLD && player.getActor().isMoving())
+            player.getActor().setVelocity(0, 0);
+        switch (worldViewController.getWorldViewStatus())
+        {
+            case WORLD:
+                processInputAsMovement(input, currentNanoTime);
+                break;
+            case TEXTBOX:
+                textbox.processKey(input, currentNanoTime);
+                break;
+            case PERSONALITY:
+                personalityScreenController.processKey(input, currentNanoTime);
+                break;
+            case DAY_SUMMARY:
+                daySummaryScreenController.processKey(input, currentNanoTime);
+                break;
+            case INVENTORY:
+                toggleInventory(input, currentNanoTime);//At the moment just toogled by keyboard
+                break;
+            case DISCUSSION_GAME://No keyboard input so far
+                break;
+            default:
+                System.out.println(CLASSNAME + methodName + "Undefined WorldViewStatus: " + worldViewController.getWorldViewStatus());
+        }
+
+
+        /*
         if (isTextBoxActive)
         {
             if (player.getActor().isMoving())
@@ -263,6 +290,8 @@ public class WorldView implements GUIController
         }
         else
             processInputAsMovement(input);
+
+         */
         processMouse(currentNanoTime);
 
         //Update Sprites
@@ -285,13 +314,26 @@ public class WorldView implements GUIController
         calcCameraPosition();
     }
 
-    private void processInputAsMovement(ArrayList<String> input)
+    private void toggleInventory(ArrayList<String> input, Long currentNanoTime)
+    {
+        double elapsedTimeSinceLastInteraction = (currentNanoTime - lastTimeMenuWasOpened) / 1000000000.0;
+        if (input.contains(KEYBOARD_INVENTORY) && elapsedTimeSinceLastInteraction > 1)
+        {
+            worldViewController.command(KEYBOARD_INVENTORY);
+            //isInventoryActive = !isInventoryActive;//toggle
+            lastTimeMenuWasOpened = currentNanoTime;
+        }
+    }
+
+    private void processInputAsMovement(ArrayList<String> input, Long currentNanoTime)
     {
         String methodName = "processInputAsMovement(ArrayList<String>()";
         boolean moveButtonPressed = false;
         int addedVelocityX = 0, addedVelocityY = 0;
         Direction newDirection = null;
         Actor playerActor = player.getActor();
+
+        toggleInventory(input, currentNanoTime);
 
         //Interpret Input from GameWindow
         if (input.contains("LEFT") || input.contains("A"))
@@ -348,7 +390,40 @@ public class WorldView implements GUIController
                     && active.getActor().getSensorStatus().getOnInteraction_TriggerSprite() != TriggerType.NOTHING)//Just add sprites of actors you can interact by onInteraction
                 mouseHoveredSprites.add(active);
 
-        if (isDiscussionGameActive)
+        switch (worldViewController.getWorldViewStatus())
+        {
+            case WORLD:
+                for (Sprite clicked : mouseHoveredSprites)
+                    if (isMouseClicked)
+                    {
+                        clicked.onClick(currentNanoTime);//Used onInteraction Trigger
+                    }
+                    else
+                    {
+                        //System.out.println(classname + methodname + "Hovered over: " + clicked.getName());
+                    }
+                break;
+            case DISCUSSION_GAME:
+                discussionGame.processMouse(mousePositionRelativeToCamera, isMouseClicked, currentNanoTime);
+                break;
+            case DAY_SUMMARY:
+                daySummaryScreenController.processMouse(mousePositionRelativeToCamera, isMouseClicked, currentNanoTime);
+                break;
+            case PERSONALITY:
+                personalityScreenController.processMouse(mousePositionRelativeToCamera, isMouseClicked, currentNanoTime);
+                break;
+            case TEXTBOX:
+                textbox.processMouse(mousePositionRelativeToCamera, isMouseClicked);
+                break;
+            case INVENTORY:
+                inventoryOverlay.processMouse(mousePositionRelativeToCamera, isMouseClicked, currentNanoTime);
+                break;
+            default:
+                System.out.println(CLASSNAME + methodName + "mouseinput undefined for: " + worldViewController.getWorldViewStatus());
+
+        }
+        /*
+            if (isDiscussionGameActive)
         {
             discussionGame.processMouse(mousePositionRelativeToCamera, isMouseClicked, currentNanoTime);
         }
@@ -380,6 +455,8 @@ public class WorldView implements GUIController
                     //System.out.println(classname + methodname + "Hovered over: " + clicked.getName());
                 }
         }
+
+         */
 
         for (Sprite active : activeSpritesLayer)
             if (active.intersectsRelativeToWorldView(mousePositionRelativeToCamera) && DEBUG_MOUSE_ANALYSIS && active.getActor() != null && isMouseClicked)
@@ -492,6 +569,36 @@ public class WorldView implements GUIController
         gc.translate(camX, camY);
 
         //Overlays
+        switch (worldViewController.getWorldViewStatus())
+        {
+            case WORLD:
+                WritableImage writableImage = mamOverlay.getWritableImage();
+                gc.drawImage(writableImage, mamOverlayPosition.getX(), mamOverlayPosition.getY());
+                break;
+            case TEXTBOX:
+                WritableImage textBoxImg = textbox.showMessage();
+                gc.drawImage(textBoxImg, textBoxPosition.getX(), textBoxPosition.getY());
+                break;
+            case INVENTORY:
+                WritableImage inventoryOverlayMenuImage = inventoryOverlay.getMenuImage();
+                gc.drawImage(inventoryOverlayMenuImage, inventoryOverlayPosition.getX(), inventoryOverlayPosition.getY());
+                break;
+            case PERSONALITY:
+                WritableImage personalityScreenOverlay = personalityScreenController.getWritableImage();
+                gc.drawImage(personalityScreenOverlay, personalityScreenPosition.getX(), personalityScreenPosition.getY());
+                break;
+            case DISCUSSION_GAME:
+                WritableImage discussionGameImage = discussionGame.getWritableImage(currentNanoTime);
+                gc.drawImage(discussionGameImage, discussionGamePosition.getX(), discussionGamePosition.getY());
+                break;
+            case DAY_SUMMARY:
+                WritableImage daySummaryImage = daySummaryScreenController.getWritableImage();
+                gc.drawImage(daySummaryImage, daySummaryScreenPosition.getX(), daySummaryScreenPosition.getY());
+                break;
+
+
+        }
+        /*
         if (isManagementAttentionMeterActive)
         {
             WritableImage writableImage = mamOverlay.getWritableImage();
@@ -522,6 +629,8 @@ public class WorldView implements GUIController
             WritableImage daySummaryImage = daySummaryScreenController.getWritableImage();
             gc.drawImage(daySummaryImage, daySummaryScreenPosition.getX(), daySummaryScreenPosition.getY());
         }
+
+         */
 
     }
 
@@ -621,20 +730,20 @@ public class WorldView implements GUIController
     }
 
 
-    public static void setIsTextBoxActive(boolean isTextBoxActive)
-    {
-        WorldView.isTextBoxActive = isTextBoxActive;
-    }
+//    public static void setIsTextBoxActive(boolean isTextBoxActive)
+//    {
+//        WorldView.isTextBoxActive = isTextBoxActive;
+//    }
 
     public static void setPersonalityScreenController(PersonalityScreenController personalityScreenController)
     {
         WorldView.personalityScreenController = personalityScreenController;
     }
 
-    public static void setIsDiscussionGameActive(boolean isDiscussionGameActive)
-    {
-        WorldView.isDiscussionGameActive = isDiscussionGameActive;
-    }
+//    public static void setIsDiscussionGameActive(boolean isDiscussionGameActive)
+//    {
+//        WorldView.isDiscussionGameActive = isDiscussionGameActive;
+//    }
 
     public static void setDiscussionGame(DiscussionGame discussionGame)
     {
@@ -651,12 +760,12 @@ public class WorldView implements GUIController
         return levelName;
     }
 
-    public static void setIsDaySummaryActive(boolean isDaySummaryActive)
-    {
-        if(isDaySummaryActive)
-            daySummaryScreenController.newDay();
-        WorldView.isDaySummaryActive = isDaySummaryActive;
-    }
+//    public static void setIsDaySummaryActive(boolean isDaySummaryActive)
+//    {
+//        if (isDaySummaryActive)
+//            daySummaryScreenController.newDay();
+//        WorldView.isDaySummaryActive = isDaySummaryActive;
+//    }
 
     public static String getCLASSNAME()
     {
@@ -703,10 +812,6 @@ public class WorldView implements GUIController
         return shadowColor;
     }
 
-    public static boolean isIsInventoryActive()
-    {
-        return isInventoryActive;
-    }
 
     public static InventoryOverlay getInventoryOverlay()
     {
@@ -718,25 +823,12 @@ public class WorldView implements GUIController
         return lastTimeMenuWasOpened;
     }
 
-    public static boolean isIsTextBoxActive()
-    {
-        return isTextBoxActive;
-    }
-
-    public static boolean isIsPersonalityScreenActive()
-    {
-        return isPersonalityScreenActive;
-    }
 
     public static PersonalityScreenController getPersonalityScreenController()
     {
         return personalityScreenController;
     }
 
-    public static boolean isIsDiscussionGameActive()
-    {
-        return isDiscussionGameActive;
-    }
 
     public static DiscussionGame getDiscussionGame()
     {
@@ -748,10 +840,7 @@ public class WorldView implements GUIController
         return discussionGamePosition;
     }
 
-    public static boolean isIsDaySummaryActive()
-    {
-        return isDaySummaryActive;
-    }
+
 
     public static DaySummaryScreenController getDaySummaryScreenController()
     {
@@ -763,10 +852,6 @@ public class WorldView implements GUIController
         return daySummaryScreenPosition;
     }
 
-    public static boolean isIsManagementAttentionMeterActive()
-    {
-        return isManagementAttentionMeterActive;
-    }
 
     public static StatusBarOverlay getMamOverlay()
     {

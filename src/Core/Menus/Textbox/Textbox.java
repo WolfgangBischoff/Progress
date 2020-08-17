@@ -1,6 +1,7 @@
 package Core.Menus.Textbox;
 
 import Core.*;
+import Core.Menus.DaySummary.DaySummaryScreenController;
 import Core.Menus.DiscussionGame.DiscussionGame;
 import Core.Menus.Personality.PersonalityScreenController;
 import Core.WorldView.WorldView;
@@ -151,7 +152,8 @@ public class Textbox
                 else if(dialogueType.equals(dayChange_TYPE_ATTRIBUTE))
                 {
                     WorldViewController.setWorldViewStatus(WorldViewStatus.DAY_SUMMARY);
-                    WorldView.setIsDaySummaryActive(true);
+                    DaySummaryScreenController.newDay();
+                   // WorldView.setIsDaySummaryActive(true);
                 }
                 else
                 //Normal Textbox
@@ -271,9 +273,9 @@ public class Textbox
         {
             if (isTalkIconHovered)
             {
-                WorldView.setIsPersonalityScreenActive(true);
+                //WorldView.setIsPersonalityScreenActive(true);
                 WorldView.setPersonalityScreenController(new PersonalityScreenController(actorOfDialogue));
-                WorldView.setIsTextBoxActive(false);
+                //WorldView.setIsTextBoxActive(false);
                 WorldViewController.setWorldViewStatus(WorldViewStatus.PERSONALITY);
             }
             else
@@ -322,7 +324,7 @@ public class Textbox
         }
         else //End Textbox
         {
-            WorldView.setIsTextBoxActive(false);
+            //WorldView.setIsTextBoxActive(false);
             WorldViewController.setWorldViewStatus(WorldViewStatus.WORLD);
             messageIdx = 0;
         }
@@ -385,19 +387,19 @@ public class Textbox
         }
         else if (readDialogue.type.equals(discussion_TYPE_ATTRIBUTE))
         {
-            WorldView.setIsDiscussionGameActive(true);
+            //WorldView.setIsDiscussionGameActive(true);
             WorldViewController.setWorldViewStatus(WorldViewStatus.DISCUSSION_GAME);
             lineSplitMessage = wrapText("Discussion ongoing");
         }
         else if(readDialogue.type.equals(levelchange_TYPE_ATTRIBUTE))// || readDialogue.type.equals(dayChange_TYPE_ATTRIBUTE))
         {
-            WorldView.setIsTextBoxActive(false);
+            //WorldView.setIsTextBoxActive(false);
             WorldViewController.setWorldViewStatus(WorldViewStatus.WORLD);
             lineSplitMessage = wrapText("technical");
         }
         else if (readDialogue.type.equals(dayChange_TYPE_ATTRIBUTE))
         {
-            WorldView.setIsTextBoxActive(false);
+            //WorldView.setIsTextBoxActive(false);
             //lineSplitMessage = wrapText("technical");
         }
         else

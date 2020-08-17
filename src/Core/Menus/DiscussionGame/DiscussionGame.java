@@ -271,7 +271,7 @@ public class DiscussionGame
     public void processMouse(Point2D mousePosition, boolean isMouseClicked, Long currentNanoTime)
     {
         String methodName = "processMouse(Point2D, boolean) ";
-        Point2D overlayPosition = SCREEN_POSITION;//= WorldView.getPersonalityScreenPosition();
+        Point2D overlayPosition = SCREEN_POSITION;
         Rectangle2D posRelativeToWorldview = new Rectangle2D(overlayPosition.getX(), overlayPosition.getY(), WIDTH, HEIGHT);
         List<CharacterCoin> hoveredElements = new ArrayList<>();
 
@@ -319,8 +319,8 @@ public class DiscussionGame
                 WorldView.getTextbox().setNextDialogueFromDiscussionResult(false);
 
             WorldView.getTextbox().nextMessage(currentNanoTime);
-            WorldView.setIsDiscussionGameActive(false);
-            WorldViewController.setWorldViewStatus(WorldViewStatus.WORLD);
+            //WorldView.setIsDiscussionGameActive(false);
+            WorldViewController.setWorldViewStatus(WorldViewStatus.TEXTBOX);
         }
     }
 

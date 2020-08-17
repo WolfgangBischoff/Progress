@@ -22,6 +22,7 @@ public class DaySummary
 
     void init()
     {
+        foundStolenCollectibles.clear();
         if (GameVariables.getPlayerMaM_duringDay() >= MAM_THRESHOLD_INTERROGATION)
         {
             hasInterrogation = true;
@@ -29,7 +30,7 @@ public class DaySummary
             //Check if stolen items are in the players inventory
             boolean stolenItemWasFound = false;
             List<Collectible> playerInventory = WorldView.getPlayer().getActor().getInventory().getItemsList();
-            foundStolenCollectibles.clear();
+//            foundStolenCollectibles.clear();
             for(int i=0; i<playerInventory.size(); i++)
             {
                 Collectible checked = playerInventory.get(i);

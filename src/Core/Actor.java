@@ -745,7 +745,7 @@ public class Actor
             else
                 WorldView.getTextbox().startConversation(this);
             WorldViewController.setWorldViewStatus(WorldViewStatus.TEXTBOX);
-            WorldView.setIsTextBoxActive(true);
+            //WorldView.setIsTextBoxActive(true);
         }
         else
             System.out.println(CLASSNAME + methodName + " Game Window not instance of WorldView, cannot show Dialogue");

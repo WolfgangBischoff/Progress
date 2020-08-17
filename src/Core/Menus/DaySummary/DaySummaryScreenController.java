@@ -27,13 +27,13 @@ public class DaySummaryScreenController
     private static final int WIDTH = DAY_SUMMARY_WIDTH;
     private static final int HEIGHT = DAY_SUMMARY_HEIGHT;
     private static final Point2D SCREEN_POSITION = DAY_SUMMARY_POSITION;
+    private static DaySummary daySummary;
 
     private Canvas canvas;
     private GraphicsContext graphicsContext;
     private WritableImage writableImage;
     private Integer highlightedElement;
     private List<String> interfaceElements_list = new ArrayList<>();
-    private DaySummary daySummary;
 
     Image cornerTopLeft;
     Image cornerBtmRight;
@@ -53,18 +53,17 @@ public class DaySummaryScreenController
     private int closeButton_height = 50;
     Rectangle2D closeButton = new Rectangle2D(closeButton_x, closeButton_y, closeButton_width, closeButton_height);
 
-    //public DaySummaryScreenController(DaySummary daySummary)
     public DaySummaryScreenController()
     {
         canvas = new Canvas(WIDTH, HEIGHT);
         graphicsContext = canvas.getGraphicsContext2D();
         highlightedElement = 0;
-        this.daySummary = new DaySummary();//daySummary;
+        daySummary = new DaySummary();
         cornerTopLeft = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
         cornerBtmRight = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
     }
 
-    public void newDay()
+    public static void newDay()
     {
         daySummary.init();
     }
@@ -232,8 +231,8 @@ public class DaySummaryScreenController
             String spawnId = "bed";
             WorldView.getSingleton().loadStage(levelname, spawnId);
             WorldViewController.setWorldViewStatus(WorldViewStatus.WORLD);
-            WorldView.setIsDaySummaryActive(false);
-            //newDay();
+            //WorldView.setIsDaySummaryActive(false);
+
         }
 
         WorldView.getPlayer().getActor().setLastInteraction(currentNanoTime);
