@@ -166,19 +166,12 @@ public class Sprite
             if (interact
                     && otherSprite.actor != null
                     && otherSprite.getBoundary().intersects(interactionArea)
-                    && elapsedTimeSinceLastInteraction > Config.TIME_BETWEEN_INTERACTIONS)
+                    && elapsedTimeSinceLastInteraction > Config.TIME_BETWEEN_INTERACTIONS)//Remove, its now in WorldView
             {
 
                 otherSprite.actor.onInteraction(this, currentNanoTime); //Passive reacts
                 actor.setLastInteraction(currentNanoTime);
                 interact = false; //Interacts with first found sprite;
-
-//                //check if Suspicionness-Meter is affected
-//                if (actor.tags.contains(ActorTag.PLAYER) && otherSprite.actor.numeric_generic_attributes.containsKey(KEYWORD_suspicious_value))
-//                {
-//                    int suspicious_value = otherSprite.actor.numeric_generic_attributes.get(KEYWORD_suspicious_value).intValue();
-//                    GameVariables.addPlayerManagementAttention(suspicious_value);
-//                }
             }
 
             //In range

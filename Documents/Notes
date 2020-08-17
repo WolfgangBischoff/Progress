@@ -1,13 +1,11 @@
 
 Logic:
-- WorldViewController
-    - change render depents on Status
-    - change input depents on status
+- Inventory
+    - Add other inventory if INVENTORY_EXCHANGE
 - Economy
     - Add Money, get it from tenderer
     - Debit Cards can be stolen, work one day before blocked, max limit. Can be found by interrogation
     - Vendor to buy items by debit card
-    - Box/ItemHideOut
 - Add Food Value
     - Clock
     - Changing over time

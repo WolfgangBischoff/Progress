@@ -595,7 +595,17 @@ public class Actor
             case MOVE:
                 move();
                 break;
+            case INVENTORY_EXCHANGE:
+                openInventory();
+                break;
         }
+    }
+
+    private void openInventory()
+    {
+        String methodName = "openInventory() ";
+        System.out.println(CLASSNAME + methodName);
+        WorldViewController.setWorldViewStatus(WorldViewStatus.INVENTORY_EXCHANGE);
     }
 
     //TODO from script or file
@@ -660,12 +670,10 @@ public class Actor
     private void collect(Actor collectingActor)
     {
         String methodName = "collect(String) ";
-        //Image usedImage = spriteList.get(0).baseimage;
         CollectableType collectableType = CollectableType.getType(collectable_type);
         Collectible collected = new Collectible(generalStatus, collectableType, actorInGameName);
         collected.image = spriteList.get(0).baseimage;
         collectingActor.inventory.addItem(collected);
-        //collectingActor.inventory.addItem(generalStatus, collectable_type, actorInGameName, usedImage);
 
         //check if Management-Attention-Meter is affected for Player
         if (collectingActor.tags.contains(ActorTag.PLAYER) && numeric_generic_attributes.containsKey(KEYWORD_suspicious_value))

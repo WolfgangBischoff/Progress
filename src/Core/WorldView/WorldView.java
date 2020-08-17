@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 import static Core.Config.*;
-import static Core.WorldView.WorldViewStatus.WORLD;
+import static Core.WorldView.WorldViewStatus.*;
 
 public class WorldView implements GUIController
 {
@@ -46,7 +46,7 @@ public class WorldView implements GUIController
     GraphicsContext ShadowMaskGc;
     Map<String, Image> lightsImageMap = new HashMap<>();
     Color shadowColor;
-    WorldViewController worldViewController = new WorldViewController();
+    //WorldViewController worldViewController = new WorldViewController();
 
     //Inventory Overlay
     //static boolean isInventoryActive = false;
@@ -117,7 +117,7 @@ public class WorldView implements GUIController
         loadStage(levelName, "default");
         inventoryOverlay = new InventoryOverlay();
         textbox = new Textbox();
-        worldViewController.setWorldViewStatus(WORLD);
+        WorldViewController.setWorldViewStatus(WORLD);
     }
 
     public void saveStage()
@@ -233,6 +233,14 @@ public class WorldView implements GUIController
                 timeStartBump = currentNanoTime;
             bumpActive = true;
         }
+        if (input.contains("U") && elapsedTimeSinceLastInteraction > 1)
+        {
+            if (WorldViewController.getWorldViewStatus().equals(INVENTORY))
+                WorldViewController.setWorldViewStatus(INVENTORY_EXCHANGE);
+            else if (WorldViewController.getWorldViewStatus().equals(INVENTORY_EXCHANGE))
+                WorldViewController.setWorldViewStatus(INVENTORY);
+            lastTimeMenuWasOpened = currentNanoTime;
+        }
 
 
 //        if (input.contains(KEYBOARD_INVENTORY) && elapsedTimeSinceLastInteraction > 1)
@@ -243,9 +251,9 @@ public class WorldView implements GUIController
 //        }
 
         //Process Input
-        if (worldViewController.getWorldViewStatus() != WORLD && player.getActor().isMoving())
+        if (WorldViewController.getWorldViewStatus() != WORLD && player.getActor().isMoving())
             player.getActor().setVelocity(0, 0);
-        switch (worldViewController.getWorldViewStatus())
+        switch (WorldViewController.getWorldViewStatus())
         {
             case WORLD:
                 processInputAsMovement(input, currentNanoTime);
@@ -260,12 +268,13 @@ public class WorldView implements GUIController
                 daySummaryScreenController.processKey(input, currentNanoTime);
                 break;
             case INVENTORY:
+            case INVENTORY_EXCHANGE:
                 toggleInventory(input, currentNanoTime);//At the moment just toogled by keyboard
                 break;
             case DISCUSSION_GAME://No keyboard input so far
                 break;
             default:
-                System.out.println(CLASSNAME + methodName + "Undefined WorldViewStatus: " + worldViewController.getWorldViewStatus());
+                System.out.println(CLASSNAME + methodName + "Undefined WorldViewStatus: " + WorldViewController.getWorldViewStatus());
         }
 
 
@@ -316,12 +325,15 @@ public class WorldView implements GUIController
 
     private void toggleInventory(ArrayList<String> input, Long currentNanoTime)
     {
-        double elapsedTimeSinceLastInteraction = (currentNanoTime - lastTimeMenuWasOpened) / 1000000000.0;
-        if (input.contains(KEYBOARD_INVENTORY) && elapsedTimeSinceLastInteraction > 1)
+        //double elapsedTimeSinceLastInteraction = (currentNanoTime - lastTimeMenuWasOpened) / 1000000000.0;
+        double elapsedTimeSinceLastInteraction = (currentNanoTime - player.getActor().getLastInteraction()) / 1000000000.0;
+        if ((input.contains(KEYBOARD_INVENTORY) || (input.contains("E") && WorldViewController.getWorldViewStatus() == INVENTORY_EXCHANGE))
+                && elapsedTimeSinceLastInteraction > 1)
         {
-            worldViewController.command(KEYBOARD_INVENTORY);
-            //isInventoryActive = !isInventoryActive;//toggle
-            lastTimeMenuWasOpened = currentNanoTime;
+            WorldViewController.command(KEYBOARD_INVENTORY);
+            //lastTimeMenuWasOpened = currentNanoTime;
+            player.getActor().setLastInteraction(currentNanoTime);
+
         }
     }
 
@@ -332,6 +344,7 @@ public class WorldView implements GUIController
         int addedVelocityX = 0, addedVelocityY = 0;
         Direction newDirection = null;
         Actor playerActor = player.getActor();
+        double elapsedTimeSinceLastInteraction = (currentNanoTime - playerActor.getLastInteraction()) / 1000000000.0;
 
         toggleInventory(input, currentNanoTime);
 
@@ -369,8 +382,12 @@ public class WorldView implements GUIController
         if (newDirection != null && playerActor.getDirection() != newDirection)
             playerActor.setDirection(newDirection);
 
-        if (input.contains("E"))
+        //if (input.contains("E"))
+        if (input.contains("E") && elapsedTimeSinceLastInteraction > Config.TIME_BETWEEN_INTERACTIONS)
+        {
             player.setInteract(true);
+
+        }
 
     }
 
@@ -390,7 +407,7 @@ public class WorldView implements GUIController
                     && active.getActor().getSensorStatus().getOnInteraction_TriggerSprite() != TriggerType.NOTHING)//Just add sprites of actors you can interact by onInteraction
                 mouseHoveredSprites.add(active);
 
-        switch (worldViewController.getWorldViewStatus())
+        switch (WorldViewController.getWorldViewStatus())
         {
             case WORLD:
                 for (Sprite clicked : mouseHoveredSprites)
@@ -416,10 +433,11 @@ public class WorldView implements GUIController
                 textbox.processMouse(mousePositionRelativeToCamera, isMouseClicked);
                 break;
             case INVENTORY:
+            case INVENTORY_EXCHANGE:
                 inventoryOverlay.processMouse(mousePositionRelativeToCamera, isMouseClicked, currentNanoTime);
                 break;
             default:
-                System.out.println(CLASSNAME + methodName + "mouseinput undefined for: " + worldViewController.getWorldViewStatus());
+                System.out.println(CLASSNAME + methodName + "mouseinput undefined for: " + WorldViewController.getWorldViewStatus());
 
         }
         /*
@@ -569,7 +587,7 @@ public class WorldView implements GUIController
         gc.translate(camX, camY);
 
         //Overlays
-        switch (worldViewController.getWorldViewStatus())
+        switch (WorldViewController.getWorldViewStatus())
         {
             case WORLD:
                 WritableImage writableImage = mamOverlay.getWritableImage();
@@ -580,6 +598,7 @@ public class WorldView implements GUIController
                 gc.drawImage(textBoxImg, textBoxPosition.getX(), textBoxPosition.getY());
                 break;
             case INVENTORY:
+            case INVENTORY_EXCHANGE:
                 WritableImage inventoryOverlayMenuImage = inventoryOverlay.getMenuImage();
                 gc.drawImage(inventoryOverlayMenuImage, inventoryOverlayPosition.getX(), inventoryOverlayPosition.getY());
                 break;
@@ -839,7 +858,6 @@ public class WorldView implements GUIController
     {
         return discussionGamePosition;
     }
-
 
 
     public static DaySummaryScreenController getDaySummaryScreenController()

@@ -102,7 +102,8 @@ FC_tri					;floor/trigger																											;Trigger																		;1
 FCr__0					;../img/walls/freightcapsule/roof								;roofFC																			;visible													;waitForMonitor									;none
 
 #collectibles test
-box___					;storages/boxSmall/green																	;green Box																;locked 													;default																;none
+#box___					;storages/boxSmall/green																	;green Box																;locked 													;default																;none
+box___					;storages/boxSmall/green																	;green Box																;locked 													;inventory														;none
 largeB					;storages/greenBoxLarge/largeBox									;green Box																;default													;default																;none
 largeC					;storages/greenBoxLarge/largeBox									;green Box																;cut																	;default																;none
 redKey					;collectibles/key/keycard																;Red Keycard														;red																	;default																;none

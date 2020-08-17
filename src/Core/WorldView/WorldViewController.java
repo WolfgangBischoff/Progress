@@ -1,14 +1,13 @@
 package Core.WorldView;
 
-import static Core.WorldView.WorldViewStatus.INVENTORY;
-import static Core.WorldView.WorldViewStatus.WORLD;
+import static Core.WorldView.WorldViewStatus.*;
 
 public class WorldViewController
 {
     private static final String CLASSNAME = "WorldViewController ";
     private static WorldViewStatus worldViewStatus;
 
-    public void command(String cmd)
+    public static void command(String cmd)
     {
         if (cmd.equals("TAB"))
         {
@@ -16,10 +15,12 @@ public class WorldViewController
                 setWorldViewStatus(INVENTORY);
             else if (worldViewStatus.equals(INVENTORY))
                 setWorldViewStatus(WORLD);
+            else if (worldViewStatus == INVENTORY_EXCHANGE)
+                setWorldViewStatus(WORLD);
         }
     }
 
-    public WorldViewStatus getWorldViewStatus()
+    public static WorldViewStatus getWorldViewStatus()
     {
         return worldViewStatus;
     }
