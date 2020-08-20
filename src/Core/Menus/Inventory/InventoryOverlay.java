@@ -1,8 +1,10 @@
 package Core.Menus.Inventory;
 
-import Core.*;
+import Core.Actor;
+import Core.Collectible;
 import Core.Enums.CollectableType;
-import Core.WorldView.WorldView;
+import Core.GameVariables;
+import Core.GameWindow;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.SnapshotParameters;
@@ -23,32 +25,34 @@ public class InventoryOverlay
     private Canvas menuCanvas;
     private GraphicsContext menuGc;
     private WritableImage menuImage;
-    private Actor player;
+    private Actor actor;
     private List<String> interfaceElements_list = new ArrayList<>();
     private List<Rectangle2D> interfaceElements_Rectangles = new ArrayList<>();
     private Integer highlightedElement = 0;
     private static int WIDTH = INVENTORY_WIDTH;
     private static int HEIGHT = INVENTORY_HEIGHT;
-    private static Point2D SCREEN_POSITION = INVENTORY_POSITION;
-    //private static InventoryStatus inventoryStatus;
+    //private static Point2D SCREEN_POSITION = INVENTORY_POSITION;
+    private Point2D SCREEN_POSITION;
 
     Image cornerTopLeft;
     Image cornerBtmRight;
 
-    public InventoryOverlay()
+    public InventoryOverlay(Actor actor, Point2D SCREEN_POSITION)
+    //public InventoryOverlay()
     {
         menuCanvas = new Canvas(WIDTH, HEIGHT);
         menuGc = menuCanvas.getGraphicsContext2D();
-        player = WorldView.getPlayer().getActor();
+        //actor = WorldView.getPlayer().getActor();
+        this.actor = actor;
         cornerTopLeft = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
         cornerBtmRight = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
-        //inventoryStatus = ActorCondition.WorldViewStatus.CLOSED;
+        this.SCREEN_POSITION = SCREEN_POSITION;
     }
 
     private void draw() throws NullPointerException
     {
         String methodName = "draw() ";
-        player = WorldView.getPlayer().getActor(); //Just needed as long the player resets with stage load (so we have always new Player)
+        //actor = WorldView.getPlayer().getActor(); //Just needed as long the player resets with stage load (so we have always new Player)
         menuGc.clearRect(0, 0, WIDTH, HEIGHT);
         Color background = Color.rgb(60, 90, 85);
         double hue = background.getHue();
@@ -102,8 +106,8 @@ public class InventoryOverlay
 
                 //Item slot images
                 Collectible current = null;
-                if (itemSlotNumber < player.getInventory().itemsList.size())
-                    current = player.getInventory().itemsList.get(itemSlotNumber);
+                if (itemSlotNumber < actor.getInventory().itemsList.size())
+                    current = actor.getInventory().itemsList.get(itemSlotNumber);
                 if (current != null)
                 {
                     menuGc.drawImage(current.getImage(), slotX, slotY);
@@ -124,7 +128,7 @@ public class InventoryOverlay
         int offsetYFirstLine = 60;
         int dateLength = 200;
         menuGc.setFill(font);
-        menuGc.fillText("Inventory of " + player.getActorInGameName(), initialOffsetX, offsetYFirstLine);
+        menuGc.fillText("Inventory of " + actor.getActorInGameName(), initialOffsetX, offsetYFirstLine);
         menuGc.fillText("Day: " + GameVariables.getDay(), WIDTH - dateLength, offsetYFirstLine);
 
         //Decoration
@@ -154,6 +158,9 @@ public class InventoryOverlay
             relativeMousePosition = new Point2D(mousePosition.getX() - SCREEN_POSITION.getX(), mousePosition.getY() - SCREEN_POSITION.getY());
         else relativeMousePosition = null;
 
+        if (actor.getActorInGameName().equals("green Box"))
+            System.out.println(CLASSNAME + methodName + relativeMousePosition);
+
         Integer hoveredElement = null;
         for (int i = 0; i < interfaceElements_Rectangles.size(); i++)
         {
@@ -179,15 +186,15 @@ public class InventoryOverlay
     {
         String methodName = "activateHighlightedOption() ";
         Collectible collectible = null;
-        if (player.getInventory().itemsList.size() > highlightedElement && highlightedElement >= 0)
-            collectible = player.getInventory().itemsList.get(highlightedElement);
-        System.out.println(CLASSNAME + methodName + "clicked " + collectible);
+        if (actor.getInventory().itemsList.size() > highlightedElement && highlightedElement >= 0)
+            collectible = actor.getInventory().itemsList.get(highlightedElement);
+        System.out.println(CLASSNAME + methodName + actor.getActorInGameName() + " inventory clicked " + collectible);
 
         if (collectible != null && collectible.getType() == CollectableType.FOOD)
         {
             System.out.println(CLASSNAME + methodName + "You ate " + collectible.getIngameName());
             //Item vanishes competely if consumed.
-            player.getInventory().itemsList.remove(collectible);
+            actor.getInventory().itemsList.remove(collectible);
             GameVariables.getStolenCollectibles().remove(collectible);
         }
 

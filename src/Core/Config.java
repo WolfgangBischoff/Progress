@@ -24,6 +24,7 @@ public class Config
     public static final int INVENTORY_WIDTH = 550;
     public static final int INVENTORY_HEIGHT = 600;
     public static Point2D INVENTORY_POSITION = new Point2D(64, CAMERA_HEIGHT / 2.0 - INVENTORY_HEIGHT / 2.0);
+    public static Point2D EXCHANGE_INVENTORY_POSITION = new Point2D(64 + INVENTORY_WIDTH, CAMERA_HEIGHT / 2.0 - INVENTORY_HEIGHT / 2.0);
 
     public static final int DISCUSSION_WIDTH = 900;
     public static final int DISCUSSION_HEIGHT = 600;

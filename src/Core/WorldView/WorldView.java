@@ -5,6 +5,7 @@ import Core.Enums.Direction;
 import Core.Enums.TriggerType;
 import Core.Menus.DaySummary.DaySummaryScreenController;
 import Core.Menus.DiscussionGame.DiscussionGame;
+import Core.Menus.Inventory.InventoryController;
 import Core.Menus.Inventory.InventoryOverlay;
 import Core.Menus.Personality.PersonalityScreenController;
 import Core.Menus.StatusBarOverlay;
@@ -50,8 +51,10 @@ public class WorldView implements GUIController
 
     //Inventory Overlay
     //static boolean isInventoryActive = false;
-    static InventoryOverlay inventoryOverlay;
-    static Point2D inventoryOverlayPosition = INVENTORY_POSITION;
+    //static InventoryOverlay inventoryOverlay;
+    static InventoryController inventoryController;
+    //static Point2D inventoryOverlayPosition = INVENTORY_POSITION;
+    static Point2D inventoryOverlayPosition = new Point2D(0,0);
     static Long lastTimeMenuWasOpened = 0L;
 
     //TextBox Overlay
@@ -115,7 +118,8 @@ public class WorldView implements GUIController
         gc = worldCanvas.getGraphicsContext2D();
         ShadowMaskGc = shadowMask.getGraphicsContext2D();
         loadStage(levelName, "default");
-        inventoryOverlay = new InventoryOverlay();
+        //inventoryOverlay = new InventoryOverlay();
+        inventoryController = new InventoryController();
         textbox = new Textbox();
         WorldViewController.setWorldViewStatus(WORLD);
     }
@@ -434,7 +438,8 @@ public class WorldView implements GUIController
                 break;
             case INVENTORY:
             case INVENTORY_EXCHANGE:
-                inventoryOverlay.processMouse(mousePositionRelativeToCamera, isMouseClicked, currentNanoTime);
+                //inventoryOverlay.processMouse(mousePositionRelativeToCamera, isMouseClicked, currentNanoTime);
+                inventoryController.processMouse(mousePositionRelativeToCamera, isMouseClicked, currentNanoTime);
                 break;
             default:
                 System.out.println(CLASSNAME + methodName + "mouseinput undefined for: " + WorldViewController.getWorldViewStatus());
@@ -598,9 +603,14 @@ public class WorldView implements GUIController
                 gc.drawImage(textBoxImg, textBoxPosition.getX(), textBoxPosition.getY());
                 break;
             case INVENTORY:
-            case INVENTORY_EXCHANGE:
-                WritableImage inventoryOverlayMenuImage = inventoryOverlay.getMenuImage();
+//                WritableImage inventoryOverlayMenuImage = inventoryOverlay.getMenuImage();
+//                gc.drawImage(inventoryOverlayMenuImage, inventoryOverlayPosition.getX(), inventoryOverlayPosition.getY());
+                WritableImage inventoryOverlayMenuImage = inventoryController.getMenuImage();
                 gc.drawImage(inventoryOverlayMenuImage, inventoryOverlayPosition.getX(), inventoryOverlayPosition.getY());
+                break;
+            case INVENTORY_EXCHANGE:
+                WritableImage inventoryOverlayMenuImageExchange = inventoryController.getMenuImage();
+                gc.drawImage(inventoryOverlayMenuImageExchange, inventoryOverlayPosition.getX(), inventoryOverlayPosition.getY());
                 break;
             case PERSONALITY:
                 WritableImage personalityScreenOverlay = personalityScreenController.getWritableImage();
@@ -831,11 +841,6 @@ public class WorldView implements GUIController
         return shadowColor;
     }
 
-
-    public static InventoryOverlay getInventoryOverlay()
-    {
-        return inventoryOverlay;
-    }
 
     public static Long getLastTimeMenuWasOpened()
     {

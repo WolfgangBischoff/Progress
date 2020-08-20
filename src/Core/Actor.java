@@ -3,6 +3,7 @@ package Core;
 
 import Core.Enums.*;
 import Core.Menus.Inventory.Inventory;
+import Core.Menus.Inventory.InventoryController;
 import Core.Menus.Personality.MyersBriggsPersonality;
 import Core.Menus.Personality.PersonalityContainer;
 import Core.WorldView.WorldView;
@@ -606,6 +607,7 @@ public class Actor
         String methodName = "openInventory() ";
         System.out.println(CLASSNAME + methodName);
         WorldViewController.setWorldViewStatus(WorldViewStatus.INVENTORY_EXCHANGE);
+        InventoryController.setExchangeInventoryActor(this);
     }
 
     //TODO from script or file
