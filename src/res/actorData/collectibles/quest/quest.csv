@@ -8,6 +8,7 @@
 sensorStatus	;default																			;collectable														;none  	 																;none										 									;none																			;none																;none												;none 									;none												;none																			;none																	;none 									;none																	;none																	;none											;none 									;none													;none											;none														;none														;none															;none
 
 collectable_type; quest
+tags; persistent
 
 #status to image
 #status 			;name   				;spritename  																																	;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;duration ;velocity ;dialogueID ;AnimationEnds

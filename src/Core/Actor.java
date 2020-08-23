@@ -484,6 +484,7 @@ public class Actor
         WorldView.getBottomLayer().remove(sprite);
         WorldView.getMiddleLayer().remove(sprite);
         WorldView.getTopLayer().remove(sprite);
+        sprite.setLayer(targetLayer);
 
         switch (targetLayer)
         {
@@ -605,7 +606,6 @@ public class Actor
     private void openInventory()
     {
         String methodName = "openInventory() ";
-        System.out.println(CLASSNAME + methodName);
         WorldViewController.setWorldViewStatus(WorldViewStatus.INVENTORY_EXCHANGE);
         InventoryController.setExchangeInventoryActor(this);
     }

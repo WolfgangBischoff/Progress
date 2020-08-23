@@ -2,7 +2,10 @@ package Core.Enums;
 
 public enum ActorTag
 {
-    AUTOMATED_DOOR, AUTOMATED_DOOR_DETECTABLE, BECOME_TRANSPARENT, DETECTS_PLAYER, PLAYER;
+    AUTOMATED_DOOR, AUTOMATED_DOOR_DETECTABLE,
+    BECOME_TRANSPARENT, DETECTS_PLAYER, PLAYER,
+    PERSISTENT //is loaded on the next day from LevelState
+    ;
 
     public static ActorTag getType(String type)
     {
@@ -13,6 +16,7 @@ public enum ActorTag
             case "become_transparent": return BECOME_TRANSPARENT;
             case "detects_player": return DETECTS_PLAYER;
             case "player": return PLAYER;
+            case "persistent": return PERSISTENT;
             default: throw new RuntimeException("ActorType unknown: " + type);
         }
     }

@@ -1,12 +1,12 @@
 package Core.WorldView;
 
 import Core.*;
+import Core.Enums.ActorTag;
 import Core.Enums.Direction;
 import Core.Enums.TriggerType;
 import Core.Menus.DaySummary.DaySummaryScreenController;
 import Core.Menus.DiscussionGame.DiscussionGame;
 import Core.Menus.Inventory.InventoryController;
-import Core.Menus.Inventory.InventoryOverlay;
 import Core.Menus.Personality.PersonalityScreenController;
 import Core.Menus.StatusBarOverlay;
 import Core.Menus.Textbox.Textbox;
@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static Core.Config.*;
 import static Core.WorldView.WorldViewStatus.*;
@@ -47,38 +48,29 @@ public class WorldView implements GUIController
     GraphicsContext ShadowMaskGc;
     Map<String, Image> lightsImageMap = new HashMap<>();
     Color shadowColor;
-    //WorldViewController worldViewController = new WorldViewController();
 
     //Inventory Overlay
-    //static boolean isInventoryActive = false;
-    //static InventoryOverlay inventoryOverlay;
     static InventoryController inventoryController;
-    //static Point2D inventoryOverlayPosition = INVENTORY_POSITION;
-    static Point2D inventoryOverlayPosition = new Point2D(0,0);
+    static Point2D inventoryOverlayPosition = new Point2D(0, 0);
     static Long lastTimeMenuWasOpened = 0L;
 
     //TextBox Overlay
-    //static boolean isTextBoxActive = false;
     static Textbox textbox;
     static Point2D textBoxPosition = new Point2D(CAMERA_WIDTH / 2f - Textbox.getTEXT_BOX_WIDTH() / 2, CAMERA_HEIGHT - Textbox.getTEXT_BOX_HEIGHT() - 32);
 
     //Personality Overlay
-    //static boolean isPersonalityScreenActive = false;
     static PersonalityScreenController personalityScreenController;
     static Point2D personalityScreenPosition = PERSONALITY_POSITION;
 
     //Discussion Game Overlay
-    //static boolean isDiscussionGameActive = false;
     static DiscussionGame discussionGame;
     static Point2D discussionGamePosition = DISCUSSION_POSITION;
 
     //DaySummary Overlay
-    //private static boolean isDaySummaryActive = false;
     static DaySummaryScreenController daySummaryScreenController = new DaySummaryScreenController();
     static Point2D daySummaryScreenPosition = DAY_SUMMARY_POSITION;
 
     //Management Attention Meter Overlay
-    //private static boolean isManagementAttentionMeterActive = true;
     static StatusBarOverlay mamOverlay = new StatusBarOverlay(MAM_BAR_WIDTH, MAM_BAR_HEIGHT, GameVariables.getPlayerMaM_duringDayProperty(), 100);
     static Point2D mamOverlayPosition = MAM_BAR_POSITION;
 
@@ -118,7 +110,6 @@ public class WorldView implements GUIController
         gc = worldCanvas.getGraphicsContext2D();
         ShadowMaskGc = shadowMask.getGraphicsContext2D();
         loadStage(levelName, "default");
-        //inventoryOverlay = new InventoryOverlay();
         inventoryController = new InventoryController();
         textbox = new Textbox();
         WorldViewController.setWorldViewStatus(WORLD);
@@ -136,19 +127,25 @@ public class WorldView implements GUIController
     public void loadStage(String levelName, String spawnId)
     {
         String methodName = "loadStage() ";
-        boolean debug = false;
+        boolean debug = true;
 
         clearLevel();
         this.levelName = levelName;
         //check if level was already loaded today
         LevelState levelState = GameVariables.getLevelData().get(this.levelName);
-        if (levelState != null && levelState.getDay() == GameVariables.getDay())
+        if (levelState != null && levelState.getDay() == GameVariables.getDay())//Level was loaded on same day
         {
             if (debug)
                 System.out.println(CLASSNAME + methodName + "loaded from state");
-            loadFromLevelState(levelState, spawnId);
+            loadFromLevelDailyState(levelState, spawnId);
         }
-        else
+        else if (levelState != null)//Level was already loaded on another day
+        {
+            if (debug)
+                System.out.println(CLASSNAME + methodName + "loaded persistent state");
+            loadLevelFromPersistentState(levelState, spawnId);
+        }
+        else //Level loaded the first time
         {
             if (debug)
                 System.out.println(CLASSNAME + methodName + "loaded from file");
@@ -172,6 +169,82 @@ public class WorldView implements GUIController
         shadowColor = null;
     }
 
+    private void loadLevelFromPersistentState(LevelState levelState, String spawnId)
+    {
+        String methodName = "loadLevelFromPersistentState() ";
+        boolean debug = true;
+        WorldLoader worldLoader = new WorldLoader();
+        worldLoader.load(levelName, spawnId);
+        List<Sprite> tmp_passiveSpritesLayer = worldLoader.getPassivLayer();
+        List<Sprite> tmp_activeSpritesLayer = worldLoader.getActiveLayer();
+        List<Sprite> tmp_bottomLayer = worldLoader.getBttmLayer();
+        List<Sprite> tmp_middleLayer = worldLoader.getMediumLayer();
+        List<Sprite> tmp_topLayer = worldLoader.getUpperLayer();
+
+        //filter persistent actors, just not persistent should remain or actorless sprites
+        tmp_activeSpritesLayer = tmp_activeSpritesLayer.stream()
+                .filter(sprite ->
+                        sprite.getActor() == null || !sprite.getActor().tags.contains(ActorTag.PERSISTENT))
+                .collect(Collectors.toList());
+        tmp_bottomLayer = tmp_bottomLayer.stream()
+                .filter(sprite ->
+                        sprite.getActor() == null || !sprite.getActor().tags.contains(ActorTag.PERSISTENT))
+                .collect(Collectors.toList());
+        tmp_middleLayer = tmp_middleLayer.stream()
+                .filter(sprite ->
+                        sprite.getActor() == null || !sprite.getActor().tags.contains(ActorTag.PERSISTENT))
+                .collect(Collectors.toList());
+        tmp_topLayer = tmp_topLayer.stream()
+                .filter(sprite ->
+                        sprite.getActor() == null || !sprite.getActor().tags.contains(ActorTag.PERSISTENT))
+                .collect(Collectors.toList());
+
+        //add persistent actors from state
+        for (Sprite activeSprite : levelState.getActiveSpritesLayer())
+        {
+            if (activeSprite.getActor().tags.contains(ActorTag.PERSISTENT))
+            {
+                System.out.println(CLASSNAME + methodName + activeSprite.getActor().getActorInGameName());
+                tmp_activeSpritesLayer.add(activeSprite);
+                switch (activeSprite.getLayer())
+                {
+                    case 0:
+                        tmp_bottomLayer.add(activeSprite);
+                        break;
+                    case 1:
+                        tmp_middleLayer.add(activeSprite);
+                        break;
+                    case 2:
+                        tmp_topLayer.add(activeSprite);
+                        break;
+                    default:
+                        throw new RuntimeException("Invalid Layer: " + activeSprite.getLayer());
+                }
+            }
+        }
+
+        passiveSpritesLayer = tmp_passiveSpritesLayer;
+        activeSpritesLayer = tmp_activeSpritesLayer;
+        bottomLayer = tmp_bottomLayer;
+        middleLayer = tmp_middleLayer;
+        topLayer = tmp_topLayer;
+
+        //Player
+        player = GameVariables.getPlayer();
+        WorldLoader.SpawnData spawnData = levelState.getSpawnPointsMap().get(spawnId);
+        player.getActor().setDirection(spawnData.getDirection());
+        player.setPosition(spawnData.getX() * 64, spawnData.getY() * 64);
+        middleLayer.add(player); //assumption player on layer 1
+        activeSpritesLayer.add(player);
+
+        passiveCollisionRelevantSpritesLayer.addAll(bottomLayer); //For passive collision check
+        passiveCollisionRelevantSpritesLayer.addAll(middleLayer);
+        passiveCollisionRelevantSpritesLayer.addAll(topLayer);
+        borders = worldLoader.getBorders();
+        shadowColor = worldLoader.getShadowColor();
+        spawnPointsMap = worldLoader.getSpawnPointsMap();
+    }
+
     private void loadLevelFromFile(String spawnId)
     {
         WorldLoader worldLoader = new WorldLoader();
@@ -190,7 +263,7 @@ public class WorldView implements GUIController
         spawnPointsMap = worldLoader.getSpawnPointsMap();
     }
 
-    private void loadFromLevelState(LevelState levelState, String spawnId)
+    private void loadFromLevelDailyState(LevelState levelState, String spawnId)
     {
         String methodName = "loadFromLevelState() ";
         passiveSpritesLayer = levelState.getPassiveSpritesLayer(); //No collision just render
@@ -216,11 +289,6 @@ public class WorldView implements GUIController
 
     }
 
-//    public static void setIsPersonalityScreenActive(boolean isPersonalityScreenActive)
-//    {
-//        WorldView.isPersonalityScreenActive = isPersonalityScreenActive;
-//    }
-
     @Override
     public void update(Long currentNanoTime)
     {
@@ -245,14 +313,6 @@ public class WorldView implements GUIController
                 WorldViewController.setWorldViewStatus(INVENTORY);
             lastTimeMenuWasOpened = currentNanoTime;
         }
-
-
-//        if (input.contains(KEYBOARD_INVENTORY) && elapsedTimeSinceLastInteraction > 1)
-//        {
-//            worldViewController.command(KEYBOARD_INVENTORY);
-//            isInventoryActive = !isInventoryActive;//toggle
-//            lastTimeMenuWasOpened = currentNanoTime;
-//        }
 
         //Process Input
         if (WorldViewController.getWorldViewStatus() != WORLD && player.getActor().isMoving())
@@ -281,30 +341,6 @@ public class WorldView implements GUIController
                 System.out.println(CLASSNAME + methodName + "Undefined WorldViewStatus: " + WorldViewController.getWorldViewStatus());
         }
 
-
-        /*
-        if (isTextBoxActive)
-        {
-            if (player.getActor().isMoving())
-                player.getActor().setVelocity(0, 0);
-            textbox.processKey(input, currentNanoTime);
-        }
-        else if (isPersonalityScreenActive)
-        {
-            if (player.getActor().isMoving())
-                player.getActor().setVelocity(0, 0);
-            personalityScreenController.processKey(input, currentNanoTime);
-        }
-        else if (isDaySummaryActive)
-        {
-            if (player.getActor().isMoving())
-                player.getActor().setVelocity(0, 0);
-            daySummaryScreenController.processKey(input, currentNanoTime);
-        }
-        else
-            processInputAsMovement(input);
-
-         */
         processMouse(currentNanoTime);
 
         //Update Sprites
@@ -329,15 +365,12 @@ public class WorldView implements GUIController
 
     private void toggleInventory(ArrayList<String> input, Long currentNanoTime)
     {
-        //double elapsedTimeSinceLastInteraction = (currentNanoTime - lastTimeMenuWasOpened) / 1000000000.0;
         double elapsedTimeSinceLastInteraction = (currentNanoTime - player.getActor().getLastInteraction()) / 1000000000.0;
         if ((input.contains(KEYBOARD_INVENTORY) || (input.contains("E") && WorldViewController.getWorldViewStatus() == INVENTORY_EXCHANGE))
                 && elapsedTimeSinceLastInteraction > 1)
         {
             WorldViewController.command(KEYBOARD_INVENTORY);
-            //lastTimeMenuWasOpened = currentNanoTime;
             player.getActor().setLastInteraction(currentNanoTime);
-
         }
     }
 
@@ -386,7 +419,6 @@ public class WorldView implements GUIController
         if (newDirection != null && playerActor.getDirection() != newDirection)
             playerActor.setDirection(newDirection);
 
-        //if (input.contains("E"))
         if (input.contains("E") && elapsedTimeSinceLastInteraction > Config.TIME_BETWEEN_INTERACTIONS)
         {
             player.setInteract(true);
@@ -438,48 +470,12 @@ public class WorldView implements GUIController
                 break;
             case INVENTORY:
             case INVENTORY_EXCHANGE:
-                //inventoryOverlay.processMouse(mousePositionRelativeToCamera, isMouseClicked, currentNanoTime);
                 inventoryController.processMouse(mousePositionRelativeToCamera, isMouseClicked, currentNanoTime);
                 break;
             default:
                 System.out.println(CLASSNAME + methodName + "mouseinput undefined for: " + WorldViewController.getWorldViewStatus());
 
         }
-        /*
-            if (isDiscussionGameActive)
-        {
-            discussionGame.processMouse(mousePositionRelativeToCamera, isMouseClicked, currentNanoTime);
-        }
-        else if (isPersonalityScreenActive)
-        {
-            personalityScreenController.processMouse(mousePositionRelativeToCamera, isMouseClicked, currentNanoTime);
-        }
-        else if (isTextBoxActive)
-        {
-            textbox.processMouse(mousePositionRelativeToCamera, isMouseClicked);
-        }
-        else if (isInventoryActive)
-        {
-            inventoryOverlay.processMouse(mousePositionRelativeToCamera, isMouseClicked, currentNanoTime);
-        }
-        else if (isDaySummaryActive)
-        {
-            daySummaryScreenController.processMouse(mousePositionRelativeToCamera, isMouseClicked, currentNanoTime);
-        }
-        else
-        {
-            for (Sprite clicked : mouseHoveredSprites)
-                if (isMouseClicked)
-                {
-                    clicked.onClick(currentNanoTime);//Used onInteraction Trigger
-                }
-                else
-                {
-                    //System.out.println(classname + methodname + "Hovered over: " + clicked.getName());
-                }
-        }
-
-         */
 
         for (Sprite active : activeSpritesLayer)
             if (active.intersectsRelativeToWorldView(mousePositionRelativeToCamera) && DEBUG_MOUSE_ANALYSIS && active.getActor() != null && isMouseClicked)
@@ -603,14 +599,9 @@ public class WorldView implements GUIController
                 gc.drawImage(textBoxImg, textBoxPosition.getX(), textBoxPosition.getY());
                 break;
             case INVENTORY:
-//                WritableImage inventoryOverlayMenuImage = inventoryOverlay.getMenuImage();
-//                gc.drawImage(inventoryOverlayMenuImage, inventoryOverlayPosition.getX(), inventoryOverlayPosition.getY());
+            case INVENTORY_EXCHANGE:
                 WritableImage inventoryOverlayMenuImage = inventoryController.getMenuImage();
                 gc.drawImage(inventoryOverlayMenuImage, inventoryOverlayPosition.getX(), inventoryOverlayPosition.getY());
-                break;
-            case INVENTORY_EXCHANGE:
-                WritableImage inventoryOverlayMenuImageExchange = inventoryController.getMenuImage();
-                gc.drawImage(inventoryOverlayMenuImageExchange, inventoryOverlayPosition.getX(), inventoryOverlayPosition.getY());
                 break;
             case PERSONALITY:
                 WritableImage personalityScreenOverlay = personalityScreenController.getWritableImage();

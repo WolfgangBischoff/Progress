@@ -42,6 +42,7 @@ public class Sprite
     private Boolean blockedByOtherSprite = false;
     private double hitBoxOffsetX = 0, hitBoxOffsetY = 0, hitBoxWidth, hitBoxHeight;
     private String lightningSpriteName;
+    private int layer = -1;
 
 
     public Sprite(String imagename)
@@ -340,7 +341,7 @@ public class Sprite
         isBlocker = blocker;
     }
 
-    public void setImage(String filename) //throws IllegalArgumentException
+    public void setImage(String filename)
     {
         String methodName = "setImage(String) ";
         Image i;
@@ -559,5 +560,15 @@ public class Sprite
     public Boolean getBlockedByOtherSprite()
     {
         return blockedByOtherSprite;
+    }
+
+    public int getLayer()
+    {
+        return layer;
+    }
+
+    public void setLayer(int layer)
+    {
+        this.layer = layer;
     }
 }

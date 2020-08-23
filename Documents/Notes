@@ -2,6 +2,7 @@
 Logic:
 - Inventory
     - Inventory persistent
+    - Box bug, should not be unlockable
 - Economy
     - Add Money, get it from tenderer
     - Debit Cards can be stolen, work one day before blocked, max limit. Can be found by interrogation
@@ -112,6 +113,7 @@ Logic:
 - Schuldsklaven "Verbrecher" vom sYstem absichtlich produziert
 - Main menu with dark parts that get light abwechseln, reveal hammer/sickle, Money, such things
 - Social Assignment mechanic
+- Minigames: Minesweeper, Einarmiger Bandit, test knowledge with symbols or inputs
 - espionage/desinformation via Alexa devices
 - Why are people poor? Donations from rich are stupid. System is not fair, we had never a change
 

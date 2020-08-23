@@ -264,6 +264,7 @@ public class WorldLoader
 
     private void addToCollisionLayer(Sprite sprite, int layer)
     {
+        sprite.setLayer(layer);
         switch (layer)
         {
             case 0:

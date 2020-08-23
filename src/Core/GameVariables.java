@@ -18,6 +18,7 @@ public class GameVariables
 
     //Game State persistent over days
     static Sprite player;
+    //private List<String> loadedLevels = new ArrayList<>();
 
     //Game State persistent on same day
     private static Map<String, LevelState> levelData = new HashMap<>();
@@ -70,7 +71,7 @@ public class GameVariables
         String methodName = "incrementDay() ";
         playerMaM_dayStart = playerMaM_duringDay.getValue();
         day++;
-        getLevelData().clear();//Invalidate data from previous day to reload from file
+        //getLevelData().clear();//Invalidate data from previous day to reload from file
         System.out.println(CLASSNAME + methodName + "Day: " + day + " MaM Start: " + playerMaM_dayStart);
 
     }
@@ -135,5 +136,20 @@ public class GameVariables
     public static Sprite getPlayer()
     {
         return player;
+    }
+
+    public static void setSingleton(GameVariables singleton)
+    {
+        GameVariables.singleton = singleton;
+    }
+
+    public static void setDay(int day)
+    {
+        GameVariables.day = day;
+    }
+
+    public static void setStolenCollectibles(List<Collectible> stolenCollectibles)
+    {
+        GameVariables.stolenCollectibles = stolenCollectibles;
     }
 }
