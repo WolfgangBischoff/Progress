@@ -34,6 +34,13 @@ public class Inventory
         }
     }
 
+    public void removeItem(Collectible collectible)
+    {
+        String methodName = "removeItem(String, String) ";
+        boolean debug = false;
+        itemsList.remove(collectible);
+    }
+
 
 
     public boolean contains(Collectible toCheck)

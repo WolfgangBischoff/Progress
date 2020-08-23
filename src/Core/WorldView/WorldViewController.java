@@ -28,7 +28,10 @@ public class WorldViewController
     public static void setWorldViewStatus(WorldViewStatus worldViewStatus)
     {
         String methodName = "setWorldStatus() ";
-        System.out.println(CLASSNAME + methodName + "New status: " + worldViewStatus);
+        boolean debug = false;
+
+        if (debug)
+            System.out.println(CLASSNAME + methodName + "New status: " + worldViewStatus);
         WorldViewController.worldViewStatus = worldViewStatus;
     }
 }

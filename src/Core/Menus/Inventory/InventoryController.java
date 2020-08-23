@@ -2,7 +2,6 @@ package Core.Menus.Inventory;
 
 import Core.Actor;
 import Core.Config;
-import Core.GameWindow;
 import Core.WorldView.WorldView;
 import Core.WorldView.WorldViewController;
 import Core.WorldView.WorldViewStatus;
@@ -19,16 +18,15 @@ public class InventoryController
 {
     Canvas canvas;
     GraphicsContext graphicsContext;
-    InventoryOverlay playerInventoryOverlay;
-    InventoryOverlay otherInventoryOverlay;
+    static InventoryOverlay playerInventoryOverlay;
+    static InventoryOverlay otherInventoryOverlay;
     WritableImage playerInventory;
     WritableImage exchangeInventory;
     static Actor exchangeInventoryActor;
+    static Actor playerActor;
     private static int WIDTH = CAMERA_WIDTH;
     private static int HEIGHT = CAMERA_HEIGHT;
     private static String CLASSNAME = "InventoryController ";
-    private static int otherInventoryOffsetX = 100;
-    private static int otherInventoryOffsetY = 0;
     Point2D playerInventoryPosition = Config.INVENTORY_POSITION;
     Point2D exchangeInventoryPosition = EXCHANGE_INVENTORY_POSITION;
 
@@ -37,6 +35,8 @@ public class InventoryController
         canvas = new Canvas(WIDTH, HEIGHT);
         graphicsContext = canvas.getGraphicsContext2D();
         playerInventoryOverlay = new InventoryOverlay(WorldView.getPlayer().getActor(), playerInventoryPosition);
+        playerActor = WorldView.getPlayer().getActor();
+        otherInventoryOverlay = new InventoryOverlay(null, exchangeInventoryPosition);
     }
 
 
@@ -44,12 +44,11 @@ public class InventoryController
     {
         graphicsContext.clearRect(0, 0, WIDTH, HEIGHT);
         playerInventory = playerInventoryOverlay.getMenuImage();
-        //graphicsContext.drawImage(playerInventory, 0, 0);
         graphicsContext.drawImage(playerInventory, playerInventoryPosition.getX(), playerInventoryPosition.getY());
 
         if (WorldViewController.getWorldViewStatus() == WorldViewStatus.INVENTORY_EXCHANGE)
         {
-            otherInventoryOverlay = new InventoryOverlay(exchangeInventoryActor, exchangeInventoryPosition);
+            otherInventoryOverlay.setActor(exchangeInventoryActor);
             exchangeInventory = otherInventoryOverlay.getMenuImage();
             graphicsContext.drawImage(exchangeInventory, exchangeInventoryPosition.getX(), exchangeInventoryPosition.getY());
         }
@@ -66,7 +65,6 @@ public class InventoryController
         {
             otherInventoryOverlay.processMouse(mousePosition, isMouseClicked, currentNanoTime);
         }
-        //GameWindow.getSingleton().setMouseMoved(false);
     }
 
     public static void setExchangeInventoryActor(Actor exchangeInventoryActor)

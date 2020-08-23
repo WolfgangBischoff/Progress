@@ -5,6 +5,7 @@ import Core.Collectible;
 import Core.Enums.CollectableType;
 import Core.GameVariables;
 import Core.GameWindow;
+import Core.WorldView.WorldViewController;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.SnapshotParameters;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static Core.Config.*;
+import static Core.WorldView.WorldViewStatus.INVENTORY_EXCHANGE;
 
 public class InventoryOverlay
 {
@@ -31,7 +33,6 @@ public class InventoryOverlay
     private Integer highlightedElement = 0;
     private static int WIDTH = INVENTORY_WIDTH;
     private static int HEIGHT = INVENTORY_HEIGHT;
-    //private static Point2D SCREEN_POSITION = INVENTORY_POSITION;
     private Point2D SCREEN_POSITION;
 
     Image cornerTopLeft;
@@ -158,9 +159,6 @@ public class InventoryOverlay
             relativeMousePosition = new Point2D(mousePosition.getX() - SCREEN_POSITION.getX(), mousePosition.getY() - SCREEN_POSITION.getY());
         else relativeMousePosition = null;
 
-        if (actor.getActorInGameName().equals("green Box"))
-            System.out.println(CLASSNAME + methodName + relativeMousePosition);
-
         Integer hoveredElement = null;
         for (int i = 0; i < interfaceElements_Rectangles.size(); i++)
         {
@@ -176,6 +174,7 @@ public class InventoryOverlay
             GameWindow.getSingleton().setMouseMoved(false);
         }
 
+
         if (isMouseClicked && hoveredElement != null)//To prevent click of not hovered
         {
             activateHighlightedOption(currentNanoTime);
@@ -188,9 +187,23 @@ public class InventoryOverlay
         Collectible collectible = null;
         if (actor.getInventory().itemsList.size() > highlightedElement && highlightedElement >= 0)
             collectible = actor.getInventory().itemsList.get(highlightedElement);
+
         System.out.println(CLASSNAME + methodName + actor.getActorInGameName() + " inventory clicked " + collectible);
 
-        if (collectible != null && collectible.getType() == CollectableType.FOOD)
+        if (collectible != null && WorldViewController.getWorldViewStatus() == INVENTORY_EXCHANGE)
+        {
+            //check from which inventory to which inventory we exchange
+            if (InventoryController.playerInventoryOverlay == this)
+            {
+                InventoryController.exchangeInventoryActor.getInventory().addItem(collectible);
+                InventoryController.playerActor.getInventory().removeItem(collectible);
+            }
+            else if (InventoryController.otherInventoryOverlay == this)
+            {
+                InventoryController.playerActor.getInventory().addItem(collectible);
+                InventoryController.exchangeInventoryActor.getInventory().removeItem(collectible);
+            }
+        }else if (collectible != null && collectible.getType() == CollectableType.FOOD)
         {
             System.out.println(CLASSNAME + methodName + "You ate " + collectible.getIngameName());
             //Item vanishes competely if consumed.
@@ -217,5 +230,60 @@ public class InventoryOverlay
     public static int getMenuHeight()
     {
         return HEIGHT;
+    }
+
+    public void setMenuCanvas(Canvas menuCanvas)
+    {
+        this.menuCanvas = menuCanvas;
+    }
+
+    public void setMenuGc(GraphicsContext menuGc)
+    {
+        this.menuGc = menuGc;
+    }
+
+    public void setMenuImage(WritableImage menuImage)
+    {
+        this.menuImage = menuImage;
+    }
+
+    public void setActor(Actor actor)
+    {
+        this.actor = actor;
+    }
+
+    public void setInterfaceElements_list(List<String> interfaceElements_list)
+    {
+        this.interfaceElements_list = interfaceElements_list;
+    }
+
+    public void setInterfaceElements_Rectangles(List<Rectangle2D> interfaceElements_Rectangles)
+    {
+        this.interfaceElements_Rectangles = interfaceElements_Rectangles;
+    }
+
+    public static void setWIDTH(int WIDTH)
+    {
+        InventoryOverlay.WIDTH = WIDTH;
+    }
+
+    public static void setHEIGHT(int HEIGHT)
+    {
+        InventoryOverlay.HEIGHT = HEIGHT;
+    }
+
+    public void setSCREEN_POSITION(Point2D SCREEN_POSITION)
+    {
+        this.SCREEN_POSITION = SCREEN_POSITION;
+    }
+
+    public void setCornerTopLeft(Image cornerTopLeft)
+    {
+        this.cornerTopLeft = cornerTopLeft;
+    }
+
+    public void setCornerBtmRight(Image cornerBtmRight)
+    {
+        this.cornerBtmRight = cornerBtmRight;
     }
 }
