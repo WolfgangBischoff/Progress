@@ -20,5 +20,5 @@ locked					;greenBox			;../actorData/storages/boxSmall/greenBox_64_64											
 unlocked 		;greenBox			;../actorData/storages/boxSmall/greenBox_64_64											;true				;0												;000	;000										;000	;000	;000								;000									;000											;000	 									;000									;000										;bluelight_128						;000						;000						;init-get			;false
 
 #condition;if sprite-status;if sensor-status;type				;true-sprite-status;true-sensor-status;false-sprite-status;false-sensor-status	;params
-condition	;locked										;*															;hasItem ;unlocked										;default 										;locked													;*						 												;green ;key ;red; key
+condition	;locked										;*															;hasItem ;unlocked										;inventory									;locked													;*						 												;green ;key ;red; key
 

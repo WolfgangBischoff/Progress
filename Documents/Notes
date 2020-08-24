@@ -1,8 +1,5 @@
 
 Logic:
-- Inventory
-    - Inventory persistent
-    - Box bug, should not be unlockable
 - Economy
     - Add Money, get it from tenderer
     - Debit Cards can be stolen, work one day before blocked, max limit. Can be found by interrogation
