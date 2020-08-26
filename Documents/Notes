@@ -31,7 +31,7 @@ Logic:
 ----- Sprites ----------------------------
 ------------------------------------------
 - Ship:
-    FrontWindow, moving asteroid, rescue pods, captian sprite, speaker
+    FrontWindow, moving asteroid, rescue pods, captain sprite, speaker, back Person sprite
 - Docking Bay:
     Elevator, schriftzug "Elevator", minimal table, Lautsprecher
 - Control Center: BrückenControls,
