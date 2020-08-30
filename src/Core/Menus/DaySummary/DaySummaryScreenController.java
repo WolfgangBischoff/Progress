@@ -231,8 +231,6 @@ public class DaySummaryScreenController
             String spawnId = "bed";
             WorldView.getSingleton().loadStage(levelname, spawnId);
             WorldViewController.setWorldViewStatus(WorldViewStatus.WORLD);
-            //WorldView.setIsDaySummaryActive(false);
-
         }
 
         WorldView.getPlayer().getActor().setLastInteraction(currentNanoTime);

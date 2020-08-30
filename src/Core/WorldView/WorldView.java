@@ -372,8 +372,10 @@ public class WorldView implements GUIController
     private void toggleInventory(ArrayList<String> input, Long currentNanoTime)
     {
         double elapsedTimeSinceLastInteraction = (currentNanoTime - player.getActor().getLastInteraction()) / 1000000000.0;
-        if ((input.contains(KEYBOARD_INVENTORY) || (input.contains("E") && WorldViewController.getWorldViewStatus() == INVENTORY_EXCHANGE))
-                && elapsedTimeSinceLastInteraction > 1)
+        if (elapsedTimeSinceLastInteraction > 1 &&
+                (input.contains(KEYBOARD_INVENTORY) ||
+                        (input.contains("E") && ((WorldViewController.getWorldViewStatus() == INVENTORY_EXCHANGE) || WorldViewController.getWorldViewStatus() == INVENTORY_SHOP))
+                ))
         {
             WorldViewController.command(KEYBOARD_INVENTORY);
             player.getActor().setLastInteraction(currentNanoTime);
@@ -601,7 +603,7 @@ public class WorldView implements GUIController
                 WritableImage writableImage = mamOverlay.getWritableImage();
                 gc.drawImage(writableImage, mamOverlayPosition.getX(), mamOverlayPosition.getY());
                 WritableImage moneyWritableImage = moneyOverlay.getWritableImage();
-                gc.drawImage(moneyWritableImage, moneyOverlayPosition.getX(), moneyOverlayPosition.getY()+50);
+                gc.drawImage(moneyWritableImage, moneyOverlayPosition.getX(), moneyOverlayPosition.getY() + 50);
                 break;
             case TEXTBOX:
                 WritableImage textBoxImg = textbox.showMessage();

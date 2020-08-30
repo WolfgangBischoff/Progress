@@ -15,7 +15,7 @@ public class WorldViewController
                 setWorldViewStatus(INVENTORY);
             else if (worldViewStatus.equals(INVENTORY))
                 setWorldViewStatus(WORLD);
-            else if (worldViewStatus == INVENTORY_EXCHANGE)
+            else if (worldViewStatus == INVENTORY_EXCHANGE || worldViewStatus == INVENTORY_SHOP)
                 setWorldViewStatus(WORLD);
         }
     }

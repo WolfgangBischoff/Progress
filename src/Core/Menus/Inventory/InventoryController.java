@@ -21,7 +21,7 @@ public class InventoryController
     GraphicsContext graphicsContext;
     static InventoryOverlay playerInventoryOverlay;
     static InventoryOverlay otherInventoryOverlay;
-    static ShopOverlay shopOverlayInterfaceOverlay;
+    static ShopOverlay shopOverlay;
     WritableImage playerInventory;
     WritableImage interactionInventoryImage;
     static Actor exchangeInventoryActor;
@@ -39,7 +39,7 @@ public class InventoryController
         playerInventoryOverlay = new InventoryOverlay(WorldView.getPlayer().getActor(), playerInventoryPosition);
         playerActor = WorldView.getPlayer().getActor();
         otherInventoryOverlay = new InventoryOverlay(null, exchangeInventoryPosition);
-        shopOverlayInterfaceOverlay = new ShopOverlay(null, shopInterfacePosition);
+        shopOverlay = new ShopOverlay(null, shopInterfacePosition);
     }
 
 
@@ -58,8 +58,8 @@ public class InventoryController
         }
         else if(WorldViewController.getWorldViewStatus() == WorldViewStatus.INVENTORY_SHOP)
         {
-            shopOverlayInterfaceOverlay.setActor(exchangeInventoryActor);
-            interactionInventoryImage = shopOverlayInterfaceOverlay.getMenuImage();
+            shopOverlay.setActor(exchangeInventoryActor);
+            interactionInventoryImage = shopOverlay.getMenuImage();
             graphicsContext.drawImage(interactionInventoryImage, shopInterfacePosition.getX(), shopInterfacePosition.getY());
         }
 
@@ -74,6 +74,10 @@ public class InventoryController
         if (WorldViewController.getWorldViewStatus() == WorldViewStatus.INVENTORY_EXCHANGE)
         {
             otherInventoryOverlay.processMouse(mousePosition, isMouseClicked, currentNanoTime);
+        }
+        else if(WorldViewController.getWorldViewStatus() == WorldViewStatus.INVENTORY_EXCHANGE)
+        {
+            shopOverlay.processMouse(mousePosition, isMouseClicked, currentNanoTime);
         }
     }
 
