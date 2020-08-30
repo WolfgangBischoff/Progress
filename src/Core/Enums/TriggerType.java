@@ -19,6 +19,7 @@ public enum TriggerType
             case "collectable": return COLLECTABLE;
             case "move": return MOVE;
             case "inventory_exchange": return INVENTORY_EXCHANGE;
+            case "inventory_shop": return INVENTORY_SHOP;
             default: throw new RuntimeException("TriggerType unknown: " + status);
         }
     }

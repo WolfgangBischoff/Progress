@@ -1,7 +1,7 @@
 
 Logic:
 - Economy
-    - Add Money, get it from tenderer
+    - Add shop item to buy
     - Debit Cards can be stolen, work one day before blocked, max limit. Can be found by interrogation
     - Vendor to buy items by debit card
 - Add Food Value

@@ -585,30 +585,28 @@ public class Actor
                 evaluateTargetStatus(targetStatusField);
                 playTimedStatus();
                 break;
-            //Activate Textbox
             case TEXTBOX:
             case TEXTBOX_ANALYSIS:
                 activateTextbox();
                 break;
-            //Get Removed from Game
             case COLLECTABLE:
                 collect(activeSprite);
                 break;
             case MOVE:
                 move();
                 break;
+            case INVENTORY_SHOP:
+                WorldViewController.setWorldViewStatus(WorldViewStatus.INVENTORY_SHOP);
+                InventoryController.setExchangeInventoryActor(this);
+                break;
             case INVENTORY_EXCHANGE:
-                openInventory();
+                WorldViewController.setWorldViewStatus(WorldViewStatus.INVENTORY_EXCHANGE);
+                InventoryController.setExchangeInventoryActor(this);
                 break;
         }
     }
 
-    private void openInventory()
-    {
-        String methodName = "openInventory() ";
-        WorldViewController.setWorldViewStatus(WorldViewStatus.INVENTORY_EXCHANGE);
-        InventoryController.setExchangeInventoryActor(this);
-    }
+
 
     //TODO from script or file
     List<Point2D> movenmentPointsList = new ArrayList<>();

@@ -16,19 +16,21 @@ import static Core.Config.*;
 
 public class InventoryController
 {
+    private static String CLASSNAME = "InventoryController ";
     Canvas canvas;
     GraphicsContext graphicsContext;
     static InventoryOverlay playerInventoryOverlay;
     static InventoryOverlay otherInventoryOverlay;
+    static ShopOverlay shopOverlayInterfaceOverlay;
     WritableImage playerInventory;
-    WritableImage exchangeInventory;
+    WritableImage interactionInventoryImage;
     static Actor exchangeInventoryActor;
     static Actor playerActor;
     private static int WIDTH = CAMERA_WIDTH;
     private static int HEIGHT = CAMERA_HEIGHT;
-    private static String CLASSNAME = "InventoryController ";
     Point2D playerInventoryPosition = Config.INVENTORY_POSITION;
     Point2D exchangeInventoryPosition = EXCHANGE_INVENTORY_POSITION;
+    Point2D shopInterfacePosition = EXCHANGE_INVENTORY_POSITION;
 
     public InventoryController()
     {
@@ -37,11 +39,13 @@ public class InventoryController
         playerInventoryOverlay = new InventoryOverlay(WorldView.getPlayer().getActor(), playerInventoryPosition);
         playerActor = WorldView.getPlayer().getActor();
         otherInventoryOverlay = new InventoryOverlay(null, exchangeInventoryPosition);
+        shopOverlayInterfaceOverlay = new ShopOverlay(null, shopInterfacePosition);
     }
 
 
     public WritableImage getMenuImage()
     {
+        String methodName = "getMenuImage() ";
         graphicsContext.clearRect(0, 0, WIDTH, HEIGHT);
         playerInventory = playerInventoryOverlay.getMenuImage();
         graphicsContext.drawImage(playerInventory, playerInventoryPosition.getX(), playerInventoryPosition.getY());
@@ -49,8 +53,14 @@ public class InventoryController
         if (WorldViewController.getWorldViewStatus() == WorldViewStatus.INVENTORY_EXCHANGE)
         {
             otherInventoryOverlay.setActor(exchangeInventoryActor);
-            exchangeInventory = otherInventoryOverlay.getMenuImage();
-            graphicsContext.drawImage(exchangeInventory, exchangeInventoryPosition.getX(), exchangeInventoryPosition.getY());
+            interactionInventoryImage = otherInventoryOverlay.getMenuImage();
+            graphicsContext.drawImage(interactionInventoryImage, exchangeInventoryPosition.getX(), exchangeInventoryPosition.getY());
+        }
+        else if(WorldViewController.getWorldViewStatus() == WorldViewStatus.INVENTORY_SHOP)
+        {
+            shopOverlayInterfaceOverlay.setActor(exchangeInventoryActor);
+            interactionInventoryImage = shopOverlayInterfaceOverlay.getMenuImage();
+            graphicsContext.drawImage(interactionInventoryImage, shopInterfacePosition.getX(), shopInterfacePosition.getY());
         }
 
         SnapshotParameters transparency = new SnapshotParameters();

@@ -338,6 +338,7 @@ public class WorldView implements GUIController
                 break;
             case INVENTORY:
             case INVENTORY_EXCHANGE:
+            case INVENTORY_SHOP:
                 toggleInventory(input, currentNanoTime);//At the moment just toogled by keyboard
                 break;
             case DISCUSSION_GAME://No keyboard input so far
@@ -475,6 +476,7 @@ public class WorldView implements GUIController
                 break;
             case INVENTORY:
             case INVENTORY_EXCHANGE:
+            case INVENTORY_SHOP:
                 inventoryController.processMouse(mousePositionRelativeToCamera, isMouseClicked, currentNanoTime);
                 break;
             default:
@@ -607,6 +609,7 @@ public class WorldView implements GUIController
                 break;
             case INVENTORY:
             case INVENTORY_EXCHANGE:
+            case INVENTORY_SHOP:
                 WritableImage inventoryOverlayMenuImage = inventoryController.getMenuImage();
                 gc.drawImage(inventoryOverlayMenuImage, inventoryOverlayPosition.getX(), inventoryOverlayPosition.getY());
                 break;

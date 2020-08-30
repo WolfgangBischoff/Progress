@@ -19,9 +19,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static Core.Config.*;
+import static Core.Config.IMAGE_DIRECTORY_PATH;
 import static Core.WorldView.WorldViewStatus.INVENTORY_EXCHANGE;
 
-public class InventoryOverlay
+public class ShopOverlay
 {
     private static final String CLASSNAME = "InventoryOverlay ";
     private Canvas menuCanvas;
@@ -38,10 +39,12 @@ public class InventoryOverlay
     Image cornerTopLeft;
     Image cornerBtmRight;
 
-    public InventoryOverlay(Actor actor, Point2D SCREEN_POSITION)
+    public ShopOverlay(Actor actor, Point2D SCREEN_POSITION)
+    //public InventoryOverlay()
     {
         menuCanvas = new Canvas(WIDTH, HEIGHT);
         menuGc = menuCanvas.getGraphicsContext2D();
+        //actor = WorldView.getPlayer().getActor();
         this.actor = actor;
         cornerTopLeft = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
         cornerBtmRight = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
@@ -51,6 +54,7 @@ public class InventoryOverlay
     private void draw() throws NullPointerException
     {
         String methodName = "draw() ";
+        //actor = WorldView.getPlayer().getActor(); //Just needed as long the player resets with stage load (so we have always new Player)
         menuGc.clearRect(0, 0, WIDTH, HEIGHT);
         Color background = Color.rgb(60, 90, 85);
         double hue = background.getHue();
@@ -70,7 +74,7 @@ public class InventoryOverlay
         int backgroundOffsetX = 16, backgroundOffsetY = 10;
         menuGc.fillRect(backgroundOffsetX, backgroundOffsetY, WIDTH - backgroundOffsetX * 2, HEIGHT - backgroundOffsetY * 2);
 
-        //Item Slots
+//        //Item Slots
         menuGc.setGlobalAlpha(1);
         int itemTileWidth = 64;
         int numberColumns = 5;
@@ -80,54 +84,54 @@ public class InventoryOverlay
         int initialOffsetY = 75;
         int itemSlotNumber = 0;
         int slotNumber = 0;
-        for (int y = 0; y < numberRows; y++)
-        {
-            int slotY = y * (itemTileWidth + spaceBetweenTiles) + initialOffsetY;
-            for (int i = 0; i < numberColumns; i++)
-            {
-                //Rectangle
-                int slotX = i * (itemTileWidth + spaceBetweenTiles) + initialOffsetX;
-                menuGc.setFill(font);
-                menuGc.fillRect(slotX, slotY, itemTileWidth, itemTileWidth);
-                menuGc.setFill(marking);
-                Rectangle2D rectangle2D = new Rectangle2D(slotX + 2, slotY + 2, itemTileWidth - 4, itemTileWidth - 4);
-                interfaceElements_Rectangles.add(rectangle2D);
-                interfaceElements_list.add(Integer.valueOf(slotNumber).toString());
-
-                //Highlighting
-                if (highlightedElement == slotNumber)
-                    menuGc.setFill(font);
-                else
-                    menuGc.setFill(marking);
-                menuGc.fillRect(rectangle2D.getMinX(), rectangle2D.getMinY(), rectangle2D.getWidth(), rectangle2D.getHeight());
-                slotNumber++;
-
-                //Item slot images
-                Collectible current = null;
-                if (itemSlotNumber < actor.getInventory().itemsList.size())
-                    current = actor.getInventory().itemsList.get(itemSlotNumber);
-                if (current != null)
-                {
-                    menuGc.drawImage(current.getImage(), slotX, slotY);
-                    //Stolen sign
-                    if (GameVariables.getStolenCollectibles().contains(current))
-                    {
-                        menuGc.setFill(darkRed);
-                        menuGc.fillOval(slotX + 44, slotY + 44, 16, 16);
-                        menuGc.setFill(red);
-                        menuGc.fillOval(slotX + 46, slotY + 46, 12, 12);
-                    }
-                }
-                itemSlotNumber++;
-            }
-        }
+//        for (int y = 0; y < numberRows; y++)
+//        {
+//            int slotY = y * (itemTileWidth + spaceBetweenTiles) + initialOffsetY;
+//            for (int i = 0; i < numberColumns; i++)
+//            {
+//                //Rectangle
+//                int slotX = i * (itemTileWidth + spaceBetweenTiles) + initialOffsetX;
+//                menuGc.setFill(font);
+//                menuGc.fillRect(slotX, slotY, itemTileWidth, itemTileWidth);
+//                menuGc.setFill(marking);
+//                Rectangle2D rectangle2D = new Rectangle2D(slotX + 2, slotY + 2, itemTileWidth - 4, itemTileWidth - 4);
+//                interfaceElements_Rectangles.add(rectangle2D);
+//                interfaceElements_list.add(Integer.valueOf(slotNumber).toString());
+//
+//                //Highlighting
+//                if (highlightedElement == slotNumber)
+//                    menuGc.setFill(font);
+//                else
+//                    menuGc.setFill(marking);
+//                menuGc.fillRect(rectangle2D.getMinX(), rectangle2D.getMinY(), rectangle2D.getWidth(), rectangle2D.getHeight());
+//                slotNumber++;
+//
+//                //Item slot images
+//                Collectible current = null;
+//                if (itemSlotNumber < actor.getInventory().itemsList.size())
+//                    current = actor.getInventory().itemsList.get(itemSlotNumber);
+//                if (current != null)
+//                {
+//                    menuGc.drawImage(current.getImage(), slotX, slotY);
+//                    //Stolen sign
+//                    if (GameVariables.getStolenCollectibles().contains(current))
+//                    {
+//                        menuGc.setFill(darkRed);
+//                        menuGc.fillOval(slotX + 44, slotY + 44, 16, 16);
+//                        menuGc.setFill(red);
+//                        menuGc.fillOval(slotX + 46, slotY + 46, 12, 12);
+//                    }
+//                }
+//                itemSlotNumber++;
+//            }
+//        }
 
         //Text
         int offsetYFirstLine = 60;
         int dateLength = 200;
         menuGc.setFill(font);
         menuGc.fillText("Inventory of " + actor.getActorInGameName(), initialOffsetX, offsetYFirstLine);
-        menuGc.fillText("Day: " + GameVariables.getDay(), WIDTH - dateLength, offsetYFirstLine);
+        menuGc.fillText("Shop", WIDTH - dateLength, offsetYFirstLine);
 
         //Decoration
         menuGc.drawImage(cornerTopLeft, 0, 0);
@@ -190,16 +194,16 @@ public class InventoryOverlay
         if (collectible != null && WorldViewController.getWorldViewStatus() == INVENTORY_EXCHANGE)
         {
             //check from which inventory to which inventory we exchange
-            if (InventoryController.playerInventoryOverlay == this)
-            {
-                InventoryController.exchangeInventoryActor.getInventory().addItem(collectible);
-                InventoryController.playerActor.getInventory().removeItem(collectible);
-            }
-            else if (InventoryController.otherInventoryOverlay == this)
-            {
-                InventoryController.playerActor.getInventory().addItem(collectible);
-                InventoryController.exchangeInventoryActor.getInventory().removeItem(collectible);
-            }
+//            if (InventoryController.playerInventoryOverlay == this)
+//            {
+//                InventoryController.exchangeInventoryActor.getInventory().addItem(collectible);
+//                InventoryController.playerActor.getInventory().removeItem(collectible);
+//            }
+//            else if (InventoryController.otherInventoryOverlay == this)
+//            {
+//                InventoryController.playerActor.getInventory().addItem(collectible);
+//                InventoryController.exchangeInventoryActor.getInventory().removeItem(collectible);
+//            }
         }else if (collectible != null && collectible.getType() == CollectableType.FOOD)
         {
             System.out.println(CLASSNAME + methodName + "You ate " + collectible.getIngameName());
@@ -259,15 +263,15 @@ public class InventoryOverlay
         this.interfaceElements_Rectangles = interfaceElements_Rectangles;
     }
 
-    public static void setWIDTH(int WIDTH)
-    {
-        InventoryOverlay.WIDTH = WIDTH;
-    }
-
-    public static void setHEIGHT(int HEIGHT)
-    {
-        InventoryOverlay.HEIGHT = HEIGHT;
-    }
+//    public static void setWIDTH(int WIDTH)
+//    {
+//        InventoryOverlay.WIDTH = WIDTH;
+//    }
+//
+//    public static void setHEIGHT(int HEIGHT)
+//    {
+//        InventoryOverlay.HEIGHT = HEIGHT;
+//    }
 
     public void setSCREEN_POSITION(Point2D SCREEN_POSITION)
     {
