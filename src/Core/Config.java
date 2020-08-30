@@ -90,12 +90,13 @@ public class Config
     public static final String game_ATTRIBUTE = "game";
     public static final String success_ATTRIBUTE = "success";
     public static final String defeat_ATTRIBUTE = "defeat";
-
     public static final String levelchange_TYPE_ATTRIBUTE = "levelchange";
     public static final String level_ATTRIBUTE = "level";
     public static final String spawnID_ATTRIBUTE = "spawnID";
-
     public static final String dayChange_TYPE_ATTRIBUTE = "dayChange";
+    public static final String TEXTBOX_ATTRIBUTE_GET_MONEY = "getMoney";
+    public static final String TEXTBOX_ATTRIBUTE_AMOUNT = "amount";
+
 
     //Paths
     public static final String CSV_POSTFIX = ".csv";

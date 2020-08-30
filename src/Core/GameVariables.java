@@ -10,15 +10,15 @@ import java.util.Map;
 
 public class GameVariables
 {
-    private static String CLASSNAME = "GameVariables/";
+    private static String CLASSNAME = "GameVariables ";
     private static GameVariables singleton;
+    static private IntegerProperty playerMoney = new SimpleIntegerProperty(20);
     static IntegerProperty playerMaM_duringDay = new SimpleIntegerProperty();
     static private int playerMaM_dayStart = 0;//ManagementAttentionMeter
     static private int day = 0;
 
     //Game State persistent over days
     static Sprite player;
-    //private List<String> loadedLevels = new ArrayList<>();
 
     //Game State persistent on same day
     private static Map<String, LevelState> levelData = new HashMap<>();
@@ -26,7 +26,6 @@ public class GameVariables
 
     private GameVariables()
     {
-
     }
 
     public static void setPlayer(Sprite player)
@@ -52,14 +51,14 @@ public class GameVariables
         if (debug)
             System.out.println(CLASSNAME + methodName + "MAM: " + playerMaM_duringDay + " + " + deltaMAM + " = " + (playerMaM_duringDay.getValue() + deltaMAM));
 
-        setPlayerMaM_duringDay(playerMaM_duringDay.getValue() + deltaMAM);;
+        setPlayerMaM_duringDay(playerMaM_duringDay.getValue() + deltaMAM);
+        ;
     }
 
     public static void addStolenCollectible(Collectible collectible)
     {
         stolenCollectibles.add(collectible);
     }
-
 
     public static int getDay()
     {
@@ -71,7 +70,6 @@ public class GameVariables
         String methodName = "incrementDay() ";
         playerMaM_dayStart = playerMaM_duringDay.getValue();
         day++;
-        //getLevelData().clear();//Invalidate data from previous day to reload from file
         System.out.println(CLASSNAME + methodName + "Day: " + day + " MaM Start: " + playerMaM_dayStart);
 
     }
@@ -85,6 +83,7 @@ public class GameVariables
     {
         return playerMaM_duringDay.getValue();
     }
+
     public static IntegerProperty getPlayerMaM_duringDayProperty()
     {
         return playerMaM_duringDay;
@@ -151,5 +150,22 @@ public class GameVariables
     public static void setStolenCollectibles(List<Collectible> stolenCollectibles)
     {
         GameVariables.stolenCollectibles = stolenCollectibles;
+    }
+
+    public static void addPlayerMoney(int delta)
+    {
+        String methodName = "addPlayerMoney() ";
+        playerMoney.setValue(playerMoney.getValue() + delta);
+        //System.out.println(CLASSNAME + methodName + "New balance: " + playerMoney.getValue());
+    }
+
+    public static int getPlayerMoney()
+    {
+        return playerMoney.getValue();
+    }
+
+    public static IntegerProperty playerMoneyProperty()
+    {
+        return playerMoney;
     }
 }

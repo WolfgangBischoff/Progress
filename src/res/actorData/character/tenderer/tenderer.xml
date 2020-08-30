@@ -30,6 +30,11 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
 <root name="tenderer">
     <dialogue id="day0" type="normal">
        <line>Hi, I am the tenderer</line>
+        <nextDialogue>getMoney</nextDialogue>
+    </dialogue>
+
+    <dialogue id="getMoney" type="getMoney" amount="100">
+        <line>Here you have your salary.</line>
     </dialogue>
 
 

@@ -153,7 +153,6 @@ public class Textbox
                 {
                     WorldViewController.setWorldViewStatus(WorldViewStatus.DAY_SUMMARY);
                     DaySummaryScreenController.newDay();
-                   // WorldView.setIsDaySummaryActive(true);
                 }
                 else
                 //Normal Textbox
@@ -162,6 +161,11 @@ public class Textbox
                     {
                         String message = xmlLines.item(messageIdx).getTextContent();
                         readDialogue.messages.add(message);//Without formatting the message
+                    }
+                    if(dialogueType.equals(TEXTBOX_ATTRIBUTE_GET_MONEY))
+                    {
+                        int amount = Integer.parseInt(currentDialogue.getAttribute(TEXTBOX_ATTRIBUTE_AMOUNT));
+                        GameVariables.addPlayerMoney(amount);
                     }
                 }
 

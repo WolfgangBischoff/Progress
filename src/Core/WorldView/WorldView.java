@@ -10,6 +10,7 @@ import Core.Menus.Inventory.InventoryController;
 import Core.Menus.Personality.PersonalityScreenController;
 import Core.Menus.StatusBarOverlay;
 import Core.Menus.Textbox.Textbox;
+import Core.Menus.VariableStatusOverlay;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
@@ -73,6 +74,10 @@ public class WorldView implements GUIController
     //Management Attention Meter Overlay
     static StatusBarOverlay mamOverlay = new StatusBarOverlay(MAM_BAR_WIDTH, MAM_BAR_HEIGHT, GameVariables.getPlayerMaM_duringDayProperty(), 100);
     static Point2D mamOverlayPosition = MAM_BAR_POSITION;
+
+    //Money Overlay
+    static VariableStatusOverlay moneyOverlay = new VariableStatusOverlay(MAM_BAR_WIDTH, MAM_BAR_HEIGHT, GameVariables.playerMoneyProperty());
+    static Point2D moneyOverlayPosition = MAM_BAR_POSITION;
 
     //Sprites
     String levelName;
@@ -593,6 +598,8 @@ public class WorldView implements GUIController
             case WORLD:
                 WritableImage writableImage = mamOverlay.getWritableImage();
                 gc.drawImage(writableImage, mamOverlayPosition.getX(), mamOverlayPosition.getY());
+                WritableImage moneyWritableImage = moneyOverlay.getWritableImage();
+                gc.drawImage(moneyWritableImage, moneyOverlayPosition.getX(), moneyOverlayPosition.getY()+50);
                 break;
             case TEXTBOX:
                 WritableImage textBoxImg = textbox.showMessage();
@@ -618,39 +625,6 @@ public class WorldView implements GUIController
 
 
         }
-        /*
-        if (isManagementAttentionMeterActive)
-        {
-            WritableImage writableImage = mamOverlay.getWritableImage();
-            gc.drawImage(writableImage, mamOverlayPosition.getX(), mamOverlayPosition.getY());
-        }
-        if (isTextBoxActive)
-        {
-            WritableImage textBoxImg = textbox.showMessage();
-            gc.drawImage(textBoxImg, textBoxPosition.getX(), textBoxPosition.getY());
-        }
-        if (isInventoryActive)
-        {
-            WritableImage inventoryOverlayMenuImage = inventoryOverlay.getMenuImage();
-            gc.drawImage(inventoryOverlayMenuImage, inventoryOverlayPosition.getX(), inventoryOverlayPosition.getY());
-        }
-        if (isPersonalityScreenActive)
-        {
-            WritableImage personalityScreenOverlay = personalityScreenController.getWritableImage();
-            gc.drawImage(personalityScreenOverlay, personalityScreenPosition.getX(), personalityScreenPosition.getY());
-        }
-        if (isDiscussionGameActive)
-        {
-            WritableImage discussionGameImage = discussionGame.getWritableImage(currentNanoTime);
-            gc.drawImage(discussionGameImage, discussionGamePosition.getX(), discussionGamePosition.getY());
-        }
-        if (isDaySummaryActive)
-        {
-            WritableImage daySummaryImage = daySummaryScreenController.getWritableImage();
-            gc.drawImage(daySummaryImage, daySummaryScreenPosition.getX(), daySummaryScreenPosition.getY());
-        }
-
-         */
 
     }
 
