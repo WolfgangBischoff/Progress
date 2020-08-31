@@ -11,6 +11,7 @@ import Core.WorldView.WorldViewController;
 import Core.WorldView.WorldViewStatus;
 import javafx.animation.PauseTransition;
 import javafx.geometry.Point2D;
+import javafx.scene.image.Image;
 import javafx.util.Duration;
 
 import java.nio.file.Files;
@@ -23,7 +24,7 @@ import static Core.Enums.ActorTag.*;
 
 public class Actor
 {
-    private static final String CLASSNAME = "Actor-";
+    private static final String CLASSNAME = "Actor ";
     private static final Set<String> actorDefinitionKeywords = new HashSet<>();
 
     //General
@@ -49,7 +50,6 @@ public class Actor
     //Sensor
     Map<String, SensorStatus> sensorStatusMap = new HashMap<>();
     SensorStatus sensorStatus;
-
 
     List<ActorCondition> conditions = new ArrayList<>();
     String dialogueFileName = null;
@@ -82,6 +82,7 @@ public class Actor
             actorDefinitionKeywords.add(KEYWORD_dialogueFile);
             actorDefinitionKeywords.add(KEYWORD_text_box_analysis_group);
             actorDefinitionKeywords.add(KEYWORD_collectable_type);
+            actorDefinitionKeywords.add(CONTAINS_COLLECTIBLE_KEYWORD);
             actorDefinitionKeywords.add(KEYWORD_sensorStatus);
             actorDefinitionKeywords.add(KEYWORD_actor_tags);
             actorDefinitionKeywords.add(KEYWORD_condition);
@@ -159,6 +160,13 @@ public class Actor
                 break;
             case KEYWORD_collectable_type:
                 collectable_type = linedata[1];
+                getNumeric_generic_attributes().put("base_value", Double.parseDouble(linedata[2]));
+                break;
+            case CONTAINS_COLLECTIBLE_KEYWORD:
+                Actor collectibleActor = new Actor(linedata[1], linedata[2], linedata[3], "default", Direction.UNDEFINED);
+                Collectible collectible = new Collectible(linedata[2],CollectableType.getType(collectibleActor.collectable_type),collectibleActor.actorInGameName,(collectibleActor.getNumeric_generic_attributes().get("base_value").intValue()));
+                collectible.image = new Image(IMAGE_DIRECTORY_PATH + collectibleActor.getSpriteDataMap().get(collectibleActor.generalStatus).get(0).spriteName + PNG_POSTFIX);
+                inventory.addItem(collectible);
                 break;
             case KEYWORD_sensorStatus:
                 sensorStatusMap.put(linedata[1], readSensorData(linedata));
@@ -312,8 +320,6 @@ public class Actor
         {
             throw new ArrayIndexOutOfBoundsException(actorInGameName + "\n" + e.getMessage());
         }
-
-
         return sensorStatus;
     }
 
@@ -386,13 +392,6 @@ public class Actor
 
         if (elapsedTimeSinceLastInteraction > TIME_BETWEEN_INTERACTIONS)
         {
-//            //check if Management-Attention-Meter is affected for Player
-//            if (activeSprite.getActor().tags.contains(ActorTag.PLAYER) && numeric_generic_attributes.containsKey(KEYWORD_suspicious_value))
-//            {
-//                int suspicious_value = numeric_generic_attributes.get(KEYWORD_suspicious_value).intValue();
-//                GameVariables.addPlayerManagementAttention(suspicious_value);
-//            }
-
             updateStatusFromConditions(activeSprite);
 
             //react
@@ -671,7 +670,7 @@ public class Actor
     {
         String methodName = "collect(String) ";
         CollectableType collectableType = CollectableType.getType(collectable_type);
-        Collectible collected = new Collectible(generalStatus, collectableType, actorInGameName);
+        Collectible collected = new Collectible(generalStatus, collectableType, actorInGameName, getNumeric_generic_attributes().get("base_value").intValue());
         collected.image = spriteList.get(0).baseimage;
         collectingActor.inventory.addItem(collected);
 
@@ -753,7 +752,6 @@ public class Actor
             else
                 WorldView.getTextbox().startConversation(this);
             WorldViewController.setWorldViewStatus(WorldViewStatus.TEXTBOX);
-            //WorldView.setIsTextBoxActive(true);
         }
         else
             System.out.println(CLASSNAME + methodName + " Game Window not instance of WorldView, cannot show Dialogue");

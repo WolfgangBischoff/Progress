@@ -89,7 +89,6 @@ public class WorldLoader
 
         if (debug)
             System.out.println(CLASSNAME + methodName + "finished read file: " + fileName);
-
     }
 
     public void load(String levelName, String spawnId)

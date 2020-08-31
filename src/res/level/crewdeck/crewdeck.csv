@@ -54,8 +54,6 @@ swap__				;swap mop									;bath/swap_mop																																						
 towel_				;towel												;bath/bathtowel																																																				;true					;1												;0			;0												;0				;0				;000								;000									;000											;064											;064									;064										;none
 bench_				;bench												;furniture/bench																																																			;true					;1												;0			;0												;0				;0				;000								;000									;000											;064											;128									;040										;none
 
-
-
 actors:
 #code 					;actorFileN																														;IngameName															;sprite-status						;sensor-status										;direction
 player					;player																																		;Revolutionary												;default												;default																;north

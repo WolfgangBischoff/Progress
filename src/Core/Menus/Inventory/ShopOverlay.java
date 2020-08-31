@@ -40,11 +40,9 @@ public class ShopOverlay
     Image cornerBtmRight;
 
     public ShopOverlay(Actor actor, Point2D SCREEN_POSITION)
-    //public InventoryOverlay()
     {
         menuCanvas = new Canvas(WIDTH, HEIGHT);
         menuGc = menuCanvas.getGraphicsContext2D();
-        //actor = WorldView.getPlayer().getActor();
         this.actor = actor;
         cornerTopLeft = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
         cornerBtmRight = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
@@ -54,7 +52,6 @@ public class ShopOverlay
     private void draw() throws NullPointerException
     {
         String methodName = "draw() ";
-        //actor = WorldView.getPlayer().getActor(); //Just needed as long the player resets with stage load (so we have always new Player)
         menuGc.clearRect(0, 0, WIDTH, HEIGHT);
         Color background = Color.rgb(60, 90, 85);
         double hue = background.getHue();
@@ -74,57 +71,52 @@ public class ShopOverlay
         int backgroundOffsetX = 16, backgroundOffsetY = 10;
         menuGc.fillRect(backgroundOffsetX, backgroundOffsetY, WIDTH - backgroundOffsetX * 2, HEIGHT - backgroundOffsetY * 2);
 
-//        //Item Slots
+       //Item Slots
         menuGc.setGlobalAlpha(1);
-        int itemTileWidth = 64;
-        int numberColumns = 5;
-        int numberRows = 6;
+        int itemTileWidth = 192;
+        int itemTileHeight = 64;
+        int numberColumns = 2;
+        int numberRows = 5;
         int spaceBetweenTiles = 10;
         int initialOffsetX = (WIDTH - (numberColumns * itemTileWidth + (numberColumns - 1) * spaceBetweenTiles)) / 2; //Centered
-        int initialOffsetY = 75;
+        int initialOffsetY = 120 + 75;
         int itemSlotNumber = 0;
         int slotNumber = 0;
-//        for (int y = 0; y < numberRows; y++)
-//        {
-//            int slotY = y * (itemTileWidth + spaceBetweenTiles) + initialOffsetY;
-//            for (int i = 0; i < numberColumns; i++)
-//            {
-//                //Rectangle
-//                int slotX = i * (itemTileWidth + spaceBetweenTiles) + initialOffsetX;
-//                menuGc.setFill(font);
-//                menuGc.fillRect(slotX, slotY, itemTileWidth, itemTileWidth);
-//                menuGc.setFill(marking);
-//                Rectangle2D rectangle2D = new Rectangle2D(slotX + 2, slotY + 2, itemTileWidth - 4, itemTileWidth - 4);
-//                interfaceElements_Rectangles.add(rectangle2D);
-//                interfaceElements_list.add(Integer.valueOf(slotNumber).toString());
-//
-//                //Highlighting
-//                if (highlightedElement == slotNumber)
-//                    menuGc.setFill(font);
-//                else
-//                    menuGc.setFill(marking);
-//                menuGc.fillRect(rectangle2D.getMinX(), rectangle2D.getMinY(), rectangle2D.getWidth(), rectangle2D.getHeight());
-//                slotNumber++;
-//
-//                //Item slot images
-//                Collectible current = null;
-//                if (itemSlotNumber < actor.getInventory().itemsList.size())
-//                    current = actor.getInventory().itemsList.get(itemSlotNumber);
-//                if (current != null)
-//                {
-//                    menuGc.drawImage(current.getImage(), slotX, slotY);
-//                    //Stolen sign
-//                    if (GameVariables.getStolenCollectibles().contains(current))
-//                    {
-//                        menuGc.setFill(darkRed);
-//                        menuGc.fillOval(slotX + 44, slotY + 44, 16, 16);
-//                        menuGc.setFill(red);
-//                        menuGc.fillOval(slotX + 46, slotY + 46, 12, 12);
-//                    }
-//                }
-//                itemSlotNumber++;
-//            }
-//        }
+        for (int y = 0; y < numberRows; y++)
+        {
+            int slotY = y * (itemTileHeight + spaceBetweenTiles) + initialOffsetY;
+            for (int i = 0; i < numberColumns; i++)
+            {
+                //Rectangle
+                int slotX = i * (itemTileWidth + spaceBetweenTiles) + initialOffsetX;
+                menuGc.setFill(font);
+                menuGc.fillRect(slotX, slotY, itemTileWidth, itemTileHeight);
+                menuGc.setFill(marking);
+                Rectangle2D rectangle2D = new Rectangle2D(slotX + 2, slotY + 2, itemTileWidth - 4, itemTileHeight - 4);
+                interfaceElements_Rectangles.add(rectangle2D);
+                interfaceElements_list.add(Integer.valueOf(slotNumber).toString());
+
+                //Highlighting
+                if (highlightedElement == slotNumber)
+                    menuGc.setFill(font);
+                else
+                    menuGc.setFill(marking);
+                menuGc.fillRect(rectangle2D.getMinX(), rectangle2D.getMinY(), rectangle2D.getWidth(), rectangle2D.getHeight());
+                slotNumber++;
+
+                //Item slot images
+                Collectible current = null;
+                if (itemSlotNumber < actor.getInventory().itemsList.size())
+                    current = actor.getInventory().itemsList.get(itemSlotNumber);
+                if (current != null)
+                {
+                    menuGc.drawImage(current.getImage(), slotX, slotY);
+                    menuGc.setFill(red);
+                    menuGc.fillText(current.getIngameName() + " Price: " + current.getBaseValue(), slotX + 60, slotY + 32);
+                }
+                itemSlotNumber++;
+            }
+        }
 
         //Text
         int offsetYFirstLine = 60;
@@ -191,27 +183,6 @@ public class ShopOverlay
 
         System.out.println(CLASSNAME + methodName + actor.getActorInGameName() + " inventory clicked " + collectible);
 
-        if (collectible != null && WorldViewController.getWorldViewStatus() == INVENTORY_EXCHANGE)
-        {
-            //check from which inventory to which inventory we exchange
-//            if (InventoryController.playerInventoryOverlay == this)
-//            {
-//                InventoryController.exchangeInventoryActor.getInventory().addItem(collectible);
-//                InventoryController.playerActor.getInventory().removeItem(collectible);
-//            }
-//            else if (InventoryController.otherInventoryOverlay == this)
-//            {
-//                InventoryController.playerActor.getInventory().addItem(collectible);
-//                InventoryController.exchangeInventoryActor.getInventory().removeItem(collectible);
-//            }
-        }else if (collectible != null && collectible.getType() == CollectableType.FOOD)
-        {
-            System.out.println(CLASSNAME + methodName + "You ate " + collectible.getIngameName());
-            //Item vanishes competely if consumed.
-            actor.getInventory().itemsList.remove(collectible);
-            GameVariables.getStolenCollectibles().remove(collectible);
-        }
-
     }
 
     public void setHighlightedElement(Integer highlightedElement)
@@ -262,16 +233,6 @@ public class ShopOverlay
     {
         this.interfaceElements_Rectangles = interfaceElements_Rectangles;
     }
-
-//    public static void setWIDTH(int WIDTH)
-//    {
-//        InventoryOverlay.WIDTH = WIDTH;
-//    }
-//
-//    public static void setHEIGHT(int HEIGHT)
-//    {
-//        InventoryOverlay.HEIGHT = HEIGHT;
-//    }
 
     public void setSCREEN_POSITION(Point2D SCREEN_POSITION)
     {

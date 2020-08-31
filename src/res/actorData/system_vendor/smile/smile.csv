@@ -11,3 +11,6 @@ sensorStatus	;inventory																	;inventory_shop											;none  	 					
 #status to image
 #status 			;name   						;spritename  																																												;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning 						;duration ;velocity ;dialogueID ;AnimationEnds
 default				;smile vendor	;../actorData/system_vendor/smile/vendor_128_160									;true				;1												;000	;000										;000	;000	;000								;000									;000											;100	 									;128									;60											;whitelight_256		;000						;000						;none							;false
+
+#contains_collectible ;actor file path								;IngameName	;SpriteStatus;AMOUNT
+contains_collectible 	;collectibles/food/food	;Algae Stew	;algaeStew			;15

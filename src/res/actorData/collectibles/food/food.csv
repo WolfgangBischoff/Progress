@@ -5,7 +5,8 @@
 #sensorStatus;sensorStatusName	;interactionSpriteTrigger ;interactionSpriteStatus	;interactionSensorTrigger;interactionSensorStatus;inRangeSpriteTrigger;inRangeSpriteStatus	;inRangeSensorTrigger	;inRangeSensorStatus;intersectionSpriteTrigger;intersectionSpriteStatus		;intersectionSensorTrigger;intersectionSensorStatus;updateSpriteTrigger;updateSpriteStatus;updateSensorTrigger;updateSensorStatus;monitorSpriteTrigger;monitorSensorTrigger;textboxSpriteTrigger;textboxSensorTrigger
 sensorStatus	;default										;collectable														;none  	 																;none 																			;none																			;none																;none																;none 																;none															;none																					;none																						;none 																				;none																				;none															;none														;none															;none														;none																;none																;none																;none
 
-collectable_type; food
+#collectible_data; TYPE; base_value
+collectible_data; food; 5
 
 suspicious_value; 5
 

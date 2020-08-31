@@ -9,12 +9,14 @@ public class Collectible
     String name;
     Image image;
     CollectableType type;
+    int baseValue;
 
-    public Collectible(String name, CollectableType type, String nameGame)
+    public Collectible(String name, CollectableType type, String nameGame, int baseValue)
     {
         this.name = name;
         this.type = type;
         this.ingameName = nameGame;
+        this.baseValue = baseValue;
     }
 
     @Override
@@ -30,7 +32,7 @@ public class Collectible
     @Override
     public String toString()
     {
-        return "{" + name + " " + type + "}";
+        return "{" + name + " " + type +  " value: " + baseValue + "}";
     }
 
     public String getIngameName()
@@ -51,5 +53,10 @@ public class Collectible
     public CollectableType getType()
     {
         return type;
+    }
+
+    public int getBaseValue()
+    {
+        return baseValue;
     }
 }

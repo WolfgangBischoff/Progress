@@ -75,7 +75,7 @@ public class InventoryController
         {
             otherInventoryOverlay.processMouse(mousePosition, isMouseClicked, currentNanoTime);
         }
-        else if(WorldViewController.getWorldViewStatus() == WorldViewStatus.INVENTORY_EXCHANGE)
+        else if(WorldViewController.getWorldViewStatus() == WorldViewStatus.INVENTORY_SHOP)
         {
             shopOverlay.processMouse(mousePosition, isMouseClicked, currentNanoTime);
         }
