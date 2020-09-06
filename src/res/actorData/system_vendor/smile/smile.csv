@@ -14,4 +14,4 @@ default				;smile vendor	;../actorData/system_vendor/smile/vendor_128_160							
 
 #contains_collectible ;actor file path								;IngameName							;SpriteStatus;AMOUNT
 contains_collectible 	;collectibles/food/food	;Algae Stew							;algaeStew			;15
-contains_collectible 	;collectibles/food/food	;Asia Star Bento		;asiaStart			;3
+contains_collectible 	;collectibles/food/food	;Asia Star Bento		;asiaStar				;3

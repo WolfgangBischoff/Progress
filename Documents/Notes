@@ -10,7 +10,7 @@ Logic:
     - Vendor to buy items by debit card
 - Textbox change Door status if discussion won
 - Level build
-    - freight deck (machine room ganz unten, control)
+    - freight deck (right capsules)
     - crew deck (create friend, competitor, doctor, security, life support below control, rescue pods, storage under machine room)
 - Add set item mechanic
 - Check initial bug when debugging
