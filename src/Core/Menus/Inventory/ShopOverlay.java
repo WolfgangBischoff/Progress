@@ -2,10 +2,9 @@ package Core.Menus.Inventory;
 
 import Core.Actor;
 import Core.Collectible;
-import Core.Enums.CollectableType;
 import Core.GameVariables;
 import Core.GameWindow;
-import Core.WorldView.WorldViewController;
+import Core.WorldView.WorldView;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.SnapshotParameters;
@@ -19,8 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static Core.Config.*;
-import static Core.Config.IMAGE_DIRECTORY_PATH;
-import static Core.WorldView.WorldViewStatus.INVENTORY_EXCHANGE;
 
 public class ShopOverlay
 {
@@ -71,7 +68,7 @@ public class ShopOverlay
         int backgroundOffsetX = 16, backgroundOffsetY = 10;
         menuGc.fillRect(backgroundOffsetX, backgroundOffsetY, WIDTH - backgroundOffsetX * 2, HEIGHT - backgroundOffsetY * 2);
 
-       //Item Slots
+        //Item Slots
         menuGc.setGlobalAlpha(1);
         int itemTileWidth = 192;
         int itemTileHeight = 64;
@@ -178,9 +175,24 @@ public class ShopOverlay
     {
         String methodName = "activateHighlightedOption() ";
         Collectible collectible = null;
-        if (actor.getInventory().itemsList.size() > highlightedElement && highlightedElement >= 0)
+        Actor player = WorldView.getPlayer().getActor();
+        if (actor.getInventory().size() > highlightedElement && highlightedElement >= 0)
             collectible = actor.getInventory().itemsList.get(highlightedElement);
-
+        if (player == actor)//Playerinventory
+        {
+            //Nothing, selling not possible
+        }
+        else if(collectible != null)
+        {
+            int price = collectible.getBaseValue();
+            if (GameVariables.getPlayerMoney() >= price)
+            {
+                GameVariables.addPlayerMoney(-price);
+                player.getInventory().addItem(collectible);
+            }
+            else
+                System.out.println(CLASSNAME + methodName + "You cannot afford this item.");
+        }
         System.out.println(CLASSNAME + methodName + actor.getActorInGameName() + " inventory clicked " + collectible);
 
     }

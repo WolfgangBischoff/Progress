@@ -1,19 +1,19 @@
 
 Logic:
-- Economy
-    - Add shop item to buy
-    - Debit Cards can be stolen, work one day before blocked, max limit. Can be found by interrogation
-    - Vendor to buy items by debit card
 - Add Food Value
     - Clock
     - Changing over time
     - Refuel by eating
     - Shown in DaySummary
+- Economy
+    - Debit Cards can be stolen, work one day before blocked, max limit. Can be found by interrogation
+    - Vendor to buy items by debit card
 - Textbox change Door status if discussion won
 - Level build
     - freight deck (machine room ganz unten, control)
-    - crew deck (create friend, competitor, doctor, security, life support below control, second dormitory, rescue pods, storage under machine room)
+    - crew deck (create friend, competitor, doctor, security, life support below control, rescue pods, storage under machine room)
 - Add set item mechanic
+- Check initial bug when debugging
 - Cleaning Bot Moving
     - add definition in file
 - Inventory

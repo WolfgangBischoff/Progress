@@ -65,4 +65,9 @@ public class Inventory
     {
         return itemsList;
     }
+
+    public int size()
+    {
+        return itemsList.size();
+    }
 }
