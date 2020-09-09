@@ -53,6 +53,7 @@ public class WorldLoader
             keywords.add(KEYWORD_GROUPS);
             keywords.add(KEYWORD_SPAWNPOINTS);
             keywords.add(KEYWORD_INCLUDE);
+            keywords.add(KEYWORD_POSITION);
         }
 
     }
@@ -142,11 +143,33 @@ public class WorldLoader
                     readInclude(lineData);
                     readMode = readModeTmp;
                     break;
+                case KEYWORD_POSITION:
+                    readPosition(lineData);
+                    break;
                 default:
                     throw new RuntimeException(CLASSNAME + methodName + "readMode unknown: " + readMode);
             }
         }
 
+    }
+
+    private void readPosition(String[] lineData)
+    {
+        String methodName = "readPosition() ";
+        String actorId = lineData[0];
+        int xPos = Integer.parseInt(lineData[1]);
+        int yPos = Integer.parseInt(lineData[2]);
+        Actor actor = createActor(actorId, 0, 0);
+
+        activeLayer.addAll(actor.spriteList);
+        List<SpriteData> spriteDataList = actor.spriteDataMap.get(actor.compoundStatus);
+
+        for (int j = 0; j < spriteDataList.size(); j++)
+        {
+            actor.spriteList.get(j).setPosition(xPos, yPos);
+            addToCollisionLayer(actor.spriteList.get(j), spriteDataList.get(j).heightLayer);
+            //System.out.println(CLASSNAME + methodName + actor.spriteList.get(j).getPositionX() +" "+ actor.spriteList.get(j).getPositionY());
+        }
     }
 
     private void readInclude(String[] lineData)
@@ -156,7 +179,6 @@ public class WorldLoader
         int includeFilePathIdx = 0;
         int includeConditionTypeIdx = 1;
         int includeConditionParamsStartIdx = 2;
-
 
         //Check include condition
         String condition = lineData[includeConditionTypeIdx];
@@ -460,7 +482,7 @@ public class WorldLoader
         @Override
         public String toString()
         {
-            return  "x=" + x +
+            return "x=" + x +
                     ", y=" + y +
                     ", direction=" + direction +
                     '}';

@@ -69,7 +69,10 @@ cleanB					;robot/cleaningBot/cleaningBot											;technician															;d
 steamS					;bath/steam_shower/steam_shower										;shower																			;off																;default																;undefined
 bed_Bi					;furniture/bed/bed																							;Your Bed																	;bischoff											;sleep																		;undefined
 smileV					;system_vendor/smile/smile															;Smile vendor													;default												;inventory														;undefined
+asiaBe					;collectibles/food/food																		;Asia Star Bento										;asiastar											;default																;undefined
 
+position:
+asiaBe ;1820 ;1070; one the table
 
 #sets 64 bits tiles as raster ;you can add multiple layers ;later defined layers are higher prioritized in case of same defined heightLayer
 #passivlayer will not be checked for interaction or collision

@@ -495,6 +495,9 @@ public class WorldView implements GUIController
                 Actor actor = active.getActor();
                 System.out.println(actor.getActorInGameName() + ": " + actor.getSensorStatus().getStatusName() + " Sprite: " + actor.getGeneralStatus());
             }
+        Point2D mouseWorldPosition = new Point2D(mousePositionRelativeToCamera.getX() + camX, mousePositionRelativeToCamera.getY() + camY);
+        if (DEBUG_MOUSE_ANALYSIS && isMouseClicked)
+            System.out.println(CLASSNAME + methodName + "Clicked on: " + mouseWorldPosition);
 
         GameWindow.getSingleton().setMouseClicked(false);
     }

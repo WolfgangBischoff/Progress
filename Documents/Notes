@@ -3,7 +3,7 @@ Logic:
 - Add Food Value
     - Changing over time
     - Refuel by eating
-    - Shown in DaySummary
+    - Shown in DaySummary, if 0 you loose life, 0 food hindert an activites?
 - Economy
     - Debit Cards can be stolen, work one day before blocked, max limit. Can be found by interrogation
     - Vendor to buy items by debit card
@@ -17,7 +17,7 @@ Logic:
     - add definition in file
 - Inventory
     - left sided, item desrcp, money card
-    - other inventory right side, DragDrop
+    - other inventory, DragDrop
     - buy menue similar to other iventory: desc, chosen money card, buy bttn
     add item with textbox
     add item in box

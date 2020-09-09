@@ -77,7 +77,7 @@ cross_				;pipe													;../actorData/machine/stasis_capsule/battery/crossin
 damage				;pipe													;../actorData/machine/stasis_capsule/battery/dmg_64_192_anim4						;false				;1												;4			;4												;4				;1				;064								;192									;000									 	;000									 	;000									;000										;none
 
 #Control Room
-contro				;elevator									;../actorData/computer/control/central																													;true					;1												;0			;0												;0				;0				;0										;0											;032									 	;128									 	;320									;096										;none
+contro				;elevator									;../actorData/computer/control/central																													;true					;1												;0			;0												;0				;0				;0										;0											;032									 	;128									 	;320									;064										;none
 projec				;projector								;../actorData/computer/projector/projector_a4																						;true					;1												;4			;5												;4				;1				;128							 ;256									;032									 	;192									 	;064									;064										;bluelight_256
 
 #Machine Room
@@ -125,6 +125,8 @@ techni					;character/technician/technician									;technician															;d
 
 elevSc					;doors/updown/elevator/elevator										;main elevator												;toCrewDeck										;default																;undefined
 
+position:
+redKey	;2171; 577; on the control terminal
 
 ACTORGROUPS:
 #System-Name											;Logic																										;Influenced-System	;members by actorId (logic-Options: isBaseSystem)

@@ -8,7 +8,7 @@ public class Config
     public static final Boolean DEBUG_ACTORS = false;
     public static final Boolean DEBUG_BLOCKER = false;
     public static final Boolean DEBUG_NO_WALL = false;
-    public static final Boolean DEBUG_MOUSE_ANALYSIS = false;
+    public static final Boolean DEBUG_MOUSE_ANALYSIS = true;
     public static final String FIRST_LEVEL = "transporter";
     public static final double GAME_WINDOW_WIDTH = 1440;
     public static final double GAME_WINDOW_HEIGHT = 900;
@@ -48,7 +48,7 @@ public class Config
     public static final float RUMBLE_GRADE_DECREASE = 0.1f;
     public static final float RUMBLE_MAX_DURATION = 1.3f;
     public static final int DAY_STARTTIME = 60 * 7;
-    public static final int DAY_FORCED_ENDTIME = 60 * 8;
+    public static final int DAY_FORCED_ENDTIME = 60 * 24;
 
     //Map file keywords
     public static final String MAPDEFINITION_EMPTY = "______";
@@ -61,6 +61,7 @@ public class Config
     public static final String KEYWORD_GROUPS = "actorgroups:";
     public static final String KEYWORD_SPAWNPOINTS = "spawnpoints:";
     public static final String KEYWORD_INCLUDE = "include:";
+    public static final String KEYWORD_POSITION = "position:";
 
     public static final String INCLUDE_CONDITION_suspicion_lessequal = "suspicion_lessequal";
     public static final String INCLUDE_CONDITION_day_greaterequal = "day_greaterequal";

@@ -38,6 +38,10 @@ Actorgroups:
 #level change
 #dockingBay													;levelchange																				;northDoor									;doorLe
 
+#position:
+#redKey	;2171; 585
+
+
 #sets 64 bits tiles as raster ;you can add multiple layers ;later defined layers are higher prioritized in case of same defined heightLayer
 #passivlayer will not be checked for interaction or collision
 passivlayer:

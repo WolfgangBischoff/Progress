@@ -12,5 +12,6 @@ suspicious_value; 5
 
 #status to image
 #status 						;name   									;spritename  																																	;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;duration ;velocity ;dialogueID ;AnimationEnds
-algaeStew					;algae stew						;../actorData/collectibles/food/algae_stew				;false			;0												;000	;000										;000	;000	;000								;000									;000											;000	 									;000									;000										;none						;000						;000						;default				;false
-asiaStar						;bento box							;../actorData/collectibles/food/asiaStarBento	;false			;0												;000	;000										;000	;000	;000								;000									;000											;000	 									;000									;000										;none						;000						;000						;default				;false
+algaeStew					;algae stew						;../actorData/collectibles/food/algae_stew				;false			;1												;000	;000										;000	;000	;000								;000									;000											;000	 									;000									;000										;none						;000						;000						;default				;false
+asiaStar						;bento box							;../actorData/collectibles/food/bento									;false			;1												;000	;000										;000	;000	;000								;000									;000											;000	 									;000									;000										;none						;000						;000						;default				;false
+#asiaStar						;bento box							;../actorData/collectibles/food/asiaStarBento	;false			;1												;000	;000										;000	;000	;000								;000									;000											;000	 									;000									;000										;none						;000						;000						;default				;false

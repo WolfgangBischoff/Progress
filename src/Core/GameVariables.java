@@ -27,7 +27,6 @@ public class GameVariables
 
     public static void init()
     {
-        System.out.println(CLASSNAME + "initialized");
         clock = new Clock(GameWindow.getCurrentNanoRenderTimeGameWindow());
     }
 
