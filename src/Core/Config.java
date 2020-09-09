@@ -47,6 +47,8 @@ public class Config
     public static final float RUMBLE_GRADE = 8;
     public static final float RUMBLE_GRADE_DECREASE = 0.1f;
     public static final float RUMBLE_MAX_DURATION = 1.3f;
+    public static final int DAY_STARTTIME = 60 * 7;
+    public static final int DAY_FORCED_ENDTIME = 60 * 8;
 
     //Map file keywords
     public static final String MAPDEFINITION_EMPTY = "______";

@@ -118,6 +118,7 @@ public class WorldView implements GUIController
         inventoryController = new InventoryController();
         textbox = new Textbox();
         WorldViewController.setWorldViewStatus(WORLD);
+        GameVariables.init();
     }
 
     public void saveStage()
@@ -367,6 +368,8 @@ public class WorldView implements GUIController
         toRemove.clear();
 
         calcCameraPosition();
+
+        GameVariables.getClock().tryIncrementTime(currentNanoTime);
     }
 
     private void toggleInventory(ArrayList<String> input, Long currentNanoTime)

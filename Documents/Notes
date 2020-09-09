@@ -1,7 +1,6 @@
 
 Logic:
 - Add Food Value
-    - Clock
     - Changing over time
     - Refuel by eating
     - Shown in DaySummary
@@ -31,7 +30,7 @@ Logic:
 ----- Sprites ----------------------------
 ------------------------------------------
 - Ship:
-    FrontWindow, moving asteroid, rescue pods, captain sprite, speaker
+    FrontWindow, moving asteroid as actor, rescue pods, captain sprite, speaker
 - Docking Bay:
     Elevator, schriftzug "Elevator", minimal table, Lautsprecher
 - Control Center: BrückenControls,

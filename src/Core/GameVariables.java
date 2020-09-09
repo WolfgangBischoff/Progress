@@ -16,6 +16,7 @@ public class GameVariables
     static IntegerProperty playerMaM_duringDay = new SimpleIntegerProperty();
     static private int playerMaM_dayStart = 0;//ManagementAttentionMeter
     static private int day = 0;
+    static private Clock clock;
 
     //Game State persistent over days
     static Sprite player;
@@ -24,8 +25,10 @@ public class GameVariables
     private static Map<String, LevelState> levelData = new HashMap<>();
     private static List<Collectible> stolenCollectibles = new ArrayList<>();
 
-    private GameVariables()
+    public static void init()
     {
+        System.out.println(CLASSNAME + "initialized");
+        clock = new Clock(GameWindow.getCurrentNanoRenderTimeGameWindow());
     }
 
     public static void setPlayer(Sprite player)
@@ -70,8 +73,8 @@ public class GameVariables
         String methodName = "incrementDay() ";
         playerMaM_dayStart = playerMaM_duringDay.getValue();
         day++;
+        clock.reset();
         System.out.println(CLASSNAME + methodName + "Day: " + day + " MaM Start: " + playerMaM_dayStart);
-
     }
 
     public static int getPlayerMaM_dayStart()
@@ -167,5 +170,10 @@ public class GameVariables
     public static IntegerProperty playerMoneyProperty()
     {
         return playerMoney;
+    }
+
+    public static Clock getClock()
+    {
+        return clock;
     }
 }
