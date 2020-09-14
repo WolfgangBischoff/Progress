@@ -77,7 +77,11 @@ public class WorldView implements GUIController
 
     //Money Overlay
     static VariableStatusOverlay moneyOverlay = new VariableStatusOverlay(MAM_BAR_WIDTH, MAM_BAR_HEIGHT, GameVariables.playerMoneyProperty());
-    static Point2D moneyOverlayPosition = MAM_BAR_POSITION;
+    static Point2D moneyOverlayPosition = MONEY_POSITION;
+
+    //Hunger Overlay
+    static StatusBarOverlay hungerOverlay = new StatusBarOverlay(MAM_BAR_WIDTH, MAM_BAR_HEIGHT, GameVariables.playerHungerProperty(), MAX_HUNGER);
+    static Point2D hungerOverlayPosition = HUNGER_BAR_POSITION;
 
     //Sprites
     String levelName;
@@ -370,6 +374,7 @@ public class WorldView implements GUIController
         calcCameraPosition();
 
         GameVariables.getClock().tryIncrementTime(currentNanoTime);
+        GameVariables.updateHunger(currentNanoTime);
     }
 
     private void toggleInventory(ArrayList<String> input, Long currentNanoTime)
@@ -609,7 +614,10 @@ public class WorldView implements GUIController
                 WritableImage writableImage = mamOverlay.getWritableImage();
                 gc.drawImage(writableImage, mamOverlayPosition.getX(), mamOverlayPosition.getY());
                 WritableImage moneyWritableImage = moneyOverlay.getWritableImage();
-                gc.drawImage(moneyWritableImage, moneyOverlayPosition.getX(), moneyOverlayPosition.getY() + 50);
+                gc.drawImage(moneyWritableImage, moneyOverlayPosition.getX(), moneyOverlayPosition.getY());
+                WritableImage hungerOverlayImage = hungerOverlay.getWritableImage();
+                gc.drawImage(hungerOverlayImage, hungerOverlayPosition.getX(), hungerOverlayPosition.getY());
+
                 break;
             case TEXTBOX:
                 WritableImage textBoxImg = textbox.showMessage();

@@ -1,8 +1,6 @@
 
 Logic:
 - Add Food Value
-    - Changing over time
-    - Refuel by eating
     - Shown in DaySummary, if 0 you loose life, 0 food hindert an activites?
 - Economy
     - Debit Cards can be stolen, work one day before blocked, max limit. Can be found by interrogation

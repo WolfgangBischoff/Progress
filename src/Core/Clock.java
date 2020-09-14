@@ -29,7 +29,7 @@ public class Clock
         {
             time.set(time.getValue() + 1);
             lastTimeIncremented = currentNanoTime;
-            //System.out.println(CLASSNAME + methodName + time.getValue() + " " + getFormattedTime());
+            //System.out.println(CLASSNAME + methodName +  time + " " + getFormattedTime());
         }
 
         if(time.getValue() > DAY_FORCED_ENDTIME)

@@ -25,6 +25,7 @@ public class StatusBarOverlay
     public StatusBarOverlay(int WIDTH, int HEIGHT, IntegerProperty integerProperty, int maxValue)
     {
         this.baseValue = integerProperty;
+        current = baseValue.getValue();
         baseValue.addListener(new ChangeListener<Number>()
         {
             @Override
@@ -57,7 +58,8 @@ public class StatusBarOverlay
         graphicsContext.setGlobalAlpha(0.8);
         graphicsContext.setFill(background);
         int backgroundOffsetX = 16, backgroundOffsetY = 10;
-        graphicsContext.fillRect(backgroundOffsetX, backgroundOffsetY, WIDTH - backgroundOffsetX * 2, HEIGHT - backgroundOffsetY * 2);
+        //graphicsContext.fillRect(backgroundOffsetX, backgroundOffsetY, WIDTH - backgroundOffsetX * 2, HEIGHT - backgroundOffsetY * 2);
+        graphicsContext.fillRect(backgroundOffsetX, backgroundOffsetY, WIDTH - backgroundOffsetX, HEIGHT - backgroundOffsetY * 2);
 
         //Fill bar
         float fillPercentage= current / (float) maxValue * WIDTH;

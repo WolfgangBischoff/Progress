@@ -8,7 +8,7 @@ public class Config
     public static final Boolean DEBUG_ACTORS = false;
     public static final Boolean DEBUG_BLOCKER = false;
     public static final Boolean DEBUG_NO_WALL = false;
-    public static final Boolean DEBUG_MOUSE_ANALYSIS = true;
+    public static final Boolean DEBUG_MOUSE_ANALYSIS = false;
     public static final String FIRST_LEVEL = "transporter";
     public static final double GAME_WINDOW_WIDTH = 1440;
     public static final double GAME_WINDOW_HEIGHT = 900;
@@ -37,6 +37,8 @@ public class Config
     public static final int MAM_BAR_WIDTH = 300;
     public static final int MAM_BAR_HEIGHT = 50;
     public static Point2D MAM_BAR_POSITION = new Point2D(CAMERA_WIDTH - MAM_BAR_WIDTH - 50, 30); //Right Upper Edge
+    public static Point2D MONEY_POSITION = new Point2D(CAMERA_WIDTH - MAM_BAR_WIDTH - 50, 80);
+    public static Point2D HUNGER_BAR_POSITION = new Point2D(CAMERA_WIDTH - MAM_BAR_WIDTH - 50, 130);
 
     //Keyboard
     public static final String KEYBOARD_INVENTORY = "TAB";
@@ -49,6 +51,7 @@ public class Config
     public static final float RUMBLE_MAX_DURATION = 1.3f;
     public static final int DAY_STARTTIME = 60 * 7;
     public static final int DAY_FORCED_ENDTIME = 60 * 24;
+    public static final int MAX_HUNGER = 100;
 
     //Map file keywords
     public static final String MAPDEFINITION_EMPTY = "______";

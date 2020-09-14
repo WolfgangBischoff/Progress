@@ -8,12 +8,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static Core.Config.MAX_HUNGER;
+
 public class GameVariables
 {
     private static String CLASSNAME = "GameVariables ";
     private static GameVariables singleton;
     static private IntegerProperty playerMoney = new SimpleIntegerProperty(20);
     static IntegerProperty playerMaM_duringDay = new SimpleIntegerProperty();
+    static IntegerProperty playerHunger = new SimpleIntegerProperty(100);
+    static Integer lastTimeHungerFromTime;
     static private int playerMaM_dayStart = 0;//ManagementAttentionMeter
     static private int day = 0;
     static private Clock clock;
@@ -28,6 +32,7 @@ public class GameVariables
     public static void init()
     {
         clock = new Clock(GameWindow.getCurrentNanoRenderTimeGameWindow());
+        lastTimeHungerFromTime = clock.time.getValue();
     }
 
     public static void setPlayer(Sprite player)
@@ -74,6 +79,29 @@ public class GameVariables
         day++;
         clock.reset();
         System.out.println(CLASSNAME + methodName + "Day: " + day + " MaM Start: " + playerMaM_dayStart);
+    }
+
+    public static void updateHunger(Long currentNanoTime)
+    {
+        String methodName = "updateHunger() ";
+        int intervalsForHunger = 9;// 12hours = 43 200 ticks
+        if (lastTimeHungerFromTime + intervalsForHunger < clock.time.getValue())
+        {
+            //System.out.println(CLASSNAME + methodName + lastTimeHungerFromTime + " + " + intervalsForHunger + " < " + clock.time.getValue());
+            playerHunger.setValue(playerHunger.getValue() - 1);
+            lastTimeHungerFromTime = clock.time.getValue();
+            System.out.println(CLASSNAME + methodName + playerHunger.getValue() + " " + clock.getFormattedTime());
+        }
+    }
+
+    public static void addHunger(int delta)
+    {
+        int newValue = playerHunger.getValue() + delta;
+        if (newValue > MAX_HUNGER)
+            newValue = MAX_HUNGER;
+        else if (newValue < 0)
+            newValue = 0;
+        playerHunger.setValue(newValue);
     }
 
     public static int getPlayerMaM_dayStart()
@@ -174,5 +202,20 @@ public class GameVariables
     public static Clock getClock()
     {
         return clock;
+    }
+
+    public static int getPlayerHunger()
+    {
+        return playerHunger.get();
+    }
+
+    public static IntegerProperty playerHungerProperty()
+    {
+        return playerHunger;
+    }
+
+    public static Integer getLastTimeHungerFromTime()
+    {
+        return lastTimeHungerFromTime;
     }
 }

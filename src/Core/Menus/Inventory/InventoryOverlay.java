@@ -204,6 +204,8 @@ public class InventoryOverlay
         {
             System.out.println(CLASSNAME + methodName + "You ate " + collectible.getIngameName());
             //Item vanishes competely if consumed.
+            GameVariables.addHunger(collectible.getBaseValue());
+
             actor.getInventory().itemsList.remove(collectible);
             GameVariables.getStolenCollectibles().remove(collectible);
         }
