@@ -7,8 +7,7 @@ Logic:
     - Vendor to buy items by debit card
 - Textbox change Door status if discussion won
 - Level build
-    - freight deck (right capsules)
-    - crew deck (create friend, competitor, doctor, security, life support below control, rescue pods, storage under machine room)
+    - crew deck (create friend, competitor, doctor, security, life support, rescue pods, storage)
 - Add set item mechanic
 - Check initial bug when debugging
 - Cleaning Bot Moving
@@ -28,7 +27,7 @@ Logic:
 ----- Sprites ----------------------------
 ------------------------------------------
 - Ship:
-    FrontWindow, moving asteroid as actor, rescue pods, captain sprite, speaker
+    FrontWindow, moving asteroid as actor, rescue pods, ladder from control to rescue pods, speaker
 - Docking Bay:
     Elevator, schriftzug "Elevator", minimal table, Lautsprecher
 - Control Center: BrückenControls,
@@ -45,6 +44,11 @@ Logic:
 ------------------------------------------
 ----- Ideas ------------------------------
 ------------------------------------------
+- Goal to get a robot begleiter
+- Tenderer Quests:
+    - clean smtg
+    - fill in vendor
+    - repair something at place
 - Grind mechanic
     Daily needs:
         Sleep -> based on time like in StardewVallay, but with night encounter. Better bed increases skills, also Kuschis
