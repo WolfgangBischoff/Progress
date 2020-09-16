@@ -1,6 +1,7 @@
 package Core.Menus.DaySummary;
 
 import Core.Collectible;
+import Core.GameVariables;
 import Core.GameWindow;
 import Core.WorldView.WorldView;
 import Core.WorldView.WorldViewController;
@@ -102,7 +103,8 @@ public class DaySummaryScreenController
 
         //Text
         int spaceY = 5;
-        int offsetY = 20;
+        int initOffsetY = 20;
+        int tmpOffsetY = 0;
         graphicsContext.setTextBaseline(VPos.BOTTOM);
         graphicsContext.setTextAlign(TextAlignment.LEFT);
         graphicsContext.setGlobalAlpha(1);
@@ -118,13 +120,25 @@ public class DaySummaryScreenController
         }
         else
             stringBuilder.append("You had a silent night.");
-        graphicsContext.fillText(stringBuilder.toString(), mamInformationArea.getMinX() + 5, mamInformationArea.getMinY() + offsetY);
+        graphicsContext.fillText(stringBuilder.toString(), mamInformationArea.getMinX() + 5, mamInformationArea.getMinY() + initOffsetY);
         for (int i = 0; i < daySummary.foundStolenCollectibles.size(); i++)
         {
             Collectible collectible = daySummary.foundStolenCollectibles.get(i);
+            tmpOffsetY += 20 + i * (graphicsContext.getFont().getSize() + spaceY);
             graphicsContext.fillText(collectible.getIngameName(), mamInformationArea.getMinX() + 5,
-                    mamInformationArea.getMinY() + offsetY + 20 + i * (graphicsContext.getFont().getSize() + spaceY));
+                    mamInformationArea.getMinY() + initOffsetY + tmpOffsetY);
         }
+
+        //Healt Info
+        StringBuilder healthMsg = new StringBuilder();
+        if(daySummary.isStarving())
+            healthMsg.append("You are starving.");
+        else
+            healthMsg.append("You are well fed.");
+        healthMsg.append(" Health: ").append(GameVariables.getHealth());
+        tmpOffsetY += 20 + (graphicsContext.getFont().getSize() + spaceY);
+        graphicsContext.fillText(healthMsg.toString(), mamInformationArea.getMinX() + 5,
+                mamInformationArea.getMinY() + initOffsetY + tmpOffsetY);
 
         //Close button
         graphicsContext.setTextBaseline(VPos.CENTER);

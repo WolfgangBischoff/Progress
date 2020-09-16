@@ -52,6 +52,9 @@ public class Config
     public static final int DAY_STARTTIME = 60 * 7;
     public static final int DAY_FORCED_ENDTIME = 60 * 24;
     public static final int MAX_HUNGER = 100;
+    public static final int INIT_HUNGER = 75;
+    public static final int INIT_HEALTH = 5;
+    public static final int MAX_HEALTH = 5;
 
     //Map file keywords
     public static final String MAPDEFINITION_EMPTY = "______";

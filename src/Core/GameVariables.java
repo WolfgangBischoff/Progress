@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static Core.Config.MAX_HUNGER;
+import static Core.Config.*;
 
 public class GameVariables
 {
@@ -16,8 +16,9 @@ public class GameVariables
     private static GameVariables singleton;
     static private IntegerProperty playerMoney = new SimpleIntegerProperty(20);
     static IntegerProperty playerMaM_duringDay = new SimpleIntegerProperty();
-    static IntegerProperty playerHunger = new SimpleIntegerProperty(100);
+    static IntegerProperty playerHunger = new SimpleIntegerProperty(INIT_HUNGER);
     static Integer lastTimeHungerFromTime;
+    static Integer health = INIT_HEALTH;
     static private int playerMaM_dayStart = 0;//ManagementAttentionMeter
     static private int day = 0;
     static private Clock clock;
@@ -88,7 +89,7 @@ public class GameVariables
         if (lastTimeHungerFromTime + intervalsForHunger < clock.time.getValue())
         {
             //System.out.println(CLASSNAME + methodName + lastTimeHungerFromTime + " + " + intervalsForHunger + " < " + clock.time.getValue());
-            playerHunger.setValue(playerHunger.getValue() - 1);
+            addHunger(-1);
             lastTimeHungerFromTime = clock.time.getValue();
             System.out.println(CLASSNAME + methodName + playerHunger.getValue() + " " + clock.getFormattedTime());
         }
@@ -218,4 +219,16 @@ public class GameVariables
     {
         return lastTimeHungerFromTime;
     }
+
+    public static Integer getHealth()
+    {
+        return health;
+    }
+
+    public static void setHealth(Integer health)
+    {
+        if (health <= MAX_HEALTH)
+            GameVariables.health = health;
+    }
+
 }

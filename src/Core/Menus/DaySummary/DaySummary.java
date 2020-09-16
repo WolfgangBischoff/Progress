@@ -14,6 +14,7 @@ public class DaySummary
 {
     static private final String CLASSNAME = "DaySummary ";
     private boolean hasInterrogation = false;
+    private boolean isStarving = false;
     List<Collectible> foundStolenCollectibles = new ArrayList<>();
 
     public DaySummary()
@@ -22,15 +23,16 @@ public class DaySummary
 
     void init()
     {
+        String methodName = "init() ";
+
+        //Check interogation and MaM
         foundStolenCollectibles.clear();
         if (GameVariables.getPlayerMaM_duringDay() >= MAM_THRESHOLD_INTERROGATION)
         {
             hasInterrogation = true;
-
             //Check if stolen items are in the players inventory
             boolean stolenItemWasFound = false;
             List<Collectible> playerInventory = WorldView.getPlayer().getActor().getInventory().getItemsList();
-//            foundStolenCollectibles.clear();
             for(int i=0; i<playerInventory.size(); i++)
             {
                 Collectible checked = playerInventory.get(i);
@@ -47,6 +49,21 @@ public class DaySummary
                 GameVariables.addPlayerMAM_duringDay(- MAM_THRESHOLD_INTERROGATION);
         }
         else hasInterrogation = false;
+
+        //Check hunger
+        if(GameVariables.getPlayerHunger() < 10)
+        {
+            System.out.println(CLASSNAME + methodName + "you are starving");
+            GameVariables.setHealth(GameVariables.getHealth() - 1);
+            isStarving = true;
+        }
+        else
+        {
+            isStarving = false;
+            GameVariables.setHealth(GameVariables.getHealth() + 1);
+        }
+
+
     }
 
     public void endDay()
@@ -60,11 +77,19 @@ public class DaySummary
         else if (GameVariables.getPlayerMaM_duringDay() > 0)//to get to 0 if Nam between 0 and daily decrease
             GameVariables.addPlayerMAM_duringDay(- GameVariables.getPlayerMaM_duringDay());
 
+        //lower Hunger bar
+        GameVariables.addHunger(-20);
+
         GameVariables.incrementDay();
     }
 
     public boolean isHasInterrogation()
     {
         return hasInterrogation;
+    }
+
+    public boolean isStarving()
+    {
+        return isStarving;
     }
 }
