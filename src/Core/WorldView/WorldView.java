@@ -4,6 +4,7 @@ import Core.*;
 import Core.Enums.ActorTag;
 import Core.Enums.Direction;
 import Core.Enums.TriggerType;
+import Core.Menus.ClockOverlay;
 import Core.Menus.DaySummary.DaySummaryScreenController;
 import Core.Menus.DiscussionGame.DiscussionGame;
 import Core.Menus.Inventory.InventoryController;
@@ -83,6 +84,10 @@ public class WorldView implements GUIController
     static StatusBarOverlay hungerOverlay = new StatusBarOverlay(MAM_BAR_WIDTH, MAM_BAR_HEIGHT, GameVariables.playerHungerProperty(), MAX_HUNGER);
     static Point2D hungerOverlayPosition = HUNGER_BAR_POSITION;
 
+    //Hunger Overlay
+    static ClockOverlay boardTimeOverlay;
+    static Point2D boardTimeOverlayPosition = BOARD_TIME_POSITION;
+
     //Sprites
     String levelName;
     private static Rectangle2D borders;
@@ -123,6 +128,8 @@ public class WorldView implements GUIController
         textbox = new Textbox();
         WorldViewController.setWorldViewStatus(WORLD);
         GameVariables.init();
+
+        boardTimeOverlay = new ClockOverlay(BOARD_TIME_WIDTH, BOARD_TIME_HEIGHT, GameVariables.getClock());
     }
 
     public void saveStage()
@@ -617,6 +624,8 @@ public class WorldView implements GUIController
                 gc.drawImage(moneyWritableImage, moneyOverlayPosition.getX(), moneyOverlayPosition.getY());
                 WritableImage hungerOverlayImage = hungerOverlay.getWritableImage();
                 gc.drawImage(hungerOverlayImage, hungerOverlayPosition.getX(), hungerOverlayPosition.getY());
+                WritableImage boardTimeOverlayImage = boardTimeOverlay.getWritableImage();
+                gc.drawImage(boardTimeOverlayImage, boardTimeOverlayPosition.getX(), boardTimeOverlayPosition.getY());
 
                 break;
             case TEXTBOX:

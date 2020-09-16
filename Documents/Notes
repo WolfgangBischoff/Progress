@@ -1,5 +1,7 @@
 
 Logic:
+- Health
+    - Game Over if 0
 - Economy
     - Debit Cards can be stolen, work one day before blocked, max limit. Can be found by interrogation
     - Vendor to buy items by debit card

@@ -72,4 +72,14 @@ public class Clock
             return hourFormatted + ":" + minutesFormatted;
         }
     }
+
+    public int getTime()
+    {
+        return time.get();
+    }
+
+    public IntegerProperty timeProperty()
+    {
+        return time;
+    }
 }
