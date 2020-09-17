@@ -27,7 +27,8 @@ public class Main extends Application {
         }.start();
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+    //For some reason this prevents the start exception
+//    public static void main(String[] args) {
+//        launch();
+//    }
 }

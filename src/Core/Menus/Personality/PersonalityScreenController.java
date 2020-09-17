@@ -2,6 +2,7 @@ package Core.Menus.Personality;
 
 import Core.Actor;
 import Core.GameWindow;
+import Core.Menus.DiscussionGame.CharacterCoin;
 import Core.WorldView.WorldView;
 import Core.WorldView.WorldViewController;
 import Core.WorldView.WorldViewStatus;
@@ -11,6 +12,7 @@ import javafx.geometry.VPos;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -55,7 +57,7 @@ With increasing cooperation value you find trais of the person, some traits are 
     //Other Person Traits
     private List<String> personalityList = new ArrayList<>();
     int initTraitsOffsetX = 350;
-    int initTraitsOffsetY = 200;
+    int initTraitsOffsetY = 100;
     int traitsYGap = 15;
     Font traitsFont = new Font(25);
 
@@ -116,7 +118,7 @@ With increasing cooperation value you find trais of the person, some traits are 
         interfaceElements_list.clear(); //Filled with each draw() Maybe better if filled just if elements change
 
         graphicsContext.setTextAlign(TextAlignment.LEFT);
-        graphicsContext.setTextBaseline(VPos.TOP);
+        graphicsContext.setTextBaseline(VPos.CENTER);
 
         //Background
         graphicsContext.setGlobalAlpha(0.8);
@@ -125,28 +127,30 @@ With increasing cooperation value you find trais of the person, some traits are 
         graphicsContext.fillRect(backgroundOffsetX, backgroundOffsetY, WIDTH - backgroundOffsetX * 2, HEIGHT - backgroundOffsetY * 2);
         graphicsContext.setGlobalAlpha(1);
 
-        //Rhetoric button
+        //Back button
         graphicsContext.setFill(marking);
         interfaceElements_list.add(BACK_BUTTON_ID);
         if (highlightedElement == interfaceElements_list.indexOf(BACK_BUTTON_ID))
             graphicsContext.fillRect(rhetoric_Button.getMinX(), rhetoric_Button.getMinY(), rhetoric_Button.getWidth(), rhetoric_Button.getHeight());
         graphicsContext.setFill(font);
-        graphicsContext.fillText("Back", rhetoric_Button.getMinX(), rhetoric_Button.getMinY());
+        graphicsContext.fillText("Back", rhetoric_Button.getMinX() + 20, rhetoric_Button.getMinY() + rhetoric_Button.getHeight()/2);
 
         //Other Person Known Traits
-        double fontsize = graphicsContext.getFont().getSize();
         int traitsOffsetX = initTraitsOffsetX;
         int traitsOffsetY = initTraitsOffsetY;
         graphicsContext.setFont(traitsFont);
         for (int lineIdx = 0; lineIdx < personalityList.size(); lineIdx++)
         {
+            String characteristic = personalityList.get(lineIdx);
+            Image coinImage = CharacterCoin.findImage(characteristic);
             graphicsContext.setFill(font);
             graphicsContext.fillText(
-                    personalityList.get(lineIdx),
-                    Math.round(traitsOffsetX),
-                    Math.round(traitsOffsetY + fontsize)
+                    characteristic,
+                    Math.round(traitsOffsetX + coinImage.getWidth() + 20),
+                    Math.round(traitsOffsetY + coinImage.getHeight() / 2)
             );
-            traitsOffsetY += fontsize + traitsYGap;
+            graphicsContext.drawImage(coinImage, traitsOffsetX, traitsOffsetY);
+            traitsOffsetY += coinImage.getHeight() + traitsYGap;
         }
 
 
@@ -228,10 +232,8 @@ With increasing cooperation value you find trais of the person, some traits are 
             return;
         }
 
-        if(interfaceElements_list.get(highlightedElement).equals(BACK_BUTTON_ID))
+        if (interfaceElements_list.get(highlightedElement).equals(BACK_BUTTON_ID))
         {
-            //WorldView.setIsPersonalityScreenActive(false);
-            //WorldView.setIsTextBoxActive(true);
             WorldViewController.setWorldViewStatus(WorldViewStatus.TEXTBOX);
         }
 

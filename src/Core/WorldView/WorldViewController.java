@@ -7,17 +7,12 @@ public class WorldViewController
     private static final String CLASSNAME = "WorldViewController ";
     private static WorldViewStatus worldViewStatus;
 
-    public static void command(String cmd)
+    public static void toggleInventory()
     {
-        if (cmd.equals("TAB"))
-        {
-            if (worldViewStatus.equals(WORLD))
-                setWorldViewStatus(INVENTORY);
-            else if (worldViewStatus.equals(INVENTORY))
-                setWorldViewStatus(WORLD);
-            else if (worldViewStatus == INVENTORY_EXCHANGE || worldViewStatus == INVENTORY_SHOP)
-                setWorldViewStatus(WORLD);
-        }
+        if (worldViewStatus.equals(WORLD))
+            setWorldViewStatus(INVENTORY);
+        else if (worldViewStatus == INVENTORY_EXCHANGE || worldViewStatus == INVENTORY_SHOP || worldViewStatus == INVENTORY)
+            setWorldViewStatus(WORLD);
     }
 
     public static WorldViewStatus getWorldViewStatus()

@@ -33,7 +33,7 @@ import static Core.Menus.Personality.PersonalityTrait.*;
 
 public class DiscussionGame
 {
-    //moving symbols like pokemon, you must know which to click before disappeared, traits more powerfull
+    //moving symbols like pokemon, you must know which to click before disappeared, traits more powerful
     private static final String CLASSNAME = "DiscussionGame ";
     private static final int HEIGHT = DISCUSSION_HEIGHT;
     private static final int WIDTH = DISCUSSION_WIDTH;

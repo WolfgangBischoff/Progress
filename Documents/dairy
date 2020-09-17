@@ -17,3 +17,5 @@
          - added board time GUI
          - added maintenance hole sprite and rescue room
 17 09 20 - added tenderer game, collegue and food dependent on MaM
+         - added personality screen coins, dependent on cooperation value
+         - fixed exception during launch

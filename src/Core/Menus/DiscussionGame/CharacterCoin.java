@@ -1,5 +1,6 @@
 package Core.Menus.DiscussionGame;
 
+import Core.Menus.Personality.MyersBriggsPersonality;
 import Core.Menus.Personality.PersonalityTrait;
 import Core.Utilities;
 import javafx.geometry.Point2D;
@@ -82,7 +83,7 @@ public class CharacterCoin
         }
     }
 
-    private Image findImage(String characteristicOrTrait)
+    public static Image findImage(String characteristicOrTrait)
     {
         switch (characteristicOrTrait.toLowerCase())
         {
@@ -94,7 +95,7 @@ public class CharacterCoin
             case "feeling":return Utilities.readImage("Core/Menus/DiscussionGame/feeling.png");
             case "judging":return Utilities.readImage("Core/Menus/DiscussionGame/judging.png");
             case "perceiving":return Utilities.readImage("Core/Menus/DiscussionGame/perceiving.png");
-            default: throw new RuntimeException("No path kown");
+            default: return Utilities.readImage("Core/Menus/DiscussionGame/unknown_coin.png");
         }
     }
 

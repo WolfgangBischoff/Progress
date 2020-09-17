@@ -1,6 +1,5 @@
 
 Logic:
-- Coin Game Show known coins
 - Health Game Over if 0
 - Beschrifte Status Bars
 - Economy
@@ -13,7 +12,6 @@ Logic:
     - freight deck
         - implement bump on trigger
 - Add set item mechanic
-- Check initial bug when debugging
 - Cleaning Bot Moving
     - add definition in file
 - Inventory

@@ -351,7 +351,7 @@ public class WorldView implements GUIController
             case INVENTORY:
             case INVENTORY_EXCHANGE:
             case INVENTORY_SHOP:
-                toggleInventory(input, currentNanoTime);//At the moment just toogled by keyboard
+                toggleInventory(currentNanoTime);//At the moment just toogled by keyboard
                 break;
             case DISCUSSION_GAME://No keyboard input so far
                 break;
@@ -384,15 +384,12 @@ public class WorldView implements GUIController
         GameVariables.updateHunger(currentNanoTime);
     }
 
-    private void toggleInventory(ArrayList<String> input, Long currentNanoTime)
+    private void toggleInventory(Long currentNanoTime)
     {
         double elapsedTimeSinceLastInteraction = (currentNanoTime - player.getActor().getLastInteraction()) / 1000000000.0;
-        if (elapsedTimeSinceLastInteraction > 1 &&
-                (input.contains(KEYBOARD_INVENTORY) || input.contains(KEYBOARD_INTERACT)))
-//                        (input.contains("E") && ((WorldViewController.getWorldViewStatus() == INVENTORY_EXCHANGE) || WorldViewController.getWorldViewStatus() == INVENTORY_SHOP))
-//                ))
+        if (elapsedTimeSinceLastInteraction > 1)
         {
-            WorldViewController.command(KEYBOARD_INVENTORY);
+            WorldViewController.toggleInventory();
             player.getActor().setLastInteraction(currentNanoTime);
         }
     }
@@ -405,8 +402,6 @@ public class WorldView implements GUIController
         Direction newDirection = null;
         Actor playerActor = player.getActor();
         double elapsedTimeSinceLastInteraction = (currentNanoTime - playerActor.getLastInteraction()) / 1000000000.0;
-
-        toggleInventory(input, currentNanoTime);
 
         //Interpret Input from GameWindow
         if (input.contains("LEFT") || input.contains("A"))
@@ -442,10 +437,14 @@ public class WorldView implements GUIController
         if (newDirection != null && playerActor.getDirection() != newDirection)
             playerActor.setDirection(newDirection);
 
-        if (input.contains("E") && elapsedTimeSinceLastInteraction > Config.TIME_BETWEEN_INTERACTIONS)
+        if (input.contains(KEYBOARD_INTERACT) && elapsedTimeSinceLastInteraction > Config.TIME_BETWEEN_INTERACTIONS)
         {
             player.setInteract(true);
+        }
 
+        if (input.contains(KEYBOARD_INVENTORY))
+        {
+            toggleInventory(currentNanoTime);
         }
 
     }
@@ -622,7 +621,6 @@ public class WorldView implements GUIController
             case WORLD:
                 break;
             case TEXTBOX:
-                renderHUD();
                 WritableImage textBoxImg = textbox.showMessage();
                 gc.drawImage(textBoxImg, textBoxPosition.getX(), textBoxPosition.getY());
                 break;
