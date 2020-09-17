@@ -9,10 +9,12 @@ public class WorldViewController
 
     public static void toggleInventory()
     {
+        String methodName = "toggleInventory() ";
         if (worldViewStatus.equals(WORLD))
             setWorldViewStatus(INVENTORY);
         else if (worldViewStatus == INVENTORY_EXCHANGE || worldViewStatus == INVENTORY_SHOP || worldViewStatus == INVENTORY)
             setWorldViewStatus(WORLD);
+        //System.out.println(CLASSNAME + methodName + worldViewStatus);
     }
 
     public static WorldViewStatus getWorldViewStatus()

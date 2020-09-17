@@ -17,6 +17,7 @@ public class Main extends Application {
         gameWindowController.createNextScene(mainMenuController);
         gameWindowController.showWindow();
 
+
         new AnimationTimer()
         {
             public void handle(long currentNanoTime)
@@ -27,7 +28,7 @@ public class Main extends Application {
         }.start();
     }
 
-    //For some reason this prevents the start exception
+    //For some reason ok
 //    public static void main(String[] args) {
 //        launch();
 //    }

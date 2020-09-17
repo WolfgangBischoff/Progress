@@ -17,12 +17,13 @@ Logic:
 - Inventory
     - left sided, item desrcp, money card
     - other inventory, DragDrop
-    - buy menue similar to other iventory: desc, chosen money card, buy bttn
+    - buy menu similar to other inventory: desc, chosen money card, buy bttn
     add item with textbox
     add item in box
 - Console
-- change __xx__ to ______, latter should be overwritable
+- change __xx__ to ______; latter should be overwritable for passive layer => default is nothing.
 - add Logger.log(debug, CLASSNAME, methodName, msg)
+
 
 
 ------------------------------------------

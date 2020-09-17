@@ -351,7 +351,8 @@ public class WorldView implements GUIController
             case INVENTORY:
             case INVENTORY_EXCHANGE:
             case INVENTORY_SHOP:
-                toggleInventory(currentNanoTime);//At the moment just toogled by keyboard
+                if (input.contains(KEYBOARD_INVENTORY) || input.contains(KEYBOARD_INTERACT))
+                    toggleInventory(currentNanoTime);//At the moment just toogled by keyboard
                 break;
             case DISCUSSION_GAME://No keyboard input so far
                 break;

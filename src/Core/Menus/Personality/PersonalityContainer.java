@@ -59,7 +59,7 @@ public class PersonalityContainer
     {
         String methodName = "increaseCooperation() ";
         this.cooperation += addition;
-        System.out.println(CLASSNAME + methodName + "added " + addition + " to " + cooperation);
+        //System.out.println(CLASSNAME + methodName + "added " + addition + " to " + cooperation);
     }
 
     public void incrementNumberOfInteraction()
