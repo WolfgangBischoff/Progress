@@ -10,7 +10,7 @@ sensorStatus	;default																			;textbox																		;none  	 					
 dialogueFile; actorData/character/technician/technician
 tags; persistent
 #personality;myersBriggsPersonality;initCooperation;trait;traitsThresholds;...
-personality	;consul																;100												;FROM_EARTH;105	;POOR; 110
+personality	;consul																;000												;FROM_EARTH;105	;POOR; 110
 
 #status to image
 #status 																;name   				;spritename  																								;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;duration ;velocity ;dialogueID ;AnimationEnds

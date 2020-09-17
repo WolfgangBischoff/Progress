@@ -1,10 +1,8 @@
 
 Logic:
-- Coin Game
-    - Explain
-    - Show known coins
-- Health
-    - Game Over if 0
+- Coin Game Show known coins
+- Health Game Over if 0
+- Beschrifte Status Bars
 - Economy
     - Debit Cards can be stolen, work one day before blocked, max limit. Can be found by interrogation
     - Vendor to buy items by debit card

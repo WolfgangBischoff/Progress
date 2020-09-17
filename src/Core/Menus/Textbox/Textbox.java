@@ -78,7 +78,7 @@ public class Textbox
         drawTextbox();
 
         if (actorOfDialogue.getPersonalityContainer() != null)
-            actorOfDialogue.getPersonalityContainer().increaseNumberOfInteractions(1);
+            actorOfDialogue.getPersonalityContainer().incrementNumberOfInteraction();
     }
 
     //For Discussion if File is already read, Discussions send next Dialogue

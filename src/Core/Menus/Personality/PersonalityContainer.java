@@ -7,9 +7,9 @@ import static Core.Menus.Personality.PersonalityTrait.*;
 
 public class PersonalityContainer
 {
-    private static final String CLASSNAME = "PersonalityContainer-";
+    private static final String CLASSNAME = "PersonalityContainer ";
     public MyersBriggsPersonality myersBriggsPersonality;
-    public Integer cooperation;
+    private Integer cooperation = 0;
     private Integer numberOfInteractions = 0;
     public Map<String, Integer> traitsThresholds = new HashMap<>();
 
@@ -55,15 +55,31 @@ public class PersonalityContainer
             return PERCEIVING;
     }
 
-    public void increaseNumberOfInteractions(Integer addition)
+    public void increaseCooperation(Integer addition)
     {
-        String methodName = "increaseNumberOfInteractions() ";
-        //System.out.println(CLASSNAME + methodName + "added " + addition);
-        this.numberOfInteractions += addition;
+        String methodName = "increaseCooperation() ";
+        this.cooperation += addition;
+        System.out.println(CLASSNAME + methodName + "added " + addition + " to " + cooperation);
+    }
+
+    public void incrementNumberOfInteraction()
+    {
+        numberOfInteractions++;
+        increaseCooperation(1);
     }
 
     public Integer getNumberOfInteractions()
     {
         return numberOfInteractions;
+    }
+
+    public Integer getCooperation()
+    {
+        return cooperation;
+    }
+
+    public Map<String, Integer> getTraitsThresholds()
+    {
+        return traitsThresholds;
     }
 }

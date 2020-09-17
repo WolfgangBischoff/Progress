@@ -71,7 +71,7 @@ public class DiscussionGame
         graphicsContext = canvas.getGraphicsContext2D();
         loadDiscussion();
         gameStartTime = GameWindow.getSingleton().getRenderTime();
-        actorOfDiscussion.getPersonalityContainer().increaseNumberOfInteractions(2);
+        actorOfDiscussion.getPersonalityContainer().increaseCooperation(2);
     }
 
     private void loadDiscussion()

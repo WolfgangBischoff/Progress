@@ -88,10 +88,9 @@ public class GameVariables
         int intervalsForHunger = 9;// 12hours = 43 200 ticks
         if (lastTimeHungerFromTime + intervalsForHunger < clock.time.getValue())
         {
-            //System.out.println(CLASSNAME + methodName + lastTimeHungerFromTime + " + " + intervalsForHunger + " < " + clock.time.getValue());
             addHunger(-1);
             lastTimeHungerFromTime = clock.time.getValue();
-            System.out.println(CLASSNAME + methodName + playerHunger.getValue() + " " + clock.getFormattedTime());
+            //System.out.println(CLASSNAME + methodName + playerHunger.getValue() + " " + clock.getFormattedTime());
         }
     }
 

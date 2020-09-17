@@ -205,7 +205,8 @@ public class Actor
         MyersBriggsPersonality myersBriggsPersonality = MyersBriggsPersonality.getPersonality(linedata[personalityIdx]);
         int initCooperationValue = Integer.parseInt(linedata[initCooperationValueIdx]);
         readContainer.myersBriggsPersonality = myersBriggsPersonality;
-        readContainer.cooperation = initCooperationValue;
+        readContainer.increaseCooperation(initCooperationValue);
+        //readContainer.cooperation = initCooperationValue;
         for (int i = trait_threshold_paramsIdx; i < linedata.length; i += 2)
         {
             Integer threshold = Integer.parseInt(linedata[i + 1]);

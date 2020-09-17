@@ -80,23 +80,23 @@ With increasing cooperation value you find trais of the person, some traits are 
     private void updateVisiblePersonality()
     {
         personalityList.clear();
-        if (personalityContainer.getNumberOfInteractions() >= THRESHOLD_PERSONALITY)
+        if (personalityContainer.getCooperation() >= THRESHOLD_PERSONALITY)
             personalityList.add(personalityContainer.myersBriggsPersonality.toString());
         else
             personalityList.add("Unknown");
-        if (personalityContainer.getNumberOfInteractions() >= THRESHOLD_MOTIVATION)
+        if (personalityContainer.getCooperation() >= THRESHOLD_MOTIVATION)
             personalityList.add(personalityContainer.getMotivation().toString());
         else
             personalityList.add("Unknown");
-        if (personalityContainer.getNumberOfInteractions() >= THRESHOLD_DECISION)
+        if (personalityContainer.getCooperation() >= THRESHOLD_DECISION)
             personalityList.add(personalityContainer.getDecision().toString());
         else
             personalityList.add("Unknown");
-        if (personalityContainer.getNumberOfInteractions() >= THRESHOLD_FOCUS)
+        if (personalityContainer.getCooperation() >= THRESHOLD_FOCUS)
             personalityList.add(personalityContainer.getFocus().toString());
         else
             personalityList.add("Unknown");
-        if (personalityContainer.getNumberOfInteractions() >= THRESHOLD_LIFESTYLE)
+        if (personalityContainer.getCooperation() >= THRESHOLD_LIFESTYLE)
             personalityList.add(personalityContainer.getLifestyle().toString());
         else
             personalityList.add("Unknown");
