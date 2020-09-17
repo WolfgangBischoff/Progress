@@ -80,5 +80,46 @@ spritestatus - changes otherPersonActor to status defined in otherPersonActor fi
         <line>[You could not convince him, maybe you should talk more to get more familiar]</line>
     </dialogue>
 
+
+
+
+
+
+    <dialogue id="intro" type = "normal">
+        <line>Hi, hope you are ok. We will reach Ceres in around three days. Thank God, I am slowly running out of money. :O</line>
+        <line>Anyway, you have to go to the tenderer in the command center to get some money for the vendor, otherwise you have to starve..</line>
+        <line>If the stars stand well, he will give you a good price.. and if not.. you know..</line>
+        <line>.. one freight capsule is full of food supplies for Ceres, but if they note something is missing they will increase security.</line>
+        <line>Take care man, we have weird times..</line>
+        <nextDialogue>intro-questions</nextDialogue>
+    </dialogue>
+
+    <dialogue id="intro-questions" type="decision">
+        <option>
+            <line>&gt;Where is the command center?&lt;</line>
+            <nextDialogue>command-center-info</nextDialogue>
+        </option>
+        <option>
+            <line>&gt;Where is the vendor?&lt;</line>
+            <nextDialogue>vendor-info</nextDialogue>
+        </option>
+        <option>
+            <line>[Go away]</line>
+        </option>
+    </dialogue>
+
+    <dialogue id="command-center-info" type = "normal">
+        <line>Its on the upper freight deck, just take the elevator up and follow the hallway.</line>
+        <nextDialogue>intro-questions</nextDialogue>
+    </dialogue>
+
+    <dialogue id="vendor-info" type = "normal">
+        <line>Its on the lower crew-deck, next to the elevator.</line>
+        <nextDialogue>intro-questions</nextDialogue>
+    </dialogue>
+
+
+
+
 </root>
 

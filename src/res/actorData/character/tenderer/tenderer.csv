@@ -9,6 +9,9 @@ tags; persistent
 #sensorStatus;sensorStatusName										;interactionSpriteTrigger ;interactionSpriteStatus	;interactionSensorTrigger;interactionSensorStatus;inRangeSpriteTrigger;inRangeSpriteStatus	;inRangeSensorTrigger	;inRangeSensorStatus;intersectionSpriteTrigger;intersectionSpriteStatus		;intersectionSensorTrigger;intersectionSensorStatus;updateSpriteTrigger;updateSpriteStatus;updateSensorTrigger;updateSensorStatus;monitorSpriteTrigger;monitorSensorTrigger;textboxSpriteTrigger;textboxSensorTrigger
 sensorStatus	;default																			;textbox																		;none  	 																;none 																			;none 																		;none																;none																;none 																;none 														;none																					;none																						;none 																				;none 																			;none															;none														;none 														;none 													;none																;none 															;none																;none
 
+#personality;myersBriggsPersonality;initCooperation;trait;traitsThresholds;...
+personality	;ENTREPRENEUR										;100												;FROM_EARTH;105	;POOR; 110
+
 #status to image
 #status 			;name   				;spritename  																																	;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;duration ;velocity ;dialogueID ;AnimationEnds
 day0-south	;tenderer			;../actorData/character/tenderer/front								;true				;1												;000	;000										;000	;000	;000								;000									;000											;064	 									;064									;064										;none						;000						;000						;day0							;false

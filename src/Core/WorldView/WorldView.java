@@ -33,7 +33,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static Core.Config.*;
-import static Core.WorldView.WorldViewStatus.*;
+import static Core.WorldView.WorldViewStatus.WORLD;
 
 public class WorldView implements GUIController
 {
@@ -322,14 +322,14 @@ public class WorldView implements GUIController
                 timeStartBump = currentNanoTime;
             bumpActive = true;
         }
-        if (input.contains("U") && elapsedTimeSinceLastInteraction > 1)
-        {
-            if (WorldViewController.getWorldViewStatus().equals(INVENTORY))
-                WorldViewController.setWorldViewStatus(INVENTORY_EXCHANGE);
-            else if (WorldViewController.getWorldViewStatus().equals(INVENTORY_EXCHANGE))
-                WorldViewController.setWorldViewStatus(INVENTORY);
-            lastTimeMenuWasOpened = currentNanoTime;
-        }
+//        if (input.contains("U") && elapsedTimeSinceLastInteraction > 1)
+//        {
+//            if (WorldViewController.getWorldViewStatus().equals(INVENTORY))
+//                WorldViewController.setWorldViewStatus(INVENTORY_EXCHANGE);
+//            else if (WorldViewController.getWorldViewStatus().equals(INVENTORY_EXCHANGE))
+//                WorldViewController.setWorldViewStatus(INVENTORY);
+//            lastTimeMenuWasOpened = currentNanoTime;
+//        }
 
         //Process Input
         if (WorldViewController.getWorldViewStatus() != WORLD && player.getActor().isMoving())
@@ -388,9 +388,9 @@ public class WorldView implements GUIController
     {
         double elapsedTimeSinceLastInteraction = (currentNanoTime - player.getActor().getLastInteraction()) / 1000000000.0;
         if (elapsedTimeSinceLastInteraction > 1 &&
-                (input.contains(KEYBOARD_INVENTORY) ||
-                        (input.contains("E") && ((WorldViewController.getWorldViewStatus() == INVENTORY_EXCHANGE) || WorldViewController.getWorldViewStatus() == INVENTORY_SHOP))
-                ))
+                (input.contains(KEYBOARD_INVENTORY) || input.contains(KEYBOARD_INTERACT)))
+//                        (input.contains("E") && ((WorldViewController.getWorldViewStatus() == INVENTORY_EXCHANGE) || WorldViewController.getWorldViewStatus() == INVENTORY_SHOP))
+//                ))
         {
             WorldViewController.command(KEYBOARD_INVENTORY);
             player.getActor().setLastInteraction(currentNanoTime);
@@ -615,20 +615,14 @@ public class WorldView implements GUIController
         gc.translate(camX, camY);
 
         //Overlays
+        renderHUD();
         switch (WorldViewController.getWorldViewStatus())
         {
-            case WORLD:
-                WritableImage writableImage = mamOverlay.getWritableImage();
-                gc.drawImage(writableImage, mamOverlayPosition.getX(), mamOverlayPosition.getY());
-                WritableImage moneyWritableImage = moneyOverlay.getWritableImage();
-                gc.drawImage(moneyWritableImage, moneyOverlayPosition.getX(), moneyOverlayPosition.getY());
-                WritableImage hungerOverlayImage = hungerOverlay.getWritableImage();
-                gc.drawImage(hungerOverlayImage, hungerOverlayPosition.getX(), hungerOverlayPosition.getY());
-                WritableImage boardTimeOverlayImage = boardTimeOverlay.getWritableImage();
-                gc.drawImage(boardTimeOverlayImage, boardTimeOverlayPosition.getX(), boardTimeOverlayPosition.getY());
 
+            case WORLD:
                 break;
             case TEXTBOX:
+                renderHUD();
                 WritableImage textBoxImg = textbox.showMessage();
                 gc.drawImage(textBoxImg, textBoxPosition.getX(), textBoxPosition.getY());
                 break;
@@ -654,6 +648,18 @@ public class WorldView implements GUIController
 
         }
 
+    }
+
+    private void renderHUD()
+    {
+        WritableImage writableImage = mamOverlay.getWritableImage();
+        gc.drawImage(writableImage, mamOverlayPosition.getX(), mamOverlayPosition.getY());
+        WritableImage moneyWritableImage = moneyOverlay.getWritableImage();
+        gc.drawImage(moneyWritableImage, moneyOverlayPosition.getX(), moneyOverlayPosition.getY());
+        WritableImage hungerOverlayImage = hungerOverlay.getWritableImage();
+        gc.drawImage(hungerOverlayImage, hungerOverlayPosition.getX(), hungerOverlayPosition.getY());
+        WritableImage boardTimeOverlayImage = boardTimeOverlay.getWritableImage();
+        gc.drawImage(boardTimeOverlayImage, boardTimeOverlayPosition.getX(), boardTimeOverlayPosition.getY());
     }
 
     private void renderLightEffect()

@@ -45,6 +45,7 @@ public class Config
 
     //Keyboard
     public static final String KEYBOARD_INVENTORY = "TAB";
+    public static final String KEYBOARD_INTERACT = "E";
 
     //Gameplay
     public static final float TIME_BETWEEN_INTERACTIONS = 0.5f;
@@ -55,9 +56,10 @@ public class Config
     public static final int DAY_STARTTIME = 60 * 7;
     public static final int DAY_FORCED_ENDTIME = 60 * 24;
     public static final int MAX_HUNGER = 100;
-    public static final int INIT_HUNGER = 75;
+    public static final int INIT_HUNGER = 50;
     public static final int INIT_HEALTH = 5;
     public static final int MAX_HEALTH = 5;
+    public static final int INIT_MONEY = 5;
 
     //Map file keywords
     public static final String MAPDEFINITION_EMPTY = "______";

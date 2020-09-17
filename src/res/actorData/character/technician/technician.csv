@@ -23,3 +23,5 @@ default-EAST												;technician	;person/humanAlexEast																;true		
 default-EAST-MOVING					;technician	;person/orangeEastAnim_8													;true				;1												;10		;8												;8			;1			;64									;128									;10												;84												;44										;44											;whitelight_256;0        ;300						;init-door						;false
 default-WEST												;technician	;person/orangeWestStand_64_128							;true				;1												;0			;0												;0			;0			;0										;0											;10												;84												;44										;44											;whitelight_256;0        ;300						;init-door						;false
 default-WEST-MOVING					;technician	;person/orangeWestAnim_8													;true				;1												;10		;8												;8			;1			;64									;128									;10												;84												;44										;44											;whitelight_256;0        ;300						;init-door						;false
+
+intro-SOUTH													;technician	;person/orangeFront_64_128											;true				;1												;0			;0												;0			;0			;0										;0											;10												;84												;44										;44											;whitelight_256;0        ;300						;intro						;false

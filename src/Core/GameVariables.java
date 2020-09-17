@@ -14,7 +14,7 @@ public class GameVariables
 {
     private static String CLASSNAME = "GameVariables ";
     private static GameVariables singleton;
-    static private IntegerProperty playerMoney = new SimpleIntegerProperty(20);
+    static private IntegerProperty playerMoney = new SimpleIntegerProperty(INIT_MONEY);
     static IntegerProperty playerMaM_duringDay = new SimpleIntegerProperty();
     static IntegerProperty playerHunger = new SimpleIntegerProperty(INIT_HUNGER);
     static Integer lastTimeHungerFromTime;
