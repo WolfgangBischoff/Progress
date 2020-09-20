@@ -2,8 +2,8 @@
 
 #Red Green Blue; the higher the brighter; >none< leads to no shadow
 shadow:
-0;30;30
-#none
+#0;30;30
+none
 
 spawnpoints:
 #ID						;PosX;PosY	;Direction

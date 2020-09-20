@@ -20,6 +20,7 @@ import java.util.List;
 
 import static Core.Config.*;
 import static Core.WorldView.WorldViewStatus.INVENTORY_EXCHANGE;
+import static Core.WorldView.WorldViewStatus.INVENTORY_SHOP;
 
 public class InventoryOverlay
 {
@@ -34,6 +35,7 @@ public class InventoryOverlay
     private static int WIDTH = INVENTORY_WIDTH;
     private static int HEIGHT = INVENTORY_HEIGHT;
     private Point2D SCREEN_POSITION;
+    private Rectangle2D SCREEN_AREA;
 
     Image cornerTopLeft;
     Image cornerBtmRight;
@@ -46,6 +48,7 @@ public class InventoryOverlay
         cornerTopLeft = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
         cornerBtmRight = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
         this.SCREEN_POSITION = SCREEN_POSITION;
+        SCREEN_AREA = new Rectangle2D(SCREEN_POSITION.getX(), SCREEN_POSITION.getY(), WIDTH, HEIGHT);
     }
 
     private void draw() throws NullPointerException
@@ -150,7 +153,6 @@ public class InventoryOverlay
         String methodName = "processMouse(Point2D, boolean) ";
         Rectangle2D posRelativeToWorldview = new Rectangle2D(SCREEN_POSITION.getX(), SCREEN_POSITION.getY(), WIDTH, HEIGHT);
 
-        //Calculate Mouse Position relative to Discussion
         Point2D relativeMousePosition;
         if (posRelativeToWorldview.contains(mousePosition))
             relativeMousePosition = new Point2D(mousePosition.getX() - SCREEN_POSITION.getX(), mousePosition.getY() - SCREEN_POSITION.getY());
@@ -164,6 +166,8 @@ public class InventoryOverlay
                 hoveredElement = interfaceElements_list.indexOf(Integer.toString(i));
             }
         }
+
+
 
         if (GameWindow.getSingleton().isMouseMoved() && hoveredElement != null)//Set highlight if mouse moved
         {
@@ -200,12 +204,14 @@ public class InventoryOverlay
                 InventoryController.playerActor.getInventory().addItem(collectible);
                 InventoryController.exchangeInventoryActor.getInventory().removeItem(collectible);
             }
-        }else if (collectible != null && collectible.getType() == CollectableType.FOOD)
+        }else if(WorldViewController.getWorldViewStatus() == INVENTORY_SHOP)
+        {
+            System.out.println(CLASSNAME + methodName + "Clicked in item, shopmode, nothing happens");
+        }
+        else if (collectible != null && collectible.getType() == CollectableType.FOOD)
         {
             System.out.println(CLASSNAME + methodName + "You ate " + collectible.getIngameName());
-            //Item vanishes competely if consumed.
             GameVariables.addHunger(collectible.getBaseValue());
-
             actor.getInventory().itemsList.remove(collectible);
             GameVariables.getStolenCollectibles().remove(collectible);
         }
@@ -284,5 +290,10 @@ public class InventoryOverlay
     public void setCornerBtmRight(Image cornerBtmRight)
     {
         this.cornerBtmRight = cornerBtmRight;
+    }
+
+    public Rectangle2D getSCREEN_AREA()
+    {
+        return SCREEN_AREA;
     }
 }

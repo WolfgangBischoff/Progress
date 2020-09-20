@@ -6,6 +6,7 @@ import Core.WorldView.WorldView;
 import Core.WorldView.WorldViewController;
 import Core.WorldView.WorldViewStatus;
 import javafx.geometry.Point2D;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -70,15 +71,41 @@ public class InventoryController
 
     public void processMouse(Point2D mousePosition, boolean isMouseClicked, Long currentNanoTime)
     {
-        playerInventoryOverlay.processMouse(mousePosition, isMouseClicked, currentNanoTime);
+        String methodName = "processMouse() ";
+        boolean clickedIntoOverlayPlayer = playerInventoryOverlay.getSCREEN_AREA().contains(mousePosition);
+        boolean clickedIntoOverlayOther = otherInventoryOverlay.getSCREEN_AREA().contains(mousePosition);
+        boolean clickedIntoOverlayShop = shopOverlay.getSCREEN_AREA().contains(mousePosition);
+
+        if(isMouseClicked && !clickedIntoOverlayPlayer && WorldViewController.getWorldViewStatus() == WorldViewStatus.INVENTORY)
+        {
+            WorldViewController.setWorldViewStatus(WorldViewStatus.WORLD);
+            playerActor.setLastInteraction(currentNanoTime);
+        }else
+            playerInventoryOverlay.processMouse(mousePosition, isMouseClicked, currentNanoTime);
+
+
         if (WorldViewController.getWorldViewStatus() == WorldViewStatus.INVENTORY_EXCHANGE)
         {
+            if(isMouseClicked && !clickedIntoOverlayPlayer && !clickedIntoOverlayOther)
+            {
+                WorldViewController.setWorldViewStatus(WorldViewStatus.WORLD);
+                playerActor.setLastInteraction(currentNanoTime);
+            }else
             otherInventoryOverlay.processMouse(mousePosition, isMouseClicked, currentNanoTime);
         }
         else if(WorldViewController.getWorldViewStatus() == WorldViewStatus.INVENTORY_SHOP)
         {
+            if(isMouseClicked && !clickedIntoOverlayPlayer && !clickedIntoOverlayShop)
+            {
+                WorldViewController.setWorldViewStatus(WorldViewStatus.WORLD);
+                playerActor.setLastInteraction(currentNanoTime);
+            }else
             shopOverlay.processMouse(mousePosition, isMouseClicked, currentNanoTime);
         }
+
+
+
+
     }
 
     public static void setExchangeInventoryActor(Actor exchangeInventoryActor)

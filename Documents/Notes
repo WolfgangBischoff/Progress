@@ -3,7 +3,7 @@
 ----- Code -------------------------------
 ------------------------------------------
 - GUI
-    - open and close by button or clicking outside of the menue
+    - refactor clicking outside menu in Inventory Controller processMouse()
     - name status bars
     - symbol for extra/introversion coin
 - Mechanics

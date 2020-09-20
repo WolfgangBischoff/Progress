@@ -32,6 +32,7 @@ public class ShopOverlay
     private static int WIDTH = INVENTORY_WIDTH;
     private static int HEIGHT = INVENTORY_HEIGHT;
     private Point2D SCREEN_POSITION;
+    private Rectangle2D SCREEN_AREA;
 
     Image cornerTopLeft;
     Image cornerBtmRight;
@@ -44,6 +45,7 @@ public class ShopOverlay
         cornerTopLeft = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxTL.png");
         cornerBtmRight = new Image(IMAGE_DIRECTORY_PATH + "txtbox/textboxBL.png");
         this.SCREEN_POSITION = SCREEN_POSITION;
+        SCREEN_AREA = new Rectangle2D(SCREEN_POSITION.getX(), SCREEN_POSITION.getY(), WIDTH, HEIGHT);
     }
 
     private void draw() throws NullPointerException
@@ -180,6 +182,7 @@ public class ShopOverlay
             collectible = actor.getInventory().itemsList.get(highlightedElement);
         if (player == actor)//Playerinventory
         {
+            System.out.println(CLASSNAME + methodName + "should not happen");
             //Nothing, selling not possible
         }
         else if(collectible != null)
@@ -259,5 +262,10 @@ public class ShopOverlay
     public void setCornerBtmRight(Image cornerBtmRight)
     {
         this.cornerBtmRight = cornerBtmRight;
+    }
+
+    public Rectangle2D getSCREEN_AREA()
+    {
+        return SCREEN_AREA;
     }
 }
