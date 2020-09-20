@@ -24,7 +24,6 @@ space3    ;space							;floor/space/s3 													;false				;0											;0			
 spaceC    ;space							;floor/space/s_ceres									;false				;0											;0			;0												;0				;0				;0										;0											;0													;0														;0										;0												;none
 concr0    ;metal							;floor/plainM1_64_64									;false				;0											;0			;0												;0				;0				;0										;0											;0													;0														;0										;0												;none
 
-
 #Walls
 #code     ;name        					;spritename                     																																			;blocker		;heightLayer		;fps ;totalFrames  ;cols ;rows ;frameWidth ;frameHeight ;hitboxOffsetX ;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning
 #spaceway

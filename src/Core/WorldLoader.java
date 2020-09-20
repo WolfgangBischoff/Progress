@@ -11,7 +11,7 @@ import static Core.Config.*;
 
 public class WorldLoader
 {
-    private static final String CLASSNAME = "WorldLoader/";
+    private static final String CLASSNAME = "WorldLoader ";
     private static final Set<String> keywords = new HashSet<>();
 
     String levelName;
@@ -63,7 +63,6 @@ public class WorldLoader
         String methodName = "readFile() ";
         boolean debug = false;
         List<String[]> leveldata = Utilities.readAllLineFromTxt(STAGE_FILE_PATH + fileName + CSV_POSTFIX);
-        definedMapCodesSet.clear();
 
         readMode = null;
         if (debug)
@@ -71,7 +70,6 @@ public class WorldLoader
         for (int i = 0; i < leveldata.size(); i++)
         {
             String[] lineData = leveldata.get(i);
-
             try
             {
                 readLine(lineData);
@@ -85,9 +83,6 @@ public class WorldLoader
             }
         }
 
-        if (definedMapCodesSet.size() > 0)
-            System.out.println(CLASSNAME + methodName + " found unsued tile or actor definition in " + fileName + ": " + definedMapCodesSet);
-
         if (debug)
             System.out.println(CLASSNAME + methodName + "finished read file: " + fileName);
     }
@@ -99,6 +94,11 @@ public class WorldLoader
         this.spawnId = spawnId;
         readFile(this.levelName);
         borders = new Rectangle2D(0, 0, (maxHorizontalTile + 1) * 64, (maxVerticalTile) * 64);
+
+        if (definedMapCodesSet.size() > 0)
+            System.out.println(CLASSNAME + methodName + " found unused tile or actor definitions "+ definedMapCodesSet + " while loading: " + levelName);
+        definedMapCodesSet.clear();
+
     }
 
     private void readLine(String[] lineData)
@@ -168,6 +168,7 @@ public class WorldLoader
         {
             actor.spriteList.get(j).setPosition(xPos, yPos);
             addToCollisionLayer(actor.spriteList.get(j), spriteDataList.get(j).heightLayer);
+            definedMapCodesSet.remove(actorId);//Check for ununsed Definitions
             //System.out.println(CLASSNAME + methodName + actor.spriteList.get(j).getPositionX() +" "+ actor.spriteList.get(j).getPositionY());
         }
     }
