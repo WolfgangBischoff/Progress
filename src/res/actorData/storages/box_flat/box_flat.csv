@@ -1,0 +1,17 @@
+
+#InteractionArea; Distance; Width; OffsetX; OffsetY
+#dialogueFile; actorData/dictionary/dialogueFile
+#transition; fromStatus; toStatus
+
+#sensorStatus;sensorStatusName										;interactionSpriteTrigger ;interactionSpriteStatus	;interactionSensorTrigger;interactionSensorStatus;inRangeSpriteTrigger;inRangeSpriteStatus	;inRangeSensorTrigger	;inRangeSensorStatus;intersectionSpriteTrigger;intersectionSpriteStatus		;intersectionSensorTrigger;intersectionSensorStatus;updateSpriteTrigger;updateSpriteStatus;updateSensorTrigger;updateSensorStatus;monitorSpriteTrigger;monitorSensorTrigger;textboxSpriteTrigger;textboxSensorTrigger
+sensorStatus	;default																			;none																					;none  	 																;none 																			;none 																		;none																;none																;none 																;none 														;none																					;none																						;none 																				;none 																			;none															;none														;none 														;none 													;none																;none 															;persistent										;none
+
+#dialogueFile; actorData/storages/boxSmall/box
+
+#status to image
+#status 			;name   				;spritename  																																												;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;duration ;velocity ;dialogueID ;AnimationEnds
+default				;greenBox			;../actorData/storages/box_flat/green																				;true				;1												;000	;000										;000	;000	;000								;000									;005											;064	 									;118									;100										;none						;000						;000						;default				;false
+
+#condition;if sprite-status;if sensor-status;type				;true-sprite-status;true-sensor-status;false-sprite-status;false-sensor-status	;params
+#condition	;locked										;*															;hasItem ;unlocked										;default 										;locked													;*						 												;green ;key ;red; key
+
