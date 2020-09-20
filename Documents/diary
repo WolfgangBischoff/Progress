@@ -1,24 +1,25 @@
 
-19 08 20 - reactor sprite animation
-23 08 20 - Item Exchange GUI and Persistence of chest
-26 08 20 - thrusters animated sprite
-30 08 20 - Added money from tenderer
-         - Added first Shop interface
-31 08 20 - Added Collectible value, improved Shop interface
-06 09 20 - Added Shop items buyable
-         - added second dormitory, AsiaStarBento, built right hull
-07 09 20 - added back-woman sprite
-09 09 20 - added Clock
-         - added set Actor with exact position
-11 09 20 - added machine room prop machine
-15 09 20 - Food Changing over time
-         - Refuel by eating
-16 09 20 - Added Health, reduces if hungry during night
-         - added board time GUI
-         - added maintenance hole sprite and rescue room
-17 09 20 - added tenderer game, collegue and food dependent on MaM; improved floor
-         - added personality screen coins, dependent on cooperation value
-         - fixed exception during launch
-20 09 20 - Test with Alex => Skip textbox, change introversion coin, more description, button and click to close inventory
+19 08 20    - reactor sprite animation
+23 08 20    - Item Exchange GUI and Persistence of chest
+26 08 20    - thrusters animated sprite
+30 08 20    - Added money from tenderer
+            - Added first Shop interface
+31 08 20    - Added Collectible value, improved Shop interface
+06 09 20    - Added Shop items buyable
+            - added second dormitory, AsiaStarBento, built right hull
+07 09 20    - added back-woman sprite
+09 09 20    - added Clock
+            - added set Actor with exact position
+11 09 20    - added machine room prop machine
+15 09 20    - Food Changing over time
+            - Refuel by eating
+16 09 20    - Added Health, reduces if hungry during night
+            - added board time GUI
+            - added maintenance hole sprite and rescue room
+17 09 20    - added tenderer game, collegue and food dependent on MaM; improved floor
+            - added personality screen coins, dependent on cooperation value
+            - fixed exception during launch
+20 09 20    - Test with Alex => Skip textbox, change introversion coin, more description, button and click to close inventory
 
-20 09 20 - Added flat crate and capsule
+20 09 20    - Added flat crate and capsule roof
+            - Fixed unused tile detection
