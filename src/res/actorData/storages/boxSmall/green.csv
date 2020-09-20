@@ -15,9 +15,9 @@ sensorStatus	;inventory																	;inventory_exchange							;none  	 					
 
 #status to image
 #status 			;name   				;spritename  																																												;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning 									;duration ;velocity ;dialogueID ;AnimationEnds
-default				;greenBox			;../actorData/storages/boxSmall/greenBox_64_64											;true				;0												;000	;000										;000	;000	;000								;000									;000											;000	 									;000									;000										;none															;000						;000						;default				;false
-locked					;greenBox			;../actorData/storages/boxSmall/greenBox_64_64											;true				;0												;000	;000										;000	;000	;000								;000									;000											;000	 									;000									;000										;bluelight_128						;000						;000						;init-locked;false
-unlocked 		;greenBox			;../actorData/storages/boxSmall/greenBox_64_64											;true				;0												;000	;000										;000	;000	;000								;000									;000											;000	 									;000									;000										;bluelight_128						;000						;000						;init-get			;false
+default				;greenBox			;../actorData/storages/boxSmall/greenBox_64_64											;true				;1												;000	;000										;000	;000	;000								;000									;005											;010	 									;054									;050										;none															;000						;000						;default				;false
+locked					;greenBox			;../actorData/storages/boxSmall/greenBox_64_64											;true				;1												;000	;000										;000	;000	;000								;000									;005											;010	 									;054									;050										;bluelight_128						;000						;000						;init-locked;false
+unlocked 		;greenBox			;../actorData/storages/boxSmall/greenBox_64_64											;true				;1												;000	;000										;000	;000	;000								;000									;005											;010	 									;054									;050										;bluelight_128						;000						;000						;init-get			;false
 
 #condition;if sprite-status;if sensor-status;type				;true-sprite-status;true-sensor-status;false-sprite-status;false-sensor-status	;params
 condition	;locked										;*															;hasItem ;unlocked										;inventory									;locked													;*						 												;green ;key ;red; key

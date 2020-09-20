@@ -19,5 +19,6 @@
 17 09 20 - added tenderer game, collegue and food dependent on MaM; improved floor
          - added personality screen coins, dependent on cooperation value
          - fixed exception during launch
-
 20 09 20 - Test with Alex => Skip textbox, change introversion coin, more description, button and click to close inventory
+
+20 09 20 - Added flat crate and capsule
