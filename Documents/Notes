@@ -1,25 +1,34 @@
 
-Logic:
-- Health Game Over if 0
-- Beschrifte Status Bars
+------------------------------------------
+----- Code -------------------------------
+------------------------------------------
+- GUI
+    - open and close by button or clicking outside of the menue
+    - name status bars
+    - symbol for extra/introversion coin
+- Mechanics
+    - Game Over if health == 0
+    - Add set item mechanic
 - Economy
     - Debit Cards can be stolen, work one day before blocked, max limit. Can be found by interrogation
     - Vendor to buy items by debit card
-- Textbox change Door status if discussion won
-- DialogueFile part of sprite status
+- Textbox
+    - textbox skip function; eg with "skipbreakers" dialiguesIn
+    - DialogueFile part of sprite status, part of sprite?
+    - more items with description, ggf more light weight textbox, function like coffee
+    - change Door status if discussion won
+    - add item with textbox
 - Level build
     - crew deck (competitor, doctor, security, life support, rescue pods, storage, fix enviroment)
     - freight deck
         - implement bump on trigger
-- Add set item mechanic
 - Cleaning Bot Moving
     - add definition in file
 - Inventory
     - left sided, item desrcp, money card
     - other inventory, DragDrop
     - buy menu similar to other inventory: desc, chosen money card, buy bttn
-    add item with textbox
-    add item in box
+    - add item in box
 - Console
 - change __xx__ to ______; latter should be overwritable for passive layer => default is nothing.
 - add Logger.log(debug, CLASSNAME, methodName, msg)
