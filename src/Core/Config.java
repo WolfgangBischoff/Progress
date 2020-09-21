@@ -8,7 +8,7 @@ public class Config
     public static final Boolean DEBUG_ACTORS = false;
     public static final Boolean DEBUG_BLOCKER = false;
     public static final Boolean DEBUG_NO_WALL = false;
-    public static final Boolean DEBUG_MOUSE_ANALYSIS = false;
+    public static final Boolean DEBUG_MOUSE_ANALYSIS = true;
     public static final String FIRST_LEVEL = "transporter";
     public static final double GAME_WINDOW_WIDTH = 1440;
     public static final double GAME_WINDOW_HEIGHT = 900;
