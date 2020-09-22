@@ -8,6 +8,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 public class ClockOverlay
 {
@@ -62,6 +63,8 @@ public class ClockOverlay
         graphicsContext.setFill(marking);
         String msg = "Current: " + clock.getFormattedTime();
         graphicsContext.setFill(font);
+        //graphicsContext.setFont(Font.loadFont(getClass().getResource("/res/font/computerfont.ttf").toExternalForm(), 32));
+        graphicsContext.setFont(Font.loadFont(getClass().getResource("/res/font/estrog__.ttf").toExternalForm(), 16));
         graphicsContext.fillText(msg,  backgroundOffsetX, backgroundOffsetY + graphicsContext.getFont().getSize());
 
         SnapshotParameters transparency = new SnapshotParameters();

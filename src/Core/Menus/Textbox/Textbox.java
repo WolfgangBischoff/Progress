@@ -29,7 +29,7 @@ import static Core.Config.*;
 
 public class Textbox
 {
-    private static final String CLASSNAME = "Textbox-";
+    private static final String CLASSNAME = "Textbox ";
     private static double TEXT_BOX_WIDTH = TEXTBOX_WIDTH;
     private static double TEXT_BOX_HEIGHT = TEXTBOX_HEIGHT;
     Canvas textboxCanvas = new Canvas(TEXT_BOX_WIDTH, TEXT_BOX_HEIGHT);
@@ -367,7 +367,8 @@ public class Textbox
         textboxGc.setGlobalAlpha(0.9);
         textboxGc.fillRect(backgroundOffsetX, backgroundOffsetYDecorationTop + backgroundOffsetYTalkIcon, TEXT_BOX_WIDTH - backgroundOffsetX * 2, TEXT_BOX_HEIGHT - backgroundOffsetYDecorationTop - backgroundOffsetYTalkIcon - backgroundOffsetYDecorationBtm);
 
-        textboxGc.setFont(new Font("Verdana", 30));
+        //textboxGc.setFont(new Font("Verdana", 30));
+        textboxGc.setFont(Font.loadFont(getClass().getResource("/res/font/estrog__.ttf").toExternalForm(), 30));
         textboxGc.setTextAlign(TextAlignment.LEFT);
         textboxGc.setTextBaseline(VPos.TOP);
 
@@ -418,7 +419,7 @@ public class Textbox
             textboxGc.fillText(
                     lineSplitMessage.get(lineIdx),
                     Math.round(xOffsetTextLine),
-                    Math.round(yOffsetTextLine)
+                    Math.round(yOffsetTextLine) + FONT_Y_OFFSET_ESTROG__
             );
             yOffsetTextLine += textboxGc.getFont().getSize();
         }

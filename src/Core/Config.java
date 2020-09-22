@@ -16,6 +16,7 @@ public class Config
     public static final int CAMERA_HEIGHT = 800;
     public static final int TEXTBOX_WIDTH = 800;
     public static final int TEXTBOX_HEIGHT = 400;
+    public static final int FONT_Y_OFFSET_ESTROG__ = 10;
 
     public static final int PERSONALITY_WIDTH = 900;
     public static final int PERSONALITY_HEIGHT = 600;
@@ -111,7 +112,6 @@ public class Config
     public static final String dayChange_TYPE_ATTRIBUTE = "dayChange";
     public static final String TEXTBOX_ATTRIBUTE_GET_MONEY = "getMoney";
     public static final String TEXTBOX_ATTRIBUTE_AMOUNT = "amount";
-
 
     //Paths
     public static final String CSV_POSTFIX = ".csv";
