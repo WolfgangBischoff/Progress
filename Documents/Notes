@@ -19,7 +19,7 @@
     - change Door status if discussion won
     - add item with textbox
 - Level build
-    - crew deck (competitor, doctor, security, life support, rescue pods, storage, fix enviroment)
+    - crew deck (competitor, doctor, security, rescue pods, storage, fix enviroment)
     - freight deck
         - implement bump on trigger
 - Cleaning Bot Moving
@@ -128,6 +128,12 @@
 - Why are people poor? Donations from rich are stupid. System is not fair, we had never a change
 
 QUEST 1:
+
+GGF rework:
+1) Regular Day: deactivate (unknown) cryo capsule, air system repair, bug machine, grow plant for life support
+2) Now Work Day: steal and check capsules
+3) Meteor find secret
+
 Staff: 2 technicians, doctor, housekeeper, tenderer, 2 guards
 Start in WC, after exiting, your roomate approaches you:
     This took long haha, at least the toilet is free for now.
