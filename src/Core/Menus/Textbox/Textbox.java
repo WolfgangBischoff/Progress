@@ -419,7 +419,7 @@ public class Textbox
             textboxGc.fillText(
                     lineSplitMessage.get(lineIdx),
                     Math.round(xOffsetTextLine),
-                    Math.round(yOffsetTextLine) + FONT_Y_OFFSET_ESTROG__
+                    Math.round(yOffsetTextLine) + FONT_Y_OFFSET_ESTROG__SIZE30
             );
             yOffsetTextLine += textboxGc.getFont().getSize();
         }

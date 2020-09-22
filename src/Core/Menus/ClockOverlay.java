@@ -1,6 +1,7 @@
 package Core.Menus;
 
 import Core.Clock;
+import Core.Config;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.SnapshotParameters;
@@ -9,6 +10,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 
 public class ClockOverlay
 {
@@ -56,16 +58,15 @@ public class ClockOverlay
         //Background
         graphicsContext.setGlobalAlpha(0.8);
         graphicsContext.setFill(background);
-        int backgroundOffsetX = 16, backgroundOffsetY = 10;
-        graphicsContext.fillRect(backgroundOffsetX, backgroundOffsetY, WIDTH - backgroundOffsetX, HEIGHT - backgroundOffsetY * 2);
+        graphicsContext.fillRect(0, 0, WIDTH, HEIGHT);
 
         //Fill bar
         graphicsContext.setFill(marking);
-        String msg = "Current: " + clock.getFormattedTime();
+        String msg = "" + clock.getFormattedTime();
         graphicsContext.setFill(font);
-        //graphicsContext.setFont(Font.loadFont(getClass().getResource("/res/font/computerfont.ttf").toExternalForm(), 32));
-        graphicsContext.setFont(Font.loadFont(getClass().getResource("/res/font/estrog__.ttf").toExternalForm(), 16));
-        graphicsContext.fillText(msg,  backgroundOffsetX, backgroundOffsetY + graphicsContext.getFont().getSize());
+        graphicsContext.setFont(Font.loadFont(getClass().getResource("/res/font/estrog__.ttf").toExternalForm(), 30));
+        graphicsContext.setTextAlign(TextAlignment.CENTER);
+        graphicsContext.fillText(msg,   WIDTH/2,  HEIGHT/2+Config.FONT_Y_OFFSET_ESTROG__SIZE30);
 
         SnapshotParameters transparency = new SnapshotParameters();
         transparency.setFill(Color.TRANSPARENT);

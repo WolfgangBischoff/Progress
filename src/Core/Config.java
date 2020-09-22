@@ -16,7 +16,7 @@ public class Config
     public static final int CAMERA_HEIGHT = 800;
     public static final int TEXTBOX_WIDTH = 800;
     public static final int TEXTBOX_HEIGHT = 400;
-    public static final int FONT_Y_OFFSET_ESTROG__ = 10;
+    public static final int FONT_Y_OFFSET_ESTROG__SIZE30 = 10;
 
     public static final int PERSONALITY_WIDTH = 900;
     public static final int PERSONALITY_HEIGHT = 600;
@@ -41,8 +41,8 @@ public class Config
     public static final Point2D MONEY_POSITION = new Point2D(CAMERA_WIDTH - MAM_BAR_WIDTH - 50, 80);
     public static final Point2D HUNGER_BAR_POSITION = new Point2D(CAMERA_WIDTH - MAM_BAR_WIDTH - 50, 130);
     public static final Point2D BOARD_TIME_POSITION = new Point2D(20, 30);
-    public static final int BOARD_TIME_WIDTH = 150;
-    public static final int BOARD_TIME_HEIGHT = 70;
+    public static final int BOARD_TIME_WIDTH = 90;
+    public static final int BOARD_TIME_HEIGHT = 40;
 
     //Keyboard
     public static final String KEYBOARD_INVENTORY = "TAB";
