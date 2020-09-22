@@ -3,7 +3,6 @@
 ----- Code -------------------------------
 ------------------------------------------
 - GUI
-    - refactor clicking outside menu in Inventory Controller processMouse()
     - name status bars
     - symbol for extra/introversion coin
 - Mechanics

@@ -76,6 +76,7 @@ public class InventoryController
         boolean clickedIntoOverlayOther = otherInventoryOverlay.getSCREEN_AREA().contains(mousePosition);
         boolean clickedIntoOverlayShop = shopOverlay.getSCREEN_AREA().contains(mousePosition);
 
+
         if(isMouseClicked && !clickedIntoOverlayPlayer && WorldViewController.getWorldViewStatus() == WorldViewStatus.INVENTORY)
         {
             WorldViewController.setWorldViewStatus(WorldViewStatus.WORLD);
