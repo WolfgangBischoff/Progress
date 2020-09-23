@@ -13,4 +13,4 @@ sensorStatus	;default																			;none																					;none  	 					
 
 #status to image
 #status 			;name   						;spritename  																																												;blocker	;heightLayer		;fps	;totalFrames		;cols;rows;frameWidth	;frameHeight	;hitboxOffsetX	;hitboxOffsetY ;hitBoxWidth ;hitBoxHeight ;lightning ;duration ;velocity ;dialogueID ;AnimationEnds
-ok									;hydraulic ok	;../actorData/airSystem/hydraulic/ok																					;true			;0													;000	;000										;000	;000	;000								;000									;000											;000	 									;000									;000										;none						;000						;000						;none							;false
+ok									;hydraulic ok	;../actorData/airSystem/hydraulic/ok																					;true				;1												;000	;000										;000	;000	;000								;000									;000											;070	 									;128									;064										;none						;000						;000						;none							;false
