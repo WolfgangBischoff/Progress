@@ -322,14 +322,6 @@ public class WorldView implements GUIController
                 timeStartBump = currentNanoTime;
             bumpActive = true;
         }
-//        if (input.contains("U") && elapsedTimeSinceLastInteraction > 1)
-//        {
-//            if (WorldViewController.getWorldViewStatus().equals(INVENTORY))
-//                WorldViewController.setWorldViewStatus(INVENTORY_EXCHANGE);
-//            else if (WorldViewController.getWorldViewStatus().equals(INVENTORY_EXCHANGE))
-//                WorldViewController.setWorldViewStatus(INVENTORY);
-//            lastTimeMenuWasOpened = currentNanoTime;
-//        }
 
         //Process Input
         if (WorldViewController.getWorldViewStatus() != WORLD && player.getActor().isMoving())
@@ -509,7 +501,7 @@ public class WorldView implements GUIController
             }
         Point2D mouseWorldPosition = new Point2D(mousePositionRelativeToCamera.getX() + camX, mousePositionRelativeToCamera.getY() + camY);
         if (DEBUG_MOUSE_ANALYSIS && isMouseClicked)
-            System.out.println(CLASSNAME + methodName + "Clicked on: " + mouseWorldPosition);
+            System.out.println(CLASSNAME + methodName + "Clicked on tile X/Y " + (int)mouseWorldPosition.getX()/64 + "/" + (int)mouseWorldPosition.getY()/64 + ", exact: " + mouseWorldPosition);
 
         GameWindow.getSingleton().setMouseClicked(false);
     }
