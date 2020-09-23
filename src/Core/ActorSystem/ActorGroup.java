@@ -1,11 +1,13 @@
-package Core;
+package Core.ActorSystem;
+
+import Core.Actor;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActorSystem
+public class ActorGroup
 {
-    private static final String CLASSNAME = "ActorSystem/";
+    private static final String CLASSNAME = "ActorSystem ";
     String id;
     private List<Actor> systemMembers = new ArrayList<>();
 
@@ -16,7 +18,7 @@ public class ActorSystem
         systemMembers.add(actor);
     }
 
-    public ActorSystem(String id)
+    public ActorGroup(String id)
     {
         this.id = id;
     }
@@ -44,7 +46,7 @@ public class ActorSystem
         String methodName = "setMemberToGeneralStatus(String, String)";
         for (Actor target : systemMembers)
         {
-            if (target.generalStatus.toLowerCase().equals(ifInStatus.toLowerCase()))
+            if (target.getGeneralStatus().toLowerCase().equals(ifInStatus.toLowerCase()))
             {
                 System.out.println(CLASSNAME + methodName + " " + ifInStatus + " set to " + newStatus);
                 target.onMonitorSignal(newStatus);
@@ -57,7 +59,7 @@ public class ActorSystem
         boolean allActorsStatusOn = true;
         for (Actor toCheck : systemMembers)
         {
-            if (!toCheck.generalStatus.equals("on"))
+            if (!toCheck.getGeneralStatus().equals("on"))
             {
                 allActorsStatusOn = false;
                 break;
@@ -71,7 +73,7 @@ public class ActorSystem
         float numberOn = 0f;
         for (Actor toCheck : systemMembers)
         {
-            if (!toCheck.generalStatus.equals("on"))
+            if (!toCheck.getGeneralStatus().equals("on"))
             {
                 numberOn++;
             }

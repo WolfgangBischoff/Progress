@@ -1,6 +1,10 @@
 package Core;
 
+import Core.ActorSystem.GlobalSystemStatus;
+import Core.ActorSystem.SystemStatus;
 import javafx.geometry.Point2D;
+
+import java.util.List;
 
 public class Config
 {
@@ -139,5 +143,8 @@ public class Config
     //Management-Attention-Meter MAM
     public static final int MAM_DAILY_DECREASE = 2;
     public static final int MAM_THRESHOLD_INTERROGATION = 6;
+
+    //Global System Init Statii
+    public static final List<GlobalSystemStatus> INIT_GLOBAL_SYSTEM_STATUS_LIST = List.of(new GlobalSystemStatus("transporter_airSystem_base", SystemStatus.ON));
 
 }

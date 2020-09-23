@@ -1,5 +1,6 @@
 package Core;
 
+import Core.ActorSystem.GlobalSystemStatus;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
@@ -22,6 +23,7 @@ public class GameVariables
     static private int playerMaM_dayStart = 0;//ManagementAttentionMeter
     static private int day = 0;
     static private Clock clock;
+    static private List<GlobalSystemStatus> globalSystemStatusList = new ArrayList<>();
 
     //Game State persistent over days
     static Sprite player;
@@ -34,6 +36,14 @@ public class GameVariables
     {
         clock = new Clock(GameWindow.getCurrentNanoRenderTimeGameWindow());
         lastTimeHungerFromTime = clock.time.getValue();
+        initGlobalSystemStati();
+    }
+
+    private static void initGlobalSystemStati()
+    {
+        String methodName = "initGlobalSystemStati() ";
+        globalSystemStatusList.addAll(INIT_GLOBAL_SYSTEM_STATUS_LIST);
+        System.out.println(CLASSNAME + methodName + globalSystemStatusList);
     }
 
     public static void setPlayer(Sprite player)
@@ -230,4 +240,8 @@ public class GameVariables
             GameVariables.health = health;
     }
 
+    public static List<GlobalSystemStatus> getGlobalSystemStatusList()
+    {
+        return globalSystemStatusList;
+    }
 }

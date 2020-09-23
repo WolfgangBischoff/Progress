@@ -1,5 +1,6 @@
 package Core;
 
+import Core.ActorSystem.ActorGroup;
 import Core.WorldView.WorldView;
 
 import java.util.HashMap;
@@ -11,19 +12,19 @@ public class StageMonitor
     private final static String CLASSNAME = "StageMonitor/";
     Map<String, String> groupToLogicMap = new HashMap<>(); //TODO Use ENUM
     Map<String, String> groupIdToInfluencedGroupIdMap = new HashMap<>();
-    Map<String, ActorSystem> groupIdToActorGroupMap = new HashMap<>();
+    Map<String, ActorGroup> groupIdToActorGroupMap = new HashMap<>();
 
     public void addActorToActorSystem(String actorSystemId, Actor actor)
     {
         boolean debug = false;
         String methodName = "addActorToActorSystem() ";
         if (!groupIdToActorGroupMap.containsKey(actorSystemId))
-            groupIdToActorGroupMap.put(actorSystemId, new ActorSystem(actorSystemId));
-        ActorSystem actorSystem = groupIdToActorGroupMap.get(actorSystemId);
-        actorSystem.addActor(actor);
+            groupIdToActorGroupMap.put(actorSystemId, new ActorGroup(actorSystemId));
+        ActorGroup actorGroup = groupIdToActorGroupMap.get(actorSystemId);
+        actorGroup.addActor(actor);
 
         if (debug)
-            System.out.println(CLASSNAME + methodName + " added " + actor.actorInGameName + " to " + actorSystem);
+            System.out.println(CLASSNAME + methodName + " added " + actor.actorInGameName + " to " + actorGroup);
     }
 
     public String isDependentOnGroup(List<String> checkedGroupId)
@@ -82,8 +83,8 @@ public class StageMonitor
     private void transitionOnChange(String notifyingGroup, String targetGroupID)
     {
         String methodName = "triggerOnChange()";
-        ActorSystem notifier = groupIdToActorGroupMap.get(notifyingGroup);
-        ActorSystem signaled = groupIdToActorGroupMap.get(targetGroupID);
+        ActorGroup notifier = groupIdToActorGroupMap.get(notifyingGroup);
+        ActorGroup signaled = groupIdToActorGroupMap.get(targetGroupID);
 
         signaled.setMemberToGeneralStatus("transition");
     }
@@ -101,8 +102,8 @@ public class StageMonitor
         String methodName = "always_sensorStatus(String, String, String) ";
         boolean debug = false;
 
-        ActorSystem notifier = groupIdToActorGroupMap.get(notifyingGroup);
-        ActorSystem signaled = groupIdToActorGroupMap.get(targetGroupID);
+        ActorGroup notifier = groupIdToActorGroupMap.get(notifyingGroup);
+        ActorGroup signaled = groupIdToActorGroupMap.get(targetGroupID);
 
         if (debug)
             System.out.println(CLASSNAME + methodName + notifier.areAllMembersStatusOn() + notifier);
@@ -114,8 +115,8 @@ public class StageMonitor
         String methodName = "always_sensorStatus(String, String, String) ";
         boolean debug = false;
 
-        ActorSystem notifier = groupIdToActorGroupMap.get(notifyingGroup);
-        ActorSystem signaled = groupIdToActorGroupMap.get(targetGroupID);
+        ActorGroup notifier = groupIdToActorGroupMap.get(notifyingGroup);
+        ActorGroup signaled = groupIdToActorGroupMap.get(targetGroupID);
 
         signaled.setMemberToGeneralStatus(spriteStatus);
     }
@@ -125,8 +126,8 @@ public class StageMonitor
         String methodName = "allOn_setSensorStatus(String, String, String, String) ";
         boolean debug = false;
 
-        ActorSystem notifier = groupIdToActorGroupMap.get(notifyingGroup);
-        ActorSystem signaled = groupIdToActorGroupMap.get(targetGroupID);
+        ActorGroup notifier = groupIdToActorGroupMap.get(notifyingGroup);
+        ActorGroup signaled = groupIdToActorGroupMap.get(targetGroupID);
 
         if (notifier.areAllMembersStatusOn())
             signaled.setMemberToSensorStatus(trueStatus);
@@ -139,8 +140,8 @@ public class StageMonitor
     {
         String methodName = "set_baseOff_IfBaseOffline() ";
 
-        ActorSystem checkedSystem = groupIdToActorGroupMap.get(checkedGroup);
-        ActorSystem dependentSystem = groupIdToActorGroupMap.get(dependentGroup);
+        ActorGroup checkedSystem = groupIdToActorGroupMap.get(checkedGroup);
+        ActorGroup dependentSystem = groupIdToActorGroupMap.get(dependentGroup);
         String influencingSystemStatus = checkedSystem.areAllMembersStatusOn().toString();
 
         for (Actor influenced : dependentSystem.getSystemMembers())
@@ -177,7 +178,7 @@ public class StageMonitor
     public String checkIfStatusIsValid(String influencedStatus, String influencingSystemId)
     {
         String methodName = "checkIfStatusIsValid(String, String)";
-        ActorSystem influencingSystem = groupIdToActorGroupMap.get(influencingSystemId);
+        ActorGroup influencingSystem = groupIdToActorGroupMap.get(influencingSystemId);
         String logic = groupToLogicMap.get(influencingSystemId);
 
         if (logic.equals("isBaseSystem"))
