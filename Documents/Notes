@@ -8,6 +8,9 @@
 - Mechanics
     - Game Over if health == 0
     - Add set item mechanic
+    - Quest aka tenderer checks if condition fullfilled
+        - add air system in crew and freight deck
+        - status checked by tenderer
 - Economy
     - Debit Cards can be stolen, work one day before blocked, max limit. Can be found by interrogation
     - Vendor to buy items by debit card
@@ -129,7 +132,7 @@
 QUEST 1:
 
 GGF rework:
-1) Regular Day: deactivate (unknown) cryo capsule, air system repair, bug machine, grow plant for life support
+1) Regular Day: deactivate (unknown) cryo capsule, air system repair, repair personal bot, grow plant for life support
 2) Now Work Day: steal and check capsules
 3) Meteor find secret
 

@@ -389,6 +389,8 @@ public class WorldLoader
         Actor actor = new Actor(actorData.actorFileName, actorData.actorInGameName, actorData.generalStatus, actorData.sensor_status, actorData.direction);
         actor.updateCompoundStatus();
         List<SpriteData> spriteDataList = actor.spriteDataMap.get(actor.compoundStatus);
+        if(spriteDataList == null)
+            throw new RuntimeException("General status \"" + actor.compoundStatus + "\" not found in: " + actor.spriteDataMap.keySet());
         actor.stageMonitor = stageMonitor;
 
         //check for actorgroup Data
