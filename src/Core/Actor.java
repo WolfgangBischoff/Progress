@@ -140,7 +140,7 @@ public class Actor
         switch (keyword)
         {
             case KEYWORD_transition:
-                statusTransitions.put(linedata[1], linedata[2]);// old/new status
+                statusTransitions.put(linedata[1].toLowerCase(), linedata[2].toLowerCase());// old/new status
                 break;
             case KEYWORD_interactionArea:
                 double areaDistance = Double.parseDouble(linedata[1]);
@@ -766,7 +766,7 @@ public class Actor
             generalStatus = statusTransitions.get(generalStatus);
         }
         else
-            System.out.println(CLASSNAME + methodName + "No status transition found for " + actorFileName + " " + generalStatus);
+            System.out.println(CLASSNAME + methodName + "No status transition found for " + actorFileName + " " + generalStatus + " in " + statusTransitions);
     }
 
     void updateCompoundStatus()

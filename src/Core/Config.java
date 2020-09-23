@@ -5,8 +5,8 @@ import javafx.geometry.Point2D;
 public class Config
 {
     //General
-    public static final Boolean DEBUG_ACTORS = true;
-    public static final Boolean DEBUG_BLOCKER = true;
+    public static final Boolean DEBUG_ACTORS = false;
+    public static final Boolean DEBUG_BLOCKER = false;
     public static final Boolean DEBUG_NO_WALL = false;
     public static final Boolean DEBUG_MOUSE_ANALYSIS = true;
     public static final String FIRST_LEVEL = "transporter";

@@ -148,7 +148,7 @@ elevSc					;doors/updown/elevator/elevator										;main elevator												;t
 #air System
 airVeR					;airSystem/airVent/airVent															;Right ventilation								;off																;default							;undefined
 airVeL					;airSystem/airVent/airVent															;Left ventilation									;baseSystemOffline		;default							;undefined
-hydrOK					;airSystem/hydraulic/hydraulic											;Air hub																		;ok																	;default							;undefined
+hydrOK					;airSystem/hydraulic/hydraulic											;Air hub																		;OFF																;default							;undefined
 
 position:
 redKey	;2140; 455; on the control terminal
@@ -173,6 +173,11 @@ trigger_FC_4											;transitionOnChange													;FC_roof_4									;FCtr_
 FC_roof_4														;none																											;none														;FCr__4
 trigger_FC_6											;transitionOnChange													;FC_roof_6									;FCtr_5
 FC_roof_6														;none																											;none														;FCr__5
+
+#Air System
+#airSystemMonitor	;none 																										;none 													;airCon ;airVeR; airVeL
+airSystemBase				;isBaseSystem 																		;airSystemEnd 					;hydrOK
+airSystemEnd					;none 																										;none 													;airVeR ;airVeL
 
 #sets 64 bits tiles as raster ;you can add multiple layers ;later defined layers are higher prioritized in case of same defined heightLayer
 #passivlayer will not be checked for interaction or collision
