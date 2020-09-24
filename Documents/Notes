@@ -9,8 +9,7 @@
     - Game Over if health == 0
     - Add set item mechanic
     - Quest aka tenderer checks if condition fullfilled
-        - add global system state (on/off), that know ancessors and precessors, list of dependent sprites (je mehr geladen werden desto mehr sind bekannt)
-        - neue sprites werden initialisiert und bei gruppenhinzufügen geprüft on der status valid ist, danach muss grp status neu geprüft werden
+        - add global system state (on/off), that know ancessors and precessors
         - status checked by tenderer
 - Economy
     - Debit Cards can be stolen, work one day before blocked, max limit. Can be found by interrogation
